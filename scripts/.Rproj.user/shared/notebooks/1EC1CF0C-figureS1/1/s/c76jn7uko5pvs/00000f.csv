@@ -1,0 +1,8 @@
+"0",""
+"0","#For pilot cohort"
+"0",""
+"0","pilot_QC_wetlab_metadata <- read_tsv(""../metadata/pilot_cohort_RNA_wetlab_QC.txt"", show_col_types = FALSE)"
+"0",""
+"0","#distribution of libraries per site in the pilot QC, apart from the single sample with a tapestation error"
+"0",""
+"0","plyr::count(pilot_QC_wetlab_metadata %>% dplyr::filter(!is.na(RIN)), vars=""region"")"

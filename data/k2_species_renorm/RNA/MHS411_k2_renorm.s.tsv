@@ -1,0 +1,8 @@
+paired_counts	distinct_minimizer_count	k2_taxon	source	rel_abun	abun_filter	species_microbial_read_pair_total	minimizer_threshold	minimizer_microbe_ratio	minimizer_filter	taxa_pass_filter	mtx_LIBID
+1427487	586849	Cutibacterium_modestum	non_contaminant	32.5457160327927	TRUE	4418350	44183.5	132820.84941211084	TRUE	TRUE	MHS411
+1354103	707916	Cutibacterium_acnes	non_contaminant	30.872611601473565	TRUE	4418350	44183.5	160221.80225649846	TRUE	TRUE	MHS411
+6580	68461	Corynebacterium_kefirresidentii	non_contaminant	0.15001944780987567	TRUE	4418350	44183.5	15494.698247083186	TRUE	TRUE	MHS411
+148487	499420	Staphylococcus_capitis	non_contaminant	3.3854008733958976	TRUE	4418350	44183.5	113033.14585761653	TRUE	TRUE	MHS411
+146413	516017	Staphylococcus_epidermidis	non_contaminant	3.3381151082351552	TRUE	4418350	44183.5	116789.52550160127	TRUE	TRUE	MHS411
+1296772	1371075	Malassezia_restricta	non_contaminant	29.56550446433253	TRUE	4418350	44183.5	310313.80492717866	TRUE	TRUE	MHS411
+6256	156199	Malassezia_globosa	non_contaminant	0.14263247196027085	TRUE	4418350	44183.5	35352.33741102448	TRUE	TRUE	MHS411

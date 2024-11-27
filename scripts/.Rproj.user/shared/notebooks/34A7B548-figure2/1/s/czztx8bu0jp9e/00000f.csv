@@ -1,0 +1,5 @@
+"0","write_tsv(mgx_species_site_prevalence_labelled, ""../data/mgx_species_site_prevalence_labelled.tsv"")
+"
+"2","Error in is.data.frame(x) : 
+  object 'mgx_species_site_prevalence_labelled' not found
+"

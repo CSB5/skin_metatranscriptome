@@ -1,0 +1,9 @@
+paired_counts	distinct_minimizer_count	k2_taxon	source	rel_abun	abun_filter	species_microbial_read_pair_total	minimizer_threshold	minimizer_microbe_ratio	minimizer_filter	taxa_pass_filter	mtx_LIBID
+582078	567348	Staphylococcus_epidermidis	non_contaminant	24.33026542768923	TRUE	2578003	25780.03	220072.66865088986	TRUE	TRUE	SMT029_T3_Tw
+419077	472140	Staphylococcus_hominis	non_contaminant	17.516990239520684	TRUE	2578003	25780.03	183141.75739904106	TRUE	TRUE	SMT029_T3_Tw
+197772	429508	Staphylococcus_capitis	non_contaminant	8.266667446914253	TRUE	2578003	25780.03	166604.92637130368	TRUE	TRUE	SMT029_T3_Tw
+166118	377826	Staphylococcus_haemolyticus	non_contaminant	6.943562602120128	TRUE	2578003	25780.03	146557.626193608	TRUE	TRUE	SMT029_T3_Tw
+5023	77219	Staphylococcus_caprae	non_contaminant	0.20995626572947787	TRUE	2578003	25780.03	29953.029534876416	TRUE	TRUE	SMT029_T3_Tw
+992735	452394	Corynebacterium_tuberculostearicum	non_contaminant	41.495308273731474	TRUE	2578003	25780.03	175482.34040069	TRUE	TRUE	SMT029_T3_Tw
+25729	36301	Corynebacterium_minutissimum	non_contaminant	1.0754459010459358	TRUE	2578003	25780.03	14081.054211341105	TRUE	TRUE	SMT029_T3_Tw
+3871	52923	Cutibacterium_acnes	non_contaminant	0.1618038432488172	TRUE	2578003	25780.03	20528.68053295516	TRUE	TRUE	SMT029_T3_Tw

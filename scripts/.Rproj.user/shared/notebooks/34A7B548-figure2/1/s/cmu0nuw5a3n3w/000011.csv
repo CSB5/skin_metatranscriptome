@@ -1,0 +1,5 @@
+"0","eggnog_to_GO_BP_term2gene <- eggnog_to_go_all_term2gene %>% dplyr::filter(from %in% eggnog_to_GO_BP_annot$GO_ID)
+"
+"2","Error in dplyr::filter(., from %in% eggnog_to_GO_BP_annot$GO_ID) : 
+  object 'eggnog_to_go_all_term2gene' not found
+"

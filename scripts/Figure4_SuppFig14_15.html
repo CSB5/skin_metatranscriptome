@@ -1,0 +1,2050 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.550">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Aarthi Ravikrishnan">
+
+<title>Integration of metatranscriptomic data with metabolic models of S. epidermidis and C. acnes</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="Figure4_SuppFig14_15_files/libs/clipboard/clipboard.min.js"></script>
+<script src="Figure4_SuppFig14_15_files/libs/quarto-html/quarto.js"></script>
+<script src="Figure4_SuppFig14_15_files/libs/quarto-html/popper.min.js"></script>
+<script src="Figure4_SuppFig14_15_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="Figure4_SuppFig14_15_files/libs/quarto-html/anchor.min.js"></script>
+<link href="Figure4_SuppFig14_15_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="Figure4_SuppFig14_15_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="Figure4_SuppFig14_15_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="Figure4_SuppFig14_15_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="Figure4_SuppFig14_15_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Integration of metatranscriptomic data with metabolic models of S. epidermidis and C. acnes</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Aarthi Ravikrishnan </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="setup" class="level1">
+<h1>Setup</h1>
+</section>
+<section id="helper-functions" class="level1">
+<h1>Helper functions</h1>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>figfolder <span class="ot">&lt;-</span> <span class="st">'plots'</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>plot_image <span class="ot">&lt;-</span> <span class="cf">function</span>(needed)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  col_group <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Log phase'</span> <span class="ot">=</span> <span class="st">'#f8766d'</span>,</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Osmotic stress'</span> <span class="ot">=</span> <span class="st">'#a3a500'</span>,</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Sebaceous'</span> <span class="ot">=</span> <span class="st">'#00bf7d'</span>,</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Stationary phase'</span> <span class="ot">=</span> <span class="st">'#00b0f6'</span>,</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Toe webs'</span> <span class="ot">=</span> <span class="st">'#e76bf3'</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  bar_plot_da <span class="ot">&lt;-</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="at">data =</span> needed,</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>           <span class="fu">aes</span>(</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>             <span class="at">x =</span> variable,</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>             <span class="at">y =</span> val,</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>             <span class="at">fill =</span> group,</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>             <span class="at">pattern =</span> conditions</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>           )) <span class="sc">+</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_bar_pattern</span>(</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>      <span class="at">stat =</span> <span class="st">"identity"</span>,</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>      <span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="at">preserve =</span> <span class="st">"single"</span>),</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>      <span class="at">color =</span> <span class="st">"black"</span>,</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>      <span class="at">pattern_fill =</span> <span class="fu">ifelse</span>(</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>        needed<span class="sc">$</span>group <span class="sc">==</span> <span class="st">"Log phase"</span>,</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>        <span class="st">"#f8766d"</span>,</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>        <span class="fu">ifelse</span>(</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>          needed<span class="sc">$</span>group <span class="sc">==</span> <span class="st">"Osmotic stress"</span>,</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>          <span class="st">"#a3a500"</span>,</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>          <span class="fu">ifelse</span>(</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>            needed<span class="sc">$</span>group <span class="sc">==</span> <span class="st">"Stationary phase"</span>,</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>            <span class="st">"#00b0f6"</span>,</span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>            <span class="fu">ifelse</span>(needed<span class="sc">$</span>group <span class="sc">==</span> <span class="st">"Sebaceous"</span>, <span class="st">"#00bf7d"</span>, <span class="st">"#e76bf3"</span>)</span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>          )</span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>      ),</span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>      <span class="at">pattern_angle =</span> <span class="dv">45</span>,</span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>      <span class="at">pattern_density =</span> <span class="fl">0.1</span>,</span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>      <span class="at">pattern_spacing =</span> <span class="fl">0.05</span>,</span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>      <span class="at">pattern_key_scale_factor =</span> <span class="fl">0.6</span></span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">+</span></span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> col_group) <span class="sc">+</span></span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_pattern_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"in-vitro"</span> <span class="ot">=</span> <span class="st">"stripe"</span>, <span class="st">"in-vivo"</span> <span class="ot">=</span> <span class="st">"none"</span>)) <span class="sc">+</span></span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">fill =</span> <span class="st">"Phase"</span>, <span class="at">pattern =</span> <span class="st">"Condition"</span>) <span class="sc">+</span></span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a>    <span class="fu">guides</span>(<span class="at">pattern =</span> <span class="fu">guide_legend</span>(<span class="at">override.aes =</span> <span class="fu">list</span>(<span class="at">fill =</span> <span class="st">"white"</span>)),</span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>           <span class="at">fill =</span> <span class="fu">guide_legend</span>(<span class="at">override.aes =</span> <span class="fu">list</span>(<span class="at">pattern =</span> <span class="st">"none"</span>))) <span class="sc">+</span></span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ylab</span>(<span class="st">'Mean flux value </span><span class="sc">\n</span><span class="st"> (mmol/gDCW hr)'</span>) <span class="sc">+</span></span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a>    <span class="fu">xlab</span>(<span class="st">'Reactions'</span>) <span class="sc">+</span></span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(</span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a>      <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">16</span>),</span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a>      <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">90</span>, <span class="at">vjust =</span> <span class="fl">0.65</span>),</span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a>      <span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">16</span>),</span>
+<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a>      <span class="at">legend.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">16</span>),</span>
+<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a>      <span class="at">legend.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">18</span>),</span>
+<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a>      <span class="at">legend.position =</span> <span class="st">'right'</span>,</span>
+<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a>      <span class="at">panel.grid.major =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a>      <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a>      <span class="at">strip.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">14</span>),</span>
+<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a>      <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">'bold'</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>)</span>
+<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(bar_plot_da)</span>
+<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a>my_theme_cacnes <span class="ot">&lt;-</span> <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a>   <span class="fu">theme</span>(<span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">16</span>),</span>
+<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">90</span>, <span class="at">vjust =</span> <span class="fl">0.65</span>),</span>
+<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">18</span>),</span>
+<span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.text =</span> <span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">18</span>),</span>
+<span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.title=</span><span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">20</span>),</span>
+<span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.position =</span> <span class="st">'right'</span>,</span>
+<span id="cb1-72"><a href="#cb1-72" aria-hidden="true" tabindex="-1"></a>        <span class="at">strip.text =</span> <span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">14</span>),</span>
+<span id="cb1-73"><a href="#cb1-73" aria-hidden="true" tabindex="-1"></a>        <span class="at">strip.background =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb1-74"><a href="#cb1-74" aria-hidden="true" tabindex="-1"></a>        <span class="at">panel.grid.major =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb1-75"><a href="#cb1-75" aria-hidden="true" tabindex="-1"></a>        <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb1-76"><a href="#cb1-76" aria-hidden="true" tabindex="-1"></a>        <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">face=</span><span class="st">'bold'</span>, <span class="at">hjust=</span><span class="fl">0.5</span>)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="reading-media" class="level1">
+<h1>Reading media</h1>
+<p>LB Medium conditions obtained from CarveMe</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>media <span class="ot">&lt;-</span> <span class="fu">read_tsv</span>(<span class="fu">file.path</span>(<span class="st">'..'</span>, <span class="st">'data'</span>, <span class="st">'media_db_from_carveme.tsv'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 188 Columns: 4
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: "\t"
+chr (4): medium, description, compound, name
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>media_lb <span class="ot">&lt;-</span> media <span class="sc">%&gt;%</span> <span class="fu">filter</span>(medium <span class="sc">==</span> <span class="st">'LB'</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>media_lb<span class="sc">$</span>compound <span class="ot">&lt;-</span> <span class="fu">str_replace_all</span>(media_lb<span class="sc">$</span>compound, <span class="st">'__'</span>, <span class="st">'_'</span>)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>media_lb <span class="ot">&lt;-</span> media_lb <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">rxn =</span> <span class="fu">paste0</span>(<span class="st">'EX_'</span>, compound))</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>media_lb <span class="ot">&lt;-</span> media_lb <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">rxn =</span> <span class="fu">paste0</span>(rxn, <span class="st">'(e)'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="reading-model-in-python" class="level1">
+<h1>Reading model in python</h1>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> cobra</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> riptide</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> copy <span class="im">import</span> deepcopy</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> session_info</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>session_info.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>-----
+cobra               0.29.0
+pandas              2.1.3
+riptide             NA
+session_info        1.0.0
+-----
+Python 3.12.0 (tags/v3.12.0:0fb18b0, Oct  2 2023, 13:03:39) [MSC v.1935 64 bit (AMD64)]
+Windows-10-10.0.19045-SP0
+-----
+Session information updated at 2024-11-26 14:07</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> cobra.io.read_sbml_model(os.path.join(<span class="st">'..'</span>,<span class="st">'data'</span>,<span class="st">'Metabolic_model'</span>, <span class="st">'Staphylococcus_epidermidis_ATCC_12228.xml'</span>))</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co"># cobra.io.save_json_model(model, "../data/Metabolic_model/Staphylococcus_epidermidis_ATCC_12228.json")</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>model.optimize()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<strong><em>Optimal</em> solution with objective value 82.627</strong><br><div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">fluxes</th>
+<th data-quarto-table-cell-role="th">reduced_costs</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">12DGR180ti</td>
+<td>0.596932</td>
+<td>0.000000e+00</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1H2NPTH</td>
+<td>0.000000</td>
+<td>2.621660e-18</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">1P4H2CBXLAH</td>
+<td>0.000000</td>
+<td>-5.056200e-19</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">23DHMPO</td>
+<td>0.000000</td>
+<td>-4.176160e-18</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">23PDE2</td>
+<td>0.000000</td>
+<td>8.673617e-19</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">r2137</td>
+<td>0.656035</td>
+<td>0.000000e+00</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">rtranscription</td>
+<td>82.627154</td>
+<td>0.000000e+00</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">sink_PGPm1[c]</td>
+<td>-0.000017</td>
+<td>0.000000e+00</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">sink_gthrd(c)</td>
+<td>-0.656035</td>
+<td>0.000000e+00</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">biomass034</td>
+<td>82.627154</td>
+<td>8.049117e-16</td>
+</tr>
+</tbody>
+</table>
+
+<p>1393 rows × 2 columns</p>
+</div>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>model_original <span class="op">=</span> deepcopy(model)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">len</span>(model.reactions))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>1393</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">len</span>(model.metabolites))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>1175</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">len</span>(model.genes))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>849</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>count <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>ubmedium <span class="op">=</span>{}</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="co"># for rxn in model.reactions:</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="co">#   if 'EX_' in rxn.id:</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="co">#     print(rxn.id)</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> rxn <span class="kw">in</span> model.reactions:</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>  check <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> <span class="st">'EX_'</span> <span class="kw">in</span> rxn.<span class="bu">id</span>:</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> cpd <span class="kw">in</span> r.media_lb[<span class="st">'rxn'</span>]:</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> cpd <span class="kw">in</span> rxn.<span class="bu">id</span>:</span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>          check<span class="op">+=</span><span class="dv">1</span></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>          <span class="co">#print(rxn.id, cpd)</span></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>          count <span class="op">+=</span><span class="dv">1</span></span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>          ubmedium[rxn.<span class="bu">id</span>] <span class="op">=</span> <span class="dv">5</span></span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> check <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>      <span class="co">#print(rxn.id)</span></span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>      <span class="cf">pass</span></span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">len</span>(<span class="bu">set</span>(r.media_lb[<span class="st">'rxn'</span>]) <span class="op">-</span> <span class="bu">set</span>(ubmedium.keys()))) <span class="co">#14 reactions not found</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>14</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Set medium </span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>model.medium <span class="op">=</span> ubmedium</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Optimise</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>sol <span class="op">=</span> model.optimize()</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(model.summary())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Objective
+=========
+1.0 biomass034 = 0.7290920672816689
+
+Uptake
+------
+     Metabolite       Reaction      Flux  C-Number C-Flux
+         adn[e]      EX_adn(e)         5        10 22.03%
+       ala_L[e]    EX_ala_L(e)         5         3  6.61%
+       asp_L[e]    EX_asp_L(e)         5         4  8.81%
+         ca2[e]      EX_ca2(e)  0.005789         0  0.00%
+          cl[e]       EX_cl(e)  0.005789         0  0.00%
+     cobalt2[e]  EX_cobalt2(e)  0.005789         0  0.00%
+         cu2[e]      EX_cu2(e)  0.005789         0  0.00%
+       cys_L[e]    EX_cys_L(e)         5         3  6.61%
+         fe3[e]      EX_fe3(e)   0.01737         0  0.00%
+       glc_D[e]    EX_glc_D(e)         5         6 13.22%
+       glu_L[e]    EX_glu_L(e)         5         5 11.01%
+         gly[e]      EX_gly(e)         5         2  4.41%
+           h[e]        EX_h(e)         5         0  0.00%
+         h2s[e]      EX_h2s(e)      3.72         0  0.00%
+       his_L[e]    EX_his_L(e)   0.05975         6  0.16%
+       ile_L[e]    EX_ile_L(e)    0.2578         6  0.68%
+         ins[e]      EX_ins(e)    0.1682        10  0.74%
+           k[e]        EX_k(e)  0.005789         0  0.00%
+       leu_L[e]    EX_leu_L(e)     0.314         6  0.83%
+       lys_L[e]    EX_lys_L(e)     0.236         6  0.62%
+       met_L[e]    EX_met_L(e)    0.1291         5  0.28%
+         mg2[e]      EX_mg2(e)  0.005789         0  0.00%
+         mn2[e]      EX_mn2(e)  0.005789         0  0.00%
+         nac[e]      EX_nac(e)   0.01158         6  0.03%
+          o2[e]       EX_o2(e)         5         0  0.00%
+       phe_L[e]    EX_phe_L(e)    0.1285         9  0.51%
+       pheme[e]    EX_pheme(e)  0.005789        34  0.09%
+          pi[e]       EX_pi(e)    0.9056         0  0.00%
+       pro_L[e]    EX_pro_L(e)     3.041         5  6.70%
+        pydx[e]     EX_pydx(e)  0.005789         8  0.02%
+      ribflv[e]   EX_ribflv(e)   0.01158        17  0.09%
+       ser_L[e]    EX_ser_L(e)         5         3  6.61%
+         so4[e]      EX_so4(e)  0.005789         0  0.00%
+         thm[e]      EX_thm(e)  0.005789        12  0.03%
+       thr_L[e]    EX_thr_L(e)         5         4  8.81%
+       tyr_L[e]    EX_tyr_L(e)   0.08096         9  0.32%
+         uri[e]      EX_uri(e)   0.05922         9  0.23%
+       val_L[e]    EX_val_L(e)    0.2359         5  0.52%
+         zn2[e]      EX_zn2(e)  0.005789         0  0.00%
+      dnarep[c]   dreplication    0.7291         0  0.00%
+proteinsynth[c]  pbiosynthesis    0.7291         0  0.00%
+    rnatrans[c] rtranscription    0.7291         0  0.00%
+       PGPm1[c]  sink_PGPm1[c] 1.458E-07         0  0.00%
+       gthrd[c]  sink_gthrd(c)  0.005789        10  0.03%
+
+Secretion
+---------
+Metabolite      Reaction      Flux  C-Number C-Flux
+   5mtr[c]       DM_5MTR -0.005789         6  0.02%
+  dhptd[c]   DM_dhptd(c)  -0.03473         5  0.09%
+     ac[e]      EX_ac(e)    -65.26         2 65.35%
+biomass[c] EX_biomass(e)   -0.7291         0  0.00%
+  dad_2[e]   EX_dad_2(e)    -5.041        10 25.24%
+    for[e]     EX_for(e)    -18.46         1  9.24%
+  gcald[e]   EX_gcald(e)  -0.01737         2  0.02%
+    h2o[e]     EX_h2o(e)    -13.66         0  0.00%
+    nh4[e]     EX_nh4(e)    -35.09         0  0.00%
+    ppa[e]     EX_ppa(e)  -0.03473         3  0.05%
+    so3[e]     EX_so3(e)    -8.701         0  0.00%</code></pre>
+</div>
+</div>
+</section>
+<section id="riptide-with-cumulative-value" class="level1">
+<h1>RIPTIDE with cumulative value</h1>
+<section id="in-vitro-conditions" class="level3">
+<h3 class="anchored" data-anchor-id="in-vitro-conditions">In vitro conditions</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>logphase <span class="op">=</span> riptide.read_transcription_file(os.path.join(<span class="st">'..'</span>,<span class="st">'data'</span>,<span class="st">'RNA-Seq_data'</span>,<span class="st">'staph_counts'</span>,<span class="st">'invitro_mtx_mm_TPM_logphase_gmean_TPM.tsv'</span>), header<span class="op">=</span><span class="va">True</span>, sep<span class="op">=</span><span class="st">'</span><span class="ch">\t</span><span class="st">'</span>, norm<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>riptide_log <span class="op">=</span> riptide.contextualize(model<span class="op">=</span>model, transcriptome<span class="op">=</span>logphase)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Initializing model and integrating transcriptomic data...
+Pruning zero flux subnetworks...
+Analyzing context-specific flux distributions...
+
+Reactions pruned to 479 from 1393 (65.61% change)
+Metabolites pruned to 478 from 1175 (59.32% change)
+Flux through the objective DECREASED to ~0.5966 from ~0.7291 (18.17% change)
+Context-specific metabolism does not correlate with transcriptome (r=0.05, n.s.)
+
+RIPTiDe completed in 36 seconds</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>osmoticstress <span class="op">=</span> riptide.read_transcription_file(os.path.join(<span class="st">'..'</span>,<span class="st">'data'</span>,<span class="st">'RNA-Seq_data'</span>,<span class="st">'staph_counts'</span>,<span class="st">'invitro_mtx_mm_TPM_OS_gmean_TPM.tsv'</span>), header<span class="op">=</span><span class="va">True</span>, sep<span class="op">=</span><span class="st">'</span><span class="ch">\t</span><span class="st">'</span>, norm<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>riptide_osmotic <span class="op">=</span> riptide.contextualize(model<span class="op">=</span>model, transcriptome<span class="op">=</span>osmoticstress)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Initializing model and integrating transcriptomic data...
+Pruning zero flux subnetworks...
+Analyzing context-specific flux distributions...
+
+Reactions pruned to 498 from 1393 (64.25% change)
+Metabolites pruned to 497 from 1175 (57.7% change)
+Flux through the objective DECREASED to ~0.5962 from ~0.7291 (18.23% change)
+Context-specific metabolism does not correlate with transcriptome (r=0.079, n.s.)
+
+RIPTiDe completed in 36 seconds</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>stationaryphase <span class="op">=</span> riptide.read_transcription_file(os.path.join(<span class="st">'..'</span>,<span class="st">'data'</span>,<span class="st">'RNA-Seq_data'</span>,<span class="st">'staph_counts'</span>,<span class="st">'invitro_mtx_mm_TPM_SP_gmean_TPM.tsv'</span>), header<span class="op">=</span><span class="va">True</span>, sep<span class="op">=</span><span class="st">'</span><span class="ch">\t</span><span class="st">'</span>, norm<span class="op">=</span><span class="st">'False'</span>)</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>riptide_stat <span class="op">=</span> riptide.contextualize(model<span class="op">=</span>model, transcriptome<span class="op">=</span>stationaryphase)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Initializing model and integrating transcriptomic data...
+Pruning zero flux subnetworks...
+Analyzing context-specific flux distributions...
+
+Reactions pruned to 504 from 1393 (63.82% change)
+Metabolites pruned to 505 from 1175 (57.02% change)
+Flux through the objective DECREASED to ~0.6129 from ~0.7291 (15.94% change)
+Context-specific metabolism correlates with transcriptome (r=0.122, p=0.006 *)
+
+RIPTiDe completed in 38 seconds</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>os.path.join(<span class="st">'..'</span>,<span class="st">'data'</span>,<span class="st">'RNA-Seq_data'</span>,<span class="st">'staph_counts'</span>,<span class="st">'invitro_mtx_mm_TPM_logphase_gmean_TPM.tsv'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>'..\\data\\RNA-Seq_data\\staph_counts\\invitro_mtx_mm_TPM_logphase_gmean_TPM.tsv'</code></pre>
+</div>
+</div>
+</section>
+<section id="in-vivo-conditions" class="level3">
+<h3 class="anchored" data-anchor-id="in-vivo-conditions">In vivo conditions</h3>
+<p>We use the same constrained model for in vivo since the model was constrained with rich media in any case</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>seb <span class="op">=</span> riptide.read_transcription_file(os.path.join(<span class="st">'..'</span>,<span class="st">'data'</span>,<span class="st">'RNA-Seq_data'</span>,<span class="st">'staph_counts'</span>,<span class="st">'invivo_mtx_mm_TPM_sebaceous_gmean_TPM.tsv'</span>), header<span class="op">=</span><span class="va">True</span>, sep<span class="op">=</span><span class="st">'</span><span class="ch">\t</span><span class="st">'</span>, norm<span class="op">=</span><span class="st">'False'</span>)</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>riptide_seb <span class="op">=</span> riptide.contextualize(model<span class="op">=</span>model, transcriptome<span class="op">=</span>seb)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Initializing model and integrating transcriptomic data...
+Pruning zero flux subnetworks...
+Analyzing context-specific flux distributions...
+
+Reactions pruned to 476 from 1393 (65.83% change)
+Metabolites pruned to 476 from 1175 (59.49% change)
+Flux through the objective DECREASED to ~0.6032 from ~0.7291 (17.27% change)
+Context-specific metabolism correlates with transcriptome (r=0.103, p=0.024 *)
+
+RIPTiDe completed in 34 seconds</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>toe <span class="op">=</span> riptide.read_transcription_file(os.path.join(<span class="st">'..'</span>,<span class="st">'data'</span>,<span class="st">'RNA-Seq_data'</span>,<span class="st">'staph_counts'</span>,<span class="st">'invivo_mtx_mm_TPM_Tw_gmean_TPM.tsv'</span>), header<span class="op">=</span><span class="va">True</span>, sep<span class="op">=</span><span class="st">'</span><span class="ch">\t</span><span class="st">'</span>, norm<span class="op">=</span><span class="st">'False'</span>)</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>riptide_toe <span class="op">=</span> riptide.contextualize(model<span class="op">=</span>model, transcriptome<span class="op">=</span>toe)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Initializing model and integrating transcriptomic data...
+Pruning zero flux subnetworks...
+Analyzing context-specific flux distributions...
+
+Reactions pruned to 496 from 1393 (64.39% change)
+Metabolites pruned to 496 from 1175 (57.79% change)
+Flux through the objective DECREASED to ~0.5948 from ~0.7291 (18.42% change)
+Context-specific metabolism correlates with transcriptome (r=0.145, p=0.001 *)
+
+RIPTiDe completed in 33 seconds</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="difference-of-metabolism-across-multiple-conditions" class="level1">
+<h1>Difference of metabolism across multiple conditions</h1>
+<section id="prepare-data" class="level2">
+<h2 class="anchored" data-anchor-id="prepare-data">Prepare data</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">100</span>)</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>sub_sample <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">500</span>, <span class="dv">250</span>, <span class="at">replace =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>log_flux <span class="ot">&lt;-</span> py<span class="sc">$</span>riptide_log<span class="sc">$</span>flux_samples[sub_sample, ]</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>osmotic_flux <span class="ot">&lt;-</span> py<span class="sc">$</span>riptide_osmotic<span class="sc">$</span>flux_samples[sub_sample, ]</span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>stat_flux <span class="ot">&lt;-</span> py<span class="sc">$</span>riptide_stat<span class="sc">$</span>flux_samples[sub_sample, ]</span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>seb_flux <span class="ot">&lt;-</span> py<span class="sc">$</span>riptide_seb<span class="sc">$</span>flux_samples[sub_sample, ]</span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>toe_flux <span class="ot">&lt;-</span> py<span class="sc">$</span>riptide_toe<span class="sc">$</span>flux_samples[sub_sample, ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="prepare-metadata" class="level2">
+<h2 class="anchored" data-anchor-id="prepare-metadata">Prepare metadata</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>log_flux<span class="sc">$</span>X <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>log_flux_samples <span class="ot">&lt;-</span></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">paste</span>(<span class="st">'log_flux_'</span>, <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(log_flux), <span class="at">sep =</span> <span class="st">''</span>)</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(log_flux) <span class="ot">&lt;-</span> log_flux_samples</span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>osmotic_flux<span class="sc">$</span>X <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>osmotic_flux_samples <span class="ot">&lt;-</span></span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">paste</span>(<span class="st">'osmotic_flux_'</span>, <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(osmotic_flux), <span class="at">sep =</span> <span class="st">''</span>)</span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(osmotic_flux) <span class="ot">&lt;-</span> osmotic_flux_samples</span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a>stat_flux<span class="sc">$</span>X <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a>stat_flux_samples <span class="ot">&lt;-</span></span>
+<span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">paste</span>(<span class="st">'stat_flux_'</span>, <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(stat_flux), <span class="at">sep =</span> <span class="st">''</span>)</span>
+<span id="cb31-14"><a href="#cb31-14" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(stat_flux) <span class="ot">&lt;-</span> stat_flux_samples</span>
+<span id="cb31-15"><a href="#cb31-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-16"><a href="#cb31-16" aria-hidden="true" tabindex="-1"></a>seb_flux<span class="sc">$</span>X <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb31-17"><a href="#cb31-17" aria-hidden="true" tabindex="-1"></a>seb_flux_samples <span class="ot">&lt;-</span></span>
+<span id="cb31-18"><a href="#cb31-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">paste</span>(<span class="st">'seb_flux_'</span>, <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(seb_flux), <span class="at">sep =</span> <span class="st">''</span>)</span>
+<span id="cb31-19"><a href="#cb31-19" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(seb_flux) <span class="ot">&lt;-</span> seb_flux_samples</span>
+<span id="cb31-20"><a href="#cb31-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-21"><a href="#cb31-21" aria-hidden="true" tabindex="-1"></a>toe_flux<span class="sc">$</span>X <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb31-22"><a href="#cb31-22" aria-hidden="true" tabindex="-1"></a>toe_flux_samples <span class="ot">&lt;-</span></span>
+<span id="cb31-23"><a href="#cb31-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">paste</span>(<span class="st">'toe_flux_'</span>, <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(toe_flux), <span class="at">sep =</span> <span class="st">''</span>)</span>
+<span id="cb31-24"><a href="#cb31-24" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(toe_flux) <span class="ot">&lt;-</span> toe_flux_samples</span>
+<span id="cb31-25"><a href="#cb31-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-26"><a href="#cb31-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Create metadata</span></span>
+<span id="cb31-27"><a href="#cb31-27" aria-hidden="true" tabindex="-1"></a>log_metadata <span class="ot">&lt;-</span></span>
+<span id="cb31-28"><a href="#cb31-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cbind</span>(log_flux_samples, <span class="fu">rep</span>(<span class="st">'log'</span>, <span class="fu">length</span>(log_flux_samples)))</span>
+<span id="cb31-29"><a href="#cb31-29" aria-hidden="true" tabindex="-1"></a>osmotic_metadata <span class="ot">&lt;-</span></span>
+<span id="cb31-30"><a href="#cb31-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cbind</span>(osmotic_flux_samples, <span class="fu">rep</span>(<span class="st">'osmotic'</span>, <span class="fu">length</span>(osmotic_flux_samples)))</span>
+<span id="cb31-31"><a href="#cb31-31" aria-hidden="true" tabindex="-1"></a>stat_metadata <span class="ot">&lt;-</span></span>
+<span id="cb31-32"><a href="#cb31-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cbind</span>(stat_flux_samples, <span class="fu">rep</span>(<span class="st">'stat'</span>, <span class="fu">length</span>(stat_flux_samples)))</span>
+<span id="cb31-33"><a href="#cb31-33" aria-hidden="true" tabindex="-1"></a>seb_metadata <span class="ot">&lt;-</span></span>
+<span id="cb31-34"><a href="#cb31-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cbind</span>(seb_flux_samples, <span class="fu">rep</span>(<span class="st">'seb'</span>, <span class="fu">length</span>(seb_flux_samples)))</span>
+<span id="cb31-35"><a href="#cb31-35" aria-hidden="true" tabindex="-1"></a>toe_metadata <span class="ot">&lt;-</span></span>
+<span id="cb31-36"><a href="#cb31-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cbind</span>(toe_flux_samples, <span class="fu">rep</span>(<span class="st">'toe'</span>, <span class="fu">length</span>(toe_flux_samples)))</span>
+<span id="cb31-37"><a href="#cb31-37" aria-hidden="true" tabindex="-1"></a>metadata <span class="ot">&lt;-</span></span>
+<span id="cb31-38"><a href="#cb31-38" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rbind</span>(log_metadata,</span>
+<span id="cb31-39"><a href="#cb31-39" aria-hidden="true" tabindex="-1"></a>        osmotic_metadata,</span>
+<span id="cb31-40"><a href="#cb31-40" aria-hidden="true" tabindex="-1"></a>        seb_metadata,</span>
+<span id="cb31-41"><a href="#cb31-41" aria-hidden="true" tabindex="-1"></a>        stat_metadata,</span>
+<span id="cb31-42"><a href="#cb31-42" aria-hidden="true" tabindex="-1"></a>        toe_metadata)</span>
+<span id="cb31-43"><a href="#cb31-43" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(metadata) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">'label'</span>, <span class="st">'group'</span>)</span>
+<span id="cb31-44"><a href="#cb31-44" aria-hidden="true" tabindex="-1"></a>metadata <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(metadata)</span>
+<span id="cb31-45"><a href="#cb31-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-46"><a href="#cb31-46" aria-hidden="true" tabindex="-1"></a><span class="co">#write.csv(metadata, here('results','metadata.csv'))</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="nmds-of-fluxes" class="level2">
+<h2 class="anchored" data-anchor-id="nmds-of-fluxes">NMDS of fluxes</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>flux_samples <span class="ot">&lt;-</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_rows</span>(log_flux, osmotic_flux, stat_flux, seb_flux, toe_flux)</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>flux_samples[<span class="fu">is.na</span>(flux_samples)] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Since many reactions are negative, we add min to make it positive for bray curtis analysis</span></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">abs</span>(<span class="fu">min</span>(flux_samples))) <span class="co">#44.22</span></span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>flux_samples <span class="ot">&lt;-</span> flux_samples <span class="sc">+</span> <span class="fu">abs</span>(<span class="fu">min</span>(flux_samples))</span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>flux_bray_dist <span class="ot">&lt;-</span> <span class="fu">vegdist</span>(flux_samples, <span class="at">method =</span> <span class="st">'bray'</span>) <span class="co"># Bray-Curtis</span></span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>flux_nmds <span class="ot">&lt;-</span></span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.data.frame</span>(<span class="fu">metaMDS</span>(flux_bray_dist, <span class="at">k =</span> <span class="dv">2</span>, <span class="at">trymax =</span> <span class="dv">25</span>)<span class="sc">$</span>points)</span>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(flux_nmds) <span class="ot">&lt;-</span> <span class="fu">rownames</span>(flux_samples)</span>
+<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a>dat_merged_all <span class="ot">&lt;-</span> flux_nmds <span class="sc">%&gt;%</span> <span class="fu">rownames_to_column</span>(<span class="st">'label'</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb32-13"><a href="#cb32-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(metadata, <span class="at">by =</span> <span class="st">'label'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>MDS_plot <span class="ot">&lt;-</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(dat_merged_all, <span class="fu">aes</span>(<span class="at">x =</span> MDS1, <span class="at">y =</span> MDS2, <span class="at">colour =</span> group)) <span class="sc">+</span></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span> <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>),</span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">14</span>),</span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">14</span>),</span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">face=</span><span class="st">'italic'</span>, <span class="at">hjust=</span><span class="fl">0.5</span>),</span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>)</span>
+<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">'Staphylococcus epidermidis'</span>)</span>
+<span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(MDS_plot)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Figure4_SuppFig14_15_files/figure-html/plotmds-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">file.path</span>(<span class="st">'..'</span>,<span class="st">'plots'</span>, <span class="st">'SuppFig14A.svg'</span>),</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">plot =</span> MDS_plot,</span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">device =</span> <span class="st">"svg"</span>,</span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">width =</span> <span class="dv">8</span>,</span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">height =</span> <span class="dv">5</span></span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(</span>
+<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">file.path</span>(<span class="st">'..'</span>,<span class="st">'plots'</span>, <span class="st">'SuppFig14A.pdf'</span>),</span>
+<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">plot =</span> MDS_plot,</span>
+<span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">device =</span> <span class="st">"pdf"</span>,</span>
+<span id="cb34-12"><a href="#cb34-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">width =</span> <span class="dv">8</span>,</span>
+<span id="cb34-13"><a href="#cb34-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">height =</span> <span class="dv">5</span></span>
+<span id="cb34-14"><a href="#cb34-14" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb34-15"><a href="#cb34-15" aria-hidden="true" tabindex="-1"></a>md_adonis <span class="ot">&lt;-</span> metadata <span class="sc">%&gt;%</span> <span class="fu">column_to_rownames</span>(<span class="st">'label'</span>)</span>
+<span id="cb34-16"><a href="#cb34-16" aria-hidden="true" tabindex="-1"></a>md_adonis <span class="ot">&lt;-</span></span>
+<span id="cb34-17"><a href="#cb34-17" aria-hidden="true" tabindex="-1"></a>  md_adonis <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(</span>
+<span id="cb34-18"><a href="#cb34-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">conditions =</span> <span class="fu">case_when</span>(</span>
+<span id="cb34-19"><a href="#cb34-19" aria-hidden="true" tabindex="-1"></a>      group <span class="sc">==</span> <span class="st">'log'</span> <span class="sc">~</span> <span class="st">'in-vitro'</span>,</span>
+<span id="cb34-20"><a href="#cb34-20" aria-hidden="true" tabindex="-1"></a>      group <span class="sc">==</span> <span class="st">'osmotic'</span> <span class="sc">~</span></span>
+<span id="cb34-21"><a href="#cb34-21" aria-hidden="true" tabindex="-1"></a>        <span class="st">'in-vitro'</span>,</span>
+<span id="cb34-22"><a href="#cb34-22" aria-hidden="true" tabindex="-1"></a>      group <span class="sc">==</span> <span class="st">'stat'</span> <span class="sc">~</span></span>
+<span id="cb34-23"><a href="#cb34-23" aria-hidden="true" tabindex="-1"></a>        <span class="st">'in-vitro'</span>,</span>
+<span id="cb34-24"><a href="#cb34-24" aria-hidden="true" tabindex="-1"></a>      group <span class="sc">==</span> <span class="st">'seb'</span> <span class="sc">~</span></span>
+<span id="cb34-25"><a href="#cb34-25" aria-hidden="true" tabindex="-1"></a>        <span class="st">'in-vivo'</span>,</span>
+<span id="cb34-26"><a href="#cb34-26" aria-hidden="true" tabindex="-1"></a>      group <span class="sc">==</span> <span class="st">'toe'</span> <span class="sc">~</span></span>
+<span id="cb34-27"><a href="#cb34-27" aria-hidden="true" tabindex="-1"></a>        <span class="st">'in-vivo'</span></span>
+<span id="cb34-28"><a href="#cb34-28" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb34-29"><a href="#cb34-29" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb34-30"><a href="#cb34-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-31"><a href="#cb34-31" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">100</span>)</span>
+<span id="cb34-32"><a href="#cb34-32" aria-hidden="true" tabindex="-1"></a><span class="fu">adonis2</span>(flux_bray_dist <span class="sc">~</span> md_adonis<span class="sc">$</span>group)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Permutation test for adonis under reduced model
+Terms added sequentially (first to last)
+Permutation: free
+Number of permutations: 999
+
+adonis2(formula = flux_bray_dist ~ md_adonis$group)
+                  Df SumOfSqs      R2      F Pr(&gt;F)    
+md_adonis$group    4 0.020373 0.53511 358.27  0.001 ***
+Residual        1245 0.017699 0.46489                  
+Total           1249 0.038073 1.00000                  
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+</div>
+</section>
+<section id="getting-subsystems-from-model" class="level2">
+<h2 class="anchored" data-anchor-id="getting-subsystems-from-model">Getting subsystems from model</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Initialize dictionary to store subsystem reaction counts</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>subsystem_reactions <span class="op">=</span> {}</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Iterate through reactions and count by subsystem</span></span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> reaction <span class="kw">in</span> model.reactions:</span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> reaction.subsystem:</span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> reaction.subsystem <span class="kw">in</span> subsystem_reactions:</span>
+<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a>            subsystem_reactions[reaction.subsystem] <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
+<span id="cb36-10"><a href="#cb36-10" aria-hidden="true" tabindex="-1"></a>            subsystem_reactions[reaction.subsystem] <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb36-11"><a href="#cb36-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-12"><a href="#cb36-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert dictionary to dataframe</span></span>
+<span id="cb36-13"><a href="#cb36-13" aria-hidden="true" tabindex="-1"></a>df_python <span class="op">=</span> pd.DataFrame(<span class="bu">list</span>(subsystem_reactions.items()), columns<span class="op">=</span>[<span class="st">'Subsystem'</span>, <span class="st">'Reaction_Count'</span>])</span>
+<span id="cb36-14"><a href="#cb36-14" aria-hidden="true" tabindex="-1"></a>subsystem_reactions.items</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;built-in method items of dict object at 0x0000021797968B40&gt;</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="co"># reaction subsystem info</span></span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>rxn_subsytem <span class="op">=</span> {}</span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Iterate through reactions and count by subsystem</span></span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> reaction <span class="kw">in</span> model.reactions:</span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> reaction.subsystem:</span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> reaction.<span class="bu">id</span> <span class="kw">not</span> <span class="kw">in</span> rxn_subsytem:</span>
+<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a>            rxn_subsytem[reaction.<span class="bu">id</span>] <span class="op">=</span> reaction.subsystem</span>
+<span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-10"><a href="#cb38-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert dictionary to dataframe</span></span>
+<span id="cb38-11"><a href="#cb38-11" aria-hidden="true" tabindex="-1"></a>df_rxn_subsytem <span class="op">=</span> pd.DataFrame(<span class="bu">list</span>(rxn_subsytem.items()), columns<span class="op">=</span>[<span class="st">'reaction'</span>, <span class="st">'Subsytems'</span>])</span>
+<span id="cb38-12"><a href="#cb38-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-13"><a href="#cb38-13" aria-hidden="true" tabindex="-1"></a><span class="co"># reaction info</span></span>
+<span id="cb38-14"><a href="#cb38-14" aria-hidden="true" tabindex="-1"></a>rxn_info <span class="op">=</span> {}</span>
+<span id="cb38-15"><a href="#cb38-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Iterate through reactions and count by subsystem</span></span>
+<span id="cb38-16"><a href="#cb38-16" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> reaction <span class="kw">in</span> model.reactions:</span>
+<span id="cb38-17"><a href="#cb38-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> reaction.subsystem:</span>
+<span id="cb38-18"><a href="#cb38-18" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> reaction.<span class="bu">id</span> <span class="kw">not</span> <span class="kw">in</span> rxn_info:</span>
+<span id="cb38-19"><a href="#cb38-19" aria-hidden="true" tabindex="-1"></a>            rxn_info[reaction.<span class="bu">id</span>] <span class="op">=</span> reaction.reaction</span>
+<span id="cb38-20"><a href="#cb38-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-21"><a href="#cb38-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert dictionary to dataframe</span></span>
+<span id="cb38-22"><a href="#cb38-22" aria-hidden="true" tabindex="-1"></a>df_rxn_info_withrxns <span class="op">=</span> pd.DataFrame(<span class="bu">list</span>(rxn_info.items()), columns<span class="op">=</span>[<span class="st">'reaction'</span>, <span class="st">'rxnformula'</span>])</span>
+<span id="cb38-23"><a href="#cb38-23" aria-hidden="true" tabindex="-1"></a>        </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="within-the-metabolism-which-reactions-are-different-between-conditions" class="level1">
+<h1>Within the metabolism, which reactions are different between conditions?</h1>
+<section id="glm" class="level2">
+<h2 class="anchored" data-anchor-id="glm">GLM</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>flux_samples <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(log_flux, osmotic_flux, stat_flux, seb_flux,toe_flux)</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>flux_samples[<span class="fu">is.na</span>(flux_samples)] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>rxns_to_test <span class="ot">&lt;-</span> flux_samples <span class="sc">%&gt;%</span> <span class="fu">colnames</span>()</span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>data_for_da <span class="ot">&lt;-</span> flux_samples <span class="sc">%&gt;%</span> <span class="fu">rownames_to_column</span>(<span class="st">'label'</span>) <span class="sc">%&gt;%</span> <span class="fu">left_join</span>(metadata, <span class="at">by=</span><span class="st">'label'</span>)</span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>data_for_da <span class="ot">&lt;-</span> data_for_da <span class="sc">%&gt;%</span></span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">group_oh =</span> <span class="fu">case_when</span>(group <span class="sc">==</span><span class="st">'log'</span> <span class="sc">~</span> <span class="dv">1</span>,</span>
+<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a>                              group <span class="sc">==</span> <span class="st">'seb'</span> <span class="sc">~</span> <span class="dv">2</span>,</span>
+<span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a>                              group<span class="sc">==</span> <span class="st">'osmotic'</span> <span class="sc">~</span> <span class="dv">3</span>,</span>
+<span id="cb39-10"><a href="#cb39-10" aria-hidden="true" tabindex="-1"></a>                              group <span class="sc">==</span> <span class="st">'toe'</span><span class="sc">~</span><span class="dv">4</span>,</span>
+<span id="cb39-11"><a href="#cb39-11" aria-hidden="true" tabindex="-1"></a>                              group <span class="sc">==</span> <span class="st">'stat'</span><span class="sc">~</span><span class="dv">5</span>))</span>
+<span id="cb39-12"><a href="#cb39-12" aria-hidden="true" tabindex="-1"></a>data_for_da[<span class="fu">is.na</span>(data_for_da)] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb39-13"><a href="#cb39-13" aria-hidden="true" tabindex="-1"></a>flux_samples[<span class="fu">is.na</span>(flux_samples)] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb39-14"><a href="#cb39-14" aria-hidden="true" tabindex="-1"></a>rxns_da <span class="ot">&lt;-</span></span>
+<span id="cb39-15"><a href="#cb39-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">lapply</span>(data_for_da[, rxns_to_test],</span>
+<span id="cb39-16"><a href="#cb39-16" aria-hidden="true" tabindex="-1"></a>         <span class="cf">function</span>(x)</span>
+<span id="cb39-17"><a href="#cb39-17" aria-hidden="true" tabindex="-1"></a>           <span class="fu">coefficients</span>(<span class="fu">summary</span>(</span>
+<span id="cb39-18"><a href="#cb39-18" aria-hidden="true" tabindex="-1"></a>             <span class="fu">glm</span>(x<span class="sc">~</span>group , <span class="at">data =</span> data_for_da))))</span>
+<span id="cb39-19"><a href="#cb39-19" aria-hidden="true" tabindex="-1"></a>df_res <span class="ot">&lt;-</span> <span class="fu">data.frame</span>()</span>
+<span id="cb39-20"><a href="#cb39-20" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (rxns <span class="cf">in</span> rxns_to_test){</span>
+<span id="cb39-21"><a href="#cb39-21" aria-hidden="true" tabindex="-1"></a>  tmp <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(rxns_da[[rxns]])</span>
+<span id="cb39-22"><a href="#cb39-22" aria-hidden="true" tabindex="-1"></a>  tmp<span class="sc">$</span>Reactions <span class="ot">&lt;-</span> rxns</span>
+<span id="cb39-23"><a href="#cb39-23" aria-hidden="true" tabindex="-1"></a>  df_res <span class="ot">&lt;-</span>  <span class="fu">bind_rows</span>(df_res,tmp)}</span>
+<span id="cb39-24"><a href="#cb39-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-25"><a href="#cb39-25" aria-hidden="true" tabindex="-1"></a>df_res <span class="sc">%&lt;&gt;%</span>  <span class="fu">rownames_to_column</span>(<span class="st">'coeff'</span>) </span>
+<span id="cb39-26"><a href="#cb39-26" aria-hidden="true" tabindex="-1"></a>df_res <span class="ot">&lt;-</span> df_res <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">grepl</span>(<span class="st">'(Intercept)'</span>, coeff))</span>
+<span id="cb39-27"><a href="#cb39-27" aria-hidden="true" tabindex="-1"></a>df_res <span class="sc">%&lt;&gt;%</span> dplyr<span class="sc">::</span><span class="fu">rename</span>( <span class="st">'p-val'</span><span class="ot">=</span><span class="st">"Pr...t.."</span>)</span>
+<span id="cb39-28"><a href="#cb39-28" aria-hidden="true" tabindex="-1"></a>df_res <span class="sc">%&lt;&gt;%</span>  <span class="fu">clean_names</span>()</span>
+<span id="cb39-29"><a href="#cb39-29" aria-hidden="true" tabindex="-1"></a>df_res<span class="sc">$</span>p_adj <span class="ot">&lt;-</span> <span class="fu">p.adjust</span>(df_res<span class="sc">$</span>p_val, <span class="at">method =</span> <span class="st">'fdr'</span>)</span>
+<span id="cb39-30"><a href="#cb39-30" aria-hidden="true" tabindex="-1"></a>df_res <span class="ot">&lt;-</span> df_res <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="at">reaction=</span>reactions) <span class="sc">%&gt;%</span> </span>
+<span id="cb39-31"><a href="#cb39-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(py<span class="sc">$</span>df_rxn_subsytem)</span>
+<span id="cb39-32"><a href="#cb39-32" aria-hidden="true" tabindex="-1"></a>df_res_fil <span class="ot">&lt;-</span> df_res <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(p_adj<span class="sc">&lt;</span><span class="fl">0.001</span>, <span class="fu">abs</span>(estimate)<span class="sc">&gt;</span><span class="dv">2</span>)</span>
+<span id="cb39-33"><a href="#cb39-33" aria-hidden="true" tabindex="-1"></a>df_res_fil <span class="ot">&lt;-</span> df_res_fil <span class="sc">%&gt;%</span> <span class="fu">left_join</span>(py<span class="sc">$</span>df_rxn_subsytem)</span>
+<span id="cb39-34"><a href="#cb39-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-35"><a href="#cb39-35" aria-hidden="true" tabindex="-1"></a><span class="co">#write.csv(df_res_fil, file=file.path('..','results', 'differentially_abundant_reactions_GLM_staphepi.csv'))</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="prepare-data-to-plot" class="level2">
+<h2 class="anchored" data-anchor-id="prepare-data-to-plot">Prepare data to plot</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>flux_samples_to_plot <span class="ot">&lt;-</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_rows</span>(log_flux, osmotic_flux, stat_flux, seb_flux, toe_flux)</span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>annot_column <span class="ot">&lt;-</span></span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">data.frame</span>(</span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">test =</span> <span class="fu">c</span>(<span class="st">'log'</span>, <span class="st">'osmotic'</span>, <span class="st">'stat'</span>, <span class="st">'seb'</span>, <span class="st">'toe'</span>),</span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">conditions =</span> <span class="fu">c</span>(<span class="st">'in-vitro'</span>, <span class="st">'in-vitro'</span>, <span class="st">'in-vitro'</span>, <span class="st">'in-vivo'</span>, <span class="st">'in-vivo'</span>)</span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">column_to_rownames</span>(<span class="st">'test'</span>)</span>
+<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a>bar_plot_data <span class="ot">&lt;-</span> flux_samples_to_plot <span class="sc">%&gt;%</span></span>
+<span id="cb40-10"><a href="#cb40-10" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="fu">unique</span>(df_res_fil<span class="sc">$</span>reaction)) <span class="sc">%&gt;%</span></span>
+<span id="cb40-11"><a href="#cb40-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rownames_to_column</span>(<span class="st">'label'</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb40-12"><a href="#cb40-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(metadata, <span class="at">by =</span> <span class="st">'label'</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb40-13"><a href="#cb40-13" aria-hidden="true" tabindex="-1"></a>  reshape2<span class="sc">::</span><span class="fu">melt</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb40-14"><a href="#cb40-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(group, variable) <span class="sc">%&gt;%</span></span>
+<span id="cb40-15"><a href="#cb40-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">val =</span> <span class="fu">mean</span>(value), <span class="at">stddev =</span> <span class="fu">sd</span>(value)) <span class="sc">%&gt;%</span></span>
+<span id="cb40-16"><a href="#cb40-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(annot_column <span class="sc">%&gt;%</span> <span class="fu">rownames_to_column</span>(<span class="st">'group'</span>), <span class="at">by =</span> <span class="st">'group'</span>)</span>
+<span id="cb40-17"><a href="#cb40-17" aria-hidden="true" tabindex="-1"></a>bar_plot_data<span class="sc">$</span>group <span class="ot">&lt;-</span> <span class="fu">factor</span>(bar_plot_data<span class="sc">$</span>group,</span>
+<span id="cb40-18"><a href="#cb40-18" aria-hidden="true" tabindex="-1"></a>                              <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"log"</span>, <span class="st">"stat"</span>, <span class="st">"osmotic"</span>, <span class="st">"seb"</span>, <span class="st">"toe"</span>))</span>
+<span id="cb40-19"><a href="#cb40-19" aria-hidden="true" tabindex="-1"></a>rxn_subsytem <span class="ot">&lt;-</span></span>
+<span id="cb40-20"><a href="#cb40-20" aria-hidden="true" tabindex="-1"></a>  py<span class="sc">$</span>df_rxn_subsytem <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="at">variable =</span> reaction)</span>
+<span id="cb40-21"><a href="#cb40-21" aria-hidden="true" tabindex="-1"></a>bar_plot_data <span class="sc">%&lt;&gt;%</span> <span class="fu">left_join</span>(rxn_subsytem, <span class="at">by =</span> <span class="st">'variable'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="plot-bar-plots-of-reactions-with-different-fluxes" class="level1">
+<h1>Plot bar plots of reactions with different fluxes</h1>
+<section id="propionate-metabolism" class="level2">
+<h2 class="anchored" data-anchor-id="propionate-metabolism">Propionate metabolism</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>needed_rxns <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">'CYSTGL'</span>, <span class="st">'OBTFL'</span>, <span class="st">'PTA2'</span>, <span class="st">'PPAKr'</span>, <span class="st">'EX_ppa(e)'</span>)</span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>needed <span class="ot">&lt;-</span> bar_plot_data <span class="sc">%&gt;%</span></span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(variable <span class="sc">%in%</span> needed_rxns)</span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>needed<span class="sc">$</span>variable <span class="ot">&lt;-</span> <span class="fu">factor</span>(needed<span class="sc">$</span>variable, <span class="at">levels =</span> needed_rxns)</span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>needed<span class="sc">$</span>group <span class="ot">&lt;-</span> <span class="fu">factor</span>(</span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>  needed<span class="sc">$</span>group,</span>
+<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"log"</span>, <span class="st">"osmotic"</span>, <span class="st">"stat"</span>, <span class="st">"seb"</span>, <span class="st">"toe"</span>),</span>
+<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">labels =</span> <span class="fu">c</span>(</span>
+<span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Log phase"</span>,</span>
+<span id="cb41-10"><a href="#cb41-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Osmotic stress"</span>,</span>
+<span id="cb41-11"><a href="#cb41-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Stationary phase"</span>,</span>
+<span id="cb41-12"><a href="#cb41-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Sebaceous"</span>,</span>
+<span id="cb41-13"><a href="#cb41-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Toe webs"</span></span>
+<span id="cb41-14"><a href="#cb41-14" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb41-15"><a href="#cb41-15" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb41-16"><a href="#cb41-16" aria-hidden="true" tabindex="-1"></a>needed<span class="sc">$</span>pattern_condition <span class="ot">&lt;-</span></span>
+<span id="cb41-17"><a href="#cb41-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ifelse</span>(needed<span class="sc">$</span>conditions <span class="sc">==</span> <span class="st">"in-vitro"</span>, <span class="st">"Striped"</span>, <span class="st">"Solid"</span>)</span>
+<span id="cb41-18"><a href="#cb41-18" aria-hidden="true" tabindex="-1"></a>cys_prop <span class="ot">&lt;-</span> <span class="fu">plot_image</span>(needed) <span class="sc">+</span></span>
+<span id="cb41-19"><a href="#cb41-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">'Staphylococcus epidermidis</span><span class="sc">\n</span><span class="st">Propionate metabolism'</span>)</span>
+<span id="cb41-20"><a href="#cb41-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-21"><a href="#cb41-21" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(</span>
+<span id="cb41-22"><a href="#cb41-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">file.path</span>(<span class="st">'..'</span>,<span class="st">'plots'</span>, <span class="st">'Figure4A.svg'</span>),</span>
+<span id="cb41-23"><a href="#cb41-23" aria-hidden="true" tabindex="-1"></a>  <span class="at">plot =</span> cys_prop,</span>
+<span id="cb41-24"><a href="#cb41-24" aria-hidden="true" tabindex="-1"></a>  <span class="at">device =</span> <span class="st">"svg"</span>,</span>
+<span id="cb41-25"><a href="#cb41-25" aria-hidden="true" tabindex="-1"></a>  <span class="at">width =</span> <span class="dv">8</span>,</span>
+<span id="cb41-26"><a href="#cb41-26" aria-hidden="true" tabindex="-1"></a>  <span class="at">height =</span> <span class="dv">5</span></span>
+<span id="cb41-27"><a href="#cb41-27" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb41-28"><a href="#cb41-28" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(</span>
+<span id="cb41-29"><a href="#cb41-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">file.path</span>(<span class="st">'..'</span>,<span class="st">'plots'</span>, <span class="st">'Figure4A.pdf'</span>),</span>
+<span id="cb41-30"><a href="#cb41-30" aria-hidden="true" tabindex="-1"></a>  <span class="at">plot =</span> cys_prop,</span>
+<span id="cb41-31"><a href="#cb41-31" aria-hidden="true" tabindex="-1"></a>  <span class="at">device =</span> <span class="st">"pdf"</span>,</span>
+<span id="cb41-32"><a href="#cb41-32" aria-hidden="true" tabindex="-1"></a>  <span class="at">width =</span> <span class="dv">8</span>,</span>
+<span id="cb41-33"><a href="#cb41-33" aria-hidden="true" tabindex="-1"></a>  <span class="at">height =</span> <span class="dv">5</span></span>
+<span id="cb41-34"><a href="#cb41-34" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb41-35"><a href="#cb41-35" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(cys_prop)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Figure4_SuppFig14_15_files/figure-html/propionatemet-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="ppp-and-glycolysis" class="level2">
+<h2 class="anchored" data-anchor-id="ppp-and-glycolysis">PPP and Glycolysis</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>glyco <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">'FBA3'</span>, <span class="st">'PFK_3'</span>, <span class="st">'TALA'</span>, <span class="st">'FBA'</span>, <span class="st">'PFK'</span>, <span class="st">'L_LACD2'</span>, <span class="st">'PPCKr'</span>)</span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>needed_glyco <span class="ot">&lt;-</span> bar_plot_data <span class="sc">%&gt;%</span></span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(variable <span class="sc">%in%</span> glyco)</span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>needed_glyco<span class="sc">$</span>group <span class="ot">&lt;-</span> <span class="fu">factor</span>(</span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>  needed_glyco<span class="sc">$</span>group,</span>
+<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"log"</span>, <span class="st">"osmotic"</span>, <span class="st">"stat"</span>, <span class="st">"seb"</span>, <span class="st">"toe"</span>),</span>
+<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">labels =</span> <span class="fu">c</span>(</span>
+<span id="cb42-8"><a href="#cb42-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Log phase"</span>,</span>
+<span id="cb42-9"><a href="#cb42-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Osmotic stress"</span>,</span>
+<span id="cb42-10"><a href="#cb42-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Stationary phase"</span>,</span>
+<span id="cb42-11"><a href="#cb42-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Sebaceous"</span>,</span>
+<span id="cb42-12"><a href="#cb42-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Toe webs"</span></span>
+<span id="cb42-13"><a href="#cb42-13" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb42-14"><a href="#cb42-14" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb42-15"><a href="#cb42-15" aria-hidden="true" tabindex="-1"></a>needed_glyco<span class="sc">$</span>pattern_condition <span class="ot">&lt;-</span></span>
+<span id="cb42-16"><a href="#cb42-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ifelse</span>(needed_glyco<span class="sc">$</span>conditions <span class="sc">==</span> <span class="st">"in-vitro"</span>, <span class="st">"Striped"</span>, <span class="st">"Solid"</span>)</span>
+<span id="cb42-17"><a href="#cb42-17" aria-hidden="true" tabindex="-1"></a>glyco <span class="ot">&lt;-</span> <span class="fu">plot_image</span>(needed_glyco) <span class="sc">+</span></span>
+<span id="cb42-18"><a href="#cb42-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">'Staphylococcus epidermidis</span><span class="sc">\n</span><span class="st">Glycolytic pathway'</span>)</span>
+<span id="cb42-19"><a href="#cb42-19" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(</span>
+<span id="cb42-20"><a href="#cb42-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">file.path</span>(<span class="st">'..'</span>,<span class="st">'plots'</span>, <span class="st">'Figure4B.svg'</span>),</span>
+<span id="cb42-21"><a href="#cb42-21" aria-hidden="true" tabindex="-1"></a>  <span class="at">plot =</span> glyco,</span>
+<span id="cb42-22"><a href="#cb42-22" aria-hidden="true" tabindex="-1"></a>  <span class="at">device =</span> <span class="st">"svg"</span>,</span>
+<span id="cb42-23"><a href="#cb42-23" aria-hidden="true" tabindex="-1"></a>  <span class="at">width =</span> <span class="dv">8</span>,</span>
+<span id="cb42-24"><a href="#cb42-24" aria-hidden="true" tabindex="-1"></a>  <span class="at">height =</span> <span class="dv">5</span></span>
+<span id="cb42-25"><a href="#cb42-25" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb42-26"><a href="#cb42-26" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(</span>
+<span id="cb42-27"><a href="#cb42-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">file.path</span>(<span class="st">'..'</span>,<span class="st">'plots'</span>, <span class="st">'Figure4B.pdf'</span>),</span>
+<span id="cb42-28"><a href="#cb42-28" aria-hidden="true" tabindex="-1"></a>  <span class="at">plot =</span> glyco,</span>
+<span id="cb42-29"><a href="#cb42-29" aria-hidden="true" tabindex="-1"></a>  <span class="at">device =</span> <span class="st">"pdf"</span>,</span>
+<span id="cb42-30"><a href="#cb42-30" aria-hidden="true" tabindex="-1"></a>  <span class="at">width =</span> <span class="dv">8</span>,</span>
+<span id="cb42-31"><a href="#cb42-31" aria-hidden="true" tabindex="-1"></a>  <span class="at">height =</span> <span class="dv">5</span></span>
+<span id="cb42-32"><a href="#cb42-32" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb42-33"><a href="#cb42-33" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(glyco)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Figure4_SuppFig14_15_files/figure-html/glucosemet-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="respiration" class="level2">
+<h2 class="anchored" data-anchor-id="respiration">Respiration</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>resp <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">'NADH5'</span>)</span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>needed_resp <span class="ot">&lt;-</span> bar_plot_data <span class="sc">%&gt;%</span></span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(variable <span class="sc">%in%</span> resp)</span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>needed_resp<span class="sc">$</span>group <span class="ot">&lt;-</span> <span class="fu">factor</span>(</span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>  needed_resp<span class="sc">$</span>group,</span>
+<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"log"</span>, <span class="st">"osmotic"</span>, <span class="st">"stat"</span>, <span class="st">"seb"</span>, <span class="st">"toe"</span>),</span>
+<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">labels =</span> <span class="fu">c</span>(</span>
+<span id="cb43-8"><a href="#cb43-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Log phase"</span>,</span>
+<span id="cb43-9"><a href="#cb43-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Osmotic stress"</span>,</span>
+<span id="cb43-10"><a href="#cb43-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Stationary phase"</span>,</span>
+<span id="cb43-11"><a href="#cb43-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Sebaceous"</span>,</span>
+<span id="cb43-12"><a href="#cb43-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Toe webs"</span></span>
+<span id="cb43-13"><a href="#cb43-13" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb43-14"><a href="#cb43-14" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb43-15"><a href="#cb43-15" aria-hidden="true" tabindex="-1"></a>needed_resp<span class="sc">$</span>pattern_condition <span class="ot">&lt;-</span></span>
+<span id="cb43-16"><a href="#cb43-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ifelse</span>(needed_resp<span class="sc">$</span>conditions <span class="sc">==</span> <span class="st">"in-vitro"</span>, <span class="st">"Striped"</span>, <span class="st">"Solid"</span>)</span>
+<span id="cb43-17"><a href="#cb43-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-18"><a href="#cb43-18" aria-hidden="true" tabindex="-1"></a>resp <span class="ot">&lt;-</span> <span class="fu">plot_image</span>(needed_resp)</span>
+<span id="cb43-19"><a href="#cb43-19" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(</span>
+<span id="cb43-20"><a href="#cb43-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">file.path</span>(<span class="st">'..'</span>,<span class="st">'plots'</span>, <span class="st">'SuppFig14B.svg'</span>),</span>
+<span id="cb43-21"><a href="#cb43-21" aria-hidden="true" tabindex="-1"></a>  <span class="at">plot =</span> resp,</span>
+<span id="cb43-22"><a href="#cb43-22" aria-hidden="true" tabindex="-1"></a>  <span class="at">device =</span> <span class="st">"svg"</span>,</span>
+<span id="cb43-23"><a href="#cb43-23" aria-hidden="true" tabindex="-1"></a>  <span class="at">width =</span> <span class="dv">8</span>,</span>
+<span id="cb43-24"><a href="#cb43-24" aria-hidden="true" tabindex="-1"></a>  <span class="at">height =</span> <span class="dv">5</span></span>
+<span id="cb43-25"><a href="#cb43-25" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb43-26"><a href="#cb43-26" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(</span>
+<span id="cb43-27"><a href="#cb43-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">file.path</span>(<span class="st">'..'</span>,<span class="st">'plots'</span>, <span class="st">'SuppFig14B.pdf'</span>),</span>
+<span id="cb43-28"><a href="#cb43-28" aria-hidden="true" tabindex="-1"></a>  <span class="at">plot =</span> resp,</span>
+<span id="cb43-29"><a href="#cb43-29" aria-hidden="true" tabindex="-1"></a>  <span class="at">device =</span> <span class="st">"pdf"</span>,</span>
+<span id="cb43-30"><a href="#cb43-30" aria-hidden="true" tabindex="-1"></a>  <span class="at">width =</span> <span class="dv">8</span>,</span>
+<span id="cb43-31"><a href="#cb43-31" aria-hidden="true" tabindex="-1"></a>  <span class="at">height =</span> <span class="dv">5</span></span>
+<span id="cb43-32"><a href="#cb43-32" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb43-33"><a href="#cb43-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-34"><a href="#cb43-34" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(resp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Figure4_SuppFig14_15_files/figure-html/respiration-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="aminobutanol-metabolism" class="level2">
+<h2 class="anchored" data-anchor-id="aminobutanol-metabolism">Aminobutanol metabolism</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>aminobut <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">'ABUTD'</span>, <span class="st">'ABUTR'</span>)</span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>needed_aminobut <span class="ot">&lt;-</span> bar_plot_data <span class="sc">%&gt;%</span></span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(variable <span class="sc">%in%</span> aminobut)</span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>needed_aminobut<span class="sc">$</span>group <span class="ot">&lt;-</span> <span class="fu">factor</span>(</span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>  needed_aminobut<span class="sc">$</span>group,</span>
+<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"log"</span>, <span class="st">"osmotic"</span>, <span class="st">"stat"</span>, <span class="st">"seb"</span>, <span class="st">"toe"</span>),</span>
+<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">labels =</span> <span class="fu">c</span>(</span>
+<span id="cb44-8"><a href="#cb44-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Log phase"</span>,</span>
+<span id="cb44-9"><a href="#cb44-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Osmotic stress"</span>,</span>
+<span id="cb44-10"><a href="#cb44-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Stationary phase"</span>,</span>
+<span id="cb44-11"><a href="#cb44-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Sebaceous"</span>,</span>
+<span id="cb44-12"><a href="#cb44-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Toe webs"</span></span>
+<span id="cb44-13"><a href="#cb44-13" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb44-14"><a href="#cb44-14" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb44-15"><a href="#cb44-15" aria-hidden="true" tabindex="-1"></a>needed_aminobut<span class="sc">$</span>pattern_condition <span class="ot">&lt;-</span></span>
+<span id="cb44-16"><a href="#cb44-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ifelse</span>(needed_aminobut<span class="sc">$</span>conditions <span class="sc">==</span> <span class="st">"in-vitro"</span>, <span class="st">"Striped"</span>, <span class="st">"Solid"</span>)</span>
+<span id="cb44-17"><a href="#cb44-17" aria-hidden="true" tabindex="-1"></a>abut <span class="ot">&lt;-</span> <span class="fu">plot_image</span>(needed_aminobut)</span>
+<span id="cb44-18"><a href="#cb44-18" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(</span>
+<span id="cb44-19"><a href="#cb44-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">file.path</span>(<span class="st">'..'</span>,<span class="st">'plots'</span>, <span class="st">'SuppFig14C.svg'</span>),</span>
+<span id="cb44-20"><a href="#cb44-20" aria-hidden="true" tabindex="-1"></a>  <span class="at">plot =</span> abut,</span>
+<span id="cb44-21"><a href="#cb44-21" aria-hidden="true" tabindex="-1"></a>  <span class="at">device =</span> <span class="st">"svg"</span>,</span>
+<span id="cb44-22"><a href="#cb44-22" aria-hidden="true" tabindex="-1"></a>  <span class="at">width =</span> <span class="dv">8</span>,</span>
+<span id="cb44-23"><a href="#cb44-23" aria-hidden="true" tabindex="-1"></a>  <span class="at">height =</span> <span class="dv">5</span></span>
+<span id="cb44-24"><a href="#cb44-24" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb44-25"><a href="#cb44-25" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(</span>
+<span id="cb44-26"><a href="#cb44-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">file.path</span>(<span class="st">'..'</span>,<span class="st">'plots'</span>, <span class="st">'SuppFig14C.pdf'</span>),</span>
+<span id="cb44-27"><a href="#cb44-27" aria-hidden="true" tabindex="-1"></a>  <span class="at">plot =</span> abut,</span>
+<span id="cb44-28"><a href="#cb44-28" aria-hidden="true" tabindex="-1"></a>  <span class="at">device =</span> <span class="st">"pdf"</span>,</span>
+<span id="cb44-29"><a href="#cb44-29" aria-hidden="true" tabindex="-1"></a>  <span class="at">width =</span> <span class="dv">8</span>,</span>
+<span id="cb44-30"><a href="#cb44-30" aria-hidden="true" tabindex="-1"></a>  <span class="at">height =</span> <span class="dv">5</span></span>
+<span id="cb44-31"><a href="#cb44-31" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb44-32"><a href="#cb44-32" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(abut)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Figure4_SuppFig14_15_files/figure-html/abutd-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="cutibacterium-acnes" class="level1">
+<h1>Cutibacterium acnes</h1>
+</section>
+<section id="reading-model-in-python-1" class="level1">
+<h1>Reading model in python</h1>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>model_cacnes <span class="op">=</span> cobra.io.read_sbml_model(os.path.join(<span class="st">'..'</span>,<span class="st">'data'</span>,<span class="st">'Metabolic_model'</span>,<span class="st">'Propionibacterium_acnes_KPA171202.xml'</span>))</span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a><span class="co">#cobra.io.save_json_model(model, "../data/Metabolic_model/Propionibacterium_acnes_KPA171202.json")</span></span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Just the original model solution was 129.269</span></span>
+<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a>model_cacnes.optimize() <span class="co"># Solution 129.269 </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<strong><em>Optimal</em> solution with objective value 129.269</strong><br><div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">fluxes</th>
+<th data-quarto-table-cell-role="th">reduced_costs</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">1P4H2CBXLAH</td>
+<td>0.000000</td>
+<td>6.266542e-32</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">23DHMPO</td>
+<td>0.000000</td>
+<td>-1.084058e-17</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">23PDE2</td>
+<td>0.000000</td>
+<td>5.585197e-33</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">23PDE4</td>
+<td>0.000000</td>
+<td>5.585197e-33</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">23PDE7</td>
+<td>0.000000</td>
+<td>5.585197e-33</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">r1667</td>
+<td>967.308806</td>
+<td>-2.822349e-18</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">r2137</td>
+<td>0.400281</td>
+<td>0.000000e+00</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">rtranscription</td>
+<td>129.268878</td>
+<td>0.000000e+00</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">sink_gthrd(c)</td>
+<td>-0.400281</td>
+<td>0.000000e+00</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">biomass432</td>
+<td>129.268878</td>
+<td>2.168365e-16</td>
+</tr>
+</tbody>
+</table>
+
+<p>1323 rows × 2 columns</p>
+</div>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>model_cacnes_original <span class="op">=</span> deepcopy(model_cacnes)</span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">len</span>(model_cacnes.reactions)) <span class="co">#1323</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>1323</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">len</span>(model_cacnes.metabolites)) <span class="co">#1134</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>1134</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">len</span>(model_cacnes.genes)) <span class="co">#791</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>791</code></pre>
+</div>
+</div>
+</section>
+<section id="getting-subsystems-from-model-1" class="level1">
+<h1>Getting subsystems from model</h1>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Initialize dictionary to store subsystem reaction counts</span></span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>subsystem_reactions_cacnes <span class="op">=</span> {}</span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Iterate through reactions and count by subsystem</span></span>
+<span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> reaction <span class="kw">in</span> model_cacnes.reactions:</span>
+<span id="cb52-6"><a href="#cb52-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> reaction.subsystem:</span>
+<span id="cb52-7"><a href="#cb52-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> reaction.subsystem <span class="kw">in</span> subsystem_reactions_cacnes:</span>
+<span id="cb52-8"><a href="#cb52-8" aria-hidden="true" tabindex="-1"></a>            subsystem_reactions_cacnes[reaction.subsystem] <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb52-9"><a href="#cb52-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
+<span id="cb52-10"><a href="#cb52-10" aria-hidden="true" tabindex="-1"></a>            subsystem_reactions_cacnes[reaction.subsystem] <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb52-11"><a href="#cb52-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-12"><a href="#cb52-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert dictionary to dataframe</span></span>
+<span id="cb52-13"><a href="#cb52-13" aria-hidden="true" tabindex="-1"></a>df_python <span class="op">=</span> pd.DataFrame(<span class="bu">list</span>(subsystem_reactions_cacnes.items()), columns<span class="op">=</span>[<span class="st">'Subsystem'</span>, <span class="st">'Reaction_Count'</span>])</span>
+<span id="cb52-14"><a href="#cb52-14" aria-hidden="true" tabindex="-1"></a>subsystem_reactions_cacnes.items</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;built-in method items of dict object at 0x000002179CD1CC80&gt;</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a><span class="co"># reaction subsystem info</span></span>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a>rxn_subsytem_cacnes <span class="op">=</span> {}</span>
+<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Iterate through reactions and count by subsystem</span></span>
+<span id="cb54-5"><a href="#cb54-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> reaction <span class="kw">in</span> model_cacnes.reactions:</span>
+<span id="cb54-6"><a href="#cb54-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> reaction.subsystem:</span>
+<span id="cb54-7"><a href="#cb54-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> reaction.<span class="bu">id</span> <span class="kw">not</span> <span class="kw">in</span> rxn_subsytem_cacnes:</span>
+<span id="cb54-8"><a href="#cb54-8" aria-hidden="true" tabindex="-1"></a>            rxn_subsytem_cacnes[reaction.<span class="bu">id</span>] <span class="op">=</span> reaction.subsystem</span>
+<span id="cb54-9"><a href="#cb54-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-10"><a href="#cb54-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert dictionary to dataframe</span></span>
+<span id="cb54-11"><a href="#cb54-11" aria-hidden="true" tabindex="-1"></a>df_rxn_subsytem_cacnes <span class="op">=</span> pd.DataFrame(<span class="bu">list</span>(rxn_subsytem_cacnes.items()), columns<span class="op">=</span>[<span class="st">'reaction'</span>, <span class="st">'Subsytems'</span>])</span>
+<span id="cb54-12"><a href="#cb54-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-13"><a href="#cb54-13" aria-hidden="true" tabindex="-1"></a><span class="co"># reaction info</span></span>
+<span id="cb54-14"><a href="#cb54-14" aria-hidden="true" tabindex="-1"></a>rxn_info_cacnes <span class="op">=</span> {}</span>
+<span id="cb54-15"><a href="#cb54-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Iterate through reactions and count by subsystem</span></span>
+<span id="cb54-16"><a href="#cb54-16" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> reaction <span class="kw">in</span> model_cacnes.reactions:</span>
+<span id="cb54-17"><a href="#cb54-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> reaction.subsystem:</span>
+<span id="cb54-18"><a href="#cb54-18" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> reaction.<span class="bu">id</span> <span class="kw">not</span> <span class="kw">in</span> rxn_info_cacnes:</span>
+<span id="cb54-19"><a href="#cb54-19" aria-hidden="true" tabindex="-1"></a>            rxn_info_cacnes[reaction.<span class="bu">id</span>] <span class="op">=</span> reaction.reaction</span>
+<span id="cb54-20"><a href="#cb54-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-21"><a href="#cb54-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert dictionary to dataframe</span></span>
+<span id="cb54-22"><a href="#cb54-22" aria-hidden="true" tabindex="-1"></a>df_rxn_info_cacnes_withrxns <span class="op">=</span> pd.DataFrame(<span class="bu">list</span>(rxn_info_cacnes.items()), columns<span class="op">=</span>[<span class="st">'reaction'</span>, <span class="st">'rxnformula'</span>])</span>
+<span id="cb54-23"><a href="#cb54-23" aria-hidden="true" tabindex="-1"></a>        </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="reading-media-1" class="level1">
+<h1>Reading media</h1>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>data_aftermed_cacnes <span class="op">=</span> []</span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> rxn <span class="kw">in</span> model_cacnes.reactions:</span>
+<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a>  check <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb55-4"><a href="#cb55-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> <span class="st">'EX_'</span> <span class="kw">in</span> rxn.<span class="bu">id</span>:</span>
+<span id="cb55-5"><a href="#cb55-5" aria-hidden="true" tabindex="-1"></a>    <span class="co">#print(rxn.id, rxn.lower_bound, rxn.upper_bound)  </span></span>
+<span id="cb55-6"><a href="#cb55-6" aria-hidden="true" tabindex="-1"></a>    data_aftermed_cacnes.append({</span>
+<span id="cb55-7"><a href="#cb55-7" aria-hidden="true" tabindex="-1"></a>            <span class="st">'rxn_id'</span>: rxn.<span class="bu">id</span>,</span>
+<span id="cb55-8"><a href="#cb55-8" aria-hidden="true" tabindex="-1"></a>            <span class="st">'lower_bound'</span>: rxn.lower_bound,</span>
+<span id="cb55-9"><a href="#cb55-9" aria-hidden="true" tabindex="-1"></a>            <span class="st">'upper_bound'</span>: rxn.upper_bound</span>
+<span id="cb55-10"><a href="#cb55-10" aria-hidden="true" tabindex="-1"></a>        })</span>
+<span id="cb55-11"><a href="#cb55-11" aria-hidden="true" tabindex="-1"></a>df_aftermed_cacnes <span class="op">=</span> pd.DataFrame(data_aftermed_cacnes)</span>
+<span id="cb55-12"><a href="#cb55-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-13"><a href="#cb55-13" aria-hidden="true" tabindex="-1"></a>cocktail <span class="op">=</span> {<span class="st">'EX_adn(e)'</span>: <span class="dv">1</span>, <span class="st">'EX_amp(e)'</span>: <span class="dv">1</span>, <span class="st">'EX_aso3(e)'</span>: <span class="dv">1</span>, <span class="st">'EX_cd2(e)'</span>: <span class="dv">1</span>, <span class="st">'EX_cmp(e)'</span>: <span class="dv">1</span>, <span class="st">'EX_cro4(e)'</span>: <span class="dv">1</span>, <span class="st">'EX_dad_2(e)'</span>: <span class="dv">1</span>, <span class="st">'EX_dcyt(e)'</span>: <span class="dv">1</span>, <span class="st">'EX_gmp(e)'</span>: <span class="dv">1</span>, <span class="st">'EX_gsn(e)'</span>: <span class="dv">1</span>, <span class="st">'EX_h2s(e)'</span>: <span class="dv">1</span>, <span class="st">'EX_hg2(e)'</span>: <span class="dv">1</span>, <span class="st">'EX_hxan(e)'</span>: <span class="dv">1</span>, <span class="st">'EX_ins(e)'</span>: <span class="dv">1</span>, <span class="st">'EX_lipoate(e)'</span>: <span class="dv">1</span>, <span class="st">'EX_mobd(e)'</span>: <span class="dv">1</span>, <span class="st">'EX_ni2(e)'</span>: <span class="dv">1</span>, <span class="st">'EX_o2(e)'</span>: <span class="dv">0</span>, <span class="st">'EX_pheme(e)'</span>: <span class="dv">1</span>, <span class="st">'EX_pydx(e)'</span>: <span class="dv">1</span>, <span class="st">'EX_thymd(e)'</span>: <span class="dv">1</span>, <span class="st">'EX_ump(e)'</span>: <span class="dv">1</span>, <span class="st">'EX_uri(e)'</span>: <span class="dv">1</span>, <span class="st">'EX_2fe2s(e)'</span>: <span class="dv">1</span>, <span class="st">'EX_4fe4s(e)'</span>: <span class="dv">1</span>, <span class="st">'EX_aacp(e)'</span>: <span class="dv">1</span>, <span class="st">'EX_ala_L(e)'</span>: <span class="fl">0.5</span>, <span class="st">'EX_arg_L(e)'</span>: <span class="fl">0.5</span>, <span class="st">'EX_asn_L(e)'</span>: <span class="fl">0.5</span>, <span class="st">'EX_asp_L(e)'</span>: <span class="fl">0.5</span>, <span class="st">'EX_btn(e)'</span>: <span class="dv">1</span>, <span class="st">'EX_ca2(e)'</span>: <span class="dv">1</span>, <span class="st">'EX_cbl1(e)'</span>: <span class="dv">1</span>, <span class="st">'EX_chol(e)'</span>: <span class="dv">1</span>, <span class="st">'EX_cl(e)'</span>: <span class="dv">1</span>, <span class="st">'EX_cobalt2(e)'</span>: <span class="dv">1</span>, <span class="st">'EX_csn(e)'</span>: <span class="dv">1</span>, <span class="st">'EX_cu2(e)'</span>: <span class="dv">1</span>, <span class="st">'EX_cys_L(e)'</span>: <span class="fl">0.5</span>, <span class="st">'EX_fe2(e)'</span>: <span class="dv">1</span>, <span class="st">'EX_fe3(e)'</span>: <span class="dv">1</span>, <span class="st">'EX_fol(e)'</span>: <span class="dv">1</span>, <span class="st">'EX_glc_D(e)'</span>: <span class="dv">5</span>, <span class="st">'EX_gln_L(e)'</span>: <span class="fl">0.5</span>, <span class="st">'EX_glu_L(e)'</span>: <span class="fl">0.5</span>, <span class="st">'EX_gly(e)'</span>: <span class="dv">0</span>, <span class="st">'EX_glyc(e)'</span>: <span class="dv">10</span>, <span class="st">'EX_h(e)'</span>: <span class="dv">1</span>, <span class="st">'EX_h2o(e)'</span>: <span class="dv">1</span>, <span class="st">'EX_his_L(e)'</span>: <span class="fl">0.5</span>, <span class="st">'EX_ile_L(e)'</span>: <span class="fl">0.5</span>, <span class="st">'EX_k(e)'</span>: <span class="dv">1</span>, <span class="st">'EX_leu_L(e)'</span>: <span class="fl">0.5</span>, <span class="st">'EX_LPG2_Cat'</span>: <span class="dv">1</span>, <span class="st">'EX_lys_L(e)'</span>: <span class="fl">0.5</span>, <span class="st">'EX_met_L(e)'</span>: <span class="fl">0.5</span>, <span class="st">'EX_mg2(e)'</span>: <span class="dv">1</span>, <span class="st">'EX_mn2(e)'</span>: <span class="dv">1</span>, <span class="st">'EX_na1(e)'</span>: <span class="dv">1</span>, <span class="st">'EX_nac(e)'</span>: <span class="dv">1</span>, <span class="st">'EX_nh4(e)'</span>: <span class="dv">1</span>, <span class="st">'EX_phe_L(e)'</span>: <span class="fl">0.5</span>, <span class="st">'EX_pi(e)'</span>: <span class="dv">1</span>, <span class="st">'EX_pnto_R(e)'</span>: <span class="dv">1</span>, <span class="st">'EX_pro_L(e)'</span>: <span class="fl">0.5</span>, <span class="st">'EX_ribflv(e)'</span>: <span class="dv">1</span>, <span class="st">'EX_ser_L(e)'</span>: <span class="fl">0.5</span>, <span class="st">'EX_so3(e)'</span>: <span class="dv">1</span>, <span class="st">'EX_so4(e)'</span>: <span class="dv">1</span>, <span class="st">'EX_thm(e)'</span>: <span class="dv">1</span>, <span class="st">'EX_thr_L(e)'</span>: <span class="fl">0.5</span>, <span class="st">'EX_trp_L(e)'</span>: <span class="fl">0.5</span>, <span class="st">'EX_tyr_L(e)'</span>: <span class="fl">0.5</span>, <span class="st">'EX_ura(e)'</span>: <span class="dv">1</span>, <span class="st">'EX_val_L(e)'</span>: <span class="fl">0.5</span>, <span class="st">'EX_zn2(e)'</span>: <span class="dv">1</span> }</span>
+<span id="cb55-14"><a href="#cb55-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-15"><a href="#cb55-15" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> rxns <span class="kw">in</span> model_cacnes.reactions:</span>
+<span id="cb55-16"><a href="#cb55-16" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> <span class="st">'EX_'</span> <span class="kw">in</span> rxns.<span class="bu">id</span>:</span>
+<span id="cb55-17"><a href="#cb55-17" aria-hidden="true" tabindex="-1"></a>    model_cacnes.reactions.get_by_id(rxns.<span class="bu">id</span>).lower_bound <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb55-18"><a href="#cb55-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-19"><a href="#cb55-19" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> rxn_id, lower_bound <span class="kw">in</span> cocktail.items():</span>
+<span id="cb55-20"><a href="#cb55-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> rxn_id <span class="kw">in</span> model_cacnes.reactions:</span>
+<span id="cb55-21"><a href="#cb55-21" aria-hidden="true" tabindex="-1"></a>        model_cacnes.reactions.get_by_id(rxn_id).lower_bound <span class="op">=</span> <span class="op">-</span>lower_bound</span>
+<span id="cb55-22"><a href="#cb55-22" aria-hidden="true" tabindex="-1"></a>        <span class="co">#print(f'done {rxn_id}')</span></span>
+<span id="cb55-23"><a href="#cb55-23" aria-hidden="true" tabindex="-1"></a>    <span class="co">#else:</span></span>
+<span id="cb55-24"><a href="#cb55-24" aria-hidden="true" tabindex="-1"></a>        <span class="co">#print(f"Reaction {rxn_id} not found in the model.")</span></span>
+<span id="cb55-25"><a href="#cb55-25" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb55-26"><a href="#cb55-26" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(model_cacnes.summary())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Objective
+=========
+1.0 biomass432 = 0.886850644175935
+
+Uptake
+------
+     Metabolite       Reaction     Flux  C-Number C-Flux
+       ala_L[e]    EX_ala_L(e)      0.5         3  1.30%
+         amp[e]      EX_amp(e)        1        10  8.66%
+       arg_L[e]    EX_arg_L(e)      0.5         6  2.60%
+       asn_L[e]    EX_asn_L(e)      0.5         4  1.73%
+       asp_L[e]    EX_asp_L(e)      0.5         4  1.73%
+         ca2[e]      EX_ca2(e) 0.002746         0  0.00%
+          cl[e]       EX_cl(e) 0.002746         0  0.00%
+     cobalt2[e]  EX_cobalt2(e) 0.002746         0  0.00%
+         csn[e]      EX_csn(e)        1         4  3.46%
+         cu2[e]      EX_cu2(e) 0.002746         0  0.00%
+       cys_L[e]    EX_cys_L(e)  0.07302         3  0.19%
+        dcyt[e]     EX_dcyt(e)  0.04546         9  0.35%
+         fe2[e]      EX_fe2(e) 0.008238         0  0.00%
+         fol[e]      EX_fol(e) 0.008238        19  0.14%
+       glc_D[e]    EX_glc_D(e)        5         6 25.98%
+       gln_L[e]    EX_gln_L(e)      0.5         5  2.16%
+       glu_L[e]    EX_glu_L(e)      0.5         5  2.16%
+        glyc[e]     EX_glyc(e)       10         3 25.98%
+       his_L[e]    EX_his_L(e)      0.5         6  2.60%
+       ile_L[e]    EX_ile_L(e)   0.3655         6  1.90%
+           k[e]        EX_k(e) 0.002746         0  0.00%
+       leu_L[e]    EX_leu_L(e)   0.3329         6  1.73%
+       lys_L[e]    EX_lys_L(e)   0.2531         6  1.32%
+       met_L[e]    EX_met_L(e)   0.1353         5  0.59%
+         mg2[e]      EX_mg2(e) 0.002746         0  0.00%
+         mn2[e]      EX_mn2(e) 0.002746         0  0.00%
+         nac[e]      EX_nac(e) 0.005492         6  0.03%
+       pheme[e]    EX_pheme(e) 0.002746        34  0.08%
+      pnto_R[e]   EX_pnto_R(e) 0.005492         9  0.04%
+       pro_L[e]    EX_pro_L(e)      0.5         5  2.16%
+        pydx[e]     EX_pydx(e) 0.002746         8  0.02%
+       ser_L[e]    EX_ser_L(e)      0.5         3  1.30%
+         so4[e]      EX_so4(e) 0.002746         0  0.00%
+         thm[e]      EX_thm(e) 0.002746        12  0.03%
+       thr_L[e]    EX_thr_L(e)      0.5         4  1.73%
+       trp_L[e]    EX_trp_L(e)      0.5        11  4.76%
+       tyr_L[e]    EX_tyr_L(e)      0.5         9  3.90%
+       val_L[e]    EX_val_L(e)   0.3124         5  1.35%
+         zn2[e]      EX_zn2(e) 0.002746         0  0.00%
+      dnarep[c]   dreplication   0.8869         0  0.00%
+proteinsynth[c]  pbiosynthesis   0.8869         0  0.00%
+    rnatrans[c] rtranscription   0.8869         0  0.00%
+       gthrd[c]  sink_gthrd(c) 0.002746        10  0.02%
+
+Secretion
+---------
+Metabolite      Reaction      Flux  C-Number C-Flux
+   5mtr[c]       DM_5MTR -0.002746         6  0.02%
+  dhptd[c]   DM_dhptd(c)  -0.01648         5  0.10%
+  2obut[e]   EX_2obut(e)  -0.01648         4  0.08%
+     ac[e]      EX_ac(e)    -5.829         2 14.46%
+biomass[c] EX_biomass(e)   -0.8869         0  0.00%
+    for[e]     EX_for(e)     -13.4         1 16.62%
+      h[e]       EX_h(e)    -25.45         0  0.00%
+    h2o[e]     EX_h2o(e)    -4.202         0  0.00%
+    h2s[e]     EX_h2s(e)  -0.01648         0  0.00%
+   hxan[e]    EX_hxan(e)   -0.7318         5  4.54%
+ indole[e]  EX_indole(e)   -0.4581         8  4.55%
+    nh4[e]     EX_nh4(e)    -6.994         0  0.00%
+  phe_L[e]   EX_phe_L(e)   -0.2559         9  2.86%
+     pi[e]      EX_pi(e)   -0.2798         0  0.00%
+    ppa[e]     EX_ppa(e)     -14.1         3 52.49%
+    ura[e]     EX_ura(e)   -0.8619         4  4.28%</code></pre>
+</div>
+</div>
+</section>
+<section id="riptide-with-cumulative-value-1" class="level1">
+<h1>RIPTIDE with cumulative value</h1>
+<section id="cheek" class="level2">
+<h2 class="anchored" data-anchor-id="cheek">Cheek</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>cheek <span class="op">=</span> riptide.read_transcription_file(os.path.join(<span class="st">'..'</span>,<span class="st">'data'</span>,<span class="st">'RNA-Seq_data'</span>,<span class="st">'pacnes_counts'</span>,<span class="st">'C_acnes_invivo_mtx_mm_TPM_Ch_gmean_TPM.tsv'</span>), header<span class="op">=</span><span class="va">True</span>, sep<span class="op">=</span><span class="st">'</span><span class="ch">\t</span><span class="st">'</span>, norm<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>riptide_cheek <span class="op">=</span> riptide.contextualize(model<span class="op">=</span>model_cacnes, transcriptome<span class="op">=</span>cheek)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Initializing model and integrating transcriptomic data...
+Pruning zero flux subnetworks...
+Analyzing context-specific flux distributions...
+
+Reactions pruned to 499 from 1323 (62.28% change)
+Metabolites pruned to 500 from 1134 (55.91% change)
+Flux through the objective DECREASED to ~0.7123 from ~0.8869 (19.69% change)
+Context-specific metabolism does not correlate with transcriptome (r=0.086, n.s.)
+
+RIPTiDe completed in 38 seconds</code></pre>
+</div>
+</div>
+</section>
+<section id="scalp" class="level2">
+<h2 class="anchored" data-anchor-id="scalp">Scalp</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a>scalp <span class="op">=</span> riptide.read_transcription_file(os.path.join(<span class="st">'..'</span>,<span class="st">'data'</span>,<span class="st">'RNA-Seq_data'</span>,<span class="st">'pacnes_counts'</span>,<span class="st">'C_acnes_invivo_mtx_mm_TPM_Sc_gmean_TPM.tsv'</span>), header<span class="op">=</span><span class="va">True</span>, sep<span class="op">=</span><span class="st">'</span><span class="ch">\t</span><span class="st">'</span>, norm<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a>riptide_scalp <span class="op">=</span> riptide.contextualize(model<span class="op">=</span>model_cacnes, transcriptome<span class="op">=</span>scalp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Initializing model and integrating transcriptomic data...
+Pruning zero flux subnetworks...
+Analyzing context-specific flux distributions...
+
+Reactions pruned to 500 from 1323 (62.21% change)
+Metabolites pruned to 499 from 1134 (56.0% change)
+Flux through the objective DECREASED to ~0.7123 from ~0.8869 (19.69% change)
+Context-specific metabolism correlates with transcriptome (r=0.107, p=0.016 *)
+
+RIPTiDe completed in 35 seconds</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="difference-of-metabolism-across-multiple-conditions-1" class="level1">
+<h1>Difference of metabolism across multiple conditions</h1>
+<section id="prepare-data-1" class="level2">
+<h2 class="anchored" data-anchor-id="prepare-data-1">Prepare data</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">100</span>)</span>
+<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a>sub_sample <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">500</span>, <span class="dv">250</span>, <span class="at">replace =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb61-3"><a href="#cb61-3" aria-hidden="true" tabindex="-1"></a>cheek_flux <span class="ot">&lt;-</span> py<span class="sc">$</span>riptide_cheek<span class="sc">$</span>flux_samples[sub_sample, ]</span>
+<span id="cb61-4"><a href="#cb61-4" aria-hidden="true" tabindex="-1"></a>scalp_flux <span class="ot">&lt;-</span> py<span class="sc">$</span>riptide_scalp<span class="sc">$</span>flux_samples[sub_sample, ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="prepare-metadata-1" class="level2">
+<h2 class="anchored" data-anchor-id="prepare-metadata-1">Prepare metadata</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a>cheek_flux<span class="sc">$</span>X <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a>cheek_flux_samples <span class="ot">&lt;-</span></span>
+<span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">paste</span>(<span class="st">'cheek_flux_'</span>, <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(cheek_flux), <span class="at">sep =</span> <span class="st">''</span>)</span>
+<span id="cb62-4"><a href="#cb62-4" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(cheek_flux) <span class="ot">&lt;-</span> cheek_flux_samples</span>
+<span id="cb62-5"><a href="#cb62-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb62-6"><a href="#cb62-6" aria-hidden="true" tabindex="-1"></a>scalp_flux<span class="sc">$</span>X <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb62-7"><a href="#cb62-7" aria-hidden="true" tabindex="-1"></a>scalp_flux_samples <span class="ot">&lt;-</span></span>
+<span id="cb62-8"><a href="#cb62-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">paste</span>(<span class="st">'scalp_flux_'</span>, <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(scalp_flux), <span class="at">sep =</span> <span class="st">''</span>)</span>
+<span id="cb62-9"><a href="#cb62-9" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(scalp_flux) <span class="ot">&lt;-</span> scalp_flux_samples</span>
+<span id="cb62-10"><a href="#cb62-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb62-11"><a href="#cb62-11" aria-hidden="true" tabindex="-1"></a>cheek_metadata <span class="ot">&lt;-</span></span>
+<span id="cb62-12"><a href="#cb62-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cbind</span>(cheek_flux_samples, <span class="fu">rep</span>(<span class="st">'cheek'</span>, <span class="fu">length</span>(cheek_flux_samples)))</span>
+<span id="cb62-13"><a href="#cb62-13" aria-hidden="true" tabindex="-1"></a>scalp_metadata <span class="ot">&lt;-</span></span>
+<span id="cb62-14"><a href="#cb62-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cbind</span>(scalp_flux_samples, <span class="fu">rep</span>(<span class="st">'scalp'</span>, <span class="fu">length</span>(scalp_flux_samples)))</span>
+<span id="cb62-15"><a href="#cb62-15" aria-hidden="true" tabindex="-1"></a>metadata_cacnes <span class="ot">&lt;-</span> <span class="fu">rbind</span>(cheek_metadata, scalp_metadata)</span>
+<span id="cb62-16"><a href="#cb62-16" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(metadata_cacnes) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">'label'</span>, <span class="st">'group'</span>)</span>
+<span id="cb62-17"><a href="#cb62-17" aria-hidden="true" tabindex="-1"></a>metadata_cacnes <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(metadata_cacnes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="nmds-of-fluxes-1" class="level2">
+<h2 class="anchored" data-anchor-id="nmds-of-fluxes-1">NMDS of fluxes</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a>flux_samples_cacnes <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(cheek_flux, scalp_flux)</span>
+<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a>flux_samples_cacnes[<span class="fu">is.na</span>(flux_samples_cacnes)] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb63-3"><a href="#cb63-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">abs</span>(<span class="fu">min</span>(flux_samples_cacnes)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 16.69153</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a>flux_samples_cacnes <span class="ot">&lt;-</span></span>
+<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a>  flux_samples_cacnes <span class="sc">+</span> <span class="fu">abs</span>(<span class="fu">min</span>(flux_samples_cacnes))</span>
+<span id="cb65-3"><a href="#cb65-3" aria-hidden="true" tabindex="-1"></a>flux_bray_dist_cacnes <span class="ot">&lt;-</span></span>
+<span id="cb65-4"><a href="#cb65-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">vegdist</span>(flux_samples_cacnes, <span class="at">method =</span> <span class="st">'bray'</span>)</span>
+<span id="cb65-5"><a href="#cb65-5" aria-hidden="true" tabindex="-1"></a>flux_nmds_cacnes <span class="ot">&lt;-</span></span>
+<span id="cb65-6"><a href="#cb65-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.data.frame</span>(<span class="fu">metaMDS</span>(flux_bray_dist_cacnes, <span class="at">k =</span> <span class="dv">2</span>, <span class="at">trymax =</span> <span class="dv">25</span>)<span class="sc">$</span>points)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Run 0 stress 0.04561616 
+Run 1 stress 0.04561737 
+... Procrustes: rmse 0.0002504336  max resid 0.005093565 
+... Similar to previous best
+Run 2 stress 0.04562159 
+... Procrustes: rmse 0.000584334  max resid 0.006859576 
+... Similar to previous best
+Run 3 stress 0.04561818 
+... Procrustes: rmse 0.0002758768  max resid 0.005490123 
+... Similar to previous best
+Run 4 stress 0.04562016 
+... Procrustes: rmse 0.0005131633  max resid 0.007357104 
+... Similar to previous best
+Run 5 stress 0.04562306 
+... Procrustes: rmse 0.0005152283  max resid 0.006809761 
+... Similar to previous best
+Run 6 stress 0.04562786 
+... Procrustes: rmse 0.0003134671  max resid 0.00550549 
+... Similar to previous best
+Run 7 stress 0.04562276 
+... Procrustes: rmse 0.0004649354  max resid 0.006278243 
+... Similar to previous best
+Run 8 stress 0.04561796 
+... Procrustes: rmse 0.0002819397  max resid 0.005356642 
+... Similar to previous best
+Run 9 stress 0.04561731 
+... Procrustes: rmse 0.0004080508  max resid 0.006576745 
+... Similar to previous best
+Run 10 stress 0.04562452 
+... Procrustes: rmse 0.0006774451  max resid 0.007585504 
+... Similar to previous best
+Run 11 stress 0.04561868 
+... Procrustes: rmse 0.0002475727  max resid 0.005211598 
+... Similar to previous best
+Run 12 stress 0.04561303 
+... New best solution
+... Procrustes: rmse 0.0005074447  max resid 0.007304459 
+... Similar to previous best
+Run 13 stress 0.04562655 
+... Procrustes: rmse 0.0005583684  max resid 0.007360201 
+... Similar to previous best
+Run 14 stress 0.045634 
+... Procrustes: rmse 0.0008433596  max resid 0.007598371 
+... Similar to previous best
+Run 15 stress 0.04561885 
+... Procrustes: rmse 0.0004048176  max resid 0.007132277 
+... Similar to previous best
+Run 16 stress 0.04562168 
+... Procrustes: rmse 0.000515506  max resid 0.007279697 
+... Similar to previous best
+Run 17 stress 0.04562292 
+... Procrustes: rmse 0.0005329251  max resid 0.007326458 
+... Similar to previous best
+Run 18 stress 0.04562072 
+... Procrustes: rmse 0.0004669033  max resid 0.007194316 
+... Similar to previous best
+Run 19 stress 0.04561939 
+... Procrustes: rmse 0.0004139409  max resid 0.005551815 
+... Similar to previous best
+Run 20 stress 0.04562021 
+... Procrustes: rmse 0.0006674179  max resid 0.007487975 
+... Similar to previous best
+*** Best solution repeated 9 times</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(flux_nmds_cacnes) <span class="ot">&lt;-</span> <span class="fu">rownames</span>(flux_samples_cacnes)</span>
+<span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb67-3"><a href="#cb67-3" aria-hidden="true" tabindex="-1"></a>dat_merged_all_cacnes <span class="ot">&lt;-</span></span>
+<span id="cb67-4"><a href="#cb67-4" aria-hidden="true" tabindex="-1"></a>  flux_nmds_cacnes <span class="sc">%&gt;%</span> <span class="fu">rownames_to_column</span>(<span class="st">'label'</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb67-5"><a href="#cb67-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(metadata_cacnes, <span class="at">by =</span> <span class="st">'label'</span>) <span class="sc">%&gt;%</span> <span class="fu">filter</span>(group <span class="sc">!=</span> <span class="st">'staphcomp'</span>)</span>
+<span id="cb67-6"><a href="#cb67-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb67-7"><a href="#cb67-7" aria-hidden="true" tabindex="-1"></a>MDS_plot_cacnes <span class="ot">&lt;-</span></span>
+<span id="cb67-8"><a href="#cb67-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(dat_merged_all_cacnes, <span class="fu">aes</span>(<span class="at">x =</span> MDS1, <span class="at">y =</span> MDS2, <span class="at">colour =</span> group)) <span class="sc">+</span></span>
+<span id="cb67-9"><a href="#cb67-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span> <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb67-10"><a href="#cb67-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">colour =</span> <span class="st">'Site'</span>) <span class="sc">+</span></span>
+<span id="cb67-11"><a href="#cb67-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb67-12"><a href="#cb67-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>),</span>
+<span id="cb67-13"><a href="#cb67-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">14</span>),</span>
+<span id="cb67-14"><a href="#cb67-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">14</span>),</span>
+<span id="cb67-15"><a href="#cb67-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>),</span>
+<span id="cb67-16"><a href="#cb67-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">face=</span><span class="st">'italic'</span>, <span class="at">hjust=</span><span class="fl">0.5</span>)</span>
+<span id="cb67-17"><a href="#cb67-17" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb67-18"><a href="#cb67-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(</span>
+<span id="cb67-19"><a href="#cb67-19" aria-hidden="true" tabindex="-1"></a>    <span class="st">'cheek'</span> <span class="ot">=</span> <span class="st">'dodgerblue'</span>,</span>
+<span id="cb67-20"><a href="#cb67-20" aria-hidden="true" tabindex="-1"></a>    <span class="st">'scalp'</span> <span class="ot">=</span> <span class="st">'goldenrod1'</span></span>
+<span id="cb67-21"><a href="#cb67-21" aria-hidden="true" tabindex="-1"></a>  )) <span class="sc">+</span> <span class="fu">ggtitle</span>(<span class="st">'Cutibacterium acnes'</span>)</span>
+<span id="cb67-22"><a href="#cb67-22" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(MDS_plot_cacnes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Figure4_SuppFig14_15_files/figure-html/nmdscacnes-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a>md_adonis_cacnes <span class="ot">&lt;-</span> metadata_cacnes <span class="sc">%&gt;%</span> <span class="fu">column_to_rownames</span>(<span class="st">'label'</span>)</span>
+<span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">100</span>)</span>
+<span id="cb68-3"><a href="#cb68-3" aria-hidden="true" tabindex="-1"></a><span class="fu">adonis2</span>(flux_bray_dist_cacnes <span class="sc">~</span> md_adonis_cacnes<span class="sc">$</span>group)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Permutation test for adonis under reduced model
+Terms added sequentially (first to last)
+Permutation: free
+Number of permutations: 999
+
+adonis2(formula = flux_bray_dist_cacnes ~ md_adonis_cacnes$group)
+                        Df  SumOfSqs      R2      F Pr(&gt;F)    
+md_adonis_cacnes$group   1 0.0006709 0.05272 27.717  0.001 ***
+Residual               498 0.0120543 0.94728                  
+Total                  499 0.0127252 1.00000                  
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(</span>
+<span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">file.path</span>(<span class="st">'..'</span>,<span class="st">'plots'</span>, <span class="st">'SuppFig15.svg'</span>),</span>
+<span id="cb70-3"><a href="#cb70-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">plot =</span> MDS_plot_cacnes,</span>
+<span id="cb70-4"><a href="#cb70-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">device =</span> <span class="st">"svg"</span>,</span>
+<span id="cb70-5"><a href="#cb70-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">width =</span> <span class="dv">8</span>,</span>
+<span id="cb70-6"><a href="#cb70-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">height =</span> <span class="dv">5</span></span>
+<span id="cb70-7"><a href="#cb70-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb70-8"><a href="#cb70-8" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(</span>
+<span id="cb70-9"><a href="#cb70-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">file.path</span>(<span class="st">'..'</span>,<span class="st">'plots'</span>, <span class="st">'SuppFig15.pdf'</span>),</span>
+<span id="cb70-10"><a href="#cb70-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">plot =</span> MDS_plot_cacnes,</span>
+<span id="cb70-11"><a href="#cb70-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">device =</span> <span class="st">"pdf"</span>,</span>
+<span id="cb70-12"><a href="#cb70-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">width =</span> <span class="dv">8</span>,</span>
+<span id="cb70-13"><a href="#cb70-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">height =</span> <span class="dv">5</span></span>
+<span id="cb70-14"><a href="#cb70-14" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="with-in-the-metabolism-which-reactions-are-da-between-conditions" class="level1">
+<h1>With in the metabolism, which reactions are DA between conditions</h1>
+<section id="glm-1" class="level2">
+<h2 class="anchored" data-anchor-id="glm-1">GLM</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a>rxns_to_test_cacnes <span class="ot">&lt;-</span> flux_samples_cacnes <span class="sc">%&gt;%</span> <span class="fu">colnames</span>()</span>
+<span id="cb71-2"><a href="#cb71-2" aria-hidden="true" tabindex="-1"></a>data_for_da_cacnes <span class="ot">&lt;-</span></span>
+<span id="cb71-3"><a href="#cb71-3" aria-hidden="true" tabindex="-1"></a>  flux_samples_cacnes <span class="sc">%&gt;%</span></span>
+<span id="cb71-4"><a href="#cb71-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rownames_to_column</span>(<span class="st">'label'</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb71-5"><a href="#cb71-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(metadata_cacnes, <span class="at">by =</span> <span class="st">'label'</span>)</span>
+<span id="cb71-6"><a href="#cb71-6" aria-hidden="true" tabindex="-1"></a>data_for_da_cacnes <span class="ot">&lt;-</span> data_for_da_cacnes <span class="sc">%&gt;%</span></span>
+<span id="cb71-7"><a href="#cb71-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb71-8"><a href="#cb71-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">group_oh =</span> <span class="fu">case_when</span>(</span>
+<span id="cb71-9"><a href="#cb71-9" aria-hidden="true" tabindex="-1"></a>      group <span class="sc">==</span> <span class="st">'cheek'</span> <span class="sc">~</span> <span class="dv">1</span>,</span>
+<span id="cb71-10"><a href="#cb71-10" aria-hidden="true" tabindex="-1"></a>      group <span class="sc">==</span> <span class="st">'scalp'</span> <span class="sc">~</span> <span class="dv">2</span>))</span>
+<span id="cb71-11"><a href="#cb71-11" aria-hidden="true" tabindex="-1"></a>data_for_da_cacnes[<span class="fu">is.na</span>(data_for_da_cacnes)] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb71-12"><a href="#cb71-12" aria-hidden="true" tabindex="-1"></a>flux_samples_cacnes[<span class="fu">is.na</span>(flux_samples_cacnes)] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb71-13"><a href="#cb71-13" aria-hidden="true" tabindex="-1"></a>rxns_da_cacnes <span class="ot">&lt;-</span></span>
+<span id="cb71-14"><a href="#cb71-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">lapply</span>(data_for_da_cacnes[, rxns_to_test_cacnes],</span>
+<span id="cb71-15"><a href="#cb71-15" aria-hidden="true" tabindex="-1"></a>         <span class="cf">function</span>(x)</span>
+<span id="cb71-16"><a href="#cb71-16" aria-hidden="true" tabindex="-1"></a>           <span class="fu">coefficients</span>(<span class="fu">summary</span>(</span>
+<span id="cb71-17"><a href="#cb71-17" aria-hidden="true" tabindex="-1"></a>             <span class="fu">glm</span>(x <span class="sc">~</span> group , <span class="at">data =</span> data_for_da_cacnes)</span>
+<span id="cb71-18"><a href="#cb71-18" aria-hidden="true" tabindex="-1"></a>           )))</span>
+<span id="cb71-19"><a href="#cb71-19" aria-hidden="true" tabindex="-1"></a>df_res_cacnes <span class="ot">&lt;-</span> <span class="fu">data.frame</span>()</span>
+<span id="cb71-20"><a href="#cb71-20" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (rxns <span class="cf">in</span> rxns_to_test_cacnes) {</span>
+<span id="cb71-21"><a href="#cb71-21" aria-hidden="true" tabindex="-1"></a>  tmp <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(rxns_da_cacnes[[rxns]])</span>
+<span id="cb71-22"><a href="#cb71-22" aria-hidden="true" tabindex="-1"></a>  tmp<span class="sc">$</span>Reactions <span class="ot">&lt;-</span> rxns</span>
+<span id="cb71-23"><a href="#cb71-23" aria-hidden="true" tabindex="-1"></a>  df_res_cacnes <span class="ot">&lt;-</span>  <span class="fu">bind_rows</span>(df_res_cacnes, tmp)</span>
+<span id="cb71-24"><a href="#cb71-24" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb71-25"><a href="#cb71-25" aria-hidden="true" tabindex="-1"></a>df_res_cacnes <span class="sc">%&lt;&gt;%</span>  <span class="fu">rownames_to_column</span>(<span class="st">'coeff'</span>)</span>
+<span id="cb71-26"><a href="#cb71-26" aria-hidden="true" tabindex="-1"></a>df_res_cacnes <span class="ot">&lt;-</span></span>
+<span id="cb71-27"><a href="#cb71-27" aria-hidden="true" tabindex="-1"></a>  df_res_cacnes <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">grepl</span>(<span class="st">'(Intercept)'</span>, coeff))</span>
+<span id="cb71-28"><a href="#cb71-28" aria-hidden="true" tabindex="-1"></a>df_res_cacnes <span class="sc">%&lt;&gt;%</span> dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="st">'p-val'</span> <span class="ot">=</span> <span class="st">"Pr...t.."</span>)</span>
+<span id="cb71-29"><a href="#cb71-29" aria-hidden="true" tabindex="-1"></a>df_res_cacnes <span class="sc">%&lt;&gt;%</span>  <span class="fu">clean_names</span>()</span>
+<span id="cb71-30"><a href="#cb71-30" aria-hidden="true" tabindex="-1"></a>df_res_cacnes<span class="sc">$</span>p_adj <span class="ot">&lt;-</span></span>
+<span id="cb71-31"><a href="#cb71-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">p.adjust</span>(df_res_cacnes<span class="sc">$</span>p_val, <span class="at">method =</span> <span class="st">'fdr'</span>)</span>
+<span id="cb71-32"><a href="#cb71-32" aria-hidden="true" tabindex="-1"></a>df_res_cacnes <span class="ot">&lt;-</span></span>
+<span id="cb71-33"><a href="#cb71-33" aria-hidden="true" tabindex="-1"></a>  df_res_cacnes <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="at">reaction =</span> reactions) <span class="sc">%&gt;%</span></span>
+<span id="cb71-34"><a href="#cb71-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(py<span class="sc">$</span>df_rxn_subsytem)</span>
+<span id="cb71-35"><a href="#cb71-35" aria-hidden="true" tabindex="-1"></a>df_res_cacnes_fil <span class="ot">&lt;-</span></span>
+<span id="cb71-36"><a href="#cb71-36" aria-hidden="true" tabindex="-1"></a>  df_res_cacnes <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(p_adj <span class="sc">&lt;</span> <span class="fl">0.001</span>)</span>
+<span id="cb71-37"><a href="#cb71-37" aria-hidden="true" tabindex="-1"></a>df_res_cacnes_fil <span class="ot">&lt;-</span></span>
+<span id="cb71-38"><a href="#cb71-38" aria-hidden="true" tabindex="-1"></a>  df_res_cacnes_fil <span class="sc">%&gt;%</span> <span class="fu">left_join</span>(py<span class="sc">$</span>df_rxn_subsytem</span>
+<span id="cb71-39"><a href="#cb71-39" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="prepare-samples-to-plot" class="level2">
+<h2 class="anchored" data-anchor-id="prepare-samples-to-plot">Prepare samples to plot</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb72"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a>flux_samples_cacnes_to_plot <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(cheek_flux, scalp_flux)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="bar-plots-propionate" class="level1">
+<h1>Bar plots propionate</h1>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb73"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a>ppa_bar_plot_data <span class="ot">&lt;-</span> flux_samples_cacnes_to_plot <span class="sc">%&gt;%</span></span>
+<span id="cb73-2"><a href="#cb73-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="st">'MME'</span>, <span class="st">'MMM2r'</span>, <span class="st">'PPAKr'</span>, <span class="st">'PTA2'</span>, <span class="st">'PYRCT'</span>,</span>
+<span id="cb73-3"><a href="#cb73-3" aria-hidden="true" tabindex="-1"></a>                <span class="st">'EX_ppa(e)'</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb73-4"><a href="#cb73-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rownames_to_column</span>(<span class="st">'label'</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb73-5"><a href="#cb73-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(metadata_cacnes, <span class="at">by =</span> <span class="st">'label'</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb73-6"><a href="#cb73-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">melt</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb73-7"><a href="#cb73-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(group, variable) <span class="sc">%&gt;%</span></span>
+<span id="cb73-8"><a href="#cb73-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">val =</span> <span class="fu">mean</span>(value), <span class="at">stddev =</span> <span class="fu">sd</span>(value)) <span class="sc">%&gt;%</span></span>
+<span id="cb73-9"><a href="#cb73-9" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="st">'reaction'</span> <span class="ot">=</span> <span class="st">'variable'</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb73-10"><a href="#cb73-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(df_res_fil <span class="sc">%&gt;%</span></span>
+<span id="cb73-11"><a href="#cb73-11" aria-hidden="true" tabindex="-1"></a>              dplyr<span class="sc">::</span><span class="fu">select</span>(reaction, Subsytems),</span>
+<span id="cb73-12"><a href="#cb73-12" aria-hidden="true" tabindex="-1"></a>            <span class="at">by =</span> <span class="st">'reaction'</span>)</span>
+<span id="cb73-13"><a href="#cb73-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-14"><a href="#cb73-14" aria-hidden="true" tabindex="-1"></a>ppa_bar_plot_data<span class="sc">$</span>val[<span class="fu">is.na</span>(ppa_bar_plot_data<span class="sc">$</span>val)] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb73-15"><a href="#cb73-15" aria-hidden="true" tabindex="-1"></a>ppa_bar_plot_data<span class="sc">$</span>reaction <span class="ot">&lt;-</span></span>
+<span id="cb73-16"><a href="#cb73-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">factor</span>(</span>
+<span id="cb73-17"><a href="#cb73-17" aria-hidden="true" tabindex="-1"></a>    ppa_bar_plot_data<span class="sc">$</span>reaction,</span>
+<span id="cb73-18"><a href="#cb73-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">'MME'</span>, <span class="st">'MMM2r'</span>, <span class="st">'PPAKr'</span>, <span class="st">'PTA2'</span>, <span class="st">'PYRCT'</span>, <span class="st">'EX_ppa(e)'</span>))</span>
+<span id="cb73-19"><a href="#cb73-19" aria-hidden="true" tabindex="-1"></a>flux_diff_ppa <span class="ot">&lt;-</span></span>
+<span id="cb73-20"><a href="#cb73-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(ppa_bar_plot_data, <span class="fu">aes</span>(<span class="at">x =</span> reaction, <span class="at">y =</span> val, <span class="at">fill =</span> group)) <span class="sc">+</span></span>
+<span id="cb73-21"><a href="#cb73-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>,</span>
+<span id="cb73-22"><a href="#cb73-22" aria-hidden="true" tabindex="-1"></a>           <span class="at">color =</span> <span class="st">"black"</span>,</span>
+<span id="cb73-23"><a href="#cb73-23" aria-hidden="true" tabindex="-1"></a>           <span class="at">position =</span> <span class="fu">position_dodge</span>()) <span class="sc">+</span></span>
+<span id="cb73-24"><a href="#cb73-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">'Mean flux value </span><span class="sc">\n</span><span class="st"> (mmol/gDCW hr)'</span>) <span class="sc">+</span></span>
+<span id="cb73-25"><a href="#cb73-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">'Reactions'</span>) <span class="sc">+</span></span>
+<span id="cb73-26"><a href="#cb73-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(</span>
+<span id="cb73-27"><a href="#cb73-27" aria-hidden="true" tabindex="-1"></a>    <span class="st">'cheek'</span> <span class="ot">=</span> <span class="st">'dodgerblue'</span>,</span>
+<span id="cb73-28"><a href="#cb73-28" aria-hidden="true" tabindex="-1"></a>    <span class="st">'scalp'</span> <span class="ot">=</span> <span class="st">'goldenrod1'</span></span>
+<span id="cb73-29"><a href="#cb73-29" aria-hidden="true" tabindex="-1"></a>  )) <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">fill =</span> <span class="st">'Site'</span>) <span class="sc">+</span></span>
+<span id="cb73-30"><a href="#cb73-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">breaks =</span> scales<span class="sc">::</span><span class="fu">pretty_breaks</span>(<span class="at">n =</span> <span class="dv">5</span>)) <span class="sc">+</span></span>
+<span id="cb73-31"><a href="#cb73-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">'Cutibacterium acnes</span><span class="sc">\n</span><span class="st">Propionate metabolism'</span>) <span class="sc">+</span></span>
+<span id="cb73-32"><a href="#cb73-32" aria-hidden="true" tabindex="-1"></a>  my_theme_cacnes</span>
+<span id="cb73-33"><a href="#cb73-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-34"><a href="#cb73-34" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(flux_diff_ppa)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Figure4_SuppFig14_15_files/figure-html/barplotspropcacnes-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb74"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(</span>
+<span id="cb74-2"><a href="#cb74-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">file.path</span>(<span class="st">'..'</span>,<span class="st">'plots'</span>, <span class="st">'Figure4C.svg'</span>),</span>
+<span id="cb74-3"><a href="#cb74-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">plot =</span> flux_diff_ppa,</span>
+<span id="cb74-4"><a href="#cb74-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">device =</span> <span class="st">"svg"</span>,</span>
+<span id="cb74-5"><a href="#cb74-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">width =</span> <span class="dv">6</span>,</span>
+<span id="cb74-6"><a href="#cb74-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">height =</span> <span class="dv">5</span></span>
+<span id="cb74-7"><a href="#cb74-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb74-8"><a href="#cb74-8" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(</span>
+<span id="cb74-9"><a href="#cb74-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">file.path</span>(<span class="st">'..'</span>,<span class="st">'plots'</span>, <span class="st">'Figure4C.pdf'</span>),</span>
+<span id="cb74-10"><a href="#cb74-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">plot =</span> flux_diff_ppa,</span>
+<span id="cb74-11"><a href="#cb74-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">device =</span> <span class="st">"pdf"</span>,</span>
+<span id="cb74-12"><a href="#cb74-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">width =</span> <span class="dv">8</span>,</span>
+<span id="cb74-13"><a href="#cb74-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">height =</span> <span class="dv">6</span></span>
+<span id="cb74-14"><a href="#cb74-14" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="bar-plots-amino-acids" class="level1">
+<h1>Bar plots Amino acids</h1>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb75"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a>bar_plot_data_aa_pr <span class="ot">&lt;-</span> flux_samples_cacnes_to_plot <span class="sc">%&gt;%</span></span>
+<span id="cb75-2"><a href="#cb75-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(</span>
+<span id="cb75-3"><a href="#cb75-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">'HISD'</span>,</span>
+<span id="cb75-4"><a href="#cb75-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">'IZPN'</span>,</span>
+<span id="cb75-5"><a href="#cb75-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">'NFLGLNH'</span>,</span>
+<span id="cb75-6"><a href="#cb75-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">'NFORGLUAH'</span>,</span>
+<span id="cb75-7"><a href="#cb75-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">'URCN'</span>,</span>
+<span id="cb75-8"><a href="#cb75-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">'EX_his_L(e)'</span>,</span>
+<span id="cb75-9"><a href="#cb75-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">'HISt2r'</span>,</span>
+<span id="cb75-10"><a href="#cb75-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">'PRO1x'</span>,</span>
+<span id="cb75-11"><a href="#cb75-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">'PROt2r'</span>,</span>
+<span id="cb75-12"><a href="#cb75-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">'P5CD'</span>,</span>
+<span id="cb75-13"><a href="#cb75-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">'EX_pro_L(e)'</span></span>
+<span id="cb75-14"><a href="#cb75-14" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span> </span>
+<span id="cb75-15"><a href="#cb75-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rownames_to_column</span>(<span class="st">'label'</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb75-16"><a href="#cb75-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(metadata_cacnes, <span class="at">by =</span> <span class="st">'label'</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb75-17"><a href="#cb75-17" aria-hidden="true" tabindex="-1"></a>  reshape2<span class="sc">::</span><span class="fu">melt</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb75-18"><a href="#cb75-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(group, variable) <span class="sc">%&gt;%</span></span>
+<span id="cb75-19"><a href="#cb75-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">val =</span> <span class="fu">mean</span>(value), <span class="at">stddev =</span> <span class="fu">sd</span>(value)) <span class="sc">%&gt;%</span></span>
+<span id="cb75-20"><a href="#cb75-20" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="st">'reaction'</span> <span class="ot">=</span> <span class="st">'variable'</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb75-21"><a href="#cb75-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(df_res_fil <span class="sc">%&gt;%</span></span>
+<span id="cb75-22"><a href="#cb75-22" aria-hidden="true" tabindex="-1"></a>              dplyr<span class="sc">::</span><span class="fu">select</span>(reaction, Subsytems),</span>
+<span id="cb75-23"><a href="#cb75-23" aria-hidden="true" tabindex="-1"></a>            <span class="at">by =</span> <span class="st">'reaction'</span>)</span>
+<span id="cb75-24"><a href="#cb75-24" aria-hidden="true" tabindex="-1"></a>bar_plot_data_aa_pr<span class="sc">$</span>val[<span class="fu">is.na</span>(bar_plot_data_aa_pr<span class="sc">$</span>val)] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb75-25"><a href="#cb75-25" aria-hidden="true" tabindex="-1"></a>bar_plot_data_aa_pr <span class="ot">&lt;-</span> bar_plot_data_aa_pr <span class="sc">%&gt;%</span></span>
+<span id="cb75-26"><a href="#cb75-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb75-27"><a href="#cb75-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">Subsytems1 =</span> <span class="fu">case_when</span>(</span>
+<span id="cb75-28"><a href="#cb75-28" aria-hidden="true" tabindex="-1"></a>      reaction <span class="sc">==</span> <span class="st">'HISD'</span> <span class="sc">~</span> <span class="st">'Histidine metabolism'</span>,</span>
+<span id="cb75-29"><a href="#cb75-29" aria-hidden="true" tabindex="-1"></a>      reaction <span class="sc">==</span> <span class="st">'IZPN'</span> <span class="sc">~</span> <span class="st">'Histidine metabolism'</span>,</span>
+<span id="cb75-30"><a href="#cb75-30" aria-hidden="true" tabindex="-1"></a>      reaction <span class="sc">==</span> <span class="st">'NFLGLNH'</span> <span class="sc">~</span> <span class="st">'Histidine metabolism'</span>,</span>
+<span id="cb75-31"><a href="#cb75-31" aria-hidden="true" tabindex="-1"></a>      reaction <span class="sc">==</span> <span class="st">'NFORGLUAH'</span> <span class="sc">~</span> <span class="st">'Histidine metabolism'</span>,</span>
+<span id="cb75-32"><a href="#cb75-32" aria-hidden="true" tabindex="-1"></a>      reaction <span class="sc">==</span> <span class="st">'URCN'</span> <span class="sc">~</span> <span class="st">'Histidine metabolism'</span>,</span>
+<span id="cb75-33"><a href="#cb75-33" aria-hidden="true" tabindex="-1"></a>      reaction <span class="sc">==</span> <span class="st">'EX_his_L(e)'</span> <span class="sc">~</span> <span class="st">'Histidine metabolism'</span>,</span>
+<span id="cb75-34"><a href="#cb75-34" aria-hidden="true" tabindex="-1"></a>      reaction <span class="sc">==</span> <span class="st">'EX_arg_L(e)'</span> <span class="sc">~</span> <span class="st">'Proline and glutamate metabolism'</span>,</span>
+<span id="cb75-35"><a href="#cb75-35" aria-hidden="true" tabindex="-1"></a>      reaction <span class="sc">==</span> <span class="st">'EX_pro_L(e)'</span> <span class="sc">~</span> <span class="st">'Proline and glutamate metabolism'</span>,</span>
+<span id="cb75-36"><a href="#cb75-36" aria-hidden="true" tabindex="-1"></a>      reaction <span class="sc">==</span> <span class="st">'EX_glu_L(e)'</span> <span class="sc">~</span> <span class="st">'Glutamate metabolism'</span>,</span>
+<span id="cb75-37"><a href="#cb75-37" aria-hidden="true" tabindex="-1"></a>      reaction <span class="sc">==</span> <span class="st">'PROt2r'</span> <span class="sc">~</span> <span class="st">'Proline and glutamate metabolism'</span>,</span>
+<span id="cb75-38"><a href="#cb75-38" aria-hidden="true" tabindex="-1"></a>      reaction <span class="sc">==</span> <span class="st">'HISt2r'</span> <span class="sc">~</span> <span class="st">'Histidine metabolism'</span>,</span>
+<span id="cb75-39"><a href="#cb75-39" aria-hidden="true" tabindex="-1"></a>      reaction <span class="sc">==</span> <span class="st">'P5CD'</span> <span class="sc">~</span> <span class="st">'Proline and glutamate metabolism'</span>,</span>
+<span id="cb75-40"><a href="#cb75-40" aria-hidden="true" tabindex="-1"></a>      reaction <span class="sc">==</span> <span class="st">'PRO1x'</span> <span class="sc">~</span> <span class="st">'Proline and glutamate metabolism'</span>,</span>
+<span id="cb75-41"><a href="#cb75-41" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb75-42"><a href="#cb75-42" aria-hidden="true" tabindex="-1"></a>      <span class="cn">TRUE</span> <span class="sc">~</span> Subsytems</span>
+<span id="cb75-43"><a href="#cb75-43" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb75-44"><a href="#cb75-44" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb75-45"><a href="#cb75-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb75-46"><a href="#cb75-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb75-47"><a href="#cb75-47" aria-hidden="true" tabindex="-1"></a>bar_plot_data_aa_pr<span class="sc">$</span>reaction <span class="ot">&lt;-</span></span>
+<span id="cb75-48"><a href="#cb75-48" aria-hidden="true" tabindex="-1"></a>  <span class="fu">factor</span>(</span>
+<span id="cb75-49"><a href="#cb75-49" aria-hidden="true" tabindex="-1"></a>    bar_plot_data_aa_pr<span class="sc">$</span>reaction,</span>
+<span id="cb75-50"><a href="#cb75-50" aria-hidden="true" tabindex="-1"></a>    <span class="at">levels =</span> <span class="fu">c</span>(</span>
+<span id="cb75-51"><a href="#cb75-51" aria-hidden="true" tabindex="-1"></a>      <span class="st">'EX_pro_L(e)'</span>,</span>
+<span id="cb75-52"><a href="#cb75-52" aria-hidden="true" tabindex="-1"></a>      <span class="st">'PROt2r'</span>,</span>
+<span id="cb75-53"><a href="#cb75-53" aria-hidden="true" tabindex="-1"></a>      <span class="st">'PRO1x'</span>,</span>
+<span id="cb75-54"><a href="#cb75-54" aria-hidden="true" tabindex="-1"></a>      <span class="st">'P5CD'</span>,</span>
+<span id="cb75-55"><a href="#cb75-55" aria-hidden="true" tabindex="-1"></a>      <span class="st">'EX_glu_L(e)'</span>,</span>
+<span id="cb75-56"><a href="#cb75-56" aria-hidden="true" tabindex="-1"></a>      <span class="st">'EX_his_L(e)'</span>,</span>
+<span id="cb75-57"><a href="#cb75-57" aria-hidden="true" tabindex="-1"></a>      <span class="st">'HISt2r'</span>,</span>
+<span id="cb75-58"><a href="#cb75-58" aria-hidden="true" tabindex="-1"></a>      <span class="st">'HISD'</span>,</span>
+<span id="cb75-59"><a href="#cb75-59" aria-hidden="true" tabindex="-1"></a>      <span class="st">'IZPN'</span>,</span>
+<span id="cb75-60"><a href="#cb75-60" aria-hidden="true" tabindex="-1"></a>      <span class="st">'NFLGLNH'</span>,</span>
+<span id="cb75-61"><a href="#cb75-61" aria-hidden="true" tabindex="-1"></a>      <span class="st">'NFORGLUAH'</span>,</span>
+<span id="cb75-62"><a href="#cb75-62" aria-hidden="true" tabindex="-1"></a>      <span class="st">'URCN'</span></span>
+<span id="cb75-63"><a href="#cb75-63" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb75-64"><a href="#cb75-64" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb75-65"><a href="#cb75-65" aria-hidden="true" tabindex="-1"></a>flux_diff_aa_pr <span class="ot">&lt;-</span></span>
+<span id="cb75-66"><a href="#cb75-66" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(bar_plot_data_aa_pr, <span class="fu">aes</span>(<span class="at">x =</span> reaction, <span class="at">y =</span> val, <span class="at">fill =</span> group)) <span class="sc">+</span></span>
+<span id="cb75-67"><a href="#cb75-67" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>,</span>
+<span id="cb75-68"><a href="#cb75-68" aria-hidden="true" tabindex="-1"></a>           <span class="at">color =</span> <span class="st">"black"</span>,</span>
+<span id="cb75-69"><a href="#cb75-69" aria-hidden="true" tabindex="-1"></a>           <span class="at">position =</span> <span class="fu">position_dodge</span>()) <span class="sc">+</span></span>
+<span id="cb75-70"><a href="#cb75-70" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>( <span class="sc">~</span> Subsytems1, <span class="at">scales =</span> <span class="st">'free'</span>) <span class="sc">+</span></span>
+<span id="cb75-71"><a href="#cb75-71" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">'Mean flux value </span><span class="sc">\n</span><span class="st"> (mmol/gDCW hr)'</span>) <span class="sc">+</span></span>
+<span id="cb75-72"><a href="#cb75-72" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">'Reactions'</span>) <span class="sc">+</span></span>
+<span id="cb75-73"><a href="#cb75-73" aria-hidden="true" tabindex="-1"></a>  my_theme_cacnes <span class="sc">+</span></span>
+<span id="cb75-74"><a href="#cb75-74" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">strip.text =</span> <span class="fu">element_text</span>(<span class="at">face=</span><span class="st">"bold"</span>))<span class="sc">+</span></span>
+<span id="cb75-75"><a href="#cb75-75" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">fill =</span> <span class="st">'Site'</span>) <span class="sc">+</span></span>
+<span id="cb75-76"><a href="#cb75-76" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(</span>
+<span id="cb75-77"><a href="#cb75-77" aria-hidden="true" tabindex="-1"></a>    <span class="st">'cheek'</span> <span class="ot">=</span> <span class="st">'dodgerblue'</span>,</span>
+<span id="cb75-78"><a href="#cb75-78" aria-hidden="true" tabindex="-1"></a>    <span class="st">'scalp'</span> <span class="ot">=</span> <span class="st">'goldenrod1'</span></span>
+<span id="cb75-79"><a href="#cb75-79" aria-hidden="true" tabindex="-1"></a>  )) <span class="sc">+</span></span>
+<span id="cb75-80"><a href="#cb75-80" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">'Cutibacterium acnes'</span>)</span>
+<span id="cb75-81"><a href="#cb75-81" aria-hidden="true" tabindex="-1"></a>flux_diff_aa_pr</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Figure4_SuppFig14_15_files/figure-html/prolineacnes-1.png" class="img-fluid figure-img" width="1440"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb76"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(</span>
+<span id="cb76-2"><a href="#cb76-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">file.path</span>(<span class="st">'..'</span>,<span class="st">'plots'</span>, <span class="st">'Figure4D.svg'</span>),</span>
+<span id="cb76-3"><a href="#cb76-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">plot =</span> flux_diff_aa_pr,</span>
+<span id="cb76-4"><a href="#cb76-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">device =</span> <span class="st">"svg"</span>,</span>
+<span id="cb76-5"><a href="#cb76-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">width =</span> <span class="dv">14</span>,</span>
+<span id="cb76-6"><a href="#cb76-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">height =</span> <span class="dv">5</span></span>
+<span id="cb76-7"><a href="#cb76-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb76-8"><a href="#cb76-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb76-9"><a href="#cb76-9" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(</span>
+<span id="cb76-10"><a href="#cb76-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">file.path</span>(<span class="st">'..'</span>,<span class="st">'plots'</span>, <span class="st">'Figure4D.pdf'</span>),</span>
+<span id="cb76-11"><a href="#cb76-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">plot =</span> flux_diff_aa_pr,</span>
+<span id="cb76-12"><a href="#cb76-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">device =</span> <span class="st">"pdf"</span>,</span>
+<span id="cb76-13"><a href="#cb76-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">width =</span> <span class="dv">14</span>,</span>
+<span id="cb76-14"><a href="#cb76-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">height =</span> <span class="dv">5</span></span>
+<span id="cb76-15"><a href="#cb76-15" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

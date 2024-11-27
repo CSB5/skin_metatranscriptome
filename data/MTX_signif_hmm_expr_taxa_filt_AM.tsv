@@ -1,0 +1,546 @@
+LIBID	query_name	unpaired_read_count	pangene	k2_taxon	Uniref90_ID	description_of_target	region
+MHS328	MET_00876468	45	MET_00876468	Staphylococcus_epidermidis	UniRef90_A0A509LRT7	halocin C8 precursor-like protein	Ch
+MHS328	MET_02967399	16	MET_02967399	Cutibacterium_acnes	-	thiazolylpeptide-type bacteriocin precursor	Ch
+MHS328	MET_02967399	16	MET_02967399	Cutibacterium_acnes	-	thiazolylpeptide-type bacteriocin	Ch
+MHS328	MET_00876468	45	MET_00876468	Staphylococcus_epidermidis	UniRef90_A0A509LRT7	bacteriocin halocin C8-like domain	Ch
+MHS328	MET_03032000	1	MET_03032000	Staphylococcus_epidermidis	-	bacteriocin halocin C8-like domain	Ch
+MHS328	UniRef90_Q6A9K8	2	-	Cutibacterium_acnes	UniRef90_Q6A9K8	lactococcin 972 family bacteriocin	Ch
+MHS328	UniRef90_A0A7X9ZJ38	2	-	Staphylococcus_capitis	UniRef90_A0A7X9ZJ38	cyclic lactone autoinducer peptide	Ch
+MHS328	UniRef90_O86860	60	-	Staphylococcus_epidermidis	UniRef90_O86860	cyclic lactone autoinducer peptide	Ch
+MHS328	MET_03027534	19	MET_03027534	Staphylococcus_epidermidis	-	cyclic lactone autoinducer peptide	Ch
+MHS330	UniRef90_A0A4Q9WQR6	10	-	Staphylococcus_hominis	UniRef90_A0A4Q9WQR6	cyclic lactone autoinducer peptide	Vf
+MHS330	UniRef90_Q8VSX3	5	-	Staphylococcus_epidermidis	UniRef90_Q8VSX3	cyclic lactone autoinducer peptide	Vf
+MHS331	UniRef90_Q8VSX3	6	-	Staphylococcus_epidermidis	UniRef90_Q8VSX3	cyclic lactone autoinducer peptide	Ch
+MHS331	MET_02967399	145	MET_02967399	Cutibacterium_acnes	-	thiazolylpeptide-type bacteriocin	Ch
+MHS331	UniRef90_Q6A9K8	1	-	Cutibacterium_acnes	UniRef90_Q6A9K8	lactococcin 972 family bacteriocin	Ch
+MHS331	UniRef90_Q8VT00	8	-	Staphylococcus_capitis	UniRef90_Q8VT00	cyclic lactone autoinducer peptide	Ch
+MHS331	UniRef90_Q8VT03	22	-	Staphylococcus_capitis	UniRef90_Q8VT03	cyclic lactone autoinducer peptide	Ch
+MHS331	genome_07259151	3	genome_07259151	Staphylococcus_capitis	-	epsilon family phenol-soluble modulin	Ch
+MHS331	UniRef90_A0A7X9ZJ38	39	-	Staphylococcus_capitis	UniRef90_A0A7X9ZJ38	cyclic lactone autoinducer peptide	Ch
+MHS331	MET_02986711	2	MET_02986711	Staphylococcus_capitis	-	gallidermin/nisin family lantibiotic	Ch
+MHS331	MET_02967399	145	MET_02967399	Cutibacterium_acnes	-	thiazolylpeptide-type bacteriocin precursor	Ch
+MHS331	DP_08230762	197	DP_08230762	Staphylococcus_epidermidis	UniRef90_A0A0K0PRV8	lacticin 481 family lantibiotic	Ch
+MHS332	UniRef90_A0A3S0TL63	1	-	Staphylococcus_epidermidis	UniRef90_A0A3S0TL63	cyclic lactone autoinducer peptide	Tw
+MHS332	UniRef90_Q8VSX3	231	-	Staphylococcus_epidermidis	UniRef90_Q8VSX3	cyclic lactone autoinducer peptide	Tw
+MHS332	UniRef90_A0A2T9VBC8	2	-	Staphylococcus_epidermidis	UniRef90_A0A2T9VBC8	PSM-delta family phenol-soluble modulin	Tw
+MHS332	UniRef90_O86860	13	-	Staphylococcus_epidermidis	UniRef90_O86860	cyclic lactone autoinducer peptide	Tw
+MHS333	UniRef90_Q8VT03	13	-	Staphylococcus_capitis	UniRef90_Q8VT03	cyclic lactone autoinducer peptide	Sc
+MHS333	MET_02967399	43	MET_02967399	Cutibacterium_acnes	-	thiazolylpeptide-type bacteriocin	Sc
+MHS333	MET_02967399	43	MET_02967399	Cutibacterium_acnes	-	thiazolylpeptide-type bacteriocin precursor	Sc
+MHS333	MET_03151623	11	MET_03151623	Cutibacterium_acnes	-	thiazolylpeptide-type bacteriocin precursor	Sc
+MHS334	MET_02967399	30	MET_02967399	Cutibacterium_acnes	-	thiazolylpeptide-type bacteriocin	Ac
+MHS334	MET_02967399	30	MET_02967399	Cutibacterium_acnes	-	thiazolylpeptide-type bacteriocin precursor	Ac
+MHS336	UniRef90_A0A4Q9WQR6	150	-	Staphylococcus_hominis	UniRef90_A0A4Q9WQR6	cyclic lactone autoinducer peptide	Ac
+MHS336	MET_03142466	8	MET_03142466	Staphylococcus_hominis	UniRef90_A0A657M3E8	cyclic lactone autoinducer peptide	Ac
+MHS336	UniRef90_O86860	3	-	Staphylococcus_epidermidis	UniRef90_O86860	cyclic lactone autoinducer peptide	Ac
+MHS336	MET_02698842	2	MET_02698842	Staphylococcus_epidermidis	-	plantaricin C family lantibiotic	Ac
+MHS336	UniRef90_Q8VSX3	6	-	Staphylococcus_epidermidis	UniRef90_Q8VSX3	cyclic lactone autoinducer peptide	Ac
+MHS336	MET_03027534	1	MET_03027534	Staphylococcus_epidermidis	-	cyclic lactone autoinducer peptide	Ac
+MHS338	MET_03040834	4	MET_03040834	Staphylococcus_hominis	UniRef90_E0WX65	lacticin 481 family lantibiotic	Vf
+MHS339	MET_03040834	4	MET_03040834	Staphylococcus_hominis	UniRef90_E0WX65	lacticin 481 family lantibiotic	Tw
+MHS341	MET_02967399	18	MET_02967399	Cutibacterium_acnes	-	thiazolylpeptide-type bacteriocin precursor	Ac
+MHS341	MET_02967399	18	MET_02967399	Cutibacterium_acnes	-	thiazolylpeptide-type bacteriocin	Ac
+MHS341	MET_03027534	1	MET_03027534	Staphylococcus_epidermidis	-	cyclic lactone autoinducer peptide	Ac
+MHS341	UniRef90_A0A4Q9WQR6	6	-	Staphylococcus_hominis	UniRef90_A0A4Q9WQR6	cyclic lactone autoinducer peptide	Ac
+MHS341	UniRef90_O86860	1	-	Staphylococcus_epidermidis	UniRef90_O86860	cyclic lactone autoinducer peptide	Ac
+MHS344	MET_03151623	98	MET_03151623	Cutibacterium_acnes	-	thiazolylpeptide-type bacteriocin precursor	Sc
+MHS345	UniRef90_Q8VSX3	25	-	Staphylococcus_epidermidis	UniRef90_Q8VSX3	cyclic lactone autoinducer peptide	Vf
+MHS345	MET_03027534	1	MET_03027534	Staphylococcus_epidermidis	-	cyclic lactone autoinducer peptide	Vf
+MHS347	MET_03040834	2	MET_03040834	Staphylococcus	UniRef90_E0WX65	lacticin 481 family lantibiotic	Tw
+MHS347	UniRef90_A0A4Q9WQR6	143	-	Staphylococcus_hominis	UniRef90_A0A4Q9WQR6	cyclic lactone autoinducer peptide	Tw
+MHS347	MET_03040834	256	MET_03040834	Staphylococcus_hominis	UniRef90_E0WX65	lacticin 481 family lantibiotic	Tw
+MHS347	UniRef90_O86860	19	-	Staphylococcus_epidermidis	UniRef90_O86860	cyclic lactone autoinducer peptide	Tw
+MHS349	MET_03027534	3	MET_03027534	Staphylococcus_epidermidis	-	cyclic lactone autoinducer peptide	Sc
+MHS349	UniRef90_O86860	10	-	Staphylococcus_epidermidis	UniRef90_O86860	cyclic lactone autoinducer peptide	Sc
+MHS349	MET_03151623	9	MET_03151623	Cutibacterium_acnes	-	thiazolylpeptide-type bacteriocin precursor	Sc
+MHS349	MET_02967399	21	MET_02967399	Cutibacterium_acnes	-	thiazolylpeptide-type bacteriocin	Sc
+MHS349	UniRef90_Q6A9K8	2	-	Cutibacterium_acnes	UniRef90_Q6A9K8	lactococcin 972 family bacteriocin	Sc
+MHS349	genome_07259151	1	genome_07259151	Staphylococcus_capitis	-	epsilon family phenol-soluble modulin	Sc
+MHS349	UniRef90_Q8VT03	15	-	Staphylococcus_capitis	UniRef90_Q8VT03	cyclic lactone autoinducer peptide	Sc
+MHS349	MET_02967399	21	MET_02967399	Cutibacterium_acnes	-	thiazolylpeptide-type bacteriocin precursor	Sc
+MHS351	UniRef90_A0A4Q9WQR6	1	-	Staphylococcus_hominis	UniRef90_A0A4Q9WQR6	cyclic lactone autoinducer peptide	Vf
+MHS355	MET_02967399	31	MET_02967399	Cutibacterium_acnes	-	thiazolylpeptide-type bacteriocin precursor	Ac
+MHS355	MET_00876468	9	MET_00876468	Staphylococcus_epidermidis	UniRef90_A0A509LRT7	halocin C8 precursor-like protein	Ac
+MHS355	UniRef90_A0A650A8S0	1172	-	Staphylococcus_capitis	UniRef90_A0A650A8S0	gallidermin/nisin family lantibiotic	Ac
+MHS355	UniRef90_O86860	3	-	Staphylococcus_epidermidis	UniRef90_O86860	cyclic lactone autoinducer peptide	Ac
+MHS355	DP_07471654	2	DP_07471654	Staphylococcus_epidermidis	-	bacteriocin halocin C8-like domain	Ac
+MHS355	MET_02956429	2	MET_02956429	Staphylococcus_epidermidis	-	bacteriocin halocin C8-like domain	Ac
+MHS355	UniRef90_Q8VT03	33	-	Staphylococcus_capitis	UniRef90_Q8VT03	cyclic lactone autoinducer peptide	Ac
+MHS355	MET_03151623	10	MET_03151623	Cutibacterium_acnes	-	thiazolylpeptide-type bacteriocin precursor	Ac
+MHS355	MET_03027534	13	MET_03027534	Staphylococcus_epidermidis	-	cyclic lactone autoinducer peptide	Ac
+MHS355	MET_00876468	9	MET_00876468	Staphylococcus_epidermidis	UniRef90_A0A509LRT7	bacteriocin halocin C8-like domain	Ac
+MHS355	MET_02967399	31	MET_02967399	Cutibacterium_acnes	-	thiazolylpeptide-type bacteriocin	Ac
+MHS355	MET_03040834	2	MET_03040834	Staphylococcus	UniRef90_E0WX65	lacticin 481 family lantibiotic	Ac
+MHS357	UniRef90_A0A364UNY4	1	-	Staphylococcus	UniRef90_A0A364UNY4	cyclic lactone autoinducer peptide	Sc
+MHS357	genome_07446594	2	genome_07446594	Staphylococcus	UniRef90_A0A364UNY4	cyclic lactone autoinducer peptide	Sc
+MHS358	MET_02967399	27	MET_02967399	Cutibacterium_acnes	-	thiazolylpeptide-type bacteriocin precursor	Tw
+MHS358	MET_02967399	27	MET_02967399	Cutibacterium_acnes	-	thiazolylpeptide-type bacteriocin	Tw
+MHS358	UniRef90_Q8VT03	27	-	Staphylococcus_capitis	UniRef90_Q8VT03	cyclic lactone autoinducer peptide	Tw
+MHS361	MET_03040834	1	MET_03040834	Staphylococcus	UniRef90_E0WX65	lacticin 481 family lantibiotic	Vf
+MHS363	UniRef90_A0A4Q9WQR6	22	-	Staphylococcus_hominis	UniRef90_A0A4Q9WQR6	cyclic lactone autoinducer peptide	Vf
+MHS364	genome_00627375	81	genome_00627375	Streptococcus	UniRef90_Q54970	pyruvate oxidase	Vf
+MHS364	MET_02967399	49	MET_02967399	Cutibacterium_acnes	-	thiazolylpeptide-type bacteriocin precursor	Vf
+MHS364	MET_02967399	49	MET_02967399	Cutibacterium_acnes	-	thiazolylpeptide-type bacteriocin	Vf
+MHS364	MET_03142466	8	MET_03142466	Staphylococcus_hominis	UniRef90_A0A657M3E8	cyclic lactone autoinducer peptide	Vf
+MHS364	UniRef90_A0A1F1BU57	166	-	Staphylococcus_hominis	UniRef90_A0A1F1BU57	cyclic lactone autoinducer peptide	Vf
+MHS365	MET_03040834	716	MET_03040834	Staphylococcus_hominis	UniRef90_E0WX65	lacticin 481 family lantibiotic	Vf
+MHS365	MET_03040834	8	MET_03040834	Staphylococcus	UniRef90_E0WX65	lacticin 481 family lantibiotic	Vf
+MHS367	MET_02698842	2	MET_02698842	Staphylococcus_epidermidis	-	plantaricin C family lantibiotic	Vf
+MHS367	UniRef90_A0A4Q9WQR6	7	-	Staphylococcus_hominis	UniRef90_A0A4Q9WQR6	cyclic lactone autoinducer peptide	Vf
+MHS367	UniRef90_Q8VSX3	11	-	Staphylococcus_epidermidis	UniRef90_Q8VSX3	cyclic lactone autoinducer peptide	Vf
+MHS367	MET_03040834	2	MET_03040834	Staphylococcus	UniRef90_E0WX65	lacticin 481 family lantibiotic	Vf
+MHS367	MET_03040834	211	MET_03040834	Staphylococcus_hominis	UniRef90_E0WX65	lacticin 481 family lantibiotic	Vf
+MHS367	MET_02967399	10	MET_02967399	Cutibacterium_acnes	-	thiazolylpeptide-type bacteriocin	Vf
+MHS367	MET_02967399	10	MET_02967399	Cutibacterium_acnes	-	thiazolylpeptide-type bacteriocin precursor	Vf
+MHS368	MET_03040834	1	MET_03040834	Staphylococcus_hominis	UniRef90_E0WX65	lacticin 481 family lantibiotic	Vf
+MHS368	UniRef90_O86860	9	-	Staphylococcus_epidermidis	UniRef90_O86860	cyclic lactone autoinducer peptide	Vf
+MHS368	DP_08230762	46	DP_08230762	Staphylococcus_epidermidis	UniRef90_A0A0K0PRV8	lacticin 481 family lantibiotic	Vf
+MHS368	MET_03027534	5	MET_03027534	Staphylococcus_epidermidis	-	cyclic lactone autoinducer peptide	Vf
+MHS368	UniRef90_A0A7X9ZJ38	8	-	Staphylococcus_capitis	UniRef90_A0A7X9ZJ38	cyclic lactone autoinducer peptide	Vf
+MHS368	UniRef90_A0A4Q9WQR6	19	-	Staphylococcus_hominis	UniRef90_A0A4Q9WQR6	cyclic lactone autoinducer peptide	Vf
+MHS370	MET_03146608	205	MET_03146608	Staphylococcus_caprae	UniRef90_Q8VSZ4	cyclic lactone autoinducer peptide	Tw
+MHS370	UniRef90_Q8VSX3	117	-	Staphylococcus_epidermidis	UniRef90_Q8VSX3	cyclic lactone autoinducer peptide	Tw
+MHS371	MET_02967399	2	MET_02967399	Cutibacterium_acnes	-	thiazolylpeptide-type bacteriocin	Ac
+MHS371	MET_02967399	2	MET_02967399	Cutibacterium_acnes	-	thiazolylpeptide-type bacteriocin precursor	Ac
+MHS372	MET_03040834	307	MET_03040834	Staphylococcus	UniRef90_E0WX65	lacticin 481 family lantibiotic	Tw
+MHS372	UniRef90_UPI00138AB48B	46	-	Staphylococcus_epidermidis	UniRef90_UPI00138AB48B	bacteriocin halocin C8-like domain	Tw
+MHS372	MET_00876468	89	MET_00876468	Staphylococcus_epidermidis	UniRef90_A0A509LRT7	halocin C8 precursor-like protein	Tw
+MHS372	UniRef90_A0A4Q9WQR6	327	-	Staphylococcus_hominis	UniRef90_A0A4Q9WQR6	cyclic lactone autoinducer peptide	Tw
+MHS372	UniRef90_Q8VSX3	70	-	Staphylococcus_epidermidis	UniRef90_Q8VSX3	cyclic lactone autoinducer peptide	Tw
+MHS372	MET_02307432	46	MET_02307432	Staphylococcus_epidermidis	-	bacteriocin halocin C8-like domain	Tw
+MHS372	MET_03040834	14612	MET_03040834	Staphylococcus_hominis	UniRef90_E0WX65	lacticin 481 family lantibiotic	Tw
+MHS372	MET_03142466	39	MET_03142466	Staphylococcus_hominis	UniRef90_A0A657M3E8	cyclic lactone autoinducer peptide	Tw
+MHS372	UniRef90_E0WX65	4	-	Staphylococcus_hominis	UniRef90_E0WX65	lacticin 481 family lantibiotic	Tw
+MHS372	MET_03032000	2	MET_03032000	Staphylococcus_epidermidis	-	bacteriocin halocin C8-like domain	Tw
+MHS372	MET_00876468	89	MET_00876468	Staphylococcus_epidermidis	UniRef90_A0A509LRT7	bacteriocin halocin C8-like domain	Tw
+MHS373	MET_02967399	16	MET_02967399	Cutibacterium_acnes	-	thiazolylpeptide-type bacteriocin precursor	Sc
+MHS373	UniRef90_Q8VT03	106	-	Staphylococcus_capitis	UniRef90_Q8VT03	cyclic lactone autoinducer peptide	Sc
+MHS373	UniRef90_A0A4Q9WQR6	1	-	Staphylococcus_hominis	UniRef90_A0A4Q9WQR6	cyclic lactone autoinducer peptide	Sc
+MHS373	UniRef90_Q8VSX3	4	-	Staphylococcus_epidermidis	UniRef90_Q8VSX3	cyclic lactone autoinducer peptide	Sc
+MHS373	MET_02967399	16	MET_02967399	Cutibacterium_acnes	-	thiazolylpeptide-type bacteriocin	Sc
+MHS373	DP_08230762	3	DP_08230762	Staphylococcus_epidermidis	UniRef90_A0A0K0PRV8	lacticin 481 family lantibiotic	Sc
+MHS373	MET_02307432	14	MET_02307432	Staphylococcus_epidermidis	-	bacteriocin halocin C8-like domain	Sc
+MHS374	MET_02967399	19	MET_02967399	Cutibacterium_acnes	-	thiazolylpeptide-type bacteriocin precursor	Ch
+MHS374	MET_02967399	19	MET_02967399	Cutibacterium_acnes	-	thiazolylpeptide-type bacteriocin	Ch
+MHS375	genome_07446594	11	genome_07446594	Staphylococcus_warneri	UniRef90_A0A364UNY4	cyclic lactone autoinducer peptide	Tw
+MHS375	UniRef90_Q8VT00	10	-	Staphylococcus_capitis	UniRef90_Q8VT00	cyclic lactone autoinducer peptide	Tw
+MHS377	UniRef90_O86860	436	-	Staphylococcus_epidermidis	UniRef90_O86860	cyclic lactone autoinducer peptide	Tw
+MHS377	UniRef90_A0A2A1KAK5	9	-	Staphylococcus_haemolyticus	UniRef90_A0A2A1KAK5	cyclic lactone autoinducer peptide	Tw
+MHS377	DP_07471654	2	DP_07471654	Staphylococcus_epidermidis	-	bacteriocin halocin C8-like domain	Tw
+MHS377	MET_03142466	3	MET_03142466	Staphylococcus_hominis	UniRef90_A0A657M3E8	cyclic lactone autoinducer peptide	Tw
+MHS377	UniRef90_A0A657M3E8	1	-	Staphylococcus_hominis	UniRef90_A0A657M3E8	cyclic lactone autoinducer peptide	Tw
+MHS377	UniRef90_A0A2K4C894	1	-	Staphylococcus_haemolyticus	UniRef90_A0A2K4C894	cyclic lactone autoinducer peptide	Tw
+MHS377	UniRef90_Q8VT00	1	-	Staphylococcus_capitis	UniRef90_Q8VT00	cyclic lactone autoinducer peptide	Tw
+MHS377	MET_00876468	68	MET_00876468	Staphylococcus_epidermidis	UniRef90_A0A509LRT7	halocin C8 precursor-like protein	Tw
+MHS377	MET_03032000	2	MET_03032000	Staphylococcus_epidermidis	-	bacteriocin halocin C8-like domain	Tw
+MHS377	MET_03027534	239	MET_03027534	Staphylococcus_epidermidis	-	cyclic lactone autoinducer peptide	Tw
+MHS377	MET_02956429	1	MET_02956429	Staphylococcus_epidermidis	-	bacteriocin halocin C8-like domain	Tw
+MHS377	UniRef90_A0A3S0TL63	5	-	Staphylococcus_epidermidis	UniRef90_A0A3S0TL63	cyclic lactone autoinducer peptide	Tw
+MHS377	UniRef90_Q8VSX3	265	-	Staphylococcus_epidermidis	UniRef90_Q8VSX3	cyclic lactone autoinducer peptide	Tw
+MHS377	UniRef90_A0A2T4SN36	1	-	Staphylococcus_haemolyticus	UniRef90_A0A2T4SN36	cyclic lactone autoinducer peptide	Tw
+MHS377	genome_07446594	14	genome_07446594	Staphylococcus_warneri	UniRef90_A0A364UNY4	cyclic lactone autoinducer peptide	Tw
+MHS377	MET_00876468	68	MET_00876468	Staphylococcus_epidermidis	UniRef90_A0A509LRT7	bacteriocin halocin C8-like domain	Tw
+MHS378	UniRef90_Q6A9K8	5	-	Cutibacterium_acnes	UniRef90_Q6A9K8	lactococcin 972 family bacteriocin	Sc
+MHS378	MET_02967399	95	MET_02967399	Cutibacterium_acnes	-	thiazolylpeptide-type bacteriocin precursor	Sc
+MHS378	UniRef90_Q8VT03	4	-	Staphylococcus_capitis	UniRef90_Q8VT03	cyclic lactone autoinducer peptide	Sc
+MHS378	MET_02967399	95	MET_02967399	Cutibacterium_acnes	-	thiazolylpeptide-type bacteriocin	Sc
+MHS378	MET_03151623	21	MET_03151623	Cutibacterium_acnes	-	thiazolylpeptide-type bacteriocin precursor	Sc
+MHS378	MET_03040834	2	MET_03040834	Staphylococcus	UniRef90_E0WX65	lacticin 481 family lantibiotic	Sc
+MHS378	UniRef90_A0A650A8S0	17	-	Staphylococcus_capitis	UniRef90_A0A650A8S0	gallidermin/nisin family lantibiotic	Sc
+MHS379	MET_02986711	2	MET_02986711	Staphylococcus_capitis	-	gallidermin/nisin family lantibiotic	Ch
+MHS379	MET_02536985	43	MET_02536985	Streptococcus_pneumoniae	UniRef90_A0A0B7LZ57	lactococcin 972 family bacteriocin	Ch
+MHS379	MET_03027534	4	MET_03027534	Staphylococcus_epidermidis	-	cyclic lactone autoinducer peptide	Ch
+MHS379	UniRef90_A0A650A8S0	72	-	Staphylococcus_capitis	UniRef90_A0A650A8S0	gallidermin/nisin family lantibiotic	Ch
+MHS379	genome_07259151	3	genome_07259151	Staphylococcus_capitis	-	epsilon family phenol-soluble modulin	Ch
+MHS379	UniRef90_Q8VT03	16	-	Staphylococcus_capitis	UniRef90_Q8VT03	cyclic lactone autoinducer peptide	Ch
+MHS379	MET_00356962	178	MET_00356962	Streptococcus_pneumoniae	UniRef90_A0A4F4SJR8	L-lactate oxidase	Ch
+MHS379	MET_02967399	231	MET_02967399	Cutibacterium_acnes	-	thiazolylpeptide-type bacteriocin	Ch
+MHS379	UniRef90_A0A7X9ZJ38	35	-	Staphylococcus_capitis	UniRef90_A0A7X9ZJ38	cyclic lactone autoinducer peptide	Ch
+MHS379	MET_02967399	231	MET_02967399	Cutibacterium_acnes	-	thiazolylpeptide-type bacteriocin precursor	Ch
+MHS379	MET_00356962	7	MET_00356962	Streptococcus	UniRef90_A0A4F4SJR8	L-lactate oxidase	Ch
+MHS381	UniRef90_O86860	6	-	Staphylococcus_epidermidis	UniRef90_O86860	cyclic lactone autoinducer peptide	Sc
+MHS381	MET_02967399	138	MET_02967399	Cutibacterium_acnes	-	thiazolylpeptide-type bacteriocin	Sc
+MHS381	MET_03027534	34	MET_03027534	Staphylococcus_saccharolyticus	-	cyclic lactone autoinducer peptide	Sc
+MHS381	MET_03151623	57	MET_03151623	Cutibacterium_acnes	-	thiazolylpeptide-type bacteriocin precursor	Sc
+MHS381	MET_02967399	138	MET_02967399	Cutibacterium_acnes	-	thiazolylpeptide-type bacteriocin precursor	Sc
+MHS381	MET_03040834	48	MET_03040834	Staphylococcus_hominis	UniRef90_E0WX65	lacticin 481 family lantibiotic	Sc
+MHS382	genome_00610233	110	genome_00610233	Streptococcus	UniRef90_Q54970	pyruvate oxidase	Vf
+MHS382	genome_00627375	20	genome_00627375	Streptococcus_mitis	UniRef90_Q54970	pyruvate oxidase	Vf
+MHS382	MET_03040834	194	MET_03040834	Staphylococcus_hominis	UniRef90_E0WX65	lacticin 481 family lantibiotic	Vf
+MHS382	MET_02698842	1	MET_02698842	Cutibacterium_acnes	-	plantaricin C family lantibiotic	Vf
+MHS382	genome_00657209	14	genome_00657209	Streptococcus_oralis	UniRef90_Q54970	pyruvate oxidase	Vf
+MHS382	UniRef90_A0A4Q9WQR6	15	-	Staphylococcus_hominis	UniRef90_A0A4Q9WQR6	cyclic lactone autoinducer peptide	Vf
+MHS382	genome_00610233	10	genome_00610233	Streptococcus_oralis	UniRef90_Q54970	pyruvate oxidase	Vf
+MHS382	genome_00657209	43	genome_00657209	Streptococcus	UniRef90_Q54970	pyruvate oxidase	Vf
+MHS382	MET_02967399	6	MET_02967399	Cutibacterium_acnes	-	thiazolylpeptide-type bacteriocin	Vf
+MHS382	UniRef90_O86860	2	-	Staphylococcus_epidermidis	UniRef90_O86860	cyclic lactone autoinducer peptide	Vf
+MHS382	genome_00627375	4	genome_00627375	Streptococcus_oralis	UniRef90_Q54970	pyruvate oxidase	Vf
+MHS382	genome_00627375	263	genome_00627375	Streptococcus	UniRef90_Q54970	pyruvate oxidase	Vf
+MHS382	genome_00657209	8	genome_00657209	Streptococcus_mitis	UniRef90_Q54970	pyruvate oxidase	Vf
+MHS382	MET_02967399	6	MET_02967399	Cutibacterium_acnes	-	thiazolylpeptide-type bacteriocin precursor	Vf
+MHS382	MET_03027534	9	MET_03027534	Staphylococcus_epidermidis	-	cyclic lactone autoinducer peptide	Vf
+MHS382	genome_07442429	4	genome_07442429	Streptococcus	UniRef90_A0A1X1ILY2	class IIb bacteriocin, lactobin A/cerein 7B family	Vf
+MHS383	UniRef90_A0A7X9ZJ38	4	-	Staphylococcus_capitis	UniRef90_A0A7X9ZJ38	cyclic lactone autoinducer peptide	Tw
+MHS383	UniRef90_Q8VSX3	6	-	Staphylococcus_epidermidis	UniRef90_Q8VSX3	cyclic lactone autoinducer peptide	Tw
+MHS383	UniRef90_Q8VT00	31	-	Staphylococcus_capitis	UniRef90_Q8VT00	cyclic lactone autoinducer peptide	Tw
+MHS383	MET_03040834	65	MET_03040834	Staphylococcus_hominis	UniRef90_E0WX65	lacticin 481 family lantibiotic	Tw
+MHS383	UniRef90_A0A4Q9WQR6	30	-	Staphylococcus_hominis	UniRef90_A0A4Q9WQR6	cyclic lactone autoinducer peptide	Tw
+MHS384	DP_05133165	18	DP_05133165	Cutibacterium_granulosum	UniRef90_U1GCQ2	lactococcin 972 family bacteriocin	Ch
+MHS384	genome_07259151	1	genome_07259151	Staphylococcus_capitis	-	epsilon family phenol-soluble modulin	Ch
+MHS384	UniRef90_Q8VSX3	3	-	Staphylococcus_epidermidis	UniRef90_Q8VSX3	cyclic lactone autoinducer peptide	Ch
+MHS384	UniRef90_A0A7X9ZJ38	1	-	Staphylococcus_capitis	UniRef90_A0A7X9ZJ38	cyclic lactone autoinducer peptide	Ch
+MHS384	UniRef90_Q6A9K8	3	-	Cutibacterium_acnes	UniRef90_Q6A9K8	lactococcin 972 family bacteriocin	Ch
+MHS384	MET_02967399	268	MET_02967399	Cutibacterium_acnes	-	thiazolylpeptide-type bacteriocin	Ch
+MHS384	UniRef90_Q8VT03	1	-	Staphylococcus_capitis	UniRef90_Q8VT03	cyclic lactone autoinducer peptide	Ch
+MHS384	MET_02967399	268	MET_02967399	Cutibacterium_acnes	-	thiazolylpeptide-type bacteriocin precursor	Ch
+MHS385	UniRef90_A0A7X9ZJ38	4	-	Staphylococcus_capitis	UniRef90_A0A7X9ZJ38	cyclic lactone autoinducer peptide	Sc
+MHS385	UniRef90_Q9L561	2	-	Staphylococcus_argenteus	UniRef90_Q9L561	cyclic lactone autoinducer peptide	Sc
+MHS386	MET_02967399	61	MET_02967399	Cutibacterium_acnes	-	thiazolylpeptide-type bacteriocin	Ch
+MHS386	DP_05133165	30	DP_05133165	Cutibacterium_granulosum	UniRef90_U1GCQ2	lactococcin 972 family bacteriocin	Ch
+MHS386	MET_02967399	61	MET_02967399	Cutibacterium_acnes	-	thiazolylpeptide-type bacteriocin precursor	Ch
+MHS386	UniRef90_A0A7X9ZJ38	7	-	Staphylococcus_capitis	UniRef90_A0A7X9ZJ38	cyclic lactone autoinducer peptide	Ch
+MHS386	UniRef90_Q8VT03	10	-	Staphylococcus_capitis	UniRef90_Q8VT03	cyclic lactone autoinducer peptide	Ch
+MHS386	MET_03027534	3	MET_03027534	Staphylococcus_epidermidis	-	cyclic lactone autoinducer peptide	Ch
+MHS386	UniRef90_O86860	3	-	Staphylococcus_epidermidis	UniRef90_O86860	cyclic lactone autoinducer peptide	Ch
+MHS388	genome_00657997	57	genome_00657997	Streptococcus	UniRef90_Q54970	pyruvate oxidase	Sc
+MHS388	genome_00610233	13	genome_00610233	Streptococcus_oralis	UniRef90_Q54970	pyruvate oxidase	Sc
+MHS388	genome_00657209	3	genome_00657209	Streptococcus_mitis	UniRef90_Q54970	pyruvate oxidase	Sc
+MHS388	genome_00657283	5	genome_00657283	Streptococcus_oralis	UniRef90_Q54970	pyruvate oxidase	Sc
+MHS388	genome_00657283	6	genome_00657283	Streptococcus_mitis	UniRef90_Q54970	pyruvate oxidase	Sc
+MHS388	UniRef90_Q6A9K8	7	-	Cutibacterium_acnes	UniRef90_Q6A9K8	lactococcin 972 family bacteriocin	Sc
+MHS388	genome_00657283	40	genome_00657283	Streptococcus	UniRef90_Q54970	pyruvate oxidase	Sc
+MHS388	genome_00627375	49	genome_00627375	Streptococcus_mitis	UniRef90_Q54970	pyruvate oxidase	Sc
+MHS388	genome_00657209	197	genome_00657209	Streptococcus	UniRef90_Q54970	pyruvate oxidase	Sc
+MHS388	genome_00627375	8	genome_00627375	Streptococcus_oralis	UniRef90_Q54970	pyruvate oxidase	Sc
+MHS388	MET_03151623	36	MET_03151623	Cutibacterium_acnes	-	thiazolylpeptide-type bacteriocin precursor	Sc
+MHS388	MET_02967399	61	MET_02967399	Cutibacterium_acnes	-	thiazolylpeptide-type bacteriocin precursor	Sc
+MHS388	genome_00657997	10	genome_00657997	Streptococcus_oralis	UniRef90_Q54970	pyruvate oxidase	Sc
+MHS388	genome_00657209	2	genome_00657209	Streptococcus_oralis	UniRef90_Q54970	pyruvate oxidase	Sc
+MHS388	genome_00627375	420	genome_00627375	Streptococcus	UniRef90_Q54970	pyruvate oxidase	Sc
+MHS388	genome_00610233	135	genome_00610233	Streptococcus	UniRef90_Q54970	pyruvate oxidase	Sc
+MHS388	genome_00610233	11	genome_00610233	Streptococcus_mitis	UniRef90_Q54970	pyruvate oxidase	Sc
+MHS388	MET_02967399	61	MET_02967399	Cutibacterium_acnes	-	thiazolylpeptide-type bacteriocin	Sc
+MHS388	genome_00657997	4	genome_00657997	Streptococcus_mitis	UniRef90_Q54970	pyruvate oxidase	Sc
+MHS389	MET_02967399	186	MET_02967399	Cutibacterium_acnes	-	thiazolylpeptide-type bacteriocin precursor	Ch
+MHS389	UniRef90_Q8VT00	3	-	Staphylococcus_capitis	UniRef90_Q8VT00	cyclic lactone autoinducer peptide	Ch
+MHS389	UniRef90_A0A7X9ZJ38	59	-	Staphylococcus_capitis	UniRef90_A0A7X9ZJ38	cyclic lactone autoinducer peptide	Ch
+MHS389	UniRef90_O86860	6	-	Staphylococcus_epidermidis	UniRef90_O86860	cyclic lactone autoinducer peptide	Ch
+MHS389	MET_03151623	57	MET_03151623	Cutibacterium_acnes	-	thiazolylpeptide-type bacteriocin precursor	Ch
+MHS389	MET_02967399	186	MET_02967399	Cutibacterium_acnes	-	thiazolylpeptide-type bacteriocin	Ch
+MHS389	UniRef90_Q8VT03	2	-	Staphylococcus_capitis	UniRef90_Q8VT03	cyclic lactone autoinducer peptide	Ch
+MHS389	DP_08230762	65	DP_08230762	Staphylococcus_epidermidis	UniRef90_A0A0K0PRV8	lacticin 481 family lantibiotic	Ch
+MHS389	MET_03027534	2	MET_03027534	Staphylococcus_epidermidis	-	cyclic lactone autoinducer peptide	Ch
+MHS389	UniRef90_Q6A9K8	5	-	Cutibacterium_acnes	UniRef90_Q6A9K8	lactococcin 972 family bacteriocin	Ch
+MHS389	UniRef90_Q8VSX3	8	-	Staphylococcus_epidermidis	UniRef90_Q8VSX3	cyclic lactone autoinducer peptide	Ch
+MHS390	UniRef90_Q6A9K8	19	-	Cutibacterium_acnes	UniRef90_Q6A9K8	lactococcin 972 family bacteriocin	Ch
+MHS390	MET_02967399	446	MET_02967399	Cutibacterium_acnes	-	thiazolylpeptide-type bacteriocin	Ch
+MHS390	UniRef90_Q8VT03	11	-	Staphylococcus_capitis	UniRef90_Q8VT03	cyclic lactone autoinducer peptide	Ch
+MHS390	UniRef90_Q8VSX3	1	-	Staphylococcus_epidermidis	UniRef90_Q8VSX3	cyclic lactone autoinducer peptide	Ch
+MHS390	MET_03151623	268	MET_03151623	Cutibacterium_acnes	-	thiazolylpeptide-type bacteriocin precursor	Ch
+MHS390	MET_02967399	446	MET_02967399	Cutibacterium_acnes	-	thiazolylpeptide-type bacteriocin precursor	Ch
+MHS391	MET_03142466	2	MET_03142466	Staphylococcus_hominis	UniRef90_A0A657M3E8	cyclic lactone autoinducer peptide	Ac
+MHS392	MET_03142466	67	MET_03142466	Staphylococcus_hominis	UniRef90_A0A657M3E8	cyclic lactone autoinducer peptide	Tw
+MHS392	UniRef90_A0A2A1KAK5	19	-	Staphylococcus_haemolyticus	UniRef90_A0A2A1KAK5	cyclic lactone autoinducer peptide	Tw
+MHS392	MET_03040834	22	MET_03040834	Staphylococcus_hominis	UniRef90_E0WX65	lacticin 481 family lantibiotic	Tw
+MHS392	UniRef90_A0A4Q9WQR6	25	-	Staphylococcus_hominis	UniRef90_A0A4Q9WQR6	cyclic lactone autoinducer peptide	Tw
+MHS392	UniRef90_O86860	319	-	Staphylococcus_epidermidis	UniRef90_O86860	cyclic lactone autoinducer peptide	Tw
+MHS392	MET_01879086	1	MET_01879086	Staphylococcus_epidermidis	UniRef90_UPI00190C5B2E	lactococcin 972 family bacteriocin	Tw
+MHS392	MET_03040834	121	MET_03040834	Staphylococcus	UniRef90_E0WX65	lacticin 481 family lantibiotic	Tw
+MHS392	MET_03027534	61	MET_03027534	Staphylococcus_epidermidis	-	cyclic lactone autoinducer peptide	Tw
+MHS392	UniRef90_A0A3S0TL63	6	-	Staphylococcus_epidermidis	UniRef90_A0A3S0TL63	cyclic lactone autoinducer peptide	Tw
+MHS392	UniRef90_Q8VSX3	226	-	Staphylococcus_epidermidis	UniRef90_Q8VSX3	cyclic lactone autoinducer peptide	Tw
+MHS393	MET_02967399	2	MET_02967399	Cutibacterium_acnes	-	thiazolylpeptide-type bacteriocin	Sc
+MHS393	MET_02967399	2	MET_02967399	Cutibacterium_acnes	-	thiazolylpeptide-type bacteriocin precursor	Sc
+MHS394	UniRef90_O86860	2	-	Staphylococcus_epidermidis	UniRef90_O86860	cyclic lactone autoinducer peptide	Ch
+MHS394	MET_03027534	3	MET_03027534	Staphylococcus_epidermidis	-	cyclic lactone autoinducer peptide	Ch
+MHS394	UniRef90_Q6A9K8	3	-	Cutibacterium_acnes	UniRef90_Q6A9K8	lactococcin 972 family bacteriocin	Ch
+MHS396	MET_02967399	17	MET_02967399	Cutibacterium_acnes	-	thiazolylpeptide-type bacteriocin precursor	Ch
+MHS396	MET_03027534	16	MET_03027534	Staphylococcus_epidermidis	-	cyclic lactone autoinducer peptide	Ch
+MHS396	MET_03151623	10	MET_03151623	Cutibacterium_acnes	-	thiazolylpeptide-type bacteriocin precursor	Ch
+MHS396	UniRef90_O86860	26	-	Staphylococcus_epidermidis	UniRef90_O86860	cyclic lactone autoinducer peptide	Ch
+MHS396	MET_03040834	1	MET_03040834	Staphylococcus	UniRef90_E0WX65	lacticin 481 family lantibiotic	Ch
+MHS396	MET_02967399	17	MET_02967399	Cutibacterium_acnes	-	thiazolylpeptide-type bacteriocin	Ch
+MHS398	MET_03027534	52	MET_03027534	Staphylococcus_epidermidis	-	cyclic lactone autoinducer peptide	Sc
+MHS398	UniRef90_A0A2V3ZMW1	23	-	Staphylococcus	UniRef90_A0A2V3ZMW1	cyclic lactone autoinducer peptide	Sc
+MHS398	UniRef90_A0A269XFK8	18	-	Staphylococcus	UniRef90_A0A269XFK8	Delta lysin family	Sc
+MHS398	MET_03146608	154	MET_03146608	Staphylococcus_caprae	UniRef90_Q8VSZ4	cyclic lactone autoinducer peptide	Sc
+MHS398	genome_07376991	1	genome_07376991	Staphylococcus_saprophyticus	UniRef90_A0A380HLP1	cyclic lactone autoinducer peptide	Sc
+MHS398	MET_03040834	256	MET_03040834	Staphylococcus	UniRef90_E0WX65	lacticin 481 family lantibiotic	Sc
+MHS398	UniRef90_O86860	93	-	Staphylococcus_epidermidis	UniRef90_O86860	cyclic lactone autoinducer peptide	Sc
+MHS398	UniRef90_O86940	2	-	Staphylococcus	UniRef90_O86940	Delta lysin family	Sc
+MHS398	UniRef90_Q8VSX3	70	-	Staphylococcus_epidermidis	UniRef90_Q8VSX3	cyclic lactone autoinducer peptide	Sc
+MHS398	MET_02986711	6	MET_02986711	Staphylococcus_capitis	-	gallidermin/nisin family lantibiotic	Sc
+MHS398	MET_02217293	4	MET_02217293	Corynebacterium_tuberculostearicum	UniRef90_E2S3R5	lactococcin 972 family bacteriocin	Sc
+MHS398	UniRef90_Q8VT00	37	-	Staphylococcus_capitis	UniRef90_Q8VT00	cyclic lactone autoinducer peptide	Sc
+MHS398	MET_03142466	23	MET_03142466	Staphylococcus_hominis	UniRef90_A0A657M3E8	cyclic lactone autoinducer peptide	Sc
+MHS399	genome_07259151	19	genome_07259151	Staphylococcus_capitis	-	epsilon family phenol-soluble modulin	Sc
+MHS399	MET_03151623	22	MET_03151623	Cutibacterium_acnes	-	thiazolylpeptide-type bacteriocin precursor	Sc
+MHS399	MET_02967399	28	MET_02967399	Cutibacterium_acnes	-	thiazolylpeptide-type bacteriocin precursor	Sc
+MHS399	MET_02967399	28	MET_02967399	Cutibacterium_acnes	-	thiazolylpeptide-type bacteriocin	Sc
+MHS399	UniRef90_Q8VT03	6	-	Staphylococcus_capitis	UniRef90_Q8VT03	cyclic lactone autoinducer peptide	Sc
+MHS402	UniRef90_A0A4Q9WQR6	44	-	Staphylococcus_hominis	UniRef90_A0A4Q9WQR6	cyclic lactone autoinducer peptide	Tw
+MHS402	MET_03027534	22	MET_03027534	Staphylococcus_epidermidis	-	cyclic lactone autoinducer peptide	Tw
+MHS402	MET_02692481	81	MET_02692481	Staphylococcus_epidermidis	-	plantaricin C family lantibiotic	Tw
+MHS402	UniRef90_A0A2T9VBC8	4	-	Staphylococcus_epidermidis	UniRef90_A0A2T9VBC8	PSM-delta family phenol-soluble modulin	Tw
+MHS402	UniRef90_E0WX65	2	-	Staphylococcus_hominis	UniRef90_E0WX65	lacticin 481 family lantibiotic	Tw
+MHS402	UniRef90_O86860	226	-	Staphylococcus_epidermidis	UniRef90_O86860	cyclic lactone autoinducer peptide	Tw
+MHS402	MET_03142466	623	MET_03142466	Staphylococcus_hominis	UniRef90_A0A657M3E8	cyclic lactone autoinducer peptide	Tw
+MHS402	UniRef90_Q8VSX3	423	-	Staphylococcus_epidermidis	UniRef90_Q8VSX3	cyclic lactone autoinducer peptide	Tw
+MHS402	UniRef90_Q8VT00	1	-	Staphylococcus_capitis	UniRef90_Q8VT00	cyclic lactone autoinducer peptide	Tw
+MHS402	MET_03040834	244	MET_03040834	Staphylococcus	UniRef90_E0WX65	lacticin 481 family lantibiotic	Tw
+MHS402	UniRef90_E0WX65	1	-	Staphylococcus	UniRef90_E0WX65	lacticin 481 family lantibiotic	Tw
+MHS402	MET_03040834	2	MET_03040834	Corynebacterium_tuberculostearicum	UniRef90_E0WX65	lacticin 481 family lantibiotic	Tw
+MHS402	UniRef90_A0A7X9ZJ38	11	-	Staphylococcus_capitis	UniRef90_A0A7X9ZJ38	cyclic lactone autoinducer peptide	Tw
+MHS402	MET_03040834	3537	MET_03040834	Staphylococcus_hominis	UniRef90_E0WX65	lacticin 481 family lantibiotic	Tw
+MHS402	UniRef90_A0A3S0TL63	4	-	Staphylococcus_epidermidis	UniRef90_A0A3S0TL63	cyclic lactone autoinducer peptide	Tw
+MHS406	MET_03151623	8	MET_03151623	Cutibacterium_acnes	-	thiazolylpeptide-type bacteriocin precursor	Sc
+MHS406	UniRef90_Q8VT03	18	-	Staphylococcus_capitis	UniRef90_Q8VT03	cyclic lactone autoinducer peptide	Sc
+MHS406	MET_02967399	50	MET_02967399	Cutibacterium_acnes	-	thiazolylpeptide-type bacteriocin	Sc
+MHS406	MET_02967399	50	MET_02967399	Cutibacterium_acnes	-	thiazolylpeptide-type bacteriocin precursor	Sc
+MHS407	UniRef90_Q8VT00	2	-	Staphylococcus_capitis	UniRef90_Q8VT00	cyclic lactone autoinducer peptide	Sc
+MHS407	MET_03151623	9	MET_03151623	Cutibacterium_acnes	-	thiazolylpeptide-type bacteriocin precursor	Sc
+MHS407	UniRef90_Q8VSX3	4	-	Staphylococcus_epidermidis	UniRef90_Q8VSX3	cyclic lactone autoinducer peptide	Sc
+MHS407	MET_02967399	1	MET_02967399	Cutibacterium_acnes	-	thiazolylpeptide-type bacteriocin precursor	Sc
+MHS407	MET_02967399	1	MET_02967399	Cutibacterium_acnes	-	thiazolylpeptide-type bacteriocin	Sc
+MHS409	UniRef90_A0A4Q9WQR6	154	-	Staphylococcus_hominis	UniRef90_A0A4Q9WQR6	cyclic lactone autoinducer peptide	Tw
+MHS409	UniRef90_UPI00138AB48B	2	-	Staphylococcus_epidermidis	UniRef90_UPI00138AB48B	bacteriocin halocin C8-like domain	Tw
+MHS409	UniRef90_Q8VSX3	43	-	Staphylococcus_epidermidis	UniRef90_Q8VSX3	cyclic lactone autoinducer peptide	Tw
+MHS409	MET_03142466	321	MET_03142466	Staphylococcus_hominis	UniRef90_A0A657M3E8	cyclic lactone autoinducer peptide	Tw
+MHS410	genome_00627375	1	genome_00627375	Streptococcus_oralis	UniRef90_Q54970	pyruvate oxidase	Tw
+MHS410	UniRef90_A0A7X9ZJ38	23	-	Staphylococcus_capitis	UniRef90_A0A7X9ZJ38	cyclic lactone autoinducer peptide	Tw
+MHS410	genome_07446594	1	genome_07446594	Staphylococcus_warneri	UniRef90_A0A364UNY4	cyclic lactone autoinducer peptide	Tw
+MHS410	genome_00627375	107	genome_00627375	Streptococcus	UniRef90_Q54970	pyruvate oxidase	Tw
+MHS410	genome_00610233	7	genome_00610233	Streptococcus_oralis	UniRef90_Q54970	pyruvate oxidase	Tw
+MHS410	MET_03146608	6	MET_03146608	Staphylococcus_caprae	UniRef90_Q8VSZ4	cyclic lactone autoinducer peptide	Tw
+MHS410	genome_00657209	2	genome_00657209	Streptococcus_oralis	UniRef90_Q54970	pyruvate oxidase	Tw
+MHS410	genome_00657997	9	genome_00657997	Streptococcus	UniRef90_Q54970	pyruvate oxidase	Tw
+MHS410	UniRef90_Q8VT00	2	-	Staphylococcus_capitis	UniRef90_Q8VT00	cyclic lactone autoinducer peptide	Tw
+MHS410	genome_00610233	31	genome_00610233	Streptococcus	UniRef90_Q54970	pyruvate oxidase	Tw
+MHS410	MET_03040834	9	MET_03040834	Staphylococcus	UniRef90_E0WX65	lacticin 481 family lantibiotic	Tw
+MHS410	genome_00657209	13	genome_00657209	Streptococcus	UniRef90_Q54970	pyruvate oxidase	Tw
+MHS411	MET_03040834	2	MET_03040834	Staphylococcus	UniRef90_E0WX65	lacticin 481 family lantibiotic	Ch
+MHS411	MET_02967399	133	MET_02967399	Cutibacterium_acnes	-	thiazolylpeptide-type bacteriocin precursor	Ch
+MHS411	UniRef90_Q6A9K8	1	-	Cutibacterium_modestum	UniRef90_Q6A9K8	lactococcin 972 family bacteriocin	Ch
+MHS411	MET_03151623	19	MET_03151623	Cutibacterium_acnes	-	thiazolylpeptide-type bacteriocin precursor	Ch
+MHS411	UniRef90_A0A7X9ZJ38	14	-	Staphylococcus_capitis	UniRef90_A0A7X9ZJ38	cyclic lactone autoinducer peptide	Ch
+MHS411	UniRef90_Q8VSX3	12	-	Staphylococcus_epidermidis	UniRef90_Q8VSX3	cyclic lactone autoinducer peptide	Ch
+MHS411	UniRef90_Q8VT00	2	-	Staphylococcus_capitis	UniRef90_Q8VT00	cyclic lactone autoinducer peptide	Ch
+MHS411	MET_02967399	133	MET_02967399	Cutibacterium_acnes	-	thiazolylpeptide-type bacteriocin	Ch
+MHS412	UniRef90_A0A0Y0J964	32	-	Streptococcus	UniRef90_A0A0Y0J964	salivaricin M family lantibiotic	Vf
+MHS412	MET_03002788	116	MET_03002788	Streptococcus_salivarius	UniRef90_A0A0S2IJ22	salivaricin M family lantibiotic	Vf
+MHS412	MET_02967399	8	MET_02967399	Cutibacterium_acnes	-	thiazolylpeptide-type bacteriocin precursor	Vf
+MHS412	DP_08230762	33	DP_08230762	Staphylococcus_epidermidis	UniRef90_A0A0K0PRV8	lacticin 481 family lantibiotic	Vf
+MHS412	genome_07203064	12	genome_07203064	Streptococcus_salivarius	UniRef90_M9QXH0	salivaricin M family lantibiotic	Vf
+MHS412	UniRef90_Q8VT00	5	-	Staphylococcus_capitis	UniRef90_Q8VT00	cyclic lactone autoinducer peptide	Vf
+MHS412	genome_00627375	138	genome_00627375	Streptococcus	UniRef90_Q54970	pyruvate oxidase	Vf
+MHS412	UniRef90_A0A0Y0J964	2	-	Streptococcus_salivarius	UniRef90_A0A0Y0J964	salivaricin M family lantibiotic	Vf
+MHS412	MET_02512340	2	MET_02512340	Staphylococcus	UniRef90_D2JD69	lactococcin 972 family bacteriocin	Vf
+MHS412	genome_07320077	49	genome_07320077	Streptococcus_salivarius	UniRef90_A0A0S2IJA2	salivaricin M family lantibiotic	Vf
+MHS412	MET_03142466	4	MET_03142466	Staphylococcus_hominis	UniRef90_A0A657M3E8	cyclic lactone autoinducer peptide	Vf
+MHS412	UniRef90_A0A0Y0J964	4	-	Streptococcus_mitis	UniRef90_A0A0Y0J964	salivaricin M family lantibiotic	Vf
+MHS412	genome_07320077	1	genome_07320077	Streptococcus_mitis	UniRef90_A0A0S2IJA2	salivaricin M family lantibiotic	Vf
+MHS412	MET_03002788	1	MET_03002788	Streptococcus_mitis	UniRef90_A0A0S2IJ22	salivaricin M family lantibiotic	Vf
+MHS412	UniRef90_A0A4Q9WQR6	4	-	Staphylococcus_hominis	UniRef90_A0A4Q9WQR6	cyclic lactone autoinducer peptide	Vf
+MHS412	genome_00627375	12	genome_00627375	Streptococcus_mitis	UniRef90_Q54970	pyruvate oxidase	Vf
+MHS412	genome_00610233	33	genome_00610233	Streptococcus	UniRef90_Q54970	pyruvate oxidase	Vf
+MHS412	MET_02967399	8	MET_02967399	Cutibacterium_acnes	-	thiazolylpeptide-type bacteriocin	Vf
+MHS412	MET_02217293	38	MET_02217293	Corynebacterium_tuberculostearicum	UniRef90_E2S3R5	lactococcin 972 family bacteriocin	Vf
+MHS413	UniRef90_A0A4Q9WQR6	973	-	Staphylococcus_hominis	UniRef90_A0A4Q9WQR6	cyclic lactone autoinducer peptide	Tw
+MHS413	UniRef90_A0A2T4SN36	4	-	Staphylococcus_haemolyticus	UniRef90_A0A2T4SN36	cyclic lactone autoinducer peptide	Tw
+MHS413	UniRef90_UPI0011A6C556	1	-	Staphylococcus	UniRef90_UPI0011A6C556	lichenicidin A2 family type 2 lantibiotic	Tw
+MHS413	UniRef90_Q8VSX3	4	-	Staphylococcus_epidermidis	UniRef90_Q8VSX3	cyclic lactone autoinducer peptide	Tw
+MHS413	UniRef90_UPI0011A6C556	1	-	Staphylococcus_epidermidis	UniRef90_UPI0011A6C556	lichenicidin A2 family type 2 lantibiotic	Tw
+MHS413	UniRef90_A0A2A1KAK5	22	-	Staphylococcus_haemolyticus	UniRef90_A0A2A1KAK5	cyclic lactone autoinducer peptide	Tw
+MHS413	UniRef90_O86860	81	-	Staphylococcus_epidermidis	UniRef90_O86860	cyclic lactone autoinducer peptide	Tw
+MHS413	UniRef90_UPI0011A6C556	2	-	Staphylococcus_hominis	UniRef90_UPI0011A6C556	lichenicidin A2 family type 2 lantibiotic	Tw
+MHS413	MET_03027534	40	MET_03027534	Staphylococcus_epidermidis	-	cyclic lactone autoinducer peptide	Tw
+MHS413	MET_03142466	109	MET_03142466	Staphylococcus_hominis	UniRef90_A0A657M3E8	cyclic lactone autoinducer peptide	Tw
+MHS413	UniRef90_UPI0011A6C556	1	-	Corynebacterium_tuberculostearicum	UniRef90_UPI0011A6C556	lichenicidin A2 family type 2 lantibiotic	Tw
+MHS413	UniRef90_UPI0011A3A9C5	2	-	Staphylococcus_hominis	UniRef90_UPI0011A3A9C5	lichenicidin A2 family type 2 lantibiotic	Tw
+MHS413	MET_03040834	1	MET_03040834	Staphylococcus	UniRef90_E0WX65	lacticin 481 family lantibiotic	Tw
+MHS414	MET_02967399	9	MET_02967399	Cutibacterium_acnes	-	thiazolylpeptide-type bacteriocin	Sc
+MHS414	MET_02967399	9	MET_02967399	Cutibacterium_acnes	-	thiazolylpeptide-type bacteriocin precursor	Sc
+MHS414	MET_03027534	1	MET_03027534	Staphylococcus_epidermidis	-	cyclic lactone autoinducer peptide	Sc
+MHS414	MET_02986711	4	MET_02986711	Staphylococcus_capitis	-	gallidermin/nisin family lantibiotic	Sc
+MHS414	UniRef90_Q8VT03	2	-	Staphylococcus_capitis	UniRef90_Q8VT03	cyclic lactone autoinducer peptide	Sc
+MHS414	UniRef90_O86860	7	-	Staphylococcus_epidermidis	UniRef90_O86860	cyclic lactone autoinducer peptide	Sc
+MHS415	UniRef90_O86860	2	-	Staphylococcus_epidermidis	UniRef90_O86860	cyclic lactone autoinducer peptide	Ch
+MHS415	MET_02967399	52	MET_02967399	Cutibacterium_acnes	-	thiazolylpeptide-type bacteriocin	Ch
+MHS415	UniRef90_Q6A9K8	16	-	Cutibacterium_acnes	UniRef90_Q6A9K8	lactococcin 972 family bacteriocin	Ch
+MHS415	UniRef90_A0A7X9ZJ38	5	-	Staphylococcus_capitis	UniRef90_A0A7X9ZJ38	cyclic lactone autoinducer peptide	Ch
+MHS415	MET_03027534	2	MET_03027534	Staphylococcus_epidermidis	-	cyclic lactone autoinducer peptide	Ch
+MHS415	MET_02967399	52	MET_02967399	Cutibacterium_acnes	-	thiazolylpeptide-type bacteriocin precursor	Ch
+MHS418	MET_03151623	24	MET_03151623	Cutibacterium_acnes	-	thiazolylpeptide-type bacteriocin precursor	Ch
+MHS418	MET_02967399	45	MET_02967399	Cutibacterium_acnes	-	thiazolylpeptide-type bacteriocin	Ch
+MHS418	MET_02967399	45	MET_02967399	Cutibacterium_acnes	-	thiazolylpeptide-type bacteriocin precursor	Ch
+MHS418	UniRef90_O86860	4	-	Staphylococcus_epidermidis	UniRef90_O86860	cyclic lactone autoinducer peptide	Ch
+MHS419	UniRef90_Q6A9K8	2	-	Cutibacterium_acnes	UniRef90_Q6A9K8	lactococcin 972 family bacteriocin	Ac
+MHS419	MET_02967399	218	MET_02967399	Cutibacterium_acnes	-	thiazolylpeptide-type bacteriocin precursor	Ac
+MHS419	MET_03027534	2	MET_03027534	Staphylococcus_epidermidis	-	cyclic lactone autoinducer peptide	Ac
+MHS419	UniRef90_UPI0011A3A9C5	1	-	Cutibacterium_acnes	UniRef90_UPI0011A3A9C5	lichenicidin A2 family type 2 lantibiotic	Ac
+MHS419	MET_02967399	218	MET_02967399	Cutibacterium_acnes	-	thiazolylpeptide-type bacteriocin	Ac
+MHS419	MET_03151623	18	MET_03151623	Cutibacterium_acnes	-	thiazolylpeptide-type bacteriocin precursor	Ac
+MHS419	UniRef90_A0A7X9ZJ38	2	-	Staphylococcus_capitis	UniRef90_A0A7X9ZJ38	cyclic lactone autoinducer peptide	Ac
+MHS421	MET_02967399	6	MET_02967399	Cutibacterium_acnes	-	thiazolylpeptide-type bacteriocin precursor	Sc
+MHS421	UniRef90_Q8VT03	17	-	Staphylococcus_capitis	UniRef90_Q8VT03	cyclic lactone autoinducer peptide	Sc
+MHS421	MET_02967399	6	MET_02967399	Cutibacterium_acnes	-	thiazolylpeptide-type bacteriocin	Sc
+MHS422	MET_02967399	19	MET_02967399	Cutibacterium_acnes	-	thiazolylpeptide-type bacteriocin	Ch
+MHS422	MET_02967399	19	MET_02967399	Cutibacterium_acnes	-	thiazolylpeptide-type bacteriocin precursor	Ch
+MHS422	UniRef90_O86860	1	-	Staphylococcus_epidermidis	UniRef90_O86860	cyclic lactone autoinducer peptide	Ch
+MHS423	UniRef90_UPI0011A3A9C5	1	-	Malassezia_furfur	UniRef90_UPI0011A3A9C5	lichenicidin A2 family type 2 lantibiotic	Ac
+MHS424	MET_03040834	240	MET_03040834	Staphylococcus_hominis	UniRef90_E0WX65	lacticin 481 family lantibiotic	Vf
+MHS424	UniRef90_A0A4Q9WQR6	3	-	Staphylococcus_hominis	UniRef90_A0A4Q9WQR6	cyclic lactone autoinducer peptide	Vf
+MHS424	MET_03040834	3	MET_03040834	Staphylococcus	UniRef90_E0WX65	lacticin 481 family lantibiotic	Vf
+MHS425	MET_02698842	1	MET_02698842	Staphylococcus_epidermidis	-	plantaricin C family lantibiotic	Tw
+MHS425	UniRef90_O86860	271	-	Staphylococcus_epidermidis	UniRef90_O86860	cyclic lactone autoinducer peptide	Tw
+MHS425	UniRef90_Q8VSX3	19	-	Staphylococcus_epidermidis	UniRef90_Q8VSX3	cyclic lactone autoinducer peptide	Tw
+MHS425	UniRef90_A0A3S0TL63	9	-	Staphylococcus_epidermidis	UniRef90_A0A3S0TL63	cyclic lactone autoinducer peptide	Tw
+MHS425	MET_03040834	4	MET_03040834	Staphylococcus	UniRef90_E0WX65	lacticin 481 family lantibiotic	Tw
+MHS425	UniRef90_Q8VT00	18	-	Staphylococcus_capitis	UniRef90_Q8VT00	cyclic lactone autoinducer peptide	Tw
+MHS425	MET_03027534	129	MET_03027534	Staphylococcus_epidermidis	-	cyclic lactone autoinducer peptide	Tw
+MHS425	MET_03040834	8	MET_03040834	Staphylococcus_hominis	UniRef90_E0WX65	lacticin 481 family lantibiotic	Tw
+MHS425	UniRef90_A0A4Q9WQR6	103	-	Staphylococcus_hominis	UniRef90_A0A4Q9WQR6	cyclic lactone autoinducer peptide	Tw
+MHS425	UniRef90_A0A269XFK8	6	-	Staphylococcus	UniRef90_A0A269XFK8	Delta lysin family	Tw
+MHS426	UniRef90_A0A4U9TP63	1	-	Staphylococcus_saccharolyticus	UniRef90_A0A4U9TP63	gallidermin/nisin family lantibiotic	Sc
+MHS426	MET_03151623	16	MET_03151623	Cutibacterium_acnes	-	thiazolylpeptide-type bacteriocin precursor	Sc
+MHS426	UniRef90_Q6A9K8	2	-	Cutibacterium_acnes	UniRef90_Q6A9K8	lactococcin 972 family bacteriocin	Sc
+MHS426	MET_02986711	5	MET_02986711	Staphylococcus_saccharolyticus	-	gallidermin/nisin family lantibiotic	Sc
+MHS426	UniRef90_O86860	21	-	Staphylococcus_epidermidis	UniRef90_O86860	cyclic lactone autoinducer peptide	Sc
+MHS426	genome_07259151	14	genome_07259151	Staphylococcus_capitis	-	epsilon family phenol-soluble modulin	Sc
+MHS426	MET_02967399	23	MET_02967399	Cutibacterium_acnes	-	thiazolylpeptide-type bacteriocin precursor	Sc
+MHS426	MET_03027534	4	MET_03027534	Staphylococcus_epidermidis	-	cyclic lactone autoinducer peptide	Sc
+MHS426	MET_02513461	1	MET_02513461	Malassezia_restricta	UniRef90_A0A0K2WVQ1	lactococcin 972 family bacteriocin	Sc
+MHS426	MET_02967399	23	MET_02967399	Cutibacterium_acnes	-	thiazolylpeptide-type bacteriocin	Sc
+MHS426	MET_03027534	24	MET_03027534	Staphylococcus_saccharolyticus	-	cyclic lactone autoinducer peptide	Sc
+MHS427	MET_02967399	244	MET_02967399	Cutibacterium_acnes	-	thiazolylpeptide-type bacteriocin precursor	Ch
+MHS427	MET_02967399	244	MET_02967399	Cutibacterium_acnes	-	thiazolylpeptide-type bacteriocin	Ch
+MHS427	MET_00876468	6	MET_00876468	Staphylococcus_epidermidis	UniRef90_A0A509LRT7	bacteriocin halocin C8-like domain	Ch
+MHS427	MET_03027534	34	MET_03027534	Staphylococcus_epidermidis	-	cyclic lactone autoinducer peptide	Ch
+MHS427	MET_00876468	6	MET_00876468	Staphylococcus_epidermidis	UniRef90_A0A509LRT7	halocin C8 precursor-like protein	Ch
+MHS427	MET_03151623	31	MET_03151623	Cutibacterium_acnes	-	thiazolylpeptide-type bacteriocin precursor	Ch
+MHS427	UniRef90_O86860	40	-	Staphylococcus_epidermidis	UniRef90_O86860	cyclic lactone autoinducer peptide	Ch
+MHS428	UniRef90_A0A2A1KAK5	33	-	Staphylococcus_haemolyticus	UniRef90_A0A2A1KAK5	cyclic lactone autoinducer peptide	Tw
+MHS428	UniRef90_A0A6B8QZQ5	6	-	Staphylococcus	UniRef90_A0A6B8QZQ5	Delta lysin family	Tw
+MHS428	genome_07446594	64	genome_07446594	Staphylococcus_warneri	UniRef90_A0A364UNY4	cyclic lactone autoinducer peptide	Tw
+MHS428	UniRef90_A0A2V3ZMW1	55	-	Staphylococcus	UniRef90_A0A2V3ZMW1	cyclic lactone autoinducer peptide	Tw
+MHS428	MET_03146608	7	MET_03146608	Staphylococcus_caprae	UniRef90_Q8VSZ4	cyclic lactone autoinducer peptide	Tw
+MHS428	UniRef90_A0A269XFK8	2	-	Staphylococcus_warneri	UniRef90_A0A269XFK8	Delta lysin family	Tw
+MHS428	UniRef90_A0A2T4PXD3	20	-	Staphylococcus_warneri	UniRef90_A0A2T4PXD3	cyclic lactone autoinducer peptide	Tw
+MHS428	UniRef90_O86940	2	-	Staphylococcus_warneri	UniRef90_O86940	Delta lysin family	Tw
+MHS428	UniRef90_O86940	10	-	Staphylococcus	UniRef90_O86940	Delta lysin family	Tw
+MHS428	UniRef90_A0A269XFK8	38	-	Staphylococcus	UniRef90_A0A269XFK8	Delta lysin family	Tw
+MHS429	MET_02967399	28	MET_02967399	Cutibacterium_acnes	-	thiazolylpeptide-type bacteriocin	Sc
+MHS429	MET_02967399	28	MET_02967399	Cutibacterium_acnes	-	thiazolylpeptide-type bacteriocin precursor	Sc
+MHS430	MET_02967399	25	MET_02967399	Cutibacterium_acnes	-	thiazolylpeptide-type bacteriocin precursor	Ch
+MHS430	UniRef90_O85486	2	-	Staphylococcus_epidermidis	UniRef90_O85486	alpha-1/alpha-2 family phenol-soluble modulin	Ch
+MHS430	UniRef90_O86860	92	-	Staphylococcus_epidermidis	UniRef90_O86860	cyclic lactone autoinducer peptide	Ch
+MHS430	MET_03027534	62	MET_03027534	Staphylococcus_epidermidis	-	cyclic lactone autoinducer peptide	Ch
+MHS430	MET_00876468	29	MET_00876468	Staphylococcus_epidermidis	UniRef90_A0A509LRT7	bacteriocin halocin C8-like domain	Ch
+MHS430	MET_00876468	29	MET_00876468	Staphylococcus_epidermidis	UniRef90_A0A509LRT7	halocin C8 precursor-like protein	Ch
+MHS430	MET_02967399	25	MET_02967399	Cutibacterium_acnes	-	thiazolylpeptide-type bacteriocin	Ch
+MHS432	MET_02967399	67	MET_02967399	Cutibacterium_acnes	-	thiazolylpeptide-type bacteriocin precursor	Sc
+MHS432	UniRef90_Q8VT00	26	-	Staphylococcus_capitis	UniRef90_Q8VT00	cyclic lactone autoinducer peptide	Sc
+MHS432	UniRef90_A0A7X9ZJ38	323	-	Staphylococcus_capitis	UniRef90_A0A7X9ZJ38	cyclic lactone autoinducer peptide	Sc
+MHS432	MET_03151623	32	MET_03151623	Cutibacterium_acnes	-	thiazolylpeptide-type bacteriocin precursor	Sc
+MHS432	MET_03027534	5	MET_03027534	Staphylococcus_epidermidis	-	cyclic lactone autoinducer peptide	Sc
+MHS432	MET_02967399	67	MET_02967399	Cutibacterium_acnes	-	thiazolylpeptide-type bacteriocin	Sc
+MHS432	UniRef90_Q6A9K8	1	-	Cutibacterium_acnes	UniRef90_Q6A9K8	lactococcin 972 family bacteriocin	Sc
+MHS432	UniRef90_Q8VT03	24	-	Staphylococcus_capitis	UniRef90_Q8VT03	cyclic lactone autoinducer peptide	Sc
+MHS432	UniRef90_O86860	15	-	Staphylococcus_epidermidis	UniRef90_O86860	cyclic lactone autoinducer peptide	Sc
+MHS433	MET_03151623	2	MET_03151623	Cutibacterium_acnes	-	thiazolylpeptide-type bacteriocin precursor	Ch
+MHS433	UniRef90_A0A2T4PXD3	6	-	Staphylococcus_warneri	UniRef90_A0A2T4PXD3	cyclic lactone autoinducer peptide	Ch
+MHS433	UniRef90_O86860	43	-	Staphylococcus_epidermidis	UniRef90_O86860	cyclic lactone autoinducer peptide	Ch
+MHS433	MET_02967399	171	MET_02967399	Cutibacterium_acnes	-	thiazolylpeptide-type bacteriocin precursor	Ch
+MHS433	UniRef90_A0A269XFK8	2	-	Staphylococcus	UniRef90_A0A269XFK8	Delta lysin family	Ch
+MHS433	UniRef90_A0A1F1BU57	23	-	Staphylococcus_hominis	UniRef90_A0A1F1BU57	cyclic lactone autoinducer peptide	Ch
+MHS433	MET_02967399	171	MET_02967399	Cutibacterium_acnes	-	thiazolylpeptide-type bacteriocin	Ch
+MHS433	MET_03027534	26	MET_03027534	Staphylococcus_epidermidis	-	cyclic lactone autoinducer peptide	Ch
+MHS433	UniRef90_A0A2T9VBC8	2	-	Staphylococcus_epidermidis	UniRef90_A0A2T9VBC8	PSM-delta family phenol-soluble modulin	Ch
+MHS434	UniRef90_O86860	155	-	Staphylococcus_epidermidis	UniRef90_O86860	cyclic lactone autoinducer peptide	Tw
+MHS434	MET_03027534	64	MET_03027534	Staphylococcus_epidermidis	-	cyclic lactone autoinducer peptide	Tw
+MHS434	UniRef90_A0A3S0TL63	5	-	Staphylococcus_epidermidis	UniRef90_A0A3S0TL63	cyclic lactone autoinducer peptide	Tw
+MHS434	UniRef90_A0A4Q9WQR6	54	-	Staphylococcus_hominis	UniRef90_A0A4Q9WQR6	cyclic lactone autoinducer peptide	Tw
+MHS434	UniRef90_A0A269XFK8	8	-	Staphylococcus	UniRef90_A0A269XFK8	Delta lysin family	Tw
+MHS434	MET_03142466	135	MET_03142466	Staphylococcus_hominis	UniRef90_A0A657M3E8	cyclic lactone autoinducer peptide	Tw
+MHS435	UniRef90_Q8VSX3	27	-	Staphylococcus_epidermidis	UniRef90_Q8VSX3	cyclic lactone autoinducer peptide	Ch
+MHS435	MET_02967399	85	MET_02967399	Cutibacterium_acnes	-	thiazolylpeptide-type bacteriocin precursor	Ch
+MHS435	UniRef90_O86860	2	-	Staphylococcus_epidermidis	UniRef90_O86860	cyclic lactone autoinducer peptide	Ch
+MHS435	UniRef90_A0A7X9ZJ38	53	-	Staphylococcus_capitis	UniRef90_A0A7X9ZJ38	cyclic lactone autoinducer peptide	Ch
+MHS435	MET_03151623	18	MET_03151623	Cutibacterium_acnes	-	thiazolylpeptide-type bacteriocin precursor	Ch
+MHS435	UniRef90_Q6A9K8	9	-	Cutibacterium_acnes	UniRef90_Q6A9K8	lactococcin 972 family bacteriocin	Ch
+MHS435	MET_02967399	85	MET_02967399	Cutibacterium_acnes	-	thiazolylpeptide-type bacteriocin	Ch
+MHS435	UniRef90_Q8VT00	4	-	Staphylococcus_capitis	UniRef90_Q8VT00	cyclic lactone autoinducer peptide	Ch
+MHS436	MET_03040834	62	MET_03040834	Staphylococcus_hominis	UniRef90_E0WX65	lacticin 481 family lantibiotic	Tw
+MHS436	MET_02692481	348	MET_02692481	Staphylococcus_epidermidis	-	plantaricin C family lantibiotic	Tw
+MHS436	MET_03142466	46	MET_03142466	Staphylococcus_hominis	UniRef90_A0A657M3E8	cyclic lactone autoinducer peptide	Tw
+MHS436	UniRef90_A0A2V3ZMW1	4	-	Staphylococcus	UniRef90_A0A2V3ZMW1	cyclic lactone autoinducer peptide	Tw
+MHS436	UniRef90_Q8VSX3	129	-	Staphylococcus_epidermidis	UniRef90_Q8VSX3	cyclic lactone autoinducer peptide	Tw
+MHS436	UniRef90_D2JC59	23	-	Staphylococcus_epidermidis	UniRef90_D2JC59	plantaricin C family lantibiotic	Tw
+MHS436	MET_03040834	2	MET_03040834	Staphylococcus	UniRef90_E0WX65	lacticin 481 family lantibiotic	Tw
+MHS436	DP_08230762	543	DP_08230762	Staphylococcus_epidermidis	UniRef90_A0A0K0PRV8	lacticin 481 family lantibiotic	Tw
+MHS436	UniRef90_A0A4Q9WQR6	15	-	Staphylococcus_hominis	UniRef90_A0A4Q9WQR6	cyclic lactone autoinducer peptide	Tw
+MHS437	MET_03151623	12	MET_03151623	Cutibacterium_acnes	-	thiazolylpeptide-type bacteriocin precursor	Sc
+MHS437	MET_02967399	10	MET_02967399	Cutibacterium_acnes	-	thiazolylpeptide-type bacteriocin precursor	Sc
+MHS437	MET_02967399	10	MET_02967399	Cutibacterium_acnes	-	thiazolylpeptide-type bacteriocin	Sc
+MHS438	UniRef90_A0A7X9ZJ38	6	-	Staphylococcus_capitis	UniRef90_A0A7X9ZJ38	cyclic lactone autoinducer peptide	Ch
+MHS438	MET_02967399	10	MET_02967399	Cutibacterium_acnes	-	thiazolylpeptide-type bacteriocin precursor	Ch
+MHS438	MET_02967399	10	MET_02967399	Cutibacterium_acnes	-	thiazolylpeptide-type bacteriocin	Ch
+MHS439	MET_02967399	147	MET_02967399	Cutibacterium_acnes	-	thiazolylpeptide-type bacteriocin	Ch
+MHS439	UniRef90_A0A2T9VBC8	2	-	Staphylococcus_epidermidis	UniRef90_A0A2T9VBC8	PSM-delta family phenol-soluble modulin	Ch
+MHS439	MET_02956429	1	MET_02956429	Staphylococcus_epidermidis	-	bacteriocin halocin C8-like domain	Ch
+MHS439	UniRef90_A0A4Q9WQR6	4	-	Staphylococcus_hominis	UniRef90_A0A4Q9WQR6	cyclic lactone autoinducer peptide	Ch
+MHS439	UniRef90_A0A7X9ZJ38	6	-	Staphylococcus_capitis	UniRef90_A0A7X9ZJ38	cyclic lactone autoinducer peptide	Ch
+MHS439	UniRef90_Q8VSX3	4	-	Staphylococcus_epidermidis	UniRef90_Q8VSX3	cyclic lactone autoinducer peptide	Ch
+MHS439	UniRef90_Q8VT03	2	-	Staphylococcus_capitis	UniRef90_Q8VT03	cyclic lactone autoinducer peptide	Ch
+MHS439	genome_07259151	14	genome_07259151	Staphylococcus_capitis	-	epsilon family phenol-soluble modulin	Ch
+MHS439	MET_03151623	39	MET_03151623	Cutibacterium_acnes	-	thiazolylpeptide-type bacteriocin precursor	Ch
+MHS439	MET_03032000	1	MET_03032000	Staphylococcus_epidermidis	-	bacteriocin halocin C8-like domain	Ch
+MHS439	MET_02967399	147	MET_02967399	Cutibacterium_acnes	-	thiazolylpeptide-type bacteriocin precursor	Ch
+MHS439	UniRef90_Q6A9K8	2	-	Cutibacterium_acnes	UniRef90_Q6A9K8	lactococcin 972 family bacteriocin	Ch
+MHS439	MET_03040834	301	MET_03040834	Staphylococcus_hominis	UniRef90_E0WX65	lacticin 481 family lantibiotic	Ch
+MHS440	UniRef90_O86860	4	-	Staphylococcus_epidermidis	UniRef90_O86860	cyclic lactone autoinducer peptide	Sc
+MHS440	UniRef90_A0A4Q9WQR6	5	-	Staphylococcus_hominis	UniRef90_A0A4Q9WQR6	cyclic lactone autoinducer peptide	Sc
+MHS440	UniRef90_Q8VSX3	10	-	Staphylococcus_epidermidis	UniRef90_Q8VSX3	cyclic lactone autoinducer peptide	Sc
+MHS440	MET_03027534	11	MET_03027534	Staphylococcus_epidermidis	-	cyclic lactone autoinducer peptide	Sc
+MHS440	MET_03151623	19	MET_03151623	Cutibacterium_acnes	-	thiazolylpeptide-type bacteriocin precursor	Sc
+MHS440	MET_02967399	27	MET_02967399	Cutibacterium_acnes	-	thiazolylpeptide-type bacteriocin precursor	Sc
+MHS440	MET_02967399	27	MET_02967399	Cutibacterium_acnes	-	thiazolylpeptide-type bacteriocin	Sc
+MHS441	MET_03151623	2	MET_03151623	Cutibacterium_acnes	-	thiazolylpeptide-type bacteriocin precursor	Ac
+MHS441	DP_08230762	12	DP_08230762	Staphylococcus_epidermidis	UniRef90_A0A0K0PRV8	lacticin 481 family lantibiotic	Ac
+MHS442	MET_02967399	70	MET_02967399	Cutibacterium_acnes	-	thiazolylpeptide-type bacteriocin precursor	Sc
+MHS442	UniRef90_A0A4Q9WQR6	2	-	Staphylococcus_hominis	UniRef90_A0A4Q9WQR6	cyclic lactone autoinducer peptide	Sc
+MHS442	genome_00627375	1	genome_00627375	Malassezia_globosa	UniRef90_Q54970	pyruvate oxidase	Sc
+MHS442	MET_02967399	70	MET_02967399	Cutibacterium_acnes	-	thiazolylpeptide-type bacteriocin	Sc
+MHS442	genome_00610233	36	genome_00610233	Streptococcus	UniRef90_Q54970	pyruvate oxidase	Sc
+MHS442	MET_03151623	22	MET_03151623	Cutibacterium_acnes	-	thiazolylpeptide-type bacteriocin precursor	Sc
+MHS442	genome_00610233	3	genome_00610233	Streptococcus_sanguinis	UniRef90_Q54970	pyruvate oxidase	Sc
+MHS442	genome_00627375	1	genome_00627375	Streptococcus_sanguinis	UniRef90_Q54970	pyruvate oxidase	Sc
+MHS442	UniRef90_Q6A9K8	5	-	Cutibacterium_acnes	UniRef90_Q6A9K8	lactococcin 972 family bacteriocin	Sc
+MHS442	genome_00627375	39	genome_00627375	Streptococcus	UniRef90_Q54970	pyruvate oxidase	Sc
+MHS443	UniRef90_A0A4Q9WQR6	5	-	Staphylococcus_hominis	UniRef90_A0A4Q9WQR6	cyclic lactone autoinducer peptide	Ch
+MHS443	MET_03151623	8	MET_03151623	Cutibacterium_acnes	-	thiazolylpeptide-type bacteriocin precursor	Ch
+MHS443	MET_02967399	41	MET_02967399	Cutibacterium_acnes	-	thiazolylpeptide-type bacteriocin	Ch
+MHS443	UniRef90_Q8VSX3	7	-	Staphylococcus_epidermidis	UniRef90_Q8VSX3	cyclic lactone autoinducer peptide	Ch
+MHS443	MET_02967399	41	MET_02967399	Cutibacterium_acnes	-	thiazolylpeptide-type bacteriocin precursor	Ch
+MHS594	MET_02967399	60	MET_02967399	Cutibacterium_acnes	-	thiazolylpeptide-type bacteriocin	Ch
+MHS594	UniRef90_O85486	2	-	Staphylococcus_epidermidis	UniRef90_O85486	alpha-1/alpha-2 family phenol-soluble modulin	Ch
+MHS594	MET_00876468	24	MET_00876468	Staphylococcus_epidermidis	UniRef90_A0A509LRT7	halocin C8 precursor-like protein	Ch
+MHS594	DP_08230762	195	DP_08230762	Staphylococcus_epidermidis	UniRef90_A0A0K0PRV8	lacticin 481 family lantibiotic	Ch
+MHS594	MET_02967399	60	MET_02967399	Cutibacterium_acnes	-	thiazolylpeptide-type bacteriocin precursor	Ch
+MHS594	MET_03151623	32	MET_03151623	Cutibacterium_acnes	-	thiazolylpeptide-type bacteriocin precursor	Ch
+MHS594	UniRef90_Q8VSX3	29	-	Staphylococcus_epidermidis	UniRef90_Q8VSX3	cyclic lactone autoinducer peptide	Ch
+MHS594	MET_00876468	24	MET_00876468	Staphylococcus_epidermidis	UniRef90_A0A509LRT7	bacteriocin halocin C8-like domain	Ch
+MHS598	MET_02986711	4	MET_02986711	Staphylococcus_capitis	-	gallidermin/nisin family lantibiotic	Sc
+MHS598	MET_02415807	68	MET_02415807	Staphylococcus_pettenkoferi	-	bacteriocin halocin C8-like domain	Sc
+MHS598	UniRef90_A0A3S0TL63	2	-	Staphylococcus_epidermidis	UniRef90_A0A3S0TL63	cyclic lactone autoinducer peptide	Sc
+MHS598	MET_02217293	393	MET_02217293	Corynebacterium_tuberculostearicum	UniRef90_E2S3R5	lactococcin 972 family bacteriocin	Sc
+MHS598	UniRef90_Q8VT00	62	-	Staphylococcus_capitis	UniRef90_Q8VT00	cyclic lactone autoinducer peptide	Sc
+MHS598	MET_03027534	8	MET_03027534	Staphylococcus_epidermidis	-	cyclic lactone autoinducer peptide	Sc
+MHS598	UniRef90_A0A4Q9WQR6	46	-	Staphylococcus_hominis	UniRef90_A0A4Q9WQR6	cyclic lactone autoinducer peptide	Sc
+MHS598	UniRef90_A0A1E9A322	86	-	Staphylococcus_pettenkoferi	UniRef90_A0A1E9A322	halocin C8 precursor-like protein	Sc
+MHS598	genome_07259151	4	genome_07259151	Staphylococcus_capitis	-	epsilon family phenol-soluble modulin	Sc
+MHS598	UniRef90_Q8VSX3	11	-	Staphylococcus_epidermidis	UniRef90_Q8VSX3	cyclic lactone autoinducer peptide	Sc
+MHS598	UniRef90_A0A1E9A322	86	-	Staphylococcus_pettenkoferi	UniRef90_A0A1E9A322	bacteriocin halocin C8-like domain	Sc
+MHS598	MET_01879086	3	MET_01879086	Corynebacterium	UniRef90_UPI00190C5B2E	lactococcin 972 family bacteriocin	Sc
+MHS598	UniRef90_O86860	12	-	Staphylococcus_epidermidis	UniRef90_O86860	cyclic lactone autoinducer peptide	Sc
+MHS598	MET_03142466	3	MET_03142466	Staphylococcus_hominis	UniRef90_A0A657M3E8	cyclic lactone autoinducer peptide	Sc

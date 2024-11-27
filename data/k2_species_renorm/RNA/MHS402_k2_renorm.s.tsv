@@ -1,0 +1,6 @@
+paired_counts	distinct_minimizer_count	k2_taxon	source	rel_abun	abun_filter	species_microbial_read_pair_total	minimizer_threshold	minimizer_microbe_ratio	minimizer_filter	taxa_pass_filter	mtx_LIBID
+2861662	801172	Staphylococcus_epidermidis	non_contaminant	38.134519347692105	TRUE	7908773	79087.73	101301.68105722594	TRUE	TRUE	MHS402
+2073792	580211	Staphylococcus_hominis	non_contaminant	27.635360551696568	TRUE	7908773	79087.73	73362.9603479579	TRUE	TRUE	MHS402
+147524	434080	Staphylococcus_capitis	non_contaminant	1.9659054186863891	TRUE	7908773	79087.73	54885.88432112036	TRUE	TRUE	MHS402
+68214	265379	Staphylococcus_haemolyticus	non_contaminant	0.9090200389785619	TRUE	7908773	79087.73	33555.01542401078	TRUE	TRUE	MHS402
+2352933	605054	Corynebacterium_tuberculostearicum	non_contaminant	31.355194642946376	TRUE	7908773	79087.73	76504.155575081	TRUE	TRUE	MHS402

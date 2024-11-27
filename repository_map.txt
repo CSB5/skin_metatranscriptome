@@ -1,0 +1,27 @@
+Panel	Github script	Plot
+1A	MGX_and_MTX_QC.Rmd	ribo_deplete_versus_non_deplete.pdf
+1B	MGX_and_MTX_QC.Rmd	RNA_kraken_sorensen_boxplot.pdf
+1C	MGX_and_MTX_QC.Rmd	RNA_OG_pearson_boxplot.pdf
+1D	MGX_and_MTX_QC.Rmd	mtx_read_count_stats.pdf
+1E	MGX_and_MTX_QC.Rmd	full_cohort_mtx_rRNA_stats.pdf
+1F	MGX_and_MTX_QC.Rmd	[A-Z]*_bact_cov_plot.pdf
+1G	MGX_and_MTX_QC.Rmd	[A-Z]*_fungi_cov_plot.pdf
+1H	MGX_and_MTX_QC.Rmd	genomic_region_RNA_mapping_M_globosa_plot.pdf
+2A	niche_specific_signatures.Rmd	site_median_abun_barplot.pdf
+2B	niche_specific_signatures.Rmd	mgx_taxa_balloon_plot.pdf; mtx_taxa_balloon_plot.pdf
+2C	niche_specific_signatures.Rmd	contributional_diversity.pdf
+2D	niche_specific_signatures.Rmd	staphyloferrin_Tw_pathway_vs_mtx_plot
+S22A	niche_specific_signatures.Rmd	mtx_pathway_dominated_boxplot_padj.pdf
+3A	species_level_DE.Rmd	M_restricta_Sc_Ch_DE_volcano.pdf
+3B	species_level_DE.Rmd	M_restricta_Sc_Ch_DE_NES_KEGG.pdf
+3C	species_level_DE.Rmd	microbial_Sc_vs_Ch_DE_tally_barplot.pdf
+3E left	species_level_DE.Rmd	invivo_invitro_PCA_batch_corrected.pdf
+3E right	species_level_DE.Rmd	S_epi_DE_tally_barplot.pdf
+4A	Figure4_SuppFig14_15.qmd	Figure4A
+4B	Figure4_SuppFig14_15.qmd	Figure4B
+4C	Figure4_SuppFig14_15.qmd	Figure4C
+4D	Figure4_SuppFig14_15.qmd	Figure4D
+5A	microbe-microbe_interactions.Rmd	hmm_AM_heatmap.pdf
+5B	microbe-microbe_interactions.Rmd	hmm_AM_species_heatmap.pdf
+5C	https://figshare.com/articles/dataset/Foldseek_and_DALI_results_for_the_Malassezia_restricta_protein_DNF11_2196/27860994?file=50645928	
+5D	HIBIT_ELISA_analysis.Rmd	IL1B_HIBIT_plot.pdf; IL1B_ELISA_plot.pdf

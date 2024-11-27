@@ -1,0 +1,213 @@
+---
+title: "compute_aldex_clr"
+author: "Chiamh"
+date: '2024-04-26'
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Scripts used to compute centered log ratio transformed abundances using aldex2
+
+
+```{r}
+library(tidyverse)
+library(ALDEx2) #v1.28.1
+library(propr) #version 2.1.2
+
+```
+
+Load supporting files and inputs
+```{r}
+
+metadata <- read_tsv("../metadata/skin_mtx_metadata_fmt.txt", show_col_types = FALSE) 
+
+mgx_stats <- read_tsv("../metadata/MGX_QC_stats.txt", show_col_types = FALSE) 
+
+mtx_stats <- read_tsv("../metadata/MTX_QC_stats.txt", show_col_types = FALSE) 
+
+mgx_stats <- merge(mgx_stats, metadata, by = "LIBID", all.x=TRUE)
+
+mtx_stats <- merge(mtx_stats, metadata, by ="LIBID", all.x=TRUE)
+
+
+mtx_to_pull <- read_tsv("../metadata/mtx_to_pull", col_names = FALSE, show_col_types = FALSE) %>% pull(X1)
+
+mgx_to_pull <- read_tsv("../metadata/mgx_to_pull", col_names = FALSE, show_col_types = FALSE) %>% pull(X1)
+
+mtx_stats_chosen <- mtx_stats %>% dplyr::filter(LIBID %in% mtx_to_pull)
+
+mgx_stats_chosen <- mgx_stats %>% dplyr::filter(LIBID %in% mgx_to_pull)
+
+mtx_mgx_stats_chosen <- read_tsv(file="../metadata/mtx_mgx_stats_chosen.tsv", show_col_types = FALSE)
+
+##########
+#MTX Library IDs per site
+
+mtx_Sc_ids <- mtx_mgx_stats_chosen %>% dplyr::filter(region=="Sc") %>% pull(mtx_LIBID)
+mtx_Ch_ids <- mtx_mgx_stats_chosen %>% dplyr::filter(region=="Ch") %>% pull(mtx_LIBID)
+mtx_Ac_ids <- mtx_mgx_stats_chosen %>% dplyr::filter(region=="Ac") %>% pull(mtx_LIBID)
+mtx_Vf_ids <- mtx_mgx_stats_chosen %>% dplyr::filter(region=="Vf") %>% pull(mtx_LIBID)
+mtx_Tw_ids <- mtx_mgx_stats_chosen %>% dplyr::filter(region=="Tw") %>% pull(mtx_LIBID)
+
+#MGX Library IDs per site
+
+mgx_Sc_ids <- mtx_mgx_stats_chosen %>% dplyr::filter(region=="Sc") %>% pull(mgx_LIBID)
+mgx_Ch_ids <- mtx_mgx_stats_chosen %>% dplyr::filter(region=="Ch") %>% pull(mgx_LIBID)
+mgx_Ac_ids <- mtx_mgx_stats_chosen %>% dplyr::filter(region=="Ac") %>% pull(mgx_LIBID)
+mgx_Vf_ids <- mtx_mgx_stats_chosen %>% dplyr::filter(region=="Vf") %>% pull(mgx_LIBID)
+mgx_Tw_ids <- mtx_mgx_stats_chosen %>% dplyr::filter(region=="Tw") %>% pull(mgx_LIBID)
+
+
+#rows are taxa and columns are samples
+bracken_count_mat <- read.table(file="../data/bracken/mgx_bracken_readcounts_mat", header = T, comment = '', check = F, sep = ' ')
+
+#convert to dataframe
+bracken_count_df <- as.data.frame(bracken_count_mat)
+
+
+```
+
+
+
+The ALDEx2 R package (version 1.18.0)15 generates Monte Carlo samples of Dirichlet distributions for each sample, using a uniform prior, and performs CLR transformation of each realization."
+
+Prevalence filtering should be done PER site, resulting in 5 separate clr transformed bracken abundance tables
+Regarding prevalence filtering, Nearing et al. (2022) found that applying a 10% threshold for the prevalence of the taxa generally resulted in more robust results. 
+
+aldex.clr takes a "reads" data.frame with each row being a different gene/microbe and each column represents the read count from that library
+
+Try mc.samples = 1000 is usually sufficient
+
+These functions take awhile to run. 
+
+Pre-run results can be downloaded from figshare:
+https://figshare.com/account/projects/202683/articles/25699095
+
+```{r}
+
+#helper function to compute aldex clr values, averaged across all monte carlo instances
+
+get_mean_aldex_clr <- function(counts_in,seed=123){
+  
+  set.seed(seed)
+  
+  aldex_clr_results <- aldex.clr(counts_in, mc.samples=1000, verbose = FALSE)
+  
+  aldex_propr_object <- aldex2propr(aldex_clr_results)
+  output <- aldex_propr_object@logratio #contains the log-ratio transformed counts as averaged across all Monte Carlo instances
+  
+  return(output)
+}
+
+#Returning just the raw clr values
+
+get_raw_aldex_clr <- function(counts_in,seed=123){
+  
+  set.seed(seed)
+  
+  aldex_clr_results <- aldex.clr(counts_in, mc.samples=1000, verbose = FALSE)
+  
+  return(aldex_clr_results)
+}
+
+
+#default 10% prevalence
+compute_aldex_inputs <- function(df=bracken_count_df, target_prevalence=0.1){
+  
+  Sc_n_libs <- length(mgx_Sc_ids)
+  Ch_n_libs <- length(mgx_Ch_ids)
+  Ac_n_libs <- length(mgx_Ac_ids)
+  Vf_n_libs <- length(mgx_Vf_ids)
+  Tw_n_libs <- length(mgx_Tw_ids)
+  
+  #For Sc
+  Sc_counts <- df %>% dplyr::select(all_of(mgx_Sc_ids))
+  Sc_counts <- Sc_counts[rowSums(Sc_counts==0) < (target_prevalence*Sc_n_libs),]
+  Sc_bracken_clr <- get_mean_aldex_clr(Sc_counts)
+  
+  #For Ch
+  Ch_counts <- df %>% dplyr::select(all_of(mgx_Ch_ids))
+  Ch_counts <- Ch_counts[rowSums(Ch_counts==0) < (target_prevalence*Ch_n_libs),]
+  Ch_bracken_clr <- get_mean_aldex_clr(Ch_counts)
+  
+  #For Ac
+  Ac_counts <- df %>% dplyr::select(all_of(mgx_Ac_ids))
+  Ac_counts <- Ac_counts[rowSums(Ac_counts==0) < (target_prevalence*Ac_n_libs),]
+  Ac_bracken_clr <- get_mean_aldex_clr(Ac_counts)
+  
+  #For Vf
+  Vf_counts <- df %>% dplyr::select(all_of(mgx_Vf_ids))
+  Vf_counts <- Vf_counts[rowSums(Vf_counts==0) < (target_prevalence*Vf_n_libs),]
+  Vf_bracken_clr <- get_mean_aldex_clr(Vf_counts)
+  
+  #For Tw
+  Tw_counts <- df %>% dplyr::select(all_of(mgx_Tw_ids))
+  Tw_counts <- Tw_counts[rowSums(Tw_counts==0) < (target_prevalence*Tw_n_libs),]
+  Tw_bracken_clr <- get_mean_aldex_clr(Tw_counts)
+
+  #lst of dataframes
+  
+  output <- tibble::lst(Sc_bracken_clr, Ch_bracken_clr,
+                        Ac_bracken_clr, Vf_bracken_clr,
+                        Tw_bracken_clr)
+  return(output)
+   
+}
+
+
+compute_raw_aldex <- function(df=bracken_count_df, target_prevalence=0.1){
+  
+  Sc_n_libs <- length(mgx_Sc_ids)
+  Ch_n_libs <- length(mgx_Ch_ids)
+  Ac_n_libs <- length(mgx_Ac_ids)
+  Vf_n_libs <- length(mgx_Vf_ids)
+  Tw_n_libs <- length(mgx_Tw_ids)
+  
+  #For Sc
+  Sc_counts <- df %>% dplyr::select(all_of(mgx_Sc_ids))
+  Sc_counts <- Sc_counts[rowSums(Sc_counts==0) < (target_prevalence*Sc_n_libs),]
+  Sc_bracken_clr <- get_raw_aldex_clr(Sc_counts)
+  
+  #For Ch
+  Ch_counts <- df %>% dplyr::select(all_of(mgx_Ch_ids))
+  Ch_counts <- Ch_counts[rowSums(Ch_counts==0) < (target_prevalence*Ch_n_libs),]
+  Ch_bracken_clr <- get_raw_aldex_clr(Ch_counts)
+  
+  #For Ac
+  Ac_counts <- df %>% dplyr::select(all_of(mgx_Ac_ids))
+  Ac_counts <- Ac_counts[rowSums(Ac_counts==0) < (target_prevalence*Ac_n_libs),]
+  Ac_bracken_clr <- get_raw_aldex_clr(Ac_counts)
+  
+  #For Vf
+  Vf_counts <- df %>% dplyr::select(all_of(mgx_Vf_ids))
+  Vf_counts <- Vf_counts[rowSums(Vf_counts==0) < (target_prevalence*Vf_n_libs),]
+  Vf_bracken_clr <- get_raw_aldex_clr(Vf_counts)
+  
+  #For Tw
+  Tw_counts <- df %>% dplyr::select(all_of(mgx_Tw_ids))
+  Tw_counts <- Tw_counts[rowSums(Tw_counts==0) < (target_prevalence*Tw_n_libs),]
+  Tw_bracken_clr <- get_raw_aldex_clr(Tw_counts)
+
+  #lst of aldex2clr objects
+  
+  output <- tibble::lst(Sc_bracken_clr, Ch_bracken_clr,
+                        Ac_bracken_clr, Vf_bracken_clr,
+                        Tw_bracken_clr)
+  return(output)
+   
+}
+
+
+
+
+aldex_clr_values <- compute_aldex_inputs()
+
+
+aldex_raw_clr_values <- compute_raw_aldex()
+
+
+
+```

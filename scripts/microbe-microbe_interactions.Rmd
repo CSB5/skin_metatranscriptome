@@ -1,0 +1,560 @@
+---
+title: "Microbe-microbe interactions"
+author: "Chiamh"
+date: '2024-04-25'
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Figure 4: Expression of anti-microbial genes and mining for antagonistic microbe-microbe relationships
+
+```{r}
+library(tidyverse)
+library(reshape2)
+library(vegan)
+library(ggpubr)
+
+library(DESeq2)
+library(ALDEx2) #v1.28.1
+library(propr) #version 2.1.2
+
+```
+
+
+Load metadata
+
+```{r}
+
+metadata <- read_tsv("../metadata/skin_mtx_metadata_fmt.txt", show_col_types = FALSE) 
+
+mgx_stats <- read_tsv("../metadata/MGX_QC_stats.txt", show_col_types = FALSE) 
+
+mtx_stats <- read_tsv("../metadata/MTX_QC_stats.txt", show_col_types = FALSE) 
+
+mgx_stats <- merge(mgx_stats, metadata, by = "LIBID", all.x=TRUE)
+
+mtx_stats <- merge(mtx_stats, metadata, by ="LIBID", all.x=TRUE)
+
+
+mtx_to_pull <- read_tsv("../metadata/mtx_to_pull", col_names = FALSE, show_col_types = FALSE) %>% pull(X1)
+
+mgx_to_pull <- read_tsv("../metadata/mgx_to_pull", col_names = FALSE, show_col_types = FALSE) %>% pull(X1)
+
+mtx_stats_chosen <- mtx_stats %>% dplyr::filter(LIBID %in% mtx_to_pull)
+
+mgx_stats_chosen <- mgx_stats %>% dplyr::filter(LIBID %in% mgx_to_pull)
+
+mtx_mgx_stats_chosen <- read_tsv(file="../metadata/mtx_mgx_stats_chosen.tsv", show_col_types = FALSE)
+
+#from the 102
+n_sites_df <- plyr::count(mtx_stats_chosen, "region") %>% dplyr::rename(n_libs_total=freq)
+
+##########
+#MTX Library IDs per site
+
+mtx_Sc_ids <- mtx_mgx_stats_chosen %>% dplyr::filter(region=="Sc") %>% pull(mtx_LIBID)
+mtx_Ch_ids <- mtx_mgx_stats_chosen %>% dplyr::filter(region=="Ch") %>% pull(mtx_LIBID)
+mtx_Ac_ids <- mtx_mgx_stats_chosen %>% dplyr::filter(region=="Ac") %>% pull(mtx_LIBID)
+mtx_Vf_ids <- mtx_mgx_stats_chosen %>% dplyr::filter(region=="Vf") %>% pull(mtx_LIBID)
+mtx_Tw_ids <- mtx_mgx_stats_chosen %>% dplyr::filter(region=="Tw") %>% pull(mtx_LIBID)
+
+#load custom functions
+source("aldex2_wrappers.R")
+
+```
+
+Load filtered and renormalized kraken2 results
+```{r}
+
+rna_k2_minimizer_renorm <- lapply(mtx_to_pull, function(x){
+  df_out <- read_tsv(file=paste0("../data/k2_species_renorm/RNA/",x,"_k2_renorm.s.tsv"),
+                     show_col_types = FALSE)
+  
+  return(df_out)
+})
+
+names(rna_k2_minimizer_renorm) <- mtx_to_pull
+
+```
+
+Load signal P v6 results for Malassezia proteins
+```{r}
+
+#Malassezia signal P 6 results
+
+malassezia_secretory <- read_tsv("../data/signalP_out/Malassezia_transcripts_translated_signalP6_prediction_results_secretory_fmt.tsv",
+                                 col_names = c("ID", "prediction", 
+                                               "OTHER","SP", "CS_position", "pangene",
+                                               show_col_types=FALSE))
+
+
+```
+
+
+
+Load various results from hmmscan.
+
+We've searched for bacteriocins/AMPs, phenol soluble modulins (psm),  agrD auto-inducing peptides from Staphyloccocus and hydrogen peroxide/free radical generating enzymes from Streptococcus.
+
+See metadata/HMM_metadata.tsv for more details
+
+Load hmmscan results.
+```{r}
+
+AMP_hmm_results <- read_tsv("../data/anti_bact_hmmer/all_mtx_proteins_anti_microbial_hmmscan_fmt.tsv",
+                            col_names = c("target_name",        
+                                          "target_accession",
+                                          "query_name",
+                                          "query_accession",  
+                                          "full_seq_E_value",  
+                                          "full_seq_score",
+                                          "full_seq_bias",
+                                          "best_one_dom_E_value",  
+                                          "best_one_score",  
+                                          "best_one_bias",   
+                                          "exp", 
+                                          "reg", 
+                                          "clu" ,
+                                          "ov", 
+                                          "env",
+                                          "dom",
+                                          "rep",
+                                          "inc", 
+                                          "description_of_target"),
+                            show_col_types = FALSE) %>% dplyr::filter(target_name != "Staphylococcus_sle1")
+
+#phenol soluble modulins
+psm_hmm_results <- read_tsv("../data/anti_bact_hmmer/all_mtx_proteins_psm_hmmscan_fmt.tsv",
+                            col_names = c("target_name",        
+                                          "target_accession",
+                                          "query_name",
+                                          "query_accession",  
+                                          "full_seq_E_value",  
+                                          "full_seq_score",
+                                          "full_seq_bias",
+                                          "best_one_dom_E_value",  
+                                          "best_one_score",  
+                                          "best_one_bias",   
+                                          "exp", 
+                                          "reg", 
+                                          "clu" ,
+                                          "ov", 
+                                          "env",
+                                          "dom",
+                                          "rep",
+                                          "inc", 
+                                          "description_of_target"),
+                            show_col_types = FALSE)
+
+#auto-inducing peptide (agrD)
+
+agrD_hmm_results <- read_tsv("../data/anti_bact_hmmer/all_mtx_proteins_AIP_hmmscan_fmt.tsv",
+                            col_names = c("target_name",        
+                                          "target_accession",
+                                          "query_name",
+                                          "query_accession",  
+                                          "full_seq_E_value",  
+                                          "full_seq_score",
+                                          "full_seq_bias",
+                                          "best_one_dom_E_value",  
+                                          "best_one_score",  
+                                          "best_one_bias",   
+                                          "exp", 
+                                          "reg", 
+                                          "clu" ,
+                                          "ov", 
+                                          "env",
+                                          "dom",
+                                          "rep",
+                                          "inc", 
+                                          "description_of_target"),
+                            show_col_types = FALSE)
+
+#Peroxide pathway (Streptococcus)
+
+perox_hmm_results <- read_tsv("../data/anti_bact_hmmer/all_mtx_proteins_strep_peroxide_hmmscan_fmt.tsv",
+                            col_names = c("target_name",        
+                                          "target_accession",
+                                          "query_name",
+                                          "query_accession",  
+                                          "full_seq_E_value",  
+                                          "full_seq_score",
+                                          "full_seq_bias",
+                                          "best_one_dom_E_value",  
+                                          "best_one_score",  
+                                          "best_one_bias",   
+                                          "exp", 
+                                          "reg", 
+                                          "clu" ,
+                                          "ov", 
+                                          "env",
+                                          "dom",
+                                          "rep",
+                                          "inc", 
+                                          "description_of_target"),
+                            show_col_types = FALSE)
+
+#
+all_hmm_results <- do.call("rbind", list(AMP_hmm_results,psm_hmm_results,agrD_hmm_results,perox_hmm_results))
+
+
+all_hmm_results$target_accession_fmt <- gsub(pattern="\\.[0-9]*$", replacement="", all_hmm_results$target_accession)
+
+#Load HMM metadata for sequence and domain cut offs
+
+HMM_metadata <- read_tsv("../metadata/HMM_metadata.tsv", show_col_types = FALSE)
+
+
+#Add cut off information (filtering away false positive hits)
+
+all_hmm_results <- merge(all_hmm_results, HMM_metadata %>% dplyr::select(-description), by = "target_accession_fmt")
+
+
+
+```
+
+A pangene/UniRef90 hit to a hmm is when the seq and best one domain scores are greater than or equal to the sequence and domain cut offs
+
+```{r}
+
+hmm_hits <- all_hmm_results %>% dplyr::filter(full_seq_score >= seq_cutoff & best_one_score >= domain_cutoff )
+
+```
+
+Identify all the species expressing these anti-microbial products on skin, based on MTX
+
+```{r}
+
+MTX_signif_hmm_expr_taxa_filt_AM <- read_tsv("../data/MTX_signif_hmm_expr_taxa_filt_AM.tsv")
+
+```
+
+## Panel A
+Presence/absence heatmap. Y axis refers to the pHMM class. X axis refer to the libraries, sorted in order: Sc, Ch, Ac, Vf, Tw
+
+By definition, "unclassified" taxa are excluded. 
+
+We want to also include those libraries with no hits to any anti-microbial HMMs.
+
+
+
+```{r}
+#Return the library IDs that have no hits 
+
+no_hit_ids <- setdiff(mtx_to_pull, unique(MTX_signif_hmm_expr_taxa_filt_AM$LIBID))
+
+#add representative entries for library IDs that have no hits.
+
+no_hit_df <- data.frame(LIBID=no_hit_ids, description_of_target="lacticin 481 family lantibiotic", unpaired_read_count=0)
+
+#summarize the dataframe, then convert it to a "longer form"
+
+hmm_AM_df <- rbind(MTX_signif_hmm_expr_taxa_filt_AM %>% dplyr::select(LIBID, description_of_target, unpaired_read_count), no_hit_df)
+
+hmm_AM_df_summary <- hmm_AM_df %>% group_by(LIBID,description_of_target) %>% summarise(unpaired_read_count_sum=sum(unpaired_read_count))
+
+
+#https://academic.oup.com/jac/article/71/9/2484/2238319
+#Among the noise in the raw reads, the possibility of contamination has to be taken into consideration, such as sequence carryover.6 SRST2 deals with this by setting an extra threshold of a minimum depth of 5, dealing with the worst part of contamination.
+hmm_AM_df_summary$presence <- ifelse(hmm_AM_df_summary$unpaired_read_count_sum >= 5, 1, 0)
+
+hmm_AM_df_wide <- pivot_wider(hmm_AM_df_summary, id_cols=description_of_target,
+                              names_from=LIBID, values_from = presence )
+hmm_AM_df_wide[is.na(hmm_AM_df_wide)] <- 0
+
+##
+
+hmm_AM_df_heatmap_input <- melt(hmm_AM_df_wide, value.name="presence") %>% dplyr::rename(LIBID=variable)
+
+##Set the factor levels for LIBID in a sensible manner in this order: Sc, Ch, Ac, Vf, Tw
+
+hmm_AM_df_heatmap_input$LIBID <- factor(hmm_AM_df_heatmap_input$LIBID,
+                                        levels=c(mtx_Sc_ids,
+                                                 mtx_Ch_ids,
+                                                 mtx_Ac_ids,
+                                                 mtx_Vf_ids,
+                                                 mtx_Tw_ids))
+
+##Set the factor levels for the category of AMPs
+
+hmm_AM_df_heatmap_input$description_of_target <- factor(hmm_AM_df_heatmap_input$description_of_target,
+                                                        levels=rev(c( "halocin C8 precursor-like protein",
+                                                                  "bacteriocin halocin C8-like domain",
+                                                                 "thiazolylpeptide-type bacteriocin precursor",
+                                                                 "thiazolylpeptide-type bacteriocin",
+                                                                 "lactococcin 972 family bacteriocin",
+                                                                 "lacticin 481 family lantibiotic",
+                                                                 "gallidermin/nisin family lantibiotic",
+                                                                 "plantaricin C family lantibiotic",
+                                                                 "class IIb bacteriocin, lactobin A/cerein 7B family",
+                                                                 "salivaricin M family lantibiotic",
+                                                                 "lichenicidin A2 family type 2 lantibiotic",
+                                                                 "alpha-1/alpha-2 family phenol-soluble modulin",
+                                                                 "PSM-delta family phenol-soluble modulin",
+                                                                 "Delta lysin family",
+                                                                 "epsilon family phenol-soluble modulin",
+                                                                 "pyruvate oxidase",
+                                                                 "L-lactate oxidase",
+                                                                 "cyclic lactone autoinducer peptide")))
+
+hmm_AM_df_heatmap_input$presence <- factor(hmm_AM_df_heatmap_input$presence)
+
+
+hmm_AM_heatmap <- ggplot(data=hmm_AM_df_heatmap_input, aes(x=LIBID, y = description_of_target, fill=presence)) + geom_tile(colour ="white") + 
+  scale_fill_manual(values=c("white","steelblue")) + 
+  scale_x_discrete(expand = c(0, 0)) + 
+  scale_y_discrete(expand = c(0, 0)) + 
+  theme(axis.ticks = element_blank()) +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.2, hjust=1)) +
+  theme(axis.title = element_blank()) +
+  theme(legend.position="none")
+
+
+
+ggsave(plot=hmm_AM_heatmap,
+       filename = "../plots/hmm_AM_heatmap.pdf",
+       height = 5, width =10)
+
+
+hmm_AM_heatmap
+
+
+```
+
+## Panel B
+
+Heatmap, y axis are the anti-microbial HMM features, x axis are the species. 
+
+Fill will be prevalence = number of mtx libraries associated with this species and this feature
+
+```{r}
+
+MTX_signif_hmm_expr_taxa_filt_AM_lib_count <- MTX_signif_hmm_expr_taxa_filt_AM %>% 
+  dplyr::filter(unpaired_read_count >= 5) %>%
+  dplyr::select(LIBID, k2_taxon, description_of_target)  %>% unique(.) 
+
+MTX_signif_hmm_expr_taxa_filt_AM_lib_count <- plyr::count(MTX_signif_hmm_expr_taxa_filt_AM_lib_count,
+                                                          vars=c("k2_taxon","description_of_target"))
+
+MTX_signif_hmm_expr_taxa_filt_AM_lib_count <- pivot_wider(MTX_signif_hmm_expr_taxa_filt_AM_lib_count, 
+                                                          id_cols=description_of_target,
+                              names_from=k2_taxon, values_from = freq )
+
+MTX_signif_hmm_expr_taxa_filt_AM_lib_count[is.na(MTX_signif_hmm_expr_taxa_filt_AM_lib_count)] <- 0
+
+##
+
+MTX_signif_hmm_expr_taxa_filt_AM_lib_count <- melt(MTX_signif_hmm_expr_taxa_filt_AM_lib_count, value.name="freq") %>% dplyr::rename(k2_taxon=variable)
+
+
+MTX_signif_hmm_expr_taxa_filt_AM_lib_count$description_of_target <-
+  factor(MTX_signif_hmm_expr_taxa_filt_AM_lib_count$description_of_target,
+                                                        levels=rev(c( "halocin C8 precursor-like protein",
+                                                                  "bacteriocin halocin C8-like domain",
+                                                                 "thiazolylpeptide-type bacteriocin precursor",
+                                                                 "thiazolylpeptide-type bacteriocin",
+                                                                 "lactococcin 972 family bacteriocin",
+                                                                 "lacticin 481 family lantibiotic",
+                                                                 "gallidermin/nisin family lantibiotic",
+                                                                 "plantaricin C family lantibiotic",
+                                                                 "class IIb bacteriocin, lactobin A/cerein 7B family",
+                                                                 "salivaricin M family lantibiotic",
+                                                                 "lichenicidin A2 family type 2 lantibiotic",
+                                                                 "alpha-1/alpha-2 family phenol-soluble modulin",
+                                                                 "PSM-delta family phenol-soluble modulin",
+                                                                 "Delta lysin family",
+                                                                 "epsilon family phenol-soluble modulin",
+                                                                 "pyruvate oxidase",
+                                                                 "L-lactate oxidase",
+                                                                 "cyclic lactone autoinducer peptide")))
+
+
+
+hmm_AM_species_heatmap <- ggplot(data=MTX_signif_hmm_expr_taxa_filt_AM_lib_count, 
+                                 aes(x=k2_taxon, y = description_of_target, fill=freq)) + 
+  geom_tile(colour ="white") + geom_text(aes(label=freq)) +
+  scale_fill_gradient2(low="white", high="red") + 
+  scale_x_discrete(expand = c(0, 0)) + 
+  scale_y_discrete(expand = c(0, 0)) + 
+  theme(axis.ticks = element_blank()) +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.2, hjust=1)) +
+  theme(axis.title = element_blank())
+
+
+
+ggsave(plot=hmm_AM_species_heatmap,
+       filename = "../plots/hmm_AM_species_heatmap.pdf",
+       height = 5, width =7)
+
+hmm_AM_species_heatmap
+
+
+
+```
+
+Fisher's exact test for differential distribution of expressed anti-microbial genes across sites. (Also Fig 4B)
+
+Null hypothesis: There is no difference in proportions of metatranscriptomes harbouring a specific AMP across the sites
+
+Adjust p-value by number of tests - you're not testing every row of anti-microbial genes.
+
+
+Fisher's exact test takes as an input, r x c contingency tables. 
+Let the first column represent Scalp,
+Let the second column represent Cheek,
+...
+Let the fifth column represent Toe Webs
+
+Let the first row be number of times a gene is observed to be expressed in a particular skin site
+Let the second row be the number of times a gene is not observed in a particular skin site
+
+For genes (rows) only test those with >= 33.33% presence at any given site
+
+
+```{r}
+
+hmm_AM_fisher_input <- merge(hmm_AM_df_heatmap_input,metadata %>% 
+                               dplyr::select(LIBID,region))
+
+
+
+hmm_AM_fisher_input_fmt <- hmm_AM_fisher_input %>% group_by(description_of_target,
+                                                            region) %>% 
+  summarize(freq=length(which(presence == 1))) %>% ungroup()
+
+hmm_AM_fisher_input_fmt <- merge(hmm_AM_fisher_input_fmt, n_sites_df)
+hmm_AM_fisher_input_fmt$proportion_present <- hmm_AM_fisher_input_fmt$freq/hmm_AM_fisher_input_fmt$n_libs_total
+
+#those with >= 33.33% presence at any given site
+hmm_AM_fisher_genes_to_test <- hmm_AM_fisher_input_fmt %>% 
+  dplyr::filter(proportion_present >= 1/3) %>% pull(description_of_target) %>% unique(.)
+
+hmm_AM_fisher_input_fmt_subset <- hmm_AM_fisher_input_fmt %>%
+  dplyr::filter(description_of_target %in% hmm_AM_fisher_genes_to_test) %>%
+  dplyr::select(description_of_target, region,freq,n_libs_total)
+
+hmm_AM_fisher_input_fmt_subset$n_absent <- hmm_AM_fisher_input_fmt_subset$n_libs_total - hmm_AM_fisher_input_fmt_subset$freq
+
+
+hmm_AM_fisher_input_subset_present <- pivot_wider(hmm_AM_fisher_input_fmt_subset, 
+                    id_cols=description_of_target, 
+                    names_from=region, values_from=freq) %>% as.data.frame()
+
+
+hmm_AM_fisher_input_subset_absent <- pivot_wider(hmm_AM_fisher_input_fmt_subset, 
+                    id_cols=description_of_target, 
+                    names_from=region, values_from=n_absent) %>% as.data.frame()
+
+
+
+#
+get_contingency_table_and_test <- function(presence_df=hmm_AM_fisher_input_subset_present,
+                                  absence_df=hmm_AM_fisher_input_subset_absent,
+                                  target_gene){
+ 
+    target_presence_df <- presence_df %>% dplyr::filter(description_of_target==target_gene)
+    
+    target_absence_df <- absence_df %>% dplyr::filter(description_of_target==target_gene)
+    
+    #for two.sided fisher test
+    test_matrix <- rbind(target_presence_df,
+                         target_absence_df) %>% dplyr::select(-description_of_target) %>% as.matrix()
+
+    row.names(test_matrix) <- c("expressed", "not_expressed")
+    
+    test_result <- fisher.test(test_matrix)
+    
+    output_df <- data.frame(description_of_target=target_gene,fisher_exact_p_value=test_result$p.value)
+    
+    
+    return(output_df)
+    
+  }
+  
+  
+
+hmm_AM_fisher_test_results <- lapply(hmm_AM_fisher_genes_to_test, function(x){
+  
+  output <- get_contingency_table_and_test(target_gene = x)
+  
+  return(output)
+  
+} ) %>% do.call("rbind",.)
+
+
+hmm_AM_fisher_test_results$p_adj <- p.adjust(hmm_AM_fisher_test_results$fisher_exact_p_value, method="fdr")
+
+
+
+```
+
+## Figure 4C
+
+Correlation analysis of Malassezia restricta transcripts with the metagenomic abundances of other organisms, from scalp.
+
+We require:
+a) Normalized and variance stabilized (DESeq2) Malassezia restricta RNA read counts after Salmon pseudoalignment
+b) Compositionality aware (centered log ratio) transformed counts of another organism e.g. Cutibacterium acnes for DNA/metagenomes
+
+The correlations were computed as such:
+Note: aldex_raw_clr_values is a large file and can be downloaded from figshare. 
+See https://figshare.com/account/projects/202683/articles/25699095
+
+See compute_aldex_clr.Rmd in the scripts/ folder for the code used to compute aldex_raw_clr_values.
+
+```{r eval=FALSE}
+
+Malassezia_integer_count_matrix <- read.table(file="../data/Malassezia_integer_count_matrix.txt")
+
+#computed using aldex2, centered log ratio transform
+aldex_raw_clr_values <- readRDS("../data/aldex_raw_clr_values.RDS") 
+
+M_res_mtx_vs_C_acnes_mgx_Sc <- get_mtx_vs_mgx_correlation(mtx_count_matrix = Malassezia_integer_count_matrix,
+                                              aldex_clr_input = aldex_raw_clr_values[["Sc_bracken_clr"]],
+                                   secretory_prediction_df = malassezia_secretory,
+  site_libs=mtx_Sc_ids,
+  species_transcriptome_name = "DNF",
+  species_transcriptome_read_threshold=200000,
+  responding_species = "Cutibacterium_acnes", cor_test_method = "spearman" )
+
+
+M_res_mtx_vs_C_acnes_mgx_Sc_corr_df <- M_res_mtx_vs_C_acnes_mgx_Sc$corr_df
+
+M_res_mtx_vs_C_acnes_mgx_Sc_corr_df$significant <- ifelse(M_res_mtx_vs_C_acnes_mgx_Sc_corr_df$p_adj < 0.05, 
+                                                               TRUE, FALSE)
+
+write_tsv(M_res_mtx_vs_C_acnes_mgx_Sc_corr_df, "../data/M_res_mtx_vs_C_acnes_mgx_Sc_corr_df.tsv")
+
+```
+
+Plot the correlations (from scalp)
+
+```{r}
+
+M_res_mtx_vs_C_acnes_mgx_Sc_corr_df <- read_tsv("../data/M_res_mtx_vs_C_acnes_mgx_Sc_corr_df.tsv", show_col_types = FALSE)
+
+
+#volcano plot derived from M_res_mtx_vs_C_acnes_mgx_Sc_corr_df
+
+M_res_mtx_vs_C_acnes_mgx_Sc_corr_volcano <- ggplot(data=M_res_mtx_vs_C_acnes_mgx_Sc_corr_df, aes(y=-log10(p_adj),x=corr_coeff)) + 
+  geom_point(aes(colour = factor(significant))) + theme_classic() + scale_color_manual(values=c("black","red")) + geom_hline(yintercept=-log10(0.05), linetype = "dashed") + geom_vline(xintercept=c(-0.7,0.7), linetype="dashed") +
+  geom_label_repel(data=M_res_mtx_vs_C_acnes_mgx_Sc_corr_df %>% filter(p_adj < 0.05), 
+                   aes(label=pangene),
+                   size = 3)
+
+
+ggsave(filename="../plots/fig4C_volcano.pdf",
+       plot=M_res_mtx_vs_C_acnes_mgx_Sc_corr_volcano,
+       height = 5, width = 8)
+
+
+
+M_res_mtx_vs_C_acnes_mgx_Sc_corr_volcano
+
+
+```
+
+

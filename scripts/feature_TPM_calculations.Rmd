@@ -1,0 +1,805 @@
+---
+title: "feature_TPM_calculations"
+author: "Chiamh"
+date: '2024-04-24'
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Load libraries and custom functions.
+
+
+```{r}
+library(tidyverse)
+library(reshape2)
+
+#functions
+source("custom_functions.R")
+
+```
+
+
+Load metadata and supporting files
+
+```{r}
+
+metadata <- read_tsv("../metadata/skin_mtx_metadata_fmt.txt", show_col_types = FALSE) 
+
+mgx_stats <- read_tsv("../metadata/MGX_QC_stats.txt", show_col_types = FALSE) 
+
+mtx_stats <- read_tsv("../metadata/MTX_QC_stats.txt", show_col_types = FALSE) 
+
+mgx_stats <- merge(mgx_stats, metadata, by = "LIBID", all.x=TRUE)
+
+mtx_stats <- merge(mtx_stats, metadata, by ="LIBID", all.x=TRUE)
+
+#mtx_to_pull and mgx_to_pull refer to the 102 Libraries with paired MTX and MGX data:
+
+mtx_to_pull <- read_tsv("../metadata/mtx_to_pull", col_names = FALSE, show_col_types = FALSE) %>% pull(X1)
+
+mgx_to_pull <- read_tsv("../metadata/mgx_to_pull", col_names = FALSE, show_col_types = FALSE) %>% pull(X1)
+
+mtx_stats_chosen <- mtx_stats %>% dplyr::filter(LIBID %in% mtx_to_pull)
+
+mgx_stats_chosen <- mgx_stats %>% dplyr::filter(LIBID %in% mgx_to_pull)
+
+mtx_mgx_stats_chosen <- read_tsv(file="../metadata/mtx_mgx_stats_chosen.tsv", show_col_types = FALSE)
+
+
+##########
+#MTX Library IDs per site
+
+mtx_Sc_ids <- mtx_mgx_stats_chosen %>% dplyr::filter(region=="Sc") %>% pull(mtx_LIBID)
+mtx_Ch_ids <- mtx_mgx_stats_chosen %>% dplyr::filter(region=="Ch") %>% pull(mtx_LIBID)
+mtx_Ac_ids <- mtx_mgx_stats_chosen %>% dplyr::filter(region=="Ac") %>% pull(mtx_LIBID)
+mtx_Vf_ids <- mtx_mgx_stats_chosen %>% dplyr::filter(region=="Vf") %>% pull(mtx_LIBID)
+mtx_Tw_ids <- mtx_mgx_stats_chosen %>% dplyr::filter(region=="Tw") %>% pull(mtx_LIBID)
+
+#MGX Library IDs per site
+
+mgx_Sc_ids <- mtx_mgx_stats_chosen %>% dplyr::filter(region=="Sc") %>% pull(mgx_LIBID)
+mgx_Ch_ids <- mtx_mgx_stats_chosen %>% dplyr::filter(region=="Ch") %>% pull(mgx_LIBID)
+mgx_Ac_ids <- mtx_mgx_stats_chosen %>% dplyr::filter(region=="Ac") %>% pull(mgx_LIBID)
+mgx_Vf_ids <- mtx_mgx_stats_chosen %>% dplyr::filter(region=="Vf") %>% pull(mgx_LIBID)
+mgx_Tw_ids <- mtx_mgx_stats_chosen %>% dplyr::filter(region=="Tw") %>% pull(mgx_LIBID)
+
+##########
+#Load kraken2 filtered and renormalized dataframes.
+
+#MTX data
+rna_k2_minimizer_renorm <- lapply(mtx_to_pull, function(x){
+  
+  df_out <- read_tsv(file=paste0("../data/k2_species_renorm/RNA/",x,"_k2_renorm.s.tsv"),
+           show_col_types = FALSE)
+  
+  return(df_out)
+  
+})
+
+names(rna_k2_minimizer_renorm) <- mtx_to_pull
+
+
+#MGX data
+k2_minimizer_renorm <- lapply(mgx_to_pull, function(x){
+  
+  df_out <- read_tsv(file=paste0("../data/k2_species_renorm/DNA/",x,"_k2_renorm.s.tsv"),
+           show_col_types = FALSE)
+  
+  return(df_out)
+  
+})
+
+names(k2_minimizer_renorm) <- mgx_to_pull
+
+
+
+#Load calculations for the transcription activity per species per site 
+
+#Transcriptional activity per species was defined as RNA/DNA ratio  (TPM (RNA)/CPM (DNA))
+
+Tw_species_ratio <- read_tsv("../data/Tw_species_ratio.tsv", show_col_types = FALSE)
+
+Ch_species_ratio <- read_tsv("../data/Ch_species_ratio.tsv", show_col_types = FALSE)
+
+Vf_species_ratio <- read_tsv("../data/Vf_species_ratio.tsv", show_col_types = FALSE)
+
+Ac_species_ratio <- read_tsv("../data/Ac_species_ratio.tsv", show_col_types = FALSE)
+
+Sc_species_ratio <- read_tsv("../data/Sc_species_ratio.tsv", show_col_types = FALSE)
+
+
+transcription_activity_all <- tibble::lst(Tw_species_ratio,
+                                          Ch_species_ratio,
+                                          Vf_species_ratio,
+                                          Ac_species_ratio,
+                                          Sc_species_ratio)
+
+
+transcription_activity_all_df <- do.call("rbind", transcription_activity_all)
+
+transcription_activity_all_df <- transcription_activity_all_df %>%
+  dplyr::rename(species=k2_taxon) %>%
+  dplyr::select(species, region, median_detect_transcriptional_activity, mean_detect_transcriptional_activity)
+
+
+#Load metadata for microbial orthologous groups
+
+bact_og_metadata <- read_tsv("../metadata/bacteria_e5.og_annotations.tsv",
+                             col_names = c("bacteria_OG", 
+                                           "bacteria_eggnog_cat",
+                                           "bacteria_eggnog_desc"),
+                             show_col_types = FALSE)
+
+fungi_og_metadata <- read_tsv("../metadata/fungi_e5.og_annotations.tsv",
+                             col_names = c("fungi_OG", 
+                                           "fungi_eggnog_cat",
+                                           "fungi_eggnog_desc"),
+                             show_col_types = FALSE)
+
+
+virus_og_metadata <- read_tsv("../metadata/virus_e5.og_annotations.tsv",
+                              col_names = c("virus_OG",
+                                            "virus_eggnog_cat",
+                                            "virus_eggnog_desc"),
+                              show_col_types = FALSE)
+
+###
+og_metadata <- rbind(bact_og_metadata %>% dplyr::rename(feature=bacteria_OG,
+                                                        eggnog_cat=bacteria_eggnog_cat,
+                                                        eggnog_desc=bacteria_eggnog_desc), 
+                     fungi_og_metadata %>% dplyr::rename(feature=fungi_OG,
+                                                         eggnog_cat=fungi_eggnog_cat,
+                                                         eggnog_desc=fungi_eggnog_desc))
+
+og_metadata <- rbind(og_metadata, virus_og_metadata %>% dplyr::rename(feature=virus_OG,
+                                                                      eggnog_cat=virus_eggnog_cat,
+                                                                      eggnog_desc=virus_eggnog_desc))
+
+###
+#Note the technical replicates besides the 3 bact spike ins
+
+tech_reps <- metadata %>% dplyr::filter(comments == "technical replicate analysis" & subj_region != "3 Bac (VV:LM:PS)")
+
+mtx_to_pull_with_reps <- c(mtx_to_pull, tech_reps %>% pull(LIBID))
+
+
+```
+
+
+
+The following code chunks cannot be run straight after cloning from the github repo because the input file sizes are too large.
+The relevant input files in ../data/MTX_annotations/ and ../data/MGX_annotations are uploaded to this project's FigShare repository
+https://figshare.com/articles/dataset/MGX_annotations_MTX_annotations_and_pairwise_DESeq2_comparisons_at_the_orthologous_group_level/25688505
+
+These calculations only need to be run once and the processed files can be saved for other downstream analyses.
+
+```{r eval=FALSE}
+#To save on memory, exclude unnecessary columns 
+mtx_pangene_features <- lapply(mtx_to_pull_with_reps, function(x){
+  output <- read_tsv(paste0("../data/MTX_annotations/",x,"_merged_panalign_annot.tsv"), show_col_types = FALSE) %>%
+            dplyr::select(pangene, length, uniref90_ID, unpaired_read_count, 
+                          emapper_max_annot_OG, emapper_OG, eggnog_cat, pangene_desc, eggnog_desc, uniref90_desc)
+  
+  output$LIBID <- x
+  
+  #convert nt length to kilobase scale
+  output$length <- (output$length)/1000
+  
+  output$RPK <- output$unpaired_read_count / output$length
+  
+  return(output)
+  })
+
+names(mtx_pangene_features) <- mtx_to_pull_with_reps
+
+#features mapping to uniref90
+# 
+mtx_uniref90_features <- lapply(mtx_to_pull_with_reps, function(x){
+  output <- read_tsv(paste0("../data/MTX_annotations/",x,"_merged_transl-search_annot.tsv"), show_col_types = FALSE) %>%
+            dplyr::select(uniref90_ID,AA_length,unpaired_read_count, emapper_max_annot_OG, 
+                          emapper_OG, eggnog_cat, uniref90_desc,eggnog_desc)
+  
+  output$LIBID <- x
+  
+  ##converting AA length to equivalent length in nt, then convert length to kilobase scale
+  output$length <- (output$AA_length * 3)/1000
+  
+  output$RPK <- output$unpaired_read_count/output$length
+  
+  return(output)
+ 
+  })
+
+names(mtx_uniref90_features) <- mtx_to_pull_with_reps
+
+#Get read count summary statistics for these features. Caution: these are now unpaired counts
+
+mtx_all_feature_count_summary <- lapply(mtx_to_pull_with_reps, function(x){
+  
+  library <- x
+  
+  #Sum of all unpaired reads with an annotation (bowtie2 by default returns a random best hit for multi-mapped reads)
+  sum_annotated <- sum(mtx_pangene_features[[x]]$unpaired_read_count) + sum(mtx_uniref90_features[[x]]$unpaired_read_count)
+  
+  #Sum of all RPK with an annotation
+  RPK_annotated <- sum(mtx_pangene_features[[x]]$RPK) + sum(mtx_uniref90_features[[x]]$RPK)
+  
+  output <- data.frame(LIBID=library, annotated_unpaired=sum_annotated, annotated_RPK=RPK_annotated)
+  
+  return(output)
+  
+})
+
+mtx_all_feature_count_summary <- do.call("rbind", mtx_all_feature_count_summary)
+
+write_tsv(mtx_all_feature_count_summary, file="../data/mtx_all_feature_count_summary.tsv")
+
+````
+
+###  Collapse read count information at pangene or uniref90 level into eggnog OGs
+
+Note that in the pangene results, there are a minority of features (uniref90) with more than 1 eggnog label. 
+For example, UniRef90_A8Q4W4 is linked to 3PKUF and 3PMBM; UniRef90_A8Q7G1 is linked to 3NXPH and 3NV4S
+See processed/feature_81_cluster.tsv for an large example.
+
+One way of tidying up the annotations would be to define features containing the same eggnog ID (by orthology) or protein sequence similarity (Uniref90), using a recursive function until the results converge. However, this could be criticized for making overly naive assumptions about linking eggnog orthologies together by simple transitivity. So I will not do this. 
+
+I will structure my dataframes to make it possible for either joint or SEPARATE analysis for eggnog features and (uniref90 + pangene with no uniref90) features.
+In fact, given the different dispersion curves for bacterial and fungal OGs, proper DEseq2 analysis ought to be done separately. 
+
+```{r eval=FALSE}
+#################
+##EGGNOG ANALYSIS
+#################
+
+#See how many eggnog features are there for both pangene and translated search, and we can think of ways to reduce the number of features for analysis.  
+#If doing gut mtx analysis, consider also including a separate analysis for archaea?
+#For eggnog analysis, in order to reduce the number of features and also make "fair" comparisons, let's sum up read counts for OGs at the "bacteria" and "fungi" taxonomic labels.
+
+
+################
+#Separate the counts for viruses, fungi, bacteria and others(e.g. plants?) OG for eggnog.
+mtx_bact_OG_counts <- lapply(mtx_to_pull_with_reps, function(x){
+  
+  bact_ogs <- mtx_pangene_features[[x]] %>% dplyr::filter(emapper_OG != "-") %>% 
+  dplyr::filter(str_detect(string=.$emapper_OG, pattern="Bacteria"))
+#If there are multiple OGs belonging to bacteria, then this function just takes the more specific/narrower (right-most) term that is still "Bacteria".
+  bact_ogs$bacteria_OG <- gsub(pattern = "(.*,)(.*)(@2\\|Bacteria.*)", replacement = "\\2",bact_ogs$emapper_OG)
+
+#Extract bacteria OGs from translated search (ts) results
+  bact_ts_ogs <- mtx_uniref90_features[[x]] %>% dplyr::filter(emapper_max_annot_OG != "-") %>% 
+  dplyr::filter(str_detect(string=.$emapper_OG, pattern="Bacteria"))
+
+  bact_ts_ogs$bacteria_OG <- gsub(pattern = "(.*,)(.*)(@2\\|Bacteria.*)", replacement = "\\2",bact_ts_ogs$emapper_OG)
+
+#combine them
+
+  bact_ogs_combined <- rbind(bact_ogs %>% dplyr::select(bacteria_OG , unpaired_read_count, RPK), 
+                           bact_ts_ogs %>% dplyr::select(bacteria_OG , unpaired_read_count, RPK))
+
+#summarize counts and RPK
+
+  bact_ogs_counts <- bact_ogs_combined %>%
+  group_by(bacteria_OG) %>% summarise(read_count_sum=sum(unpaired_read_count), RPK_sum = sum(RPK))
+  
+  
+#add OG annotations from eggnog db v5
+
+  bact_ogs_counts <- merge(bact_ogs_counts, bact_og_metadata, by ="bacteria_OG",all.x = TRUE )
+
+  bact_ogs_counts$LIBID <- x
+  
+  bact_ogs_counts$feature_class <- "bacteria_OG"
+  
+  bact_ogs_counts$bacteria_OG <- paste0(bact_ogs_counts$bacteria_OG,"|Bacteria")
+  
+  return(bact_ogs_counts)
+})
+
+names(mtx_bact_OG_counts) <- mtx_to_pull_with_reps
+
+lapply(mtx_to_pull_with_reps, function(x){
+  write_tsv(mtx_bact_OG_counts[[x]], 
+            file=paste0("../data/MTX_feature_summary/",x,"_bact_OG_counts.tsv"))
+})
+
+######
+#Repeat process for fungal OGs
+
+mtx_fungi_OG_counts <- lapply(mtx_to_pull_with_reps, function(x){
+  
+  fungi_ogs <- mtx_pangene_features[[x]] %>% dplyr::filter(emapper_OG != "-") %>% 
+  dplyr::filter(str_detect(string=.$emapper_OG, pattern="Fungi"))
+#If there are multiple OGs belonging to Fungi, then this function just takes the more specific/narrower (right-most) term that is still "Fungi".
+  fungi_ogs$fungi_OG <- gsub(pattern = "(.*,)(.*)(@4751\\|Fungi.*)", replacement = "\\2",fungi_ogs$emapper_OG)
+
+#Extract fungi OGs from translated search (ts) results
+  fungi_ts_ogs <- mtx_uniref90_features[[x]] %>% dplyr::filter(emapper_max_annot_OG != "-") %>% 
+  dplyr::filter(str_detect(string=.$emapper_OG, pattern="Fungi"))
+
+  fungi_ts_ogs$fungi_OG <- gsub(pattern = "(.*,)(.*)(@4751\\|Fungi.*)", replacement = "\\2",fungi_ts_ogs$emapper_OG)
+
+#combine them
+
+  fungi_ogs_combined <- rbind(fungi_ogs %>% dplyr::select(fungi_OG , unpaired_read_count, RPK), 
+                           fungi_ts_ogs %>% dplyr::select(fungi_OG , unpaired_read_count, RPK))
+
+#summarize counts
+
+  fungi_ogs_counts <- fungi_ogs_combined %>%
+  group_by(fungi_OG) %>% summarise(read_count_sum=sum(unpaired_read_count), RPK_sum = sum(RPK))
+
+  
+#add OG annotations from eggnog db v5
+
+  fungi_ogs_counts <- merge(fungi_ogs_counts, fungi_og_metadata, by ="fungi_OG",all.x = TRUE )
+
+  fungi_ogs_counts$LIBID <- x
+  
+  fungi_ogs_counts$feature_class <- "fungi_OG"
+  
+  fungi_ogs_counts$fungi_OG <- paste0(fungi_ogs_counts$fungi_OG,"|Fungi")
+  
+  return(fungi_ogs_counts)
+})
+
+names(mtx_fungi_OG_counts) <- mtx_to_pull_with_reps
+
+lapply(mtx_to_pull_with_reps, function(x){
+  write_tsv(mtx_fungi_OG_counts[[x]], 
+            file=paste0("../data/MTX_feature_summary/",x,"_fungi_OG_counts.tsv"))
+})
+
+
+#####Repeat process for virus OGs. 
+
+mtx_virus_OG_counts <- lapply(mtx_to_pull_with_reps, function(x){
+  
+  virus_ogs <- mtx_pangene_features[[x]] %>% dplyr::filter(emapper_OG != "-") %>% 
+  dplyr::filter(str_detect(string=.$emapper_OG, pattern="Virus"))
+#If there are multiple OGs belonging to virus, then this function just takes the more specific/narrower (right-most) term that is still "virus".
+  
+  if (nrow(virus_ogs)>=1){
+    virus_ogs$virus_OG <- gsub(pattern = "(.*)(@10239\\|Viruses.*)", replacement = "\\1",virus_ogs$emapper_OG)
+  }
+  
+
+#Extract virus OGs from translated search (ts) results
+  virus_ts_ogs <- mtx_uniref90_features[[x]] %>% dplyr::filter(emapper_max_annot_OG != "-") %>% 
+  dplyr::filter(str_detect(string=.$emapper_OG, pattern="Virus"))
+  
+   if (nrow(virus_ts_ogs)>=1){
+    virus_ts_ogs$virus_OG <- gsub(pattern = "(.*)(@10239\\|Viruses.*)", replacement = "\\1",virus_ts_ogs$emapper_OG)
+  }
+
+#combine them
+  
+  if (nrow(virus_ogs)>=1 & nrow(virus_ts_ogs)>=1){
+    virus_ogs_combined <- rbind(virus_ogs %>% dplyr::select(virus_OG , unpaired_read_count, RPK), 
+                           virus_ts_ogs %>% dplyr::select(virus_OG , unpaired_read_count, RPK))
+  } else if (nrow(virus_ogs) >= 1 & nrow(virus_ts_ogs)==0){
+    virus_ogs_combined <- virus_ogs %>% dplyr::select(virus_OG , unpaired_read_count, RPK)
+  } else if (nrow(virus_ogs) == 0 & nrow(virus_ts_ogs) >=1){
+    virus_ogs_combined <- virus_ts_ogs %>% dplyr::select(virus_OG , unpaired_read_count, RPK)
+  } else {
+    virus_ogs_combined <- data.frame(virus_OG="placeholder_feature",
+                                     unpaired_read_count=0, RPK=0)
+  }
+  
+
+#summarize counts
+
+  virus_ogs_counts <- virus_ogs_combined %>%
+  group_by(virus_OG) %>% summarise(read_count_sum=sum(unpaired_read_count), RPK_sum = sum(RPK))
+
+  
+#add OG annotations from eggnog db v5
+  if (sum(virus_ogs_combined$unpaired_read_count)>0){
+  virus_ogs_counts <- merge(virus_ogs_counts, virus_og_metadata, 
+                           by ="virus_OG",all.x = TRUE )
+  } else {
+  virus_ogs_counts$virus_eggnog_cat <- NA
+  virus_ogs_counts$virus_eggnog_desc <- NA
+  }
+
+  virus_ogs_counts$LIBID <- x
+  
+  virus_ogs_counts$feature_class <- "virus_OG"
+  
+  virus_ogs_counts$virus_OG <- paste0(virus_ogs_counts$virus_OG,"|Virus")
+  
+  return(virus_ogs_counts)
+})
+
+names(mtx_virus_OG_counts) <- mtx_to_pull_with_reps
+
+lapply(mtx_to_pull_with_reps, function(x){
+  write_tsv(mtx_virus_OG_counts[[x]], 
+            file=paste0("../data/MTX_feature_summary/",x,"_virus_OG_counts.tsv"))
+})
+
+####Repeat process for non-human, non-microbial OGs ("other")
+#Here, just take the "emapper_max_annot_OG"
+
+
+mtx_other_OG_counts <- lapply(mtx_to_pull_with_reps, function(x){
+  
+  other_ogs <- mtx_pangene_features[[x]] %>% dplyr::filter(emapper_OG != "-") %>% 
+  dplyr::filter(str_detect(string=.$emapper_OG, pattern="Bacteria", negate=TRUE)) %>%
+  dplyr::filter(str_detect(string=.$emapper_OG, pattern="Fungi", negate=TRUE)) %>%
+  dplyr::filter(str_detect(string=.$emapper_OG, pattern="Virus", negate=TRUE))
+  
+#take the default annotation from eggnog for those in the "other category" if there are any
+   if (nrow(other_ogs)>=1){
+    other_ogs$other_OG <- other_ogs$emapper_max_annot_OG
+  }
+
+#Extract these other (non-microbial) OGs from translated search (ts) results
+  other_ts_ogs <- mtx_uniref90_features[[x]] %>% dplyr::filter(emapper_max_annot_OG != "-") %>% 
+  dplyr::filter(str_detect(string=.$emapper_OG, pattern="Bacteria", negate=TRUE)) %>%
+  dplyr::filter(str_detect(string=.$emapper_OG, pattern="Fungi", negate=TRUE)) %>%
+  dplyr::filter(str_detect(string=.$emapper_OG, pattern="Virus", negate=TRUE))
+
+   if (nrow(other_ts_ogs)>=1){
+    other_ts_ogs$other_OG <- other_ts_ogs$emapper_max_annot_OG
+  }
+
+#combine them
+
+ if (nrow(other_ogs)>=1 & nrow(other_ts_ogs)>=1){
+    other_ogs_combined <- rbind(other_ogs %>% dplyr::select(other_OG ,unpaired_read_count, RPK, eggnog_cat, eggnog_desc), 
+                           other_ts_ogs %>% dplyr::select(other_OG , unpaired_read_count, RPK, eggnog_cat, eggnog_desc))
+  } else if (nrow(other_ogs) >= 1 & nrow(other_ts_ogs)==0){
+    other_ogs_combined <- other_ogs %>% dplyr::select(other_OG , unpaired_read_count, RPK, eggnog_cat, eggnog_desc)
+  } else if (nrow(other_ogs) == 0 & nrow(other_ts_ogs) >=1){
+    other_ogs_combined <- other_ts_ogs %>% dplyr::select(other_OG , unpaired_read_count, RPK, eggnog_cat, eggnog_desc)
+  } else {
+    other_ogs_combined <- data.frame(other_OG="placeholder_feature",
+                                     unpaired_read_count=0, RPK=0,
+                                     eggnog_cat=NA, eggnog_desc=NA)
+  }
+  
+#summarize counts
+
+  other_ogs_counts <- other_ogs_combined %>% dplyr::select(-c(eggnog_cat, eggnog_desc)) %>%
+  group_by(other_OG) %>% summarise(read_count_sum=sum(unpaired_read_count), RPK_sum = sum(RPK))
+
+  
+#add OG annotations (not precise)
+  other_annot <- other_ogs_combined%>%dplyr::select(other_OG, eggnog_cat, eggnog_desc)%>%unique()%>% group_by(other_OG) %>% slice_head(n=1)
+  
+  if (sum(other_ogs_combined$unpaired_read_count)>0){
+  other_ogs_counts <- merge(other_ogs_counts,other_annot, 
+                           by ="other_OG",all.x = TRUE) %>% dplyr::rename(other_eggnog_cat=eggnog_cat, other_eggnog_desc=eggnog_desc) 
+  } else {
+  other_ogs_counts$other_eggnog_cat <- NA
+  other_ogs_counts$other_eggnog_desc <- NA
+  }
+
+  other_ogs_counts$LIBID <- x
+  
+  other_ogs_counts$feature_class <- "other_OG"
+  
+  other_ogs_counts$other_OG <- paste0(other_ogs_counts$other_OG,"|Others")
+  
+  return(other_ogs_counts)
+})
+
+names(mtx_other_OG_counts) <- mtx_to_pull_with_reps
+
+lapply(mtx_to_pull_with_reps, function(x){
+  write_tsv(mtx_other_OG_counts[[x]], 
+            file=paste0("../data/MTX_feature_summary/",x,"_other_OG_counts.tsv"))
+})
+
+
+```
+
+Repeat the same summary process for MGX data, in order to get gene counts 
+
+
+```{r eval=FALSE}
+
+mgx_pangene_features <- lapply(mgx_to_pull, function(x){
+  output <- read_tsv(paste0("../data/MGX_annotations/",x,"_merged_panalign_annot.tsv"), show_col_types = FALSE) %>%
+            dplyr::select(pangene, length, uniref90_ID, unpaired_read_count, 
+                          emapper_max_annot_OG, emapper_OG, eggnog_cat, pangene_desc, eggnog_desc, uniref90_desc)
+  
+  output$LIBID <- x
+  
+  #convert nt length to kilobase scale
+  output$length <- (output$length)/1000
+  
+  output$RPK <- output$unpaired_read_count/output$length  #converting to equivalent length in nucleotides
+  
+  return(output)
+  })
+
+names(mgx_pangene_features) <- mgx_to_pull
+
+#features mapping to uniref90
+# 
+mgx_uniref90_features <- lapply(mgx_to_pull, function(x){
+  output <- read_tsv(paste0("../data/MGX_annotations/",x,"_merged_transl-search_annot.tsv"), show_col_types = FALSE) %>%
+            dplyr::select(uniref90_ID, AA_length, unpaired_read_count, emapper_max_annot_OG, 
+                          emapper_OG, eggnog_cat, uniref90_desc,eggnog_desc)
+  
+  output$LIBID <- x
+  
+  ##converting AA length to equivalent length in nt, then convert length to kilobase scale
+  output$length <- (output$AA_length * 3)/1000
+  
+  output$RPK <- output$unpaired_read_count/output$length
+  
+  return(output)
+ 
+  })
+
+names(mgx_uniref90_features) <- mgx_to_pull
+
+#Get read count summary statistics for these features. Caution: these are now unpaired counts
+
+mgx_all_feature_count_summary <- lapply(mgx_to_pull, function(x){
+  
+  library <- x
+  
+  #Sum of all unpaired reads with an annotation
+  sum_annotated <- sum(mgx_pangene_features[[x]]$unpaired_read_count) + sum(mgx_uniref90_features[[x]]$unpaired_read_count)
+  
+  #Sum of all RPK with an annotation
+  RPK_annotated <- sum(mgx_pangene_features[[x]]$RPK) + sum(mgx_uniref90_features[[x]]$RPK)
+  
+  output <- data.frame(LIBID=library, annotated_unpaired=sum_annotated, annotated_RPK=RPK_annotated)
+  
+  
+  return(output)
+  
+})
+
+mgx_all_feature_count_summary <- do.call("rbind", mgx_all_feature_count_summary)
+
+write_tsv(mgx_all_feature_count_summary, file="../data/mgx_all_feature_count_summary.tsv")
+
+
+```
+
+Get mgx counts and RPKs per feature category
+
+```{r eval=FALSE}
+mgx_bact_OG_counts <- lapply(mgx_to_pull, function(x){
+  
+  bact_ogs <- mgx_pangene_features[[x]] %>% dplyr::filter(emapper_OG != "-") %>% 
+  dplyr::filter(str_detect(string=.$emapper_OG, pattern="Bacteria"))
+#If there are multiple OGs belonging to bacteria, then this function just takes the more specific/narrower (right-most) term that is still "Bacteria".
+  bact_ogs$bacteria_OG <- gsub(pattern = "(.*,)(.*)(@2\\|Bacteria.*)", replacement = "\\2",bact_ogs$emapper_OG)
+
+#Extract bacteria OGs from translated search (ts) results
+  bact_ts_ogs <- mgx_uniref90_features[[x]] %>% dplyr::filter(emapper_max_annot_OG != "-") %>% 
+  dplyr::filter(str_detect(string=.$emapper_OG, pattern="Bacteria"))
+
+  bact_ts_ogs$bacteria_OG <- gsub(pattern = "(.*,)(.*)(@2\\|Bacteria.*)", replacement = "\\2",bact_ts_ogs$emapper_OG)
+
+#combine them
+
+  bact_ogs_combined <- rbind(bact_ogs %>% dplyr::select(bacteria_OG , unpaired_read_count, RPK), 
+                           bact_ts_ogs %>% dplyr::select(bacteria_OG , unpaired_read_count, RPK))
+
+#summarize counts and RPK
+
+  bact_ogs_counts <- bact_ogs_combined %>%
+  group_by(bacteria_OG) %>% summarise(read_count_sum=sum(unpaired_read_count), RPK_sum = sum(RPK))
+  
+  
+#add OG annotations from eggnog db v5
+
+  bact_ogs_counts <- merge(bact_ogs_counts, bact_og_metadata, by ="bacteria_OG",all.x = TRUE )
+
+  bact_ogs_counts$LIBID <- x
+  
+  bact_ogs_counts$feature_class <- "bacteria_OG"
+  
+  bact_ogs_counts$bacteria_OG <- paste0(bact_ogs_counts$bacteria_OG,"|Bacteria")
+  
+  return(bact_ogs_counts)
+})
+
+names(mgx_bact_OG_counts) <- mgx_to_pull
+
+lapply(mgx_to_pull, function(x){
+  write_tsv(mgx_bact_OG_counts[[x]], 
+            file=paste0("../data/MGX_feature_summary/",x,"_bact_OG_counts.tsv"))
+})
+
+######
+#Repeat process for fungal OGs
+
+mgx_fungi_OG_counts <- lapply(mgx_to_pull, function(x){
+  
+  fungi_ogs <- mgx_pangene_features[[x]] %>% dplyr::filter(emapper_OG != "-") %>% 
+  dplyr::filter(str_detect(string=.$emapper_OG, pattern="Fungi"))
+#If there are multiple OGs belonging to Fungi, then this function just takes the more specific/narrower (right-most) term that is still "Fungi".
+  fungi_ogs$fungi_OG <- gsub(pattern = "(.*,)(.*)(@4751\\|Fungi.*)", replacement = "\\2",fungi_ogs$emapper_OG)
+
+#Extract fungi OGs from translated search (ts) results
+  fungi_ts_ogs <- mgx_uniref90_features[[x]] %>% dplyr::filter(emapper_max_annot_OG != "-") %>% 
+  dplyr::filter(str_detect(string=.$emapper_OG, pattern="Fungi"))
+
+  fungi_ts_ogs$fungi_OG <- gsub(pattern = "(.*,)(.*)(@4751\\|Fungi.*)", replacement = "\\2",fungi_ts_ogs$emapper_OG)
+
+#combine them
+
+  fungi_ogs_combined <- rbind(fungi_ogs %>% dplyr::select(fungi_OG , unpaired_read_count, RPK), 
+                           fungi_ts_ogs %>% dplyr::select(fungi_OG , unpaired_read_count, RPK))
+
+#summarize counts
+
+  fungi_ogs_counts <- fungi_ogs_combined %>%
+  group_by(fungi_OG) %>% summarise(read_count_sum=sum(unpaired_read_count), RPK_sum = sum(RPK))
+
+  
+#add OG annotations from eggnog db v5
+
+  fungi_ogs_counts <- merge(fungi_ogs_counts, fungi_og_metadata, by ="fungi_OG",all.x = TRUE )
+
+  fungi_ogs_counts$LIBID <- x
+  
+  fungi_ogs_counts$feature_class <- "fungi_OG"
+  
+  fungi_ogs_counts$fungi_OG <- paste0(fungi_ogs_counts$fungi_OG,"|Fungi")
+  
+  return(fungi_ogs_counts)
+})
+
+names(mgx_fungi_OG_counts) <- mgx_to_pull
+
+lapply(mgx_to_pull, function(x){
+  write_tsv(mgx_fungi_OG_counts[[x]], 
+            file=paste0("../data/MGX_feature_summary/",x,"_fungi_OG_counts.tsv"))
+})
+
+
+#####Repeat process for virus OGs. 
+
+mgx_virus_OG_counts <- lapply(mgx_to_pull, function(x){
+  
+  virus_ogs <- mgx_pangene_features[[x]] %>% dplyr::filter(emapper_OG != "-") %>% 
+  dplyr::filter(str_detect(string=.$emapper_OG, pattern="Virus"))
+#If there are multiple OGs belonging to virus, then this function just takes the more specific/narrower (right-most) term that is still "virus".
+  
+  if (nrow(virus_ogs)>=1){
+    virus_ogs$virus_OG <- gsub(pattern = "(.*)(@10239\\|Viruses.*)", replacement = "\\1",virus_ogs$emapper_OG)
+  }
+  
+
+#Extract virus OGs from translated search (ts) results
+  virus_ts_ogs <- mgx_uniref90_features[[x]] %>% dplyr::filter(emapper_max_annot_OG != "-") %>% 
+  dplyr::filter(str_detect(string=.$emapper_OG, pattern="Virus"))
+  
+   if (nrow(virus_ts_ogs)>=1){
+    virus_ts_ogs$virus_OG <- gsub(pattern = "(.*)(@10239\\|Viruses.*)", replacement = "\\1",virus_ts_ogs$emapper_OG)
+  }
+
+#combine them
+  
+  if (nrow(virus_ogs)>=1 & nrow(virus_ts_ogs)>=1){
+    virus_ogs_combined <- rbind(virus_ogs %>% dplyr::select(virus_OG , unpaired_read_count, RPK), 
+                           virus_ts_ogs %>% dplyr::select(virus_OG , unpaired_read_count, RPK))
+  } else if (nrow(virus_ogs) >= 1 & nrow(virus_ts_ogs)==0){
+    virus_ogs_combined <- virus_ogs %>% dplyr::select(virus_OG , unpaired_read_count, RPK)
+  } else if (nrow(virus_ogs) == 0 & nrow(virus_ts_ogs) >=1){
+    virus_ogs_combined <- virus_ts_ogs %>% dplyr::select(virus_OG , unpaired_read_count, RPK)
+  } else {
+    virus_ogs_combined <- data.frame(virus_OG="placeholder_feature",
+                                     unpaired_read_count=0, RPK=0)
+  }
+  
+
+#summarize counts
+
+  virus_ogs_counts <- virus_ogs_combined %>%
+  group_by(virus_OG) %>% summarise(read_count_sum=sum(unpaired_read_count), RPK_sum = sum(RPK))
+
+  
+#add OG annotations from eggnog db v5
+  if (sum(virus_ogs_combined$unpaired_read_count)>0){
+  virus_ogs_counts <- merge(virus_ogs_counts, virus_og_metadata, 
+                           by ="virus_OG",all.x = TRUE )
+  } else {
+  virus_ogs_counts$virus_eggnog_cat <- NA
+  virus_ogs_counts$virus_eggnog_desc <- NA
+  }
+
+  virus_ogs_counts$LIBID <- x
+  
+  virus_ogs_counts$feature_class <- "virus_OG"
+  
+  virus_ogs_counts$virus_OG <- paste0(virus_ogs_counts$virus_OG,"|Virus")
+  
+  return(virus_ogs_counts)
+})
+
+names(mgx_virus_OG_counts) <- mgx_to_pull
+
+lapply(mgx_to_pull, function(x){
+  write_tsv(mgx_virus_OG_counts[[x]], 
+            file=paste0("../data/MGX_feature_summary/",x,"_virus_OG_counts.tsv"))
+})
+
+####Repeat process for non-human, non-microbial OGs ("other")
+#Here, just take the "emapper_max_annot_OG"
+
+
+mgx_other_OG_counts <- lapply(mgx_to_pull, function(x){
+  
+  other_ogs <- mgx_pangene_features[[x]] %>% dplyr::filter(emapper_OG != "-") %>% 
+  dplyr::filter(str_detect(string=.$emapper_OG, pattern="Bacteria", negate=TRUE)) %>%
+  dplyr::filter(str_detect(string=.$emapper_OG, pattern="Fungi", negate=TRUE)) %>%
+  dplyr::filter(str_detect(string=.$emapper_OG, pattern="Virus", negate=TRUE))
+  
+#take the default annotation from eggnog for those in the "other category" if there are any
+   if (nrow(other_ogs)>=1){
+    other_ogs$other_OG <- other_ogs$emapper_max_annot_OG
+  }
+
+#Extract these other (non-microbial) OGs from translated search (ts) results
+  other_ts_ogs <- mgx_uniref90_features[[x]] %>% dplyr::filter(emapper_max_annot_OG != "-") %>% 
+  dplyr::filter(str_detect(string=.$emapper_OG, pattern="Bacteria", negate=TRUE)) %>%
+  dplyr::filter(str_detect(string=.$emapper_OG, pattern="Fungi", negate=TRUE)) %>%
+  dplyr::filter(str_detect(string=.$emapper_OG, pattern="Virus", negate=TRUE))
+
+   if (nrow(other_ts_ogs)>=1){
+    other_ts_ogs$other_OG <- other_ts_ogs$emapper_max_annot_OG
+  }
+
+#combine them
+
+ if (nrow(other_ogs)>=1 & nrow(other_ts_ogs)>=1){
+    other_ogs_combined <- rbind(other_ogs %>% dplyr::select(other_OG ,unpaired_read_count, RPK, eggnog_cat, eggnog_desc), 
+                           other_ts_ogs %>% dplyr::select(other_OG , unpaired_read_count, RPK, eggnog_cat, eggnog_desc))
+  } else if (nrow(other_ogs) >= 1 & nrow(other_ts_ogs)==0){
+    other_ogs_combined <- other_ogs %>% dplyr::select(other_OG , unpaired_read_count, RPK, eggnog_cat, eggnog_desc)
+  } else if (nrow(other_ogs) == 0 & nrow(other_ts_ogs) >=1){
+    other_ogs_combined <- other_ts_ogs %>% dplyr::select(other_OG , unpaired_read_count, RPK, eggnog_cat, eggnog_desc)
+  } else {
+    other_ogs_combined <- data.frame(other_OG="placeholder_feature",
+                                     unpaired_read_count=0, RPK=0,
+                                     eggnog_cat=NA, eggnog_desc=NA)
+  }
+  
+#summarize counts
+
+  other_ogs_counts <- other_ogs_combined %>% dplyr::select(-c(eggnog_cat, eggnog_desc)) %>%
+  group_by(other_OG) %>% summarise(read_count_sum=sum(unpaired_read_count), RPK_sum = sum(RPK))
+
+  
+#add OG annotations (not precise)
+  other_annot <- other_ogs_combined%>%dplyr::select(other_OG, eggnog_cat, eggnog_desc)%>%unique()%>% group_by(other_OG) %>% slice_head(n=1)
+  
+  if (sum(other_ogs_combined$unpaired_read_count)>0){
+  other_ogs_counts <- merge(other_ogs_counts,other_annot, 
+                           by ="other_OG",all.x = TRUE) %>% dplyr::rename(other_eggnog_cat=eggnog_cat, other_eggnog_desc=eggnog_desc) 
+  } else {
+  other_ogs_counts$other_eggnog_cat <- NA
+  other_ogs_counts$other_eggnog_desc <- NA
+  }
+
+  other_ogs_counts$LIBID <- x
+  
+  other_ogs_counts$feature_class <- "other_OG"
+  
+  other_ogs_counts$other_OG <- paste0(other_ogs_counts$other_OG,"|Others")
+  
+  return(other_ogs_counts)
+})
+
+names(mgx_other_OG_counts) <- mgx_to_pull
+
+lapply(mgx_to_pull, function(x){
+  write_tsv(mgx_other_OG_counts[[x]], 
+            file=paste0("../data/MGX_feature_summary/",x,"_other_OG_counts.tsv"))
+})
+```
+

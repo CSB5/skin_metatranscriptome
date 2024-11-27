@@ -1,0 +1,8 @@
+paired_counts	distinct_minimizer_count	k2_taxon	source	rel_abun	abun_filter	species_microbial_read_pair_total	minimizer_threshold	minimizer_microbe_ratio	minimizer_filter	taxa_pass_filter	mtx_LIBID
+3161	24570	Moraxella_osloensis	non_contaminant	2.0803169505357095	TRUE	1351453	13514.53	18180.432467869767	TRUE	TRUE	SMT029_T2_Ac
+40299	246900	Cutibacterium_acnes	non_contaminant	26.521573169768605	TRUE	1351453	13514.53	182692.25788836164	TRUE	TRUE	SMT029_T2_Ac
+10120	98901	Staphylococcus_epidermidis	non_contaminant	6.660173217153237	TRUE	1351453	13514.53	73181.23530748016	TRUE	TRUE	SMT029_T2_Ac
+3307	32451	Staphylococcus_hominis	non_contaminant	2.1764024534709243	TRUE	1351453	13514.53	24011.933822337884	TRUE	TRUE	SMT029_T2_Ac
+2610	32049	Staphylococcus_capitis	non_contaminant	1.7176928949377417	TRUE	1351453	13514.53	23714.476197100455	TRUE	TRUE	SMT029_T2_Ac
+68409	416899	Malassezia_globosa	non_contaminant	45.02132308421302	TRUE	1351453	13514.53	308482.0559797492	TRUE	TRUE	SMT029_T2_Ac
+24042	152406	Malassezia_restricta	non_contaminant	15.822518229920762	TRUE	1351453	13514.53	112771.9572933724	TRUE	TRUE	SMT029_T2_Ac

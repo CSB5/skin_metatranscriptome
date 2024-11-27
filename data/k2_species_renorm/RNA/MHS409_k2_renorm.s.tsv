@@ -1,0 +1,8 @@
+paired_counts	distinct_minimizer_count	k2_taxon	source	rel_abun	abun_filter	species_microbial_read_pair_total	minimizer_threshold	minimizer_microbe_ratio	minimizer_filter	taxa_pass_filter	mtx_LIBID
+6820020	654265	Staphylococcus_hominis	non_contaminant	86.04628570058756	TRUE	8093820	80938.2	80835.13100118363	TRUE	TRUE	MHS409
+783985	651412	Staphylococcus_epidermidis	non_contaminant	9.891319570173568	TRUE	8093820	80938.2	80482.63984126161	TRUE	TRUE	MHS409
+88908	183872	Staphylococcus_haemolyticus	non_contaminant	1.1217273804281862	TRUE	8093820	80938.2	22717.57958541208	TRUE	TRUE	MHS409
+28602	251059	Staphylococcus_capitis	non_contaminant	0.36086343787968445	TRUE	8093820	80938.2	31018.604317862275	TRUE	TRUE	MHS409
+13096	98388	Staphylococcus_lloydii	non_contaminant	0.16522857081575928	TRUE	8093820	80938.2	12155.941199581905	TRUE	TRUE	MHS409
+181615	378073	Corynebacterium_tuberculostearicum	non_contaminant	2.2913856817886473	TRUE	8093820	80938.2	46711.31801794456	TRUE	TRUE	MHS409
+9764	239526	Malassezia_globosa	non_contaminant	0.1231896583265939	TRUE	8093820	80938.2	29593.690000518916	TRUE	TRUE	MHS409

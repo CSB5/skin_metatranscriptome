@@ -1,0 +1,25 @@
+"0",""
+"0","subj_MTX_fastspar_input <- read_tsv(file=""../data/fastspar/subj_MTX_fastspar_input.tsv"")"
+"1","[1mRows: [22m[34m1745[39m [1mColumns: [22m[34m103[39m
+"
+"1","[36m──[39m [1mColumn specification[22m [36m─────────────────────────────────────────────────────────────────────────────────────────────────────────────────[39m
+[1mDelimiter:[22m ""\t""
+[31mchr[39m   (1): #OTU ID
+[32mdbl[39m (102): MHS371, MHS389, MHS388, MHS413, MHS412, MHS391, MHS390, MHS349, MHS392, MHS341, MHS381, MHS383, MHS382, MHS350, MHS394, MH...
+"
+"1","
+[36mℹ[39m Use `spec()` to retrieve the full column specification for this data.
+[36mℹ[39m Specify the column types or set `show_col_types = FALSE` to quiet this message.
+"
+"0","subj_MGX_fastspar_input <- read_tsv(file=""../data/fastspar/subj_MGX_fastspar_input.tsv"")"
+"1","[1mRows: [22m[34m3912[39m [1mColumns: [22m[34m103[39m
+"
+"1","[36m──[39m [1mColumn specification[22m [36m─────────────────────────────────────────────────────────────────────────────────────────────────────────────────[39m
+[1mDelimiter:[22m ""\t""
+[31mchr[39m   (1): #OTU ID
+[32mdbl[39m (102): MHS475, MHS474, MHS473, MHS477, MHS476, MHS499, MHS498, MHS497, MHS501, MHS484, MHS483, MHS486, MHS485, MHS504, MHS503, MH...
+"
+"1","
+[36mℹ[39m Use `spec()` to retrieve the full column specification for this data.
+[36mℹ[39m Specify the column types or set `show_col_types = FALSE` to quiet this message.
+"

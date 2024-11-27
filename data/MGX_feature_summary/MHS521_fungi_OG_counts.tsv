@@ -1,0 +1,428 @@
+fungi_OG	read_count_sum	RPK_sum	fungi_eggnog_cat	fungi_eggnog_desc	LIBID	feature_class
+3NTVT|Fungi	6	19.047619047619047	O	leucine carboxyl methyltransferase	MHS521	fungi_OG
+3NTW3|Fungi	12	18.99725812769291	T	transporter	MHS521	fungi_OG
+3NTX1|Fungi	4	7.4074074074074066	K	phd transcription factor	MHS521	fungi_OG
+3NTXF|Fungi	1	4.016064257028113	J	Belongs to the eukaryotic ribosomal protein eS4 family	MHS521	fungi_OG
+3NTXG|Fungi	2	3.4013605442176873	K	-phosphatase	MHS521	fungi_OG
+3NTXI|Fungi	3	12.515262515262515	O	Deoxyhypusine synthase	MHS521	fungi_OG
+3NTXJ|Fungi	1	4.504504504504505	C	Nadh dehydrogenase	MHS521	fungi_OG
+3NTXU|Fungi	3	11.363636363636363	A	Required for 40S ribosome biogenesis. Involved in nucleolar processing of pre-18S ribosomal RNA and ribosome assembly	MHS521	fungi_OG
+3NTY2|Fungi	4	12.012012012012011	C	Fumarate hydratase	MHS521	fungi_OG
+3NTY7|Fungi	6	7.874015748031496	J	phenylalanyl-tRNA synthetase alpha chain	MHS521	fungi_OG
+3NTY9|Fungi	1	3.546099290780142	L	DNA-dependent ATPase and 5'-3' DNA helicase required for the maintenance of both mitochondrial and nuclear genome stability. Efficiently unwinds G-quadruplex (G4) DNA structures and forked RNA-DNA hybrids. Resolves G4 structures, preventing replication pausing and double-strand breaks (DSBs) at G4 motifs. Involved in the maintenance of telomeric DNA. Inhibits telomere elongation, de novo telomere formation and telomere addition to DSBs via catalytic inhibition of telomerase. Reduces the processivity of telomerase by displacing active telomerase from DNA ends. Releases telomerase by unwinding the short telomerase RNA telomeric DNA hybrid that is the intermediate in the telomerase reaction. Involved in the maintenance of ribosomal (rDNA). Required for efficient fork arrest at the replicaion fork barrier within rDNA. Involved in the maintenance of mitochondrial (mtDNA). Required to maintain mtDNA under conditions that introduce dsDNA breaks in mtDNA, either preventing or repairing dsDNA breaks. May inhibit replication progression to allow time for repair. May have a general role in chromosomal replication by affecting Okazaki fragment maturation. May have a role in conjunction with DNA2 helicase nuclease in 5'-flap extension during Okazaki fragment processing	MHS521	fungi_OG
+3NTZ0|Fungi	2	7.092198581560284	J	Belongs to the eukaryotic ribosomal protein eS7 family	MHS521	fungi_OG
+3NU0W|Fungi	1	3.9215686274509802	S	NA	MHS521	fungi_OG
+3NU1K|Fungi	4	7.889546351084813	C	Core subunit of the mitochondrial membrane respiratory chain NADH dehydrogenase (Complex I) that is believed to belong to the minimal assembly required for catalysis. Complex I functions in the transfer of electrons from NADH to the respiratory chain	MHS521	fungi_OG
+3NU21|Fungi	2	11.11111111111111	DO	Cell cycle regulatory protein	MHS521	fungi_OG
+3NU2G|Fungi	3	7.299270072992702	K	factor cef-1	MHS521	fungi_OG
+3NU3R|Fungi	2	4.385964912280701	A	factor ATP-dependent RNA helicase PRP16	MHS521	fungi_OG
+3NU3X|Fungi	2	3.9215686274509802	O	ubiquitin--protein ligase	MHS521	fungi_OG
+3NU44|Fungi	4	17.77777777777778	K	CCR4-NOT transcription complex	MHS521	fungi_OG
+3NU4R|Fungi	5	22.22222222222222	U	Belongs to the TRAFAC class dynamin-like GTPase superfamily. Dynamin Fzo YdjA family	MHS521	fungi_OG
+3NU5A|Fungi	1	4.444444444444445	I	Enoyl-CoA hydratase isomerase	MHS521	fungi_OG
+3NU5B|Fungi	1	3.7878787878787876	A	small nucleolar ribonucleoprotein complex subunit	MHS521	fungi_OG
+3NU5M|Fungi	4	9.195402298850574	L	isochorismatase family	MHS521	fungi_OG
+3NU6R|Fungi	1	3.745318352059925	F	EH domain binding protein epsin 2	MHS521	fungi_OG
+3NU6X|Fungi	30	40.65040650406504	C	Probably involved in the biogenesis of the COX complex	MHS521	fungi_OG
+3NU6Z|Fungi	1	3.584229390681003	O	26S proteasome, regulatory subunit	MHS521	fungi_OG
+3NU7U|Fungi	7	20.64775413711584	G	transporter	MHS521	fungi_OG
+3NU7X|Fungi	2	10.92896174863388	F	dihydroorotase	MHS521	fungi_OG
+3NU86|Fungi	3	10	Z	Belongs to the actin family	MHS521	fungi_OG
+3NU8E|Fungi	2	4.11522633744856	Q	Isopentenyl-diphosphate delta-isomerase	MHS521	fungi_OG
+3NU8N|Fungi	2	5.797101449275363	F	belongs to the metallo- dependent hydrolases superfamily. Urease alpha subunit family	MHS521	fungi_OG
+3NU8W|Fungi	4	20.83957272636518	O	Belongs to the Rab GDI family	MHS521	fungi_OG
+3NU91|Fungi	2	4.329004329004329	S	DNA polymerase Ligase (LigD)	MHS521	fungi_OG
+3NU94|Fungi	5	12.198487608323674	T	(GTP)-binding protein	MHS521	fungi_OG
+3NU9A|Fungi	1	4.566210045662101	P	Na H antiporter	MHS521	fungi_OG
+3NU9G|Fungi	2	4.11522633744856	C	Belongs to the isocitrate lyase PEP mutase superfamily. Isocitrate lyase family	MHS521	fungi_OG
+3NU9P|Fungi	1	4.166666666666667	H	Belongs to the ALAD family	MHS521	fungi_OG
+3NUAJ|Fungi	2	6.802721088435375	O	deubiquitination-protection protein dph1	MHS521	fungi_OG
+3NUAK|Fungi	1	3.8314176245210727	T	Calcium calmodulin-dependent protein kinase	MHS521	fungi_OG
+3NUAZ|Fungi	2	7.4074074074074066	G	6-phosphofructo-2-kinase	MHS521	fungi_OG
+3NUBE|Fungi	1	5.46448087431694	G	Belongs to the pyruvate kinase family	MHS521	fungi_OG
+3NUBG|Fungi	4	6.410256410256411	T	serine threonine protein kinase	MHS521	fungi_OG
+3NUBK|Fungi	1	4.830917874396135	O	Proteasome	MHS521	fungi_OG
+3NUBZ|Fungi	3	4.830917874396135	V	HEAT repeat protein	MHS521	fungi_OG
+3NUC4|Fungi	2	3.418803418803419	S	(ABC) transporter	MHS521	fungi_OG
+3NUCG|Fungi	4	10.872186054667807	K	TATA-box-binding protein	MHS521	fungi_OG
+3NUCW|Fungi	1	3.8314176245210727	O	Belongs to the peptidase S8 family	MHS521	fungi_OG
+3NUD4|Fungi	1	3.7037037037037033	I	This enzyme condenses acetyl-CoA with acetoacetyl-CoA to form HMG-CoA, which is the substrate for HMG-CoA reductase	MHS521	fungi_OG
+3NUDA|Fungi	2	6.734006734006734	A	ATP-dependent RNA helicase involved in 40S ribosomal subunit biogenesis. Required for the processing and cleavage of 35S pre-rRNA at sites A0, A1, and A2, leading to mature 18S rRNA	MHS521	fungi_OG
+3NUDT|Fungi	5	15.078990539113239	K	complex ATPase	MHS521	fungi_OG
+3NUE9|Fungi	3	5.405405405405405	T	Duf300 domain protein	MHS521	fungi_OG
+3NUEB|Fungi	1	3.7037037037037033	P	Thiamine biosynthesis protein	MHS521	fungi_OG
+3NUEF|Fungi	1	3.623188405797101	S	Transcription factor SPT8	MHS521	fungi_OG
+3NUET|Fungi	1	4.219409282700422	J	ribosomal protein	MHS521	fungi_OG
+3NUF0|Fungi	3	9.163911195087387	G	transporter	MHS521	fungi_OG
+3NUF3|Fungi	2	6.734006734006734	BDL	structural maintenance of	MHS521	fungi_OG
+3NUF9|Fungi	1	5.128205128205128	S	zn cluster transcription factor rds2	MHS521	fungi_OG
+3NUFF|Fungi	1	4.11522633744856	G	Catalyzes the dehydration of the S-form of NAD(P)HX at the expense of ATP, which is converted to ADP. Together with NAD(P)HX epimerase, which catalyzes the epimerization of the S- and R-forms, the enzyme allows the repair of both epimers of NAD(P)HX, a damaged form of NAD(P)H that is a result of enzymatic or heat-dependent hydration	MHS521	fungi_OG
+3NUGD|Fungi	1	3.4013605442176873	S	actin binding protein	MHS521	fungi_OG
+3NUGI|Fungi	2	3.6832412523020257	Q	Methyltransferase	MHS521	fungi_OG
+3NUHC|Fungi	1	3.584229390681003	J	Belongs to the universal ribosomal protein uL1 family	MHS521	fungi_OG
+3NUJB|Fungi	4	10.1010101010101	E	chorismate synthase	MHS521	fungi_OG
+3NUK2|Fungi	1	3.546099290780142	O	Heat Shock Protein	MHS521	fungi_OG
+3NUKD|Fungi	2	4.761904761904762	T	Guanine nucleotide-binding protein subunit beta-like protein	MHS521	fungi_OG
+3NUKK|Fungi	19	43.36402626635334	C	Cytochrome c oxidase is the component of the respiratory chain that catalyzes the reduction of oxygen to water. Subunits 1- 3 form the functional core of the enzyme complex. Subunit 2 transfers the electrons from cytochrome c via its binuclear copper A center to the bimetallic center of the catalytic subunit 1	MHS521	fungi_OG
+3NUM0|Fungi	2	3.6429872495446265	I	fatty acid desaturase	MHS521	fungi_OG
+3NUM8|Fungi	1	3.9682539682539684	K	The SPT4-SPT5 complex mediates both activation and inhibition of transcription elongation, and plays a role in pre- mRNA processing. This complex seems to be important for the stability of the RNA polymerase II elongation machinery on the chromatin template but not for the inherent ability of this machinery to translocate down the gene	MHS521	fungi_OG
+3NUMJ|Fungi	2	5.649717514124294	H	Belongs to the alpha-IPM synthase homocitrate synthase family	MHS521	fungi_OG
+3NUMZ|Fungi	8	21.773202839974914	E	Glutamate synthase	MHS521	fungi_OG
+3NUN3|Fungi	2	6.666666666666667	T	pyruvate dehydrogenase kinase	MHS521	fungi_OG
+3NUP6|Fungi	1	3.663003663003663	J	Aspartyl-tRNA synthetase	MHS521	fungi_OG
+3NUQ1|Fungi	1	4.016064257028113	J	Tyrosyl-trna synthetase	MHS521	fungi_OG
+3NUQM|Fungi	10	20.636264369931418	C	Subunits I, II and III form the functional core of the enzyme complex	MHS521	fungi_OG
+3NUR8|Fungi	1	4.273504273504273	J	Catalyzes the attachment of alanine to tRNA(Ala) in a two-step reaction alanine is first activated by ATP to form Ala- AMP and then transferred to the acceptor end of tRNA(Ala). Also edits incorrectly charged tRNA(Ala) via its editing domain	MHS521	fungi_OG
+3NUR9|Fungi	3	10.101010101010102	O	Belongs to the AAA ATPase family	MHS521	fungi_OG
+3NURM|Fungi	1	3.623188405797101	O	Belongs to the heat shock protein 70 family	MHS521	fungi_OG
+3NUS5|Fungi	3	6.41025641025641	E	Removes the N-terminal methionine from nascent proteins. The N-terminal methionine is often cleaved when the second residue in the primary sequence is small and uncharged (Met-Ala-, Cys, Gly, Pro, Ser, Thr, or Val)	MHS521	fungi_OG
+3NUS8|Fungi	2	5.899705014749262	T	Mitogen-activated protein kinase	MHS521	fungi_OG
+3NUSF|Fungi	26	20.883534136546185	U	Exocyst complex component Sec6	MHS521	fungi_OG
+3NUSR|Fungi	4	12.121212121212121	C	Inorganic pyrophosphatase	MHS521	fungi_OG
+3NUSV|Fungi	3	10.638297872340427	O	Serine palmitoyltransferase	MHS521	fungi_OG
+3NUTI|Fungi	3	6.0606060606060606	I	Acetyl-coenzyme a synthetase	MHS521	fungi_OG
+3NUU4|Fungi	2	8.438818565400844	J	Exosome complex	MHS521	fungi_OG
+3NUUI|Fungi	1	4.694835680751174	I	transcriptional repressor	MHS521	fungi_OG
+3NUUQ|Fungi	1	3.7878787878787876	F	GMP synthase	MHS521	fungi_OG
+3NUUZ|Fungi	4	11.446886446886445	I	fatty acid desaturase	MHS521	fungi_OG
+3NUZ7|Fungi	12	26.49968363505743	E	Encoded by	MHS521	fungi_OG
+3NUZG|Fungi	2	7.936507936507937	Q	Mrna export factor elf1	MHS521	fungi_OG
+3NV1F|Fungi	2	10.416666666666666	J	Belongs to the eukaryotic ribosomal protein eL15 family	MHS521	fungi_OG
+3NV25|Fungi	1	3.623188405797101	P	Belongs to the major facilitator superfamily. Sugar transporter (TC 2.A.1.1) family	MHS521	fungi_OG
+3NV2W|Fungi	1	6.0606060606060606	S	C6 finger	MHS521	fungi_OG
+3NV3F|Fungi	3	12.345679012345679	G	Belongs to the phosphohexose mutase family	MHS521	fungi_OG
+3NV3G|Fungi	2	3.9447731755424065	I	Belongs to the enoyl-CoA hydratase isomerase family	MHS521	fungi_OG
+3NV49|Fungi	2	3.7878787878787876	Z	Belongs to the TRAFAC class myosin-kinesin ATPase superfamily. Myosin family	MHS521	fungi_OG
+3NV58|Fungi	3	7.4508824508824505	O	Belongs to the AAA ATPase family	MHS521	fungi_OG
+3NV5V|Fungi	1	3.623188405797101	O	Component of the EKC KEOPS complex that is required for the formation of a threonylcarbamoyl group on adenosine at position 37 (t(6)A37) in tRNAs that read codons beginning with adenine. The complex is probably involved in the transfer of the threonylcarbamoyl moiety of threonylcarbamoyl-AMP (TC-AMP) to the N6 group of A37. Kae1 likely plays a direct catalytic role in this reaction, but requires other protein(s) of the complex to fulfill this activity. The EKC KEOPS complex also promotes both telomere uncapping and telomere elongation. The complex is required for efficient recruitment of transcriptional coactivators	MHS521	fungi_OG
+3NV68|Fungi	1	3.8314176245210727	CH	FAD-dependent monooxygenase required for the C5-ring hydroxylation during ubiquinone biosynthesis. Catalyzes the hydroxylation of 3-polyprenyl-4-hydroxybenzoic acid to 3- polyprenyl-4,5-dihydroxybenzoic acid. The electrons required for the hydroxylation reaction may be funneled indirectly from NADPH via a ferredoxin ferredoxin reductase system to COQ6	MHS521	fungi_OG
+3NV76|Fungi	3	10	I	fatty acid synthase	MHS521	fungi_OG
+3NV77|Fungi	2	10.1010101010101	S	Zinc Finger Protein	MHS521	fungi_OG
+3NV80|Fungi	2	3.6429872495446265	S	Glycosyltransferase family 90 protein	MHS521	fungi_OG
+3NV83|Fungi	3	11.904761904761905	C	Dehydrogenase	MHS521	fungi_OG
+3NV84|Fungi	1	4.444444444444445	T	Ste ste20 ysk protein kinase	MHS521	fungi_OG
+3NV86|Fungi	11	26.570048309178745	Q	(ABC) transporter	MHS521	fungi_OG
+3NV8D|Fungi	2	5.2493438320209975	O	regulatory subunit	MHS521	fungi_OG
+3NV8Y|Fungi	1	3.546099290780142	G	Belongs to the glycosyl hydrolase 5 (cellulase A) family	MHS521	fungi_OG
+3NV92|Fungi	1	3.546099290780142	K	DNA-dependent RNA polymerase catalyzes the transcription of DNA into RNA using the four ribonucleoside triphosphates as substrates	MHS521	fungi_OG
+3NV95|Fungi	6	7.49063670411985	Q	Short-chain dehydrogenase reductase sdr	MHS521	fungi_OG
+3NV9A|Fungi	2	5.208333333333333	H	Catalyzes the reversible reaction in which hydroxymethyl group from 5,10-methylenetetrahydrofolate is transferred onto alpha-ketoisovalerate to form ketopantoate	MHS521	fungi_OG
+3NV9H|Fungi	2	5.899705014749262	I	acyl-CoA dehydrogenase	MHS521	fungi_OG
+3NV9M|Fungi	2	11.695906432748536	T	Belongs to the protein kinase superfamily	MHS521	fungi_OG
+3NVAR|Fungi	1	4.62962962962963	I	Catalyzes the formation of phosphatidylethanolamine (PtdEtn) from phosphatidylserine (PtdSer). Plays a central role in phospholipid metabolism and in the interorganelle trafficking of phosphatidylserine	MHS521	fungi_OG
+3NVAW|Fungi	3	5.235602094240838	O	Belongs to the peptidase M28 family	MHS521	fungi_OG
+3NVBD|Fungi	1	4.329004329004329	T	Belongs to the protein kinase superfamily	MHS521	fungi_OG
+3NVBE|Fungi	2	3.745318352059925	O	Belongs to the AAA ATPase family	MHS521	fungi_OG
+3NVDT|Fungi	8	19.06982769788833	H	Belongs to the PdxS SNZ family	MHS521	fungi_OG
+3NVDU|Fungi	2	9.132420091324201	U	endosomal sorting complex protein	MHS521	fungi_OG
+3NVEE|Fungi	1	3.4013605442176873	DKT	LEM3 CDC50 family protein	MHS521	fungi_OG
+3NVEF|Fungi	3	8.292383292383292	A	Pre-mRNA splicing	MHS521	fungi_OG
+3NVF4|Fungi	1	5.208333333333333	J	histidyl-tRNA synthetase	MHS521	fungi_OG
+3NVFE|Fungi	2	9.023840009755503	J	Belongs to the eukaryotic ribosomal protein eS1 family	MHS521	fungi_OG
+3NVGE|Fungi	1	3.875968992248062	K	Sac3 ganp domain protein	MHS521	fungi_OG
+3NVGK|Fungi	2	5.74712643678161	L	Component of the post-replicative DNA mismatch repair system (MMR)	MHS521	fungi_OG
+3NVGU|Fungi	2	6.666666666666667	C	Belongs to the complex I 49 kDa subunit family	MHS521	fungi_OG
+3NVH4|Fungi	1	4.504504504504505	O	proteasome subunit alpha	MHS521	fungi_OG
+3NVHY|Fungi	3	10.204081632653061	H	Belongs to the class-II pyridoxal-phosphate-dependent aminotransferase family	MHS521	fungi_OG
+3NVJW|Fungi	4	16.256938937351308	L	Belongs to the MCM family	MHS521	fungi_OG
+3NVKB|Fungi	2	5.420054200542006	A	splicing factor 3b subunit 1	MHS521	fungi_OG
+3NVKN|Fungi	1	3.4013605442176873	T	camk camkl kin4 protein kinase	MHS521	fungi_OG
+3NVKU|Fungi	56	161.13415889938753	Z	retrotransposable element tf2 155 kda protein type 1-like	MHS521	fungi_OG
+3NVKZ|Fungi	1	3.5087719298245617	O	assists the folding of proteins upon ATP hydrolysis	MHS521	fungi_OG
+3NVM0|Fungi	2	3.8535645472061657	F	Involved in maintaining the homeostasis of cellular nucleotides by catalyzing the interconversion of nucleoside phosphates. Has GTP AMP phosphotransferase and ITP AMP phosphotransferase activities	MHS521	fungi_OG
+3NVNB|Fungi	9	16.766007877583743	L	Aaa family atpase	MHS521	fungi_OG
+3NVNM|Fungi	1	3.663003663003663	S	mitochondrial transport protein	MHS521	fungi_OG
+3NVNX|Fungi	6	20.22058823529412	C	oxidoreductase chain 4	MHS521	fungi_OG
+3NVRB|Fungi	2	3.436426116838488	BDLT	Protein kinase rad3	MHS521	fungi_OG
+3NVRX|Fungi	6	13.03917933506365	A	ATP-dependent, RNA helicase	MHS521	fungi_OG
+3NVSI|Fungi	2	4.1928721174004195	S	PH domain-containing protein	MHS521	fungi_OG
+3NVSZ|Fungi	1	3.9682539682539684	J	Belongs to the class-I aminoacyl-tRNA synthetase family	MHS521	fungi_OG
+3NVVT|Fungi	1	5.128205128205128	E	transporter	MHS521	fungi_OG
+3NVW2|Fungi	1	4.566210045662101	E	Belongs to the aldehyde dehydrogenase family	MHS521	fungi_OG
+3NVWA|Fungi	3	7.751937984496124	U	Belongs to the small GTPase superfamily. Arf family	MHS521	fungi_OG
+3NVWD|Fungi	3	12.252541466024612	EI	carboxylase, beta	MHS521	fungi_OG
+3NVXF|Fungi	2	8.333333333333334	T	Protein kinase c	MHS521	fungi_OG
+3NVXN|Fungi	2	5.847953216374268	V	-phosphatase	MHS521	fungi_OG
+3NVYB|Fungi	1	3.8314176245210727	C	Cytochrome c1	MHS521	fungi_OG
+3NVZ1|Fungi	2	3.5087719298245617	J	Required for proper 27S pre-rRNA processing and 60S ribosome subunit assembly	MHS521	fungi_OG
+3NVZ3|Fungi	2	3.663003663003663	J	Belongs to the eIF-2B alpha beta delta subunits family. MtnA subfamily	MHS521	fungi_OG
+3NVZW|Fungi	1	5.952380952380952	B	Involved in deacetylation of histones, chromatin assembly and chromosome segregation. May act as a transcriptional oscillator, directing histone deacetylases to specific chromosomal domains. Component of the NuA4 histone acetyltransferase complex which is involved in transcriptional activation of selected genes principally by acetylation of nucleosomal histone H4 and H2A. The NuA4 complex is also involved in DNA repair (By similarity)	MHS521	fungi_OG
+3NW08|Fungi	2	6.802721088435375	AL	5'-3' exoribonuclease	MHS521	fungi_OG
+3NW12|Fungi	2	3.5087719298245617	O	Belongs to the ubiquitin-conjugating enzyme family	MHS521	fungi_OG
+3NW1F|Fungi	2	5.74712643678161	E	Belongs to the peroxidase family	MHS521	fungi_OG
+3NW22|Fungi	1	3.546099290780142	G	glycoside hydrolase family 16 protein	MHS521	fungi_OG
+3NW2E|Fungi	4	13.602847698957538	C	Catalyzes the hydroxylation of the N(6)-(4-aminobutyl)- L-lysine intermediate to form hypusine, an essential post- translational modification only found in mature eIF-5A factor	MHS521	fungi_OG
+3NW2S|Fungi	4	14.035087719298247	Q	Belongs to the short-chain dehydrogenases reductases (SDR) family	MHS521	fungi_OG
+3NW2U|Fungi	1	4.065040650406504	Z	Involved in the partitioning of the mitochondrial organelle and mitochondrial DNA (mtDNA) inheritance	MHS521	fungi_OG
+3NW41|Fungi	1	4.62962962962963	A	RNA helicase	MHS521	fungi_OG
+3NW46|Fungi	1	4.273504273504273	S	Serine hydrolase involved in the detoxification of formaldehyde	MHS521	fungi_OG
+3NW4A|Fungi	4	7.707129094412331	S	RAS2 protein	MHS521	fungi_OG
+3NW4R|Fungi	1	3.9215686274509802	BD	Regulatory subunit of the condensin complex, a complex required for conversion of interphase chromatin into mitotic-like condense chromosomes	MHS521	fungi_OG
+3NW5D|Fungi	2	7.662835249042145	C	alcohol dehydrogenase	MHS521	fungi_OG
+3NW5Z|Fungi	3	11.163853727144867	C	Belongs to the complex I 75 kDa subunit family	MHS521	fungi_OG
+3NW63|Fungi	4	8.547008547008547	Z	Belongs to the actin family	MHS521	fungi_OG
+3NW7H|Fungi	2	3.7878787878787876	UY	nucleoporin	MHS521	fungi_OG
+3NW7Z|Fungi	1	4.329004329004329	E	Nitrilase	MHS521	fungi_OG
+3NW86|Fungi	4	7.532956685499058	I	Belongs to the CTL (choline transporter-like) family	MHS521	fungi_OG
+3NW87|Fungi	1	4.11522633744856	J	Binds to the 60S ribosomal subunit and prevents its association with the 40S ribosomal subunit to form the 80S initiation complex in the cytoplasm. Is also involved in ribosome biogenesis. Associates with pre-60S subunits in the nucleus and is involved in its nuclear export	MHS521	fungi_OG
+3NW98|Fungi	4	10.318457992876597	J	Elongation factor 2	MHS521	fungi_OG
+3NW9H|Fungi	1	3.8314176245210727	U	Belongs to the adaptor complexes small subunit family	MHS521	fungi_OG
+3NWAB|Fungi	2	7.092198581560284	E	Serine palmitoyltransferase	MHS521	fungi_OG
+3NWB2|Fungi	2	7.092198581560284	S	Receptor	MHS521	fungi_OG
+3NWB5|Fungi	6	13.698630136986301	U	Clathrin is the major protein of the polyhedral coat of coated pits and vesicles	MHS521	fungi_OG
+3NWB9|Fungi	2	6.116207951070336	B	Component of the FACT complex, a general chromatin factor that acts to reorganize nucleosomes. The FACT complex is involved in multiple processes that require DNA as a template such as mRNA elongation, DNA replication and DNA repair. During transcription elongation the FACT complex acts as a histone chaperone that both destabilizes and restores nucleosomal structure. It facilitates the passage of RNA polymerase II and transcription by promoting the dissociation of one histone H2A-H2B dimer from the nucleosome, then subsequently promotes the reestablishment of the nucleosome following the passage of RNA polymerase II	MHS521	fungi_OG
+3NWBE|Fungi	2	3.5650623885918	S	Thermotolerance protein	MHS521	fungi_OG
+3NWBT|Fungi	1	3.745318352059925	C	Vacuolar ATPase is responsible for acidifying a variety of intracellular compartments in eukaryotic cells. The active enzyme consists of a catalytic V1 domain attached to an integral membrane V0 proton pore complex. This subunit is a non-integral membrane component of the membrane pore domain and is required for proper assembly of the V0 sector. Might be involved in the regulated assembly of V1 subunits onto the membrane sector or alternatively may prevent the passage of protons through V0 pores	MHS521	fungi_OG
+3NWCD|Fungi	2	6.734006734006734	S	Methylitaconate delta2-delta3-isomerase	MHS521	fungi_OG
+3NWCH|Fungi	2	4.938271604938271	K	Transcription initiation factor TFIID	MHS521	fungi_OG
+3NWCI|Fungi	1	4.219409282700422	I	May contribute to the regulation of the isoprenoid and sterol pathway in living cells	MHS521	fungi_OG
+3NWCU|Fungi	1	4.11522633744856	S	RTA1 like protein	MHS521	fungi_OG
+3NWD9|Fungi	2	7.326007326007326	F	Plays an important role in the de novo pathway and in the salvage pathway of purine nucleotide biosynthesis. Catalyzes the first commited step in the biosynthesis of AMP from IMP	MHS521	fungi_OG
+3NWEY|Fungi	2	5.167958656330749	P	Malic acid	MHS521	fungi_OG
+3NWGD|Fungi	2	6.230529595015576	U	Duf803 domain membrane protein	MHS521	fungi_OG
+3NWH7|Fungi	2	8.88888888888889	C	aryl-alcohol dehydrogenase	MHS521	fungi_OG
+3NWHS|Fungi	2	8.771929824561402	U	TBC domain protein	MHS521	fungi_OG
+3NWHW|Fungi	3	6.134969325153374	U	protein transport protein sec61	MHS521	fungi_OG
+3NWIH|Fungi	7	10.324483775811208	O	Belongs to the AAA ATPase family	MHS521	fungi_OG
+3NWJ4|Fungi	1	4.166666666666667	S	GTP-binding protein EsdC	MHS521	fungi_OG
+3NWJ7|Fungi	3	5.813953488372093	I	polyketide synthase	MHS521	fungi_OG
+3NWKJ|Fungi	4	8.547008547008547	Z	IFRD domain-containing protein	MHS521	fungi_OG
+3NWKQ|Fungi	1	3.623188405797101	U	Gdp-mannose transporter	MHS521	fungi_OG
+3NWKV|Fungi	1	3.9682539682539684	E	Beta-alanine synthase	MHS521	fungi_OG
+3NWM3|Fungi	2	4.016064257028113	O	Proteasome	MHS521	fungi_OG
+3NWM6|Fungi	9	21.85211433971179	C	Flavoprotein (FP) subunit of succinate dehydrogenase (SDH) that is involved in complex II of the mitochondrial electron transport chain and is responsible for transferring electrons from succinate to ubiquinone (coenzyme Q)	MHS521	fungi_OG
+3NWP8|Fungi	3	9.998876530726886	K	Component of the core-TFIIH basal transcription factor involved in nucleotide excision repair (NER) of DNA	MHS521	fungi_OG
+3NWPS|Fungi	2	7.017543859649123	C	malic enzyme	MHS521	fungi_OG
+3NWST|Fungi	1	5.291005291005291	EO	Aminopeptidase	MHS521	fungi_OG
+3NWTD|Fungi	2	4.975124378109452	U	transporter	MHS521	fungi_OG
+3NWVG|Fungi	1	4.444444444444445	Q	Belongs to the cytochrome P450 family	MHS521	fungi_OG
+3NWVJ|Fungi	2	4.938271604938271	A	RNA-binding protein	MHS521	fungi_OG
+3NWWT|Fungi	1	3.3333333333333335	S	Mn2 homeostasis protein	MHS521	fungi_OG
+3NWWV|Fungi	1	3.367003367003367	O	Belongs to the heat shock protein 70 family	MHS521	fungi_OG
+3NWXC|Fungi	1	4.065040650406504	O	PPIases accelerate the folding of proteins. It catalyzes the cis-trans isomerization of proline imidic peptide bonds in oligopeptides	MHS521	fungi_OG
+3NWXV|Fungi	3	9.803921568627452	M	Chitin Synthase	MHS521	fungi_OG
+3NWYN|Fungi	1	4.065040650406504	A	Splicing factor 3b subunit 4	MHS521	fungi_OG
+3NWYX|Fungi	5	9.20793107027925	B	Control of topological states of DNA by transient breakage and subsequent rejoining of DNA strands. Topoisomerase II makes double-strand breaks	MHS521	fungi_OG
+3NX0Y|Fungi	1	3.436426116838488	J	seryl-trna synthetase	MHS521	fungi_OG
+3NX1J|Fungi	3	7.692307692307692	BK	complex subunit Sfh1	MHS521	fungi_OG
+3NX26|Fungi	2	3.5087719298245617	A	splicing factor u2af-associated protein	MHS521	fungi_OG
+3NX2D|Fungi	4	8.080808080808081	T	vacuolar membrane-associated protein iml1	MHS521	fungi_OG
+3NX2N|Fungi	2	9.132420091324201	H	Pyridoxal kinase	MHS521	fungi_OG
+3NX2U|Fungi	1	3.9682539682539684	I	Belongs to the thiolase family	MHS521	fungi_OG
+3NX4A|Fungi	1	4.830917874396135	S	Centrosome microtubule-binding domain of Cep57	MHS521	fungi_OG
+3NX4B|Fungi	1	3.4013605442176873	I	Belongs to the 1-acyl-sn-glycerol-3-phosphate acyltransferase family	MHS521	fungi_OG
+3NX5D|Fungi	1	5.128205128205128	P	This magnesium-dependent enzyme catalyzes the hydrolysis of ATP coupled with the transport of calcium	MHS521	fungi_OG
+3NX7W|Fungi	1	4.62962962962963	BK	snf2-family atp dependent chromatin remodeling factor snf21	MHS521	fungi_OG
+3NX80|Fungi	26	69.90843022365318	C	Component of the ubiquinol-cytochrome c reductase complex (complex III or cytochrome b-c1 complex) that is part of the mitochondrial respiratory chain. The b-c1 complex mediates electron transfer from ubiquinol to cytochrome c. Contributes to the generation of a proton gradient across the mitochondrial membrane that is then used for ATP synthesis	MHS521	fungi_OG
+3NX8I|Fungi	2	3.992015968063872	H	Zinc finger protein	MHS521	fungi_OG
+3NX8J|Fungi	1	5.208333333333333	S	cell cycle inhibitor	MHS521	fungi_OG
+3NX90|Fungi	1	4.830917874396135	O	Proteasome subunit beta	MHS521	fungi_OG
+3NXAI|Fungi	1	3.9215686274509802	I	)-reductase	MHS521	fungi_OG
+3NXAR|Fungi	1	4.166666666666667	J	Translation Initiation Factor	MHS521	fungi_OG
+3NXAX|Fungi	2	5.333333333333333	L	DNA helicase	MHS521	fungi_OG
+3NXB5|Fungi	2	3.9682539682539684	C	NADH dehydrogenase subunit 2	MHS521	fungi_OG
+3NXBE|Fungi	7	26.068134763786937	S	to Saccharomyces cerevisiae WHI2 (YOR043W)	MHS521	fungi_OG
+3NXC1|Fungi	2	4.219409282700422	G	to uniprot P00924 Saccharomyces cerevisiae YGR254w ENO1 enolase I	MHS521	fungi_OG
+3NXCB|Fungi	1	4.166666666666667	C	Belongs to the aldehyde dehydrogenase family	MHS521	fungi_OG
+3NXDR|Fungi	2	7.246376811594202	K	Transcription factor	MHS521	fungi_OG
+3NXDY|Fungi	2	4.357298474945534	P	ankyrin repeat protein nuc-2	MHS521	fungi_OG
+3NXES|Fungi	2	6.872852233676976	T	Belongs to the protein kinase superfamily	MHS521	fungi_OG
+3NXG4|Fungi	3	11.363636363636363	U	Belongs to the SNF7 family	MHS521	fungi_OG
+3NXGN|Fungi	2	4.140786749482402	S	vacuolar protein	MHS521	fungi_OG
+3NXHY|Fungi	4	11.49425287356322	Q	Lea domain protein	MHS521	fungi_OG
+3NXKP|Fungi	4	7.532956685499058	K	DNA-dependent RNA polymerase catalyzes the transcription of DNA into RNA using the four ribonucleoside triphosphates as substrates	MHS521	fungi_OG
+3NXMC|Fungi	6	17.699115044247787	S	Killer toxin sensitivity protein	MHS521	fungi_OG
+3NXN8|Fungi	2	3.875968992248062	O	Belongs to the ClpA ClpB family	MHS521	fungi_OG
+3NXNC|Fungi	2	7.575757575757575	T	Histidine kinase	MHS521	fungi_OG
+3NXNP|Fungi	2	9.950248756218905	EG	Vacuolar membrane protein	MHS521	fungi_OG
+3NXQ2|Fungi	8	17.543859649122805	G	Monocarboxylate transporter	MHS521	fungi_OG
+3NXQF|Fungi	2	5.74712643678161	A	rna annealing protein	MHS521	fungi_OG
+3NXQX|Fungi	2	6.944444444444445	U	Belongs to the VPS29 family	MHS521	fungi_OG
+3NXRR|Fungi	1	3.367003367003367	U	GTP-binding protein	MHS521	fungi_OG
+3NXUR|Fungi	2	5.2493438320209975	S	2-haloalkanoic acid dehalogenase	MHS521	fungi_OG
+3NXXN|Fungi	6	10.6951871657754	B	Chromodomain Helicase	MHS521	fungi_OG
+3NXY4|Fungi	2	5.012531328320802	Q	Carbohydrate esterase family 9 protein	MHS521	fungi_OG
+3NXZN|Fungi	6	12.99327496510595	U	Belongs to the small GTPase superfamily. Arf family	MHS521	fungi_OG
+3NY7W|Fungi	2	3.766478342749529	S	ser thr protein phosphatase	MHS521	fungi_OG
+3NY8Z|Fungi	1	3.584229390681003	TU	domain-containing protein	MHS521	fungi_OG
+3NY98|Fungi	2	4.08997955010225	S	NA	MHS521	fungi_OG
+3NY9J|Fungi	2	5.012531328320802	T	glucosidase 2 subunit beta	MHS521	fungi_OG
+3NYA4|Fungi	4	9.66183574879227	J	ribosomal protein	MHS521	fungi_OG
+3NYCA|Fungi	2	4.597701149425287	G	transporter	MHS521	fungi_OG
+3NYD0|Fungi	2	8.23045267489712	U	septum-promoting GTP-binding protein 1	MHS521	fungi_OG
+3NYDQ|Fungi	2	8.771929824561402	I	Belongs to the acyl-CoA oxidase family	MHS521	fungi_OG
+3NYEE|Fungi	1	4.444444444444445	EG	duf914 domain membrane protein	MHS521	fungi_OG
+3NYGG|Fungi	54	122.86985274792444	C	Cytochrome c oxidase is the component of the respiratory chain that catalyzes the reduction of oxygen to water. Subunits 1- 3 form the functional core of the enzyme complex. CO I is the catalytic subunit of the enzyme. Electrons originating in cytochrome c are transferred via the copper A center of subunit 2 and heme A of subunit 1 to the bimetallic center formed by heme A3 and copper B	MHS521	fungi_OG
+3NYHE|Fungi	9	9.345794392523365	S	GIY-YIG type nucleases (URI domain)	MHS521	fungi_OG
+3NYIP|Fungi	1	3.7878787878787876	L	rna exonuclease	MHS521	fungi_OG
+3NYM6|Fungi	2	4.504504504504505	U	Belongs to the major facilitator superfamily. Sugar transporter (TC 2.A.1.1) family	MHS521	fungi_OG
+3NYMN|Fungi	1	3.367003367003367	B	Histone-lysine n-methyltransferase	MHS521	fungi_OG
+3NYNX|Fungi	1	3.7037037037037033	J	Belongs to the eukaryotic initiation factor 4E family	MHS521	fungi_OG
+3NYPK|Fungi	2	10.416666666666666	E	Converts proline to delta-1-pyrroline-5-carboxylate	MHS521	fungi_OG
+3NYR2|Fungi	1	3.663003663003663	T	rho guanyl nucleotide exchange	MHS521	fungi_OG
+3NYSN|Fungi	6	5.899705014749263	S	DNA repair protein rad26	MHS521	fungi_OG
+3NYTM|Fungi	2	4.1928721174004195	P	P-Type ATPase	MHS521	fungi_OG
+3NYVV|Fungi	3	5.524861878453038	K	heat shock transcription factor	MHS521	fungi_OG
+3NYXP|Fungi	1	3.4722222222222223	GM	epimerase	MHS521	fungi_OG
+3NYZI|Fungi	2	4.901960784313726	J	(GTP)-binding protein	MHS521	fungi_OG
+3NYZX|Fungi	1	3.7037037037037033	EI	carboxylase	MHS521	fungi_OG
+3NZ2Z|Fungi	4	4.920049200492005	M	Mandelate racemase muconate lactonizing enzyme	MHS521	fungi_OG
+3NZ4I|Fungi	1	4.11522633744856	U	GTP-Binding protein	MHS521	fungi_OG
+3NZDJ|Fungi	5	8.635578583765113	H	Plays a central role in 2-thiolation of mcm(5)S(2)U at tRNA wobble positions of cytosolic tRNA(Lys), tRNA(Glu) and tRNA(Gln). Also essential during biosynthesis of the molybdenum cofactor. Acts by mediating the C-terminal thiocarboxylation of sulfur carriers urm1 and mocs2a. Its N-terminus first activates urm1 and mocs2a as acyl-adenylates (-COAMP), then the persulfide sulfur on the catalytic cysteine is transferred to urm1 and mocs2a to form thiocarboxylation (-COSH) of their C-terminus. The reaction probably involves hydrogen sulfide that is generated from the persulfide intermediate and that acts as nucleophile towards urm1 and mocs2a. Subsequently, a transient disulfide bond is formed. Does not use thiosulfate as sulfur donor	MHS521	fungi_OG
+3NZFF|Fungi	1	4.975124378109452	CH	fad binding domain-containing protein	MHS521	fungi_OG
+3NZK6|Fungi	38	42.810739908185234	C	Core subunit of the mitochondrial membrane respiratory chain NADH dehydrogenase (Complex I) that is believed to belong to the minimal assembly required for catalysis. Complex I functions in the transfer of electrons from NADH to the respiratory chain. The immediate electron acceptor for the enzyme is believed to be ubiquinone	MHS521	fungi_OG
+3NZQR|Fungi	2	4.140786749482402	O	Essential component of the PAM complex, a complex required for the translocation of transit peptide-containing proteins from the inner membrane into the mitochondrial matrix in an ATP-dependent manner	MHS521	fungi_OG
+3NZSW|Fungi	1	3.7878787878787876	L	Polymerase	MHS521	fungi_OG
+3NZTD|Fungi	1	4.219409282700422	H	O-methyltransferase that catalyzes the 2 O-methylation steps in the ubiquinone biosynthetic pathway	MHS521	fungi_OG
+3NZXF|Fungi	1	3.436426116838488	E	acyl-CoA dehydrogenase	MHS521	fungi_OG
+3NZZH|Fungi	1	5.128205128205128	G	-beta-galactosidase	MHS521	fungi_OG
+3P044|Fungi	2	6.872852233676976	S	NA	MHS521	fungi_OG
+3P07A|Fungi	2	5.5096418732782375	S	Duf821 domain-containing protein	MHS521	fungi_OG
+3P0A1|Fungi	1	4.385964912280701	E	Alkanesulfonate monooxygenase	MHS521	fungi_OG
+3P0AK|Fungi	4	9.950248756218905	S	Peroxin 26	MHS521	fungi_OG
+3P0E1|Fungi	2	4.016064257028113	O	ATPase family associated with various cellular activities (AAA)	MHS521	fungi_OG
+3P0H0|Fungi	9	28.9547061174531	C	NADH-ubiquinone oxidoreductase chain 1	MHS521	fungi_OG
+3P0Q2|Fungi	2	4.62962962962963	S	ADP-ribosylglycohydrolase	MHS521	fungi_OG
+3P0RP|Fungi	2	3.4013605442176873	G	Transporter	MHS521	fungi_OG
+3P110|Fungi	1	5.128205128205128	FP	Myo-inositol-1(Or 4)-monophosphatase	MHS521	fungi_OG
+3P13X|Fungi	2	4.694835680751174	G	Splits internally a 1,3-beta-glucan molecule and transfers the newly generated reducing end (the donor) to the non- reducing end of another 1,3-beta-glucan molecule (the acceptor) forming a 1,3-beta linkage, resulting in the elongation of 1,3- beta-glucan chains in the cell wall	MHS521	fungi_OG
+3P1GH|Fungi	2	5.333333333333333	GQ	Myo-inositol 2-dehydrogenase	MHS521	fungi_OG
+3P1R2|Fungi	2	11.11111111111111	J	Belongs to the universal ribosomal protein uS15 family	MHS521	fungi_OG
+3P1TH|Fungi	4	8.1799591002045	P	Proton-conducting pore forming subunit of the membrane integral V0 complex of vacuolar ATPase. V-ATPase is responsible for acidifying a variety of intracellular compartments in eukaryotic cells	MHS521	fungi_OG
+3P1VH|Fungi	1	4.901960784313726	O	PPIases accelerate the folding of proteins. It catalyzes the cis-trans isomerization of proline imidic peptide bonds in oligopeptides	MHS521	fungi_OG
+3P1VP|Fungi	3	4.926108374384237	F	guanylate kinase	MHS521	fungi_OG
+3P1WK|Fungi	1	3.7878787878787876	B	Histone h2b	MHS521	fungi_OG
+3P1WV|Fungi	2	6.600660066006601	I	Phospholipase/Carboxylesterase	MHS521	fungi_OG
+3P1X7|Fungi	17	16.425120772946862	C	LAGLIDADG endonuclease	MHS521	fungi_OG
+3P1Y2|Fungi	2	3.7243947858472994	J	ribosomal protein	MHS521	fungi_OG
+3P1ZR|Fungi	2	7.751937984496124	S	C2H2 type zinc finger domain-containing protein	MHS521	fungi_OG
+3P223|Fungi	2	3.584229390681003	S	Lytic polysaccharide mono-oxygenase, cellulose-degrading	MHS521	fungi_OG
+3P23A|Fungi	2	7.575757575757575	V	-phosphatase	MHS521	fungi_OG
+3P23V|Fungi	1	3.875968992248062	K	Transcription factor	MHS521	fungi_OG
+3P2BQ|Fungi	2	5.2493438320209975	K	Nascent polypeptide-associated complex subunit beta	MHS521	fungi_OG
+3P2DX|Fungi	1	3.875968992248062	I	Alpha beta hydrolase fold protein	MHS521	fungi_OG
+3P2PG|Fungi	2	10.416666666666666	S	Programmed cell death protein 2, C-terminal putative domain	MHS521	fungi_OG
+3P2QE|Fungi	1	4.273504273504273	S	NA	MHS521	fungi_OG
+3P2QQ|Fungi	4	15.15151515151515	DZ	Cell division control protein	MHS521	fungi_OG
+3P2UB|Fungi	2	7.246376811594202	P	Iron-sulfur cluster assembly accessory protein	MHS521	fungi_OG
+3P2W4|Fungi	2	5.291005291005291	J	60s ribosomal protein l32	MHS521	fungi_OG
+3P2XK|Fungi	4	11.358734723220703	J	Belongs to the universal ribosomal protein uS8 family	MHS521	fungi_OG
+3P2Y9|Fungi	1	3.745318352059925	H	DlpA domain-containing protein	MHS521	fungi_OG
+3P2YN|Fungi	2	6.666666666666667	J	Belongs to the eukaryotic ribosomal protein eL27 family	MHS521	fungi_OG
+3P30Y|Fungi	2	3.898635477582846	F	deaminase	MHS521	fungi_OG
+3P34B|Fungi	1	3.7037037037037033	C	Mitochondrial membrane ATP synthase (F(1)F(0) ATP synthase or Complex V) produces ATP from ADP in the presence of a proton gradient across the membrane which is generated by electron transport complexes of the respiratory chain. F-type ATPases consist of two structural domains, F(1) - containing the extramembraneous catalytic core, and F(0) - containing the membrane proton channel, linked together by a central stalk and a peripheral stalk. During catalysis, ATP synthesis in the catalytic domain of F(1) is coupled via a rotary mechanism of the central stalk subunits to proton translocation. Part of the complex F(0) domain and the peripheric stalk, which acts as a stator to hold the catalytic alpha(3)beta(3) subcomplex and subunit a ATP6 static relative to the rotary elements	MHS521	fungi_OG
+3P38A|Fungi	2	3.490401396160559	A	Nucleolar protein	MHS521	fungi_OG
+3P39W|Fungi	1	5.376344086021505	J	LAGLIDADG endonuclease	MHS521	fungi_OG
+3P3AE|Fungi	1	4.385964912280701	S	lysr family regulatory protein	MHS521	fungi_OG
+3P3AP|Fungi	2	11.49425287356322	S	GET complex subunit GET2	MHS521	fungi_OG
+3P3AV|Fungi	3	7.874015748031496	A	Glycine-rich RNA-binding protein	MHS521	fungi_OG
+3P3IR|Fungi	2	6.802721088435375	S	NA	MHS521	fungi_OG
+3P3MV|Fungi	5	18.627450980392155	S	LAGLIDADG endonuclease	MHS521	fungi_OG
+3P3VF|Fungi	1	3.663003663003663	J	40S ribosomal protein S20	MHS521	fungi_OG
+3P3X3|Fungi	1	3.367003367003367	J	60S ribosomal protein	MHS521	fungi_OG
+3P3X6|Fungi	5	9.746588693957115	OT	cop9 signalosome complex subunit 7a	MHS521	fungi_OG
+3P3ZG|Fungi	2	4.444444444444445	J	60s ribosomal protein l35	MHS521	fungi_OG
+3P40N|Fungi	2	5.602240896358544	J	Belongs to the eukaryotic ribosomal protein eS26 family	MHS521	fungi_OG
+3P40Q|Fungi	1	3.4013605442176873	K	factor 1	MHS521	fungi_OG
+3P422|Fungi	2	3.5087719298245617	P	Got1 family	MHS521	fungi_OG
+3P42G|Fungi	2	3.7878787878787876	S	NADH ubiquinone oxidoreductase 20.1kD subunit	MHS521	fungi_OG
+3P446|Fungi	1	4.761904761904762	C	component of the ubiquinol-cytochrome c reductase complex (complex III or cytochrome b-c1 complex), which is part of the mitochondrial respiratory chain	MHS521	fungi_OG
+3P45Z|Fungi	1	3.8314176245210727	A	RNA-binding protein	MHS521	fungi_OG
+3P46H|Fungi	1	3.745318352059925	K	DNA-directed RNA polymerases i	MHS521	fungi_OG
+3P4A4|Fungi	1	4.694835680751174	S	NA	MHS521	fungi_OG
+3P4B8|Fungi	1	3.663003663003663	J	ribosomal protein	MHS521	fungi_OG
+3P4BA|Fungi	1	5.208333333333333	O	peptidyl-prolyl isomerase	MHS521	fungi_OG
+3P4CP|Fungi	1	4.830917874396135	J	ribosomal protein	MHS521	fungi_OG
+3P4F5|Fungi	2	3.898635477582846	O	LAGLIDADG DNA endonuclease family	MHS521	fungi_OG
+3P4FI|Fungi	6	5.88235294117647	C	Zinc-binding dehydrogenase	MHS521	fungi_OG
+3P4FQ|Fungi	2	8.438818565400844	A	RNA recognition motif. (a.k.a. RRM, RBD, or RNP domain)	MHS521	fungi_OG
+3P4P8|Fungi	23	21.5962441314554	KL	transposase	MHS521	fungi_OG
+3P55M|Fungi	1	3.436426116838488	S	isoflavone reductase family protein	MHS521	fungi_OG
+3P57T|Fungi	2	7.662835249042145	B	Core component of nucleosome. Nucleosomes wrap and compact DNA into chromatin, limiting DNA accessibility to the cellular machineries which require DNA as a template. Histones thereby play a central role in transcription regulation, DNA repair, DNA replication and chromosomal stability. DNA accessibility is regulated via a complex set of post-translational modifications of histones, also called histone code, and nucleosome remodeling	MHS521	fungi_OG
+3P583|Fungi	1	4.975124378109452	J	40s ribosomal protein s28	MHS521	fungi_OG
+3P58Q|Fungi	1	4.329004329004329	S	Ribosomal protein S5 domain 2-like protein	MHS521	fungi_OG
+3P5A0|Fungi	4	13.201320132013201	O	Belongs to the thioredoxin family	MHS521	fungi_OG
+3P5BA|Fungi	2	7.092198581560284	C	cytochrome C oxidase	MHS521	fungi_OG
+3P5CA|Fungi	1	3.7878787878787876	J	Required for the processing of the 20S rRNA-precursor to mature 18S rRNA in a late step of the maturation of 40S ribosomal subunits. Has a physiological role leading to 18S rRNA stability	MHS521	fungi_OG
+3P5CB|Fungi	6	24.501424501424502	C	Core subunit of the mitochondrial membrane respiratory chain NADH dehydrogenase (Complex I) that is believed to belong to the minimal assembly required for catalysis. Complex I functions in the transfer of electrons from NADH to the respiratory chain. The immediate electron acceptor for the enzyme is believed to be ubiquinone	MHS521	fungi_OG
+3P5D2|Fungi	2	10.582010582010582	C	Ubiquinol-cytochrome C reductase	MHS521	fungi_OG
+3P5FV|Fungi	4	7.017543859649123	S	NA	MHS521	fungi_OG
+3P5HH|Fungi	1	3.9682539682539684	S	guanine nucleotide-binding protein subunit gamma	MHS521	fungi_OG
+3P5PV|Fungi	1	3.7878787878787876	J	40S ribosomal protein S25	MHS521	fungi_OG
+3P5R3|Fungi	3	13.88888888888889	S	NA	MHS521	fungi_OG
+3P5SG|Fungi	1	3.3333333333333335	U	PRELI-like family	MHS521	fungi_OG
+3P5V2|Fungi	3	10.869565217391303	O	Opioid growth factor receptor (OGFr) conserved region	MHS521	fungi_OG
+3P5VF|Fungi	1	4.504504504504505	S	NA	MHS521	fungi_OG
+3P5W2|Fungi	1	3.436426116838488	G	N-acetyltransferase	MHS521	fungi_OG
+3P6BN|Fungi	7	8.244994110718492	S	LAGLIDADG endonuclease	MHS521	fungi_OG
+3P6KX|Fungi	1	3.4722222222222223	T	Belongs to the BolA IbaG family	MHS521	fungi_OG
+3P6M1|Fungi	1	4.273504273504273	S	Component of the MICOS complex, a large protein complex of the mitochondrial inner membrane that plays crucial roles in the maintenance of crista junctions, inner membrane architecture, and formation of contact sites to the outer membrane	MHS521	fungi_OG
+3P6MW|Fungi	1	6.172839506172839	S	to Saccharomyces cerevisiae NRG2 (YBR066C) and NRG1 (YDR043C)	MHS521	fungi_OG
+3P6NY|Fungi	2	3.9447731755424065	J	Ribosomal protein S6	MHS521	fungi_OG
+3P6QI|Fungi	2	10.256410256410255	O	Glutaredoxin	MHS521	fungi_OG
+3P6RM|Fungi	1	4.166666666666667	S	cytochrome-c oxidase chain viic	MHS521	fungi_OG
+3P6T1|Fungi	4	17.105263157894736	S	encoded within the 25S rRNA gene on the opposite strand	MHS521	fungi_OG
+3P6TB|Fungi	2	10.92896174863388	S	DASH complex subunit Hsk3 like	MHS521	fungi_OG
+3P6TW|Fungi	2	8.438818565400844	K	Metallothionein-i gene transcription activator	MHS521	fungi_OG
+3P6UX|Fungi	1	4.566210045662101	S	NA	MHS521	fungi_OG
+3P6XG|Fungi	1	3.7878787878787876	S	NADH-ubiquinone reductase complex 1 MLRQ subunit	MHS521	fungi_OG
+3P6Y1|Fungi	3	14.084507042253522	S	unnamed protein	MHS521	fungi_OG
+3P6YG|Fungi	2	5.797101449275363	S	NADH dehydrogenase (ubiquinone) Fe-S protein 5	MHS521	fungi_OG
+3P6YJ|Fungi	2	8.547008547008547	S	NA	MHS521	fungi_OG
+3P6ZD|Fungi	4	16.260162601626018	A	Component of LSm protein complexes, which are involved in RNA processing and may function in a chaperone-like manner, facilitating the efficient association of RNA processing factors with their substrates. Component of the cytoplasmic LSM1-LSM7 complex, which is thought to be involved in mRNA degradation by activating the decapping step in the 5'-to-3' mRNA decay pathway. Component of the nuclear LSM2-LSM8 complex, which is involved in splicing of nuclear mRNAs. LSM2-LSM8 associates with multiple snRNP complexes containing the U6 snRNA (U4 U6 di-snRNP, spliceosomal U4 U6.U5 tri-snRNP, and free U6 snRNP). It binds directly to the 3'-terminal U-tract of U6 snRNA and plays a role in the biogenesis and stability of the U6 snRNP and U4 U6 snRNP complexes. LSM2-LSM8 probably also is involved degradation of nuclear pre-mRNA by targeting them for decapping, and in processing of pre-tRNAs, pre-rRNAs and U3 snoRNA (By similarity)	MHS521	fungi_OG
+3P71K|Fungi	1	6.0606060606060606	S	complex subunit Ies6	MHS521	fungi_OG
+3P730|Fungi	1	4.566210045662101	K	Rna polymerase ii	MHS521	fungi_OG
+3P7CI|Fungi	10	40.67460317460318	S	NA	MHS521	fungi_OG
+3P7CK|Fungi	2	4.301075268817204	CE	Ribosomal prokaryotic L21 protein	MHS521	fungi_OG
+3P7GG|Fungi	1	4.166666666666667	S	Peptidase inhibitor I78 family	MHS521	fungi_OG
+3P7GR|Fungi	1	4.166666666666667	O	Required for mitochondrial cytochrome c oxidase (COX) assembly and respiration	MHS521	fungi_OG
+3P7IT|Fungi	2	4.830917874396135	P	Rhodanese domain protein	MHS521	fungi_OG
+3P7M7|Fungi	2	7.326007326007326	I	This small integral protein plays a role in holoenzyme assembly or stability	MHS521	fungi_OG
+3P7Y7|Fungi	2	4.065040650406504	S	binding domain-containing protein	MHS521	fungi_OG
+3P7ZU|Fungi	3	9.125167398548694	S	Deoxyribonuclease NucA/NucB	MHS521	fungi_OG
+3P80E|Fungi	1	3.745318352059925	S	Ribonuclease	MHS521	fungi_OG
+3P8EE|Fungi	1	3.4013605442176873	K	Vitamin-D-receptor interacting Mediator subunit 4	MHS521	fungi_OG
+3P8NK|Fungi	3	13.986013986013987	J	ribosomal protein l34	MHS521	fungi_OG
+3P8RM|Fungi	1	4.016064257028113	S	LAGLIDADG endonuclease	MHS521	fungi_OG
+3P8TY|Fungi	1	3.623188405797101	S	NA	MHS521	fungi_OG
+3P94E|Fungi	25	119.90055513090743	S	NA	MHS521	fungi_OG
+3P95P|Fungi	4	14.184397163120568	S	NA	MHS521	fungi_OG
+3P978|Fungi	2	3.663003663003663	S	Glycine-rich cell wall structural protein 1	MHS521	fungi_OG
+3P9AW|Fungi	26	104.33455433455433	S	NA	MHS521	fungi_OG
+3P9FC|Fungi	8	19.23817993182155	S	Protein of unknown function (DUF3632)	MHS521	fungi_OG
+3P9SJ|Fungi	3	4.25531914893617	S	DNA-directed RNA polymerase I subunit RPA34.5	MHS521	fungi_OG
+3PA17|Fungi	1	4.11522633744856	D	Cyclin, N-terminal domain	MHS521	fungi_OG
+3PA22|Fungi	1	3.4722222222222223	L	transposition, RNA-mediated	MHS521	fungi_OG
+3PA55|Fungi	2	9.25925925925926	S	Phosphotransferase	MHS521	fungi_OG
+3PA61|Fungi	3	10.638297872340427	L	G-quadruplex DNA unwinding	MHS521	fungi_OG
+3PAE8|Fungi	8	16.06425702811245	K	Transcription factor	MHS521	fungi_OG
+3PAJD|Fungi	2	4.08997955010225	S	NA	MHS521	fungi_OG
+3PBX1|Fungi	1	4.166666666666667	S	NA	MHS521	fungi_OG
+3PD8G|Fungi	2	3.4013605442176873	Q	isochorismatase hydrolase	MHS521	fungi_OG
+3PFNG|Fungi	1	3.9215686274509802	F	Protein of unknown function DUF84	MHS521	fungi_OG
+3PHBD|Fungi	7	5.877413937867338	C	Cytochrome b(C-terminal)/b6/petD	MHS521	fungi_OG
+3PHVZ|Fungi	27	127.00842586030397	S	NA	MHS521	fungi_OG
+3PKK4|Fungi	2	5.555555555555555	S	NA	MHS521	fungi_OG
+3PPM8|Fungi	1	3.5087719298245617	S	NA	MHS521	fungi_OG
+3PS6G|Fungi	2	6.666666666666667	S	NA	MHS521	fungi_OG
+3PS8M|Fungi	11	39.73671657296947	S	NA	MHS521	fungi_OG
+3PUJR|Fungi	4	11.204481792717088	S	NA	MHS521	fungi_OG
+3PV05|Fungi	15	28.81006006006006	S	NA	MHS521	fungi_OG
+3Q0PJ|Fungi	4	8.130081300813009	L	Integrase core domain	MHS521	fungi_OG
+3Q1EE|Fungi	1	3.5087719298245617	S	Yqey-like protein	MHS521	fungi_OG
+3Q1WU|Fungi	2	8.032128514056225	C	NADH dehydrogenase	MHS521	fungi_OG
+3Q1Y1|Fungi	4	3.766478342749529	S	GIY-YIG type nucleases (URI domain)	MHS521	fungi_OG
+3Q2ZC|Fungi	2	9.950248756218905	J	ribosomal protein L40	MHS521	fungi_OG
+3Q345|Fungi	2	3.7037037037037033	V	Dual specificity phosphatase, catalytic domain	MHS521	fungi_OG
+3Q373|Fungi	2	9.523809523809524	A	adenosine deaminase	MHS521	fungi_OG
+3Q3GS|Fungi	1	3.436426116838488	S	NA	MHS521	fungi_OG
+3Q3IS|Fungi	1	3.5087719298245617	P	Vacuolar effluxer which mediate the efflux of amino acids resulting from autophagic degradation. The release of autophagic amino acids allows the maintenance of protein synthesis and viability during nitrogen starvation	MHS521	fungi_OG
+3Q3J7|Fungi	2	4.535147392290249	C	catalytic subunit A	MHS521	fungi_OG
+3Q3KA|Fungi	3	6.666666666666666	K	Cue domain-containing protein	MHS521	fungi_OG
+3Q3MZ|Fungi	4	14.336917562724013	S	Saccharomyces cerevisiae YNL152W	MHS521	fungi_OG
+3Q3PJ|Fungi	4	10.416666666666666	Q	2-deoxy-d-gluconate 3-dehydrogenase	MHS521	fungi_OG
+3Q3UW|Fungi	2	4.065040650406504	G	Belongs to the glycosyl hydrolase 32 family	MHS521	fungi_OG
+3Q4DX|Fungi	2	4.385964912280701	G	Glycosyl hydrolase	MHS521	fungi_OG
+3Q4H9|Fungi	2	4.566210045662101	H	Trehalose synthase	MHS521	fungi_OG
+3Q673|Fungi	4	9.389671361502348	S	NA	MHS521	fungi_OG
+3Q6NZ|Fungi	2	4.796163069544365	S	DDE superfamily endonuclease	MHS521	fungi_OG

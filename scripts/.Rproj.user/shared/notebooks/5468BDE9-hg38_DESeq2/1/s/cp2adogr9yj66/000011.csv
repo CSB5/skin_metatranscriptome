@@ -1,0 +1,6 @@
+"0",""
+"0",""
+"0","#hack the plotPCA function..."
+"0","plotPCA(Sc_main_cohort_hg38_vst$hg38_vsd, intgroup = ""approx_giga_nt"", returnData=FALSE) + "
+"0","  theme_classic() + scale_color_continuous(type = ""viridis"") + ggtitle(""Colored by library size"")"
+"0",""

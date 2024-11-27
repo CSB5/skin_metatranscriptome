@@ -1,0 +1,777 @@
+other_OG	read_count_sum	RPK_sum	other_eggnog_cat	other_eggnog_desc	LIBID	feature_class
+1MAHG|Others	294	326.6666666666667	S	Source PGD	MHS499	other_OG
+1MAS3|Others	3	3.4246575342465753	S	Kinetochore protein mis18. Source PGD	MHS499	other_OG
+1MBRQ|Others	54	187.5	S	Source PGD	MHS499	other_OG
+1MDG4|Others	3	6.41025641025641	Q	ATP-binding Cassette (ABC) Superfamily. Source PGD	MHS499	other_OG
+1MEH9|Others	66	118.65619760356601	S	NAD-specific glutamate dehydrogenase. Source PGD	MHS499	other_OG
+1MFAQ|Others	44	154.921573084792	S	Source PGD	MHS499	other_OG
+1MI1Z|Others	10	37.45318352059925	S	function. Source PGD	MHS499	other_OG
+1MJPT|Others	2	9.389671361502348	-	-	MHS499	other_OG
+1MK9K|Others	4	12.698412698412698	S	NAD-specific glutamate dehydrogenase. Source PGD	MHS499	other_OG
+23PUF|Others	6	13.071895424836601	E	Catalyzes the NAD( )-dependent oxidative deamination of L-alanine to pyruvate, and the reverse reaction, the reductive amination of pyruvate	MHS499	other_OG
+23RX1|Others	4	8.771929824561402	J	This protein promotes the GTP-dependent binding of aminoacyl-tRNA to the A-site of ribosomes during protein biosynthesis	MHS499	other_OG
+23S1N|Others	6	6.329113924050633	M	Small-conductance mechanosensitive channel	MHS499	other_OG
+23S1S|Others	8	11.799410029498524	K	COG1321 Mn-dependent transcriptional regulator	MHS499	other_OG
+23S2J|Others	3	8.064516129032258	G	COG2513 PEP phosphonomutase and related enzymes	MHS499	other_OG
+23S2M|Others	10	23.31002331002331	K	Stabilizes TBP binding to an archaeal box-A promoter. Also responsible for recruiting RNA polymerase II to the pre- initiation complex (DNA-TBP-TFIIB)	MHS499	other_OG
+23S2S|Others	9	13.215859030837004	C	Produces ATP from ADP in the presence of a proton gradient across the membrane	MHS499	other_OG
+23S45|Others	3	5.3475935828877	J	RNA-binding protein (contains KH domains)	MHS499	other_OG
+23S53|Others	8	6.033182503770739	P	COG1914 Mn2 and Fe2 transporters of the NRAMP family	MHS499	other_OG
+23S6X|Others	3	11.235955056179774	P	copper-translocating P-type ATPase	MHS499	other_OG
+23S72|Others	4	7.4074074074074066	S	poly-hydroxybutyrate biosynthetic process	MHS499	other_OG
+23S7A|Others	7	8.61008610086101	J	Belongs to the universal ribosomal protein uS2 family	MHS499	other_OG
+23S7P|Others	1	3.663003663003663	L	COG0675 Transposase and inactivated derivatives	MHS499	other_OG
+23S8Q|Others	4	5.089058524173028	C	COG1290 Cytochrome b subunit of the bc complex	MHS499	other_OG
+23S9D|Others	6	4.784688995215311	N	Chemotaxis protein CheC, inhibitor of MCP methylation	MHS499	other_OG
+23S9W|Others	14	26.31189948263119	L	PFAM Transposase DDE domain	MHS499	other_OG
+23SAM|Others	4	4.400440044004401	G	COG2301 Citrate lyase beta subunit	MHS499	other_OG
+23SAP|Others	15	6.211180124223603	P	COG2217 Cation transport ATPase	MHS499	other_OG
+23SBP|Others	6	8.849557522123893	P	Plays a role in the regulation of phosphate uptake	MHS499	other_OG
+23SEU|Others	6	8.130081300813009	S	COG1938 Archaeal enzymes of ATP-grasp superfamily	MHS499	other_OG
+23SGF|Others	6	5.54016620498615	S	membrane	MHS499	other_OG
+23SGU|Others	1	3.546099290780142	E	Belongs to the CarA family	MHS499	other_OG
+23SGY|Others	2	6.289308176100628	L	COG3316 Transposase and inactivated derivatives	MHS499	other_OG
+23SHF|Others	3	8.474576271186441	M	COG0451 Nucleoside-diphosphate-sugar epimerases	MHS499	other_OG
+23SI5|Others	2	7.383067624031479	L	COG3415 Transposase and inactivated derivatives	MHS499	other_OG
+23SK3|Others	4	3.463203463203463	I	COG1960 Acyl-CoA dehydrogenases	MHS499	other_OG
+23SMC|Others	1	3.7037037037037033	S	dehydrogenases and related proteins	MHS499	other_OG
+23SP1|Others	5	5.973715651135006	H	Catalyzes the phosphorylation of the hydroxyl group of 4-methyl-5-beta-hydroxyethylthiazole (THZ)	MHS499	other_OG
+23SPC|Others	6	5.865102639296188	C	COG0604 NADPH quinone reductase and related Zn-dependent oxidoreductases	MHS499	other_OG
+23SSR|Others	1	4.566210045662101	O	Belongs to the TCP-1 chaperonin family	MHS499	other_OG
+23STI|Others	3	9.25925925925926	L	Transposase, is605 orfb family	MHS499	other_OG
+23STK|Others	5	3.7369207772795217	H	COG0001 Glutamate-1-semialdehyde aminotransferase	MHS499	other_OG
+23SZC|Others	8	7.729468599033817	E	Involved in the biosynthesis of branched-chain amino acids (BCAA). Catalyzes an alkyl-migration followed by a ketol- acid reduction of (S)-2-acetolactate (S2AL) to yield (R)-2,3- dihydroxy-isovalerate. In the isomerase reaction, S2AL is rearranged via a Mg-dependent methyl migration to produce 3- hydroxy-3-methyl-2-ketobutyrate (HMKB). In the reductase reaction, this 2-ketoacid undergoes a metal-dependent reduction by NADPH to yield (R)-2,3-dihydroxy-isovalerate	MHS499	other_OG
+23T0I|Others	13	28.322440087145967	L	COG1525 Micrococcal nuclease (thermonuclease) homologs	MHS499	other_OG
+23T6V|Others	5	6.6401062416998675	J	Specifically methylates the uridine in position 2552 of 23S rRNA at the 2'-O position of the ribose in the fully assembled 50S ribosomal subunit	MHS499	other_OG
+23TA5|Others	3	4.854368932038835	M	NAD-dependent epimerase dehydratase	MHS499	other_OG
+23TA7|Others	4	5.532503457814661	F	Catalyzes the reversible phosphorylation of UMP to UDP	MHS499	other_OG
+23TAK|Others	2	7.246376811594202	V	COG1131 ABC-type multidrug transport system, ATPase component	MHS499	other_OG
+23TB6|Others	3	5.813953488372093	L	COG3385 FOG Transposase and inactivated derivatives	MHS499	other_OG
+23TBX|Others	4	12.121212121212121	P	COG0168 Trk-type K transport systems, membrane components	MHS499	other_OG
+23TG7|Others	1	5.555555555555555	L	COG3385 FOG Transposase and inactivated derivatives	MHS499	other_OG
+23TH8|Others	12	10.526315789473685	C	COG0517 FOG CBS domain	MHS499	other_OG
+23THF|Others	2	7.092198581560284	L	A type II topoisomerase that negatively supercoils closed circular double-stranded (ds) DNA in an ATP-dependent manner to modulate DNA topology and maintain chromosomes in an underwound state. Negative supercoiling favors strand separation, and DNA replication, transcription, recombination and repair, all of which involve strand separation. Also able to catalyze the interconversion of other topological isomers of dsDNA rings, including catenanes and knotted rings. Type II topoisomerases break and join 2 DNA strands simultaneously in an ATP-dependent manner	MHS499	other_OG
+23TJH|Others	1	4.62962962962963	S	Archaeal Nre, N-terminal	MHS499	other_OG
+23TKB|Others	2	7.936507936507937	I	Belongs to the enoyl-CoA hydratase isomerase family	MHS499	other_OG
+23TM2|Others	4	4.813477737665464	H	COG0476 Dinucleotide-utilizing enzymes involved in molybdopterin and thiamine biosynthesis family 2	MHS499	other_OG
+23TRK|Others	1	3.9215686274509802	C	COG1143 Formate hydrogenlyase subunit 6 NADH ubiquinone oxidoreductase 23 kD subunit (chain I)	MHS499	other_OG
+23TX9|Others	2	7.49063670411985	L	Transposase and inactivated derivatives	MHS499	other_OG
+23U1W|Others	32	9.473060982830077	U	COG3451 Type IV secretory pathway, VirB4 components	MHS499	other_OG
+23U59|Others	32	102.56410256410257	E	Catalyzes the NADPH-dependent reduction of L-glutamate 5-phosphate into L-glutamate 5-semialdehyde and phosphate. The product spontaneously undergoes cyclization to form 1-pyrroline-5- carboxylate	MHS499	other_OG
+23U71|Others	2	5.847953216374268	-	-	MHS499	other_OG
+23U8Y|Others	7	16.431924882629108	L	COG3385 FOG Transposase and inactivated derivatives	MHS499	other_OG
+23U9J|Others	4	6.379585326953748	L	COG1573 Uracil-DNA glycosylase	MHS499	other_OG
+23UD8|Others	4	7.121857258718573	L	COG3039 Transposase and inactivated derivatives, IS5 family	MHS499	other_OG
+23UIB|Others	4	8.658008658008658	Q	PFAM Gas vesicle synthesis	MHS499	other_OG
+23UJK|Others	8	4.910988336402701	S	PQQ-dependent enzyme-like	MHS499	other_OG
+23UJY|Others	5	12.72264631043257	E	COG0076 Glutamate decarboxylase and related PLP-dependent proteins	MHS499	other_OG
+23UKE|Others	2	4.08997955010225	C	Aldehyde ferredoxin oxidoreductase	MHS499	other_OG
+23V2S|Others	1	3.584229390681003	L	COG3335 Transposase and inactivated derivatives	MHS499	other_OG
+23V5E|Others	2	4.7281323877068555	J	Protein S19 forms a complex with S13 that binds strongly to the 16S ribosomal RNA	MHS499	other_OG
+23V5H|Others	2	3.745318352059925	S	Phosphoesterase	MHS499	other_OG
+23V6X|Others	4	8.714596949891067	C	ferredoxin	MHS499	other_OG
+23V72|Others	3	6.8965517241379315	K	Transcription elongation factor Spt5	MHS499	other_OG
+23V7E|Others	2	5.05050505050505	J	Binds to 23S rRNA. Forms part of two intersubunit bridges in the 70S ribosome	MHS499	other_OG
+23VB5|Others	4	7.936507936507937	J	Located at the top of the head of the 30S subunit, it contacts several helices of the 16S rRNA. In the 70S ribosome it contacts the 23S rRNA (bridge B1a) and protein L5 of the 50S subunit (bridge B1b), connecting the 2 subunits	MHS499	other_OG
+23VBI|Others	4	8.771929824561402	L	COG0494 NTP pyrophosphohydrolases including oxidative damage repair enzymes	MHS499	other_OG
+23VDM|Others	4	7.168458781362006	S	Membrane-flanked domain-containing protein	MHS499	other_OG
+23VE5|Others	1	3.9215686274509802	-	-	MHS499	other_OG
+23VEE|Others	5	9.157509157509157	-	-	MHS499	other_OG
+23VEZ|Others	3	6.4935064935064934	J	COG1841 Ribosomal protein L30 L7E	MHS499	other_OG
+23VH6|Others	2	4.901960784313726	K	transcriptional	MHS499	other_OG
+23VKG|Others	4	8.658008658008658	S	Bifunctional nuclease	MHS499	other_OG
+23VKU|Others	2	4.47427293064877	S	Belongs to the UPF0179 family	MHS499	other_OG
+23VM0|Others	3	7.874015748031496	-	-	MHS499	other_OG
+23VNY|Others	2	4.662004662004662	L	Transcription factor CBF NF-Y histone	MHS499	other_OG
+23VR4|Others	3	6.25	S	conserved protein, contains double-stranded beta-helix domain	MHS499	other_OG
+23VSA|Others	2	4.1928721174004195	O	alkyl hydroperoxide reductase Thiol specific antioxidant Mal allergen	MHS499	other_OG
+23VVY|Others	4	8.547008547008547	-	-	MHS499	other_OG
+23W0A|Others	6	13.422818791946309	T	response regulator, receiver	MHS499	other_OG
+23W37|Others	2	4.566210045662101	S	protein conserved in archaea	MHS499	other_OG
+23W3Y|Others	2	7.326007326007326	K	Transcriptional regulator	MHS499	other_OG
+23W42|Others	2	3.7243947858472994	S	HAD-superfamily hydrolase, subfamily IA, variant 1	MHS499	other_OG
+23W46|Others	3	6.944444444444445	T	COG0589 Universal stress protein UspA and related nucleotide-binding proteins	MHS499	other_OG
+23W48|Others	2	6.116207951070336	-	-	MHS499	other_OG
+23W4J|Others	2	5.698005698005699	-	-	MHS499	other_OG
+23W6I|Others	2	6.289308176100628	-	-	MHS499	other_OG
+23W7J|Others	2	5.376344086021505	D	Cell division protein SepF	MHS499	other_OG
+23W8W|Others	2	6.410256410256411	S	PFAM Non-histone chromosomal	MHS499	other_OG
+23W93|Others	2	5.602240896358544	S	nucleic-acid-binding protein containing a Zn-ribbon	MHS499	other_OG
+23WAN|Others	5	14.245014245014247	-	-	MHS499	other_OG
+23WG2|Others	2	5.698005698005699	V	Toxic component of a toxin-antitoxin (TA) module. An RNase	MHS499	other_OG
+23WGA|Others	2	5.376344086021505	S	membrane	MHS499	other_OG
+23WH4|Others	5	7.246376811594203	L	Belongs to the class I-like SAM-binding methyltransferase superfamily. C5-methyltransferase family	MHS499	other_OG
+23WH9|Others	4	9.523809523809524	-	-	MHS499	other_OG
+23WMZ|Others	4	14.184397163120568	-	-	MHS499	other_OG
+23WNV|Others	1	4.219409282700422	O	COG0695 Glutaredoxin and related proteins	MHS499	other_OG
+23WNZ|Others	3	10.61338017859757	O	COG0695 Glutaredoxin and related proteins	MHS499	other_OG
+23WP2|Others	2	6.230529595015576	-	-	MHS499	other_OG
+23WPB|Others	4	16.06425702811245	F	Part of the phosphoribosylformylglycinamidine synthase complex involved in the purines biosynthetic pathway. Catalyzes the ATP-dependent conversion of formylglycinamide ribonucleotide (FGAR) and glutamine to yield formylglycinamidine ribonucleotide (FGAM) and glutamate. The FGAM synthase complex is composed of three subunits. PurQ produces an ammonia molecule by converting glutamine to glutamate. PurL transfers the ammonia molecule to FGAR to form FGAM in an ATP-dependent manner. PurS interacts with PurQ and PurL and is thought to assist in the transfer of the ammonia molecule from PurQ to PurL	MHS499	other_OG
+23WPJ|Others	55	51.78907721280602	Q	COG0500 SAM-dependent methyltransferases	MHS499	other_OG
+23WQQ|Others	1	5.291005291005291	K	DNA-dependent RNA polymerase catalyzes the transcription of DNA into RNA using the four ribonucleoside triphosphates as substrates	MHS499	other_OG
+23WR2|Others	6	21.739130434782606	J	Part of ribonuclease P, a protein complex that generates mature tRNA molecules by cleaving their 5'-ends	MHS499	other_OG
+23WRY|Others	2	6.116207951070336	C	COG1592 Rubrerythrin	MHS499	other_OG
+23WSG|Others	2	7.092198581560284	K	transcriptional regulators	MHS499	other_OG
+23WTD|Others	2	8.23045267489712	-	-	MHS499	other_OG
+23WUH|Others	2	7.326007326007326	-	-	MHS499	other_OG
+23WV5|Others	1	3.4722222222222223	S	Protein of unknown function (DUF424)	MHS499	other_OG
+23WVN|Others	5	11.904761904761905	-	-	MHS499	other_OG
+23WVW|Others	1	3.7878787878787876	J	Promotes the exchange of GDP for GTP in EF-1-alpha GDP, thus allowing the regeneration of EF-1-alpha GTP that could then be used to form the ternary complex EF-1-alpha GTP AAtRNA	MHS499	other_OG
+23WW6|Others	1	3.4013605442176873	-	-	MHS499	other_OG
+23WWR|Others	2	4.901960784313726	-	-	MHS499	other_OG
+23X1N|Others	2	7.575757575757575	C	4Fe-4S single cluster domain	MHS499	other_OG
+23X4V|Others	2	7.662835249042145	-	-	MHS499	other_OG
+23X8G|Others	2	4.901960784313726	-	-	MHS499	other_OG
+23XBU|Others	2	7.168458781362006	-	-	MHS499	other_OG
+23XDJ|Others	2	7.936507936507937	S	HicA toxin of bacterial toxin-antitoxin,	MHS499	other_OG
+23XDW|Others	2	4.535147392290249	T	COG0589 Universal stress protein UspA and related nucleotide-binding proteins	MHS499	other_OG
+23XEA|Others	2	10.582010582010582	J	Binds 16S rRNA, required for the assembly of 30S particles	MHS499	other_OG
+23XET|Others	1	5.74712643678161	K	transcriptional regulators containing the CopG Arc MetJ DNA-binding domain	MHS499	other_OG
+23XF2|Others	12	40.61447811447812	-	-	MHS499	other_OG
+23XG8|Others	1	4.385964912280701	O	protein conserved in bacteria	MHS499	other_OG
+23XGD|Others	1	3.875968992248062	-	-	MHS499	other_OG
+23XKI|Others	2	10.256410256410255	K	Transcription elongation factor Spt4	MHS499	other_OG
+23XN6|Others	1	3.584229390681003	S	Protein of unknown function (DUF433)	MHS499	other_OG
+23XNI|Others	4	14.652014652014651	-	-	MHS499	other_OG
+23XNW|Others	1	4.444444444444445	K	COG1958 Small nuclear ribonucleoprotein (snRNP) homolog	MHS499	other_OG
+23XQK|Others	2	8.547008547008547	-	-	MHS499	other_OG
+23XQT|Others	1	3.875968992248062	S	Protein of unknown function (DUF3194)	MHS499	other_OG
+23XYF|Others	1	5.847953216374268	-	-	MHS499	other_OG
+23Y54|Others	3	10.416666666666668	-	-	MHS499	other_OG
+23Y5W|Others	2	7.751937984496124	K	transcriptional regulators	MHS499	other_OG
+23YG1|Others	2	7.168458781362006	-	-	MHS499	other_OG
+23Z2R|Others	1	3.4013605442176873	S	Aldo/keto reductase family	MHS499	other_OG
+23Z65|Others	5	8.417508417508419	U	AAA-like domain	MHS499	other_OG
+23ZEF|Others	5	11.574074074074074	L	DDE superfamily endonuclease	MHS499	other_OG
+23ZGX|Others	5	4.901960784313726	E	Arginase family	MHS499	other_OG
+240A4|Others	14	16.532170484353333	-	-	MHS499	other_OG
+240PY|Others	1	5.376344086021505	-	-	MHS499	other_OG
+241AU|Others	1	3.584229390681003	C	2Fe-2S iron-sulfur cluster binding domain	MHS499	other_OG
+241FX|Others	3	4.878048780487805	-	-	MHS499	other_OG
+28YC5|Others	6	11.209926907088903	-	-	MHS499	other_OG
+2D661|Others	16	12.638230647709321	-	-	MHS499	other_OG
+2DZEY|Others	3	12.195121951219512	-	-	MHS499	other_OG
+2F0AY|Others	1	4.566210045662101	-	-	MHS499	other_OG
+2FDWY|Others	10	33.333333333333336	-	-	MHS499	other_OG
+2N9UF|Others	13	21.346469622331693	L	PFAM transposase, IS4 family protein	MHS499	other_OG
+2NAJ8|Others	2	3.8095238095238093	-	-	MHS499	other_OG
+2NBM6|Others	69	77.32211516304048	E	-	MHS499	other_OG
+2QPKB|Others	31	96.57320872274143	E	urease activity	MHS499	other_OG
+2QQUH|Others	5	20.080321285140563	S	Domain of unknown function (DUF4218)	MHS499	other_OG
+2QR09|Others	1	3.5087719298245617	C	electron transporter, transferring electrons within the cyclic electron transport pathway of photosynthesis activity	MHS499	other_OG
+2QVEN|Others	1	4.62962962962963	H	glutamate-cysteine ligase activity	MHS499	other_OG
+2RZGN|Others	947	899.5613582294657	S	plant mutator transposase zinc finger	MHS499	other_OG
+2S3Q5|Others	3	5.714285714285714	S	Intron encoded nuclease repeat motif	MHS499	other_OG
+2S5UM|Others	1054	2055.919719820612	C	LAGLIDADG endonuclease	MHS499	other_OG
+2S6TU|Others	2	4.901960784313726	S	helix_turn_helix, mercury resistance	MHS499	other_OG
+2S6X3|Others	1	4.11522633744856	-	-	MHS499	other_OG
+2S6XN|Others	11	44.17670682730924	-	-	MHS499	other_OG
+2S7U6|Others	3	14.492753623188406	-	-	MHS499	other_OG
+2SC3F|Others	123	150.980564184933	-	-	MHS499	other_OG
+2SD0M|Others	5	7.751937984496124	S	Retrotransposon gag protein	MHS499	other_OG
+2SD59|Others	25	99.2063492063492	-	-	MHS499	other_OG
+2SF6P|Others	4	16.888461332905777	-	-	MHS499	other_OG
+2SI06|Others	20	49.382716049382715	-	-	MHS499	other_OG
+2SQ9Y|Others	5	19.840034294481296	-	-	MHS499	other_OG
+2SR5E|Others	23	72.32704402515724	-	-	MHS499	other_OG
+2SW5Y|Others	7	21.51029748283753	-	-	MHS499	other_OG
+2SWXZ|Others	19	72.79693486590038	-	-	MHS499	other_OG
+2SXZZ|Others	608	765.0125743728148	-	-	MHS499	other_OG
+2SZSZ|Others	12	50	-	-	MHS499	other_OG
+2T0F6|Others	105	280.634884384813	-	-	MHS499	other_OG
+2XA5K|Others	41	96.24413145539906	K	TIP49 C-terminus	MHS499	other_OG
+2XB2H|Others	17	47.22222222222222	A	Helicase associated domain (HA2)  Add an annotation	MHS499	other_OG
+2XE16|Others	64	156.86274509803923	H	Biotin/lipoate A/B protein ligase family	MHS499	other_OG
+2XED7|Others	6	12.269938650306749	O	Eukaryotic aspartyl protease	MHS499	other_OG
+2XTY9|Others	3	10.204081632653061	O	ABC-type transport system involved in Fe-S cluster assembly, permease component	MHS499	other_OG
+34GN9|Others	1	4.901960784313726	A	Splicing factor 3B subunit 1	MHS499	other_OG
+34GSN|Others	2	6.944444444444445	O	Belongs to the AAA ATPase family	MHS499	other_OG
+34GZY|Others	3	9.682539682539682	OT	motif in proteasome subunits, Int-6, Nip-1 and TRIP-15	MHS499	other_OG
+34HCD|Others	44	128.6549707602339	J	Mitochondrial GTPase that catalyzes the GTP-dependent ribosomal translocation step during translation elongation. During this step, the ribosome changes from the pre-translocational (PRE) to the post-translocational (POST) state as the newly formed A- site-bound peptidyl-tRNA and P-site-bound deacylated tRNA move to the P and E sites, respectively. Catalyzes the coordinated movement of the two tRNA molecules, the mRNA and conformational changes in the ribosome	MHS499	other_OG
+34HDP|Others	46	128.8515406162465	DO	Anaphase promoting complex subunit 8 / Cdc23	MHS499	other_OG
+34HEA|Others	7	27.77777777777778	C	NADPH adrenodoxin oxidoreductase, mitochondrial	MHS499	other_OG
+34HQH|Others	4	9.324009324009324	J	Seems to be required for maximal rate of protein biosynthesis. Enhances ribosome dissociation into subunits and stabilizes the binding of the initiator Met-tRNA(I) to 40 S ribosomal subunits	MHS499	other_OG
+34IZP|Others	131	184.24753867791844	O	Belongs to the peptidase C19 family	MHS499	other_OG
+34J2J|Others	5	20.080321285140563	A	DSHCT	MHS499	other_OG
+34J5Z|Others	31	60.42884990253411	O	Domain Homologous to E6-AP Carboxyl Terminus with	MHS499	other_OG
+34J6J|Others	31	132.47863247863248	U	Rab subfamily of small GTPases	MHS499	other_OG
+34JFK|Others	232	974.0819209039548	KT	C-terminal domain on Strawberry notch homologue	MHS499	other_OG
+34K42|Others	1	3.745318352059925	E	large subunit	MHS499	other_OG
+34KBX|Others	24	61.42723569091031	DZ	Regulator of chromosome condensation (RCC1) repeat	MHS499	other_OG
+34KCG|Others	22	69.84126984126983	E	Belongs to the peroxidase family	MHS499	other_OG
+34KHD|Others	2	8.658008658008658	A	RNA recognition motif	MHS499	other_OG
+34KN9|Others	3	8.333333333333334	O	Belongs to the ubiquitin-conjugating enzyme family	MHS499	other_OG
+34KUY|Others	39	109.2436974789916	S	Protein of unknown function (DUF1749)	MHS499	other_OG
+34M0J|Others	3	6.0606060606060606	S	Fms-interacting protein	MHS499	other_OG
+34MTJ|Others	72	292.4519456165026	S	Acetyltransferase (GNAT) family	MHS499	other_OG
+37N3R|Others	1	3.9682539682539684	G	3,4-dihydroxy-2-butanone kinase	MHS499	other_OG
+37PTM|Others	3	13.88888888888889	U	Belongs to the small GTPase superfamily. Arf family	MHS499	other_OG
+37RIF|Others	10	16.501650165016503	L	Cysteine-rich RLK (RECEPTOR-like protein kinase) 8	MHS499	other_OG
+37RRH|Others	57	89.62264150943396	P	DNA RNA polymerases superfamily protein	MHS499	other_OG
+37TK9|Others	1	3.7878787878787876	C	Fumarate hydratase	MHS499	other_OG
+380ZY|Others	9	16.1018161018161	-	-	MHS499	other_OG
+389FD|Others	6	8.849557522123893	-	-	MHS499	other_OG
+389ZI|Others	1327	3686.1111111111113	-	-	MHS499	other_OG
+38B8D|Others	5	6.97350069735007	S	NADPH-dependent FMN reductase	MHS499	other_OG
+38BDM|Others	1	4.62962962962963	U	GTP binding	MHS499	other_OG
+38BS8|Others	413	633.3401304007625	Z	heavy chain	MHS499	other_OG
+38BZP|Others	338	500.7407407407407	TZ	Class II aldolase adducin	MHS499	other_OG
+38C4R|Others	23	34.226190476190474	C	Key enzyme for ketone body catabolism. Transfers the CoA moiety from succinate to acetoacetate. Formation of the enzyme-CoA intermediate proceeds via an unstable anhydride species formed between the carboxylate groups of the enzyme and substrate	MHS499	other_OG
+38CI6|Others	6	20	L	DNA replication initiation	MHS499	other_OG
+38CMS|Others	472	334.7517730496454	IQ	vacuolar fusion protein MON1	MHS499	other_OG
+38CQH|Others	28	42.42424242424242	U	retrograde vesicle-mediated transport, Golgi to ER	MHS499	other_OG
+38CV6|Others	7	25.089605734767023	IT	delta14-sterol reductase activity	MHS499	other_OG
+38CWK|Others	35	84.54106280193237	O	negative regulation of endoplasmic reticulum stress-induced neuron intrinsic apoptotic signaling pathway	MHS499	other_OG
+38D0T|Others	2	11.695906432748536	A	spliceosomal complex assembly	MHS499	other_OG
+38D42|Others	23	24.79757970026057	O	aspartic-type endopeptidase activity	MHS499	other_OG
+38D6P|Others	902	622.5872427649668	I	phosphopantetheine binding	MHS499	other_OG
+38DBC|Others	32	102.56410256410257	E	protein-cysteine S-acyltransferase activity	MHS499	other_OG
+38DJE|Others	1	3.7037037037037033	O	protein N-linked glycosylation via asparagine	MHS499	other_OG
+38DZ6|Others	27	88.23529411764706	K	transcription by RNA polymerase III	MHS499	other_OG
+38DZP|Others	15	60.24096385542169	E	Belongs to the class-III pyridoxal-phosphate-dependent aminotransferase family	MHS499	other_OG
+38E12|Others	2	6.872852233676976	M	dolichyl-phosphate beta-D-mannosyltransferase activity	MHS499	other_OG
+38E1E|Others	119	51.38169257340242	T	Histidine kinase	MHS499	other_OG
+38E7F|Others	1	5.291005291005291	C	glycerol-3-phosphate catabolic process	MHS499	other_OG
+38EEA|Others	8	34.18803418803419	E	Histidinol-phosphatase	MHS499	other_OG
+38EJA|Others	169	589.8588871828617	O	Belongs to the heat shock protein 70 family	MHS499	other_OG
+38EVE|Others	290	657.5963718820861	BK	Pseudouridylate synthase 7	MHS499	other_OG
+38F0P|Others	3	6.756756756756757	K	RNA metabolic process	MHS499	other_OG
+38F2Y|Others	1	3.4013605442176873	A	ATP-dependent RNA helicase	MHS499	other_OG
+38FQJ|Others	10	35.08771929824562	O	RNA cytidine acetyltransferase with specificity toward both 18S rRNA and tRNAs. Catalyzes the formation of N(4)- acetylcytidine (ac4C) in 18S rRNA. Required for early nucleolar cleavages of precursor rRNA at sites A0, A1 and A2 during 18S rRNA synthesis. Catalyzes the formation of ac4C in serine and leucine tRNAs. Requires	MHS499	other_OG
+38FV5|Others	79	173.24561403508773	Q	L-aminoadipate-semialdehyde dehydrogenase activity	MHS499	other_OG
+38GHT|Others	20	64.72491909385113	J	alanyl-tRNA aminoacylation	MHS499	other_OG
+38HND|Others	243	219.51219512195124	U	cytoplasmic mRNA processing body assembly	MHS499	other_OG
+38P80|Others	3	5.181347150259068	G	amidohydrolase	MHS499	other_OG
+397N0|Others	11	21.31782945736434	BK	internal peptidyl-lysine acetylation	MHS499	other_OG
+39INY|Others	4	4.259850905218317	IKOT	Dol-P-Glc Glc(2)Man(9)GlcNAc(2)-PP-Dol alpha-1,2-glucosyltransferase	MHS499	other_OG
+39K0E|Others	66	217.82178217821783	U	GTP binding	MHS499	other_OG
+39QRV|Others	7	19.290123456790123	J	Ribosomal protein S17	MHS499	other_OG
+39RYH|Others	50	33.944331296673454	Q	Multicopper oxidase	MHS499	other_OG
+39T8B|Others	3	10.309278350515465	H	3-demethylubiquinone-9 3-O-methyltransferase activity	MHS499	other_OG
+39V1V|Others	143	269.30320150659134	V	NiCotinamidase	MHS499	other_OG
+39XWN|Others	25	69.44444444444444	E	Metallopeptidase family M24	MHS499	other_OG
+3A15D|Others	217	277.1392081736909	S	Repeated motif present between transmembrane helices in cystinosin, yeast ERS1p, mannose-P-dolichol utilization defect 1, and other hypothetical proteins.	MHS499	other_OG
+3A1NV|Others	1	4.273504273504273	Z	Belongs to the ATG8 family	MHS499	other_OG
+3A53V|Others	29	77.95698924731182	-	-	MHS499	other_OG
+3A5RT|Others	2	8.658008658008658	J	xenon atom binding	MHS499	other_OG
+3A9W4|Others	54	86.14243975998241	S	Peptidase C26	MHS499	other_OG
+3ARJ1|Others	2	7.662835249042145	-	-	MHS499	other_OG
+3B942|Others	2	7.4074074074074066	T	peptidyl-dipeptidase inhibitor activity	MHS499	other_OG
+3B955|Others	7	19.444444444444446	L	Belongs to the MCM family	MHS499	other_OG
+3B95Z|Others	1	3.3333333333333335	L	histone demethylase activity (H3-K9 specific)	MHS499	other_OG
+3B9FF|Others	1	3.584229390681003	F	carbamoyl-phosphate synthase (glutamine-hydrolyzing) activity	MHS499	other_OG
+3B9FY|Others	13	41.666666666666664	M	protein depalmitoleylation	MHS499	other_OG
+3B9G3|Others	117	116.76646706586827	J	translation release factor activity	MHS499	other_OG
+3B9HV|Others	19	51.91256830601093	DO	protein modification by small protein conjugation	MHS499	other_OG
+3B9NV|Others	9	38.96103896103896	G	Mannosyltransferase involved in glycosylphosphatidylinositol-anchor biosynthesis	MHS499	other_OG
+3B9P9|Others	33	104.45632798573975	S	RNA trimethylguanosine synthase activity	MHS499	other_OG
+3B9XE|Others	42	92.10526315789474	JO	La ribonucleoprotein domain family member	MHS499	other_OG
+3B9YC|Others	69	132.183908045977	O	PPIases accelerate the folding of proteins. It catalyzes the cis-trans isomerization of proline imidic peptide bonds in oligopeptides	MHS499	other_OG
+3BA18|Others	2	8.723913787204927	O	heat shock	MHS499	other_OG
+3BA19|Others	16	29.304029304029303	Q	ATPase activity, coupled to transmembrane movement of substances	MHS499	other_OG
+3BA5H|Others	219	328.89304974025765	L	K02A2.6-like	MHS499	other_OG
+3BA65|Others	15	41.66666666666667	Z	barbed-end actin filament capping	MHS499	other_OG
+3BA6Z|Others	5	20.5761316872428	G	glyceraldehyde-3-phosphate dehydrogenase (NAD(P)+) (phosphorylating) activity	MHS499	other_OG
+3BA8A|Others	126	183.4061135371179	DZ	chromatin organization	MHS499	other_OG
+3BAB7|Others	4	19.607843137254903	U	snRNA import into nucleus	MHS499	other_OG
+3BADZ|Others	33	109.10546112550497	A	DNA synthesis involved in double-strand break repair via homologous recombination	MHS499	other_OG
+3BAEW|Others	1	4.219409282700422	T	Growth factor receptor-bound protein	MHS499	other_OG
+3BAHK|Others	14	34.31372549019608	C	Produces ATP from ADP in the presence of a proton gradient across the membrane	MHS499	other_OG
+3BAI4|Others	1	4.016064257028113	AD	spliceosomal complex assembly	MHS499	other_OG
+3BAPS|Others	1	3.7037037037037033	DUZ	Sorting nexin 13	MHS499	other_OG
+3BAUV|Others	16	66.16410609347875	Z	structural constituent of cytoskeleton	MHS499	other_OG
+3BAVD|Others	61	200.28011204481794	T	calmodulin-dependent protein phosphatase activity	MHS499	other_OG
+3BAX6|Others	5	18.2512409316533	C	anaerobic respiration	MHS499	other_OG
+3BB01|Others	10	14.367816091954024	O	aspartic-type endopeptidase activity	MHS499	other_OG
+3BB3B|Others	21	39.10614525139665	S	developmental process involved in reproduction	MHS499	other_OG
+3BB5Z|Others	13	11.970534069981582	S	chromatin binding	MHS499	other_OG
+3BB83|Others	1	4.273504273504273	A	Catalytic subunit of the queuine tRNA-ribosyltransferase (TGT) that catalyzes the base-exchange of a guanine (G) residue with queuine (Q) at position 34 (anticodon wobble position) in tRNAs with GU(N) anticodons (tRNA-Asp, -Asn, -His and -Tyr), resulting in the hypermodified nucleoside queuosine (7-(((4,5-cis- dihydroxy-2-cyclopenten-1-yl)amino)methyl)-7-deazaguanosine). Catalysis occurs through a double-displacement mechanism. The nucleophile active site attacks the C1' of nucleotide 34 to detach the guanine base from the RNA, forming a covalent enzyme-RNA intermediate. The proton acceptor active site deprotonates the incoming queuine, allowing a nucleophilic attack on the C1' of the ribose to form the product	MHS499	other_OG
+3BB9V|Others	324	715.2317880794702	A	negative regulation of mRNA splicing, via spliceosome	MHS499	other_OG
+3BBAD|Others	3	11.76470588235294	A	RNA helicase activity	MHS499	other_OG
+3BBBF|Others	8	38.095238095238095	KL	5'-3' DNA helicase activity	MHS499	other_OG
+3BBE3|Others	17	51.515151515151516	O	Belongs to the peptidase A1 family	MHS499	other_OG
+3BBF7|Others	170	468.3195592286502	T	ALS2, alsin Rho guanine nucleotide exchange factor	MHS499	other_OG
+3BBFV|Others	4	6.837606837606838	K	nucleic acid-templated transcription	MHS499	other_OG
+3BBHH|Others	1	3.5087719298245617	E	glycine dehydrogenase (decarboxylating) activity	MHS499	other_OG
+3BBNX|Others	13	23.550724637681157	S	Pecanex protein (C-terminus)	MHS499	other_OG
+3BBQ5|Others	3	5.9880239520958085	O	protein N-linked glycosylation via asparagine	MHS499	other_OG
+3BBSN|Others	11	27.18676122931442	C	quinone binding	MHS499	other_OG
+3BBUN|Others	5	26.455026455026456	F	NADPH-adrenodoxin reductase activity	MHS499	other_OG
+3BBWP|Others	72	206.89655172413794	S	ATPase activity	MHS499	other_OG
+3BBYB|Others	14	46.21134896364254	K	transcription by RNA polymerase III	MHS499	other_OG
+3BC0T|Others	1	6.410256410256411	U	GTP binding	MHS499	other_OG
+3BC1N|Others	184	359.1916148873408	K	SAP30 binding protein	MHS499	other_OG
+3BC3V|Others	6	13.605442176870747	T	Rac GTPase binding	MHS499	other_OG
+3BC5R|Others	62	179.71014492753625	S	tRNA guanylyltransferase activity	MHS499	other_OG
+3BC5W|Others	6	4.926108374384237	E	2-amino-3-ketobutyrate coenzyme a ligase	MHS499	other_OG
+3BC67|Others	2	11.904761904761903	BK	NAD-dependent histone deacetylase activity (H4-K16 specific)	MHS499	other_OG
+3BCB4|Others	61	160.1343402008263	U	negative regulation of centriole elongation	MHS499	other_OG
+3BCDE|Others	6	4.926108374384237	S	Domain of unknown function (DUF4042)	MHS499	other_OG
+3BCDV|Others	19	115.15151515151514	O	unfolded protein binding	MHS499	other_OG
+3BCFQ|Others	9	25.862068965517242	A	factor 8	MHS499	other_OG
+3BCGH|Others	3	9.70873786407767	I	CDP-diacylglycerol--glycerol-3-phosphate 3-phosphatidyltransferase, mitochondrial	MHS499	other_OG
+3BCJW|Others	124	225.86520947176683	H	Coenzyme A synthase	MHS499	other_OG
+3BCKB|Others	1	3.623188405797101	A	box C/D snoRNA metabolic process	MHS499	other_OG
+3BCM0|Others	24	67.79661016949153	L	helicase	MHS499	other_OG
+3BCMY|Others	1	4.219409282700422	D	cell division	MHS499	other_OG
+3BCNS|Others	9	30	H	citrate synthase	MHS499	other_OG
+3BCQ5|Others	2	7.017543859649123	I	intra-Golgi vesicle-mediated transport	MHS499	other_OG
+3BCS8|Others	1	5.555555555555555	Q	hydrolase activity	MHS499	other_OG
+3BCT8|Others	2	7.326007326007326	Z	capping protein (actin filament) muscle Z-line, beta	MHS499	other_OG
+3BCU0|Others	4	10.178117048346056	T	Immunoglobulin domain	MHS499	other_OG
+3BCV2|Others	2	9.389671361502348	T	positive regulation of protein dephosphorylation	MHS499	other_OG
+3BCWE|Others	61	197.41100323624596	I	Belongs to the enoyl-CoA hydratase isomerase family	MHS499	other_OG
+3BCX1|Others	32	72.61612559625804	O	PPIases accelerate the folding of proteins. It catalyzes the cis-trans isomerization of proline imidic peptide bonds in oligopeptides	MHS499	other_OG
+3BCYJ|Others	11	10.628019323671499	S	WD repeat-containing protein 5	MHS499	other_OG
+3BCZC|Others	12	51.94805194805195	O	proteasome-activating ATPase activity	MHS499	other_OG
+3BD3V|Others	76	196.38242894056847	O	proteasome-activating ATPase activity	MHS499	other_OG
+3BD6P|Others	1	3.584229390681003	A	regulation of alternative mRNA splicing, via spliceosome	MHS499	other_OG
+3BDB0|Others	1	4.385964912280701	C	glutathione-disulfide reductase activity	MHS499	other_OG
+3BDBZ|Others	9	43.99293965045584	U	retrograde vesicle-mediated transport, Golgi to ER	MHS499	other_OG
+3BDD6|Others	18	60.60606060606061	S	Involved in the biogenesis of the 60S ribosomal subunit	MHS499	other_OG
+3BDGU|Others	35	98.87005649717514	H	phosphorylase kinase regulator activity	MHS499	other_OG
+3BDI4|Others	115	259.57587850169074	I	O-acyltransferase	MHS499	other_OG
+3BDJW|Others	2	7.8431372549019605	H	coproporphyrinogen oxidase activity	MHS499	other_OG
+3BDN7|Others	6	30.769230769230766	J	Catalyzes the attachment of alanine to tRNA(Ala) in a two-step reaction alanine is first activated by ATP to form Ala- AMP and then transferred to the acceptor end of tRNA(Ala). Also edits incorrectly charged tRNA(Ala) via its editing domain	MHS499	other_OG
+3BDP5|Others	1	3.745318352059925	C	V-type proton ATPase catalytic subunit	MHS499	other_OG
+3BDPN|Others	149	249.26420182138705	J	SCF complex assembly	MHS499	other_OG
+3BDQF|Others	5	18.726591760299623	Z	structural constituent of cytoskeleton	MHS499	other_OG
+3BDRI|Others	32	166.66666666666666	A	spliceosomal complex assembly	MHS499	other_OG
+3BDY3|Others	1	5.291005291005291	F	Guanylate kinase	MHS499	other_OG
+3BE1F|Others	94	148.26842805375898	S	Vacuolar protein sorting-associated protein VTA1 homolog	MHS499	other_OG
+3BE2H|Others	3	10.309278350515465	Z	Arp2/3 complex-mediated actin nucleation	MHS499	other_OG
+3BE46|Others	2	7.4074074074074066	U	guanine nucleotide exchange factor 1	MHS499	other_OG
+3BE4R|Others	1	3.7037037037037033	H	7,8-dihydroneopterin 3'-triphosphate biosynthetic process	MHS499	other_OG
+3BE5I|Others	300	241.92277383766748	K	snRNA transcription by RNA polymerase III	MHS499	other_OG
+3BE5W|Others	18	61.106346483704975	U	Ras-related C3 botulinum toxin substrate	MHS499	other_OG
+3BE7U|Others	12	33.333333333333336	L	DNA nucleotidylexotransferase activity	MHS499	other_OG
+3BEJ0|Others	20	40.38495188101487	L	response to intra-S DNA damage checkpoint signaling	MHS499	other_OG
+3BEQW|Others	297	853.4482758620691	O	thiol-dependent ubiquitin-specific protease activity	MHS499	other_OG
+3BESP|Others	4	12.578616352201257	U	imaginal disc-derived wing hair outgrowth	MHS499	other_OG
+3BEZ1|Others	45	170.45454545454544	S	quercetin 2,3-dioxygenase activity	MHS499	other_OG
+3BF1V|Others	11	28.42377260981912	O	Belongs to the cullin family	MHS499	other_OG
+3BF46|Others	12	21.276595744680854	O	Peptidyl-prolyl cis-trans isomerase	MHS499	other_OG
+3BF88|Others	4	5.108556832694764	MOT	Sel1-like repeats.	MHS499	other_OG
+3BFA8|Others	7	27.131782945736433	S	ER membrane protein complex subunit	MHS499	other_OG
+3BFCJ|Others	365	647.1631205673759	O	post-chaperonin tubulin folding pathway	MHS499	other_OG
+3BFEB|Others	4	9.456264775413711	L	5'-deoxyribose-5-phosphate lyase activity	MHS499	other_OG
+3BFEV|Others	1	5.952380952380952	U	Belongs to the small GTPase superfamily. Arf family	MHS499	other_OG
+3BFFD|Others	404	312.175224473788	L	KRAB-A domain containing 2	MHS499	other_OG
+3BFJ7|Others	20	20.512820512820515	K	positive regulation of myoblast proliferation	MHS499	other_OG
+3BFQ0|Others	15	89.28571428571428	S	Uncharacterized conserved protein (DUF2347)	MHS499	other_OG
+3BFQX|Others	1	4.065040650406504	A	G patch domain-containing protein	MHS499	other_OG
+3BFTN|Others	37	75.20325203252033	S	minichromosome maintenance	MHS499	other_OG
+3BFU2|Others	41	112.94765840220386	A	nuclear-transcribed mRNA catabolic process, 3'-5' exonucleolytic nonsense-mediated decay	MHS499	other_OG
+3BFWJ|Others	4	6.3191153238546605	B	inhibitor of growth	MHS499	other_OG
+3BG51|Others	25	143.67816091954023	G	phosphoglucomutase activity	MHS499	other_OG
+3BG75|Others	26	101.96078431372548	GT	phosphoprotein phosphatase activity	MHS499	other_OG
+3BG93|Others	184	302.13464696223315	O	26S proteasome non-ATPase regulatory subunit	MHS499	other_OG
+3BG9B|Others	77	144.1947565543071	U	protein complex 3, delta 1 subunit	MHS499	other_OG
+3BGCQ|Others	120	248.64481502779375	S	methylated histone binding	MHS499	other_OG
+3BGD1|Others	4	15.32567049808429	E	O-phospho-L-serine:2-oxoglutarate aminotransferase activity	MHS499	other_OG
+3BGHW|Others	59	235.70864679112103	OT	cop9 signalosome complex subunit	MHS499	other_OG
+3BGSS|Others	58	276.1904761904762	S	kinetochore assembly	MHS499	other_OG
+3BGX6|Others	2	9.950248756218905	O	Belongs to the ubiquitin-conjugating enzyme family	MHS499	other_OG
+3BH2J|Others	64	309.17874396135267	C	pyruvate dehydrogenase (acetyl-transferring) activity	MHS499	other_OG
+3BH8C|Others	4	13.200087170386976	S	GTPase activity	MHS499	other_OG
+3BHJA|Others	49	164.0824129141886	DL	intra-S DNA damage checkpoint	MHS499	other_OG
+3BHMN|Others	205	269.7375332437618	S	Alpha/beta hydrolase family	MHS499	other_OG
+3BHNA|Others	9	41.666666666666664	J	translation initiation factor activity	MHS499	other_OG
+3BHSZ|Others	35	112.17948717948718	S	chromosome 9 open reading frame 78	MHS499	other_OG
+3BHTB|Others	75	116.82242990654206	Z	minus-end-directed vesicle transport along microtubule	MHS499	other_OG
+3BHTK|Others	9	25	C	dihydrolipoyl dehydrogenase	MHS499	other_OG
+3BIQN|Others	11	45.833333333333336	K	Nipped-b homolog	MHS499	other_OG
+3BIS4|Others	3	14.084507042253522	I	catalytic activity. It is involved in the biological process described with metabolic process	MHS499	other_OG
+3BISJ|Others	1	4.219409282700422	BK	protein de-ADP-ribosylation	MHS499	other_OG
+3BIZ2|Others	17	71.72995780590718	J	HemK methyltransferase family member	MHS499	other_OG
+3BJ99|Others	124	243.13725490196077	DO	positive regulation of synapse maturation	MHS499	other_OG
+3BJI5|Others	62	215.2777777777778	S	WD domain, G-beta repeat	MHS499	other_OG
+3BJZI|Others	7	13.22389420884633	O	Belongs to the peptidase A1 family	MHS499	other_OG
+3BKJ9|Others	1	3.8314176245210727	S	peptide alpha-N-acetyltransferase activity	MHS499	other_OG
+3BMBG|Others	1	3.623188405797101	Z	Tubulin/FtsZ family, C-terminal domain	MHS499	other_OG
+3BMBH|Others	44	52.9482551143201	S	protein-glutamine gamma-glutamyltransferase activity	MHS499	other_OG
+3BN2A|Others	142	277.55954514957705	S	N-terminal domain of CBF1 interacting co-repressor CIR	MHS499	other_OG
+3BNHA|Others	2	7.4074074074074066	M	Mycolic acid cyclopropane synthetase	MHS499	other_OG
+3BNKS|Others	26	44.41431154248739	E	Cobalamin-independent synthase, Catalytic domain	MHS499	other_OG
+3BPC3|Others	4	13.137254901960786	B	Histone H3.3-like	MHS499	other_OG
+3BPDH|Others	76	212.0866402116402	B	nucleosomal DNA binding	MHS499	other_OG
+3BPM4|Others	1	4.166666666666667	J	structural constituent of ribosome	MHS499	other_OG
+3BPXR|Others	172	171.6566866267465	M	Endogenous retrovirus group K member	MHS499	other_OG
+3BQ6X|Others	30	51.282051282051285	L	transposition, RNA-mediated	MHS499	other_OG
+3BQ7K|Others	200	291.12081513828235	J	Peptidyl-tRNA hydrolase	MHS499	other_OG
+3BQIY|Others	1	6.172839506172839	S	-	MHS499	other_OG
+3BQMA|Others	290	376.95920330447575	A	tRNA 5'-leader removal	MHS499	other_OG
+3BQP9|Others	2	7.662835249042145	F	Fragile histidine triad	MHS499	other_OG
+3BQPX|Others	2	4.273504273504273	TV	carbohydrate binding	MHS499	other_OG
+3BQRD|Others	8	11.347517730496454	S	Coiled-coil domain containing 188	MHS499	other_OG
+3BQXW|Others	8	19.590682854378585	S	Reverse transcriptase (RNA-dependent DNA polymerase)	MHS499	other_OG
+3BRF6|Others	1	3.875968992248062	A	spliceosomal snRNP assembly	MHS499	other_OG
+3BTCF|Others	14	39.548022598870055	CO	Thioredoxin	MHS499	other_OG
+3BTH0|Others	63	126.79682471572625	-	-	MHS499	other_OG
+3BTXU|Others	43	186.07782053631422	K	negative regulation of programmed cell death	MHS499	other_OG
+3BU2T|Others	2	10.582010582010582	S	machinery associated 7 homolog (S. cerevisiae)	MHS499	other_OG
+3BVQX|Others	2	4.761904761904762	-	-	MHS499	other_OG
+3BWF0|Others	4	10.666666666666666	-	-	MHS499	other_OG
+3C186|Others	10	31.297586217494683	C	NADH-ubiquinone/plastoquinone oxidoreductase chain 4L	MHS499	other_OG
+3C2BW|Others	25	120.77294685990339	-	-	MHS499	other_OG
+3C4FT|Others	9	24.59016393442623	-	-	MHS499	other_OG
+3C4TF|Others	21	54.6875	-	-	MHS499	other_OG
+3C5BQ|Others	6	21.739130434782606	O	Eukaryotic aspartyl protease	MHS499	other_OG
+3CAG5|Others	8	11.019283746556475	L	NAD-dependent DNA ligase C4 zinc finger domain	MHS499	other_OG
+3CB14|Others	1	4.11522633744856	-	-	MHS499	other_OG
+3CDMZ|Others	56	134.29256594724222	-	-	MHS499	other_OG
+3CNWK|Others	4	14.035087719298247	A	Belongs to the DEAD box helicase family	MHS499	other_OG
+3CPGJ|Others	27	56.9620253164557	U	ABC transporter	MHS499	other_OG
+3CR3W|Others	33	98.09027777777777	T	GTP binding	MHS499	other_OG
+3G72D|Others	5	7.374631268436578	-	-	MHS499	other_OG
+3G72V|Others	1	4.273504273504273	K	rna polymerase	MHS499	other_OG
+3G75A|Others	1	4.166666666666667	S	Alkaline neutral invertase	MHS499	other_OG
+3G769|Others	1	4.065040650406504	O	ATP-dependent serine protease that mediates the selective degradation of misfolded, unassembled or oxidatively damaged polypeptides as well as certain short-lived regulatory proteins in the mitochondrial matrix. May also have a chaperone function in the assembly of inner membrane protein complexes. Participates in the regulation of mitochondrial gene expression and in the maintenance of the integrity of the mitochondrial genome. Binds to mitochondrial DNA in a site-specific manner	MHS499	other_OG
+3G77I|Others	12	44.9438202247191	T	Conserved mid region of cactin	MHS499	other_OG
+3G7AS|Others	601	528.5839929639402	A	Helicase and polymerase-containing protein	MHS499	other_OG
+3G7D0|Others	3	11.904761904761905	K	(NAC) domain-containing protein	MHS499	other_OG
+3G7D8|Others	1	5.555555555555555	T	Programmed cell death protein	MHS499	other_OG
+3G7DD|Others	1	6.172839506172839	J	Serine--tRNA	MHS499	other_OG
+3G7GA|Others	3	12.658227848101266	H	Belongs to the PdxS SNZ family	MHS499	other_OG
+3G7GE|Others	2	7.662835249042145	P	sodium metabolite cotransporter	MHS499	other_OG
+3G7HK|Others	1	5.291005291005291	V	Belongs to the multi antimicrobial extrusion (MATE) (TC 2.A.66.1) family	MHS499	other_OG
+3G7J8|Others	2	9.43646996278575	G	Belongs to the MIP aquaporin (TC 1.A.8) family	MHS499	other_OG
+3G7JE|Others	36	98.36065573770492	L	DNA mismatch repair protein	MHS499	other_OG
+3G7JK|Others	1	4.385964912280701	E	Protein NRT1 PTR FAMILY	MHS499	other_OG
+3G7TH|Others	1	4.694835680751174	Q	L-ascorbate oxidase homolog	MHS499	other_OG
+3G7UH|Others	2	6.600660066006601	U	Ras-related protein	MHS499	other_OG
+3G7XW|Others	7	33.54426073348303	O	Ubiquitin exists either covalently attached to another protein, or free (unanchored). When covalently bound, it is conjugated to target proteins via an isopeptide bond either as a monomer (monoubiquitin), a polymer linked via different Lys residues of the ubiquitin (polyubiquitin chains) or a linear polymer linked via the initiator Met of the ubiquitin (linear polyubiquitin chains). Polyubiquitin chains, when attached to a target protein, have different functions depending on the Lys residue of the ubiquitin that is linked	MHS499	other_OG
+3G7YZ|Others	9	17.104377104377104	O	Zinc finger, C3HC4 type (RING finger)	MHS499	other_OG
+3G82J|Others	3	11.76470588235294	C	Flavoprotein (FP) subunit of succinate dehydrogenase (SDH) that is involved in complex II of the mitochondrial electron transport chain and is responsible for transferring electrons from succinate to ubiquinone (coenzyme Q)	MHS499	other_OG
+3G84G|Others	3	7.633587786259541	UY	Nuclear pore complex protein	MHS499	other_OG
+3G852|Others	3	5.2631578947368425	S	transposon protein	MHS499	other_OG
+3G88R|Others	1	3.875968992248062	S	Pentatricopeptide repeat-containing protein	MHS499	other_OG
+3G89I|Others	33	131.26022913256958	T	serine threonine-protein phosphatase	MHS499	other_OG
+3G89W|Others	151	306.9105691056911	KT	Belongs to the MT-A70-like family	MHS499	other_OG
+3G8BD|Others	5	22.22222222222222	O	Belongs to the ClpA ClpB family	MHS499	other_OG
+3G8BW|Others	262	406.1916846396681	L	Uncharacterized protein K02A2.6-like	MHS499	other_OG
+3G8C5|Others	3983	5209.017187121762	C	cytochrome c oxidase subunit 3	MHS499	other_OG
+3G8D1|Others	26	127.45098039215686	O	Geranylgeranyl transferase type-1 subunit	MHS499	other_OG
+3G8EZ|Others	43	92.34996701247037	T	serine threonine-protein kinase	MHS499	other_OG
+3G8FW|Others	7	28.11244979919679	O	Belongs to the AAA ATPase family	MHS499	other_OG
+3G8G0|Others	3	14.925373134328357	Q	ABC transporter G family member	MHS499	other_OG
+3G8GE|Others	2	3.584229390681003	Q	Belongs to the peroxidase family. Classical plant (class III) peroxidase subfamily	MHS499	other_OG
+3G8MV|Others	133	190.24119874179192	L	DNA RNA polymerases superfamily protein	MHS499	other_OG
+3G8NV|Others	1	4.761904761904762	S	metal-nicotianamine transporter YSL6	MHS499	other_OG
+3G8PC|Others	8	20.636915985753195	K	Belongs to the GRAS family	MHS499	other_OG
+3G8SR|Others	4	16.877637130801688	J	Exosome complex	MHS499	other_OG
+3G8UK|Others	11	32.560438039890094	L	Belongs to the helicase family. RecQ subfamily	MHS499	other_OG
+3G8YX|Others	2	7.49063670411985	O	Belongs to the heat shock protein 70 family	MHS499	other_OG
+3G8Z4|Others	8	9.84009840098401	O	Belongs to the peptidase A1 family	MHS499	other_OG
+3G91Q|Others	18	7.604562737642586	UY	nuclear export signal receptor activity	MHS499	other_OG
+3G925|Others	5	23.14814814814815	Z	Tubulin is the major constituent of microtubules. It binds two moles of GTP, one at an exchangeable site on the beta chain and one at a non-exchangeable site on the alpha chain	MHS499	other_OG
+3G92N|Others	4	5.873715124816446	A	DEAD-box ATP-dependent RNA helicase	MHS499	other_OG
+3G93K|Others	14	68.62745098039215	T	serine threonine-protein kinase	MHS499	other_OG
+3G93T|Others	4	17.844839465343806	O	Belongs to the peptidase A1 family	MHS499	other_OG
+3G93U|Others	2	9.66869506423259	S	isoform X1	MHS499	other_OG
+3G9BA|Others	13	43.77104377104377	J	eukaryotic translation initiation factor 2	MHS499	other_OG
+3G9DS|Others	1	3.9682539682539684	Q	Belongs to the cytochrome P450 family	MHS499	other_OG
+3G9NZ|Others	1	4.444444444444445	E	Protein NRT1 PTR FAMILY	MHS499	other_OG
+3G9S8|Others	1	3.4722222222222223	O	subtilisin-like protease	MHS499	other_OG
+3G9S9|Others	2	6.5359477124183005	KY	DNA-dependent RNA polymerase catalyzes the transcription of DNA into RNA using the four ribonucleoside triphosphates as substrates	MHS499	other_OG
+3G9TQ|Others	10	45.464339581986636	I	Belongs to the 'GDSL' lipolytic enzyme family	MHS499	other_OG
+3G9UD|Others	1	4.504504504504505	U	Belongs to the adaptor complexes medium subunit family	MHS499	other_OG
+3G9XA|Others	1	6.666666666666667	U	Ras-related protein	MHS499	other_OG
+3GA4F|Others	1	3.875968992248062	E	Belongs to the D-isomer specific 2-hydroxyacid dehydrogenase family	MHS499	other_OG
+3GA85|Others	23	43.560606060606055	S	transcriptional corepressor	MHS499	other_OG
+3GAAI|Others	3	9.615384615384615	T	serine threonine-protein kinase	MHS499	other_OG
+3GAAK|Others	39	107.43801652892563	Q	Belongs to the short-chain dehydrogenases reductases (SDR) family	MHS499	other_OG
+3GABU|Others	4	7.017543859649123	S	Zinc finger CCCH domain-containing protein	MHS499	other_OG
+3GAC8|Others	2	8.88888888888889	G	Polygalacturonase	MHS499	other_OG
+3GAGX|Others	1	3.4013605442176873	G	Belongs to the glyceraldehyde-3-phosphate dehydrogenase family	MHS499	other_OG
+3GAMW|Others	3	5.025125628140704	S	Secretory pathway protein Sec39	MHS499	other_OG
+3GARP|Others	2	7.4074074074074066	K	(NAC) domain-containing protein	MHS499	other_OG
+3GARU|Others	5	19.841269841269842	G	alpha-mannosidase	MHS499	other_OG
+3GAV5|Others	10	42.73504273504273	L	Belongs to the MCM family	MHS499	other_OG
+3GAXB|Others	26	54.16666666666667	T	Guanine nucleotide-binding protein subunit beta-like protein	MHS499	other_OG
+3GAXE|Others	141	177.35849056603772	B	Phd finger protein	MHS499	other_OG
+3GAZW|Others	5	13.123359580052494	S	Triphosphate tunel metalloenzyme 3-like	MHS499	other_OG
+3GB2U|Others	1	4.065040650406504	I	Glycerol-3-phosphate 2-O-acyltransferase 6-like	MHS499	other_OG
+3GB3T|Others	5	15.514592933947771	T	Wall-associated receptor kinase	MHS499	other_OG
+3GBBC|Others	2	11.912291798439806	I	phosphatidylinositol phosphatidylcholine transfer protein	MHS499	other_OG
+3GBBV|Others	2	9.389671361502348	T	serine threonine-protein kinase	MHS499	other_OG
+3GBDB|Others	3	10.526315789473685	S	Domain of unknown function (DUF4220)	MHS499	other_OG
+3GBFF|Others	2	3.9682539682539684	O	E3 ubiquitin-protein ligase	MHS499	other_OG
+3GBI5|Others	2	5.797101449275363	E	Belongs to the iron ascorbate-dependent oxidoreductase family	MHS499	other_OG
+3GBJ7|Others	6	21.978021978021978	I	4-coumarate--CoA ligase-like	MHS499	other_OG
+3GBSE|Others	1	3.367003367003367	L	membrane protein C776.05-like	MHS499	other_OG
+3GBUN|Others	12450	12293.33376998784	C	Core subunit of the mitochondrial membrane respiratory chain NADH dehydrogenase (Complex I) that is believed to belong to the minimal assembly required for catalysis. Complex I functions in the transfer of electrons from NADH to the respiratory chain. The immediate electron acceptor for the enzyme is believed to be ubiquinone	MHS499	other_OG
+3GC03|Others	4	21.85792349726776	A	kDa ribonucleoprotein	MHS499	other_OG
+3GC1E|Others	2	7.662337662337663	G	Purple acid phosphatase	MHS499	other_OG
+3GC22|Others	3	12.084726867335561	E	Auxin transporter-like protein	MHS499	other_OG
+3GC26|Others	1	3.584229390681003	K	Cilia- and flagella-associated protein	MHS499	other_OG
+3GC2W|Others	1	4.504504504504505	S	palmitoyl-(protein) hydrolase activity	MHS499	other_OG
+3GC2Z|Others	2	8.140977910151403	U	Involved in protein precursor import into chloroplasts. May be part of an intermediate translocation complex acting as a protein-conducting channel at the inner envelope	MHS499	other_OG
+3GC4V|Others	57	54.67133448040403	O	ATPase family	MHS499	other_OG
+3GC5Z|Others	10	18.51851851851852	L	DNA mismatch repair	MHS499	other_OG
+3GC7D|Others	5	13.333333333333334	E	The H protein shuttles the methylamine group of glycine from the P protein to the T protein	MHS499	other_OG
+3GCA5|Others	20	79.36507936507937	U	Belongs to the adaptor complexes medium subunit family	MHS499	other_OG
+3GCAV|Others	79	164.58333333333334	L	DNA polymerase	MHS499	other_OG
+3GCB1|Others	4	14.184397163120568	J	Belongs to the class-I aminoacyl-tRNA synthetase family	MHS499	other_OG
+3GCBW|Others	2	7.168458781362006	S	Haloacid dehalogenase-like hydrolase domain-containing protein At3g48420	MHS499	other_OG
+3GCM1|Others	1	3.546099290780142	AT	transposition, RNA-mediated	MHS499	other_OG
+3GCMT|Others	4	15.066394279877425	S	Embryonic protein DC-8-like	MHS499	other_OG
+3GCMW|Others	30	66.85185185185185	J	pumilio homolog	MHS499	other_OG
+3GCMZ|Others	5	23.544973544973544	S	XH XS domain-containing protein	MHS499	other_OG
+3GCPW|Others	1	5.46448087431694	-	-	MHS499	other_OG
+3GCUJ|Others	3	10.151304616334723	D	Belongs to the cyclin family	MHS499	other_OG
+3GCV4|Others	5	16.06133979015335	IT	Sphingoid long-chain bases kinase 2	MHS499	other_OG
+3GCV5|Others	17	28.634748654448234	L	DNA RNA polymerases superfamily protein	MHS499	other_OG
+3GCV6|Others	1	3.623188405797101	J	Belongs to the universal ribosomal protein uS11 family	MHS499	other_OG
+3GCW8|Others	1	3.436426116838488	C	PsaA and PsaB bind P700, the primary electron donor of photosystem I (PSI), as well as the electron acceptors A0, A1 and FX. PSI is a plastocyanin-ferredoxin oxidoreductase, converting photonic excitation into a charge separation, which transfers an electron from the donor P700 chlorophyll pair to the spectroscopically characterized acceptors A0, A1, FX, FA and FB in turn. Oxidized P700 is reduced on the lumenal side of the thylakoid membrane by plastocyanin	MHS499	other_OG
+3GCWU|Others	36	121.21212121212122	O	Protein farnesyltransferase geranylgeranyltransferase type-1 subunit	MHS499	other_OG
+3GCXX|Others	39	142.85714285714283	S	Zinc finger CCCH domain-containing protein	MHS499	other_OG
+3GD03|Others	26	122.06572769953051	I	Caffeoylshikimate esterase-like	MHS499	other_OG
+3GD0M|Others	18	66.66666666666666	O	Belongs to the AAA ATPase family	MHS499	other_OG
+3GD1X|Others	17	58.75600177209431	O	subtilisin-like protease	MHS499	other_OG
+3GD4B|Others	5	26.041666666666668	T	E3 ubiquitin-protein ligase	MHS499	other_OG
+3GD4G|Others	8	15.15151515151515	B	NatA auxiliary	MHS499	other_OG
+3GD5I|Others	12	41.90402114640719	C	Component of the cytochrome b6-f complex, which mediates electron transfer between photosystem II (PSII) and photosystem I (PSI), cyclic electron flow around PSI, and state transitions	MHS499	other_OG
+3GD8H|Others	1	6.666666666666667	O	protein-S-isoprenylcysteine O-methyltransferase	MHS499	other_OG
+3GD8R|Others	3	10.989010989010989	U	Belongs to the TRAFAC class dynamin-like GTPase superfamily. Dynamin Fzo YdjA family	MHS499	other_OG
+3GDC3|Others	12	41.00889766306094	G	RuBisCO catalyzes two reactions the carboxylation of D- ribulose 1,5-bisphosphate, the primary event in carbon dioxide fixation, as well as the oxidative fragmentation of the pentose substrate in the photorespiration process. Both reactions occur simultaneously and in competition at the same active site	MHS499	other_OG
+3GDG5|Others	24	55.17241379310345	S	Pentatricopeptide repeat-containing protein	MHS499	other_OG
+3GDJE|Others	1	4.566210045662101	C	NADH dehydrogenase (Ubiquinone) iron-sulfur protein	MHS499	other_OG
+3GDSA|Others	1	5.555555555555555	S	GDSL esterase lipase	MHS499	other_OG
+3GDVB|Others	21	61.40350877192982	U	Belongs to the SNF7 family	MHS499	other_OG
+3GE4B|Others	3	5.780346820809249	E	isoform X1	MHS499	other_OG
+3GE7B|Others	2	7.452490373866601	E	Tyrosine dopa decarboxylase	MHS499	other_OG
+3GE8P|Others	1	3.9682539682539684	S	One of the components of the core complex of photosystem II (PSII). It binds chlorophyll and helps catalyze the primary light-induced photochemical processes of PSII. PSII is a light- driven water plastoquinone oxidoreductase, using light energy to abstract electrons from H(2)O, generating O(2) and a proton gradient subsequently used for ATP formation	MHS499	other_OG
+3GE9S|Others	58	160.0836717115787	S	Polynucleotide 5'-hydroxyl-kinase	MHS499	other_OG
+3GEA1|Others	2	7.093001320505564	S	function. Its presence in a non-photosynthetic plant (Epifagus virginiana) and experiments in tobacco indicate that it has an essential function which is probably not related to photosynthesis	MHS499	other_OG
+3GECI|Others	4	6.504065040650406	S	Hydrolase, alpha beta fold family protein	MHS499	other_OG
+3GEEJ|Others	1404	3636.3202556868696	C	Cytochrome c oxidase is the component of the respiratory chain that catalyzes the reduction of oxygen to water. Subunits 1- 3 form the functional core of the enzyme complex. CO I is the catalytic subunit of the enzyme. Electrons originating in cytochrome c are transferred via the copper A center of subunit 2 and heme A of subunit 1 to the bimetallic center formed by heme A3 and copper B	MHS499	other_OG
+3GEG1|Others	4	12.461059190031152	O	26S proteasome non-ATPase regulatory subunit	MHS499	other_OG
+3GENN|Others	15	61.7283950617284	U	Ras-related protein	MHS499	other_OG
+3GERG|Others	4	11.396011396011398	O	E3 ubiquitin-protein ligase	MHS499	other_OG
+3GEVJ|Others	5	9.733203865538446	DZ	Mitotic spindle checkpoint protein	MHS499	other_OG
+3GEW0|Others	3	12.21001221001221	G	beta-galactosidase	MHS499	other_OG
+3GEWI|Others	1	5.05050505050505	L	Pentatricopeptide repeat-containing protein	MHS499	other_OG
+3GEZ9|Others	7	10.852713178294573	JKL	Retroviral aspartyl protease	MHS499	other_OG
+3GF05|Others	79	193.62745098039218	I	Belongs to the DHHC palmitoyltransferase family	MHS499	other_OG
+3GF2Z|Others	133	211.11111111111111	I	Cholinephosphate cytidylyltransferase	MHS499	other_OG
+3GF9F|Others	45	60.72874493927126	S	Vegetative incompatibility protein	MHS499	other_OG
+3GF9V|Others	1	4.901960784313726	E	Methylenetetrahydrofolate reductase	MHS499	other_OG
+3GFFB|Others	1	4.016064257028113	S	Minor allergen Alt a	MHS499	other_OG
+3GFFK|Others	11	16.516516516516514	L	lipid metabolic process	MHS499	other_OG
+3GFGT|Others	5	12.73979486269989	U	Belongs to the small GTPase superfamily. Arf family	MHS499	other_OG
+3GFJ0|Others	1	4.504504504504505	Z	Belongs to the actin family	MHS499	other_OG
+3GFJK|Others	6	18.69158878504673	F	belongs to the metallo- dependent hydrolases superfamily. Urease alpha subunit family	MHS499	other_OG
+3GFK4|Others	51	160.37735849056602	C	D-2-hydroxyglutarate dehydrogenase	MHS499	other_OG
+3GFKK|Others	1	3.546099290780142	U	The coatomer is a cytosolic protein complex that binds to dilysine motifs and reversibly associates with Golgi non- clathrin-coated vesicles, which further mediate biosynthetic protein transport from the ER, via the Golgi up to the trans Golgi network. Coatomer complex is required for budding from Golgi membranes, and is essential for the retrograde Golgi-to-ER transport of dilysine-tagged proteins	MHS499	other_OG
+3GFKM|Others	26	59.28871267928055	T	Non-specific serine threonine protein kinase	MHS499	other_OG
+3GFNR|Others	1	3.7878787878787876	K	B3 domain-containing protein	MHS499	other_OG
+3GFVV|Others	1	3.745318352059925	O	nucleoredoxin 2	MHS499	other_OG
+3GFYT|Others	1	5.05050505050505	GM	Galactosyl transferase GMA12 MNN10 family protein	MHS499	other_OG
+3GFZE|Others	2	7.662835249042145	G	glucuronokinase	MHS499	other_OG
+3GFZM|Others	4	7.017543859649123	S	U-box domain-containing protein	MHS499	other_OG
+3GG00|Others	2	11.49425287356322	S	Uncharacterised ACR, YagE family COG1723	MHS499	other_OG
+3GG12|Others	2	5.74712643678161	T	receptor-like protein kinase	MHS499	other_OG
+3GG28|Others	27	46.875	T	phosphatidylinositol 4-phosphate 5-kinase	MHS499	other_OG
+3GG2K|Others	94	159.47409586180558	L	Mitochondrial protein	MHS499	other_OG
+3GGAX|Others	521	886.6794294449004	C	Cytochrome c oxidase is the component of the respiratory chain that catalyzes the reduction of oxygen to water. Subunits 1- 3 form the functional core of the enzyme complex. Subunit 2 transfers the electrons from cytochrome c via its binuclear copper A center to the bimetallic center of the catalytic subunit 1	MHS499	other_OG
+3GGBT|Others	1	4.385964912280701	S	Protein of unknown function (DUF668)	MHS499	other_OG
+3GGCG|Others	1	3.436426116838488	J	One of the primary rRNA binding proteins, it binds directly to 16S rRNA where it nucleates assembly of the head domain of the 30S subunit	MHS499	other_OG
+3GGET|Others	3	15.11150234741784	K	MYB family transcription factor	MHS499	other_OG
+3GGGF|Others	15	14.986784074997566	L	Pentatricopeptide repeat-containing protein At3g26782	MHS499	other_OG
+3GGMZ|Others	2	9.523809523809524	S	isoform X1	MHS499	other_OG
+3GGRB|Others	4	13.88888888888889	S	Belongs to the peroxisomal membrane protein PXMP2 4 family	MHS499	other_OG
+3GGSM|Others	1	4.065040650406504	G	transposition, RNA-mediated	MHS499	other_OG
+3GGSP|Others	155	302.14424951267057	V	Tyrosine-protein phosphatase	MHS499	other_OG
+3GGTZ|Others	1	3.546099290780142	S	Mediator-associated protein	MHS499	other_OG
+3GGVX|Others	10	38.64198484728818	K	HUA2-like protein	MHS499	other_OG
+3GGZK|Others	102	234.75860169658233	L	strictosidine synthase activity	MHS499	other_OG
+3GH1G|Others	4	8.492569002123142	O	Cytochrome c biogenesis protein CcsA	MHS499	other_OG
+3GH4Q|Others	1	4.273504273504273	S	agenet domain-containing protein	MHS499	other_OG
+3GH8X|Others	4	14.814814814814813	A	Transducin beta-like protein	MHS499	other_OG
+3GHBB|Others	1	3.4722222222222223	C	cytochrome b6	MHS499	other_OG
+3GHHM|Others	8	22.945175939762983	A	DEAD-box ATP-dependent RNA helicase	MHS499	other_OG
+3GHQ7|Others	7	14.654409261150834	L	Reverse transcriptase (RNA-dependent DNA polymerase)	MHS499	other_OG
+3GHQJ|Others	35	16.455101081335215	O	gag-polypeptide of LTR copia-type	MHS499	other_OG
+3GHQR|Others	1	5.291005291005291	S	Anthranilate N-benzoyltransferase protein	MHS499	other_OG
+3GHRQ|Others	216	250.18887246191204	L	spliceosomal complex assembly	MHS499	other_OG
+3GI0A|Others	12	42.10526315789474	B	histone H3	MHS499	other_OG
+3GI8Y|Others	4	9.950248756218905	J	50S ribosomal protein	MHS499	other_OG
+3GIEH|Others	31	105.4421768707483	K	High mobility group B protein	MHS499	other_OG
+3GIK7|Others	2	12.578616352201257	-	-	MHS499	other_OG
+3GIPC|Others	1	3.7037037037037033	J	Belongs to the universal ribosomal protein uL14 family	MHS499	other_OG
+3GIPU|Others	3	5.181347150259068	L	gag-polypeptide of LTR copia-type	MHS499	other_OG
+3GISB|Others	2	7.017543859649123	C	NDH shuttles electrons from NAD(P)H plastoquinone, via FMN and iron-sulfur (Fe-S) centers, to quinones in the photosynthetic chain and possibly in a chloroplast respiratory chain. The immediate electron acceptor for the enzyme in this species is believed to be plastoquinone. Couples the redox reaction to proton translocation, and thus conserves the redox energy in a proton gradient	MHS499	other_OG
+3GJ9V|Others	2	4.47427293064877	O	RING-H2 finger protein	MHS499	other_OG
+3GJJI|Others	1	3.3333333333333335	J	Belongs to the universal ribosomal protein uS12 family	MHS499	other_OG
+3GKAN|Others	2	12.820512820512821	S	Glutathione S-transferase T3-like	MHS499	other_OG
+3GKE1|Others	7	16.69071669071669	-	-	MHS499	other_OG
+3GKGJ|Others	20	58.99705014749262	-	-	MHS499	other_OG
+3GKHF|Others	33	118.2795698924731	-	-	MHS499	other_OG
+3GKII|Others	4	4.166666666666667	L	transposition, RNA-mediated	MHS499	other_OG
+3GKMR|Others	2141	6796.825396825397	S	-	MHS499	other_OG
+3GKNG|Others	113	423.2209737827715	-	-	MHS499	other_OG
+3GKUN|Others	20	29.37661154596888	L	Retrotransposon gag protein	MHS499	other_OG
+3GKYK|Others	2	4.830917874396135	S	DUF584 domain containing protein	MHS499	other_OG
+3GMVQ|Others	16	11.958146487294469	L	transposition, RNA-mediated	MHS499	other_OG
+3GMX4|Others	1	4.385964912280701	U	Endoplasmic reticulum-Golgi intermediate compartment protein 3-like	MHS499	other_OG
+3GN1I|Others	4	14.814814814814813	S	May cause loosening and extension of plant cell walls by disrupting non-covalent bonding between cellulose microfibrils and matrix glucans. No enzymatic activity has been found. May be required for rapid internodal elongation in deepwater rice during submergence (By similarity)	MHS499	other_OG
+3GN9D|Others	7	16.69384268964982	T	Universal stress protein family	MHS499	other_OG
+3GNSS|Others	5	5.4288816503800215	L	gag-polypeptide of LTR copia-type	MHS499	other_OG
+3GNSV|Others	3	4.62962962962963	L	DNA RNA polymerases superfamily protein	MHS499	other_OG
+3GNT7|Others	6	10.309278350515465	S	Transposase family tnp2	MHS499	other_OG
+3GNUE|Others	38	71.6628973409475	L	transposition, RNA-mediated	MHS499	other_OG
+3GP09|Others	3	10.618170585736902	-	-	MHS499	other_OG
+3GP4Z|Others	2	4.301075268817204	L	transposition, RNA-mediated	MHS499	other_OG
+3GPV1|Others	2	7.936507936507937	L	transposition, RNA-mediated	MHS499	other_OG
+3GPVA|Others	4	4.301075268817204	S	zinc finger	MHS499	other_OG
+3GPY4|Others	3	14.224664224664224	-	-	MHS499	other_OG
+3GPZ6|Others	4	7.168458781362006	S	plant mutator transposase zinc finger	MHS499	other_OG
+3GQ4A|Others	2	8.438818565400844	-	-	MHS499	other_OG
+3GQ6N|Others	2	12.578616352201257	-	-	MHS499	other_OG
+3GQ9H|Others	1	4.504504504504505	-	-	MHS499	other_OG
+3GQD7|Others	22	22.67129340976087	L	Reverse transcriptase (RNA-dependent DNA polymerase)	MHS499	other_OG
+3GR1G|Others	10	52.049180327868854	-	-	MHS499	other_OG
+3GR27|Others	39	63.42745517349257	L	gag-polypeptide of LTR copia-type	MHS499	other_OG
+3GR99|Others	7	19.607843137254903	-	-	MHS499	other_OG
+3GRCH|Others	2	9.00900900900901	S	Contains the following InterPro domains Polynucleotidyl transferase, ribonuclease H fold (InterPro IPR012337)	MHS499	other_OG
+3GRJ2|Others	78	140.0384412604005	L	transposition, RNA-mediated	MHS499	other_OG
+3GS9W|Others	2	10.1010101010101	S	Protein of unknown function (DUF3615)	MHS499	other_OG
+3GSSA|Others	4	8.88888888888889	-	-	MHS499	other_OG
+3GSXJ|Others	3	4.975124378109453	-	-	MHS499	other_OG
+3GT1D|Others	4	6.944444444444445	S	Protein of unknown function (DUF295)	MHS499	other_OG
+3GT49|Others	2	7.751937984496124	CG	Belongs to the UDP-glycosyltransferase family	MHS499	other_OG
+3GU71|Others	34	134.9206349206349	-	-	MHS499	other_OG
+3GUJ8|Others	3	8.018822625564198	S	Putative gypsy type transposon	MHS499	other_OG
+3GUWI|Others	3	8.264462809917356	-	-	MHS499	other_OG
+3GUZF|Others	1	4.385964912280701	L	transposition, RNA-mediated	MHS499	other_OG
+3GUZH|Others	4	8.88888888888889	L	Reverse transcriptase (RNA-dependent DNA polymerase)	MHS499	other_OG
+3GV1V|Others	1	5.05050505050505	L	Retrotransposon gag protein	MHS499	other_OG
+3GV44|Others	3	11.235955056179774	S	Rho GTPase-activating protein	MHS499	other_OG
+3GV65|Others	10	19.35903136436707	-	-	MHS499	other_OG
+3GW2K|Others	2	3.8314176245210727	T	disease resistance protein	MHS499	other_OG
+3GWAE|Others	1	5.649717514124294	L	transposition, RNA-mediated	MHS499	other_OG
+3GWU7|Others	1	3.663003663003663	-	-	MHS499	other_OG
+3GX5Y|Others	2	6.0606060606060606	C	Photosystem I P700 chlorophyll a apoprotein	MHS499	other_OG
+3GXIZ|Others	2	7.246376811594202	Y	box H/ACA snoRNA metabolic process	MHS499	other_OG
+3GXKU|Others	6	9.132420091324201	L	DNA integration	MHS499	other_OG
+3GY1V|Others	55	87.99043667897948	S	gag-polypeptide of LTR copia-type	MHS499	other_OG
+3GYB3|Others	1	6.410256410256411	T	Disease resistance protein	MHS499	other_OG
+3GYJW|Others	1	3.546099290780142	T	Integrase core domain	MHS499	other_OG
+3GYQ5|Others	1	4.504504504504505	A	RNA recognition motif	MHS499	other_OG
+3GYZ4|Others	2	11.49425287356322	-	-	MHS499	other_OG
+3GZ6Z|Others	7	21.02102102102102	-	-	MHS499	other_OG
+3GZ88|Others	3	9.70873786407767	-	-	MHS499	other_OG
+3GZIF|Others	6	22.839603319055374	-	-	MHS499	other_OG
+3GZPS|Others	7	16.17933723196881	-	-	MHS499	other_OG
+3GZTG|Others	5	12.34949058351343	T	NB-ARC domain	MHS499	other_OG
+3H03H|Others	1	3.367003367003367	-	-	MHS499	other_OG
+3H051|Others	7	8.674101610904584	L	transposition, RNA-mediated	MHS499	other_OG
+3KC4D|Others	13	57.01754385964912	S	Predicted ATPase of the ABC class	MHS499	other_OG
+3Q8ME|Others	102	178.64649012189994	S	plant mutator transposase zinc finger	MHS499	other_OG
+3Q9RU|Others	1	5.291005291005291	S	FR47-like protein	MHS499	other_OG
+3QAGK|Others	47	103.75275938189846	J	Ribosomal S13/S15 N-terminal domain	MHS499	other_OG
+3QCEW|Others	47	147.3911017936175	S	Saccharopine dehydrogenase NADP binding domain	MHS499	other_OG
+3QCQK|Others	3	6.0606060606060606	S	Signal peptide peptidase	MHS499	other_OG
+3X85A|Others	13	39.75535168195719	B	Belongs to the histone deacetylase family. HD Type 1 subfamily	MHS499	other_OG
+3X9D0|Others	109	196.39639639639637	S	AMMECR1	MHS499	other_OG
+3XA17|Others	44	100.45662100456622	L	DNA mismatch repair protein	MHS499	other_OG
+3XCMP|Others	58	137.54145936981757	Z	Belongs to the actin family	MHS499	other_OG
+3XUKQ|Others	7	31.963470319634702	S	GTP-ase activating protein	MHS499	other_OG
+3ZAJE|Others	2	6.410256410256411	A	U5-snRNA binding site 2 of PrP8	MHS499	other_OG
+41SKN|Others	2	4.016064257028113	J	ribosomal protein	MHS499	other_OG
+4QJD7|Others	13	25.048169556840076	S	hydrolase activity	MHS499	other_OG
+4QKMH|Others	41	89.44938251702169	S	Terminase small subunit	MHS499	other_OG
+4QKMY|Others	2	7.49063670411985	-	-	MHS499	other_OG
+4QMMH|Others	5	7.5075075075075075	S	Pfam:Gamma_PGA_hydro	MHS499	other_OG
+4QMZD|Others	2	6.734006734006734	-	-	MHS499	other_OG
+4QNIR|Others	13	16.049382716049383	S	Bacterial SH3 domain	MHS499	other_OG
+arCOG00310|Others	102	228.18791946308724	O	alkyl hydroperoxide reductase Thiol specific antioxidant Mal allergen	MHS499	other_OG
+arCOG02098|Others	1	3.4722222222222223	E	chorismate mutase	MHS499	other_OG
+arCOG02773|Others	4	9.132420091324201	JM	nucleotidyltransferase activity	MHS499	other_OG
+arCOG02898|Others	27	42.25352112676056	S	Polyketide cyclase / dehydrase and lipid transport	MHS499	other_OG
+arCOG03514|Others	6	12.559808612440191	L	COG3666 Transposase and inactivated derivatives	MHS499	other_OG
+arCOG04493|Others	2	3.584229390681003	-	-	MHS499	other_OG
+arCOG04496|Others	1	4.504504504504505	L	Transposase	MHS499	other_OG
+arCOG04517|Others	9	26.54867256637168	-	-	MHS499	other_OG
+arCOG06401|Others	1	5.847953216374268	-	-	MHS499	other_OG
+arCOG07558|Others	1	5.128205128205128	-	-	MHS499	other_OG
+arCOG07929|Others	2	7.326007326007326	-	Transposase	MHS499	other_OG
+arCOG10822|Others	1	4.065040650406504	-	-	MHS499	other_OG
+arCOG12966|Others	5	27.994227994227995	-	-	MHS499	other_OG
+COG2801|Others	60	75.0228319451422	L	Transposase and inactivated derivatives; transposition	MHS499	other_OG
+KOG0009|Others	1	3.7878787878787876	J	cytoplasmic translation; structural constituent of ribosome	MHS499	other_OG
+KOG0017|Others	6	12.677838875796457	L	transposition, RNA-mediated	MHS499	other_OG
+KOG0027|Others	67	231.1086995840116	T	Calcium-binding protein	MHS499	other_OG
+KOG0032|Others	1	4.566210045662101	T	calmodulin-dependent protein kinase activity; protein serine/threonine kinase activity	MHS499	other_OG
+KOG0048|Others	38	85.5048985574327	ADK	RNA polymerase II transcription regulator recruiting activity	MHS499	other_OG
+KOG0052|Others	6	25.974025974025974	J	translation elongation factor activity	MHS499	other_OG
+KOG0054|Others	12	19.65429241182744	V	ATPase activity, coupled to transmembrane movement of substances	MHS499	other_OG
+KOG0102|Others	4	8.080808080808081	O	unfolded protein binding	MHS499	other_OG
+KOG0243|Others	3	14.084507042253522	Z	ATP-dependent microtubule motor activity, plus-end-directed	MHS499	other_OG
+KOG0372|Others	17	41.9753086419753	T	Serine threonine-protein phosphatase	MHS499	other_OG
+KOG0385|Others	81	293.4782608695652	KL	helicase activity	MHS499	other_OG
+KOG0417|Others	24	87.91208791208791	O	protein modification by small protein conjugation	MHS499	other_OG
+KOG0465|Others	953	664.4387889862128	J	translation elongation factor activity	MHS499	other_OG
+KOG0481|Others	3	14.925373134328357	L	DNA replication origin binding	MHS499	other_OG
+KOG0498|Others	1	4.273504273504273	U	voltage-gated potassium channel activity	MHS499	other_OG
+KOG0518|Others	4	5.649717514124294	Z	regulation of membrane repolarization during atrial cardiac muscle cell action potential	MHS499	other_OG
+KOG0530|Others	1	4.329004329004329	O	CAAX-protein geranylgeranyltransferase activity	MHS499	other_OG
+KOG0540|Others	2	7.49063670411985	I	CoA carboxylase activity	MHS499	other_OG
+KOG0698|Others	580	588.0628102471999	T	protein serine/threonine phosphatase activity	MHS499	other_OG
+KOG0715|Others	3	8.620689655172415	O	heat shock protein binding	MHS499	other_OG
+KOG0727|Others	17	53.459119496855344	O	proteasome-activating ATPase activity	MHS499	other_OG
+KOG0791|Others	9	43.47826086956522	T	slit diaphragm assembly	MHS499	other_OG
+KOG0975|Others	241	301.6493755823625	E	branched-chain-amino-acid transaminase activity	MHS499	other_OG
+KOG1029|Others	16	38.36930455635492	U	positive regulation of caveolin-mediated endocytosis	MHS499	other_OG
+KOG1062|Others	1	4.329004329004329	G	intracellular protein transport	MHS499	other_OG
+KOG1075|Others	52	117.91383219954649	E	Ribonuclease H protein; intron homing	MHS499	other_OG
+KOG1121|Others	1	3.4722222222222223	E	protein dimerization activity	MHS499	other_OG
+KOG1190|Others	18	72.28915662650603	O	regulation of secretory granule organization	MHS499	other_OG
+KOG1192|Others	1	4.761904761904762	G	Belongs to the UDP-glycosyltransferase family; transferase activity, transferring hexosyl groups	MHS499	other_OG
+KOG1204|Others	126	262.62848348265817	IQ	sepiapterin reductase	MHS499	other_OG
+KOG1205|Others	396	729.281767955801	IQ	oxidation-reduction process	MHS499	other_OG
+KOG1242|Others	2	4.329004329004329	S	protein kinase regulator activity; ribosome binding	MHS499	other_OG
+KOG1335|Others	1	3.546099290780142	C	dihydrolipoyl dehydrogenase activity	MHS499	other_OG
+KOG1339|Others	217	385.88760912356815	M	aspartic-type endopeptidase activity	MHS499	other_OG
+KOG1351|Others	6	19.607843137254903	C	ATP hydrolysis coupled proton transport	MHS499	other_OG
+KOG1368|Others	1	3.5087719298245617	E	L-allo-threonine aldolase activity	MHS499	other_OG
+KOG1377|Others	225	419.0827157896686	F	'de novo' UMP biosynthetic process	MHS499	other_OG
+KOG1381|Others	6	6.451612903225806	H	4-hydroxybenzoate decaprenyltransferase activity	MHS499	other_OG
+KOG1453|Others	267	435.39905939308215	Z	Belongs to the TRAFAC class myosin-kinesin ATPase superfamily. Myosin family; GTPase activator activity	MHS499	other_OG
+KOG1488|Others	53	98.14814814814814	J	mRNA binding	MHS499	other_OG
+KOG1568|Others	580	1107.2143852316267	U	protein processing involved in protein targeting to mitochondrion	MHS499	other_OG
+KOG1572|Others	3	9.00900900900901	T	protein tyrosine phosphatase activity	MHS499	other_OG
+KOG1716|Others	348	172.87630402384502	T	protein tyrosine/serine/threonine phosphatase activity	MHS499	other_OG
+KOG1721|Others	1	4.166666666666667	S	DNA binding; DNA-binding transcription factor activity	MHS499	other_OG
+KOG1745|Others	10	40.02669285588376	B	protein heterodimerization activity	MHS499	other_OG
+KOG1779|Others	1	4.065040650406504	J	ribosomal small subunit assembly	MHS499	other_OG
+KOG1809|Others	79	63.20847589121714	U	regulation of parkin-mediated stimulation of mitophagy in response to mitochondrial depolarization	MHS499	other_OG
+KOG2257|Others	20	116.95906432748536	S	phosphatidylinositol N-acetylglucosaminyltransferase activity	MHS499	other_OG
+KOG2362|Others	741	300.12150668286756	E	MOSC domain-containing protein	MHS499	other_OG
+KOG2497|Others	8	6.584362139917695	J	methyltransferase activity	MHS499	other_OG
+KOG2516|Others	20	56.022408963585434	M	dol-P-Man:Man(7)GlcNAc(2)-PP-Dol alpha-1,6-mannosyltransferase activity	MHS499	other_OG
+KOG2633|Others	12	41.66666666666667	KLT	ADP-D-ribose binding	MHS499	other_OG
+KOG2831|Others	16	61.30268199233716	E	ATP phosphoribosyltransferase activity	MHS499	other_OG
+KOG2872|Others	3	12.048192771084338	H	uroporphyrinogen decarboxylase activity	MHS499	other_OG
+KOG2986|Others	108	399.7629788210108	S	phosphatidate cytidylyltransferase activity	MHS499	other_OG
+KOG3048|Others	2	10.75268817204301	O	prefoldin subunit	MHS499	other_OG
+KOG3086|Others	28	71.24681933842238	O	regulation of microtubule-based process	MHS499	other_OG
+KOG3202|Others	4	17.316017316017316	U	SNAP receptor activity	MHS499	other_OG
+KOG3218|Others	9	57.69230769230769	K	DNA-directed 5'-3' RNA polymerase activity	MHS499	other_OG
+KOG3277|Others	414	892.1063414962891	S	protein import into mitochondrial matrix	MHS499	other_OG
+KOG3414|Others	4	14.9812734082397	S	spliceosomal complex assembly	MHS499	other_OG
+KOG3428|Others	42	116.66666666666667	K	spliceosomal snRNP assembly	MHS499	other_OG
+KOG3467|Others	1	3.8314176245210727	B	protein heterodimerization activity	MHS499	other_OG
+KOG3627|Others	2	7.575757575757575	O	serine-type endopeptidase activity	MHS499	other_OG
+KOG3752|Others	6	5.763688760806917	L	RNA-DNA hybrid ribonuclease activity	MHS499	other_OG
+KOG3887|Others	66	113.98963730569949	S	ras-related GTP-binding protein; regulation of TORC1 signaling	MHS499	other_OG
+KOG4444|Others	10	30.581039755351682	S	peroxisome organization	MHS499	other_OG
+KOG4475|Others	38	85.01118568232663	U	coreceptor activity involved in Wnt signaling pathway, planar cell polarity pathway	MHS499	other_OG
+KOG4567|Others	8	27.491408934707906	J	regulation of vesicle fusion	MHS499	other_OG
+KOG4624|Others	1	3.8314176245210727	S	mitochondrial respiratory chain complex IV assembly	MHS499	other_OG
+KOG4658|Others	18	41.87361050485694	S	ADP binding	MHS499	other_OG
+KOG4663|Others	6	10.256410256410257	C	electron transfer activity	MHS499	other_OG
+KOG4669|Others	2	9.950248756218905	C	ATP synthesis coupled electron transport	MHS499	other_OG
+KOG4698|Others	2	11.49425287356322	Z	EGF domain-specific O-linked N-acetylglucosamine; protein O-linked glycosylation	MHS499	other_OG
+KOG4853|Others	386	1838.095238095238	S	Component of the MICOS complex, a large protein complex of the mitochondrial inner membrane that plays crucial roles in the maintenance of crista junctions, inner membrane architecture, and formation of contact sites to the outer membrane; mitotic sister chromatid biorientation	MHS499	other_OG

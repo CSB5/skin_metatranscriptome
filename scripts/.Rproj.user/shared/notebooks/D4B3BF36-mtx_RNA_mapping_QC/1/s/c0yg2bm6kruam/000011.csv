@@ -1,0 +1,43 @@
+"0",""
+"0","#For main cohort"
+"0","metadata <- read_tsv(""../metadata/skin_mtx_metadata_fmt.txt"", show_col_types = FALSE) "
+"0",""
+"0",""
+"0","mtx_to_pull <- read_tsv(""../metadata/mtx_to_pull"", col_names = FALSE, show_col_types = FALSE) %>% pull(X1)"
+"0",""
+"0","neg_ctrl_to_pull <- metadata %>% dplyr::filter(region == ""neg-ctrl"") %>% pull(LIBID)"
+"0",""
+"0","main_cohort_QC <- read_tsv(""../metadata/MTX_QC_stats.txt"") %>%"
+"0","  dplyr::filter(LIBID %in% mtx_to_pull)"
+"1","[1mRows: [22m[34m130[39m [1mColumns: [22m[34m13[39m
+"
+"1","[36m──[39m [1mColumn specification[22m [36m───────────────────────────────────────────────────────────────────────────────────────────────────────────────[39m
+[1mDelimiter:[22m ""\t""
+[31mchr[39m  (2): LIBID, DV200
+[32mdbl[39m (11): BEFORE_FASTP, AFTER_FASTP, DUP_RATE, AFT_HUMAN_RM, AFT_RIBO_RM, AFT_DEDUP, BT2_READS_START, PANGENE_ALIGN_RATE, K2_UNCLAS...
+"
+"1","
+[36mℹ[39m Use `spec()` to retrieve the full column specification for this data.
+[36mℹ[39m Specify the column types or set `show_col_types = FALSE` to quiet this message.
+"
+"0","main_cohort_neg_ctrl_QC <- read_tsv(""../metadata/MTX_QC_stats.txt"") %>%"
+"0","  dplyr::filter(LIBID %in% neg_ctrl_to_pull)"
+"1","[1mRows: [22m[34m130[39m [1mColumns: [22m[34m13[39m
+"
+"1","[36m──[39m [1mColumn specification[22m [36m───────────────────────────────────────────────────────────────────────────────────────────────────────────────[39m
+[1mDelimiter:[22m ""\t""
+[31mchr[39m  (2): LIBID, DV200
+[32mdbl[39m (11): BEFORE_FASTP, AFTER_FASTP, DUP_RATE, AFT_HUMAN_RM, AFT_RIBO_RM, AFT_DEDUP, BT2_READS_START, PANGENE_ALIGN_RATE, K2_UNCLAS...
+"
+"1","
+[36mℹ[39m Use `spec()` to retrieve the full column specification for this data.
+[36mℹ[39m Specify the column types or set `show_col_types = FALSE` to quiet this message.
+"
+"0","#For pilot cohort QC"
+"0",""
+"0","pilot_QC_wetlab_metadata <- read_tsv(""../metadata/pilot_cohort_RNA_wetlab_QC.txt"", show_col_types = FALSE)"
+"0",""
+"0",""
+"0","#distribution of libraries per site in the pilot QC, apart from the single sample with a tapestation error"
+"0",""
+"0","plyr::count(pilot_QC_wetlab_metadata %>% dplyr::filter(!is.na(rRNA_Peak)), vars=""region"")"

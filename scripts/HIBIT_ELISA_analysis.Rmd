@@ -1,0 +1,189 @@
+---
+title: "HIBIT_ELISA_analysis"
+author: "Chiamh"
+date: "2024-11-21"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r}
+library(tidyverse)
+library(ggbreak)
+library(FSA)
+library(ggpubr)
+```
+Define functions
+
+```{r}
+
+# Function to count white spaces in a single string
+count_spaces <- function(text) {
+  space_count <- length(gregexpr(" ", text)[[1]])
+  if (space_count == 1 && gregexpr(" ", text)[[1]][1] == -1) {
+    return(0)  # Handle case where there are no spaces
+  }
+  return(space_count)
+}
+
+
+```
+
+
+Load HIBIT and ELISA datasets (A*SRL)
+
+```{r}
+
+IL1B_HIBIT <- read_tsv("../data/wet_lab/pro_IL1B_HiBIT_RLU.txt", show_col_types = FALSE)
+
+IL1B_ELISA <- read_tsv("../data/wet_lab/cleaved_IL1B_ELISA.txt", show_col_types = FALSE)
+
+
+IL1B_HIBIT$temp <- sapply(IL1B_HIBIT$condition, count_spaces)
+IL1B_HIBIT$grouping <- ifelse(IL1B_HIBIT$temp == 3, str_extract(string=IL1B_HIBIT$condition,pattern="S. [A-Za-z]*"),
+                              IL1B_HIBIT$condition)
+
+
+IL1B_ELISA$temp <- sapply(IL1B_ELISA$condition, count_spaces)
+IL1B_ELISA$grouping <- ifelse(IL1B_ELISA$temp == 3, str_extract(string=IL1B_ELISA$condition,pattern="S. [A-Za-z]*"),
+                              IL1B_ELISA$condition)
+
+condition_to_grouping <- IL1B_HIBIT %>% dplyr::select(condition, grouping) %>% unique(.)
+
+```
+
+#Plot HIBIT RLU
+
+For HIBIT (taken from the Promega kit manual)
+
+The luminescent kinetic measurements collected from endogenously expressed proteins provide several degradation parameters that can be used to characterize different PROTAC compounds or responses from different family members to the same PROTAC compound. These parameters include the degradation rate, degradation maximum (Dmax ), and DC50 . To generate degradation profiles from which to calculate these parameters, the relative luminescent units (RLUs) for each PROTAC concentration must first be normalized to the replicate averaged No PROTAC condition at every time point to account for changes in free furimazine concentration over time. This results in a degradation curve that is expressed as “Fractional RLU” (Equation 1). 
+
+Equation 1: Fractional RLU =  RLU(PROTAC)/ replicate averaged RLU(no PROTAC)
+
+Fractional RLUs were provided in the input files by Stephen
+
+Two biological repeats, three technical replicates each.
+
+Perform Kruskal-Wallis and post hoc tests
+
+```{r}
+#for each biological repeat, get the average fractional RLU of the technical replicates. 
+
+IL1B_HIBIT_avg <- IL1B_HIBIT %>% group_by(batch, condition) %>% 
+  summarise(avg_over_tech_rep=mean(RLU)) %>% ungroup()
+
+#barplot of HIBIT RLU distribution per species/experimental condition
+
+
+IL1B_HIBIT_grouping_avg <- merge(IL1B_HIBIT_avg, condition_to_grouping, by = "condition") 
+
+IL1B_HIBIT_grouping_avg_to_plot <- IL1B_HIBIT_grouping_avg %>% dplyr::filter(!grouping %in% c("untreated","1uM ANS"))
+
+#Perform Kruskal-Wallis and post hoc tests
+kruskal.test(avg_over_tech_rep ~ grouping,data=IL1B_HIBIT_grouping_avg_to_plot)
+
+IL1B_HIBIT_dunn_test <- dunnTest(avg_over_tech_rep ~ grouping,data=IL1B_HIBIT_grouping_avg_to_plot, method="bh")
+
+#https://www.datanovia.com/en/blog/ggpubr-how-to-add-p-values-generated-elsewhere-to-a-ggplot/
+#format the dunn test results to be compatible with ggpubr::stat_pvalue_manual()
+
+IL1B_HIBIT_dunn_test_df <- IL1B_HIBIT_dunn_test$res
+
+#only selected comparisons for plotting
+IL1B_HIBIT_dunn_test_df_subset <- IL1B_HIBIT_dunn_test_df %>%
+  dplyr::filter(Comparison %in% c("S. cap - S. epi",
+                                  "S. cap - S. hom",
+                                  "S. cap - S. war",
+                                  "S. epi - S. hom",
+                                  "S. epi - S. war"))
+
+
+IL1B_HIBIT_dunn_test_df_subset <- IL1B_HIBIT_dunn_test_df_subset %>% 
+  separate_wider_delim(Comparison, " - ", names=c("group1","group2")) %>% 
+  dplyr::rename("p"="P.unadj", "p.adj"="P.adj")
+
+#three significant figures
+IL1B_HIBIT_dunn_test_df_subset$p.adj_fmt <- formatC(IL1B_HIBIT_dunn_test_df_subset$p.adj, format = "e", digits = 2)
+
+```
+Boxplot of IL1B HIBIT
+
+```{r}
+IL1B_HIBIT_plot <- ggplot(IL1B_HIBIT_grouping_avg_to_plot , aes(x=grouping, y=avg_over_tech_rep)) + 
+  geom_boxplot() + theme_classic() + 
+  ylab("pro-IL-1B Relative Light Units") + 
+  theme(axis.title.x = element_blank()) + 
+  stat_pvalue_manual(
+    IL1B_HIBIT_dunn_test_df_subset, label = "p.adj_fmt",
+    y.position = 2.3, step.increase = 0.1) + annotate("text", x=2.5, y = 4, 
+                                                      label ="Kruskal-Wallis chi-squared = 19.854, df = 5, p-value = 0.001331")
+      
+
+ggsave(plot=IL1B_HIBIT_plot, filename="../plots/IL1B_HIBIT_plot.pdf", height =7, width = 5)
+
+IL1B_HIBIT_plot
+
+```
+Repeat the same logic for ELISA results
+
+```{r}
+
+#for each biological repeat, get the average fractional RLU of the technical replicates. 
+
+IL1B_ELISA_avg <- IL1B_ELISA %>% group_by(batch, condition) %>% 
+  summarise(avg_over_tech_rep=mean(concentration)) %>% ungroup()
+
+#barplot of IL1B concentrations per species/experimental condition
+
+IL1B_ELISA_grouping_avg <- merge(IL1B_ELISA_avg, condition_to_grouping, by = "condition")
+
+IL1B_ELISA_grouping_avg_to_plot <- IL1B_ELISA_grouping_avg %>% dplyr::filter(!grouping %in% c("untreated","1uM ANS"))
+
+#Perform Kruskal-Wallis and post hoc tests
+kruskal.test(avg_over_tech_rep ~ grouping,data=IL1B_ELISA_grouping_avg_to_plot)
+#Kruskal-Wallis chi-squared = 33.864, df = 5, p-value = 2.534e-06
+
+IL1B_ELISA_dunn_test <- dunnTest(avg_over_tech_rep ~ grouping,data=IL1B_ELISA_grouping_avg_to_plot, method="bh")
+
+#https://www.datanovia.com/en/blog/ggpubr-how-to-add-p-values-generated-elsewhere-to-a-ggplot/
+#format the dunn test results to be compatible with ggpubr::stat_pvalue_manual()
+
+IL1B_ELISA_dunn_test_df <- IL1B_ELISA_dunn_test$res
+
+#only selected comparisons for plotting
+IL1B_ELISA_dunn_test_df_subset <- IL1B_ELISA_dunn_test_df %>%
+  dplyr::filter(Comparison %in% c("S. cap - S. epi",
+                                  "S. cap - S. hom",
+                                  "S. cap - S. war",
+                                  "S. epi - S. hom",
+                                  "S. epi - S. war"))
+
+
+IL1B_ELISA_dunn_test_df_subset <- IL1B_ELISA_dunn_test_df_subset %>% 
+  separate_wider_delim(Comparison, " - ", names=c("group1","group2")) %>% 
+  dplyr::rename("p"="P.unadj", "p.adj"="P.adj")
+
+#scientific notation
+IL1B_ELISA_dunn_test_df_subset$p.adj_fmt <- formatC(IL1B_ELISA_dunn_test_df_subset$p.adj, format = "e", digits = 2)
+
+
+
+```
+ELISA boxplot
+
+
+```{r}
+IL1B_ELISA_plot <- ggplot(IL1B_ELISA_grouping_avg %>% dplyr::filter(!grouping %in% c("untreated","1uM ANS")), aes(x=grouping, y=avg_over_tech_rep)) + geom_boxplot() + theme_classic() +
+  ylab("cleaved IL-1B concentration") + theme(axis.title.x = element_blank()) +
+    stat_pvalue_manual(
+    IL1B_ELISA_dunn_test_df_subset, label = "p.adj_fmt",
+    y.position = 300, step.increase = 0.1) + annotate("text", x=2.5, y = 525, 
+                                                      label ="Kruskal-Wallis chi-squared = 33.864, df = 5, p-value = 2.534e-06")
+
+ggsave(plot=IL1B_ELISA_plot, filename="../plots/IL1B_ELISA_plot.pdf", height =7, width = 5)
+
+IL1B_ELISA_plot
+```

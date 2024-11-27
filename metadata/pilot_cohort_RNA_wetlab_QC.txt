@@ -1,0 +1,73 @@
+subj_region	molecule_type	region	rna_conc	RIN	comments
+SMT021_Sc	RNA	Sc	0.804	3.7	
+SMT021_Ch	RNA	Ch	0.781	3.1	
+SMT021_Vf	RNA	Vf	0.131	0	
+SMT021_Tw	RNA	Tw	3.21	4.7	
+SMT021_Ac	RNA	Ac	NA	NA	Tapestation error, but library can be built
+SMT017_Sc	RNA	Sc	1.01	4.1	
+SMT017_Ch	RNA	Ch	9.82	5.2	
+SMT017_Tw	RNA	Tw	0.166	0	
+SMT017_Ac	RNA	Ac	3.08	5.5	Not sequenced because paired metagenomic library failed
+SMT017_Vf	RNA	Vf	0.283	0	Not sequenced because paired metagenomic library failed
+SMT013_Sc	RNA	Sc	1.1	3.4	
+SMT013_Ch	RNA	Ch	0.515	2.7	
+SMT013_Ac	RNA	Ac	0.145	0	
+SMT013_Vf	RNA	Vf	0.08	0	
+SMT013_Tw	RNA	Tw	0.068	0	
+SMT008_Sc	RNA	Sc	0.769	4.5	
+SMT008_Ac	RNA	Ac	1.13	4	
+SMT008_Vf	RNA	Vf	0.0932	0	
+SMT008_Tw	RNA	Tw	1.48	3.5	
+SMT008_Ch	RNA	Ch	2	5.6	Not sequenced because paired metagenomic library failed
+SMT006_Sc	RNA	Sc	0.842	3.2	
+SMT006_Ch	RNA	Ch	4.22	5.2	
+SMT006_Ac	RNA	Ac	0.106	0	
+SMT006_Vf	RNA	Vf	0.0334	0	
+SMT028_T1_Sc	RNA	Sc	0.37	2.4	
+SMT028_T1_Ch	RNA	Ch	0.703	3.5	
+SMT028_T1_Ac	RNA	Ac	0.195	0	
+SMT028_T1_Vf	RNA	Vf	0.18	0	
+SMT028_T1_Tw	RNA	Tw	0.132	0	
+SMT029_T1_Sc	RNA	Sc	0.275	2.9	
+SMT029_T1_Ch	RNA	Ch	2.32	3.9	
+SMT029_T1_Ac	RNA	Ac	0.47	3.5	
+SMT029_T1_Vf	RNA	Vf	0.18	0	
+SMT029_T1_Tw	RNA	Tw	0.712	3.7	
+SMT030_T1_Sc	RNA	Sc	0.541	4.3	
+SMT030_T1_Ch	RNA	Ch	0.976	4.2	
+SMT030_T1_Ac	RNA	Ac	0.246	2.5	
+SMT030_T1_Vf	RNA	Vf	0.18	0	
+SMT030_T1_Tw	RNA	Tw	0.314	3.8	
+Neg012	RNA	neg_ctrl	0.249	0	
+SMT028_T2_Sc	RNA	Sc	0.295	2.2	
+SMT028_T2_Ch	RNA	Ch	0.332	2.9	
+SMT028_T2_Ac	RNA	Ac	0.245	0	metatranscriptomic library construction failed
+SMT028_T2_Vf	RNA	Vf	0.24	0	
+SMT028_T2_Tw	RNA	Tw	0.335	3	
+SMT029_T2_Sc	RNA	Sc	0.465	3	
+SMT029_T2_Ch	RNA	Ch	2.32	4.1	
+SMT029_T2_Ac	RNA	Ac	0.186	0	
+SMT029_T2_Vf	RNA	Vf	0.433	2.6	
+SMT029_T2_Tw	RNA	Tw	1.12	2.8	
+SMT030_T2_Sc	RNA	Sc	0.265	3	
+SMT030_T2_Ch	RNA	Ch	0.742	3.5	
+SMT030_T2_Ac	RNA	Ac	0.394	2.6	
+SMT030_T2_Vf	RNA	Vf	0.236	0	
+SMT030_T2_Tw	RNA	Tw	0.328	2.5	
+Neg013	RNA	neg_ctrl	0.211	0	
+SMT028_T3_Sc	RNA	Sc	0.324	2.4	
+SMT028_T3_Ch	RNA	Ch	0.369	2.2	
+SMT028_T3_Ac	RNA	Ac	0.315	3.9	metatranscriptomic library construction failed
+SMT028_T3_Vf	RNA	Vf	0.302	2.7	metatranscriptomic library construction failed
+SMT028_T3_Tw	RNA	Tw	0.397	2.6	
+SMT029_T3_Sc	RNA	Sc	0.38	2.5	
+SMT029_T3_Ch	RNA	Ch	1.11	3.2	
+SMT029_T3_Ac	RNA	Ac	0.325	2.9	
+SMT029_T3_Vf	RNA	Vf	0.517	2.8	
+SMT029_T3_Tw	RNA	Tw	1.92	4.2	
+SMT030_T3_Sc	RNA	Sc	0.38	3.4	
+SMT030_T3_Ch	RNA	Ch	0.788	3.1	
+SMT030_T3_Ac	RNA	Ac	0.291	0	
+SMT030_T3_Vf	RNA	Vf	0.431	2.4	
+SMT030_T3_Tw	RNA	Tw	0.335	3.2	
+Neg014	RNA	neg_ctrl	0.308	0	

@@ -1,0 +1,426 @@
+fungi_OG	read_count_sum	RPK_sum	fungi_eggnog_cat	fungi_eggnog_desc	LIBID	feature_class
+3NTVH|Fungi	4	7.575757575757575	Q	amine oxidase	MHS487	fungi_OG
+3NTVQ|Fungi	1	4.975124378109452	S	mRNA processing protein	MHS487	fungi_OG
+3NTVR|Fungi	1	4.444444444444445	F	Golgi to endosome transport protein	MHS487	fungi_OG
+3NTW3|Fungi	3	5.813953488372093	T	transporter	MHS487	fungi_OG
+3NTW9|Fungi	2	7.037037037037036	J	Belongs to the universal ribosomal protein uL5 family	MHS487	fungi_OG
+3NTWE|Fungi	1	4.444444444444445	C	Belongs to the mitochondrial carrier (TC 2.A.29) family	MHS487	fungi_OG
+3NTWM|Fungi	3	6.578947368421052	E	The AROM polypeptide catalyzes 5 consecutive enzymatic reactions in prechorismate polyaromatic amino acid biosynthesis	MHS487	fungi_OG
+3NTWU|Fungi	1	3.584229390681003	T	serine threonine-protein phosphatase	MHS487	fungi_OG
+3NTY6|Fungi	2	10.582010582010582	S	Transcription factor	MHS487	fungi_OG
+3NTYE|Fungi	5	13.573437162016006	S	NA	MHS487	fungi_OG
+3NTYJ|Fungi	2	3.546099290780142	G	Belongs to the PI3 PI4-kinase family	MHS487	fungi_OG
+3NTZC|Fungi	3	4.8076923076923075	M	dolichyl-phosphate beta-glucosyltransferase	MHS487	fungi_OG
+3NTZT|Fungi	2	3.7243947858472994	O	gpi-anchor transamidase	MHS487	fungi_OG
+3NU07|Fungi	3	6.993006993006993	J	Belongs to the universal ribosomal protein uS3 family	MHS487	fungi_OG
+3NU0X|Fungi	1	3.7878787878787876	K	Rna polymerase ii transcription elongation factor	MHS487	fungi_OG
+3NU1T|Fungi	2	4.662004662004662	U	Component of the ERMES MDM complex, which serves as a molecular tether to connect the endoplasmic reticulum and mitochondria. Components of this complex are involved in the control of mitochondrial shape and protein biogenesis and may function in phospholipid exchange. The MDM12-MMM1 subcomplex functions in the major beta-barrel assembly pathway that is responsible for biogenesis of all outer membrane beta-barrel proteins, and acts in a late step after the SAM complex. The MDM10-MDM12-MMM1 subcomplex further acts in the TOM40-specific pathway after the action of the MDM12-MMM1 complex. Essential for establishing and maintaining the structure of mitochondria and maintenance of mtDNA nucleoids	MHS487	fungi_OG
+3NU21|Fungi	2	7.662835249042145	DO	Cell cycle regulatory protein	MHS487	fungi_OG
+3NU2T|Fungi	1	3.367003367003367	Q	resistance protein	MHS487	fungi_OG
+3NU3I|Fungi	2	3.5650623885918	P	Belongs to the Ca(2 ) cation antiporter (CaCA) (TC 2.A.19) family	MHS487	fungi_OG
+3NU3S|Fungi	1	5.952380952380952	G	Transporter	MHS487	fungi_OG
+3NU40|Fungi	1	3.4722222222222223	G	general alpha-glucoside permease	MHS487	fungi_OG
+3NU4F|Fungi	2	4.301075268817204	A	splicing factor	MHS487	fungi_OG
+3NU51|Fungi	7	16.98211044853513	P	Belongs to the major facilitator superfamily. Sugar transporter (TC 2.A.1.1) family	MHS487	fungi_OG
+3NU5B|Fungi	3	8	A	small nucleolar ribonucleoprotein complex subunit	MHS487	fungi_OG
+3NU62|Fungi	1	4.444444444444445	S	periodic tryptophan protein	MHS487	fungi_OG
+3NU68|Fungi	2	6.289308176100628	G	Glycosyl hydrolase	MHS487	fungi_OG
+3NU6J|Fungi	2	8.333333333333334	Q	Cytochrome p-450	MHS487	fungi_OG
+3NU6M|Fungi	2	11.904761904761903	O	26s proteasome non-atpase regulatory subunit 11	MHS487	fungi_OG
+3NU6Q|Fungi	1	4.830917874396135	DT	serine threonine-protein phosphatase	MHS487	fungi_OG
+3NU7M|Fungi	1	3.4013605442176873	K	Fungal specific transcription factor domain	MHS487	fungi_OG
+3NU86|Fungi	2	6.700336700336701	Z	Belongs to the actin family	MHS487	fungi_OG
+3NU88|Fungi	2	4.662004662004662	J	translational activator	MHS487	fungi_OG
+3NU8T|Fungi	1	3.4013605442176873	C	oxidoreductase	MHS487	fungi_OG
+3NU9F|Fungi	2	6.289308176100628	S	)-reductase	MHS487	fungi_OG
+3NU9I|Fungi	2	4.140786749482402	L	Serine threonine-protein kinase TOR	MHS487	fungi_OG
+3NU9V|Fungi	1	4.166666666666667	U	vacuolar protein 8	MHS487	fungi_OG
+3NUAT|Fungi	2	9.913793103448278	P	Catalyzes the first intracellular reaction of sulfate assimilation, forming adenosine-5'-phosphosulfate (APS) from inorganic sulfate and ATP. Plays an important role in sulfate activation as a component of the biosynthesis pathway of sulfur- containing amino acids	MHS487	fungi_OG
+3NUB4|Fungi	1	4.444444444444445	J	60S ribosomal protein	MHS487	fungi_OG
+3NUBN|Fungi	7	13.486213486213487	J	Belongs to the RNR ribonuclease family	MHS487	fungi_OG
+3NUBV|Fungi	1	3.7878787878787876	J	Elongation factor	MHS487	fungi_OG
+3NUCF|Fungi	3	4.716981132075472	B	Rsc complex subunit	MHS487	fungi_OG
+3NUCI|Fungi	1	3.7037037037037033	G	Glyceraldehyde-3-phosphate dehydrogenase	MHS487	fungi_OG
+3NUCJ|Fungi	1	3.4013605442176873	DO	20s cyclosome subunit (apc1	MHS487	fungi_OG
+3NUDP|Fungi	1	3.367003367003367	G	adenosine kinase	MHS487	fungi_OG
+3NUE9|Fungi	3	8.638128041113115	T	Duf300 domain protein	MHS487	fungi_OG
+3NUET|Fungi	2	4.385964912280701	J	ribosomal protein	MHS487	fungi_OG
+3NUEZ|Fungi	1	5.952380952380952	S	RAS-like protein	MHS487	fungi_OG
+3NUFR|Fungi	4	9.523809523809524	D	Checkpoint protein	MHS487	fungi_OG
+3NUFS|Fungi	2	5.089058524173028	C	Belongs to the mitochondrial carrier (TC 2.A.29) family	MHS487	fungi_OG
+3NUG4|Fungi	2	6.5359477124183005	S	NA	MHS487	fungi_OG
+3NUGI|Fungi	1	4.444444444444445	Q	Methyltransferase	MHS487	fungi_OG
+3NUH2|Fungi	1	4.901960784313726	A	poly-A polymerase	MHS487	fungi_OG
+3NUHJ|Fungi	2	3.546099290780142	S	Duf726 domain protein	MHS487	fungi_OG
+3NUHM|Fungi	1	3.4722222222222223	S	Transcription factor	MHS487	fungi_OG
+3NUHY|Fungi	2	3.603603603603603	T	Protein tyrosine kinase	MHS487	fungi_OG
+3NUIB|Fungi	2	3.490401396160559	L	Belongs to the MCM family	MHS487	fungi_OG
+3NUJN|Fungi	1	4.016064257028113	O	Retinoblastoma-binding protein	MHS487	fungi_OG
+3NUKK|Fungi	6	12.221518319079294	C	Cytochrome c oxidase is the component of the respiratory chain that catalyzes the reduction of oxygen to water. Subunits 1- 3 form the functional core of the enzyme complex. Subunit 2 transfers the electrons from cytochrome c via its binuclear copper A center to the bimetallic center of the catalytic subunit 1	MHS487	fungi_OG
+3NUKN|Fungi	2	6.802721088435375	S	golgi integral membrane protein	MHS487	fungi_OG
+3NUKP|Fungi	4	9.324009324009324	G	glycosyltransferase family 15 protein	MHS487	fungi_OG
+3NUM6|Fungi	6	14.224664224664224	H	UDP-galactopyranose mutase	MHS487	fungi_OG
+3NUMX|Fungi	2	4.694835680751174	C	Belongs to the isocitrate lyase PEP mutase superfamily. Isocitrate lyase family	MHS487	fungi_OG
+3NUMZ|Fungi	1	4.016064257028113	E	Glutamate synthase	MHS487	fungi_OG
+3NUN0|Fungi	2	5.698005698005699	E	Amino acid permease	MHS487	fungi_OG
+3NUN7|Fungi	2	7.4074074074074066	L	IdgA domain protein	MHS487	fungi_OG
+3NUNK|Fungi	1	4.566210045662101	T	Adenylate cyclase	MHS487	fungi_OG
+3NUPF|Fungi	3	5.714285714285714	BK	Cotranslationally removes the N-terminal methionine from nascent proteins. The N-terminal methionine is often cleaved when the second residue in the primary sequence is small and uncharged (Met-Ala-, Cys, Gly, Pro, Ser, Thr, or Val)	MHS487	fungi_OG
+3NUQC|Fungi	1	4.385964912280701	M	dolichol-phosphate mannosyltransferase	MHS487	fungi_OG
+3NUQM|Fungi	10	11.778563015312132	C	Subunits I, II and III form the functional core of the enzyme complex	MHS487	fungi_OG
+3NURT|Fungi	1	5.05050505050505	O	proteasome regulatory	MHS487	fungi_OG
+3NUSI|Fungi	1	3.367003367003367	O	Beta subunit	MHS487	fungi_OG
+3NUU1|Fungi	1	3.623188405797101	E	Belongs to the class-III pyridoxal-phosphate-dependent aminotransferase family	MHS487	fungi_OG
+3NUUI|Fungi	1	4.385964912280701	I	transcriptional repressor	MHS487	fungi_OG
+3NUVT|Fungi	2	4.385964912280701	K	cellular morphogenesis regulator	MHS487	fungi_OG
+3NUVV|Fungi	2	3.9447731755424065	S	GTPase that associates with pre-60S ribosomal subunits in the nucleolus and is required for their nuclear export and maturation	MHS487	fungi_OG
+3NUW7|Fungi	2	5.2493438320209975	U	mitochondrial outer membrane	MHS487	fungi_OG
+3NUWB|Fungi	14	19.774011299435028	P	Arsenical-resistance protein	MHS487	fungi_OG
+3NUWF|Fungi	1	3.7878787878787876	G	glycoside hydrolase family 16 protein	MHS487	fungi_OG
+3NUWY|Fungi	4	5.602240896358544	U	Functions as a sorting receptor in the Golgi compartment required for the intracellular sorting and delivery of soluble vacuolar proteins, like carboxypeptidase Y (CPY) and proteinase A	MHS487	fungi_OG
+3NUWZ|Fungi	2	5.420054200542006	M	Phospholipase c	MHS487	fungi_OG
+3NUX0|Fungi	2	6.472491909385114	L	Structure-specific nuclease with 5'-flap endonuclease and 5'-3' exonuclease activities involved in DNA replication and repair. During DNA replication, cleaves the 5'-overhanging flap structure that is generated by displacement synthesis when DNA polymerase encounters the 5'-end of a downstream Okazaki fragment. It enters the flap from the 5'-end and then tracks to cleave the flap base, leaving a nick for ligation. Also involved in the long patch base excision repair (LP-BER) pathway, by cleaving within the apurinic apyrimidinic (AP) site-terminated flap. Acts as a genome stabilization factor that prevents flaps from equilibrating into structurs that lead to duplications and deletions. Also possesses 5'-3' exonuclease activity on nicked or gapped double- stranded DNA, and exhibits RNase H activity. Also involved in replication and repair of rDNA and in repairing mitochondrial DNA	MHS487	fungi_OG
+3NUXS|Fungi	6	8.51063829787234	M	mechanosensitive ion channel	MHS487	fungi_OG
+3NUY0|Fungi	2	5.46448087431694	C	Succinyl-CoA synthetase functions in the citric acid cycle (TCA), coupling the hydrolysis of succinyl-CoA to the synthesis of ATP and thus represents the only step of substrate- level phosphorylation in the TCA. The beta subunit provides nucleotide specificity of the enzyme and binds the substrate succinate, while the binding sites for coenzyme A and phosphate are found in the alpha subunit	MHS487	fungi_OG
+3NUY1|Fungi	1	6.172839506172839	U	Vacuolar protein sorting-associated protein	MHS487	fungi_OG
+3NUZQ|Fungi	2	4.219409282700422	J	Multifunctional protein that exhibits several independent functions at different levels of the cellular processes. 5'-3' exonuclease component of the nonsense-mediated mRNA decay (NMD) which is a highly conserved mRNA degradation pathway, an RNA surveillance system whose role is to identify and rid cells of mRNA with premature termination codons and thus prevents accumulation of potentially harmful truncated proteins	MHS487	fungi_OG
+3NUZU|Fungi	2	4.938271604938271	O	Ubiquitin fusion degradation protein	MHS487	fungi_OG
+3NV1F|Fungi	2	3.603603603603603	J	Belongs to the eukaryotic ribosomal protein eL15 family	MHS487	fungi_OG
+3NV2Q|Fungi	1	6.0606060606060606	C	Belongs to the mitochondrial carrier (TC 2.A.29) family	MHS487	fungi_OG
+3NV3F|Fungi	3	6.83922558922559	G	Belongs to the phosphohexose mutase family	MHS487	fungi_OG
+3NV4A|Fungi	6	6.8965517241379315	Q	(ABC) transporter	MHS487	fungi_OG
+3NV4B|Fungi	1	3.663003663003663	I	choline-phosphate cytidylyltransferase	MHS487	fungi_OG
+3NV59|Fungi	1	4.219409282700422	Z	Functions as actin-binding component of the Arp2 3 complex which is involved in regulation of actin polymerization and together with an activating nucleation-promoting factor (NPF) mediates the formation of branched actin networks	MHS487	fungi_OG
+3NV5G|Fungi	1	4.385964912280701	E	Amino acid transporter	MHS487	fungi_OG
+3NV5S|Fungi	1	4.444444444444445	KOT	Belongs to the class I-like SAM-binding methyltransferase superfamily. Protein arginine N- methyltransferase family	MHS487	fungi_OG
+3NV5Y|Fungi	1	5.649717514124294	K	DNA-dependent RNA polymerase catalyzes the transcription of DNA into RNA using the four ribonucleoside triphosphates as substrates	MHS487	fungi_OG
+3NV61|Fungi	2	3.766478342749529	O	zinc metalloprotease	MHS487	fungi_OG
+3NV6T|Fungi	1	3.745318352059925	A	u3 small nucleolar rna associated protein	MHS487	fungi_OG
+3NV81|Fungi	5	14.763014763014764	P	transporter	MHS487	fungi_OG
+3NV8D|Fungi	3	6.25	O	regulatory subunit	MHS487	fungi_OG
+3NV9V|Fungi	1	3.875968992248062	P	Zinc cadmium resistance protein	MHS487	fungi_OG
+3NVAH|Fungi	2	9.00900900900901	C	The pyruvate dehydrogenase complex catalyzes the overall conversion of pyruvate to acetyl-CoA and CO(2)	MHS487	fungi_OG
+3NVAW|Fungi	1	3.7878787878787876	O	Belongs to the peptidase M28 family	MHS487	fungi_OG
+3NVB2|Fungi	4	9.46024617431803	U	Endoplasmic reticulum-golgi intermediate compartment protein	MHS487	fungi_OG
+3NVBR|Fungi	1	3.9215686274509802	H	glutamate-cysteine ligase	MHS487	fungi_OG
+3NVBS|Fungi	2	4.016064257028113	E	chorismate mutase	MHS487	fungi_OG
+3NVCF|Fungi	1	4.273504273504273	H	Catalyzes the conversion of D-ribulose 5-phosphate to formate and 3,4-dihydroxy-2-butanone 4-phosphate	MHS487	fungi_OG
+3NVDF|Fungi	1	3.367003367003367	H	acetolactate synthase	MHS487	fungi_OG
+3NVEK|Fungi	2	3.992015968063872	B	SNF2 family	MHS487	fungi_OG
+3NVF8|Fungi	1	3.663003663003663	T	Belongs to the protein kinase superfamily	MHS487	fungi_OG
+3NVFW|Fungi	1	4.065040650406504	EG	Belongs to the ALG6 ALG8 glucosyltransferase family	MHS487	fungi_OG
+3NVG2|Fungi	1	4.385964912280701	Q	Belongs to the multicopper oxidase family	MHS487	fungi_OG
+3NVGI|Fungi	1	4.694835680751174	E	Belongs to the class-III pyridoxal-phosphate-dependent aminotransferase family	MHS487	fungi_OG
+3NVGU|Fungi	2	7.751937984496124	C	Belongs to the complex I 49 kDa subunit family	MHS487	fungi_OG
+3NVI5|Fungi	2	7.092198581560284	E	prephenate dehydrogenase	MHS487	fungi_OG
+3NVIS|Fungi	6	15.821535821535821	C	Dehydrogenase	MHS487	fungi_OG
+3NVJ0|Fungi	1	3.5087719298245617	T	nucleotide exchange factor	MHS487	fungi_OG
+3NVJ6|Fungi	1	4.329004329004329	S	reductase	MHS487	fungi_OG
+3NVJW|Fungi	4	10.92896174863388	L	Belongs to the MCM family	MHS487	fungi_OG
+3NVJX|Fungi	2	4.11522633744856	P	Belongs to the purine-cytosine permease (2.A.39) family	MHS487	fungi_OG
+3NVK8|Fungi	2	4.016064257028113	U	Belongs to the STXBP unc-18 SEC1 family	MHS487	fungi_OG
+3NVKF|Fungi	1	3.367003367003367	Q	tRNA (uracil-5-)-methyltransferase TRM9	MHS487	fungi_OG
+3NVKH|Fungi	1	4.830917874396135	O	Belongs to the AAA ATPase family	MHS487	fungi_OG
+3NVKQ|Fungi	1	3.623188405797101	E	glutamate carboxypeptidase	MHS487	fungi_OG
+3NVKT|Fungi	1	5.208333333333333	K	transferase caf17, mitochondrial	MHS487	fungi_OG
+3NVMA|Fungi	2	3.5087719298245617	U	TBC domain protein	MHS487	fungi_OG
+3NVN8|Fungi	1	3.4013605442176873	I	long-chain-fatty-acid--CoA ligase	MHS487	fungi_OG
+3NVPM|Fungi	3	3.4722222222222223	I	phospholipase C	MHS487	fungi_OG
+3NVPN|Fungi	1	4.219409282700422	E	methionine permease	MHS487	fungi_OG
+3NVPX|Fungi	2	8.17384370015949	H	Belongs to the class I-like SAM-binding methyltransferase superfamily. RNA M5U methyltransferase family	MHS487	fungi_OG
+3NVQD|Fungi	4	9.481135138645367	S	Allomyces macrogynus ATCC 38327	MHS487	fungi_OG
+3NVRH|Fungi	2	8.130081300813009	D	Nucleotide binding protein	MHS487	fungi_OG
+3NVRK|Fungi	1	4.62962962962963	K	Acts as subunit of the RNA polymerase II elongator complex, which is a histone acetyltransferase component of the RNA polymerase II (Pol II) holoenzyme and is involved in transcriptional elongation	MHS487	fungi_OG
+3NVS0|Fungi	2	4.62962962962963	KU	vesicle-mediated transport protein Bfr2 Che-1	MHS487	fungi_OG
+3NVTP|Fungi	1	3.7878787878787876	O	Fk506-binding protein	MHS487	fungi_OG
+3NVUH|Fungi	5	13.357104418556933	S	Actin-interacting protein	MHS487	fungi_OG
+3NVUU|Fungi	5	11.337868480725623	E	Aminotransferase	MHS487	fungi_OG
+3NVVI|Fungi	1	3.663003663003663	Q	alcohol dehydrogenase	MHS487	fungi_OG
+3NVVV|Fungi	1	3.546099290780142	T	DUF89 domain-containing protein	MHS487	fungi_OG
+3NVVZ|Fungi	2	3.4722222222222223	U	GARP complex subunit Vps53	MHS487	fungi_OG
+3NVWZ|Fungi	1	3.367003367003367	C	Belongs to the mitochondrial carrier (TC 2.A.29) family	MHS487	fungi_OG
+3NVYE|Fungi	2	4.444444444444445	U	Transmembrane emp24 domain-containing protein	MHS487	fungi_OG
+3NVZ7|Fungi	2	3.623188405797101	Q	)-reductase	MHS487	fungi_OG
+3NVZQ|Fungi	5	8.59106529209622	C	Belongs to the complex I 30 kDa subunit family	MHS487	fungi_OG
+3NVZV|Fungi	3	7.190340523673857	H	c-1-tetrahydrofolate synthase	MHS487	fungi_OG
+3NW07|Fungi	2	4.385964912280701	L	DNA polymerase	MHS487	fungi_OG
+3NW09|Fungi	1	6.289308176100628	K	Component of the FACT complex, a general chromatin factor that acts to reorganize nucleosomes. The FACT complex is involved in multiple processes that require DNA as a template such as mRNA elongation, DNA replication and DNA repair. During transcription elongation the FACT complex acts as a histone chaperone that both destabilizes and restores nucleosomal structure. It facilitates the passage of RNA polymerase II and transcription by promoting the dissociation of one histone H2A-H2B dimer from the nucleosome, then subsequently promotes the reestablishment of the nucleosome following the passage of RNA polymerase II (By similarity)	MHS487	fungi_OG
+3NW0E|Fungi	1	3.3333333333333335	D	plasma membrane channel protein	MHS487	fungi_OG
+3NW0V|Fungi	2	5.698005698005699	F	reductase small	MHS487	fungi_OG
+3NW3B|Fungi	2	3.5087719298245617	L	Catalytic subunit of the poly(A)-nuclease (PAN) deadenylation complex, one of two cytoplasmic mRNA deadenylases involved in mRNA turnover. PAN specifically shortens poly(A) tails of RNA and the activity is stimulated by poly(A)-binding protein PAB1. PAN deadenylation is followed by rapid degradation of the shortened mRNA tails by the CCR4-NOT complex. Deadenylated mRNAs are then degraded by two alternative mechanisms, namely exosome- mediated 3'-5' exonucleolytic degradation, or deadenlyation- dependent mRNA decaping and subsequent 5'-3' exonucleolytic degradation by XRN1. May also be involved in post-transcriptional maturation of mRNA poly(A) tails	MHS487	fungi_OG
+3NW40|Fungi	1	4.694835680751174	P	Belongs to the major facilitator superfamily. Sugar transporter (TC 2.A.1.1) family	MHS487	fungi_OG
+3NW41|Fungi	2	4.535147392290249	A	RNA helicase	MHS487	fungi_OG
+3NW49|Fungi	3	5.291005291005291	E	Methyltransferase	MHS487	fungi_OG
+3NW62|Fungi	2	4.415011037527593	I	SEC14 cytosolic factor	MHS487	fungi_OG
+3NW6F|Fungi	2	6.802721088435375	L	Forms a fork protection complex (FPC) with csm3 and which is required for chromosome segregation during meiosis and DNA damage repair. FPC coordinates leading and lagging strand synthesis and moves with the replication fork. FPC stabilizes replication forks in a configuration that is recognized by replication checkpoint sensors (By similarity)	MHS487	fungi_OG
+3NW6U|Fungi	13	25.948103792415168	T	serine threonine protein kinase	MHS487	fungi_OG
+3NW7X|Fungi	2	4.975124378109452	IQ	Gtpase activating protein	MHS487	fungi_OG
+3NW8J|Fungi	2	3.8535645472061657	C	Catalyzes a 2-step reaction, involving the ATP-dependent carboxylation of the covalently attached biotin in the first step and the transfer of the carboxyl group to pyruvate in the second	MHS487	fungi_OG
+3NW8X|Fungi	2	3.5087719298245617	T	Phosphatidylinositol 4-kinase	MHS487	fungi_OG
+3NW9B|Fungi	1	4.273504273504273	E	homoserine dehydrogenase	MHS487	fungi_OG
+3NW9F|Fungi	2	4.11522633744856	T	Gtpase-activating protein gyp7	MHS487	fungi_OG
+3NW9J|Fungi	1	4.901960784313726	S	F-box and WD40 domain protein	MHS487	fungi_OG
+3NW9W|Fungi	2	4.140786749482402	Q	Belongs to the cytochrome P450 family	MHS487	fungi_OG
+3NWAW|Fungi	2	3.5087719298245617	A	helicase	MHS487	fungi_OG
+3NWB2|Fungi	2	3.418803418803419	S	Receptor	MHS487	fungi_OG
+3NWBJ|Fungi	1	3.623188405797101	D	Spindle assembly checkpoint component mad1	MHS487	fungi_OG
+3NWBN|Fungi	2	9.523809523809524	D	phosphatase-associated protein	MHS487	fungi_OG
+3NWBT|Fungi	4	7.619047619047619	C	Vacuolar ATPase is responsible for acidifying a variety of intracellular compartments in eukaryotic cells. The active enzyme consists of a catalytic V1 domain attached to an integral membrane V0 proton pore complex. This subunit is a non-integral membrane component of the membrane pore domain and is required for proper assembly of the V0 sector. Might be involved in the regulated assembly of V1 subunits onto the membrane sector or alternatively may prevent the passage of protons through V0 pores	MHS487	fungi_OG
+3NWD0|Fungi	1	3.367003367003367	G	Fggy-family carbohydrate kinase	MHS487	fungi_OG
+3NWD3|Fungi	1	4.62962962962963	UY	Importin beta-2 subunit	MHS487	fungi_OG
+3NWDM|Fungi	1	3.7878787878787876	E	Aldolase	MHS487	fungi_OG
+3NWE4|Fungi	1	3.9215686274509802	F	Provides the precursors necessary for DNA synthesis. Catalyzes the biosynthesis of deoxyribonucleotides from the corresponding ribonucleotides	MHS487	fungi_OG
+3NWE5|Fungi	6	8.032128514056225	O	proteasome subunit alpha	MHS487	fungi_OG
+3NWE7|Fungi	4	7.448789571694599	DZ	dynactin	MHS487	fungi_OG
+3NWF8|Fungi	1	3.663003663003663	O	Proteasome subunit beta	MHS487	fungi_OG
+3NWFI|Fungi	2	5.2493438320209975	K	RNA polymerase II	MHS487	fungi_OG
+3NWHD|Fungi	5	4.480286738351254	H	Catalyzes the radical-mediated insertion of two sulfur atoms into the C-6 and C-8 positions of the octanoyl moiety bound to the lipoyl domains of lipoate-dependent enzymes, thereby converting the octanoylated domains into lipoylated derivatives	MHS487	fungi_OG
+3NWHY|Fungi	2	7.017543859649123	G	Glycoside hydrolase family 92 protein	MHS487	fungi_OG
+3NWI3|Fungi	3	4.8076923076923075	L	ATP-dependent DNA helicase important for chromosome transmission and normal cell cycle progression in G(2) M (By similarity). May have a role in changing DNA topology to allow the loading of proteins involved in maintaining sister chromatid cohesion in the vicinity of the centromeres (By similarity). Has a specific role in chromosome segregation during meiosis II (By similarity)	MHS487	fungi_OG
+3NWIA|Fungi	1	4.504504504504505	U	peroxisomal biogenesis factor	MHS487	fungi_OG
+3NWJ5|Fungi	2	4.535147392290249	S	c2h2 zinc finger protein	MHS487	fungi_OG
+3NWK4|Fungi	3	8.849557522123893	T	Calcium sensor	MHS487	fungi_OG
+3NWKD|Fungi	1	4.504504504504505	L	excision repair protein	MHS487	fungi_OG
+3NWKI|Fungi	4	6.259780907668231	F	Allantoicase	MHS487	fungi_OG
+3NWM1|Fungi	2	4.938271604938271	Q	Belongs to the FMO family	MHS487	fungi_OG
+3NWP2|Fungi	2	12.596553773024361	U	vesicular-fusion protein SEC17	MHS487	fungi_OG
+3NWQB|Fungi	5	9.689922480620154	S	Set domain-containing protein	MHS487	fungi_OG
+3NWQJ|Fungi	2	3.663003663003663	BDLT	Belongs to the PI3 PI4-kinase family	MHS487	fungi_OG
+3NWR2|Fungi	2	6.289308176100628	S	ABC1 Protein	MHS487	fungi_OG
+3NWTH|Fungi	2	4.357298474945534	J	threonyl-tRNA synthetase	MHS487	fungi_OG
+3NWTQ|Fungi	2	3.584229390681003	Q	l-aminoadipate-semialdehyde dehydrogenase	MHS487	fungi_OG
+3NWUA|Fungi	2	6.872852233676976	D	serine threonine-protein kinase	MHS487	fungi_OG
+3NWUS|Fungi	3	6.4935064935064934	D	Belongs to the cullin family	MHS487	fungi_OG
+3NWXJ|Fungi	2	5.952380952380952	H	Dephospho-CoA kinase	MHS487	fungi_OG
+3NWXM|Fungi	1	4.219409282700422	U	Belongs to the small GTPase superfamily. Arf family	MHS487	fungi_OG
+3NWYX|Fungi	1	3.546099290780142	B	Control of topological states of DNA by transient breakage and subsequent rejoining of DNA strands. Topoisomerase II makes double-strand breaks	MHS487	fungi_OG
+3NWZC|Fungi	1	4.219409282700422	I	Phenylacetyl-CoA ligase	MHS487	fungi_OG
+3NWZN|Fungi	35	90.43927648578811	S	u3 small nucleolar rna-associated protein 5	MHS487	fungi_OG
+3NX05|Fungi	4	6.633499170812604	P	Tetratricopeptide repeat protein	MHS487	fungi_OG
+3NX08|Fungi	3	12.987012987012987	K	DNA-binding protein creA	MHS487	fungi_OG
+3NX0Y|Fungi	1	4.166666666666667	J	seryl-trna synthetase	MHS487	fungi_OG
+3NX18|Fungi	3	9.803921568627452	S	Kinetochore protein spc-25	MHS487	fungi_OG
+3NX22|Fungi	1	3.9682539682539684	T	Belongs to the protein kinase superfamily	MHS487	fungi_OG
+3NX26|Fungi	2	6.802721088435375	A	splicing factor u2af-associated protein	MHS487	fungi_OG
+3NX2V|Fungi	1	3.9215686274509802	A	mrna cleavage and polyadenylation specificity factor complex subunit	MHS487	fungi_OG
+3NX2W|Fungi	2	4.662004662004662	O	mitochondrial metalloendopeptidase oma1	MHS487	fungi_OG
+3NX48|Fungi	4	7.366482504604051	G	Belongs to the ribulose-phosphate 3-epimerase family	MHS487	fungi_OG
+3NX4H|Fungi	2	3.490401396160559	J	Belongs to the class I-like SAM-binding methyltransferase superfamily. RsmB NOP family	MHS487	fungi_OG
+3NX75|Fungi	4	10.930847404363224	A	negative regulator of differentiation	MHS487	fungi_OG
+3NX7J|Fungi	1	3.745318352059925	T	1-phosphatidylinositol-3-phosphate 5-kinase	MHS487	fungi_OG
+3NX80|Fungi	23	41.8001149952553	C	Component of the ubiquinol-cytochrome c reductase complex (complex III or cytochrome b-c1 complex) that is part of the mitochondrial respiratory chain. The b-c1 complex mediates electron transfer from ubiquinol to cytochrome c. Contributes to the generation of a proton gradient across the mitochondrial membrane that is then used for ATP synthesis	MHS487	fungi_OG
+3NX8A|Fungi	2	6.172839506172839	T	Rrna-processing protein utp23	MHS487	fungi_OG
+3NX8I|Fungi	1	3.584229390681003	H	Zinc finger protein	MHS487	fungi_OG
+3NX90|Fungi	1	5.128205128205128	O	Proteasome subunit beta	MHS487	fungi_OG
+3NX9E|Fungi	1	3.7878787878787876	O	Belongs to the peptidase C19 family	MHS487	fungi_OG
+3NX9Y|Fungi	2	3.490401396160559	S	duf1769-domain-containing protein	MHS487	fungi_OG
+3NXAM|Fungi	1	3.663003663003663	IQ	cytochrome P450	MHS487	fungi_OG
+3NXB1|Fungi	1	3.367003367003367	EH	Molybdopterin binding	MHS487	fungi_OG
+3NXB5|Fungi	7	14.581182139616384	C	NADH dehydrogenase subunit 2	MHS487	fungi_OG
+3NXBH|Fungi	2	3.3840947546531304	K	transcription initiation factor IIF subunit alpha	MHS487	fungi_OG
+3NXBV|Fungi	2	3.5650623885918	S	Major Facilitator	MHS487	fungi_OG
+3NXCR|Fungi	2	7.093001320505564	J	Component of the eukaryotic translation initiation factor 3 (eIF-3) complex, which is involved in protein synthesis and, together with other initiation factors, stimulates binding of mRNA and methionyl-tRNAi to the 40S ribosome	MHS487	fungi_OG
+3NXCX|Fungi	1	3.436426116838488	K	Forkhead transcription factor	MHS487	fungi_OG
+3NXD6|Fungi	2	9.132420091324201	S	integral membrane protein	MHS487	fungi_OG
+3NXDW|Fungi	2	3.7037037037037033	O	tpr repeat protein	MHS487	fungi_OG
+3NXE2|Fungi	1	4.385964912280701	S	Von willebrand factor	MHS487	fungi_OG
+3NXII|Fungi	2	7.8196035642844155	I	o-acyltransferase	MHS487	fungi_OG
+3NXK1|Fungi	1	4.065040650406504	G	Belongs to the glycosyl hydrolase 47 family	MHS487	fungi_OG
+3NXKV|Fungi	2	3.9215686274509802	U	Protein transport protein SEC9	MHS487	fungi_OG
+3NXMZ|Fungi	1	3.3333333333333335	K	Belongs to the EFR3 family	MHS487	fungi_OG
+3NXN6|Fungi	1	3.4722222222222223	C	Belongs to the oxygen-dependent FAD-linked oxidoreductase family	MHS487	fungi_OG
+3NXNA|Fungi	2	3.992015968063872	L	The GINS complex plays an essential role in the initiation of DNA replication	MHS487	fungi_OG
+3NXNB|Fungi	3	7.462686567164178	U	Belongs to the STXBP unc-18 SEC1 family	MHS487	fungi_OG
+3NXNK|Fungi	1	3.3333333333333335	H	Biotin apoprotein ligase	MHS487	fungi_OG
+3NXNU|Fungi	3	5.780346820809249	A	u3 small nucleolar ribonucleoprotein	MHS487	fungi_OG
+3NXQX|Fungi	1	3.5087719298245617	U	Belongs to the VPS29 family	MHS487	fungi_OG
+3NXRR|Fungi	4	10.798229548229548	U	GTP-binding protein	MHS487	fungi_OG
+3NXVA|Fungi	1	4.016064257028113	S	NA	MHS487	fungi_OG
+3NY00|Fungi	2	3.9215686274509802	Q	alcohol dehydrogenase	MHS487	fungi_OG
+3NY24|Fungi	1	3.8314176245210727	E	acyl-CoA dehydrogenase	MHS487	fungi_OG
+3NY2G|Fungi	2	9.950248756218905	F	Hydrolase	MHS487	fungi_OG
+3NY2Z|Fungi	2	3.8314176245210727	A	Rho-GTPase-activating protein	MHS487	fungi_OG
+3NY30|Fungi	2	4.415011037527593	AB	Pre-mRNA-processing protein 45	MHS487	fungi_OG
+3NY4C|Fungi	1	5.208333333333333	F	bifunctional purine biosynthesis protein	MHS487	fungi_OG
+3NY4M|Fungi	1	3.875968992248062	U	SH3 domain-containing protein	MHS487	fungi_OG
+3NY6I|Fungi	2	7.018321513002364	S	Elongation factor-2 kinase	MHS487	fungi_OG
+3NY72|Fungi	2	9.803921568627452	OTU	Serine threonine protein kinase involved in the cytoplasm to vacuole transport (Cvt) and found to be essential in autophagy, where it is required for the formation of autophagosomes. Involved in the clearance of protein aggregates which cannot be efficiently cleared by the proteasome. Required for selective autophagic degradation of the nucleus (nucleophagy) as well as for mitophagy which contributes to regulate mitochondrial quantity and quality by eliminating the mitochondria to a basal level to fulfill cellular energy requirements and preventing excess ROS production. Also involved in endoplasmic reticulum-specific autophagic process, in selective removal of ER- associated degradation (ERAD) substrates. Plays a key role in ATG9 and ATG23 cycling through the pre-autophagosomal structure and is necessary to promote ATG18 binding to ATG9 through phosphorylation of ATG9	MHS487	fungi_OG
+3NYCM|Fungi	1	5.376344086021505	S	rwd domain-containing protein	MHS487	fungi_OG
+3NYCP|Fungi	3	10.204081632653061	T	Gtpase-activating protein	MHS487	fungi_OG
+3NYCQ|Fungi	1	4.329004329004329	S	protein-histidine N-methyltransferase activity	MHS487	fungi_OG
+3NYDF|Fungi	4	15.873015873015873	C	atp synthase	MHS487	fungi_OG
+3NYEJ|Fungi	2	3.875968992248062	C	Belongs to the mitochondrial carrier (TC 2.A.29) family	MHS487	fungi_OG
+3NYGG|Fungi	13	19.20451535342421	C	Cytochrome c oxidase is the component of the respiratory chain that catalyzes the reduction of oxygen to water. Subunits 1- 3 form the functional core of the enzyme complex. CO I is the catalytic subunit of the enzyme. Electrons originating in cytochrome c are transferred via the copper A center of subunit 2 and heme A of subunit 1 to the bimetallic center formed by heme A3 and copper B	MHS487	fungi_OG
+3NYMN|Fungi	2	3.875968992248062	B	Histone-lysine n-methyltransferase	MHS487	fungi_OG
+3NYPB|Fungi	4	8.843358725155415	S	Box H ACA snoRNP assembly protein Shq1	MHS487	fungi_OG
+3NYSA|Fungi	1	3.584229390681003	Q	Belongs to the short-chain dehydrogenases reductases (SDR) family	MHS487	fungi_OG
+3NYWC|Fungi	4	8.333333333333334	S	Mannose-P-dolichol utilization defect 1	MHS487	fungi_OG
+3NZ2W|Fungi	4	13.745704467353953	O	Protein disulfide isomerase	MHS487	fungi_OG
+3NZ3T|Fungi	3	8.800975949808294	O	Proteasome	MHS487	fungi_OG
+3NZ5F|Fungi	2	4.566210045662101	A	h aca ribonucleoprotein complex subunit 2	MHS487	fungi_OG
+3NZAF|Fungi	2	7.168458781362006	Q	Belongs to the FMO family	MHS487	fungi_OG
+3NZDE|Fungi	1	4.329004329004329	C	glycerophosphoryl diester phosphodiesterase	MHS487	fungi_OG
+3NZDY|Fungi	6	4.434589800443459	S	Wd domain-containing protein	MHS487	fungi_OG
+3NZE8|Fungi	2	9.050327157096557	D	centromere kinetochore protein	MHS487	fungi_OG
+3NZFK|Fungi	1	3.3333333333333335	U	Involved in the retrieval of endoplasmic reticulum membrane proteins from the early Golgi compartment	MHS487	fungi_OG
+3NZFN|Fungi	2	4.761904761904762	TZ	uracil phosphoribosyltransferase	MHS487	fungi_OG
+3NZH3|Fungi	2	4.016064257028113	S	Inositol hexakisphosphate	MHS487	fungi_OG
+3NZJP|Fungi	1	3.4722222222222223	EI	propionyl-CoA carboxylase	MHS487	fungi_OG
+3NZQK|Fungi	2	10.582010582010582	S	Pre-rRNA-processing protein ipi-1	MHS487	fungi_OG
+3NZRP|Fungi	2	3.4542314335060453	T	Calcium calmodulin-dependent protein kinase	MHS487	fungi_OG
+3NZS2|Fungi	1	4.901960784313726	T	-domain-containing protein	MHS487	fungi_OG
+3NZTE|Fungi	1	3.4013605442176873	S	WD repeat-containing protein	MHS487	fungi_OG
+3NZVT|Fungi	1	3.9215686274509802	P	Destroys radicals which are normally produced within the cells and which are toxic to biological systems	MHS487	fungi_OG
+3P01A|Fungi	2	3.3840947546531304	S	viability protein	MHS487	fungi_OG
+3P09U|Fungi	1	4.761904761904762	IQ	Duf1640 domain-containing protein	MHS487	fungi_OG
+3P0EV|Fungi	1	3.5087719298245617	E	metaphase-anaphase transition protein	MHS487	fungi_OG
+3P0EY|Fungi	1	5.05050505050505	S	Family of unknown function (DUF5427)	MHS487	fungi_OG
+3P0H0|Fungi	2	4.444444444444445	C	NADH-ubiquinone oxidoreductase chain 1	MHS487	fungi_OG
+3P0IF|Fungi	2	4.866180048661801	UY	Nuclear pore complex protein	MHS487	fungi_OG
+3P0K6|Fungi	2	5.649717514124294	C	atp synthase	MHS487	fungi_OG
+3P0KY|Fungi	2	8.680555555555555	T	fha domain-containing protein	MHS487	fungi_OG
+3P0NT|Fungi	2	4.504504504504505	I	3-hydroxyacyl-CoA dehydrogenase, NAD binding domain	MHS487	fungi_OG
+3P0P7|Fungi	1	4.830917874396135	S	Major Facilitator Superfamily	MHS487	fungi_OG
+3P0R9|Fungi	1	4.504504504504505	H	Encoded by	MHS487	fungi_OG
+3P0SF|Fungi	1	3.8314176245210727	U	Clathrin is the major protein of the polyhedral coat of coated pits and vesicles	MHS487	fungi_OG
+3P0XE|Fungi	1	4.166666666666667	O	Required for the formation of a threonylcarbamoyl group on adenosine at position 37 (t(6)A37) in mitochondrial tRNAs that read codons beginning with adenine. Probably involved in the transfer of the threonylcarbamoyl moiety of threonylcarbamoyl-AMP (TC-AMP) to the N6 group of A37. Involved in mitochondrial genome maintenance	MHS487	fungi_OG
+3P0Y6|Fungi	1	3.5087719298245617	U	Golgi reassembly stacking protein	MHS487	fungi_OG
+3P0YP|Fungi	1	5.46448087431694	F	adenosine deaminase	MHS487	fungi_OG
+3P10X|Fungi	4	14.184397163120568	F	phosphoribosyltransferase	MHS487	fungi_OG
+3P149|Fungi	3	5.4945054945054945	H	Catalyzes the formation of 6,7-dimethyl-8- ribityllumazine by condensation of 5-amino-6-(D- ribitylamino)uracil with 3,4-dihydroxy-2-butanone 4-phosphate. This is the penultimate step in the biosynthesis of riboflavin	MHS487	fungi_OG
+3P1GA|Fungi	1	4.329004329004329	S	magnesium-dependent	MHS487	fungi_OG
+3P1I7|Fungi	4	7.448789571694599	S	U3-containing 90S pre-ribosomal complex subunit	MHS487	fungi_OG
+3P1IE|Fungi	5	6.150061500615006	S	pbsp domain-containing protein	MHS487	fungi_OG
+3P1JR|Fungi	4	10.335917312661499	S	to Saccharomyces cerevisiae NUP42 (YDR192C)	MHS487	fungi_OG
+3P1TH|Fungi	3	8.16326530612245	P	Proton-conducting pore forming subunit of the membrane integral V0 complex of vacuolar ATPase. V-ATPase is responsible for acidifying a variety of intracellular compartments in eukaryotic cells	MHS487	fungi_OG
+3P1UB|Fungi	5	16.256157635467982	U	MSF1-domain-containing protein	MHS487	fungi_OG
+3P1VJ|Fungi	3	4.716981132075472	J	translation machinery-associated protein 22	MHS487	fungi_OG
+3P1VK|Fungi	2	4.7281323877068555	H	Uroporphyrinogen-III synthase	MHS487	fungi_OG
+3P1VU|Fungi	2	3.623188405797101	J	Belongs to the universal ribosomal protein uS11 family	MHS487	fungi_OG
+3P1W0|Fungi	6	13.513513513513514	F	Pyrophosphatase that hydrolyzes non-canonical purine nucleotides such as inosine triphosphate (ITP), deoxyinosine triphosphate (dITP) or xanthosine 5'-triphosphate (XTP) to their respective monophosphate derivatives. The enzyme does not distinguish between the deoxy- and ribose forms. Probably excludes non-canonical purines from RNA and DNA precursor pools, thus preventing their incorporation into RNA and DNA and avoiding chromosomal lesions	MHS487	fungi_OG
+3P1XW|Fungi	2	4.796163069544365	U	Peroxisomal membrane protein	MHS487	fungi_OG
+3P1XY|Fungi	4	8.602150537634408	K	Cell cycle control protein Cwf14	MHS487	fungi_OG
+3P20U|Fungi	1	3.4722222222222223	S	NA	MHS487	fungi_OG
+3P23E|Fungi	1	3.4722222222222223	S	Beta-lactamase superfamily domain	MHS487	fungi_OG
+3P27E|Fungi	2	8.061383061383061	C	Ubiquinol cytochrome-c reductase assembly protein Cbp3	MHS487	fungi_OG
+3P2A4|Fungi	1	6.172839506172839	Q	thioesterase	MHS487	fungi_OG
+3P2FM|Fungi	2	3.663003663003663	S	Protein of unknown function (DUF3752)	MHS487	fungi_OG
+3P2NF|Fungi	4	13.88888888888889	O	co-chaperone	MHS487	fungi_OG
+3P2R7|Fungi	2	4.975124378109452	AJ	ribonucleoprotein-associated protein	MHS487	fungi_OG
+3P2SB|Fungi	5	8.924883460199446	S	Putative adipose-regulatory protein (Seipin)	MHS487	fungi_OG
+3P2T1|Fungi	1	4.975124378109452	J	Transcription initiation factor	MHS487	fungi_OG
+3P2TA|Fungi	1	3.9682539682539684	K	DNA-dependent RNA polymerase catalyzes the transcription of DNA into RNA using the four ribonucleoside triphosphates as substrates	MHS487	fungi_OG
+3P2WI|Fungi	2	8.88888888888889	A	Pre-mRNA-splicing factor CWC21	MHS487	fungi_OG
+3P2X8|Fungi	2	4.901960784313726	J	Belongs to the universal ribosomal protein uL14 family	MHS487	fungi_OG
+3P2XC|Fungi	4	10.840108401084011	Z	Belongs to the actin-binding proteins ADF family	MHS487	fungi_OG
+3P318|Fungi	1	5.05050505050505	D	Checkpoint protein	MHS487	fungi_OG
+3P32X|Fungi	2	5.5096418732782375	F	Belongs to the gluconokinase GntK GntV family	MHS487	fungi_OG
+3P342|Fungi	4	7.246376811594202	B	Variant histone H2A which can replace H2A in some nucleosomes. Nucleosomes wrap and compact DNA into chromatin, limiting DNA accessibility to the cellular machineries which require DNA as a template. Histones thereby play a central role in transcription regulation, DNA repair, DNA replication and chromosomal stability. DNA accessibility is regulated via a complex set of post-translational modifications of histones, also called histone code, and nucleosome remodeling. This variant is enriched at promoters, it may keep them in a repressed state until the appropriate activation signal is received. Near telomeres, it may counteract gene silencing caused by the spread of heterochromatin proteins. Required for the RNA polymerase II and SPT15 TBP recruitment to the target genes. Involved in chromosome stability (By similarity)	MHS487	fungi_OG
+3P368|Fungi	1	3.367003367003367	S	Essential protein required for the accumulation of box C D snoRNA	MHS487	fungi_OG
+3P395|Fungi	3	3.53356890459364	S	NA	MHS487	fungi_OG
+3P3DF|Fungi	2	3.7037037037037033	J	Translation Initiation Factor	MHS487	fungi_OG
+3P3QW|Fungi	6	11.76470588235294	S	Belongs to the cytochrome b5 family	MHS487	fungi_OG
+3P3US|Fungi	1	6.666666666666667	H	Binds to the catalytic subunit of the cyclin dependent kinases and is essential for their biological function	MHS487	fungi_OG
+3P3UV|Fungi	4	9.324009324009324	S	NA	MHS487	fungi_OG
+3P3WN|Fungi	1	3.546099290780142	I	Carrier of the growing fatty acid chain in fatty acid biosynthesis	MHS487	fungi_OG
+3P3Y4|Fungi	2	4.975124378109452	O	protease	MHS487	fungi_OG
+3P3YQ|Fungi	2	3.7243947858472994	S	pinin SDK memA	MHS487	fungi_OG
+3P404|Fungi	3	9.739396356867438	J	60S ribosomal protein	MHS487	fungi_OG
+3P40Q|Fungi	2	4.444444444444445	K	factor 1	MHS487	fungi_OG
+3P42G|Fungi	2	8.771929824561402	S	NADH ubiquinone oxidoreductase 20.1kD subunit	MHS487	fungi_OG
+3P42X|Fungi	8	16.771488469601678	S	AMFR protein	MHS487	fungi_OG
+3P44Z|Fungi	1	4.065040650406504	U	Membrane biogenesis protein yop1	MHS487	fungi_OG
+3P45M|Fungi	2	6.006006006006006	A	Small nuclear ribonucleoprotein sm d2	MHS487	fungi_OG
+3P46H|Fungi	2	4.444444444444445	K	DNA-directed RNA polymerases i	MHS487	fungi_OG
+3P4B8|Fungi	1	4.219409282700422	J	ribosomal protein	MHS487	fungi_OG
+3P4DN|Fungi	1	3.745318352059925	S	NA	MHS487	fungi_OG
+3P4E3|Fungi	2	3.546099290780142	UZ	trimeric LpxA-like protein	MHS487	fungi_OG
+3P4F5|Fungi	2	9.010654490106546	O	LAGLIDADG DNA endonuclease family	MHS487	fungi_OG
+3P4FQ|Fungi	2	4.301075268817204	A	RNA recognition motif. (a.k.a. RRM, RBD, or RNP domain)	MHS487	fungi_OG
+3P4NR|Fungi	2	3.875968992248062	A	Ribosomal RNA-processing protein 7 (RRP7)	MHS487	fungi_OG
+3P4P8|Fungi	1	3.367003367003367	KL	transposase	MHS487	fungi_OG
+3P4TK|Fungi	2	4.301075268817204	S	NA	MHS487	fungi_OG
+3P4UH|Fungi	1	4.385964912280701	S	NA	MHS487	fungi_OG
+3P4XY|Fungi	2	3.875968992248062	O	peroxiredoxin	MHS487	fungi_OG
+3P52H|Fungi	2	6.472491909385114	B	Chromatin modification-related protein	MHS487	fungi_OG
+3P53A|Fungi	1	3.436426116838488	S	mitochondrial import protein	MHS487	fungi_OG
+3P53R|Fungi	1	6.172839506172839	J	Belongs to the eukaryotic ribosomal protein eL36 family	MHS487	fungi_OG
+3P53X|Fungi	2	3.7037037037037033	S	NA	MHS487	fungi_OG
+3P542|Fungi	1	4.385964912280701	A	Small nuclear ribonucleoprotein	MHS487	fungi_OG
+3P544|Fungi	4	12.121212121212121	S	Belongs to the EMC4 family	MHS487	fungi_OG
+3P56T|Fungi	1	5.847953216374268	K	Belongs to the SKP1 family	MHS487	fungi_OG
+3P5CB|Fungi	4	12.722117506806502	C	Core subunit of the mitochondrial membrane respiratory chain NADH dehydrogenase (Complex I) that is believed to belong to the minimal assembly required for catalysis. Complex I functions in the transfer of electrons from NADH to the respiratory chain. The immediate electron acceptor for the enzyme is believed to be ubiquinone	MHS487	fungi_OG
+3P5D4|Fungi	4	19.32367149758454	O	Belongs to the GroES chaperonin family	MHS487	fungi_OG
+3P5DA|Fungi	2	4.444444444444445	L	AAA domain	MHS487	fungi_OG
+3P5DZ|Fungi	6	20.961441775921415	S	Belongs to the cytochrome b5 family	MHS487	fungi_OG
+3P5GF|Fungi	12	7.575757575757575	S	zinc finger	MHS487	fungi_OG
+3P5JN|Fungi	1	3.436426116838488	S	NA	MHS487	fungi_OG
+3P5NM|Fungi	2	3.5087719298245617	S	to Saccharomyces cerevisiae NAT5 (YOR253W)	MHS487	fungi_OG
+3P5PV|Fungi	1	3.745318352059925	J	40S ribosomal protein S25	MHS487	fungi_OG
+3P5QE|Fungi	10	23.14814814814815	S	MAPEG family	MHS487	fungi_OG
+3P5RW|Fungi	2	6.802721088435375	O	DUF1000-domain-containing protein	MHS487	fungi_OG
+3P5X9|Fungi	1	4.065040650406504	S	Diacylglycerol kinase catalytic domain	MHS487	fungi_OG
+3P63G|Fungi	2	5.649717514124294	S	Nuclear pore complex assembly	MHS487	fungi_OG
+3P65U|Fungi	1	4.065040650406504	S	NA	MHS487	fungi_OG
+3P66W|Fungi	3	8.264462809917356	S	Rab5-interacting protein (Rab5ip)	MHS487	fungi_OG
+3P67N|Fungi	1	6.410256410256411	S	Stress responsive A B barrel domain protein	MHS487	fungi_OG
+3P68W|Fungi	4	9.59232613908873	S	Mitochondrial ATP synthase g subunit	MHS487	fungi_OG
+3P6K3|Fungi	2	3.9215686274509802	S	Domain of unknown function (DUF4505)	MHS487	fungi_OG
+3P6M6|Fungi	1	5.46448087431694	S	RNA splicing	MHS487	fungi_OG
+3P6QF|Fungi	1	3.875968992248062	U	Belongs to the small Tim family	MHS487	fungi_OG
+3P6QZ|Fungi	4	8.1799591002045	S	MAPEG family	MHS487	fungi_OG
+3P6RE|Fungi	1	3.9215686274509802	S	Component of the NuA4 histone acetyltransferase complex which is involved in transcriptional activation of selected genes principally by acetylation of nucleosomal histone H4 and H2A. The NuA4 complex is also involved in DNA repair (By similarity)	MHS487	fungi_OG
+3P6SR|Fungi	2	4.385964912280701	S	Protein of unknown function (DUF3602)	MHS487	fungi_OG
+3P6T0|Fungi	3	11.42347166443552	S	DUF1748-domain-containing protein	MHS487	fungi_OG
+3P724|Fungi	1	5.74712643678161	S	CHCH-CHCH-like Cx9C, IMS import disulfide relay-system,	MHS487	fungi_OG
+3P730|Fungi	2	4.040404040404041	K	Rna polymerase ii	MHS487	fungi_OG
+3P73Y|Fungi	2	6.802721088435375	O	Cx9C motif-containing protein 4, mitochondrial	MHS487	fungi_OG
+3P783|Fungi	6	15.504807692307692	C	Core subunit of the mitochondrial membrane respiratory chain NADH dehydrogenase (Complex I) that is believed to belong to the minimal assembly required for catalysis. Complex I functions in the transfer of electrons from NADH to the respiratory chain. The immediate electron acceptor for the enzyme is believed to be ubiquinone	MHS487	fungi_OG
+3P78Q|Fungi	2	7.662835249042145	C	ETC complex I subunit conserved region	MHS487	fungi_OG
+3P7BC|Fungi	8	32.02241093130493	P	Belongs to the ATPase C chain family	MHS487	fungi_OG
+3P7CI|Fungi	1	3.9682539682539684	S	NA	MHS487	fungi_OG
+3P7D2|Fungi	2	7.49063670411985	C	Cytochrome c oxidase subunit	MHS487	fungi_OG
+3P7DB|Fungi	2	5.376344086021505	S	Caffeine-induced death protein 2	MHS487	fungi_OG
+3P7FY|Fungi	2	3.436426116838488	S	Anticodon-binding domain	MHS487	fungi_OG
+3P7GQ|Fungi	3	7.692307692307692	S	DNA replication factor Cdt1 C-terminal domain	MHS487	fungi_OG
+3P7GU|Fungi	1	3.8314176245210727	S	NA	MHS487	fungi_OG
+3P7V5|Fungi	12	14.41700752411251	J	NA	MHS487	fungi_OG
+3P88Q|Fungi	2	4.08997955010225	S	NA	MHS487	fungi_OG
+3P8DY|Fungi	2	8.438818565400844	S	Putative DNA-binding (bihelical) motif predicted to be involved in chromosomal organisation	MHS487	fungi_OG
+3P8EF|Fungi	3	7.737501385655692	S	PET assembly of cytochrome c oxidase, mitochondrial	MHS487	fungi_OG
+3P8UJ|Fungi	2	7.745726495726496	S	Altered inheritance of mitochondria protein 19	MHS487	fungi_OG
+3P8XA|Fungi	1	3.7037037037037033	J	Ribosomal protein L30p/L7e	MHS487	fungi_OG
+3P90W|Fungi	1	3.584229390681003	K	Involved in mRNA export coupled transcription activation by association with both the TREX-2 and the SAGA complexes. At the promoters, SAGA is required for recruitment of the basal transcription machinery. It influences RNA polymerase II transcriptional activity through different activities such as TBP interaction and promoter selectivity, interaction with transcription activators, and chromatin modification through histone acetylation and deubiquitination. Within the SAGA complex, participates to a subcomplex required for deubiquitination of H2B and for the maintenance of steady-state H3 methylation levels. The TREX-2 complex functions in docking export-competent ribonucleoprotein particles (mRNPs) to the nuclear entrance of the nuclear pore complex (nuclear basket). TREX-2 participates in mRNA export and accurate chromatin positioning in the nucleus by tethering genes to the nuclear periphery. May also be involved in cytoplasmic mRNA decay by interaction with components of P-bodies	MHS487	fungi_OG
+3P94K|Fungi	2	6.472491909385114	S	Uncharacterised protein family (UPF0203)	MHS487	fungi_OG
+3P9AW|Fungi	2	7.936507936507937	S	NA	MHS487	fungi_OG
+3P9D2|Fungi	7	13.409961685823754	S	mitochondrial translation	MHS487	fungi_OG
+3PAD9|Fungi	3	6.25	S	Belongs to the sterol desaturase family	MHS487	fungi_OG
+3PAND|Fungi	2	5.46448087431694	S	Glyoxal oxidase N-terminus	MHS487	fungi_OG
+3PBGM|Fungi	1	4.444444444444445	S	NA	MHS487	fungi_OG
+3PD6M|Fungi	1	4.694835680751174	O	DnaJ molecular chaperone homology domain	MHS487	fungi_OG
+3PEGK|Fungi	1	6.5359477124183005	S	NA	MHS487	fungi_OG
+3PF68|Fungi	1	3.623188405797101	S	NA	MHS487	fungi_OG
+3PHVZ|Fungi	3	13.919147906076011	S	NA	MHS487	fungi_OG
+3PIV4|Fungi	9	14.492753623188406	S	GAL4-like Zn(II)2Cys6 (or C6 zinc) binuclear cluster DNA-binding domain	MHS487	fungi_OG
+3PKGF|Fungi	4	3.8204393505253105	S	NA	MHS487	fungi_OG
+3PKK2|Fungi	6	8.695652173913045	S	Elongation complex protein 6	MHS487	fungi_OG
+3PM1V|Fungi	4	8.23045267489712	S	NA	MHS487	fungi_OG
+3PM5G|Fungi	1	4.11522633744856	K	Pterin 4 alpha carbinolamine dehydratase	MHS487	fungi_OG
+3PM64|Fungi	1	3.745318352059925	S	NA	MHS487	fungi_OG
+3PMBF|Fungi	1	4.385964912280701	S	NA	MHS487	fungi_OG
+3PNHB|Fungi	2	7.662835249042145	P	NADH dehydrogenase (quinone) activity	MHS487	fungi_OG
+3PS8M|Fungi	1	3.436426116838488	S	NA	MHS487	fungi_OG
+3PUJR|Fungi	33	92.43697478991596	S	NA	MHS487	fungi_OG
+3PYC7|Fungi	2	4.504504504504505	S	NA	MHS487	fungi_OG
+3PZ4P|Fungi	1	4.901960784313726	S	NA	MHS487	fungi_OG
+3Q1EE|Fungi	1	3.5087719298245617	S	Yqey-like protein	MHS487	fungi_OG
+3Q2YU|Fungi	4	6.837606837606838	S	Uncharacterized protein conserved in bacteria (DUF2237)	MHS487	fungi_OG
+3Q36B|Fungi	2	5.333333333333333	S	fad dependent oxidoreductase	MHS487	fungi_OG
+3Q37P|Fungi	6	10.723779144831777	Z	Belongs to the actin family	MHS487	fungi_OG
+3Q37R|Fungi	2	3.745318352059925	S	Programmed cell death protein 2, C-terminal putative domain	MHS487	fungi_OG
+3Q3KZ|Fungi	2	7.326007326007326	L	chitin biosynthesis protein	MHS487	fungi_OG
+3Q3SW|Fungi	1	3.8314176245210727	S	Cyclin	MHS487	fungi_OG
+3Q434|Fungi	4	11.799410029498524	A	RNA recognition motif	MHS487	fungi_OG
+3Q4MC|Fungi	1	4.166666666666667	S	Bin/amphiphysin/Rvs domain for vesicular trafficking	MHS487	fungi_OG
+3Q500|Fungi	2	5.167958656330749	U	Inositol polyphosphate phosphatase, catalytic domain homologues	MHS487	fungi_OG
+3Q6XA|Fungi	2	4.62962962962963	T	rhomboid-domain-containing protein	MHS487	fungi_OG

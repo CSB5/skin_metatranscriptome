@@ -1,0 +1,889 @@
+feature	baseMean	log2FoldChange	lfcSE	pvalue	padj	bacteria_eggnog_cat	bacteria_eggnog_desc
+2Z9JM	40.44329899251583	0.37881199685476774	0.5179047578801695	0.19636922797169634	0.49398264713559875	S	NAD-specific glutamate dehydrogenase
+2ZAV8	402.2648769289828	0.5022915038473912	0.5904063878077352	0.10730923477289121	0.3553424247285366	S	EcsC protein family
+2ZBU7	616.5563278962893	-0.16418352292891272	0.5386348263870567	0.54557004129554	0.7983101054990093	S	Protein of unknown function (DUF3027)
+2ZC43	1043.7247941692794	-2.229224873264604	1.12244955270406	6.238817524612502e-4	0.01130626522827735	S	NA
+2ZJ01	982.3539392123571	-0.3194100539087679	0.5042976914008843	0.2659724185575227	0.5875211633807964	S	NA
+2ZVJF	357.2357083282666	-0.23532489504292844	0.5414904174110108	0.3984196653078733	0.7181248849702419	S	NA
+30D1S	278.8999165521909	-4.516845678005423	1.026736345602715	5.372398871468963e-7	7.951150329774066e-5	S	NA
+30DSN	81.84830214483885	2.1816171774156032	1.1092522250512562	6.609710536104382e-4	0.0115358653926068	S	NA
+31XWG	258.6985564140891	-0.454608488284432	0.6389826513563386	0.14205737409517397	0.41770512647852476	S	NA
+32RKK	270.7509629719324	0.03155291572901779	0.4628570749903124	0.9076700724159775	0.9729900237583847	S	pathogenesis
+32RSG	245.00977584109236	0.8750183439287446	0.7712172583497757	0.021752618681885705	0.1497389565078644	K	Transcription factor WhiB
+32RUK	252.0659515229516	2.6860653948539426	1.0007856779757414	1.057456617521384e-4	0.002835124134932097	K	Acts as a transcriptional regulator. Probably redox- responsive. The apo- but not holo-form probably binds DNA
+32S2G	1012.2138738265521	-3.174793772324211	1.0650779786123137	5.344234414261062e-5	0.0018982720639455295	S	NA
+32SI2	161.7329284957466	0.8124874841785817	0.71679582564143	0.02593689443545908	0.1645140161334833	K	Binds to RNA polymerase (RNAP), stimulating transcription from principal, but not alternative sigma factor promoters
+32TTI	317.3410533649287	0.6323931829762869	0.6298428850251977	0.056242887633532836	0.25407023738210627	C	oxidoreductase activity, acting on a heme group of donors, oxygen as acceptor
+32Y97	95.81047074622705	0.23988314955406584	0.5167457140643059	0.3912666483957222	0.7177556275657646	S	Protein of unknown function (DUF3117)
+32Y9G	149.0954510582862	-0.17324323228246818	0.4589045603681962	0.5314785568391529	0.7905409689667802	S	NA
+330JD	169.38593133579838	0.4895817627211878	0.6131052127418726	0.1170533220161342	0.373896942267364	S	NA
+33360	88.99578740204171	0.19765989562458047	0.506111269088217	0.47464939979263654	0.7747953437791567	S	NA
+337QR	62.05117381701178	-0.2126618923907425	0.5255264983534664	0.44252115779358386	0.7499787845775546	S	NA
+33AI2	241.94059149604445	0.13418397559095385	0.4446619612466809	0.626337030102206	0.8563871484915491	S	Protein of unknown function (DUF3073)
+33CRW	685.1062728844045	-4.122813040970088	1.17537300614287	1.0268425026520056e-5	6.513115302535579e-4	S	NA
+33D21	88.95543297666718	-0.48325001826189984	0.5375088234772388	0.11278346437679794	0.3655172130167758	S	MT0933-like antitoxin protein
+33DPX	130.47777436437858	0.21114369469307231	0.5316484853363002	0.4451194683653191	0.750083282453148	S	NA
+33FQ1	60.35421240165244	0.3916453131919396	0.5885305763783762	0.18907651106399198	0.4875996120509488	S	NA
+33FSC	652.40665194729	0.3436070052040028	0.549847931901428	0.23747290078208252	0.5482881072362091	S	NA
+33MCB	4360.999833753624	-0.05491964493977942	0.4510801002384108	0.8407239767690236	0.9593240762732527	S	NA
+33RZ2	850.0437366983034	3.3967267206081355	0.966062508459733	1.4001049864052471e-5	8.288621519519063e-4	S	NA
+33XPV	409.48008760460385	3.5393509683259503	0.9280017496285891	6.102960938864014e-6	4.16879177977788e-4	S	NA
+COG0001	1635.8439768802039	-0.22890977048107353	0.4539860108423065	0.41316418275197164	0.730666574839277	H	glutamate-1-semialdehyde 2,1-aminomutase activity
+COG0006	2061.4741201842944	0.12923823589903308	0.4418479733955155	0.6389772591890513	0.8584142301964865	E	proline dipeptidase activity
+COG0007	810.4505852151906	0.0540907542965295	0.4533387204298978	0.8430064870921586	0.9593240762732527	H	Multifunctional enzyme that catalyzes the SAM-dependent methylations of uroporphyrinogen III at position C-2 and C-7 to form precorrin-2 via precorrin-1. Then it catalyzes the NAD- dependent ring dehydrogenation of precorrin-2 to yield sirohydrochlorin. Finally, it catalyzes the ferrochelation of sirohydrochlorin to yield siroheme
+COG0008	3426.2376109245474	-0.28529343616534436	0.4614753547119595	0.313722402672228	0.6419020589238214	J	Catalyzes the attachment of glutamate to tRNA(Glu) in a two-step reaction glutamate is first activated by ATP to form Glu-AMP and then transferred to the acceptor end of tRNA(Glu)
+COG0009	1280.7719835893845	-0.08284666552251277	0.4407068016024001	0.7626234575901318	0.9250712678296796	J	L-threonylcarbamoyladenylate synthase
+COG0011	275.06717914207263	-0.46764710847636826	0.5110729314859368	0.11974265380197108	0.3782430645170633	H	TIGRFAM Protein of
+COG0012	1079.2655418027227	0.09263018047786983	0.47500755118746646	0.7338303386722216	0.91394297439121	J	GTP binding
+COG0013	2765.0036482955193	0.04071631203550041	0.4304643378378435	0.8818305961242449	0.9729900237583847	J	Catalyzes the attachment of alanine to tRNA(Ala) in a two-step reaction alanine is first activated by ATP to form Ala- AMP and then transferred to the acceptor end of tRNA(Ala). Also edits incorrectly charged Ser-tRNA(Ala) and Gly-tRNA(Ala) via its editing domain
+COG0015	1714.7138794851903	-0.3435049981126913	0.5524622670835577	0.23771500144813124	0.5482881072362091	F	Belongs to the lyase 1 family. Adenylosuccinate lyase subfamily
+COG0016	1112.2842710688003	0.5747700050898971	0.4855304493750252	0.059198644826253956	0.2605472851128076	J	Belongs to the class-II aminoacyl-tRNA synthetase family. Phe-tRNA synthetase alpha subunit type 1 subfamily
+COG0018	1929.7653344922346	0.1846306970374886	0.4692761376230519	0.5053052508804665	0.7821193005339546	J	arginyl-trna synthetase
+COG0019	1495.11141369492	0.13040882371283727	0.46841727047243453	0.6346550480445479	0.8563871484915491	E	diaminopimelate decarboxylase activity
+COG0020	1653.6502070913793	0.1614078759016911	0.48155413591132545	0.5576023762792032	0.8113952528161914	H	Catalyzes the condensation of isopentenyl diphosphate (IPP) with allylic pyrophosphates generating different type of terpenoids
+COG0021	2269.7844660134297	0.2919799565831379	0.44843663168131037	0.302018584499048	0.6310411836121285	G	Catalyzes the transfer of a two-carbon ketol group from a ketose donor to an aldose acceptor, via a covalent intermediate with the cofactor thiamine pyrophosphate
+COG0022	1008.4222960452378	0.05951134079603214	0.420098539603628	0.8281039983855932	0.9593240762732527	C	dehydrogenase e1 component
+COG0024	1816.601223770649	0.19233480358629418	0.49693693030651714	0.4866772701670126	0.7775806905865839	E	Methionine aminopeptidase
+COG0026	1227.8623480452957	-0.06116615113743314	0.48036810859821166	0.821374732959483	0.9584504111274915	F	Catalyzes the ATP-dependent conversion of 5- aminoimidazole ribonucleotide (AIR) and HCO(3)(-) to N5- carboxyaminoimidazole ribonucleotide (N5-CAIR)
+COG0028	3927.15410380577	-0.02234595142948489	0.32921419624692	0.9308594524352609	0.9785361447228714	EH	Belongs to the TPP enzyme family
+COG0031	2970.804139387549	-0.08504657200088105	0.37772123067229335	0.7531038199151653	0.9231150081456473	E	Belongs to the cysteine synthase cystathionine beta- synthase family
+COG0034	1694.9523629237485	0.023290816582224337	0.4859705012333308	0.9311520746518316	0.9785361447228714	F	Catalyzes the formation of phosphoribosylamine from phosphoribosylpyrophosphate (PRPP) and glutamine
+COG0035	759.5641764849975	0.30547083126620883	0.4668383710632496	0.28330666786089603	0.6076722730929365	F	Catalyzes the conversion of uracil and 5-phospho-alpha- D-ribose 1-diphosphate (PRPP) to UMP and diphosphate
+COG0039	3333.0021360343194	0.45690756414304956	0.44228259071672926	0.11607816907036607	0.3721206286443504	C	L-malate dehydrogenase activity
+COG0041	772.9973273815159	0.5220805959259188	0.5403094694592527	0.09075558319150379	0.32894268520022596	F	Catalyzes the conversion of N5-carboxyaminoimidazole ribonucleotide (N5-CAIR) to 4-carboxy-5-aminoimidazole ribonucleotide (CAIR)
+COG0042	1247.4583873696602	-0.6391477264787496	0.7044141844768381	0.061131184104107554	0.2624484541425614	J	Catalyzes the synthesis of 5,6-dihydrouridine (D), a modified base found in the D-loop of most tRNAs, via the reduction of the C5-C6 double bond in target uridines
+COG0044	1644.084230282155	0.07049804708050206	0.4492717948578926	0.7967132897068706	0.9441575966233424	F	hydrolase activity, acting on carbon-nitrogen (but not peptide) bonds, in cyclic amides
+COG0045	1347.739790756966	-0.0384096577688501	0.36317525628591535	0.8857469475969343	0.9729900237583847	C	succinate-CoA ligase (ADP-forming) activity
+COG0046	2160.799007219151	0.0069188504486030755	0.47588690827328944	0.9796012921593263	0.9914188400981007	F	Part of the phosphoribosylformylglycinamidine synthase complex involved in the purines biosynthetic pathway. Catalyzes the ATP-dependent conversion of formylglycinamide ribonucleotide (FGAR) and glutamine to yield formylglycinamidine ribonucleotide (FGAM) and glutamate. The FGAM synthase complex is composed of three subunits. PurQ produces an ammonia molecule by converting glutamine to glutamate. PurL transfers the ammonia molecule to FGAR to form FGAM in an ATP-dependent manner. PurS interacts with PurQ and PurL and is thought to assist in the transfer of the ammonia molecule from PurQ to PurL
+COG0047	899.8995888269744	-0.06858803600151812	0.4498234116158066	0.8020561985752538	0.9441575966233424	F	phosphoribosylformylglycinamidine synthase activity
+COG0048	428.0867005131304	0.42140468042234747	0.3270827463196576	0.10309411234843893	0.348089626484463	J	Interacts with and stabilizes bases of the 16S rRNA that are involved in tRNA selection in the A site and with the mRNA backbone. Located at the interface of the 30S and 50S subunits, it traverses the body of the 30S subunit contacting proteins on the other side and probably holding the rRNA structure together. The combined cluster of proteins S8, S12 and S17 appears to hold together the shoulder and platform of the 30S subunit
+COG0049	666.2730635176476	0.22389453668721956	0.28315497502475506	0.3459474654218223	0.6785243500144209	J	tRNA binding
+COG0050	2588.741284337784	0.42604063440589957	0.3366943134738801	0.10442989714895694	0.351264199501037	J	This protein promotes the GTP-dependent binding of aminoacyl-tRNA to the A-site of ribosomes during protein biosynthesis
+COG0051	458.8242876618402	1.236327549717125	0.4692582374931931	1.6369918129697733e-4	0.0039317617836354	J	transcription antitermination factor activity, RNA binding
+COG0052	895.1061931445995	0.8087021446537161	0.4100691464299314	0.005920143495953379	0.06202919504024387	J	Belongs to the universal ribosomal protein uS2 family
+COG0053	1717.9058974065995	-0.3770382912307945	0.49684714858489737	0.1962505601636597	0.49398264713559875	P	Belongs to the cation diffusion facilitator (CDF) transporter (TC 2.A.4) family
+COG0054	403.15477764768787	0.0837982274689401	0.44657761771707033	0.7598095152182878	0.9242614376901912	H	6,7-dimethyl-8-ribityllumazine synthase activity
+COG0055	1630.6223439789135	0.30883868576390466	0.3606161819500623	0.25119134087094036	0.5668953174602464	C	Produces ATP from ADP in the presence of a proton gradient across the membrane. The catalytic sites are hosted primarily by the beta subunits
+COG0056	1666.678560847546	0.7308521944543558	0.4957543198994217	0.020568080237434137	0.14595070107785452	C	Produces ATP from ADP in the presence of a proton gradient across the membrane. The alpha chain is a regulatory subunit
+COG0057	1681.9905654056174	0.7279068643249905	0.37773006826937233	0.009573013494619288	0.09005940588713301	G	glyceraldehyde-3-phosphate dehydrogenase (NAD+) (phosphorylating) activity
+COG0059	1025.4184458458737	0.7889503043764595	0.7793944090756013	0.0336342586476719	0.19269175276859776	EH	Involved in the biosynthesis of branched-chain amino acids (BCAA). Catalyzes an alkyl-migration followed by a ketol- acid reduction of (S)-2-acetolactate (S2AL) to yield (R)-2,3- dihydroxy-isovalerate. In the isomerase reaction, S2AL is rearranged via a Mg-dependent methyl migration to produce 3- hydroxy-3-methyl-2-ketobutyrate (HMKB). In the reductase reaction, this 2-ketoacid undergoes a metal-dependent reduction by NADPH to yield (R)-2,3-dihydroxy-isovalerate
+COG0060	3785.299920196316	-1.5754191113439773	1.0113280795441888	0.00259151805044515	0.03384217689404843	J	amino acids such as valine, to avoid such errors it has two additional distinct tRNA(Ile)-dependent editing activities. One activity is designated as 'pretransfer' editing and involves the hydrolysis of activated Val-AMP. The other activity is designated 'posttransfer' editing and involves deacylation of mischarged Val-tRNA(Ile)
+COG0063	1255.5087997151713	0.1949707791210447	0.5186707739247248	0.4793129763081982	0.7770788265493935	H	ADP-dependent NAD(P)H-hydrate dehydratase activity
+COG0064	1654.3213067723884	-0.7126535939594951	0.6256114665109318	0.035613609829907585	0.1988986511255216	J	Allows the formation of correctly charged Asn-tRNA(Asn) or Gln-tRNA(Gln) through the transamidation of misacylated Asp- tRNA(Asn) or Glu-tRNA(Gln) in organisms which lack either or both of asparaginyl-tRNA or glutaminyl-tRNA synthetases. The reaction takes place in the presence of glutamine and ATP through an activated phospho-Asp-tRNA(Asn) or phospho-Glu-tRNA(Gln)
+COG0065	1171.852463124235	0.2359909422576578	0.5091745472916884	0.39871946118889834	0.7181248849702419	E	Catalyzes the isomerization between 2-isopropylmalate and 3-isopropylmalate, via the formation of 2-isopropylmaleate
+COG0071	581.5419334124341	0.08001519470855643	0.4269371968030468	0.7706212856304049	0.9272516282382108	O	Belongs to the small heat shock protein (HSP20) family
+COG0073	2149.1263132696226	0.1884984085425821	0.4226515613781838	0.49617984022686595	0.7812837139756738	J	Is required not only for elongation of protein synthesis but also for the initiation of all mRNA translation through initiator tRNA(fMet) aminoacylation
+COG0074	918.3988661439915	0.5907542188153724	0.5146463321645385	0.05722302643741132	0.25407023738210627	C	Succinyl-CoA synthetase functions in the citric acid cycle (TCA), coupling the hydrolysis of succinyl-CoA to the synthesis of either ATP or GTP and thus represents the only step of substrate-level phosphorylation in the TCA. The alpha subunit of the enzyme binds the substrates coenzyme A and phosphate, while succinate binding and nucleotide specificity is provided by the beta subunit
+COG0078	1051.8327030026587	0.9840159190086079	0.690126699158998	0.009200543000654772	0.08785034607076815	E	Reversibly catalyzes the transfer of the carbamoyl group from carbamoyl phosphate (CP) to the N(epsilon) atom of ornithine (ORN) to produce L-citrulline
+COG0080	454.05926002678405	0.3918248511174947	0.3385283347683485	0.1359664132330037	0.4078992396990111	J	Forms part of the ribosomal stalk which helps the ribosome interact with GTP-bound translation factors
+COG0081	868.3036677078529	0.3488664301429667	0.34787398194622426	0.18916387602549817	0.4875996120509488	J	regulation of translation
+COG0085	4347.975971955773	0.0151064371487253	0.362561644179631	0.9549041773442243	0.9882924352933231	K	RNA polymerase activity
+COG0086	4496.257619830996	0.26109910717017065	0.3701106971263141	0.3352268755142125	0.6674472319655173	K	DNA-dependent RNA polymerase catalyzes the transcription of DNA into RNA using the four ribonucleoside triphosphates as substrates
+COG0087	913.9089093799048	0.6616314763144211	0.39553397797378553	0.02070922109888476	0.14595070107785452	J	One of the primary rRNA binding proteins, it binds directly near the 3'-end of the 23S rRNA, where it nucleates assembly of the 50S subunit
+COG0088	1690.8294539425735	0.5289981191665812	0.34347091670440505	0.04661112544965194	0.231554540252918	J	Forms part of the polypeptide exit tunnel
+COG0089	385.57261746698424	0.48621576557553875	0.37725673782783975	0.07910281600305888	0.3040835524273432	J	rRNA binding
+COG0090	1408.5302035581603	0.49228875224698115	0.37013585538047894	0.07324473212398183	0.29309226668206106	J	One of the primary rRNA binding proteins. Required for association of the 30S and 50S subunits to form the 70S ribosome, for tRNA binding and peptide bond formation. It has been suggested to have peptidyltransferase activity
+COG0091	711.5413385414653	0.20265063380051704	0.3187569588958196	0.425060074776145	0.738656255188291	J	The globular domain of the protein is located near the polypeptide exit tunnel on the outside of the subunit, while an extended beta-hairpin is found that lines the wall of the exit tunnel in the center of the 70S ribosome
+COG0092	1132.9190578255743	0.17042511026093418	0.3411087903852163	0.5153539534120337	0.7821193005339546	J	Binds the lower part of the 30S subunit head. Binds mRNA in the 70S ribosome, positioning it for translation
+COG0093	540.9107239724716	0.21815205933363904	0.2785692853721666	0.3534942369813664	0.6828921223188967	J	Binds to 23S rRNA. Forms part of two intersubunit bridges in the 70S ribosome
+COG0094	754.9752612971722	0.5943766408616856	0.3176420702367928	0.019825033486080636	0.1419728204487065	J	This is 1 of the proteins that binds and probably mediates the attachment of the 5S RNA into the large ribosomal subunit, where it forms part of the central protuberance. In the 70S ribosome it contacts protein S13 of the 30S subunit (bridge B1b), connecting the 2 subunits
+COG0096	453.2653662258552	0.8038783429093689	0.381189270094056	0.004537148235377908	0.05165368760276387	J	One of the primary rRNA binding proteins, it binds directly to 16S rRNA central domain where it helps coordinate assembly of the platform of the 30S subunit
+COG0097	728.6475569000653	0.8559004986441232	0.35783956865870387	0.001800123685823786	0.02497671614080503	J	This protein binds to the 23S rRNA, and is important in its secondary structure. It is located near the subunit interface in the base of the L7 L12 stalk, and near the tRNA binding site of the peptidyltransferase center
+COG0098	911.0544090106405	0.3652032629487956	0.3520458495110953	0.1717697094721212	0.4592489674388321	J	Located at the back of the 30S subunit body where it stabilizes the conformation of the head with respect to the body
+COG0099	822.6041621273803	0.2776373528763333	0.3607020239349581	0.3015903841575081	0.6310411836121285	J	Located at the top of the head of the 30S subunit, it contacts several helices of the 16S rRNA. In the 70S ribosome it contacts the 23S rRNA (bridge B1a) and protein L5 of the 50S subunit (bridge B1b), connecting the 2 subunits
+COG0100	414.0469961112546	0.7509263109898094	0.37188098402184555	0.007117179056662296	0.07157002435161047	J	Located on the platform of the 30S subunit, it bridges several disparate RNA helices of the 16S rRNA. Forms part of the Shine-Dalgarno cleft in the 70S ribosome
+COG0102	521.3954237855518	0.16293610295605432	0.33814024959132605	0.5324102475697181	0.7906025080968389	J	This protein is one of the early assembly proteins of the 50S ribosomal subunit, although it is not seen to bind rRNA by itself. It is important during the early stages of 50S assembly
+COG0103	737.6399391924176	0.31977088609173454	0.3426556571442416	0.22516680541643497	0.5308406023393029	J	maturation of SSU-rRNA from tricistronic rRNA transcript (SSU-rRNA, 5.8S rRNA, LSU-rRNA)
+COG0104	1498.728257486756	-0.006532333386854506	0.3496576229024705	0.9802542135204193	0.9914188400981007	F	Plays an important role in the de novo pathway of purine nucleotide biosynthesis. Catalyzes the first committed step in the biosynthesis of AMP from IMP
+COG0105	554.6042201187151	0.6821683446225283	0.545867601686689	0.03460416009324499	0.19518777038058216	F	UTP biosynthetic process
+COG0109	1025.2191617906376	-0.14999294885443729	0.479629505836015	0.5850640154483556	0.8294641995533664	O	protoheme IX farnesyltransferase activity
+COG0110	860.6226749015074	-0.007182082983074615	0.45658009907809416	0.978967076414908	0.9914188400981007	HJ	maltose O-acetyltransferase activity
+COG0111	2068.110478506932	0.3351402361727926	0.4577307318223291	0.24128808310694091	0.5522263345334111	EH	D-isomer specific 2-hydroxyacid dehydrogenase
+COG0112	1566.9645278194914	0.010579758591269828	0.4833936990253205	0.9687178811171141	0.9914188400981007	E	Catalyzes the reversible interconversion of serine and glycine with tetrahydrofolate (THF) serving as the one-carbon carrier. This reaction serves as the major source of one-carbon groups required for the biosynthesis of purines, thymidylate, methionine, and other important biomolecules. Also exhibits THF- independent aldolase activity toward beta-hydroxyamino acids, producing glycine and aldehydes, via a retro-aldol mechanism
+COG0113	1082.9874746892317	0.16149452217077165	0.4555619353249052	0.5590300064903224	0.8113952528161914	H	porphobilinogen synthase activity
+COG0114	1731.9864623612523	1.2212174560226736	0.8637024868924752	0.005719284454920367	0.061935665804503486	C	fumarate hydratase activity
+COG0115	1837.4578674445295	-0.1540166335703687	0.3681748679632951	0.5671366239531219	0.8159513991434835	E	Belongs to the class-IV pyridoxal-phosphate-dependent aminotransferase family
+COG0124	1327.436012658826	0.10324847723810551	0.4870402301475366	0.7040022710047193	0.8994761395820288	J	histidyl-tRNA synthetase
+COG0126	1361.4221939915808	0.5702668468530924	0.48026656598737155	0.06018902348136177	0.2624484541425614	F	phosphoglycerate kinase activity
+COG0127	577.5360176063907	-0.19195194679793373	0.4734856857456663	0.489031298939929	0.7782433574527903	F	Pyrophosphatase that catalyzes the hydrolysis of nucleoside triphosphates to their monophosphate derivatives, with a high preference for the non-canonical purine nucleotides XTP (xanthosine triphosphate), dITP (deoxyinosine triphosphate) and ITP. Seems to function as a house-cleaning enzyme that removes non-canonical purine nucleotides from the nucleotide pool, thus preventing their incorporation into DNA RNA and avoiding chromosomal lesions
+COG0134	794.2689199582552	0.03463432543915762	0.48925243359187165	0.8976908331923563	0.9729900237583847	E	indole-3-glycerol-phosphate synthase activity
+COG0136	1349.0771991774916	0.44338289045388335	0.46307199762870327	0.13038898492990628	0.39788803648713666	E	Catalyzes the NADPH-dependent formation of L-aspartate- semialdehyde (L-ASA) by the reductive dephosphorylation of L- aspartyl-4-phosphate
+COG0138	1722.9846994039622	-0.13200681215194324	0.44431263374745894	0.6318654439286023	0.8563871484915491	F	bifunctional purine biosynthesis protein purh
+COG0142	2429.1151980534223	0.08456557701160847	0.44428448206587373	0.757775291773767	0.9242614376901912	H	geranyltranstransferase activity
+COG0143	1818.292596007012	0.0023693969345263467	0.4638256590370183	0.9930444427418537	0.9986675709566999	J	Is required not only for elongation of protein synthesis but also for the initiation of all mRNA translation through initiator tRNA(fMet) aminoacylation
+COG0148	1851.0607055664696	0.9646520939215131	0.49796317892119607	0.0031890135332232946	0.039885127007074445	G	phosphopyruvate hydratase activity
+COG0149	900.8608804523886	0.786124386957668	0.5571777110441162	0.018118878989369914	0.13520642472739902	G	triose-phosphate isomerase activity
+COG0150	1274.3615104817397	0.4195142443964885	0.5687017230174098	0.16276153703851337	0.44202160998511264	F	phosphoribosylformylglycinamidine cyclo-ligase activity
+COG0151	1897.650661198487	-0.017837704359468676	0.43173521758404865	0.9480434156179552	0.984570411515218	F	Belongs to the GarS family
+COG0154	3323.679034198474	-0.03544598162643261	0.433626301709507	0.896995363606071	0.9729900237583847	J	amidase activity
+COG0162	1372.74219363125	-0.8800697607248735	0.6719029475228004	0.015611187273783116	0.12267906459397705	J	Catalyzes the attachment of tyrosine to tRNA(Tyr) in a two-step reaction tyrosine is first activated by ATP to form Tyr- AMP and then transferred to the acceptor end of tRNA(Tyr)
+COG0166	1988.6820385693516	0.5373014953478349	0.5934498549415479	0.08926974053260286	0.32622028639074624	G	Belongs to the GPI family
+COG0167	1810.5194838250945	0.32393619525013634	0.4694988317422094	0.257495026064658	0.5745115154407445	F	dihydroorotate dehydrogenase activity
+COG0172	1597.8463342605323	0.3455664183614061	0.44807645179493916	0.22657394772515474	0.532268956560681	J	Catalyzes the attachment of serine to tRNA(Ser). Is also able to aminoacylate tRNA(Sec) with serine, to form the misacylated tRNA L-seryl-tRNA(Sec), which will be further converted into selenocysteinyl-tRNA(Sec)
+COG0173	1878.6339953916797	0.1851656272986143	0.4490628002763302	0.5046782133070324	0.7821193005339546	J	Aspartyl-tRNA synthetase with relaxed tRNA specificity since it is able to aspartylate not only its cognate tRNA(Asp) but also tRNA(Asn). Reaction proceeds in two steps L-aspartate is first activated by ATP to form Asp-AMP and then transferred to the acceptor end of tRNA(Asp Asn)
+COG0174	2946.7286911758415	0.12803485062887685	0.36757368362704973	0.6337946090432824	0.8563871484915491	E	glutamine synthetase
+COG0176	1037.8283812549676	0.28653947141500064	0.4535998365159085	0.3111120659775314	0.6409919131973267	G	Transaldolase is important for the balance of metabolites in the pentose-phosphate pathway
+COG0178	5396.067967862508	0.40162746639680735	0.5118240479363779	0.17325270731082068	0.4592489674388321	L	The UvrABC repair system catalyzes the recognition and processing of DNA lesions. UvrA is an ATPase and a DNA-binding protein. A damage recognition complex composed of 2 uvrA and 2 uvrB subunits scans DNA for abnormalities. When the presence of a lesion has been verified by uvrB, the uvrA molecules dissociate
+COG0179	1028.239843339232	0.5048583494168845	0.5049646810117586	0.09548190858783881	0.3365731836953243	Q	Fumarylacetoacetate (FAA) hydrolase
+COG0181	1112.5511399605123	-0.29997208733949043	0.4748202305416597	0.29199321400320993	0.6203109426671063	H	hydroxymethylbilane synthase activity
+COG0183	1846.3727836756389	0.4260217309970286	0.46884592824777077	0.14564885008433825	0.42178236312779194	I	Belongs to the thiolase family
+COG0184	231.27505177850585	0.13919431188155104	0.36115984608731755	0.6026644211128955	0.8401350171872076	J	Forms an intersubunit bridge (bridge B4) with the 23S rRNA of the 50S subunit in the ribosome
+COG0185	250.64711431956945	0.05390255915998245	0.36484959110131643	0.840436726091063	0.9593240762732527	J	Protein S19 forms a complex with S13 that binds strongly to the 16S ribosomal RNA
+COG0186	311.0794424783836	0.2167584641368162	0.2879226785581287	0.3664698578043667	0.6953530635262342	J	One of the primary rRNA binding proteins, it binds specifically to the 5'-end of 16S ribosomal RNA
+COG0187	4281.6437758090615	0.1199402696688964	0.41277080051907444	0.6624112891059386	0.8813507416731718	L	DNA topoisomerase II activity
+COG0188	5982.284168282902	-1.106729655327975	0.5632081881706978	0.0017915511584670834	0.02497671614080503	L	A type II topoisomerase that negatively supercoils closed circular double-stranded (ds) DNA in an ATP-dependent manner to modulate DNA topology and maintain chromosomes in an underwound state. Negative supercoiling favors strand separation, and DNA replication, transcription, recombination and repair, all of which involve strand separation. Also able to catalyze the interconversion of other topological isomers of dsDNA rings, including catenanes and knotted rings. Type II topoisomerases break and join 2 DNA strands simultaneously in an ATP-dependent manner
+COG0190	987.5371509506369	-0.18008545490455075	0.4277206217514933	0.5155663628476115	0.7821193005339546	F	Catalyzes the oxidation of 5,10- methylenetetrahydrofolate to 5,10-methenyltetrahydrofolate and then the hydrolysis of 5,10-methenyltetrahydrofolate to 10- formyltetrahydrofolate
+COG0191	1149.086524123857	1.590633449155264	0.6856403275554422	2.478831953849339e-4	0.005368787256141983	G	fructose-bisphosphate aldolase activity
+COG0192	1418.3043708900818	-0.594769147646565	0.5192144208881755	0.05637207680427521	0.25407023738210627	H	Catalyzes the formation of S-adenosylmethionine (AdoMet) from methionine and ATP. The overall synthetic reaction is composed of two sequential steps, AdoMet formation and the subsequent tripolyphosphate hydrolysis which occurs prior to release of AdoMet from the enzyme
+COG0193	756.8689983394652	0.054879157596702415	0.4625800534110278	0.8403579989225418	0.9593240762732527	J	aminoacyl-tRNA hydrolase activity
+COG0194	734.5079666794069	0.5940634625456459	0.513018830904463	0.05581948699624678	0.25407023738210627	F	GDP metabolic process
+COG0195	1114.7023069758725	-0.6243704250672889	0.5905895203197508	0.05473558755706337	0.25315209245141806	K	Participates in both transcription termination and antitermination
+COG0196	1248.9509818937258	-0.4496485534044171	0.5027150525513232	0.1316016120157021	0.39911361099196363	H	riboflavin kinase activity
+COG0197	494.0057617894656	0.43310606873971735	0.33023000370376787	0.09560300969815481	0.3365731836953243	J	Binds 23S rRNA and is also seen to make contacts with the A and possibly P site tRNAs
+COG0198	481.8994514390119	0.3545055841824166	0.2949842634270946	0.14581786233010188	0.42178236312779194	J	One of the proteins that surrounds the polypeptide exit tunnel on the outside of the subunit
+COG0199	391.89668134602505	0.30541009489317944	0.30337110959944835	0.2175443582795262	0.5281701457097752	J	Binds 16S rRNA, required for the assembly of 30S particles and may also be responsible for determining the conformation of the 16S rRNA at the A site
+COG0200	689.0130687398826	0.5705873627175847	0.35388579476112564	0.03472935554068917	0.19518777038058216	J	Binds to the 23S rRNA
+COG0201	1467.58789451469	0.4629957776553558	0.4464744699614434	0.11251599973192856	0.3655172130167758	U	protein transport
+COG0202	1199.5011833844012	0.1524457587203748	0.36484821690103364	0.5700055951597183	0.8177140040417283	K	RNA polymerase activity
+COG0203	803.3823033245629	0.17877118403672201	0.32689488611751516	0.4868635855474556	0.7775806905865839	J	ribosomal protein L17
+COG0204	2953.1705274269675	0.7926526193038097	0.5511751691377228	0.016897989606526467	0.1271645319541992	I	Acyl-transferase
+COG0205	3481.9867104317873	0.5568910577838947	0.4486491627357749	0.06048059841423669	0.2624484541425614	G	6-phosphofructokinase activity
+COG0206	1198.4335414081245	0.2374894188324456	0.3699505591675545	0.3800736513379389	0.7105376892380837	D	Essential cell division protein that forms a contractile ring structure (Z ring) at the future cell division site. The regulation of the ring assembly controls the timing and the location of cell division. One of the functions of the FtsZ ring is to recruit other cell division proteins to the septum to produce a new cell wall between the dividing cells. Binds GTP and shows GTPase activity
+COG0208	1102.8588062332642	0.44901342812963596	0.4385446741865334	0.12123427712297344	0.38041002856961276	F	Provides the precursors necessary for DNA synthesis. Catalyzes the biosynthesis of deoxyribonucleotides from the corresponding ribonucleotides
+COG0209	4753.125522439324	0.474434466198209	0.5156891695717467	0.11575812692437046	0.3721206286443504	F	Provides the precursors necessary for DNA synthesis. Catalyzes the biosynthesis of deoxyribonucleotides from the corresponding ribonucleotides
+COG0210	6231.886464198955	-0.7541202810671411	0.6121229480652228	0.026926541384419158	0.16531103431987784	L	DNA helicase
+COG0211	268.9920528720189	0.658351740052932	0.34859462695036186	0.014365274715869741	0.11640851881272002	J	Belongs to the bacterial ribosomal protein bL27 family
+COG0213	1138.0813287509502	-0.12072285667134117	0.4687201576444451	0.6595071178150445	0.8793428237533926	F	The enzymes which catalyze the reversible phosphorolysis of pyrimidine nucleosides are involved in the degradation of these compounds and in their utilization as carbon and energy sources, or in the rescue of pyrimidine bases for nucleotide synthesis
+COG0214	1002.8052417151847	-0.0095489836152044209	0.4372510737555377	0.9721538651842907	0.9914188400981007	H	Catalyzes the formation of pyridoxal 5'-phosphate from ribose 5-phosphate (RBP), glyceraldehyde 3-phosphate (G3P) and ammonia. The ammonia is provided by the PdxT subunit. Can also use ribulose 5-phosphate and dihydroxyacetone phosphate as substrates, resulting from enzyme-catalyzed isomerization of RBP and G3P, respectively
+COG0215	1855.0050957139983	1.0111897940459618	0.8940069904175294	0.016016565677721754	0.12476061685804314	J	cysteine-tRNA ligase activity
+COG0216	1248.7902808735294	0.14563253619933325	0.40864990868955875	0.5963425932553124	0.8355204910012198	J	Peptide chain release factor 1 directs the termination of translation in response to the peptide chain termination codons UAG and UAA
+COG0217	844.4340206180757	0.5379371404409131	0.4108273770918103	0.06117886262107006	0.2624484541425614	K	transcriptional regulatory protein
+COG0221	421.6064693134278	2.798426622518826	1.0400243941157254	1.0609387056926041e-4	0.002835124134932097	C	Catalyzes the hydrolysis of inorganic pyrophosphate (PPi) forming two phosphate ions
+COG0222	377.70789154206534	0.9671511772051294	0.408605360778531	0.0010997819016620727	0.017133444362735447	J	ribosome binding
+COG0224	1003.2742451200501	0.7366960022801808	0.4648799717500726	0.01685046153668407	0.1271645319541992	C	Produces ATP from ADP in the presence of a proton gradient across the membrane. The gamma chain is believed to be important in regulating ATPase activity and the flow of protons through the CF(0) complex
+COG0225	884.9409851494094	-0.02085433353134672	0.3367469067044404	0.9360931145353261	0.9800055354775798	O	Has an important function as a repair enzyme for proteins that have been inactivated by oxidation. Catalyzes the reversible oxidation-reduction of methionine sulfoxide in proteins to methionine
+COG0226	1380.2274988301187	0.7844924262236758	0.6369156510135684	0.024231742000127163	0.15708651557315825	P	Part of the ABC transporter complex PstSACB involved in phosphate import
+COG0227	346.42420942746156	0.37429593959508184	0.3768879124261208	0.17291350747777048	0.4592489674388321	J	Belongs to the bacterial ribosomal protein bL28 family
+COG0228	444.5738907006406	0.5020262144982282	0.3821186618015727	0.07159797650254499	0.29164680336816484	J	four-way junction DNA binding
+COG0229	520.3586645977762	0.3068652137076268	0.37903563877722213	0.2624448241354502	0.5811745731478299	O	Has an important function as a repair enzyme for proteins that have been inactivated by oxidation. Catalyzes the reversible oxidation-reduction of methionine sulfoxide in proteins to methionine
+COG0230	51.66031863676165	-0.3035186767113585	0.45299842872082313	0.2848925967676015	0.6096015082641689	J	Belongs to the bacterial ribosomal protein bL34 family
+COG0231	657.26309631114475	0.23930601959158693	0.45277697515607446	0.39316583391315485	0.7177556275657646	J	Involved in peptide bond synthesis. Stimulates efficient translation and peptide-bond synthesis on native or reconstituted 70S ribosomes in vitro. Probably functions indirectly by altering the affinity of the ribosome for aminoacyl-tRNA, thus increasing their reactivity as acceptors for peptidyl transferase
+COG0233	482.44631063489595	0.28011819216535033	0.46708953777162265	0.3223677244231982	0.6553415439182492	J	cytoplasmic translational termination
+COG0234	392.11165805897167	0.24032856025817376	0.401539514076417	0.38464264902813544	0.7160643025932585	O	Binds to Cpn60 in the presence of Mg-ATP and suppresses the ATPase activity of the latter
+COG0236	385.84151132217534	0.33625551239131196	0.3880223277958561	0.22386246074285096	0.5306944398054748	IQ	Carrier of the growing fatty acid chain in fatty acid biosynthesis
+COG0238	334.95069139652395	0.5531390864781609	0.34378528547172255	0.03770127402440032	0.20614162040611808	J	Binds as a heterodimer with protein S6 to the central domain of the 16S rRNA, where it helps stabilize the platform of the 30S subunit
+COG0239	658.0799162896931	-0.2391600066948132	0.49248407460246363	0.3934728370552632	0.7177556275657646	D	Important for reducing fluoride concentration in the cell, thus reducing its toxicity
+COG0240	1529.712532537098	0.687256497418831	0.6761334970823919	0.04565253638846939	0.23033779723273193	I	glycerol-3-phosphate dehydrogenase [NAD(P)+] activity
+COG0242	685.5370247576936	0.5532054394768005	0.4591533059559696	0.0639001839071646	0.272804631295972	J	peptide deformylase activity
+COG0244	996.8994584895539	0.5937803992491894	0.3362859780323537	0.02417904482666802	0.15708651557315825	J	Forms part of the ribosomal stalk, playing a central role in the interaction of the ribosome with GTP-bound translation factors
+COG0247	1793.5426404827797	0.04644757658276033	0.4754559938205915	0.863955779400666	0.9650223045381024	C	lactate metabolic process
+COG0248	1326.7370160250446	0.6604185384869304	0.6161104808685313	0.04691477873844476	0.231554540252918	FP	Ppx GppA phosphatase
+COG0249	617.5707997538551	-3.0089649442373876	1.2184267860614622	1.737101326644248e-4	0.003987184663536536	L	that it carries out the mismatch recognition step. This protein has a weak ATPase activity
+COG0250	817.4364505222641	0.26271256604191956	0.44510495596438393	0.35013896361129954	0.6803575485488709	K	Participates in transcription elongation, termination and antitermination
+COG0251	609.1649207848832	-0.028863649201409634	0.4044186635666235	0.9158548117324667	0.9751547635712596	J	oxidation-reduction process
+COG0254	410.92510952559354	0.7338921696076248	0.5587086653953323	0.025782095326176067	0.1645140161334833	J	rRNA binding
+COG0255	342.9268592010478	0.4909196789961648	0.3538946535078511	0.06836997428457092	0.28370344469485503	J	Belongs to the universal ribosomal protein uL29 family
+COG0256	541.7106642964251	0.650578065527305	0.37167887623360324	0.019147790936056	0.13937080615752237	J	This is one of the proteins that binds and probably mediates the attachment of the 5S RNA into the large ribosomal subunit, where it forms part of the central protuberance
+COG0257	53.728022374950015	0.008460134025756547	0.45987783084904155	0.9752011122944381	0.9914188400981007	J	Belongs to the bacterial ribosomal protein bL36 family
+COG0260	1620.688326913243	0.49117316963267066	0.5625067561988597	0.11079277878272742	0.3627637432762256	E	Presumably involved in the processing and regular turnover of intracellular proteins. Catalyzes the removal of unsubstituted N-terminal amino acids from various peptides
+COG0261	495.14359971069666	0.4183838472216291	0.28663320323964286	0.0806747634421116	0.3061445557280614	J	This protein binds to 23S rRNA in the presence of protein L20
+COG0262	562.4520223800121	0.23050102788932822	0.4592387841854829	0.41017934194016475	0.7293922866478086	H	Key enzyme in folate metabolism. Catalyzes an essential reaction for de novo glycine and purine synthesis, and for DNA precursor synthesis
+COG0264	1188.3036709025312	0.49581143978468245	0.3570094403414316	0.0668218871492204	0.2825611228024177	J	Associates with the EF-Tu.GDP complex and induces the exchange of GDP to GTP. It remains bound to the aminoacyl-tRNA.EF- Tu.GTP complex up to the GTP hydrolysis stage on the ribosome
+COG0265	2849.3019850669816	0.300043145455782	0.4259612819005351	0.28626048877379506	0.6110560433440625	O	Trypsin-like serine proteases, typically periplasmic, contain C-terminal PDZ domain
+COG0266	1680.1897919442315	0.31451626871129107	0.5249720824911084	0.27336269190708395	0.5949658588565945	L	class I DNA-(apurinic or apyrimidinic site) endonuclease activity
+COG0267	277.27241988047246	0.5330974647103185	0.3739317156207388	0.054032124810709944	0.25275214270235513	J	Belongs to the bacterial ribosomal protein bL33 family
+COG0268	372.3862546623215	0.054023846841979736	0.3484408557609319	0.8376509166772791	0.9593240762732527	J	Binds directly to 16S ribosomal RNA
+COG0269	545.1264444815987	0.25502763867208894	0.4907762014139954	0.36501802737780575	0.6953530635262342	G	3-dehydro-L-gulonate-6-phosphate decarboxylase activity
+COG0272	2346.103913345382	-0.044919198525961865	0.428966470463839	0.8697635681976836	0.96664586803447194	L	DNA ligase that catalyzes the formation of phosphodiester linkages between 5'-phosphoryl and 3'-hydroxyl groups in double-stranded DNA using NAD as a coenzyme and as the energy source for the reaction. It is essential for DNA replication and repair of damaged DNA
+COG0277	4047.013293875329	-0.9196902513311166	0.8498734201943833	0.021456434002569646	0.1488540108928269	C	FAD linked oxidase domain protein
+COG0280	289.60918676120275	0.2889017006391955	0.5138195721619314	0.3098538591668221	0.6405406326225243	C	phosphate acetyltransferase
+COG0281	2594.0397227654066	0.21738744474213256	0.5039733785534399	0.43455146295014946	0.7448863433997989	C	malic enzyme
+COG0282	566.556458367043	0.48298421945059383	0.6034152733119493	0.12011772994798631	0.3782430645170633	F	Catalyzes the formation of acetyl phosphate from acetate and ATP. Can also catalyze the reverse reaction
+COG0284	747.0212196300375	0.11825017487999698	0.4777015061382727	0.6651816097298444	0.882931643408224	F	orotidine-5'-phosphate decarboxylase activity
+COG0285	1485.8026882352058	-0.07048043123730137	0.47167515553846995	0.7955494972599059	0.9441575966233424	H	dihydrofolate synthase activity
+COG0288	390.8146945896502	-1.8764211706701683	1.2913168011754181	0.002757959140967041	0.03549373503157583	P	reversible hydration of carbon dioxide
+COG0289	779.6631707321187	0.7799685835001047	0.6120891874090253	0.02303045559939132	0.15575538252543877	E	4-hydroxy-tetrahydrodipicolinate reductase
+COG0290	890.7131855882709	0.42753806731491917	0.3795587585805938	0.12191698826223386	0.3812052309044495	J	IF-3 binds to the 30S ribosomal subunit and shifts the equilibrum between 70S ribosomes and their 50S and 30S subunits in favor of the free subunits, thus enhancing the availability of 30S subunits on which protein synthesis initiation begins
+COG0291	105.84164204526495	0.5114772512600044	0.4041980884293139	0.0725897497140225	0.2929986261184181	J	Belongs to the bacterial ribosomal protein bL35 family
+COG0292	366.1099036489164	0.5428372770791243	0.3608488524255158	0.04632066604517628	0.231554540252918	J	Binds directly to 23S ribosomal RNA and is necessary for the in vitro assembly process of the 50S ribosomal subunit. It is not involved in the protein synthesizing functions of that subunit
+COG0294	1064.525090144344	1.9027616876242703	0.789240765059449	1.7511283995261815e-4	0.003987184663536536	H	Catalyzes the condensation of para-aminobenzoate (pABA) with 6-hydroxymethyl-7,8-dihydropterin diphosphate (DHPt-PP) to form 7,8-dihydropteroate (H2Pte), the immediate precursor of folate derivatives
+COG0299	678.7944619867857	-0.1140213286907068	0.45910935552345766	0.6776816935496273	0.8888941563841493	F	Catalyzes the transfer of a formyl group from 10- formyltetrahydrofolate to 5-phospho-ribosyl-glycinamide (GAR), producing 5-phospho-ribosyl-N-formylglycinamide (FGAR) and tetrahydrofolate
+COG0300	1959.9047300046666	0.1940752438782228	0.4444184430175772	0.48498037623700496	0.7775806905865839	GM	oxidoreductase activity
+COG0303	2814.3037632914084	-3.3152809968307007	0.7203790260233753	4.128167850593427e-7	7.331626102653926e-5	H	'Molybdopterin
+COG0304	1735.701460419873	-0.009996022590360571	0.4347470401292066	0.9708594825725595	0.9914188400981007	I	beta-ketoacyl-acyl-carrier-protein synthase II activity
+COG0305	1621.4296334673752	0.16443924091130602	0.5345668628244569	0.5453764809288004	0.7983101054990093	L	Participates in initiation and elongation during chromosome replication
+COG0306	1206.0206243007624	0.25531373227967974	0.48101285479077793	0.36455006709297383	0.6953530635262342	P	phosphate transporter
+COG0307	569.383859402105	-0.055583713517251464	0.46887144415434534	0.8380228804723285	0.9593240762732527	H	riboflavin synthase, alpha
+COG0308	5152.108348419077	0.7204811568960642	0.7214200945399663	0.04195310989504516	0.2191433034517653	E	aminopeptidase N
+COG0310	487.2917230009452	0.17598845476712677	0.546388096113149	0.5180613140708097	0.7821193005339546	P	cobalt ion transport
+COG0311	391.7121735778641	-0.08108565370777297	0.44537494341510003	0.7673491935539093	0.9250712678296796	H	Catalyzes the hydrolysis of glutamine to glutamate and ammonia as part of the biosynthesis of pyridoxal 5'-phosphate. The resulting ammonia molecule is channeled to the active site of PdxS
+COG0316	443.7668475008102	0.3229054148608301	0.31521396503148763	0.20192877084123498	0.506271306925949	P	Belongs to the HesB IscA family
+COG0317	2672.8439648814856	-1.4628523190755096	0.7319177217093542	7.820789087882846e-4	0.013103510773660317	KT	In eubacteria ppGpp (guanosine 3'-diphosphate 5-' diphosphate) is a mediator of the stringent response that coordinates a variety of cellular activities in response to changes in nutritional abundance
+COG0318	7264.541120554191	-0.5667167138861502	0.5246667372511962	0.06788019590417234	0.28325728293926006	IQ	PFAM AMP-dependent synthetase and ligase
+COG0319	479.1308741093501	0.3309430451094414	0.5056275431203059	0.2508648310987331	0.5668953174602464	C	Single strand-specific metallo-endoribonuclease involved in late-stage 70S ribosome quality control and in maturation of the 3' terminus of the 16S rRNA
+COG0320	1114.3238125693297	-0.03475814124064179	0.47993811604584175	0.8977225335147144	0.9729900237583847	H	Catalyzes the radical-mediated insertion of two sulfur atoms into the C-6 and C-8 positions of the octanoyl moiety bound to the lipoyl domains of lipoate-dependent enzymes, thereby converting the octanoylated domains into lipoylated derivatives
+COG0322	2548.811344298809	-0.10268787909310151	0.4737279040544826	0.7067046477072765	0.8994761395820288	L	excinuclease ABC activity
+COG0324	1113.6673345818094	-0.23967872673282192	0.4529678017508444	0.3924706431140273	0.7177556275657646	J	Catalyzes the transfer of a dimethylallyl group onto the adenine at position 37 in tRNAs that read codons beginning with uridine, leading to the formation of N6-(dimethylallyl)adenosine (i(6)A)
+COG0325	805.8837347029628	0.08187132261478289	0.45105928007474516	0.7649468637948067	0.9250712678296796	F	Pyridoxal 5'-phosphate (PLP)-binding protein, which is involved in PLP homeostasis
+COG0329	1922.438668341916	0.1805206796413209	0.3917637540625864	0.509618601450557	0.7821193005339546	E	Catalyzes the condensation of (S)-aspartate-beta- semialdehyde (S)-ASA and pyruvate to 4-hydroxy- tetrahydrodipicolinate (HTPA)
+COG0331	953.3984689079261	0.23564792792931322	0.5058036139160973	0.3994974022244363	0.7181248849702419	I	[acyl-carrier-protein] S-malonyltransferase activity
+COG0332	1061.5429262632983	0.2745057527290233	0.5068577783591455	0.33227983620154766	0.6645596724030953	I	Catalyzes the condensation reaction of fatty acid synthesis by the addition to an acyl acceptor of two carbons from malonyl-ACP. Catalyzes the first condensation reaction which initiates fatty acid synthesis and may therefore play a role in governing the total rate of fatty acid production. Possesses both acetoacetyl-ACP synthase and acetyl transacylase activities. Its substrate specificity determines the biosynthesis of branched- chain and or straight-chain of fatty acids
+COG0333	51.14055941117829	2.31168453260018	0.8290165224785117	6.622026883661738e-5	0.002100128525961294	J	Belongs to the bacterial ribosomal protein bL32 family
+COG0334	1396.1954150759889	0.35075516829614733	0.49208077414477364	0.2253681386057626	0.5308406023393029	E	Belongs to the Glu Leu Phe Val dehydrogenases family
+COG0335	569.3421984741454	0.5476059341578359	0.3377313293568655	0.03783905870067258	0.20614162040611808	J	large ribosomal subunit rRNA binding
+COG0336	946.0443271492787	-0.005360272058898701	0.45434421131590663	0.9843111686663619	0.9943894400178945	J	Belongs to the RNA methyltransferase TrmD family
+COG0342	1689.7839870263267	0.08102221478946955	0.4360771122437188	0.7677674824217048	0.9250712678296796	U	Part of the Sec protein translocase complex. Interacts with the SecYEG preprotein conducting channel. SecDF uses the proton motive force (PMF) to complete protein translocation after the ATP-dependent function of SecA
+COG0343	1120.6507884378946	0.05770678939885622	0.4701741993188882	0.8318813920723886	0.9593240762732527	F	queuine tRNA-ribosyltransferase activity
+COG0345	819.1631627788618	0.4234251868374488	0.47920901626357726	0.14948945844194544	0.42695538920477594	E	Catalyzes the reduction of 1-pyrroline-5-carboxylate (PCA) to L-proline
+COG0346	1715.843032396278	-0.0241836507484353	0.37519116712570866	0.9285402890363054	0.9785361447228714	E	lactoylglutathione lyase activity
+COG0350	482.29943265071404	-0.14400068148673117	0.4826136195558747	0.5994435395293866	0.8382769497670792	L	Involved in the cellular defense against the biological effects of O6-methylguanine (O6-MeG) and O4-methylthymine (O4-MeT) in DNA. Repairs the methylated nucleobase in DNA by stoichiometrically transferring the methyl group to a cysteine residue in the enzyme. This is a suicide reaction the enzyme is irreversibly inactivated
+COG0351	1001.0463792069562	-0.22824052289709723	0.4844605713498101	0.41429014277140175	0.730666574839277	H	phosphomethylpyrimidine kinase
+COG0352	1026.5392905757071	-0.2099984269792895	0.5118942187530091	0.44879599764631456	0.7519449922828818	H	thiamine-phosphate diphosphorylase activity
+COG0353	618.0262779165689	-0.14071281335634597	0.42534093793562006	0.6098137198576365	0.8469034591424115	L	May play a role in DNA repair. It seems to be involved in an RecBC-independent recombinational process of DNA repair. It may act with RecF and RecO
+COG0354	998.5641894787176	-0.19555895955094513	0.5314473465012036	0.47702392161585166	0.7768025540123855	M	folic acid binding
+COG0355	429.91577362763405	0.8068164564399802	0.41588920780819927	0.0063783953059868	0.06586063990367766	C	proton-transporting ATP synthase activity, rotational mechanism
+COG0356	806.1123529009715	0.9557664741002789	0.5484261253128322	0.0050997118998743155	0.0566068020886049	C	it plays a direct role in the translocation of protons across the membrane
+COG0358	2043.501200295276	-0.4319155794436339	0.5645602816398873	0.15225593150367359	0.4333438050489171	L	DNA primase activity
+COG0359	463.8275075599408	0.5275345937576958	0.43325310597342803	0.07097873136667487	0.29045674402584004	J	binds to the 23S rRNA
+COG0360	425.9200819079415	0.3877170355245289	0.36492994671995566	0.1533522599843949	0.43506967049885836	J	Binds together with S18 to 16S ribosomal RNA
+COG0361	630.6842339396852	0.13214308885315548	0.3010349131303107	0.5915385667958768	0.8324663190407902	J	One of the essential components for the initiation of protein synthesis. Stabilizes the binding of IF-2 and IF-3 on the 30S subunit to which N-formylmethionyl-tRNA(fMet) subsequently binds. Helps modulate mRNA selection, yielding the 30S pre- initiation complex (PIC). Upon addition of the 50S ribosomal subunit IF-1, IF-2 and IF-3 are released leaving the mature 70S translation initation complex
+COG0362	1333.6356868241367	0.33525028499899123	0.5648977349621596	0.2481064876429003	0.5649193872484499	G	Catalyzes the oxidative decarboxylation of 6- phosphogluconate to ribulose 5-phosphate and CO(2), with concomitant reduction of NADP to NADPH
+COG0363	1146.121569979308	-0.0498847631578934	0.4868438571997554	0.8533866073714153	0.9593240762732527	G	glucosamine-6-phosphate deaminase activity
+COG0365	2270.527330730611	-0.13293533483894	0.4572596056232931	0.6289832245500145	0.8563871484915491	I	Catalyzes the conversion of acetate into acetyl-CoA (AcCoA), an essential intermediate at the junction of anabolic and catabolic pathways. AcsA undergoes a two-step reaction. In the first half reaction, AcsA combines acetate with ATP to form acetyl-adenylate (AcAMP) intermediate. In the second half reaction, it can then transfer the acetyl group from AcAMP to the sulfhydryl group of CoA, forming the product AcCoA
+COG0366	7312.717622763263	0.38792499776575795	0.4912743321949722	0.18436444803325483	0.48151655839273616	G	Alpha amylase catalytic
+COG0370	1774.9939135370316	0.20627302898734223	0.46006341020110936	0.45895979092555367	0.7603662207871112	P	Transporter of a GTP-driven Fe(2 ) uptake system
+COG0371	2075.2946773041904	0.19179754015202483	0.5670733767177231	0.48217391151882416	0.7770788265493935	C	Dehydrogenase
+COG0372	2618.219870969611	0.4998640613281088	0.48818181112330167	0.09589135670877631	0.3365731836953243	C	Belongs to the citrate synthase family
+COG0373	1382.5156537812688	-0.3863956739559695	0.4627998383714409	0.18214617951623535	0.4771262755469528	H	Catalyzes the NADPH-dependent reduction of glutamyl- tRNA(Glu) to glutamate 1-semialdehyde (GSA)
+COG0377	950.0302184283814	-2.497072806448304	1.145949780550679	3.7109112447853055e-4	0.007322864856376336	C	NDH-1 shuttles electrons from NADH, via FMN and iron- sulfur (Fe-S) centers, to quinones in the respiratory chain. The immediate electron acceptor for the enzyme in this species is believed to be ubiquinone. Couples the redox reaction to proton translocation (for every two electrons transferred, four hydrogen ions are translocated across the cytoplasmic membrane), and thus conserves the redox energy in a proton gradient
+COG0378	197.8591939864105	-0.526226574932179	0.6290852697154423	0.09844999455257486	0.33754283846597094	KO	Facilitates the functional incorporation of the urease nickel metallocenter. This process requires GTP hydrolysis, probably effectuated by UreG
+COG0384	523.7814162703297	-4.3285683519070854	1.0716272653337993	2.104254154876473e-6	1.868577689530308e-4	CO	phenazine biosynthesis protein PhzF
+COG0385	1104.511763059699	-3.3484329027253072	1.1448875252414163	5.8709673412663445e-5	0.002005161153478659	G	Bile acid
+COG0386	146.16441063415616	-0.8303567161142582	0.6420909577886571	0.01880633310042345	0.13801672556343822	O	Belongs to the glutathione peroxidase family
+COG0389	2808.665678688102	-0.03789421516303917	0.4476274254233424	0.8897029935046132	0.9729900237583847	L	Poorly processive, error-prone DNA polymerase involved in untargeted mutagenesis. Copies undamaged DNA at stalled replication forks, which arise in vivo from mismatched or misaligned primer ends. These misaligned primers can be extended by PolIV. Exhibits no 3'-5' exonuclease (proofreading) activity. May be involved in translesional synthesis, in conjunction with the beta clamp from PolIII
+COG0394	994.8212750270574	0.1993156456723905	0.3829932358198581	0.46477860025646694	0.7664037004803086	T	Belongs to the low molecular weight phosphotyrosine protein phosphatase family
+COG0395	4847.06669906124	0.23024840008804065	0.47168623687361266	0.41069385509448686	0.7293922866478086	P	ABC-type sugar transport system, permease component
+COG0396	752.3452145108047	0.2332533422042665	0.47978025377559724	0.4048316180285877	0.7233208788921245	O	ATPase activity
+COG0404	1250.7553057360262	0.5828421255286305	0.65395359412424	0.07576621039490708	0.29770086208264374	E	The glycine cleavage system catalyzes the degradation of glycine
+COG0405	546.1556996970548	0.14675444577318544	0.5175234009068417	0.5891225694117135	0.8319836424049764	E	Gamma-glutamyltransferase
+COG0406	2989.37881956372	0.34888743509673104	0.39738775704943985	0.21062911305317725	0.5173221730252205	G	alpha-ribazole phosphatase activity
+COG0407	1266.377213165335	-1.5083094466699658	1.0151054424741393	0.0033367668622554364	0.04115345796781705	H	Catalyzes the decarboxylation of four acetate groups of uroporphyrinogen-III to yield coproporphyrinogen-III
+COG0415	996.7564324135418	-2.4464406920167248	1.4807385450265096	0.001215679615627591	0.01805608635866456	L	Belongs to the DNA photolyase family
+COG0423	1252.8906294943781	0.1310106550325669	0.4959382333907122	0.6305756901228339	0.8563871484915491	J	glycine-tRNA ligase activity
+COG0427	1876.2266626211635	2.7589335593773336	0.9254618973391994	4.975945023052255e-5	0.0018982720639455295	C	acetyl-CoA hydrolase
+COG0431	789.9369351447044	-2.160171934141217	0.8975361374871675	1.9148562152245736e-4	0.0042509807977985535	P	NADPH-dependent FMN reductase
+COG0436	2385.0466777431225	0.3884424862902052	0.44196508445776234	0.17640468427414305	0.46621237986737807	E	Aminotransferase
+COG0438	10307.170579361631	-0.26307956632560014	0.3868231080822166	0.3379859113556155	0.6714350990688738	M	transferase activity, transferring glycosyl groups
+COG0439	430.5711194691199	-0.03163136286870983	0.492319022686455	0.9063784967781678	0.9729900237583847	I	Biotin carboxylase
+COG0442	1813.4912670135748	0.19854476245332547	0.48023429315004623	0.47453464411262375	0.7747953437791567	J	prolyl-tRNA aminoacylation
+COG0443	3536.268146049911	-0.02186073160615302	0.33743204314065034	0.933072922102938	0.9791326394907793	O	Heat shock 70 kDa protein
+COG0446	1740.7194131966885	0.34248109758757095	0.49236923345850386	0.23543421712312454	0.5482881072362091	Q	pyridine nucleotide-disulphide oxidoreductase
+COG0447	993.4891600849803	0.24430346632795083	0.43089529410769034	0.3821064188162569	0.7128371846824288	H	Converts o-succinylbenzoyl-CoA (OSB-CoA) to 1,4- dihydroxy-2-naphthoyl-CoA (DHNA-CoA)
+COG0448	1176.1822183233166	0.5205909434054392	0.6915432116773959	0.10720394235350458	0.3553424247285366	H	Catalyzes the synthesis of ADP-glucose, a sugar donor used in elongation reactions on alpha-glucans
+COG0449	1938.286215202558	0.36369530176717413	0.5064795776525738	0.2116610059937722	0.5177822956541864	M	glutamine-fructose-6-phosphate transaminase (isomerizing) activity
+COG0450	632.9996556004303	0.48309926773800754	0.31003491934358224	0.05453224656557489	0.25315209245141806	O	alkyl hydroperoxide reductase
+COG0451	1415.8076951350645	0.10478843088543485	0.4685148681203912	0.7014956669116306	0.8988862225361153	GM	ADP-glyceromanno-heptose 6-epimerase activity
+COG0452	1270.2445570022978	0.3914023956865046	0.4338659267904868	0.17168572544414176	0.4592489674388321	H	Catalyzes two steps in the biosynthesis of coenzyme A. In the first step cysteine is conjugated to 4'-phosphopantothenate to form 4-phosphopantothenoylcysteine, in the latter compound is decarboxylated to form 4'-phosphopantotheine
+COG0456	3437.404680091227	-0.11957770459337357	0.3035837717455387	0.6288516598808308	0.8563871484915491	K	acetyltransferase
+COG0457	1557.147411597334	-0.23868338176354076	0.4398686071907169	0.3935941719851908	0.7177556275657646	M	Tetratricopeptide repeat
+COG0458	3599.463688617116	-0.036744428997161876	0.48169492450341894	0.8918489554515834	0.9729900237583847	F	carbamoyl-phosphate synthase (glutamine-hydrolyzing) activity
+COG0459	3510.942249524884	0.3935017423268324	0.3968833947908768	0.15965863295920296	0.44202160998511264	O	protein refolding
+COG0461	975.3038030172044	-0.09101384199029294	0.44896002899472665	0.7399081795898101	0.9163716366467941	F	Catalyzes the transfer of a ribosyl phosphate group from 5-phosphoribose 1-diphosphate to orotate, leading to the formation of orotidine monophosphate (OMP)
+COG0462	1059.7408771122055	0.3540267849774409	0.5122682279319124	0.2231103689735987	0.5306944398054748	F	Involved in the biosynthesis of the central metabolite phospho-alpha-D-ribosyl-1-pyrophosphate (PRPP) via the transfer of pyrophosphoryl group from ATP to 1-hydroxyl of ribose-5-phosphate (Rib-5-P)
+COG0463	873.1050762002111	-0.05454523462981327	0.4722080899387711	0.8408144968427487	0.9593240762732527	M	Glycosyl transferase, family 2
+COG0465	2491.0184808983404	0.04564845138896958	0.4115845333815612	0.8675307433002033	0.9653725564543615	O	Acts as a processive, ATP-dependent zinc metallopeptidase for both cytoplasmic and membrane proteins. Plays a role in the quality control of integral membrane proteins
+COG0468	1091.5921021516597	-0.06989938554909016	0.37953061190599113	0.7961475041520294	0.9441575966233424	L	Can catalyze the hydrolysis of ATP in the presence of single-stranded DNA, the ATP-dependent uptake of single-stranded DNA by duplex DNA, and the ATP-dependent hybridization of homologous single-stranded DNAs. It interacts with LexA causing its activation and leading to its autocatalytic cleavage
+COG0469	1749.481268904506	0.634870270311338	0.4732959624957531	0.03775859861248315	0.20614162040611808	G	pyruvate kinase activity
+COG0471	1391.7421423593269	0.04120292380231334	0.4763748050982415	0.8791077381758496	0.9729900237583847	P	metal ion transport
+COG0472	2048.254991487159	0.15231791142484366	0.471007358512469	0.5801214756047495	0.8282120101881311	M	First step of the lipid cycle reactions in the biosynthesis of the cell wall peptidoglycan
+COG0476	1197.9907560280099	0.1078386404380261	0.4641825377068396	0.6936852675092144	0.8981352616703666	H	Involved in molybdopterin and thiamine biosynthesis, family 2
+COG0477	10998.651436587703	-0.23697029356315735	0.3665687575131346	0.37967785479960353	0.7105376892380837	EGP	Major facilitator Superfamily
+COG0479	2777.525651530463	0.8855916314763201	0.5687894850557031	0.009634733737925266	0.09005940588713301	C	Belongs to the succinate dehydrogenase fumarate reductase iron-sulfur protein family
+COG0480	2804.95565385159	0.8712684745329712	0.4270960704529855	0.0038073022652241524	0.045078458820253964	J	Catalyzes the GTP-dependent ribosomal translocation step during translation elongation. During this step, the ribosome changes from the pre-translocational (PRE) to the post- translocational (POST) state as the newly formed A-site-bound peptidyl-tRNA and P-site-bound deacylated tRNA move to the P and E sites, respectively. Catalyzes the coordinated movement of the two tRNA molecules, the mRNA and conformational changes in the ribosome
+COG0481	1917.077917501688	0.29812194482137067	0.47527822446765633	0.2947849719278984	0.6247471481431355	M	GTPase activity
+COG0482	1180.437214325649	-0.035323859861558185	0.4207583929681513	0.8973734463166102	0.9729900237583847	J	sulfurtransferase activity
+COG0483	1858.8008313188645	0.0918583156384777	0.42462419711945987	0.7380082744264213	0.9163139003569908	G	inositol monophosphate 1-phosphatase activity
+COG0484	3116.7687200994365	-0.16898579509252082	0.3848210973576703	0.5351593635573131	0.7907610865287532	O	heat shock protein binding
+COG0486	339.2993463026523	-1.183997984913518	0.8283219968245132	0.005858120543545794	0.06202919504024387	H	Exhibits a very high intrinsic GTPase hydrolysis rate. Involved in the addition of a carboxymethylaminomethyl (cmnm) group at the wobble position (U34) of certain tRNAs, forming tRNA- cmnm(5)s(2)U34
+COG0488	6886.021142148174	0.174765234790829	0.3522897405508163	0.5101552217068419	0.7821193005339546	L	(ABC) transporter
+COG0489	1195.2946336424877	0.5662046410921908	0.5076116276664371	0.06580516708581505	0.279593245800018	D	protein tyrosine kinase activity
+COG0491	2230.054784923363	0.03118393657759185	0.4214544486518082	0.9093399773591577	0.9729900237583847	GM	Thiolesterase that catalyzes the hydrolysis of S-D- lactoyl-glutathione to form glutathione and D-lactic acid
+COG0492	1561.0003800931336	0.3453527715532372	0.4325543638908205	0.22411082762055526	0.5306944398054748	C	ferredoxin-NADP+ reductase activity
+COG0493	1901.6442603105063	-0.019784120021469495	0.4561592124689186	0.9421247177559017	0.9814842021554039	C	'glutamate synthase
+COG0494	2743.061949494847	0.5154033749002969	0.4232151182129233	0.07503913596978595	0.2961544566274219	L	nUDIX hydrolase
+COG0495	2692.772714866615	0.08828315612505251	0.4298525204844146	0.7478198728037098	0.9216342239484503	J	leucyl-tRNA aminoacylation
+COG0497	1640.0624218119224	0.1834482267610248	0.45856198414416527	0.5083598631859907	0.7821193005339546	L	DNA recombination
+COG0503	744.4859273747162	0.09601017720018372	0.39462491255816723	0.7249323223898554	0.9134257331543573	F	Catalyzes a salvage reaction resulting in the formation of AMP, that is energically less costly than de novo synthesis
+COG0504	1530.7492387582977	0.3132341376239595	0.4472521544956464	0.269975668358471	0.5931440296001901	F	CTP synthase activity
+COG0505	979.9979417264559	-0.029710871033632943	0.4339810898259433	0.9135731471893593	0.9738931028861357	F	Belongs to the CarA family
+COG0508	3549.963174705777	0.370333765393514	0.4347962950031742	0.194608927565609	0.49398264713559875	C	dehydrogenase complex catalyzes the overall conversion of
+COG0509	530.8167374189034	0.21988008110771765	0.3689803379106568	0.4155913974282282	0.730666574839277	E	glycine decarboxylation via glycine cleavage system
+COG0513	3793.912443516468	-0.48615089451929655	0.43089434290304185	0.09365443335278321	0.3365731836953243	L	Belongs to the DEAD box helicase family
+COG0515	7414.455848495639	-1.7552349672451821	0.9832495854969044	0.0012200058350449025	0.01805608635866456	KLT	serine threonine protein kinase
+COG0516	1065.1049595101572	0.009250698353612717	0.49251705688027264	0.9725365429842104	0.9914188400981007	F	GMP reductase activity
+COG0517	3004.6997921087814	0.2164951330283583	0.36798574641427684	0.42233180958718386	0.7382493049476757	K	IMP dehydrogenase activity
+COG0519	1632.353836761266	0.21801476879424778	0.46618190780010194	0.43481880469625445	0.7448863433997989	F	Catalyzes the synthesis of GMP from XMP
+COG0520	1641.3249743442002	0.09465734570462829	0.42399180117452023	0.7303707068398344	0.9138104154478722	E	Catalyzes the removal of elemental sulfur and selenium atoms from L-cysteine, L-cystine, L-selenocysteine, and L- selenocystine to produce L-alanine
+COG0522	894.6399168297439	0.3118497075465339	0.3325937979673003	0.2303188696189514	0.539638934621712	J	One of the primary rRNA binding proteins, it binds directly to 16S rRNA where it nucleates assembly of the body of the 30S subunit
+COG0524	4379.0597497803765	0.05961763278133922	0.47152767279169217	0.8263495404611931	0.9593240762732527	G	Catalyzes the phosphorylation of ribose at O-5 in a reaction requiring ATP and magnesium. The resulting D-ribose-5- phosphate can then be used either for sythesis of nucleotides, histidine, and tryptophan, or as a component of the pentose phosphate pathway
+COG0525	2811.417055675377	0.4190389598353857	0.5643005641557528	0.16277147124451782	0.44202160998511264	J	valine-tRNA ligase activity
+COG0526	2238.108402389079	-0.052935331223569686	0.38662410320852686	0.845427073755197	0.9593240762732527	CO	COG0526, thiol-disulfide isomerase and thioredoxins
+COG0527	1585.2279453992653	0.6650807332005676	0.6588227452662343	0.04969085791078125	0.23727720635925742	E	aspartate kinase activity
+COG0528	784.449117831367	0.4649618898606013	0.4019373082869394	0.10038532071502095	0.34285447998053303	F	UMP kinase activity
+COG0531	5902.934778498292	0.24168510123990805	0.4301803485652267	0.3869674164048234	0.7177556275657646	E	amino acid
+COG0532	2530.2697987910415	-0.006367943886188807	0.282118967674122	0.9785582792127484	0.9914188400981007	J	One of the essential components for the initiation of protein synthesis. Protects formylmethionyl-tRNA from spontaneous hydrolysis and promotes its binding to the 30S ribosomal subunits. Also involved in the hydrolysis of GTP during the formation of the 70S ribosomal complex
+COG0533	1187.334043267834	-0.06787276333823664	0.4557740189686864	0.8038098457739267	0.9441575966233424	J	Required for the formation of a threonylcarbamoyl group on adenosine at position 37 (t(6)A37) in tRNAs that read codons beginning with adenine. Is involved in the transfer of the threonylcarbamoyl moiety of threonylcarbamoyl-AMP (TC-AMP) to the N6 group of A37, together with TsaE and TsaB. TsaD likely plays a direct catalytic role in this reaction
+COG0534	1638.0344825338907	0.2172999317495316	0.5193703561567902	0.43377082111866855	0.7448863433997989	V	Mate efflux family protein
+COG0536	1516.3293972575468	-0.1594942721424083	0.4022444558409228	0.5614286501902944	0.8129175326511588	C	An essential GTPase which binds GTP, GDP and possibly (p)ppGpp with moderate affinity, with high nucleotide exchange rates and a fairly low GTP hydrolysis rate. Plays a role in control of the cell cycle, stress response, ribosome biogenesis and in those bacteria that undergo differentiation, in morphogenesis control
+COG0537	732.6138045525403	0.5877038470148878	0.5017111860888687	0.05660374724093953	0.25407023738210627	FG	adenosine 5'-monophosphoramidase activity
+COG0538	336.8022024594875	-0.9676389198584244	0.8279459273107521	0.01628036629959819	0.1256690156774889	C	isocitrate dehydrogenase activity
+COG0539	1670.8750026012763	0.5743755561124102	0.3950376779885978	0.04312132260498576	0.22133950562559163	J	negative regulation of cytoplasmic translation
+COG0540	967.6047292485952	0.523595024194323	0.5453453623381727	0.09059019373497744	0.32894268520022596	F	Belongs to the ATCase OTCase family
+COG0541	1639.732810790637	0.09185171792602546	0.4392896335978155	0.7379421889665683	0.9163139003569908	U	Involved in targeting and insertion of nascent membrane proteins into the cytoplasmic membrane. Binds to the hydrophobic signal sequence of the ribosome-nascent chain (RNC) as it emerges from the ribosomes. The SRP-RNC complex is then targeted to the cytoplasmic membrane where it interacts with the SRP receptor FtsY
+COG0542	6140.554550322649	0.03018390747500102	0.366495634236015	0.910329469120642	0.9729900237583847	O	response to heat
+COG0544	1797.4038712689794	0.034081603990784366	0.3667269610909527	0.89883018437485	0.9729900237583847	D	peptidyl-prolyl cis-trans isomerase activity
+COG0545	1079.4436250789588	0.3142953963542425	0.48336173959508666	0.2718576802334205	0.5931440296001901	O	Peptidyl-prolyl cis-trans isomerase
+COG0546	656.1437170131936	-0.7340323814934779	0.6587777161454549	0.03421778707492527	0.19477817258034383	O	phosphoglycolate phosphatase activity
+COG0549	653.6824436017957	0.8474786412316719	0.7602011192688274	0.024235194407120134	0.15708651557315825	E	Belongs to the carbamate kinase family
+COG0550	547.978681430688	-0.6454839687361811	0.6796242982062355	0.05702955019162318	0.25407023738210627	L	Releases the supercoiling and torsional tension of DNA, which is introduced during the DNA replication and transcription, by transiently cleaving and rejoining one strand of the DNA duplex. Introduces a single-strand break via transesterification at a target site in duplex DNA. The scissile phosphodiester is attacked by the catalytic tyrosine of the enzyme, resulting in the formation of a DNA-(5'-phosphotyrosyl)-enzyme intermediate and the expulsion of a 3'-OH DNA strand. The free DNA strand then undergoes passage around the unbroken strand, thus removing DNA supercoils. Finally, in the religation step, the DNA 3'-OH attacks the covalent intermediate to expel the active-site tyrosine and restore the DNA phosphodiester backbone
+COG0552	1194.6051364034784	0.046121726207621484	0.4225185753891685	0.8663144010409232	0.9652285923768379	U	protein localization to endoplasmic reticulum
+COG0554	1792.9250261553161	1.508127014737061	0.8197425459944712	0.0012124318965829432	0.01805608635866456	C	Key enzyme in the regulation of glycerol uptake and metabolism. Catalyzes the phosphorylation of glycerol to yield sn- glycerol 3-phosphate
+COG0556	2158.474852780607	-0.57929574552441	0.6705027040654477	0.07874875518000303	0.3040386721732291	L	nucleotide-excision repair
+COG0558	1599.0034194513823	0.256341293219796	0.4433030139747572	0.3612529102186324	0.6951382355461786	I	Belongs to the CDP-alcohol phosphatidyltransferase class-I family
+COG0561	3748.8799660786717	-0.11145518124624423	0.43971723048525424	0.6852683380316106	0.8942888215684657	Q	phosphatase activity
+COG0563	779.4152635242821	0.3264986251421474	0.37453533499433794	0.23193228357042914	0.5419891258172134	F	adenylate kinase activity
+COG0564	1994.8689372829047	-0.04956982528129576	0.465488442435886	0.8554412774249045	0.9603436843910432	J	pseudouridine synthase activity
+COG0566	3222.1357337401178	0.1465786203654447	0.42750746436090653	0.5952851613942329	0.8355204910012198	J	Belongs to the class IV-like SAM-binding methyltransferase superfamily. RNA methyltransferase TrmH family
+COG0567	3767.1395215088337	1.4271127803300088	0.8164078182906759	0.001728304408827552	0.024753779274820423	C	Dehydrogenase, E1 component
+COG0568	3227.270950799491	-0.053964788963428156	0.33697546586324656	0.8357031885425188	0.9593240762732527	K	sigma factors are initiation factors that promote the attachment of RNA polymerase to specific initiation sites and are then released
+COG0569	1457.235949306855	-0.050319357673736624	0.4687388095192111	0.8531303514140499	0.9593240762732527	P	domain protein
+COG0571	808.10395762915	0.25491085466616564	0.5127213266033347	0.364819024128091	0.6953530635262342	J	ribonuclease III activity
+COG0573	950.8095013266765	0.9633089990401728	0.7438370607280962	0.01274836737664556	0.10882916068218232	P	inorganic phosphate transmembrane transporter activity
+COG0576	870.8952095918622	0.09761111387539359	0.32814461269030315	0.7044057733400388	0.8994761395820288	O	Participates actively in the response to hyperosmotic and heat shock by preventing the aggregation of stress-denatured proteins, in association with DnaK and GrpE. It is the nucleotide exchange factor for DnaK and may function as a thermosensor. Unfolded proteins bind initially to DnaJ
+COG0577	8754.225544831319	0.004587611508709472	0.412569942060977	0.9866195387162512	0.9955888072500353	V	efflux transmembrane transporter activity
+COG0578	2000.4993204644838	0.1305826346179007	0.44213416432619246	0.6355395617746968	0.8563871484915491	C	Belongs to the FAD-dependent glycerol-3-phosphate dehydrogenase family
+COG0579	864.0891411636569	-0.10959316212208567	0.43819351604694495	0.690227466367052	0.8973967644713648	P	oxidoreductase
+COG0580	620.0466230752571	0.5098892306404269	0.5167633810257632	0.09427878102439595	0.3365731836953243	G	Belongs to the MIP aquaporin (TC 1.A.8) family
+COG0581	1033.6458566304975	2.070479357285011	1.0234830545482811	5.7381155219713e-4	0.010615513715646905	P	inorganic phosphate transmembrane transporter activity
+COG0582	1932.3063475685153	-0.024157573616682415	0.46863430510272375	0.9290858935686332	0.9785361447228714	L	viral genome integration into host DNA
+COG0583	4679.1767138999585	-0.3330662128286941	0.4340839687013823	0.24039014813326862	0.5515928980422288	K	DNA-binding transcription factor activity
+COG0584	1557.2983531879368	0.2955768791575649	0.5275644514299225	0.3000679424986108	0.6299298651034666	C	glycerophosphoryl diester phosphodiesterase
+COG0586	1771.2335586403892	1.5194479520544775	0.791895783886099	9.448313565712949e-4	0.015254731720641996	V	Pfam SNARE associated Golgi protein
+COG0588	808.8658520209964	0.3001455296515023	0.4020197349898667	0.2805616802017008	0.6047057573279376	G	phosphoglycerate mutase activity
+COG0589	2104.8267862248085	-0.0726127056140752	0.4010300133233321	0.790430015983807	0.942150139857209	T	response to stress
+COG0590	551.5583925964779	-0.4585042205193181	0.5208944917052447	0.1274277298299752	0.39451538582981055	FJ	tRNA wobble adenosine to inosine editing
+COG0594	352.11492147110545	0.2644069731389874	0.4450837689128997	0.347184597807988	0.6785243500144209	J	ribonuclease P activity
+COG0595	1940.870297728396	-0.8459953721539837	0.5981969489302461	0.014451227640212595	0.11640851881272002	H	An RNase that has 5'-3' exonuclease and possibly endonuclease activity. Involved in maturation of rRNA and in some organisms also mRNA maturation and or decay
+COG0596	5743.313742873578	-0.8872768527753249	0.6791622032493915	0.015372634189505524	0.1218830282167938	J	Alpha beta hydrolase
+COG0597	676.695714591496	-0.23638617112271293	0.49202767403318565	0.3986298145065944	0.7181248849702419	MU	This protein specifically catalyzes the removal of signal peptides from prolipoproteins
+COG0598	1588.8291983450647	0.5059243368156028	0.526768504236709	0.09783517095356851	0.33736990016846014	P	Magnesium transport protein CorA
+COG0602	416.18602945579903	-0.06736665079336429	0.4965095174339172	0.8025143125433469	0.9441575966233424	H	queuosine metabolic process
+COG0604	2550.750410016087	-0.250962458906649	0.36690667378050035	0.35267433092414513	0.6828921223188967	C	alcohol dehydrogenase
+COG0605	854.13602635245	-0.014851194873666792	0.3282846733952227	0.9539574539185385	0.9882924352933231	C	Destroys radicals which are normally produced within the cells and which are toxic to biological systems
+COG0607	649.1618786958321	-0.34971250761819495	0.3917185087922156	0.20769819451990307	0.5137492945227686	P	Catalyzes the ATP-dependent transfer of a sulfur to tRNA to produce 4-thiouridine in position 8 of tRNAs, which functions as a near-UV photosensor. Also catalyzes the transfer of sulfur to the sulfur carrier protein ThiS, forming ThiS-thiocarboxylate. This is a step in the synthesis of thiazole, in the thiamine biosynthesis pathway. The sulfur is donated as persulfide by IscS
+COG0609	5615.205827512837	0.030922963338056667	0.41042995032483	0.909991347088538	0.9729900237583847	P	Belongs to the binding-protein-dependent transport system permease family. FecCD subfamily
+COG0614	6355.041509071386	0.10884631043560944	0.41135461539269336	0.6916562690881054	0.8979397177635053	P	abc-type fe3 -hydroxamate transport system, periplasmic component
+COG0617	2003.411027789284	-2.7277807610476827	1.1746732481654165	2.5660140677066394e-4	0.005425286886008323	J	tRNA 3'-terminal CCA addition
+COG0619	2297.1329826012234	-0.3712327664305356	0.49596274433864684	0.20239449770125212	0.506271306925949	P	Transmembrane (T) component of an energy-coupling factor (ECF) ABC-transporter complex. Unlike classic ABC transporters this ECF transporter provides the energy necessary to transport a number of different substrates
+COG0620	1533.8079860044213	0.18734348748182122	0.5136183824206494	0.4960678030392427	0.7812837139756738	E	Catalyzes the transfer of a methyl group from 5- methyltetrahydrofolate to homocysteine resulting in methionine formation
+COG0621	2536.097202944005	-0.14769262508974634	0.4938723764557771	0.5893217467035249	0.8319836424049764	J	Catalyzes the methylthiolation of N6- (dimethylallyl)adenosine (i(6)A), leading to the formation of 2- methylthio-N6-(dimethylallyl)adenosine (ms(2)i(6)A) at position 37 in tRNAs that read codons beginning with uridine
+COG0623	652.3328335142234	0.3173969361320398	0.5149174121453808	0.2691318334104513	0.5930249828002004	I	enoyl-[acyl-carrier-protein] reductase (NADH) activity
+COG0624	4879.627032299466	0.2073785417879719	0.4706637695168464	0.45642713131924467	0.7590024206207665	E	Catalyzes the hydrolysis of N-succinyl-L,L- diaminopimelic acid (SDAP), forming succinate and LL-2,6- diaminoheptanedioate (DAP), an intermediate involved in the bacterial biosynthesis of lysine and meso-diaminopimelic acid, an essential component of bacterial cell walls
+COG0627	1769.8624644340728	0.33691191817394733	0.4472617566475521	0.23752258798508588	0.5482881072362091	J	Serine hydrolase involved in the detoxification of formaldehyde
+COG0628	2723.109657417108	0.047360392678896704	0.44565919163951445	0.8625083939129392	0.9646189594391561	D	permease
+COG0629	1388.652134958517	0.4421201121370669	0.31476627648396477	0.0809313936502393	0.3061445557280614	L	single-stranded DNA binding
+COG0631	2166.676796117778	0.8627867433031147	0.7530810451332373	0.02203573291718598	0.15052100638816268	T	protein serine/threonine phosphatase activity
+COG0632	679.5604640241953	0.1688783516460036	0.49993032793283937	0.5385668555872527	0.7929662355155951	L	four-way junction helicase activity
+COG0636	188.40103971306647	1.052801099470773	0.6279177865596022	0.004322574658246756	0.05050587232267262	C	F(1)F(0) ATP synthase produces ATP from ADP in the presence of a proton or sodium gradient. F-type ATPases consist of two structural domains, F(1) containing the extramembraneous catalytic core and F(0) containing the membrane proton channel, linked together by a central stalk and a peripheral stalk. During catalysis, ATP synthesis in the catalytic domain of F(1) is coupled via a rotary mechanism of the central stalk subunits to proton translocation
+COG0637	1612.5079318769733	1.346056251579821e-4	0.47538384191836563	0.9996031659713117	0.9996031659713117	M	HAD-superfamily hydrolase subfamily IA, variant 3
+COG0640	1225.8953389322544	0.25699193115283925	0.40329465697085615	0.3537504237237528	0.6828921223188967	K	Transcriptional regulator
+COG0642	330.4222682266031	-4.200571443478333	1.0132515562482751	1.6809970271131083e-6	1.658583733418267e-4	T	Histidine kinase
+COG0651	852.7824593526676	-0.1756008904067617	0.4980568929096087	0.5234287476635504	0.7821193005339546	CP	ATP synthesis coupled electron transport
+COG0652	1349.2686992446124	-2.6417119119222496	0.8646700318787155	3.81899676971535e-5	0.0016956345657536153	O	PPIases accelerate the folding of proteins. It catalyzes the cis-trans isomerization of proline imidic peptide bonds in oligopeptides
+COG0653	3323.7798164431215	0.24942850426304722	0.39097395555191045	0.36444276038487655	0.6953530635262342	U	protein targeting
+COG0656	1074.9180502005563	0.13683450792695298	0.37292386203552286	0.6122271191089	0.8469034591424115	AT	L-ascorbic acid biosynthetic process
+COG0657	2304.009736099034	0.2510045205688406	0.4894473946545758	0.372109636444313	0.7015570215765392	I	acetylesterase activity
+COG0662	485.9242247579958	0.23037567114662924	0.5086070566884999	0.40922870826347413	0.7293922866478086	G	Cupin 2, conserved barrel domain protein
+COG0664	889.5648637524399	0.5342017915398479	0.6475003895217954	0.09631599079175047	0.3367267709569859	K	- Catabolite gene activator and regulatory subunit of cAMP-dependent protein
+COG0665	2008.5664668302973	-0.45975862693826575	0.46348323369673544	0.11806627383115756	0.3744387541502425	E	tRNA (5-methylaminomethyl-2-thiouridylate)-methyltransferase activity
+COG0667	3131.430770657463	0.1583976839333082	0.32916759861401274	0.5390320185023934	0.7929662355155951	C	Aldo Keto reductase
+COG0668	1230.5835103290372	-0.12185267625582807	0.48981255785664113	0.6546659699920669	0.875494450889976	M	transmembrane transport
+COG0669	466.33586880087216	-0.14906351040837323	0.49705187734082923	0.5856689787386945	0.8294641995533664	H	Reversibly transfers an adenylyl group from ATP to 4'- phosphopantetheine, yielding dephospho-CoA (dPCoA) and pyrophosphate
+COG0671	1934.6830927835126	0.3345092929527069	0.46313712547422975	0.24276484083529115	0.5541778371767058	I	phosphoesterase, PA-phosphatase related
+COG0673	4917.80108017502	-1.688687838175098	1.0546917003272804	0.0021253622609246335	0.02874487823875026	KT	inositol 2-dehydrogenase activity
+COG0681	1066.8027733682165	0.1298092024076543	0.4155034656443557	0.636988213183842	0.8570386868291693	U	Belongs to the peptidase S26 family
+COG0683	769.9144789837708	-0.16267565536255368	0.5567058024868426	0.5473691119020505	0.799446992383258	E	leucine binding
+COG0686	1392.4916079474435	0.28926418544331456	0.5180889694066877	0.3093440258292331	0.6405406326225243	E	Belongs to the AlaDH PNT family
+COG0690	562.5754744198573	0.030764651930118226	0.3651064202628572	0.9085124243466267	0.9729900237583847	U	P-P-bond-hydrolysis-driven protein transmembrane transporter activity
+COG0691	458.00389960612415	0.2544525880435785	0.47475187960717796	0.36602206967823536	0.6953530635262342	O	Required for rescue of stalled ribosomes mediated by trans-translation. Binds to transfer-messenger RNA (tmRNA), required for stable association of tmRNA with ribosomes. tmRNA and SmpB together mimic tRNA shape, replacing the anticodon stem-loop with SmpB. tmRNA is encoded by the ssrA gene
+COG0693	1839.5086963050073	0.18145574861926742	0.28107042034061397	0.44280980942911413	0.7499787845775546	Q	protein deglycase activity
+COG0694	430.379639877289	-0.007380203101094299	0.46616857900994535	0.9783205038516574	0.9914188400981007	O	Involved in iron-sulfur cluster biogenesis. Binds a 4Fe- 4S cluster, can transfer this cluster to apoproteins, and thereby intervenes in the maturation of Fe S proteins. Could also act as a scaffold chaperone for damaged Fe S proteins
+COG0695	530.7045218053341	0.6393281891316688	0.5197094255083934	0.04238484358487716	0.22010374914251998	O	Has a glutathione-disulfide oxidoreductase activity in the presence of NADPH and glutathione reductase. Reduces low molecular weight disulfides and proteins
+COG0696	295.14045580118244	0.07515203113300545	0.4607031458049987	0.7831300903807448	0.9397561084568937	G	Catalyzes the interconversion of 2-phosphoglycerate and 3-phosphoglycerate
+COG0697	2536.7808303154798	-0.11710713135657058	0.4617611038213274	0.6694241275042188	0.8859144936270436	EG	spore germination
+COG0698	889.173540398367	1.5196307915959386	0.9250583755044741	0.002136443652880087	0.02874487823875026	G	ribose 5-phosphate isomerase
+COG0699	3215.239538857634	0.8735877216843978	0.8101568667894822	0.024128976609967327	0.15708651557315825	T	ATPase. Has a role at an early stage in the morphogenesis of the spore coat
+COG0702	1433.2285038197429	0.10742261062193435	0.42402117170337844	0.6959784447664406	0.8981352616703666	GM	epimerase
+COG0704	864.471641153379	0.5287165313344621	0.5405158498988293	0.08737017188166388	0.321928268178081	P	Plays a role in the regulation of phosphate uptake
+COG0705	1381.0708137431852	0.909874788804178	0.611935153602825	0.010150783700321948	0.09292676212253494	P	Rhomboid family
+COG0706	1338.6713106469008	0.06823920276214723	0.4264794369957564	0.8035024581057528	0.9441575966233424	U	membrane insertase activity
+COG0711	677.281982483736	0.6855572280440437	0.47566764852657706	0.026334636813326512	0.16498015544760894	C	Component of the F(0) channel, it forms part of the peripheral stalk, linking F(1) to F(0)
+COG0712	832.3198269342644	0.6472410813225262	0.43149319605281866	0.028852500187623944	0.17276232461116806	C	F(1)F(0) ATP synthase produces ATP from ADP in the presence of a proton or sodium gradient. F-type ATPases consist of two structural domains, F(1) containing the extramembraneous catalytic core and F(0) containing the membrane proton channel, linked together by a central stalk and a peripheral stalk. During catalysis, ATP synthesis in the catalytic domain of F(1) is coupled via a rotary mechanism of the central stalk subunits to proton translocation
+COG0714	2023.0385692778354	-0.08098420011912046	0.45627247084188344	0.7671464330767164	0.9250712678296796	KLT	Associated with various cellular activities
+COG0718	172.08615058716777	0.04931991081135107	0.3616749974000964	0.8534527255133667	0.9593240762732527	K	Binds to DNA and alters its conformation. May be involved in regulation of gene expression, nucleoid organization and DNA protection
+COG0719	2559.09889246667	0.23344966492195646	0.3808711914005055	0.3922173334700592	0.7177556275657646	O	Fe-S assembly protein
+COG0721	357.04025477796677	0.2536035848145303	0.410900287266751	0.3616597576828091	0.6951382355461786	J	Allows the formation of correctly charged Asn-tRNA(Asn) or Gln-tRNA(Gln) through the transamidation of misacylated Asp- tRNA(Asn) or Glu-tRNA(Gln) in organisms which lack either or both of asparaginyl-tRNA or glutaminyl-tRNA synthetases. The reaction takes place in the presence of glutamine and ATP through an activated phospho-Asp-tRNA(Asn) or phospho-Glu-tRNA(Gln)
+COG0723	1018.9185609634732	-0.45548474543416473	0.5871941081640586	0.13674257850162289	0.40867005073424445	C	plastoquinol--plastocyanin reductase activity
+COG0730	1468.2979336206843	0.3688082770323464	0.5252726148121623	0.2075395951066483	0.5137492945227686	P	response to heat
+COG0735	652.9216898855279	-0.06774415705751412	0.37158467481845336	0.8012816540265084	0.9441575966233424	P	belongs to the Fur family
+COG0737	3431.183381048718	0.41423716118314385	0.5203279472735621	0.16266783987356592	0.44202160998511264	F	Belongs to the 5'-nucleotidase family
+COG0739	1735.3577957566488	1.8721708938203143	1.0136614653030747	9.79047189566178e-4	0.015524891148835106	M	heme binding
+COG0740	1305.27212653891	0.4879005156608507	0.37305905708895865	0.07673801459221402	0.300190999814476	OU	serine-type endopeptidase activity
+COG0741	743.5057647780017	0.019436743577240904	0.47377921597210154	0.9427995770704499	0.9814842021554039	M	lytic transglycosylase activity
+COG0742	624.0960488222202	0.5546299059355747	0.5666583322794806	0.07823736276204189	0.3033833106231144	L	ribosomal rna small subunit methyltransferase
+COG0743	1111.2164249440466	0.4585982540220787	0.6197500394752953	0.13760399230803952	0.40867005073424445	I	1-deoxy-D-xylulose-5-phosphate reductoisomerase activity
+COG0744	4997.475154312899	-0.0821757900702732	0.44070111060480643	0.764477089810492	0.9250712678296796	M	Peptidoglycan polymerase that catalyzes glycan chain elongation from lipid-linked precursors
+COG0745	4795.138193631414	0.5353715122523994	0.32176469909442296	0.037103053917040954	0.2059219492395773	T	RESPONSE REGULATOR receiver
+COG0747	5137.031260710048	-0.10505592287261069	0.48293005516922677	0.6995470792643547	0.8988862225361153	E	negative chemotaxis
+COG0749	3052.5286965808427	0.07398127712287307	0.47010203672166634	0.785818508267661	0.9404404788971468	L	In addition to polymerase activity, this DNA polymerase exhibits 5'-3' exonuclease activity
+COG0750	1281.385876735565	-0.021590209699806413	0.4356000328643772	0.937115633431442	0.9800055354775798	M	zinc metalloprotease
+COG0753	7176.8007497025865	-1.3081112738306415	0.8443112158853192	0.003519985727875545	0.042239828734506546	P	catalase activity
+COG0759	442.53091160356524	-0.09034618694953608	0.4893745958090899	0.7388296764139701	0.9163139003569908	M	Could be involved in insertion of integral membrane proteins into the membrane
+COG0760	762.6171643013896	-0.17696017324532426	0.43293432620683997	0.5229825273875673	0.7821193005339546	O	Chaperone involved in the correct folding and assembly of outer membrane proteins. Recognizes specific patterns of aromatic residues and the orientation of their side chains, which are found more frequently in integral outer membrane proteins. May act in both early periplasmic and late outer membrane-associated steps of protein maturation
+COG0761	1062.2833510618764	0.41386995592542686	0.4937895069037582	0.15991220145068055	0.44202160998511264	IM	Catalyzes the conversion of 1-hydroxy-2-methyl-2-(E)- butenyl 4-diphosphate (HMBPP) into a mixture of isopentenyl diphosphate (IPP) and dimethylallyl diphosphate (DMAPP). Acts in the terminal step of the DOXP MEP pathway for isoprenoid precursor biosynthesis
+COG0762	315.800427058344	0.2460999421258569	0.41300816345664365	0.37604939248130004	0.7074827553461747	D	integral membrane protein
+COG0764	155.90988150857493	-0.3079673397861968	0.4949387218645571	0.28139442745766435	0.6050320861559465	I	3-hydroxyoctanoyl-[acyl-carrier-protein] dehydratase activity
+COG0765	1154.713393562755	-0.03303541149127406	0.4509357797341346	0.9036819920733244	0.9729900237583847	P	amino acid transport
+COG0766	1817.835797792913	0.28035914322748645	0.47933883246044495	0.3225047913201294	0.6553415439182492	M	Cell wall formation. Adds enolpyruvyl to UDP-N- acetylglucosamine
+COG0768	3921.2891242248197	-0.09681506966351346	0.4784780968701403	0.7221486322549937	0.9121877460063078	M	penicillin binding
+COG0769	2734.8324370567943	0.368248514104024	0.4854797200716616	0.20458843529941062	0.5103217150165074	M	Catalyzes the addition of meso-diaminopimelic acid to the nucleotide precursor UDP-N-acetylmuramoyl-L-alanyl-D-glutamate (UMAG) in the biosynthesis of bacterial cell-wall peptidoglycan
+COG0770	1727.2097850281657	-0.2352272262712292	0.49335488844172426	0.4007508151511656	0.7189226744530002	M	UDP-N-acetylmuramoyl-tripeptide-D-alanyl-D-alanine ligase activity
+COG0771	1850.8472536661836	0.21418454491503883	0.455294412392375	0.44261300664279557	0.7499787845775546	M	Cell wall formation. Catalyzes the addition of glutamate to the nucleotide precursor UDP-N-acetylmuramoyl-L-alanine (UMA)
+COG0772	2777.9134208054693	0.026963177773905306	0.45323992165685123	0.9212607891777658	0.9764494725497894	D	Belongs to the SEDS family
+COG0773	1771.2124175292654	0.02102739794713419	0.44396946362528794	0.9386740151334307	0.9800055354775798	M	UDP-N-acetylmuramate-L-alanine ligase activity
+COG0775	816.0340556418462	0.13632096321394113	0.42958453620614934	0.6209864443865392	0.8536160412000725	F	Catalyzes the irreversible cleavage of the glycosidic bond in both 5'-methylthioadenosine (MTA) and S- adenosylhomocysteine (SAH AdoHcy) to adenine and the corresponding thioribose, 5'-methylthioribose and S-ribosylhomocysteine, respectively
+COG0776	455.0586322664584	0.5061273721104811	0.3932393487376434	0.07255900576357165	0.2929986261184181	L	regulation of translation
+COG0777	146.49950143671919	-0.1487703611077727	0.5094405863799161	0.585088620721558	0.8294641995533664	I	Component of the acetyl coenzyme A carboxylase (ACC) complex. Biotin carboxylase (BC) catalyzes the carboxylation of biotin on its carrier protein (BCCP) and then the CO(2) group is transferred by the transcarboxylase to acetyl-CoA to form malonyl- CoA
+COG0778	1014.7808489879485	-0.039570348723125134	0.4572275737498063	0.8845941956222645	0.9729900237583847	C	Nitroreductase
+COG0779	466.9825467712909	-0.6874807177828841	0.7303771980705832	0.05016902929108561	0.23727720635925742	S	Required for maturation of 30S ribosomal subunits
+COG0781	2012.453286445337	0.7915919393940829	0.4974940663407425	0.013113423640758456	0.10882916068218232	J	Involved in transcription antitermination. Required for transcription of ribosomal RNA (rRNA) genes. Binds specifically to the boxA antiterminator sequence of the ribosomal RNA (rrn) operons
+COG0782	555.206949930804	0.3148478807769822	0.38565499036325906	0.2530392645574828	0.5682997236907268	K	Necessary for efficient RNA polymerase transcription elongation past template-encoded arresting sites. The arresting sites in DNA have the property of trapping a certain fraction of elongating RNA polymerases that pass through, resulting in locked ternary complexes. Cleavage of the nascent transcript by cleavage factors such as GreA or GreB allows the resumption of elongation from the new 3'terminus
+COG0783	738.4804220035992	0.06635202806818821	0.377623876835168	0.806045449817482	0.9445788786829581	P	Belongs to the Dps family
+COG0784	394.245572533246	0.31035323776375806	0.5013870324123129	0.2782962736788605	0.6036463142784835	T	Response regulator, receiver
+COG0789	2213.13752257497	0.4509493005949236	0.32649297804757765	0.08101798490551174	0.3061445557280614	K	Transcriptional regulator
+COG0791	1533.4875396694256	0.7891533817982291	0.6492079435565012	0.024468080413107218	0.15744677831042905	M	NLP P60 protein
+COG0794	293.6599686017126	-0.4272485718228171	0.46860437595800103	0.1445606964437009	0.42178236312779194	M	Belongs to the SIS family. GutQ KpsF subfamily
+COG0796	823.1824763484457	0.6074883764588429	0.5959714343997328	0.060844856240346724	0.2624484541425614	M	Provides the (R)-glutamate required for cell wall biosynthesis
+COG0799	309.07446357110143	-0.19254234270393006	0.4594202303711202	0.4882719634747409	0.7782433574527903	H	negative regulation of ribosome biogenesis
+COG0801	531.8637222685205	0.03649393936596876	0.43605122721646383	0.8939462406081398	0.9729900237583847	H	2-amino-4-hydroxy-6-hydroxymethyldihydropteridine pyrophosphokinase
+COG0802	736.0030250172463	0.034507014961522225	0.4629175310152169	0.8990809893421944	0.9729900237583847	M	atpase or kinase
+COG0803	4607.863510380096	0.13334377852047172	0.45084975471144384	0.6282578085906578	0.8563871484915491	P	Belongs to the bacterial solute-binding protein 9 family
+COG0804	458.48929089666615	-2.5787819655635946	0.96414293147894925	1.050375480003302e-4	0.002835124134932097	E	urea catabolic process
+COG0806	503.2421133581671	0.6055596227549467	0.4964913398130494	0.04967492528944438	0.23727720635925742	J	An accessory protein needed during the final step in the assembly of 30S ribosomal subunit, possibly for assembly of the head region. Probably interacts with S19. Essential for efficient processing of 16S rRNA. May be needed both before and after RbfA during the maturation of 16S rRNA. It has affinity for free ribosomal 30S subunits but not for 70S ribosomes
+COG0807	1395.3601586996785	-0.026559173969501852	0.44581249456857114	0.9225688147176501	0.9764494725497894	H	Catalyzes the conversion of D-ribulose 5-phosphate to formate and 3,4-dihydroxy-2-butanone 4-phosphate
+COG0812	1155.7497390666358	-0.1085484145861522	0.5159360673520449	0.6868459925714412	0.8943097381282108	M	UDP-N-acetylmuramate dehydrogenase activity
+COG0816	516.9393506613344	0.27457175758807156	0.4229431856655337	0.32686642081928874	0.6591696569450504	L	Could be a nuclease involved in processing of the 5'-end of pre-16S rRNA
+COG0817	501.93446184231226	0.02970224734667556	0.4612607484025047	0.913100879719193	0.9738931028861357	L	Nuclease that resolves Holliday junction intermediates in genetic recombination. Cleaves the cruciform structure in supercoiled DNA by nicking to strands with the same polarity at sites symmetrically opposed at the junction in the homologous arms and leaves a 5'-terminal phosphate and a 3'-terminal hydroxyl group
+COG0819	1623.9216656453316	0.0932196707884203	0.47156609624490725	0.7324962888285564	0.91394297439121	K	Catalyzes an amino-pyrimidine hydrolysis reaction at the C5' of the pyrimidine moiety of thiamine compounds, a reaction that is part of a thiamine salvage pathway
+COG0820	1383.2506590784587	-0.1783897870689835	0.5027971999673737	0.5167414333176068	0.7821193005339546	J	rRNA (adenine-C2-)-methyltransferase activity
+COG0821	1123.3823255070658	0.33204201289532664	0.5514140591416774	0.25152787734159576	0.5668953174602464	I	Converts 2C-methyl-D-erythritol 2,4-cyclodiphosphate (ME-2,4cPP) into 1-hydroxy-2-methyl-2-(E)-butenyl 4-diphosphate
+COG0822	574.335566799772	-0.2058772166258824	0.3634964696087702	0.4433996192603786	0.7499787845775546	C	iron-sulfur transferase activity
+COG0824	937.2949695615412	0.20116048635191616	0.4752866684213224	0.46924965705237437	0.7688075562038901	IQ	Thioesterase
+COG0826	305.2685335709141	-0.4088436227679065	0.529892641050993	0.1684500031120087	0.4546614065758776	O	peptidase U32
+COG0828	84.08812682905858	-0.0888077936792591	0.38764314593680427	0.7439755422480308	0.9201257402733305	J	Belongs to the bacterial ribosomal protein bS21 family
+COG0829	192.6262929682556	-0.04207622828106576	0.5140345220034012	0.8745885547703228	0.9707932957950585	O	nickel cation binding
+COG0831	71.61106499244242	0.012975472612651869	0.4743946092169447	0.9617811217360653	0.9914188400981007	E	urea catabolic process
+COG0833	1436.5305650612056	-0.18510783449334417	0.47231123285451243	0.504090965824246	0.7821193005339546	E	amino acid
+COG0834	1482.2199465221647	-0.2122689140282183	0.4974654032388341	0.4451507768612714	0.750083282453148	ET	ABC-type amino acid transport signal transduction systems periplasmic component domain
+COG0840	1872.6291350611841	-0.09543359777802361	0.48187290434824204	0.7256034295073484	0.9134257331543573	NT	transmembrane signaling receptor activity
+COG0841	1677.4308219333786	-1.0888997900803559	0.9230479249450141	0.012462605981808607	0.10744460302763148	V	Belongs to the resistance-nodulation-cell division (RND) (TC 2.A.6) family
+COG0842	2352.68628008918	1.3080934667575612	0.8941437965320168	0.004430959501842757	0.051099896592680105	V	Transport permease protein
+COG0843	1772.3244624677122	0.0029579448759826893	0.4038386063633644	0.9913578109947241	0.9986675709566999	C	Cytochrome c oxidase is the component of the respiratory chain that catalyzes the reduction of oxygen to water. Subunits 1- 3 form the functional core of the enzyme complex. CO I is the catalytic subunit of the enzyme. Electrons originating in cytochrome c are transferred via the copper A center of subunit 2 and heme A of subunit 1 to the bimetallic center formed by heme A3 and copper B
+COG0846	983.1243135663738	-0.490405521949034	0.5319233546729112	0.1076431444279013	0.3553424247285366	K	NAD-dependent lysine deacetylase and desuccinylase that specifically removes acetyl and succinyl groups on target proteins. Modulates the activities of several proteins which are inactive in their acylated form
+COG0847	1383.7266884491753	-0.29299015763500313	0.5676826009298287	0.3040742438254863	0.6324430220803191	L	DNA polymerase III is a complex, multichain enzyme responsible for most of the replicative synthesis in bacteria. The epsilon subunit contain the editing function and is a proofreading 3'-5' exonuclease
+COG0849	323.1681665369702	-0.4791017435387135	0.6416477659183384	0.12616317979761144	0.39309790757992613	D	cell division
+COG0855	2121.2110178611206	0.7822570286653949	0.7423163760883461	0.032151880985016076	0.18660699552087762	P	Catalyzes the reversible transfer of the terminal phosphate of ATP to form a long-chain polyphosphate (polyP)
+COG0858	672.440013433183	-0.1764813037623257	0.3586321942640865	0.5087497356142618	0.7821193005339546	J	One of several proteins that assist in the late maturation steps of the functional core of the 30S ribosomal subunit. Associates with free 30S ribosomal subunits (but not with 30S subunits that are part of 70S ribosomes or polysomes). Required for efficient processing of 16S rRNA. May interact with the 5'-terminal helix region of 16S rRNA
+COG0861	1063.1987718509424	-0.027490413689793946	0.4123497612892347	0.9199664219339305	0.9764494725497894	P	Integral membrane protein TerC family
+COG1003	2802.434472542061	0.7160959527857054	0.668257892116312	0.03854686434983441	0.20871716794300585	E	The glycine cleavage system catalyzes the degradation of glycine. The P protein binds the alpha-amino group of glycine through its pyridoxal phosphate cofactor
+COG1004	1225.4594283985277	-0.873155596499337	0.9123027887697436	0.029789820611867746	0.17518781922740767	M	Belongs to the UDP-glucose GDP-mannose dehydrogenase family
+COG1005	996.3480581082192	0.4465179692874432	0.6239853296899333	0.146509735461875	0.42178236312779194	C	NDH-1 shuttles electrons from NADH, via FMN and iron- sulfur (Fe-S) centers, to quinones in the respiratory chain. The immediate electron acceptor for the enzyme in this species is believed to be ubiquinone. Couples the redox reaction to proton translocation (for every two electrons transferred, four hydrogen ions are translocated across the cytoplasmic membrane), and thus conserves the redox energy in a proton gradient. This subunit may bind ubiquinone
+COG1007	1510.2423260306575	0.5504425110386191	0.6298448387661452	0.08695043728759323	0.321928268178081	C	ATP synthesis coupled electron transport
+COG1009	1926.867209934345	-0.06825272979960786	0.45910175254758695	0.8025741707867771	0.9441575966233424	CP	NADH ubiquinone oxidoreductase subunit 5 chain L Multisubunit Na H antiporter, MnhA subunit
+COG1011	445.84421816477254	0.2646969461131719	0.49398571298575344	0.34843142298037827	0.6785243500144209	F	Hydrolase
+COG1012	9953.49192801917	0.00892696211523538	0.35728739428506706	0.9732181720168158	0.9914188400981007	C	belongs to the aldehyde dehydrogenase family
+COG1013	983.5861709910992	-0.2232291687171483	0.4833016550652306	0.4240550790643116	0.738656255188291	C	pyruvate-flavodoxin oxidoreductase activity
+COG1014	1568.2660667974249	-0.6920887520586932	0.6441474131350403	0.04170670881877997	0.2191433034517653	C	Oxidoreductase required for the transfer of electrons from pyruvate to flavodoxin
+COG1018	5877.141203818208	-4.114310640409261	0.8379521186013303	9.558307414199644e-8	2.8292589946030947e-5	C	Is involved in NO detoxification in an aerobic process, termed nitric oxide dioxygenase (NOD) reaction that utilizes O(2) and NAD(P)H to convert NO to nitrate, which protects the bacterium from various noxious nitrogen compounds. Therefore, plays a central role in the inducible response to nitrosative stress
+COG1020	6901.421960790865	-3.7131199100048398	0.7733852420616524	1.860024550178052e-7	4.1292545013952755e-5	Q	D-alanine [D-alanyl carrier protein] ligase activity
+COG1022	3372.1406893639296	0.10555851164324419	0.4965835242488115	0.6968639586609038	0.8981352616703666	I	Amp-dependent synthetase and ligase
+COG1024	2249.5737571919108	0.2185490859074364	0.4763140390091558	0.4335314005342559	0.7448863433997989	I	Enoyl-CoA hydratase
+COG1028	5615.263783727559	-0.09076028608063655	0.29104875088324206	0.7070206592660542	0.8994761395820288	IQ	Short-chain dehydrogenase reductase Sdr
+COG1034	2082.947176854503	0.5557117370461325	0.6665138808381492	0.08820395190762288	0.32365747642136	C	ATP synthesis coupled electron transport
+COG1038	1121.7362653647888	-0.42269034318105786	0.5893350669689786	0.16190643516976952	0.44202160998511264	C	Catalyzes a 2-step reaction, involving the ATP-dependent carboxylation of the covalently attached biotin in the first step and the transfer of the carboxyl group to pyruvate in the second
+COG1048	2881.672037434143	0.22668805277823767	0.43263853065408997	0.41634829602328166	0.730666574839277	C	Catalyzes the isomerization of citrate to isocitrate via cis-aconitate
+COG1051	2413.2615677169574	0.36053728414737907	0.5071611904455717	0.21526566338481154	0.5251535963893205	F	belongs to the nudix hydrolase family
+COG1052	1491.3631874126088	0.1384348434645148	0.42109074341745956	0.6153533345395812	0.8498192240608835	CH	Belongs to the D-isomer specific 2-hydroxyacid dehydrogenase family
+COG1053	4676.620466926978	-0.41918586988358036	0.4964662905748682	0.15554439170535206	0.43572056730079695	C	succinate dehydrogenase
+COG1057	675.4957749026751	-0.3154162887735957	0.4909273118714798	0.27074822611733307	0.5931440296001901	H	Catalyzes the reversible adenylation of nicotinate mononucleotide (NaMN) to nicotinic acid adenine dinucleotide (NaAD)
+COG1061	4167.052648020553	-0.09410417912345381	0.5027180307224367	0.7272432357433902	0.9134257331543573	L	Type III restriction enzyme res subunit
+COG1063	8127.93494318415	-2.8798991593855154	0.7372377740151363	3.602062451095592e-6	2.665526213810738e-4	E	alcohol dehydrogenase
+COG1064	1538.8789214064445	0.3000385096285757	0.47455443164596056	0.29187798386393726	0.6203109426671063	P	alcohol dehydrogenase
+COG1066	1432.7607149317407	-0.49861673501648157	0.5629709669133272	0.10642495698214517	0.35528331503813876	O	DNA-dependent ATPase involved in processing of recombination intermediates, plays a role in repairing DNA breaks. Stimulates the branch migration of RecA-mediated strand transfer reactions, allowing the 3' invading strand to extend heteroduplex DNA faster. Binds ssDNA in the presence of ADP but not other nucleotides, has ATPase activity that is stimulated by ssDNA and various branched DNA structures, but inhibited by SSB. Does not have RecA's homology-searching function
+COG1071	1646.8381255189036	0.04084140468610343	0.4524629746221374	0.8810703256543272	0.9729900237583847	C	oxidoreductase activity, acting on the aldehyde or oxo group of donors, disulfide as acceptor
+COG1073	2567.6242551758205	-1.9865067615130718	1.218903314939232	0.0016827803243239365	0.024496867672125503	G	alpha beta
+COG1075	3267.099524915375	0.62188093002428	0.5384206290293524	0.049717291035357	0.23727720635925742	KLT	acetyltransferases and hydrolases with the alpha beta hydrolase fold
+COG1080	4001.33730101633	0.23831126434254152	0.41104894744567516	0.39056629319928854	0.7177556275657646	G	General (non sugar-specific) component of the phosphoenolpyruvate-dependent sugar phosphotransferase system (sugar PTS). This major carbohydrate active-transport system catalyzes the phosphorylation of incoming sugar substrates concomitantly with their translocation across the cell membrane. Enzyme I transfers the phosphoryl group from phosphoenolpyruvate (PEP) to the phosphoryl carrier protein (HPr)
+COG1087	1091.7197840734157	0.8630805252372836	0.772622955320194	0.023152827132159815	0.15575538252543877	M	Belongs to the NAD(P)-dependent epimerase dehydratase family
+COG1090	778.1517231354733	-0.4412519291242528	0.5543219237674117	0.14396817088444272	0.42178236312779194	GM	epimerase
+COG1098	83.29499371467224	-0.2228721972448178	0.48210512399034866	0.4247953539568998	0.738656255188291	J	S1 RNA binding domain
+COG1104	1399.2759969772628	-0.47611901654972616	0.5418264521221478	0.11788482153056726	0.3744387541502425	E	cysteine desulfurase activity
+COG1105	946.9329606629127	7.874872050016985e-4	0.4853399044620703	0.9976688155987734	0.9996031659713117	H	Belongs to the carbohydrate kinase PfkB family
+COG1108	1815.9039681938684	0.7306787238627056	0.5614239028274965	0.02656775025789198	0.16498015544760894	P	ABC-type Mn2 Zn2 transport systems permease components
+COG1109	4453.645998754308	0.3629701517493668	0.48813914800995983	0.21078970559291907	0.5173221730252205	G	Catalyzes the conversion of glucosamine-6-phosphate to glucosamine-1-phosphate
+COG1113	9582.916540885517	0.20992741168495224	0.4561314261249833	0.45137672292062886	0.7548446891780007	E	amino acid transport
+COG1117	804.0352650655774	0.9945262506262857	0.7189964153153848	0.009797490924896957	0.09062679105529685	P	ATPase-coupled phosphate ion transmembrane transporter activity
+COG1120	4960.194316765341	-0.11270446903440873	0.4361740074363247	0.6820247443139074	0.8932713465350292	HP	ATPase activity
+COG1121	1679.4262362196182	0.5260879067717075	0.6206977561566941	0.09767422309794199	0.33736990016846014	P	(ABC) transporter
+COG1122	2260.6701443118263	0.13342997387243494	0.4583243416682922	0.6276720946442034	0.8563871484915491	P	ATPase activity
+COG1125	764.1207905036683	-0.08257613605894026	0.4695207370834868	0.7619061083647586	0.9250712678296796	E	glycine betaine transport
+COG1126	1272.1021005155249	0.052058088116592086	0.4384894580711073	0.8492279065020922	0.9593240762732527	E	abc transporter atp-binding protein
+COG1131	7297.683234783107	-0.1597446970685678	0.39274354700108144	0.5592048364003481	0.8113952528161914	V	(ABC) transporter
+COG1132	15609.53184424302	-0.14337141969313733	0.3963841854861324	0.6004122764043189	0.8383114802626339	V	(ABC) transporter
+COG1135	1201.6678752901987	0.11615420014327349	0.44761961117946597	0.672669312095297	0.8862468088139818	P	Part of the ABC transporter complex MetNIQ involved in methionine import. Responsible for energy coupling to the transport system
+COG1136	5852.3365861472475	-0.09220017333691184	0.37771370498400736	0.7331476226100954	0.91394297439121	V	(ABC) transporter
+COG1139	1369.7800593284833	0.7613245111810942	0.6710844994027778	0.0303568147773475	0.17734770738345118	C	Iron-sulfur cluster binding protein
+COG1140	1038.2916999008714	0.05174257325461072	0.4769870877899076	0.8485980721650671	0.9593240762732527	C	nitrate reductase beta subunit
+COG1141	54.7015812237044	-0.8825836002206514	0.869916841204639	0.026413373438201146	0.16498015544760894	C	Ferredoxin
+COG1146	295.10629192782034	0.11654059067304673	0.44573539630952075	0.671725587427987	0.8862468088139818	C	Ferredoxins are iron-sulfur proteins that transfer electrons in a wide variety of metabolic reactions
+COG1158	1632.050796258538	0.0885444479010347	0.4331400101044185	0.7470849473290364	0.9216342239484503	K	Facilitates transcription termination by a mechanism that involves Rho binding to the nascent RNA, activation of Rho's RNA-dependent ATPase activity, and release of the mRNA from the DNA template
+COG1159	871.8814910375271	0.16172769712770962	0.47322050265857846	0.5574940755712237	0.8113952528161914	J	An essential GTPase that binds both GDP and GTP, with rapid nucleotide exchange. Plays a role in 16S rRNA processing and 30S ribosomal subunit biogenesis and possibly also in cell cycle regulation and energy metabolism
+COG1160	1688.4332403848207	0.35214642067404456	0.4868185443146769	0.2232350293158838	0.5306944398054748	P	GTP binding
+COG1164	399.9561389950919	-0.8680617913266043	0.9000831845741728	0.029770408704114626	0.17518781922740767	E	Oligoendopeptidase f
+COG1169	3317.4894803698458	-0.17063029808038283	0.49292157211394616	0.5351885281574107	0.7907610865287532	HQ	isochorismate synthase
+COG1173	2319.7638539227587	0.1580068051089726	0.4746326709997902	0.5662071058140565	0.8159513991434835	P	ABC-type dipeptide oligopeptide nickel transport systems, permease components
+COG1174	1294.2888394303075	0.08546712239880974	0.46877698158119324	0.7539678223823205	0.9231150081456473	P	glycine betaine transport
+COG1175	6264.307669569818	0.27675218613746583	0.4961283691934294	0.32863191069442826	0.6598702231582515	P	transmembrane transport
+COG1180	228.36196362424138	0.8226250981668133	0.7796002406603313	0.02864838117940625	0.17276232461116806	C	Activation of pyruvate formate-lyase under anaerobic conditions by generation of an organic free radical, using S- adenosylmethionine and reduced flavodoxin as cosubstrates to produce 5'-deoxy-adenosine
+COG1181	1845.1031430381781	0.06088763427430132	0.44569677255705	0.8239385147131323	0.9589218886831737	F	Belongs to the D-alanine--D-alanine ligase family
+COG1185	2390.14406394699	-0.05885773510309719	0.3459786085329968	0.8228998364803853	0.9589218886831737	J	polyribonucleotide nucleotidyltransferase activity
+COG1186	1053.2236380854495	-0.014189568059194513	0.44296794348625174	0.9585968222827346	0.9909592295542121	J	Peptide chain release factor 2 directs the termination of translation in response to the peptide chain termination codons UGA and UAA
+COG1187	928.9032382109001	0.32548805387402757	0.4528461367793732	0.25353960803325476	0.5682997236907268	J	pseudouridine synthase activity
+COG1188	466.75638210729085	-0.38955149683372803	0.5227604113947076	0.18594533119017775	0.48280542133590015	J	Ribosome-associated heat shock protein implicated in the recycling of the 50S subunit, (S4 paralog))
+COG1190	1504.7705415419125	0.1507490060565315	0.46767869674955187	0.5841557908586571	0.8294641995533664	J	Belongs to the class-II aminoacyl-tRNA synthetase family
+COG1192	4012.6998448123086	0.1759755034055829	0.4800216299456212	0.5240551619568727	0.7821193005339546	D	Involved in chromosome partitioning
+COG1195	1706.571302335478	-0.1313221279184475	0.4580079994385969	0.6330316371730776	0.8563871484915491	L	it is required for DNA replication and normal SOS inducibility. RecF binds preferentially to single-stranded, linear DNA. It also seems to bind ATP
+COG1196	5867.077153297687	0.3985546216708562	0.42263667415729866	0.16186818903207323	0.44202160998511264	D	nuclear chromosome segregation
+COG1197	3826.174400092929	0.00888405722471546	0.48291950509034143	0.9737342533199607	0.9914188400981007	L	Couples transcription and DNA repair by recognizing RNA polymerase (RNAP) stalled at DNA lesions. Mediates ATP-dependent release of RNAP and its truncated transcript from the DNA, and recruitment of nucleotide excision repair machinery to the damaged site
+COG1200	2590.942077574139	-0.26416356804515	0.45102761425803467	0.34808444109710174	0.6785243500144209	L	Critical role in recombination and DNA repair. Helps process Holliday junction intermediates to mature products by catalyzing branch migration. Has a DNA unwinding activity characteristic of a DNA helicase with a 3'- to 5'- polarity. Unwinds branched duplex DNA (Y-DNA)
+COG1206	145.91487135186154	-0.10428644492023197	0.4886193394148305	0.7010654665485863	0.8988862225361153	J	Catalyzes the folate-dependent formation of 5-methyl- uridine at position 54 (M-5-U54) in all tRNAs
+COG1207	1955.4622304185098	-0.16012039508748035	0.42350883729373767	0.5620848705493373	0.8129175326511588	M	Catalyzes the last two sequential reactions in the de novo biosynthetic pathway for UDP-N-acetylglucosamine (UDP- GlcNAc). The C-terminal domain catalyzes the transfer of acetyl group from acetyl coenzyme A to glucosamine-1-phosphate (GlcN-1-P) to produce N-acetylglucosamine-1-phosphate (GlcNAc-1-P), which is converted into UDP-GlcNAc by the transfer of uridine 5- monophosphate (from uridine 5-triphosphate), a reaction catalyzed by the N-terminal domain
+COG1214	675.7094082290836	0.2681667338333483	0.5370611398996842	0.3421580352258729	0.6741186812958141	O	PFAM Peptidase M22, glycoprotease
+COG1216	5545.285469415957	-0.14099066497579382	0.4452262394729272	0.6092301048676194	0.8469034591424115	V	Glycosyl transferase, family 2
+COG1217	1975.2802912634054	-0.08442932712096446	0.4352269316268118	0.7583701003261755	0.9242614376901912	T	gtp-binding protein TYPA
+COG1219	1330.5883449641478	-0.02613229140865065	0.4024053320320385	0.9237494266333841	0.9765351081552918	O	ATP-dependent specificity component of the Clp protease. It directs the protease to specific substrates. Can perform chaperone functions in the absence of ClpP
+COG1225	700.5684032339957	0.9812926719861804	0.8116205711743267	0.014551064851590002	0.11640851881272002	O	Alkyl hydroperoxide reductase Thiol specific antioxidant Mal allergen
+COG1227	119.15412562172041	-0.1361070734200592	0.5003915600138168	0.6172634477856549	0.8511334497417105	C	inorganic diphosphatase activity
+COG1230	1469.820927422361	0.7231633100740584	0.5736646021774526	0.02898827293588293	0.17276232461116806	P	cation diffusion facilitator family transporter
+COG1231	1134.2234174640403	-3.3030290740423065	1.1023336445483585	5.059666191980495e-5	0.0018982720639455295	E	oxidoreductase activity
+COG1232	3010.166771006015	-0.3795436206167458	0.5092263081647689	0.19482988154311648	0.49398264713559875	H	Catalyzes the 6-electron oxidation of protoporphyrinogen-IX to form protoporphyrin-IX
+COG1247	723.1301333132616	0.17821976796135364	0.4614112744115722	0.5200288531319596	0.7821193005339546	M	-acetyltransferase
+COG1249	6208.305460377976	0.30817869317178387	0.3734463335664834	0.2581425537422502	0.5745127511857598	C	Belongs to the class-I pyridine nucleotide-disulfide oxidoreductase family
+COG1250	1214.9845322599574	1.4086949627610752	1.0414268078783877	0.005229655436775173	0.057332518862424124	I	3-hydroxyacyl-CoA dehydrogenase
+COG1251	721.4194209473093	-1.5031285766957665	1.1919683302570003	0.005937479254978299	0.06202919504024387	C	Belongs to the nitrite and sulfite reductase 4Fe-4S domain family
+COG1252	1593.6755959162003	0.6092019357552118	0.46073255344930514	0.04341860883586473	0.22158462440372345	C	NADH dehydrogenase
+COG1253	3573.6217108003607	0.05216289629997202	0.4326598361476874	0.849011500566355	0.9593240762732527	E	flavin adenine dinucleotide binding
+COG1254	268.94179017181335	-2.4746281313532377	0.991209369981414	1.6382340765147503e-4	0.0039317617836354	C	Belongs to the acylphosphatase family
+COG1264	2570.4374194340016	0.4791602862904913	0.4261798552032787	0.09705595507027827	0.33736990016846014	G	protein-N(PI)-phosphohistidine-sugar phosphotransferase activity
+COG1266	3141.8717332081083	-0.052802465041139675	0.40917119985915124	0.8469748229351042	0.9593240762732527	V	CAAX protease self-immunity
+COG1271	1596.76249288697	0.36283438896665843	0.48761306706750035	0.2108903453098309	0.5173221730252205	C	oxidase subunit
+COG1278	677.4481225460218	0.2158174234437631	0.3443234856702045	0.41242353100069573	0.730666574839277	K	Cold shock
+COG1292	1733.933986317754	-0.1582888832295402	0.4784744896205324	0.5652355631111369	0.8159513991434835	M	Belongs to the BCCT transporter (TC 2.A.15) family
+COG1294	960.953492599433	0.5449179931057156	0.5628704911258946	0.08221139792872108	0.3093378023758658	C	oxidase, subunit
+COG1295	1850.8818039739356	0.08562313459999604	0.48518001515151543	0.7522244564696218	0.9231150081456473	G	ribonuclease BN
+COG1297	1481.475309558333	0.5659506821840191	0.626128529924828	0.0798126331686729	0.3054897338525066	S	OPT oligopeptide transporter protein
+COG1301	888.8620869570389	0.22551567226309818	0.5060498708980411	0.418604614661817	0.7331773132538333	C	dicarboxylic acid transport
+COG1302	1803.9522421961688	0.08352530981079682	0.2853807272373541	0.7263235804663307	0.9134257331543573	M	Protein conserved in bacteria
+COG1309	8175.368275177778	0.19248295349016878	0.3183956804580449	0.44833611972936727	0.7519449922828818	K	transcriptional regulator
+COG1314	231.9297050214605	0.06829098272796252	0.4259492831099338	0.8033557948582799	0.9441575966233424	U	P-P-bond-hydrolysis-driven protein transmembrane transporter activity
+COG1320	178.92057338590973	-0.03675478567659916	0.43860356810960505	0.8931607572191559	0.9729900237583847	P	monovalent cation:proton antiporter activity
+COG1321	703.2732239611037	-0.17767335168480552	0.4813419012859517	0.5201226832519519	0.7821193005339546	K	iron dependent repressor
+COG1327	560.9002290492328	0.23728988642711885	0.5087936098190693	0.396339968423526	0.7181248849702419	K	Negatively regulates transcription of bacterial ribonucleotide reductase nrd genes and operons by binding to NrdR- boxes
+COG1329	378.62671059787533	0.45359460143629776	0.5404765294127637	0.13327652622034306	0.40254950776756676	K	Transcriptional regulator
+COG1335	896.7725172445207	0.5901008051735763	0.6024436766578694	0.06775698759529081	0.28325728293926006	Q	isochorismatase
+COG1346	181.48635740193902	0.022638183069280365	0.4486511121307836	0.93392493879357	0.9791326394907793	M	cytolysis
+COG1349	3279.9215696889446	-0.1819610715716928	0.3816945958388137	0.5037538684526078	0.7821193005339546	K	DNA-binding transcription factor activity
+COG1358	305.5525965905254	-0.4812997958373352	0.533942566258424	0.11359022052723772	0.36679314846613487	J	cellular component organization or biogenesis
+COG1359	544.9230290315838	-1.828717825022962	0.9365273508186356	7.277129759583683e-4	0.012427098512519828	E	(4S)-4-hydroxy-5-phosphonooxypentane-2,3-dione isomerase activity
+COG1376	2134.917039664571	0.9826048929456872	0.8557976788858849	0.01641622276868098	0.1256690156774889	D	ErfK ybiS ycfS ynhG family protein
+COG1380	88.73753755733895	-0.6619810660086743	0.6206188562119103	0.04693673113234824	0.231554540252918	M	Effector of murein hydrolase LrgA
+COG1385	826.9812273269679	0.02543529139665723	0.4672203977378554	0.9253864356217619	0.9771024433200054	J	rRNA (uridine-N3-)-methyltransferase activity
+COG1388	908.955135231335	0.055435509469806854	0.45242965922543255	0.8392038334222273	0.9593240762732527	M	LysM domain
+COG1393	175.73148762546583	0.0857677186299139	0.4332886136937244	0.7547088917947522	0.9231150081456473	P	Belongs to the ArsC family
+COG1396	1339.8200365136736	-0.6165484974131826	0.528728948731865	0.050234363508491434	0.23727720635925742	K	sequence-specific DNA binding
+COG1399	357.20844805835327	0.16573483552088977	0.3182381276549595	0.5136176041434215	0.7821193005339546	K	metal-binding, possibly nucleic acid-binding protein
+COG1404	2161.314662450217	0.17947114144019538	0.526768265198418	0.5121213015857697	0.7821193005339546	O	Belongs to the peptidase S8 family
+COG1409	2832.1497315803754	-1.0564916441462477	0.8433583443059348	0.011290161889646681	0.10099526195144362	DZ	Hydrolyzes cAMP to 5'-AMP. Plays an important regulatory role in modulating the intracellular concentration of cAMP, thereby influencing cAMP-dependent processes
+COG1414	1720.307016048119	0.5846915013921883	0.6088227904394181	0.07048118143561222	0.29045674402584004	K	Transcriptional regulator
+COG1418	1409.3129453417027	-0.100177800235774	0.47862506044154635	0.7130395072670956	0.9045415463616869	FJ	mRNA catabolic process
+COG1420	1095.1527759941212	-0.18565221956512962	0.3698269512451809	0.49145472735197	0.7806367940934703	K	regulation of RNA biosynthetic process
+COG1438	842.7192066237283	-0.06257506543220386	0.47995347027049506	0.8173849800536018	0.9550498187994717	K	arginine binding
+COG1445	1116.6776660662424	-0.6222189791418498	0.721381049629593	0.0679434698942144	0.28325728293926006	G	protein-N(PI)-phosphohistidine-fructose phosphotransferase system transporter activity
+COG1461	872.7175343870873	-0.3507027110858079	0.45695739316792405	0.2215307535851845	0.5302407255623823	G	Dihydroxyacetone kinase
+COG1472	3556.048316488272	-0.5905599558584562	0.6641266427998166	0.07380262140867035	0.29309226668206106	G	Belongs to the glycosyl hydrolase 3 family
+COG1473	1297.4576586098817	-0.14537128238894342	0.477438761067446	0.5965315217283484	0.8355204910012198	CH	amidohydrolase
+COG1475	2110.9157049198457	-0.03285224627229512	0.4382441958721724	0.904439654826503	0.9729900237583847	K	DNA binding
+COG1476	925.5128617934288	-0.23663574041141805	0.41563725302530885	0.3946331100656378	0.7177556275657646	K	TRANSCRIPTIONal
+COG1484	1226.8318560416917	1.206486235870828	0.8802791171225811	0.006526383218591263	0.06661411836906946	L	DNA-dependent DNA replication
+COG1490	431.51143228283655	-0.1829979845031226	0.48622982385060215	0.5078611897873859	0.7821193005339546	J	D-aminoacyl-tRNA deacylase activity
+COG1496	550.005898504221	-0.13862404695561392	0.4875786730958258	0.612288311677284	0.8469034591424115	D	oxidoreductase activity
+COG1502	1669.8609973175319	0.11906806286809367	0.47829467712351686	0.6629980804478365	0.8813507416731718	I	Catalyzes the reversible phosphatidyl group transfer from one phosphatidylglycerol molecule to another to form cardiolipin (CL) (diphosphatidylglycerol) and glycerol
+COG1506	1134.7166047785392	-4.478909924772276	0.8916304664696927	4.1923554681589243e-08	2.8292589946030947e-5	E	peptidase
+COG1511	4894.390337812022	0.5783219386006286	0.5890769313250055	0.0708410411383549	0.29045674402584004	Q	domain protein
+COG1514	227.68837912924602	-0.02051705497435113	0.4918914329546132	0.9391719714993474	0.9800055354775798	J	Hydrolyzes RNA 2',3'-cyclic phosphodiester to an RNA 2'- phosphomonoester
+COG1522	1592.1773216891238	0.9442888604112003	0.8580633656595631	0.01960512871525382	0.1415394658467105	K	sequence-specific DNA binding
+COG1528	478.74700874230126	0.6562153091985669	0.5333596279559464	0.0394597176486661	0.212365025891003	P	Iron-storage protein
+COG1530	2575.818783381153	0.4645451803340344	0.5668072732708005	0.1283952100279451	0.39451538582981055	J	ribonuclease E activity
+COG1538	1105.4790670707002	-3.4309713202613374	1.160604750334414	5.325445134983186e-5	0.0018982720639455295	MU	Outer membrane efflux protein
+COG1540	842.7534828817859	0.05961514838008441	0.4633655106457978	0.8268099639715579	0.9593240762732527	E	5-oxoprolinase (ATP-hydrolyzing) activity
+COG1544	698.4732195693275	0.9561828026505055	0.6065775910454886	0.007271931023958101	0.0717497194363866	J	Required for dimerization of active 70S ribosomes into 100S ribosomes in stationary phase
+COG1570	1248.059238329512	0.20349946347828166	0.4940207077666215	0.4633064020868293	0.7661379609927457	L	exodeoxyribonuclease VII activity
+COG1577	186.28662456228045	0.05145606012554242	0.4854760862193151	0.8489269668381753	0.9593240762732527	I	mevalonate kinase activity
+COG1587	2213.907981247292	0.09444332180432358	0.44727222503728226	0.730636706045033	0.9138104154478722	H	Uroporphyrinogen-III synthase
+COG1595	2913.4721531699474	-0.10524826727370612	0.37400527488668456	0.6965343582558604	0.8981352616703666	K	DNA-templated transcription, initiation
+COG1597	1223.9776686280975	0.2764117825551777	0.5195128083815268	0.32919201448097457	0.6598702231582515	I	lipid kinase activity
+COG1605	560.521571778188	-1.5977094291343175	1.2220259194591319	0.004858858274383139	0.05461602718547123	E	Chorismate mutase
+COG1607	243.82781808253299	-0.030202147256755456	0.49356331065703146	0.910534583044164	0.9729900237583847	I	acyl-coa hydrolase
+COG1609	6766.353036065936	-0.4074299728403523	0.37330945273963234	0.13744377034877656	0.40867005073424445	K	Transcriptional regulator
+COG1611	1154.5196992182962	0.3400435145043109	0.4757494967629085	0.23700784597052912	0.5482881072362091	NOU	Belongs to the LOG family
+COG1612	1431.2254814642463	-0.073703761329387	0.49558151606024287	0.7846291915541128	0.9402843753037141	O	heme a metabolic process
+COG1620	1519.1984757941777	0.02805556660283523	0.47851545842890514	0.9173851263017012	0.975614361863366	C	l-lactate permease
+COG1622	962.5533744036358	0.4072948131153812	0.46851851363554453	0.1624012038785577	0.44202160998511264	C	oxidoreductase activity, acting on a heme group of donors, oxygen as acceptor
+COG1640	1921.7618358941972	0.9897226468586405	0.7360729745888899	0.010763567182502147	0.09753109855165211	G	4-alpha-glucanotransferase
+COG1651	1126.999110362686	0.4190666450645405	0.4908759566288346	0.15492117141316977	0.43572056730079695	O	Required for disulfide bond formation in some periplasmic proteins. Acts by transferring its disulfide bond to other proteins and is reduced in the process
+COG1653	8172.234485016423	0.6711201946026901	0.6169908315367163	0.04424133247779978	0.22449316137306402	G	transport
+COG1670	2279.692082931299	0.03928930450026922	0.4446562033330362	0.8857430703906897	0.9729900237583847	J	COG1670 acetyltransferases, including N-acetylases of ribosomal proteins
+COG1674	4470.521319687496	-0.18621181035659565	0.44196379950143705	0.5022913673938753	0.7821193005339546	D	ftsk spoiiie
+COG1680	2994.107590211898	0.4714497653011164	0.4708796642844493	0.11111682226478983	0.3627637432762256	V	COG1680 Beta-lactamase class C and other penicillin binding
+COG1682	572.349832773537	0.1920132307414829	0.52088386698963	0.48540408819231456	0.7775806905865839	GM	transport, permease protein
+COG1695	798.8498817089777	-0.10210292915189326	0.45015460851338834	0.7098285494845227	0.9017564405468613	K	Transcriptional regulator
+COG1702	978.0853707560102	0.5635861302783001	0.5910936785550791	0.07710351908902242	0.30029791645198206	T	phosphate starvation-inducible protein PhoH
+COG1703	828.2733789935461	0.1240232341732804	0.537102812775584	0.6440018031544548	0.8625544512837946	E	isobutyryl-CoA mutase activity
+COG1714	1096.1114781886643	0.24717527747958723	0.48709782928649054	0.3789795879993117	0.7105376892380837	M	RDD family
+COG1716	3311.1221404943244	0.3547739326571117	0.46642407180488504	0.2178777984900888	0.5281701457097752	T	ATPase activity
+COG1733	180.9414123955653	0.08501922130451198	0.48015898256740275	0.7543213311226222	0.9231150081456473	K	regulation of RNA biosynthetic process
+COG1737	1874.442249187444	0.23912352909772527	0.4658818285385628	0.3938353984109974	0.7177556275657646	K	Transcriptional regulator
+COG1744	870.0310536433475	3.2022068988607058	0.782952016754957	2.4683418148422337e-6	1.9926250287090032e-4	ET	ABC transporter substrate-binding protein PnrA-like
+COG1758	248.38483711666885	0.16912967797840045	0.4096604087053157	0.5393599169497967	0.7929662355155951	K	RNA polymerase activity
+COG1760	1608.473538915819	0.18019204457303778	0.47802817378424256	0.5146932023017141	0.7821193005339546	E	l-serine dehydratase
+COG1762	2467.953891084942	0.3137359124040132	0.38401870062974386	0.2540709350283993	0.5682997236907268	G	phosphoenolpyruvate-dependent sugar phosphotransferase system
+COG1764	691.2523934627087	-0.18176110409022778	0.3301116418856132	0.4816341827214306	0.7770788265493935	O	response to oxidative stress
+COG1765	494.745005619318	0.189083163141409	0.4586277519190059	0.49586200325268176	0.7812837139756738	O	OsmC-like protein
+COG1774	426.5518376199133	-0.28692233791948213	0.5191024241991204	0.3128937593853338	0.6419020589238214	NU	PSP1 C-terminal conserved region
+COG1780	140.22989111805782	0.19613285058643534	0.5091791002009471	0.4776285973995073	0.7768025540123855	F	Probably involved in ribonucleotide reductase function
+COG1785	423.11862287168503	0.6881118046911184	0.8162865637078441	0.05665478770513712	0.25407023738210627	P	Belongs to the alkaline phosphatase family
+COG1788	789.4947685725577	-3.6272089735691018	1.0968048245431081	2.2400297169700837e-5	0.0011232543174577914	I	Acyl CoA acetate 3-ketoacid CoA transferase, alpha subunit
+COG1799	427.40331990082535	0.8927143856724687	0.629779439407603	0.012273534068441483	0.10744460302763148	D	cell septum assembly
+COG1806	745.0772865475216	-0.17829786496649858	0.4688255470695605	0.5195086381339683	0.7821193005339546	L	Bifunctional serine threonine kinase and phosphorylase involved in the regulation of the
+COG1825	680.7230777162835	0.3931406402545951	0.3814306742462635	0.1545949444235589	0.43572056730079695	J	This is one of the proteins that binds to the 5S RNA in the ribosome where it forms part of the central protuberance
+COG1826	574.2517498151815	0.10754321726249437	0.39672951630785247	0.6938674995663772	0.8981352616703666	U	Part of the twin-arginine translocation (Tat) system that transports large folded proteins containing a characteristic twin-arginine motif in their signal peptide across membranes
+COG1828	961.8705823698898	0.5901599505638531	0.5288947358022832	0.0592686391810666	0.2605472851128076	F	Part of the phosphoribosylformylglycinamidine synthase complex involved in the purines biosynthetic pathway. Catalyzes the ATP-dependent conversion of formylglycinamide ribonucleotide (FGAR) and glutamine to yield formylglycinamidine ribonucleotide (FGAM) and glutamate. The FGAM synthase complex is composed of three subunits. PurQ produces an ammonia molecule by converting glutamine to glutamate. PurL transfers the ammonia molecule to FGAR to form FGAM in an ATP-dependent manner. PurS interacts with PurQ and PurL and is thought to assist in the transfer of the ammonia molecule from PurQ to PurL
+COG1835	1874.5766242320824	-1.1160591000107556	1.020754608427655	0.01432439758810319	0.11640851881272002	I	transferase activity, transferring acyl groups other than amino-acyl groups
+COG1837	151.2834801026472	0.45315950614951706	0.5240296275232098	0.13168951353676278	0.39911361099196363	L	Belongs to the UPF0109 family
+COG1841	189.66345394119324	0.24766514866720518	0.32339894041084216	0.3334839340940807	0.6654690639899858	J	ribosomal large subunit assembly
+COG1842	732.0656885432364	0.09825235380129832	0.46455568332433256	0.7193553338832654	0.9099537556813956	KT	Phage shock protein A
+COG1845	708.763201623623	0.47873211272632493	0.4876799445341395	0.10895002707996536	0.3583245335074416	C	cytochrome c oxidase, subunit III
+COG1846	3720.1004993220677	0.1651392639406466	0.3545334968390213	0.5345627785152953	0.7907610865287532	K	Transcriptional regulator
+COG1853	873.7539062924952	0.19371274421576112	0.48803831108035955	0.4843634121214464	0.7775806905865839	K	conserved protein domain typically associated with flavoprotein oxygenases, DIM6 NTAB family
+COG1854	415.9265077417444	0.387851156419839	0.5038494330430632	0.18581083335991117	0.48280542133590015	H	S-ribosylhomocysteine lyase activity
+COG1862	389.51108924924046	0.11280652940820635	0.37927420074637486	0.6770778179963266	0.8888941563841493	U	Preprotein translocase
+COG1874	690.4776388286958	-3.3804580716469936	1.336864056082137	1.2935248541541043e-4	0.0032818573442538416	G	Beta-galactosidase
+COG1881	481.18572699598485	-2.727915266722468	1.281281465274461	3.9539027198995353e-4	0.00763275133754519	EGP	PFAM PEBP family protein
+COG1882	497.85851208771305	1.291419068622356	0.8229716676342348	0.0034190082573417758	0.04159012784273284	C	Formate acetyltransferase
+COG1884	1348.5996684774254	-0.36282338582125306	0.596065109835314	0.21829629652371768	0.5281701457097752	I	Catalyzes the reversible interconversion of isobutyryl- CoA and n-butyryl-CoA, using radical chemistry. Also exhibits GTPase activity, associated with its G-protein domain (MeaI) that functions as a chaperone that assists cofactor delivery and proper holo-enzyme assembly
+COG1902	3138.564004939959	-0.435193695713452	0.4254132156636024	0.12926313084076105	0.395812621333089	C	pentaerythritol trinitrate reductase activity
+COG1914	1339.9898023624237	0.018201802275577095	0.45340333930829224	0.9467846562778269	0.9844786589867802	P	H( )-stimulated, divalent metal cation uptake system
+COG1917	371.5086679935217	0.5510296625691976	0.6945607803278594	0.09288736698494156	0.3353007393602769	L	Cupin 2, conserved barrel domain protein
+COG1918	260.3075155954452	-0.14830267035597064	0.4157667248896844	0.590363789412809	0.8321318174580546	P	ferrous iron import across plasma membrane
+COG1925	591.3088642143583	1.4204076352039312	0.6281227366315738	3.597020506186238e-4	0.007259441385212227	G	phosphoenolpyruvate-dependent sugar phosphotransferase system
+COG1929	1049.59119495153	0.42415817968811914	0.5438957961361377	0.15657282228940742	0.43722222073268485	G	Belongs to the glycerate kinase type-1 family
+COG1930	177.92234617261602	0.25079975094158835	0.5546768270301903	0.3705686049319565	0.7006088308492587	P	Part of the energy-coupling factor (ECF) transporter complex CbiMNOQ involved in cobalt import
+COG1937	557.6568870723818	-0.07066896489160306	0.4195323298974246	0.7966164134300239	0.9441575966233424	Q	Protein conserved in bacteria
+COG1938	1641.0835687111614	0.27520965523046353	0.43305038602910906	0.32735790395581893	0.6591696569450504	T	PAC2 family
+COG1940	5074.300659708567	0.2675209276962671	0.4405147777690624	0.34135389248600917	0.6741186812958141	GK	carbohydrate kinase activity
+COG1946	907.6930555534833	-0.17392352859633747	0.5421268896950628	0.5230596771452747	0.7821193005339546	I	Acyl-CoA thioesterase
+COG1959	233.83936770418524	-0.11120089607108692	0.4202718339652726	0.6858228462704112	0.8942888215684657	K	2 iron, 2 sulfur cluster binding
+COG1960	5364.384742500838	0.40210023128331934	0.5105601871275751	0.17267489532938102	0.4592489674388321	I	acyl-CoA dehydrogenase activity
+COG1961	2113.170934433854	-0.0552153055284396	0.4436563089876644	0.8401111645455845	0.9593240762732527	L	COG1961 Site-specific recombinases, DNA invertase Pin homologs
+COG1968	900.839772728312	0.6177274224683268	0.5282649668239083	0.04980518748344725	0.23727720635925742	V	undecaprenyl-diphosphatase activity
+COG1970	321.0106599808422	1.1177791338738983	0.853821531598186	0.008822810330844229	0.08515929971510516	M	mechanosensitive ion channel activity
+COG1974	754.08902614248	-0.545947117865585	0.6016117041442407	0.08606645694449067	0.32112190658280554	K	Represses a number of genes involved in the response to DNA damage (SOS response), including recA and lexA. In the presence of single-stranded DNA, RecA interacts with LexA causing an autocatalytic cleavage which disrupts the DNA-binding part of LexA, leading to derepression of the SOS regulon and eventually DNA repair
+COG1977	170.92194179233587	-0.15080139386711267	0.4445654134835638	0.585049211856199	0.8294641995533664	H	Involved in sulfur transfer in the conversion of molybdopterin precursor Z to molybdopterin
+COG1983	282.9599947807473	0.5354225213361532	0.5669785588374653	0.0872174203505193	0.321928268178081	KT	PspC domain protein
+COG2001	495.2278638327352	0.4176186964979658	0.37207238867675907	0.1276462068767799	0.39451538582981055	K	Belongs to the MraZ family
+COG2010	1036.5841232688176	2.630552488514164	0.9191274748850582	6.477595391142148e-5	0.002100128525961294	C	Cytochrome c
+COG2022	809.7998748098954	0.2977480186521614	0.4999266267317059	0.2963766324847284	0.6266248801105686	H	thiamine diphosphate biosynthetic process
+COG2025	827.9954226465381	3.3945453629400464	0.7756030905600872	9.819682208009571e-7	1.0899847250890624e-4	C	fatty acid beta-oxidation using acyl-CoA dehydrogenase
+COG2030	1058.3977793577371	-0.051631643378610176	0.45017636106402614	0.8501447309219397	0.9593240762732527	I	dehydratase
+COG2050	936.3902813997751	0.0774114333482096	0.4159000665548996	0.7776842769013823	0.9344839484281833	Q	protein possibly involved in aromatic compounds catabolism
+COG2065	477.58453270439935	-0.009442885619284582	0.44346890220229457	0.9724359987021092	0.9914188400981007	F	Also displays a weak uracil phosphoribosyltransferase activity which is not physiologically significant
+COG2070	509.6645430695958	-0.19411466161485075	0.5346383459305358	0.4798011494729132	0.7770788265493935	T	2-Nitropropane dioxygenase
+COG2076	312.8488426712639	0.8977643562547407	0.8004441797628336	0.021017803723072496	0.14695913154400297	P	Multidrug Resistance protein
+COG2077	444.23100589056355	0.8815798129558646	0.5327086244717375	0.008085020013249254	0.07889557990950921	O	Thiol-specific peroxidase that catalyzes the reduction of hydrogen peroxide and organic hydroperoxides to water and alcohols, respectively. Plays a role in cell protection against oxidative stress by detoxifying peroxides
+COG2086	786.5706362137199	-0.41778534241564974	0.5307009628607537	0.16065105536629698	0.44202160998511264	C	electron transfer activity
+COG2088	50.30916638460006	0.3572544165260042	0.5421944406269869	0.22136791884645887	0.5302407255623823	D	sporulation resulting in formation of a cellular spore
+COG2104	239.46166215772413	0.43531788317338166	0.5367822936365548	0.14676886284514382	0.42178236312779194	H	thiamine diphosphate biosynthetic process
+COG2113	1273.2867273681334	0.04614211597382645	0.42458469785940767	0.8662626514722164	0.9652285923768379	E	Glycine betaine
+COG2120	876.5871883558268	-0.2689109838964264	0.5284810664263796	0.34109935936829267	0.6741186812958141	Q	A mycothiol (MSH, N-acetylcysteinyl-glucosaminyl- inositol) S-conjugate amidase, it recycles conjugated MSH to the N-acetyl cysteine conjugate (AcCys S-conjugate, a mercapturic acid) and the MSH precursor. Involved in MSH-dependent detoxification of a number of alkylating agents and antibiotics
+COG2128	303.41051366280936	-0.031867515518127824	0.4925275291362296	0.9056755529457797	0.9729900237583847	T	Antioxidant protein with alkyl hydroperoxidase activity. Required for the reduction of the AhpC active site cysteine residues and for the regeneration of the AhpC enzyme activity
+COG2130	1168.016022202723	0.6343278450235024	0.4992285650954355	0.041277937040038404	0.21818338149734584	K	NADP-dependent
+COG2137	555.7432808103131	-0.29696804689611944	0.5184698519778814	0.29791819321649465	0.6283880179958367	M	regulation of response to DNA damage stimulus
+COG2141	3008.0416090997282	-0.0354571542414467	0.43690820524284735	0.8969287279799436	0.9729900237583847	C	COG2141 Coenzyme F420-dependent N5,N10-methylene tetrahydromethanopterin reductase and related flavin-dependent oxidoreductases
+COG2145	794.9496407097901	0.17711763651105228	0.4687317052935853	0.5221844116579895	0.7821193005339546	H	Catalyzes the phosphorylation of the hydroxyl group of 4-methyl-5-beta-hydroxyethylthiazole (THZ)
+COG2151	440.68460425382284	-0.3481817119837849	0.3804940437562148	0.20548041671354644	0.5111109524975609	L	metal-sulfur cluster biosynthetic enzyme
+COG2153	549.4925863194978	-2.939898897348559	1.0954190334653848	1.0855205021136407e-4	0.002835124134932097	K	protein acetylation
+COG2162	231.32889773661518	-0.5781726351894753	0.8909591882066341	0.0958930354447264	0.3365731836953243	Q	N-hydroxyarylamine O-acetyltransferase activity
+COG2171	939.1703468866559	0.2506076907774923	0.4346832826217983	0.3708177370485941	0.7006088308492587	E	N-acyltransferase activity
+COG2185	1592.3207139318404	-0.40692385244660073	0.6195351222271576	0.17753862896289185	0.4678169214215073	I	Catalyzes the reversible interconversion of isobutyryl- CoA and n-butyryl-CoA, using radical chemistry. Also exhibits GTPase activity, associated with its G-protein domain (MeaI) that functions as a chaperone that assists cofactor delivery and proper holo-enzyme assembly
+COG2186	1886.38391168098	0.6971405209520706	0.6513574294726202	0.0411954468046879	0.21818338149734584	K	Transcriptional regulator
+COG2190	2084.25364094776	0.6491718189598704	0.6590744303660367	0.05407985035298139	0.25275214270235513	G	(PTS) system
+COG2197	5807.056396201928	-0.05111204001260053	0.3622828211962181	0.8482718115858401	0.9593240762732527	K	response regulator
+COG2205	5694.439304954961	-0.20220297959249534	0.45079595760837204	0.4675585247620068	0.7674528095908725	T	protein histidine kinase activity
+COG2217	7509.080140168663	0.46705820127348907	0.38937567026839776	0.0951880632098772	0.3365731836953243	P	Heavy metal translocating P-type atpase
+COG2220	642.8886374422896	0.013796820012670814	0.44194494633567516	0.9597488684626738	0.9909965060405284	J	Zn-dependent hydrolases of the beta-lactamase fold
+COG2226	3875.9227054639814	-0.11441391078085007	0.4360006209187805	0.6775224133513843	0.8888941563841493	Q	methyltransferase
+COG2233	1833.6787220639467	-0.008227851980654214	0.4055197993820592	0.9759739750802247	0.9914188400981007	F	PERMEase
+COG2235	1163.9887155315487	0.3895090333123604	0.5926226064116986	0.1913729820290386	0.49115378046759034	E	arginine
+COG2239	1665.7683219150472	0.3155674537589931	0.5206887085802778	0.27180566090975145	0.5931440296001901	P	Acts as a magnesium transporter
+COG2244	1915.4048415392183	0.13685590108335524	0.45894540071517037	0.6190066995038148	0.8522138746657172	O	polysaccharide biosynthetic process
+COG2246	930.5798937544484	0.07252983812946995	0.4916676833973025	0.7882678364071241	0.9421020709684067	JM	polysaccharide biosynthetic process
+COG2252	1311.255494460874	-0.052577898362677726	0.5148527821417076	0.8437671496293156	0.9593240762732527	F	PERMEase
+COG2255	1009.0190356538054	-0.16724316337636558	0.44757100668114835	0.5456917049976335	0.7983101054990093	L	four-way junction helicase activity
+COG2256	1513.2001442056235	-0.20227831849840183	0.5034602967722378	0.46519323711586297	0.7664037004803086	L	atpase related to the helicase subunit of the holliday junction resolvase
+COG2259	1706.2382747226432	0.739688947492134	0.4879425022611186	0.01855665993903774	0.1373192835488793	O	Doxx family
+COG2261	369.6031562261977	0.12308947514692756	0.2923784883622439	0.6112259195829577	0.8469034591424115	D	transglycosylase associated protein
+COG2264	161.021147911847	-0.07206891556297448	0.48860726320050946	0.7898168897996006	0.942150139857209	J	protein methyltransferase activity
+COG2267	7439.825229490891	-0.8324800886263691	0.4570780646159251	0.007173121810015014	0.07157002435161047	I	carboxylic ester hydrolase activity
+COG2271	3713.6882515132406	-0.13090481128352424	0.4895830176105992	0.6314965451879664	0.8563871484915491	G	Major facilitator Superfamily
+COG2272	747.9596329681993	-3.463082519993738	1.1288821678151928	4.1177136298784395e-5	0.0017412046206343116	I	Belongs to the type-B carboxylesterase lipase family
+COG2303	940.5185714883266	-0.28274286526375264	0.5290932801401059	0.3192873152838739	0.651786519476046	E	Involved in the biosynthesis of the osmoprotectant glycine betaine. Catalyzes the oxidation of choline to betaine aldehyde and betaine aldehyde to glycine betaine at the same rate
+COG2309	137.88750713755292	0.0016635069048499384	0.5116826437662886	0.995016639178343	0.9995189769121817	E	aminopeptidase activity
+COG2314	161.47973512446055	0.19073752209081246	0.44420610697303337	0.492293473752639	0.7806367940934703	J	TM2 domain
+COG2318	224.16739918268968	0.11729636991336102	0.4918617370212094	0.6663049831691839	0.8831027239615451	O	DinB family
+COG2326	1737.1504937455845	0.0670475035382051	0.4521802847233499	0.8062959347316241	0.9445788786829581	G	polyphosphate kinase activity
+COG2329	161.88381705748643	0.30897530065476164	0.49576322723937305	0.2800008687591512	0.6047057573279376	E	Antibiotic biosynthesis monooxygenase
+COG2345	1368.898523824601	0.8229722314996941	0.7544761181164968	0.026993355829259335	0.16531103431987784	K	Transcriptional regulator
+COG2346	228.00717751185934	0.4076030727017311	0.55775523284182	0.172102928022492	0.4592489674388321	O	COG2346, Truncated hemoglobins
+COG2348	1071.3520602365556	-0.2209243913134347	0.49258665100454085	0.42819207895488415	0.7426456369373772	V	transferase activity, transferring amino-acyl groups
+COG2367	1308.3532609110018	-0.21458210163819283	0.5081281908128582	0.4398603357506378	0.7497043726421619	V	Beta-lactamase
+COG2372	327.0026059251817	0.15093409823301648	0.5083554757742396	0.5799729711928758	0.8282120101881311	C	response to copper ion
+COG2376	1891.0439603298648	0.13324732065785005	0.4826622409667966	0.6262442017083285	0.8563871484915491	G	Dihydroxyacetone kinase
+COG2378	4424.72230585191	-0.37933061153696346	0.48580031862744866	0.19262179421873685	0.4915176817995354	K	regulation of single-species biofilm formation
+COG2388	401.3093170654193	-0.17577447331057458	0.3568107403595923	0.5096863031552301	0.7821193005339546	G	GCN5-related N-acetyl-transferase
+COG2390	2397.2007881820005	0.02677979466830541	0.4348125022052936	0.9220589222606573	0.9764494725497894	K	Transcriptional regulator
+COG2409	3751.97630260053	0.10495567860776055	0.46992406642037693	0.7009389854873177	0.8988862225361153	D	Drug exporters of the RND superfamily
+COG2423	922.8576091691934	0.286797465550069	0.5416021503637317	0.31311989389153294	0.6419020589238214	E	ornithine cyclodeaminase activity
+COG2501	185.54983609398857	-2.081460240224478e-4	0.4270170442427038	0.9993933610612027	0.9996031659713117	S	S4 domain
+COG2606	730.5294625261793	0.0026886411654832056	0.42679434938986643	0.9921641802062322	0.9986675709566999	J	Belongs to the prolyl-tRNA editing family. YbaK EbsC subfamily
+COG2608	738.6874863453972	0.4283683225192654	0.45356502124961495	0.14098543670346175	0.4164755777261298	P	mercury ion transmembrane transporter activity
+COG2609	2647.859682502557	3.4873496827108847	0.7790127423104849	6.894502140134199e-7	8.746168429198813e-5	C	component of the pyruvate dehydrogenase (PDH) complex, that catalyzes the overall conversion of pyruvate to acetyl-CoA and CO(2)
+COG2704	1822.9667876522415	0.2394049527042714	0.45257106056831375	0.39297070736000844	0.7177556275657646	S	Responsible for the transport of C4-dicarboxylates from the periplasm across the inner membrane
+COG2730	2065.584681712258	-0.20903444404463126	0.4845872638213474	0.45243623772681363	0.7551943216191926	G	Belongs to the glycosyl hydrolase 5 (cellulase A) family
+COG2738	77.87694451353052	-0.2159646089773153	0.5352298691867948	0.43535586962217976	0.7448863433997989	S	Putative neutral zinc metallopeptidase
+COG2740	207.51694370461522	0.4896710464973975	0.46384488334413654	0.0980196331570526	0.33736990016846014	K	Nucleic-acid-binding protein implicated in transcription termination
+COG2755	2272.6478740167854	0.08773669869583456	0.45994241014277687	0.7483088687689557	0.9216342239484503	E	lipolytic protein G-D-S-L family
+COG2801	5882.922295755312	6.122404257062658e-4	0.41021810740678283	0.9982135674288529	0.9996031659713117	L	Transposase and inactivated derivatives
+COG2814	17979.641389665743	-0.03161274382647506	0.3418731586448943	0.9038535841690906	0.9729900237583847	EGP	Major facilitator Superfamily
+COG2856	920.1959659863221	-0.2797820331296618	0.5306602704155258	0.32384805651156706	0.6565686625166017	E	Zn peptidase
+COG2868	70.05510076477327	0.2349133910720343	0.468066689433835	0.40179087864415564	0.7193352827338916	J	ribosomal protein
+COG2884	664.9024195399311	0.3889202177730374	0.5963472027360502	0.19218389690067378	0.4915176817995354	D	Cell division ATP-binding protein ftsE
+COG2885	993.5981753393534	0.2083917530789826	0.4737463070907322	0.45422805493933444	0.7567626881540881	M	chlorophyll binding
+COG2887	6012.2760008030255	-0.2145455334026669	0.5143786486589431	0.4395298550911198	0.7497043726421619	L	Belongs to the helicase family. UvrD subfamily
+COG2890	2357.001341879069	-0.5022998509205354	0.5763396756923317	0.1057894967146871	0.35449461540619676	J	protein-(glutamine-N5) methyltransferase activity
+COG2898	3045.926131107046	0.18699075851454303	0.5205787287897563	0.4962207372548198	0.7812837139756738	K	Catalyzes the transfer of a lysyl group from L-lysyl- tRNA(Lys) to membrane-bound phosphatidylglycerol (PG), which produces lysylphosphatidylglycerol (LPG), a major component of the bacterial membrane with a positive net charge. LPG synthesis contributes to bacterial virulence as it is involved in the resistance mechanism against cationic antimicrobial peptides (CAMP) produces by the host's immune system (defensins, cathelicidins) and by the competing microorganisms
+COG2916	32.75795242647434	0.08298758673402419	0.4862475147334393	0.7594366648828015	0.9242614376901912	D	Histone family protein nucleoid-structuring protein H-NS
+COG2919	661.7863583336673	0.7138982937808236	0.593734082744597	0.03254255923847038	0.1876480039205305	D	Essential cell division protein. May link together the upstream cell division proteins, which are predominantly cytoplasmic, with the downstream cell division proteins, which are predominantly periplasmic
+COG2963	1624.4624161090464	0.20659916847681148	0.45439454878830504	0.4583035324353332	0.7603662207871112	L	transposase activity
+COG3044	484.46398693804815	-5.158751196859719	1.1015552110548443	8.007403581514177e-8	2.8292589946030947e-5	H	ATPase of the ABC class
+COG3064	1410.4890390250528	0.09504937993165137	0.43375026272158956	0.7293310799801236	0.9138104154478722	M	Membrane
+COG3103	632.8147901819628	-0.09826553650120892	0.5129059159245519	0.714859165888791	0.905556261496785	T	Sh3 type 3 domain protein
+COG3118	1351.0793806668016	0.3493733971000204	0.34952189502856723	0.18943903846574026	0.4875996120509488	O	belongs to the thioredoxin family
+COG3125	41.75799839429884	-0.18219198602673622	0.4764496767767403	0.5103259748563262	0.7821193005339546	C	oxidoreductase activity, acting on diphenols and related substances as donors, oxygen as acceptor
+COG3127	2013.5019874035254	0.7083803811485113	0.7803905905075995	0.04916128462101943	0.23727720635925742	Q	ABC-type transport system involved in lysophospholipase L1, biosynthesis, permease component
+COG3147	897.5294995764953	2.6615514530708477	1.3475412147062436	5.632499064194448e-4	0.010615513715646905	C	Non-essential cell division protein that could be required for efficient cell constriction
+COG3237	256.2917237615198	0.18409485279036025	0.41322209406679417	0.5051083125625729	0.7821193005339546	K	CsbD-like
+COG3247	496.4948368338532	0.9223622808056535	0.6871087831751996	0.012956347610610012	0.10882916068218232	U	response to pH
+COG3253	1505.6957544369805	0.31799976587697526	0.42313706509075777	0.2590742158370414	0.5751447591582319	H	May function as heme-dependent peroxidase
+COG3266	3260.641211080708	0.268316525584216	0.4907634434526261	0.3423733392617254	0.6741186812958141	GM	domain, Protein
+COG3284	605.7509034036573	-4.136959710874089	1.3382194485604098	2.403359463029058e-5	0.0011232543174577914	KQ	Transcriptional regulator
+COG3291	3338.2297399575177	-0.22657563392784394	0.5356103876845609	0.4149452017580037	0.730666574839277	U	Pkd domain containing protein
+COG3293	1015.7058776207439	0.4125481891234921	0.5587596683577273	0.1678387245080347	0.45439264439980126	L	Transposase
+COG3296	786.6646361945741	0.8723372246664075	0.795462286623625	0.02343278621987529	0.15645348994924252	J	Domain of unknown function (DUF4870)
+COG3311	213.58147322972525	0.12234395969647005	0.46433261615819066	0.6556349209930563	0.875494450889976	K	Transcriptional regulator
+COG3321	2249.4825130341505	-3.5403570909409705	1.0686805196128535	2.2785539483063344e-5	0.0011232543174577914	Q	synthase
+COG3344	274.63267340134445	-3.098054839584752	0.9175925829420479	1.9612290727087818e-5	0.001088482135353374	L	reverse transcriptase
+COG3385	1095.3186421531454	0.10114627170339197	0.5223145913118404	0.7060715901176398	0.8994761395820288	L	transposase activity
+COG3409	1198.280023289041	0.21722409860284372	0.5495478122238676	0.43199546668506505	0.7448863433997989	M	Peptidoglycan-binding domain 1 protein
+COG3412	373.18762990783875	0.292552807838493	0.49961543163259814	0.30411393066249576	0.6324430220803191	G	dihydroxyacetone kinase, phosphotransfer subunit
+COG3414	1016.5274548931218	-0.34276683955157516	0.5567200607154246	0.2387797168192533	0.5493170687448108	G	Phosphotransferase system galactitol-specific IIB component
+COG3415	518.8117702904729	-0.4573975722714918	0.6511253299000967	0.14117021272023095	0.4164755777261298	L	Transposase
+COG3464	1633.835902522088	-0.017214522110400903	0.4852187369210482	0.9490903966858407	0.984570411515218	L	Transposase
+COG3485	456.7720778590982	0.44144522886462256	0.6158151381267233	0.14953054734536636	0.42695538920477594	Q	protocatechuate 3,4-dioxygenase
+COG3527	187.63733419016074	-0.570665978614418	0.5835599297157813	0.07331471572075796	0.29309226668206106	Q	Alpha-acetolactate decarboxylase
+COG3560	582.8015348182039	-2.2990550757147252	1.2422904878382275	8.610704834040504e-4	0.014159825727088828	S	Nitroreductase
+COG3583	1132.681417172788	0.6747673922933537	0.588758722940276	0.04061910704661503	0.21728775335779607	NU	domain protein
+COG3588	1072.6423528617272	0.1957367134214973	0.4450519004416918	0.4813758902647841	0.7770788265493935	G	fructose-bisphosphate aldolase
+COG3599	934.0674489831704	0.6088011360261412	0.3684064550798123	0.027387358409500427	0.16657516621668753	D	regulation of cell shape
+COG3610	2654.7115637458587	-0.65920704057573	0.7183341564137342	0.05653271758591351	0.25407023738210627	H	response to peptide
+COG3629	229.1107402002494	-2.8217104822615164	1.2738231561263604	3.1789775036820565e-4	0.006564958193650387	K	intracellular signal transduction
+COG3634	1594.2870074064829	0.40052196718036714	0.4049263761643351	0.1551187239730554	0.43572056730079695	C	alkyl hydroperoxide reductase activity
+COG3637	305.6997955642481	0.296513519469448	0.5587609706810998	0.29897220206063313	0.6291168612081569	M	Has lipid A 3-O-deacylase activity. Hydrolyzes the ester bond at the 3 position of lipid A, a bioactive component of lipopolysaccharide (LPS), thereby releasing the primary fatty acyl moiety
+COG3757	984.6834599666583	-0.11541135246687349	0.4832325973199779	0.672091072171632	0.8862468088139818	M	hydrolase, family 25
+COG3764	861.8979737396135	2.329111465727528	0.8517845868513824	7.87071641452555e-5	0.0023297320586995627	M	Sortase (surface protein transpeptidase)
+COG3828	680.973851134498	-0.12651415632804747	0.4924739821776551	0.6423937241598093	0.8617003429817381	N	Trehalose utilisation
+COG3832	1561.1842862497233	0.2879743220962656	0.4726023989718092	0.31017170273388	0.6405406326225243	J	glyoxalase III activity
+COG3842	2334.8315447151645	-0.0076585464437350734	0.4059108284846701	0.9776378604777095	0.9914188400981007	P	ATPase activity
+COG3861	1964.6147108847463	0.7959504032865137	0.49385046524818005	0.012420533825717494	0.10744460302763148	P	electron transporter, transferring electrons within the cyclic electron transport pathway of photosynthesis activity
+COG3869	105.1741050461889	0.031991255862373176	0.5381653468684222	0.9033949868114836	0.9729900237583847	E	Catalyzes the specific phosphorylation of arginine residues in
+COG3871	152.62437361538989	-0.011491069299936797	0.4635447279027435	0.9662826758314926	0.9914188400981007	K	stress protein (general stress protein 26)
+COG3880	62.4312869635991	-0.17366916515493827	0.550071791096216	0.5229151944491688	0.7821193005339546	E	PFAM UvrB UvrC protein
+COG3942	637.8251154265423	-0.6421081886567305	0.5761561702865431	0.04790477054404023	0.2350245096304294	U	CHAP domain
+COG3949	473.3253222879947	-0.2015708065803848	0.5050658174401053	0.46654639823194927	0.7672096326480943	J	Membrane
+COG3956	710.4920786050991	-0.23801781300515418	0.502445633787869	0.39525056517979607	0.7177556275657646	E	TIGRFAM MazG family protein
+COG3961	206.7842092628647	-0.1743748901921197	0.5081960922888168	0.5252621122978676	0.7826052948330645	GH	Belongs to the TPP enzyme family
+COG4122	1575.0395453336723	-0.05112484989173681	0.4725020371150908	0.850620915888408	0.9593240762732527	E	O-methyltransferase activity
+COG4129	1658.132882771997	0.03443822143712117	0.4756363677572792	0.8988275048106833	0.9729900237583847	U	membrane
+COG4221	1835.3508168402711	0.21929728399515086	0.4249921911247887	0.43048756804702903	0.7448863433997989	IQ	oxidoreductase activity
+COG4270	453.2345844608954	0.45345792217253267	0.4979569502828494	0.12810376515702462	0.39451538582981055	O	Membrane
+COG4300	361.6230341983774	-1.265837523465468	1.1548827684576872	0.011373340309847253	0.10099526195144362	P	Cadmium resistance transporter
+COG4463	51.66634101717439	-0.3115264503198727	0.5846031462629274	0.27871057303398444	0.6036463142784835	K	regulation of RNA biosynthetic process
+COG4466	39.43079962883551	-0.501293573987784	0.5420274057307812	0.10240842278277584	0.348089626484463	S	Protein conserved in bacteria
+COG4472	28.150302775078675	0.5794349546869405	0.622334152669763	0.07393318438826765	0.29309226668206106	S	Bacterial protein of unknown function (DUF965)
+COG4479	15.836516891733842	0.7214952647258247	0.7389640614581806	0.04311439937737857	0.22133950562559163	S	Belongs to the UPF0346 family
+COG4496	27.085230210783244	0.4468738884459443	0.6260884956712369	0.1464330998241796	0.42178236312779194	S	protein, YerC YecD
+COG4585	8043.8730825791445	-0.27696807891336805	0.43806129277352707	0.32506641478206083	0.657537531495376	T	Histidine kinase
+COG4589	652.1474549397416	0.3330735078125477	0.5304439127607848	0.24939577965635476	0.5664026913934604	I	Belongs to the CDS family
+COG4594	120.4966834165338	-0.2644964867349413	0.5409204684919481	0.34804669027724106	0.6785243500144209	P	ABC-type Fe3 -citrate transport system, periplasmic component
+COG4607	297.68383017746595	-1.7038149596285956	1.1537376310807623	0.0029329340996861884	0.037206364007447645	P	ABC-type enterochelin transport system periplasmic component
+COG4644	829.885165319054	-0.3632058157259771	0.6146058883027198	0.2188813216454924	0.5281701457097752	L	lycopene metabolic process
+COG4721	514.658322897726	0.031108807718939577	0.48062655093444134	0.9083676264670995	0.9729900237583847	S	ABC-type cobalt transport system, permease component
+COG4760	988.3058069955721	0.21220493919542954	0.4464352622775655	0.4465192237651177	0.7509641490595161	D	membrane
+COG4767	330.16497821478043	0.5529272526996507	0.6028980973568401	0.08302953682001886	0.3110980113762732	V	VanZ like family
+COG4768	431.9138393523011	0.34330650992777034	0.407416671125323	0.22077618009228353	0.5302407255623823	S	protein containing a divergent version of the methyl-accepting chemotaxis-like domain
+COG4799	3443.0432333336466	0.9793164422839259	0.7740242287870911	0.013027350587513682	0.10882916068218232	I	Acetyl-CoA carboxylase, carboxyltransferase component subunits alpha and beta
+COG4842	223.10087680212936	0.04706040852468287	0.5158337710708052	0.8598379104312167	0.9628449741020435	D	Belongs to the WXG100 family
+COG4862	84.82832969358343	0.1847845855323111	0.5110986811324417	0.5018610412502849	0.7821193005339546	NOT	establishment of competence for transformation
+COG4886	1887.2082247099888	0.15459186746613934	0.5406337957855694	0.5678580683228297	0.8159513991434835	DZ	Leucine-rich repeat (LRR) protein
+COG4932	2334.0607981811613	0.45167762747653994	0.549853588299303	0.1357002255475413	0.4078992396990111	M	domain protein
+COG4974	2457.8121285642223	-0.1101877589377235	0.4891007541694984	0.6852897188223784	0.8942888215684657	L	Belongs to the 'phage' integrase family
+COG4980	60.18255002708375	-0.17928272123200203	0.4973147898325027	0.5152304792625405	0.7821193005339546	D	gas vesicle protein
+COG4991	1775.2382131959448	-0.01068503921125805	0.49323111823102256	0.96827112108693425	0.9914188400981007	T	sh3 domain protein
+COG4992	1322.4514854724719	-0.0643958929446895	0.4932990798177896	0.8112317189320668	0.9491090466556986	E	N2-acetyl-L-ornithine:2-oxoglutarate 5-aminotransferase activity
+COG5002	4337.216052549213	-0.049485003868749	0.43462387726983914	0.8566385932475433	0.9604735742472454	T	protein histidine kinase activity
+COG5016	1047.6915019725716	0.38257870511704883	0.5538630950306539	0.1953722184197695	0.49398264713559875	C	pyruvate
+COG5361	1480.8601211407693	-3.3248700442871506	1.1703741218859187	7.10034348575515e-5	0.0021741741432243352	P	Conserved Protein
+COG5405	77.85269519295574	-0.4027544224758924	0.5852281131836733	0.1786482863581043	0.4693481606094575	O	Protease subunit of a proteasome-like degradation complex believed to be a general protein degrading machinery
+COG5492	4259.151173081412	0.5122832120717815	0.6008026631448574	0.10285373592636984	0.348089626484463	N	domain, Protein
+COG5597	72.94039455075739	-2.6157942485917856	1.3713146362392559	6.625328097105258e-4	0.0115358653926068	M	Glycosyl transferase family 8
+COG5650	3296.8667857497803	1.6760896456114438	1.0740175070977782	0.002393616802723815	0.03172435404207086	M	phosphatidylinositol metabolic process
+COG5662	235.1490207759311	0.1537772509367537	0.4748738980807537	0.5763108234436352	0.8254258245450775	K	AntiSigma factor

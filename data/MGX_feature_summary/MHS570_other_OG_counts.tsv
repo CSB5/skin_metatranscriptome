@@ -1,0 +1,465 @@
+other_OG	read_count_sum	RPK_sum	other_eggnog_cat	other_eggnog_desc	LIBID	feature_class
+1MAHG|Others	50	55.55555555555556	S	Source PGD	MHS570	other_OG
+1MBRQ|Others	16	55.55555555555556	S	Source PGD	MHS570	other_OG
+1MEH9|Others	3	12.82051282051282	S	NAD-specific glutamate dehydrogenase. Source PGD	MHS570	other_OG
+1MFAQ|Others	8	25.157232704402514	S	Source PGD	MHS570	other_OG
+1MFKV|Others	7	18.666666666666668	L	Origin recognition complex subunit. Source PGD	MHS570	other_OG
+1MFXH|Others	12	24.84472049689441	E	Urease. Source PGD	MHS570	other_OG
+1MGDI|Others	49	31.65374677002584	L	DNA mismatch repair protein MLH3. Source PGD	MHS570	other_OG
+1MGMC|Others	15	21.27659574468085	S	Serine threonine protein phosphatase 4 regulatory subunit. Source PGD	MHS570	other_OG
+1MH8V|Others	11	27.777777777777775	O	Source PGD	MHS570	other_OG
+1MI1Z|Others	3	11.235955056179774	S	function. Source PGD	MHS570	other_OG
+1MIFZ|Others	2	5.847953216374268	-	-	MHS570	other_OG
+1MJPT|Others	4	18.779342723004696	-	-	MHS570	other_OG
+23S8X|Others	1	3.745318352059925	E	Part of a heterotetrameric complex that catalyzes the two-step biosynthesis of anthranilate, an intermediate in the biosynthesis of L-tryptophan. In the first step, the glutamine- binding beta subunit (TrpG) of anthranilate synthase (AS) provides the glutamine amidotransferase activity which generates ammonia as a substrate that, along with chorismate, is used in the second step, catalyzed by the large alpha subunit of AS (TrpE) to produce anthranilate. In the absence of TrpG, TrpE can synthesize anthranilate directly from chorismate and high concentrations of ammonia	MHS570	other_OG
+23SUY|Others	4	12.012012012012011	L	The UvrABC repair system catalyzes the recognition and processing of DNA lesions. UvrC both incises the 5' and 3' sides of the lesion. The N-terminal half is responsible for the 3' incision and the C-terminal half is responsible for the 5' incision	MHS570	other_OG
+23T8F|Others	6	18.34862385321101	I	COG2031 Short chain fatty acids transporter	MHS570	other_OG
+23U2Z|Others	2	7.49063670411985	L	COG3436 Transposase and inactivated derivatives	MHS570	other_OG
+23U59|Others	7	22.435897435897434	E	Catalyzes the NADPH-dependent reduction of L-glutamate 5-phosphate into L-glutamate 5-semialdehyde and phosphate. The product spontaneously undergoes cyclization to form 1-pyrroline-5- carboxylate	MHS570	other_OG
+23WMZ|Others	115	370.1334126866042	-	-	MHS570	other_OG
+23YG1|Others	1	3.584229390681003	-	-	MHS570	other_OG
+2433F|Others	14	18.666666666666668	P	TrkA-C domain	MHS570	other_OG
+2D0Q5|Others	10	45.04504504504504	S	RF-1 domain	MHS570	other_OG
+2EPPS|Others	2	8.279065071432177	-	-	MHS570	other_OG
+2FDWY|Others	2	6.666666666666667	-	-	MHS570	other_OG
+2NBM6|Others	1145	1296.054676491632	E	-	MHS570	other_OG
+2RZGN|Others	283	146.08309045574842	S	plant mutator transposase zinc finger	MHS570	other_OG
+2S5UM|Others	423	862.9325493125575	C	LAGLIDADG endonuclease	MHS570	other_OG
+2S6XN|Others	4	16.06425702811245	-	-	MHS570	other_OG
+2S6ZE|Others	2	7.326007326007326	-	-	MHS570	other_OG
+2S761|Others	1	3.436426116838488	-	-	MHS570	other_OG
+2S7U6|Others	1	4.830917874396135	-	-	MHS570	other_OG
+2S8FT|Others	28	45.47214303311864	K	transferase activity, transferring acyl groups	MHS570	other_OG
+2SD59|Others	3	11.904761904761905	-	-	MHS570	other_OG
+2SECT|Others	6	8.298755186721992	-	-	MHS570	other_OG
+2SF6P|Others	23	99.56709956709956	-	-	MHS570	other_OG
+2SI06|Others	2	4.938271604938271	-	-	MHS570	other_OG
+2SQ9Y|Others	3	12.382531785516859	-	-	MHS570	other_OG
+2SR5E|Others	4	12.578616352201257	-	-	MHS570	other_OG
+2SR8F|Others	4	15.32567049808429	-	-	MHS570	other_OG
+2SUNV|Others	3	12.658227848101266	-	-	MHS570	other_OG
+2SW5Y|Others	3	10.75268817204301	-	-	MHS570	other_OG
+2SWXZ|Others	2	7.662835249042145	-	-	MHS570	other_OG
+2SXZZ|Others	3	8.403361344537815	-	-	MHS570	other_OG
+2SZSZ|Others	30	67.06275351944643	-	-	MHS570	other_OG
+2T0F6|Others	12	32.20097059663146	-	-	MHS570	other_OG
+2XDMK|Others	1	6.289308176100628	A	LSM domain	MHS570	other_OG
+2XDPM|Others	1	4.166666666666667	J	GatB/GatE catalytic domain	MHS570	other_OG
+2XE16|Others	11	26.96078431372549	H	Biotin/lipoate A/B protein ligase family	MHS570	other_OG
+2XED7|Others	11	21.0727969348659	O	Eukaryotic aspartyl protease	MHS570	other_OG
+34GN9|Others	1	4.901960784313726	A	Splicing factor 3B subunit 1	MHS570	other_OG
+34GSN|Others	1	3.4722222222222223	O	Belongs to the AAA ATPase family	MHS570	other_OG
+34GTW|Others	13	19.089574155653448	A	PRO8NT (NUC069), PrP8 N-terminal domain	MHS570	other_OG
+34GZY|Others	17	53.913299047699546	OT	motif in proteasome subunits, Int-6, Nip-1 and TRIP-15	MHS570	other_OG
+34HBH|Others	1	5.376344086021505	S	Essential component of the cytosolic iron-sulfur (Fe S) protein assembly machinery. Required for the maturation of extramitochondrial Fe S proteins	MHS570	other_OG
+34HDP|Others	14	39.21568627450981	DO	Anaphase promoting complex subunit 8 / Cdc23	MHS570	other_OG
+34HEA|Others	2	7.936507936507937	C	NADPH adrenodoxin oxidoreductase, mitochondrial	MHS570	other_OG
+34I4X|Others	1	4.11522633744856	G	Lipase (class 3)	MHS570	other_OG
+34IZP|Others	36	50.63291139240506	O	Belongs to the peptidase C19 family	MHS570	other_OG
+34J6J|Others	7	30.33586132177681	U	Rab subfamily of small GTPases	MHS570	other_OG
+34JC7|Others	61	48.36407553798858	S	Predicted ATPase of the ABC class	MHS570	other_OG
+34JFK|Others	97	408.61581920903956	KT	C-terminal domain on Strawberry notch homologue	MHS570	other_OG
+34KBX|Others	8	21.50537634408602	DZ	Regulator of chromosome condensation (RCC1) repeat	MHS570	other_OG
+34KCG|Others	6	19.047619047619047	E	Belongs to the peroxidase family	MHS570	other_OG
+34KHD|Others	2	8.658008658008658	A	RNA recognition motif	MHS570	other_OG
+34KN9|Others	12	32.97491039426523	O	Belongs to the ubiquitin-conjugating enzyme family	MHS570	other_OG
+34KUY|Others	6	16.80672268907563	S	Protein of unknown function (DUF1749)	MHS570	other_OG
+34MTJ|Others	12	48.05438349742147	S	Acetyltransferase (GNAT) family	MHS570	other_OG
+37JFH|Others	2	6.230529595015576	F	belongs to the metallo- dependent hydrolases superfamily. Urease alpha subunit family	MHS570	other_OG
+37RRH|Others	14	22.0125786163522	P	DNA RNA polymerases superfamily protein	MHS570	other_OG
+37U2D|Others	3	10.869565217391303	-	-	MHS570	other_OG
+389ZI|Others	237	658.3333333333334	-	-	MHS570	other_OG
+38B7D|Others	69	50.21834061135371	O	post-chaperonin tubulin folding pathway	MHS570	other_OG
+38BDM|Others	4	17.316017316017316	U	GTP binding	MHS570	other_OG
+38BS8|Others	72	111.45721139571836	Z	heavy chain	MHS570	other_OG
+38C4R|Others	4	5.952380952380952	C	Key enzyme for ketone body catabolism. Transfers the CoA moiety from succinate to acetoacetate. Formation of the enzyme-CoA intermediate proceeds via an unstable anhydride species formed between the carboxylate groups of the enzyme and substrate	MHS570	other_OG
+38CMS|Others	95	67.3758865248227	IQ	vacuolar fusion protein MON1	MHS570	other_OG
+38CV6|Others	1	3.584229390681003	IT	delta14-sterol reductase activity	MHS570	other_OG
+38CWK|Others	6	14.492753623188406	O	negative regulation of endoplasmic reticulum stress-induced neuron intrinsic apoptotic signaling pathway	MHS570	other_OG
+38D42|Others	30	28.251403389119144	O	aspartic-type endopeptidase activity	MHS570	other_OG
+38D6P|Others	244	180.39715307812094	I	phosphopantetheine binding	MHS570	other_OG
+38DQS|Others	2	8.771929824561402	S	DNA binding	MHS570	other_OG
+38DZP|Others	6	24.096385542168676	E	Belongs to the class-III pyridoxal-phosphate-dependent aminotransferase family	MHS570	other_OG
+38EJA|Others	14	42.752597260164706	O	Belongs to the heat shock protein 70 family	MHS570	other_OG
+38EME|Others	12	26.31578947368421	U	ras-related GTP-binding protein	MHS570	other_OG
+38FUD|Others	3	17.543859649122805	L	DNA clamp loader activity	MHS570	other_OG
+38FV5|Others	17	37.280701754385966	Q	L-aminoadipate-semialdehyde dehydrogenase activity	MHS570	other_OG
+38GS1|Others	11	12.514220705346984	T	Camp-dependent protein kinase	MHS570	other_OG
+38HND|Others	86	77.68744354110208	U	cytoplasmic mRNA processing body assembly	MHS570	other_OG
+397N0|Others	13	25.1937984496124	BK	internal peptidyl-lysine acetylation	MHS570	other_OG
+39K0E|Others	15	49.504950495049506	U	GTP binding	MHS570	other_OG
+39T86|Others	3	9.523809523809524	J	U1 snRNA 3'-end processing	MHS570	other_OG
+39V1V|Others	29	54.61393596986817	V	NiCotinamidase	MHS570	other_OG
+3A15D|Others	22	28.0970625798212	S	Repeated motif present between transmembrane helices in cystinosin, yeast ERS1p, mannose-P-dolichol utilization defect 1, and other hypothetical proteins.	MHS570	other_OG
+3A1NV|Others	13	56.11296915644741	Z	Belongs to the ATG8 family	MHS570	other_OG
+3A3FA|Others	3	9.523809523809524	A	regulation of alternative mRNA splicing, via spliceosome	MHS570	other_OG
+3A53V|Others	4	10.75268817204301	-	-	MHS570	other_OG
+3A5W5|Others	2	6.410256410256411	K	helix-loop-helix dna-binding domain-containing protein	MHS570	other_OG
+3ADBI|Others	2	4.47427293064877	L	transposition, RNA-mediated	MHS570	other_OG
+3AIIF|Others	1	5.128205128205128	G	mannose metabolic process	MHS570	other_OG
+3B95P|Others	8	9.35672514619883	B	Belongs to the histone deacetylase family. HD Type 1 subfamily	MHS570	other_OG
+3B9DN|Others	2	4.329004329004329	T	adenylate cyclase-inhibiting G-protein coupled glutamate receptor signaling pathway	MHS570	other_OG
+3B9FE|Others	6	20.408163265306122	J	methionyl-tRNA aminoacylation	MHS570	other_OG
+3B9G3|Others	41	46.77370921873068	J	translation release factor activity	MHS570	other_OG
+3B9HD|Others	6	17.253839205058718	A	splicing factor 3a, subunit 1	MHS570	other_OG
+3B9HV|Others	4	10.92896174863388	DO	protein modification by small protein conjugation	MHS570	other_OG
+3B9I2|Others	5	15.823257202567547	E	Metalloendopeptidase activity. It is involved in the biological process described with proteolysis	MHS570	other_OG
+3B9IR|Others	13	23.941068139963164	T	myosin light chain kinase activity	MHS570	other_OG
+3B9NV|Others	3	12.987012987012987	G	Mannosyltransferase involved in glycosylphosphatidylinositol-anchor biosynthesis	MHS570	other_OG
+3B9P9|Others	8	26.932369400088195	S	RNA trimethylguanosine synthase activity	MHS570	other_OG
+3B9S8|Others	5	14.005602240896359	T	extracellularly glutamate-gated ion channel activity	MHS570	other_OG
+3B9XE|Others	13	34.21052631578947	JO	La ribonucleoprotein domain family member	MHS570	other_OG
+3BA18|Others	16	11.931394481730052	O	heat shock	MHS570	other_OG
+3BA19|Others	16	29.304029304029303	Q	ATPase activity, coupled to transmembrane movement of substances	MHS570	other_OG
+3BA5H|Others	1	4.016064257028113	O	K02A2.6-like	MHS570	other_OG
+3BA6J|Others	8	14.035087719298247	J	GCN1 general control of amino-acid synthesis 1-like 1 (yeast)	MHS570	other_OG
+3BA8A|Others	84	98.49172876829354	DZ	chromatin organization	MHS570	other_OG
+3BABE|Others	2	5.420054200542006	O	26S proteasome non-ATPase regulatory subunit	MHS570	other_OG
+3BAC4|Others	2	10.1010101010101	K	nuclear receptor subfamily 1, group H, member	MHS570	other_OG
+3BAEP|Others	2	4.796163069544365	PT	cyclic nucleotide-gated ion channel activity	MHS570	other_OG
+3BAEW|Others	4	16.877637130801688	T	Growth factor receptor-bound protein	MHS570	other_OG
+3BAHK|Others	1	3.623188405797101	C	Produces ATP from ADP in the presence of a proton gradient across the membrane	MHS570	other_OG
+3BAMD|Others	1	3.3333333333333335	P	regulation of sequestering of zinc ion	MHS570	other_OG
+3BANS|Others	47	38.772803692449074	OT	protein deneddylation	MHS570	other_OG
+3BARI|Others	3	12.89198606271777	A	helicase activity	MHS570	other_OG
+3BATC|Others	2	6.230529595015576	O	positive regulation of translation initiation in response to endoplasmic reticulum stress	MHS570	other_OG
+3BATS|Others	1	3.9215686274509802	T	regulation of angiotensin-activated signaling pathway	MHS570	other_OG
+3BAU5|Others	8	16.161616161616163	U	anterograde synaptic vesicle transport	MHS570	other_OG
+3BAUC|Others	1	5.376344086021505	S	smooth muscle cell proliferation	MHS570	other_OG
+3BAUV|Others	5	19.64186246903322	Z	structural constituent of cytoskeleton	MHS570	other_OG
+3BB3B|Others	3	5.58659217877095	S	developmental process involved in reproduction	MHS570	other_OG
+3BB40|Others	9	24.417562724014335	F	transitional stage B cell differentiation	MHS570	other_OG
+3BB5I|Others	1	4.219409282700422	J	This protein promotes the GTP-dependent binding of aminoacyl-tRNA to the A-site of ribosomes during protein biosynthesis	MHS570	other_OG
+3BBEX|Others	27	33.91082008478673	O	aspartic-type endopeptidase activity	MHS570	other_OG
+3BBNX|Others	190	344.2028985507246	S	Pecanex protein (C-terminus)	MHS570	other_OG
+3BBQ5|Others	6	13.151990592458493	O	protein N-linked glycosylation via asparagine	MHS570	other_OG
+3BBS2|Others	10	18.315018315018314	G	dol-P-Man:Man(7)GlcNAc(2)-PP-Dol alpha-1,6-mannosyltransferase activity	MHS570	other_OG
+3BBTF|Others	2	6.410256410256411	G	mannosyl-oligosaccharide glucosidase activity	MHS570	other_OG
+3BBTN|Others	1	3.7878787878787876	J	translation initiation factor activity	MHS570	other_OG
+3BBUN|Others	3	15.873015873015873	F	NADPH-adrenodoxin reductase activity	MHS570	other_OG
+3BBWP|Others	20	57.4712643678161	S	ATPase activity	MHS570	other_OG
+3BBYX|Others	7	15.452538631346577	B	polyubiquitinated misfolded protein transport	MHS570	other_OG
+3BC0N|Others	4	12.698412698412698	B	histone-binding protein	MHS570	other_OG
+3BC0T|Others	3	19.23076923076923	U	GTP binding	MHS570	other_OG
+3BC1N|Others	44	88.60541015502417	K	SAP30 binding protein	MHS570	other_OG
+3BC53|Others	5	10.822510822510822	T	regulatory subunit 4	MHS570	other_OG
+3BC5R|Others	17	49.275362318840585	S	tRNA guanylyltransferase activity	MHS570	other_OG
+3BC7R|Others	7	12.4777183600713	T	neurotrophin receptor activity	MHS570	other_OG
+3BCB4|Others	30	78.490519576459	U	negative regulation of centriole elongation	MHS570	other_OG
+3BCBZ|Others	21	35.8974358974359	Q	ATPase activity, coupled to transmembrane movement of substances	MHS570	other_OG
+3BCD3|Others	7	12.4777183600713	S	Kinase phosphorylation protein	MHS570	other_OG
+3BCDV|Others	6	36.36363636363636	O	unfolded protein binding	MHS570	other_OG
+3BCFQ|Others	16	10.884353741496598	A	factor 8	MHS570	other_OG
+3BCHH|Others	9	11.627906976744185	OT	protein deneddylation	MHS570	other_OG
+3BCJW|Others	20	36.42987249544626	H	Coenzyme A synthase	MHS570	other_OG
+3BCKF|Others	1	3.584229390681003	UZ	protein delipidation	MHS570	other_OG
+3BCMY|Others	6	16.666666666666668	D	cell division	MHS570	other_OG
+3BCPJ|Others	3	14.084507042253522	T	diacylglycerol kinase activity	MHS570	other_OG
+3BCQ5|Others	3	10.721247563352826	I	intra-Golgi vesicle-mediated transport	MHS570	other_OG
+3BCS8|Others	2	3.367003367003367	Q	hydrolase activity	MHS570	other_OG
+3BCT8|Others	1	3.663003663003663	Z	capping protein (actin filament) muscle Z-line, beta	MHS570	other_OG
+3BCTF|Others	1	3.3333333333333335	S	G-protein gamma-subunit binding	MHS570	other_OG
+3BCV2|Others	1	4.694835680751174	T	positive regulation of protein dephosphorylation	MHS570	other_OG
+3BCWE|Others	19	61.48867313915858	I	Belongs to the enoyl-CoA hydratase isomerase family	MHS570	other_OG
+3BCX1|Others	14	31.04471744908052	O	PPIases accelerate the folding of proteins. It catalyzes the cis-trans isomerization of proline imidic peptide bonds in oligopeptides	MHS570	other_OG
+3BCXI|Others	3	9.174311926605505	T	rho guanine nucleotide exchange factor	MHS570	other_OG
+3BCY7|Others	1	4.761904761904762	S	protein ubiquitination	MHS570	other_OG
+3BCYJ|Others	72	69.56521739130436	S	WD repeat-containing protein 5	MHS570	other_OG
+3BD5Q|Others	6	11.049723756906076	T	leucine-rich repeat serine threonine-protein kinase	MHS570	other_OG
+3BD5Y|Others	14	9.907997169143666	Q	Alkyl sulfatase dimerisation	MHS570	other_OG
+3BD8A|Others	3	12.048192771084338	P	calcium:sodium antiporter activity involved in regulation of cardiac muscle cell membrane potential	MHS570	other_OG
+3BDBM|Others	8	34.65078092183144	U	GTP binding	MHS570	other_OG
+3BDBZ|Others	4	14.185247342763526	U	retrograde vesicle-mediated transport, Golgi to ER	MHS570	other_OG
+3BDD1|Others	22	42.38921001926782	D	histone H3-T3 phosphorylation involved in chromosome passenger complex localization to kinetochore	MHS570	other_OG
+3BDI4|Others	28	60.311677798016596	I	O-acyltransferase	MHS570	other_OG
+3BDPN|Others	28	45.420640610629526	S	SCF complex assembly	MHS570	other_OG
+3BDQ6|Others	15	23.25581395348837	U	TBC1 domain family member	MHS570	other_OG
+3BDQF|Others	2	7.49063670411985	Z	structural constituent of cytoskeleton	MHS570	other_OG
+3BDX3|Others	1	4.219409282700422	E	glutaryl-CoA dehydrogenase activity	MHS570	other_OG
+3BDXZ|Others	2	7.168458781362006	C	glycerate dehydrogenase activity	MHS570	other_OG
+3BDYN|Others	15	17.921146953405017	S	UPF0554 protein C2orf43 homolog	MHS570	other_OG
+3BDZ5|Others	1	5.05050505050505	J	pumilio homolog	MHS570	other_OG
+3BE1F|Others	43	75.5286454749782	S	Vacuolar protein sorting-associated protein VTA1 homolog	MHS570	other_OG
+3BE21|Others	103	58.48949460533788	OT	protein deneddylation	MHS570	other_OG
+3BE46|Others	1	3.7037037037037033	U	guanine nucleotide exchange factor 1	MHS570	other_OG
+3BE4J|Others	7	22.875816993464053	L	negative regulation of DNA helicase activity	MHS570	other_OG
+3BE59|Others	6	9.950248756218906	G	phosphoglycerate kinase activity	MHS570	other_OG
+3BE5I|Others	41	32.30890464933018	K	snRNA transcription by RNA polymerase III	MHS570	other_OG
+3BE7U|Others	6	16.666666666666668	L	DNA nucleotidylexotransferase activity	MHS570	other_OG
+3BE81|Others	10	20.964360587002098	S	transcription factor binding	MHS570	other_OG
+3BED2|Others	17	20.31063321385902	O	E3 ubiquitin-protein ligase	MHS570	other_OG
+3BEDD|Others	10	9.208103130755063	K	N-box binding	MHS570	other_OG
+3BEJ0|Others	23	25.555555555555554	L	response to intra-S DNA damage checkpoint signaling	MHS570	other_OG
+3BEN4|Others	14	24.179620034542317	OU	membrane insertase activity	MHS570	other_OG
+3BEZ1|Others	5	18.939393939393938	S	quercetin 2,3-dioxygenase activity	MHS570	other_OG
+3BF3N|Others	8	18.64801864801865	Z	N-terminal peptidyl-methionine acetylation	MHS570	other_OG
+3BF3W|Others	69	59.265266888948965	S	early viral transcription	MHS570	other_OG
+3BF46|Others	2	3.546099290780142	O	Peptidyl-prolyl cis-trans isomerase	MHS570	other_OG
+3BF55|Others	1	3.436426116838488	O	ubiquitin activating enzyme activity	MHS570	other_OG
+3BFDP|Others	1	4.11522633744856	T	cellular hypotonic response	MHS570	other_OG
+3BFEB|Others	1	3.875968992248062	L	5'-deoxyribose-5-phosphate lyase activity	MHS570	other_OG
+3BFFD|Others	109	87.29058445648613	L	KRAB-A domain containing 2	MHS570	other_OG
+3BFFG|Others	5	16.666666666666668	DL	exodeoxyribonuclease III activity	MHS570	other_OG
+3BFJG|Others	3	14.285714285714286	S	-	MHS570	other_OG
+3BFJJ|Others	1	3.367003367003367	K	DNA-directed 5'-3' RNA polymerase activity	MHS570	other_OG
+3BFQ0|Others	5	29.76190476190476	S	Uncharacterized conserved protein (DUF2347)	MHS570	other_OG
+3BFQX|Others	2	8.130081300813009	A	G patch domain-containing protein	MHS570	other_OG
+3BFTN|Others	13	26.422764227642276	S	minichromosome maintenance	MHS570	other_OG
+3BFWJ|Others	50	73.84557670488937	B	inhibitor of growth	MHS570	other_OG
+3BG2Z|Others	27	50.847457627118644	O	tubulin-specific chaperone E	MHS570	other_OG
+3BG93|Others	36	59.11330049261084	O	26S proteasome non-ATPase regulatory subunit	MHS570	other_OG
+3BG9B|Others	24	44.9438202247191	U	protein complex 3, delta 1 subunit	MHS570	other_OG
+3BGCQ|Others	11	21.5066129959747	S	methylated histone binding	MHS570	other_OG
+3BGD1|Others	1	3.8314176245210727	E	O-phospho-L-serine:2-oxoglutarate aminotransferase activity	MHS570	other_OG
+3BGEN|Others	8	28.673835125448026	O	FK506 binding	MHS570	other_OG
+3BGHW|Others	8	31.61140661140661	OT	cop9 signalosome complex subunit	MHS570	other_OG
+3BGSS|Others	23	55.64990061360297	S	kinetochore assembly	MHS570	other_OG
+3BGWR|Others	8	19.464720194647203	F	ATP binding	MHS570	other_OG
+3BH4Z|Others	3	10	H	Catalyzes the ferrous insertion into protoporphyrin IX	MHS570	other_OG
+3BH6M|Others	1	3.3333333333333335	D	Structural maintenance of chromosomes flexible hinge	MHS570	other_OG
+3BH7Q|Others	2	3.766478342749529	S	Golgi organization	MHS570	other_OG
+3BH8C|Others	1	4.016064257028113	S	GTPase activity	MHS570	other_OG
+3BHJ1|Others	2	7.662835249042145	DO	anaphase-promoting complex binding	MHS570	other_OG
+3BHJA|Others	12	38.728405550835454	DL	intra-S DNA damage checkpoint	MHS570	other_OG
+3BHMN|Others	25	23.08402585410896	S	Alpha/beta hydrolase family	MHS570	other_OG
+3BHNQ|Others	1	3.584229390681003	S	Arrestin (or S-antigen), C-terminal domain	MHS570	other_OG
+3BHSZ|Others	7	22.435897435897434	S	chromosome 9 open reading frame 78	MHS570	other_OG
+3BHTB|Others	13	20.24922118380062	Z	minus-end-directed vesicle transport along microtubule	MHS570	other_OG
+3BHX9|Others	7	17.99990069020309	UZ	Dynactin subunit 6	MHS570	other_OG
+3BICK|Others	4	10.840108401084011	O	thiol-dependent ubiquitin-specific protease activity	MHS570	other_OG
+3BIS3|Others	2	3.603603603603603	S	DNA polymerase binding	MHS570	other_OG
+3BIS4|Others	1	4.694835680751174	I	catalytic activity. It is involved in the biological process described with metabolic process	MHS570	other_OG
+3BIZ2|Others	4	16.877637130801688	J	HemK methyltransferase family member	MHS570	other_OG
+3BJ99|Others	23	47.28020240354206	DO	positive regulation of synapse maturation	MHS570	other_OG
+3BJI5|Others	15	52.083333333333336	S	WD domain, G-beta repeat	MHS570	other_OG
+3BJZI|Others	73	75.95168359074273	O	Belongs to the peptidase A1 family	MHS570	other_OG
+3BKJ9|Others	5	21.929824561403507	S	peptide alpha-N-acetyltransferase activity	MHS570	other_OG
+3BKMN|Others	11	33.33333333333333	S	H2A histone acetyltransferase activity	MHS570	other_OG
+3BMBG|Others	4	14.814814814814813	Z	Tubulin/FtsZ family, C-terminal domain	MHS570	other_OG
+3BMBH|Others	8	9.626955475330927	S	protein-glutamine gamma-glutamyltransferase activity	MHS570	other_OG
+3BMZB|Others	1	3.7878787878787876	O	Uncharacterized protein family (UPF0051)	MHS570	other_OG
+3BN2A|Others	26	50.619076445527554	S	N-terminal domain of CBF1 interacting co-repressor CIR	MHS570	other_OG
+3BNJS|Others	41	60.238136651060955	J	peptidyl-tRNA hydrolase	MHS570	other_OG
+3BNKS|Others	542	971.6909315824531	E	Cobalamin-independent synthase, Catalytic domain	MHS570	other_OG
+3BPDH|Others	13	42.458698708698705	B	nucleosomal DNA binding	MHS570	other_OG
+3BPFS|Others	1	3.5087719298245617	C	iron-sulfur transferase activity	MHS570	other_OG
+3BPJT|Others	2	5.46448087431694	-	-	MHS570	other_OG
+3BPXR|Others	35	34.930139720558884	M	Endogenous retrovirus group K member	MHS570	other_OG
+3BQ7K|Others	33	48.03493449781659	J	Peptidyl-tRNA hydrolase	MHS570	other_OG
+3BQMA|Others	64	84.01245610547936	A	tRNA 5'-leader removal	MHS570	other_OG
+3BQRD|Others	153	217.0212765957447	S	Coiled-coil domain containing 188	MHS570	other_OG
+3BRBE|Others	1	5.376344086021505	Z	post-chaperonin tubulin folding pathway	MHS570	other_OG
+3BRF6|Others	3	11.627906976744185	A	spliceosomal snRNP assembly	MHS570	other_OG
+3BRPG|Others	3	11.904761904761905	S	Hematological and neurological expressed 1-like	MHS570	other_OG
+3BSMU|Others	3	5.813953488372093	S	regulation of cellular response to hypoxia	MHS570	other_OG
+3BSV6|Others	19	42.50559284116331	C	mitochondrial pyruvate transmembrane transport	MHS570	other_OG
+3BTCF|Others	4	11.299435028248588	CO	Thioredoxin	MHS570	other_OG
+3BTH0|Others	17	34.50618608310091	-	-	MHS570	other_OG
+3BTXU|Others	20	72.93873312564901	K	negative regulation of programmed cell death	MHS570	other_OG
+3BU2T|Others	3	15.873015873015873	S	machinery associated 7 homolog (S. cerevisiae)	MHS570	other_OG
+3BUW4|Others	9	26.086956521739133	-	-	MHS570	other_OG
+3BVDC|Others	1	5.291005291005291	S	-	MHS570	other_OG
+3BVQX|Others	13	30.952380952380953	-	-	MHS570	other_OG
+3BX24|Others	4	13.639035861258083	-	-	MHS570	other_OG
+3BX2J|Others	1	4.830917874396135	U	Adaptor complexes medium subunit family	MHS570	other_OG
+3BZYJ|Others	21	28.34008097165992	-	-	MHS570	other_OG
+3C186|Others	30	88.47777100895873	C	NADH-ubiquinone/plastoquinone oxidoreductase chain 4L	MHS570	other_OG
+3C1B3|Others	1	3.623188405797101	M	Nucleotidyl transferase	MHS570	other_OG
+3C4FT|Others	16	34.40860215053763	-	-	MHS570	other_OG
+3CNNM|Others	5	19.841269841269842	O	Calcium ion binding. It is involved in the biological process described with protein folding	MHS570	other_OG
+3CNTJ|Others	2	6.734006734006734	-	-	MHS570	other_OG
+3CR3W|Others	5	13.020833333333334	T	GTP binding	MHS570	other_OG
+3G73B|Others	3	6.134969325153374	A	Pre-mRNA-splicing factor ATP-dependent RNA helicase	MHS570	other_OG
+3G78Y|Others	2	11.695906432748536	U	Ras-related protein	MHS570	other_OG
+3G7JE|Others	8	21.85792349726776	L	DNA mismatch repair protein	MHS570	other_OG
+3G7NV|Others	1	4.329004329004329	A	Belongs to the DEAD box helicase family	MHS570	other_OG
+3G7UH|Others	5	16.501650165016503	U	Ras-related protein	MHS570	other_OG
+3G7XW|Others	8	38.960128932800785	O	Ubiquitin exists either covalently attached to another protein, or free (unanchored). When covalently bound, it is conjugated to target proteins via an isopeptide bond either as a monomer (monoubiquitin), a polymer linked via different Lys residues of the ubiquitin (polyubiquitin chains) or a linear polymer linked via the initiator Met of the ubiquitin (linear polyubiquitin chains). Polyubiquitin chains, when attached to a target protein, have different functions depending on the Lys residue of the ubiquitin that is linked	MHS570	other_OG
+3G81G|Others	2	11.695906432748536	T	belongs to the protein kinase superfamily	MHS570	other_OG
+3G89W|Others	27	54.87804878048781	KT	Belongs to the MT-A70-like family	MHS570	other_OG
+3G8C5|Others	57	103.8414527675921	C	cytochrome c oxidase subunit 3	MHS570	other_OG
+3G8D1|Others	4	19.607843137254903	O	Geranylgeranyl transferase type-1 subunit	MHS570	other_OG
+3G8EZ|Others	2	4.357298474945534	T	serine threonine-protein kinase	MHS570	other_OG
+3G8IQ|Others	1	3.5087719298245617	S	source UniProtKB	MHS570	other_OG
+3G8JC|Others	1	3.7037037037037033	IT	sphingoid long-chain bases kinase	MHS570	other_OG
+3G8MV|Others	17	52.181019921057185	H	DNA RNA polymerases superfamily protein	MHS570	other_OG
+3G8QH|Others	2	8.88888888888889	S	Anthranilate N-benzoyltransferase protein	MHS570	other_OG
+3G8SR|Others	2	8.438818565400844	J	Exosome complex	MHS570	other_OG
+3G8UH|Others	1	4.219409282700422	S	GDSL esterase lipase	MHS570	other_OG
+3G91Q|Others	150	62.716186511556856	UY	nuclear export signal receptor activity	MHS570	other_OG
+3G92N|Others	2	8.333333333333334	A	DEAD-box ATP-dependent RNA helicase	MHS570	other_OG
+3G97S|Others	59	32.56088722088186	U	Conserved oligomeric Golgi complex subunit	MHS570	other_OG
+3G9XK|Others	5	11.990407673860911	S	Guanine nucleotide-binding protein subunit	MHS570	other_OG
+3GA85|Others	3	5.681818181818182	S	transcriptional corepressor	MHS570	other_OG
+3GAAK|Others	9	24.793388429752067	Q	Belongs to the short-chain dehydrogenases reductases (SDR) family	MHS570	other_OG
+3GAMW|Others	2	3.3500837520938025	S	Secretory pathway protein Sec39	MHS570	other_OG
+3GAR3|Others	1	3.8314176245210727	T	Non-specific serine threonine protein kinase	MHS570	other_OG
+3GAXB|Others	6	12.5	T	Guanine nucleotide-binding protein subunit beta-like protein	MHS570	other_OG
+3GAXE|Others	40	50.31446540880503	B	Phd finger protein	MHS570	other_OG
+3GBGT|Others	22	18.46977274721418	K	Myb-like protein L	MHS570	other_OG
+3GBUN|Others	1071	898.3834840073437	C	Core subunit of the mitochondrial membrane respiratory chain NADH dehydrogenase (Complex I) that is believed to belong to the minimal assembly required for catalysis. Complex I functions in the transfer of electrons from NADH to the respiratory chain. The immediate electron acceptor for the enzyme is believed to be ubiquinone	MHS570	other_OG
+3GC91|Others	25	6.2235499128703005	Q	acyl-activating enzyme	MHS570	other_OG
+3GCA5|Others	2	7.936507936507937	U	Belongs to the adaptor complexes medium subunit family	MHS570	other_OG
+3GCAR|Others	9	37.03703703703704	T	Calmodulin mediates the control of a large number of enzymes, ion channels and other proteins by Ca(2 ). Among the enzymes to be stimulated by the calmodulin-Ca(2 ) complex are a number of protein kinases and phosphatases	MHS570	other_OG
+3GCAV|Others	12	25	L	DNA polymerase	MHS570	other_OG
+3GCCP|Others	1	3.4722222222222223	O	DnaJ homolog subfamily B member	MHS570	other_OG
+3GCJ8|Others	2	7.092198581560284	E	Interconversion of serine and glycine	MHS570	other_OG
+3GCMW|Others	60	76.02856397222943	J	pumilio homolog	MHS570	other_OG
+3GCUY|Others	7	14.056224899598394	C	NDH shuttles electrons from NAD(P)H plastoquinone, via FMN and iron-sulfur (Fe-S) centers, to quinones in the photosynthetic chain and possibly in a chloroplast respiratory chain. The immediate electron acceptor for the enzyme in this species is believed to be plastoquinone. Couples the redox reaction to proton translocation, and thus conserves the redox energy in a proton gradient	MHS570	other_OG
+3GCWU|Others	14	47.13804713804714	O	Protein farnesyltransferase geranylgeranyltransferase type-1 subunit	MHS570	other_OG
+3GCXX|Others	9	32.967032967032964	S	Zinc finger CCCH domain-containing protein	MHS570	other_OG
+3GCY7|Others	8	21.294177472667176	Q	flavin-containing monooxygenase	MHS570	other_OG
+3GD03|Others	2	9.389671361502348	I	Caffeoylshikimate esterase-like	MHS570	other_OG
+3GD4B|Others	1	5.208333333333333	T	E3 ubiquitin-protein ligase	MHS570	other_OG
+3GD63|Others	3	10.869565217391303	S	RNA cap guanine-N2 methyltransferase	MHS570	other_OG
+3GD8K|Others	2	6.872852233676976	S	UBA-like domain (DUF1421)	MHS570	other_OG
+3GDG5|Others	14	32.18390804597701	S	Pentatricopeptide repeat-containing protein	MHS570	other_OG
+3GDJE|Others	1	3.7878787878787876	C	NADH dehydrogenase (Ubiquinone) iron-sulfur protein	MHS570	other_OG
+3GDQW|Others	15	28.262548262548265	J	exosome complex	MHS570	other_OG
+3GDVB|Others	8	23.391812865497073	U	Belongs to the SNF7 family	MHS570	other_OG
+3GE3B|Others	1	4.11522633744856	J	Adenylate isopentenyltransferase	MHS570	other_OG
+3GE9S|Others	4	10.335917312661499	S	Polynucleotide 5'-hydroxyl-kinase	MHS570	other_OG
+3GEA1|Others	1	3.875968992248062	S	function. Its presence in a non-photosynthetic plant (Epifagus virginiana) and experiments in tobacco indicate that it has an essential function which is probably not related to photosynthesis	MHS570	other_OG
+3GEEJ|Others	113	189.85456284346157	C	Cytochrome c oxidase is the component of the respiratory chain that catalyzes the reduction of oxygen to water. Subunits 1- 3 form the functional core of the enzyme complex. CO I is the catalytic subunit of the enzyme. Electrons originating in cytochrome c are transferred via the copper A center of subunit 2 and heme A of subunit 1 to the bimetallic center formed by heme A3 and copper B	MHS570	other_OG
+3GENN|Others	2	8.23045267489712	U	Ras-related protein	MHS570	other_OG
+3GF05|Others	20	49.01960784313726	I	Belongs to the DHHC palmitoyltransferase family	MHS570	other_OG
+3GF84|Others	15	24.63054187192118	IKOT	Dol-P-Glc Glc(2)Man(9)GlcNAc(2)-PP-Dol	MHS570	other_OG
+3GFCB|Others	4	6.568144499178982	O	Belongs to the peptidase M10A family	MHS570	other_OG
+3GFFM|Others	1	3.9215686274509802	S	2S seed storage protein 5-like	MHS570	other_OG
+3GFGT|Others	1	5.128205128205128	U	Belongs to the small GTPase superfamily. Arf family	MHS570	other_OG
+3GGAX|Others	252	377.7950014776368	C	Cytochrome c oxidase is the component of the respiratory chain that catalyzes the reduction of oxygen to water. Subunits 1- 3 form the functional core of the enzyme complex. Subunit 2 transfers the electrons from cytochrome c via its binuclear copper A center to the bimetallic center of the catalytic subunit 1	MHS570	other_OG
+3GGF5|Others	6	13.422818791946309	C	NDH shuttles electrons from NAD(P)H plastoquinone, via FMN and iron-sulfur (Fe-S) centers, to quinones in the photosynthetic chain and possibly in a chloroplast respiratory chain. The immediate electron acceptor for the enzyme in this species is believed to be plastoquinone. Couples the redox reaction to proton translocation, and thus conserves the redox energy in a proton gradient	MHS570	other_OG
+3GGGH|Others	2	3.603603603603603	S	Photosystem I assembly protein Ycf4	MHS570	other_OG
+3GGRB|Others	1	3.4722222222222223	S	Belongs to the peroxisomal membrane protein PXMP2 4 family	MHS570	other_OG
+3GGSP|Others	43	86.08038142064291	V	Tyrosine-protein phosphatase	MHS570	other_OG
+3GH1G|Others	4	7.662835249042145	O	Cytochrome c biogenesis protein CcsA	MHS570	other_OG
+3GH1R|Others	2	3.6832412523020257	C	NDH shuttles electrons from NAD(P)H plastoquinone, via FMN and iron-sulfur (Fe-S) centers, to quinones in the photosynthetic chain and possibly in a chloroplast respiratory chain. The immediate electron acceptor for the enzyme in this species is believed to be plastoquinone. Couples the redox reaction to proton translocation, and thus conserves the redox energy in a proton gradient	MHS570	other_OG
+3GH5Y|Others	1	5.847953216374268	C	PsaA and PsaB bind P700, the primary electron donor of photosystem I (PSI), as well as the electron acceptors A0, A1 and FX. PSI is a plastocyanin-ferredoxin oxidoreductase, converting photonic excitation into a charge separation, which transfers an electron from the donor P700 chlorophyll pair to the spectroscopically characterized acceptors A0, A1, FX, FA and FB in turn. Oxidized P700 is reduced on the lumenal side of the thylakoid membrane by plastocyanin	MHS570	other_OG
+3GH61|Others	1	5.128205128205128	O	methionine sulfoxide reductase	MHS570	other_OG
+3GH64|Others	5	10.040160642570282	K	Ccr4-not transcription complex	MHS570	other_OG
+3GHAQ|Others	3	14.925373134328357	KL	ribonuclease H protein At1g65750	MHS570	other_OG
+3GHBB|Others	1	5.952380952380952	C	cytochrome b6	MHS570	other_OG
+3GHEX|Others	5	8.169934640522875	S	isoform X1	MHS570	other_OG
+3GHHM|Others	2	3.8314176245210727	A	DEAD-box ATP-dependent RNA helicase	MHS570	other_OG
+3GI60|Others	4	18.264840182648403	B	histone H3	MHS570	other_OG
+3GIEH|Others	15	51.02040816326531	K	High mobility group B protein	MHS570	other_OG
+3GIK0|Others	3	18.867924528301888	O	Peptidyl-prolyl cis-trans isomerase	MHS570	other_OG
+3GIMC|Others	2	4.415011037527593	J	Rps12 protein	MHS570	other_OG
+3GJ7Q|Others	2	4.7281323877068555	L	Retroviral aspartyl protease	MHS570	other_OG
+3GJ9B|Others	2	7.246376811594202	J	Belongs to the universal ribosomal protein uS11 family	MHS570	other_OG
+3GJMM|Others	5	6.6401062416998675	J	gag-polypeptide of LTR copia-type	MHS570	other_OG
+3GJSS|Others	2	9.803921568627452	C	essential for photochemical activity. FB is the terminal electron acceptor of PSI, donating electrons to ferredoxin. The C-terminus interacts with PsaA B D and helps assemble the protein into the PSI complex. Required for binding of PsaD and PsaE to PSI. PSI is a plastocyanin-ferredoxin oxidoreductase, converting photonic excitation into a charge separation, which transfers an electron from the donor P700 chlorophyll pair to the spectroscopically characterized acceptors A0, A1, FX, FA and FB in turn	MHS570	other_OG
+3GJY5|Others	2	6.98252540761863	J	ribosomal protein L23	MHS570	other_OG
+3GK4J|Others	3	13.636924595828706	S	Protein of unknown function (DUF2647)	MHS570	other_OG
+3GK94|Others	2	10.1010101010101	J	50S ribosomal protein L33, chloroplastic	MHS570	other_OG
+3GKGJ|Others	3	8.849557522123893	-	-	MHS570	other_OG
+3GKHF|Others	18	64.51612903225806	-	-	MHS570	other_OG
+3GKMR|Others	279	886.4572779466397	S	-	MHS570	other_OG
+3GKNG|Others	1	4.219409282700422	-	-	MHS570	other_OG
+3GKZ9|Others	1	5.05050505050505	S	Essential for the assembly of the photosystem I (PSI) complex. May act as a chaperone-like factor to guide the assembly of the PSI subunits	MHS570	other_OG
+3GM5I|Others	3	10.869565217391303	-	-	MHS570	other_OG
+3GM9F|Others	17	29.059829059829063	L	transposition, RNA-mediated	MHS570	other_OG
+3GME9|Others	1	4.975124378109452	J	50S ribosomal protein L32	MHS570	other_OG
+3GMF3|Others	4	17.129928894634777	S	-	MHS570	other_OG
+3GMGA|Others	3	17.857142857142858	-	-	MHS570	other_OG
+3GMMD|Others	1	4.975124378109452	-	-	MHS570	other_OG
+3GNCY|Others	3	16.129032258064516	L	Retroviral aspartyl protease	MHS570	other_OG
+3GND2|Others	1	4.11522633744856	L	DNA RNA polymerases superfamily protein	MHS570	other_OG
+3GPIJ|Others	1	4.065040650406504	J	50S ribosomal protein L20	MHS570	other_OG
+3GPY4|Others	1	3.436426116838488	-	-	MHS570	other_OG
+3GPYN|Others	2	4.504504504504505	L	transposition, RNA-mediated	MHS570	other_OG
+3GQ31|Others	1	4.065040650406504	-	-	MHS570	other_OG
+3GQJH|Others	2	9.389671361502348	L	transposition, RNA-mediated	MHS570	other_OG
+3GQN5|Others	1	4.444444444444445	-	-	MHS570	other_OG
+3GQZM|Others	1	4.219409282700422	-	-	MHS570	other_OG
+3GR0I|Others	1	4.11522633744856	-	-	MHS570	other_OG
+3GR1G|Others	5	25.48111190306486	-	-	MHS570	other_OG
+3GR3G|Others	1	3.9215686274509802	-	-	MHS570	other_OG
+3GR7K|Others	1	4.166666666666667	-	-	MHS570	other_OG
+3GRMK|Others	9	21.73913043478261	-	-	MHS570	other_OG
+3GU71|Others	9	35.714285714285715	-	-	MHS570	other_OG
+3GUDY|Others	1	5.05050505050505	S	Chloroplast protein precursor Ycf15 putative	MHS570	other_OG
+3GV1V|Others	3	4.651162790697675	L	Retrotransposon gag protein	MHS570	other_OG
+3GWAP|Others	1	4.219409282700422	-	-	MHS570	other_OG
+3GYJW|Others	1	4.444444444444445	T	Integrase core domain	MHS570	other_OG
+3GZMR|Others	1	3.8314176245210727	-	-	MHS570	other_OG
+3KAEK|Others	7	19.943019943019944	L	repair protein	MHS570	other_OG
+3KC4D|Others	5	21.929824561403507	S	Predicted ATPase of the ABC class	MHS570	other_OG
+3Q8ME|Others	20	34.258091635140815	S	plant mutator transposase zinc finger	MHS570	other_OG
+3QB5D|Others	1	4.444444444444445	G	Glycosyl hydrolase family 7	MHS570	other_OG
+3QCEW|Others	7	21.604938271604937	S	Saccharopine dehydrogenase NADP binding domain	MHS570	other_OG
+3QEYZ|Others	4	13.88888888888889	J	MnmE helical domain	MHS570	other_OG
+3X9D0|Others	24	43.24324324324324	S	AMMECR1	MHS570	other_OG
+3XA17|Others	5	11.415525114155251	L	DNA mismatch repair protein	MHS570	other_OG
+3XCMP|Others	15	35.9314538419016	Z	Belongs to the actin family	MHS570	other_OG
+3XTAC|Others	5	9.803921568627452	S	NGG1 interacting factor	MHS570	other_OG
+3YB7T|Others	41	31.202435312024352	S	Predicted ATPase of the ABC class	MHS570	other_OG
+3ZCUK|Others	1	5.555555555555555	D	Protein kinase domain	MHS570	other_OG
+4QKMY|Others	46	167.830752100415	-	-	MHS570	other_OG
+4QMMH|Others	7	12.840426633530083	S	Pfam:Gamma_PGA_hydro	MHS570	other_OG
+arCOG00310|Others	22	49.21700223713646	O	alkyl hydroperoxide reductase Thiol specific antioxidant Mal allergen	MHS570	other_OG
+arCOG12966|Others	2	10.582010582010582	-	-	MHS570	other_OG
+COG2801|Others	26	25.26724975704568	P	Transposase and inactivated derivatives; transposition	MHS570	other_OG
+KOG0027|Others	36	125.66941796757695	T	Calcium-binding protein	MHS570	other_OG
+KOG0048|Others	12	27.092494021445653	ADK	RNA polymerase II transcription regulator recruiting activity	MHS570	other_OG
+KOG0052|Others	1	4.329004329004329	J	translation elongation factor activity	MHS570	other_OG
+KOG0055|Others	16	29.559045668053052	V	ATPase activity, coupled to transmembrane movement of substances	MHS570	other_OG
+KOG0070|Others	1	3.3333333333333335	U	GTP binding	MHS570	other_OG
+KOG0090|Others	10	24.691358024691358	O	signal recognition particle binding	MHS570	other_OG
+KOG0243|Others	1	4.694835680751174	Z	ATP-dependent microtubule motor activity, plus-end-directed	MHS570	other_OG
+KOG0266|Others	6	12.987012987012987	B	WD repeat-containing protein; primary shoot apical meristem specification	MHS570	other_OG
+KOG0322|Others	2	6.172839506172839	L	chromatin organization	MHS570	other_OG
+KOG0351|Others	1	6.289308176100628	L	four-way junction helicase activity	MHS570	other_OG
+KOG0417|Others	3	10.989010989010989	O	protein modification by small protein conjugation	MHS570	other_OG
+KOG0433|Others	4	8.032128514056225	J	isoleucyl-tRNA aminoacylation	MHS570	other_OG
+KOG0465|Others	253	133.9643475111433	J	translation elongation factor activity	MHS570	other_OG
+KOG0530|Others	3	13.488926532404793	O	CAAX-protein geranylgeranyltransferase activity	MHS570	other_OG
+KOG0543|Others	8	30.008228062533277	O	FK506 binding	MHS570	other_OG
+KOG0550|Others	2	5.952380952380952	O	chaperone cofactor-dependent protein refolding	MHS570	other_OG
+KOG0676|Others	27	36.58536585365854	Z	ATP binding	MHS570	other_OG
+KOG0698|Others	148	154.10113131985554	T	protein serine/threonine phosphatase activity	MHS570	other_OG
+KOG0858|Others	10	20.833333333333336	I	ubiquitin-dependent ERAD pathway	MHS570	other_OG
+KOG0975|Others	119	117.8081869017237	E	branched-chain-amino-acid transaminase activity	MHS570	other_OG
+KOG1073|Others	3	18.18181818181818	S	cytoplasmic mRNA processing body assembly; regulation of translation	MHS570	other_OG
+KOG1075|Others	13	30.683106575963716	E	Ribonuclease H protein; intron homing	MHS570	other_OG
+KOG1099|Others	4	9.59232613908873	J	tRNA methyltransferase activity	MHS570	other_OG
+KOG1190|Others	7	28.11244979919679	O	regulation of secretory granule organization	MHS570	other_OG
+KOG1204|Others	82	131.22603574689563	IQ	sepiapterin reductase	MHS570	other_OG
+KOG1339|Others	52	101.91774619576	M	aspartic-type endopeptidase activity	MHS570	other_OG
+KOG1377|Others	30	51.345839974473535	F	'de novo' UMP biosynthetic process	MHS570	other_OG
+KOG1453|Others	63	117.43693735456122	Z	Belongs to the TRAFAC class myosin-kinesin ATPase superfamily. Myosin family; GTPase activator activity	MHS570	other_OG
+KOG1488|Others	5	9.25925925925926	J	mRNA binding	MHS570	other_OG
+KOG1568|Others	71	111.3360068165245	U	protein processing involved in protein targeting to mitochondrion	MHS570	other_OG
+KOG1601|Others	12	19.704433497536947	K	transcription, DNA-templated	MHS570	other_OG
+KOG1620|Others	8	17.660044150110373	G	inositol phosphate biosynthetic process	MHS570	other_OG
+KOG1745|Others	13	49.60170565670301	B	protein heterodimerization activity	MHS570	other_OG
+KOG1805|Others	5	9.416195856873822	L	single-stranded DNA-dependent ATPase activity	MHS570	other_OG
+KOG1824|Others	7	17.0316301703163	S	SCF complex assembly	MHS570	other_OG
+KOG2094|Others	4	14.336917562724013	L	DNA-directed DNA polymerase activity	MHS570	other_OG
+KOG2257|Others	7	40.93567251461988	S	phosphatidylinositol N-acetylglucosaminyltransferase activity	MHS570	other_OG
+KOG2311|Others	17	35.85306253254817	D	mitochondrial tRNA wobble uridine modification	MHS570	other_OG
+KOG2362|Others	232	95.67395194077446	E	MOSC domain-containing protein	MHS570	other_OG
+KOG2397|Others	1	4.566210045662101	S	N-glycan processing	MHS570	other_OG
+KOG2497|Others	58	47.736625514403286	J	methyltransferase activity	MHS570	other_OG
+KOG2516|Others	5	14.005602240896359	M	dol-P-Man:Man(7)GlcNAc(2)-PP-Dol alpha-1,6-mannosyltransferase activity	MHS570	other_OG
+KOG2633|Others	2	6.944444444444445	KLT	ADP-D-ribose binding	MHS570	other_OG
+KOG2831|Others	7	26.81992337164751	E	ATP phosphoribosyltransferase activity	MHS570	other_OG
+KOG3051|Others	2	4.597701149425287	J	L-threonylcarbamoyladenylate synthase	MHS570	other_OG
+KOG3086|Others	6	15.267175572519083	O	regulation of microtubule-based process	MHS570	other_OG
+KOG3113|Others	7	11.11111111111111	N	mitotic DNA replication termination; nuclear DNA replication termination	MHS570	other_OG
+KOG3159|Others	12	42.55319148936171	H	lipoate-protein ligase activity	MHS570	other_OG
+KOG3202|Others	1	4.329004329004329	U	SNAP receptor activity	MHS570	other_OG
+KOG3234|Others	4	9.456264775413711	T	N-terminal peptidyl-methionine acetylation	MHS570	other_OG
+KOG3277|Others	71	99.69729221249668	S	protein import into mitochondrial matrix	MHS570	other_OG
+KOG3525|Others	17	26.356589147286822	O	serine-type endopeptidase activity	MHS570	other_OG
+KOG3943|Others	3	15.15151515151515	GH	tRNA modification	MHS570	other_OG
+KOG4177|Others	7	13.972055888223553	I	spectrin binding	MHS570	other_OG
+KOG4308|Others	45	32.89473684210526	S	interleukin-8 biosynthetic process	MHS570	other_OG
+KOG4444|Others	3	9.174311926605505	S	peroxisome organization	MHS570	other_OG
+KOG4475|Others	7	15.659955257270694	U	coreceptor activity involved in Wnt signaling pathway, planar cell polarity pathway	MHS570	other_OG
+KOG4567|Others	2	6.872852233676976	J	regulation of vesicle fusion	MHS570	other_OG
+KOG4663|Others	2	3.745318352059925	C	electron transfer activity	MHS570	other_OG
+KOG4668|Others	1	3.436426116838488	C	NADH dehydrogenase (quinone) activity	MHS570	other_OG
+KOG4669|Others	7	34.82587064676617	C	ATP synthesis coupled electron transport	MHS570	other_OG
+KOG4779|Others	2	5.899705014749262	S	regulation of fibroblast apoptotic process	MHS570	other_OG
+KOG4853|Others	58	276.1904761904762	S	Component of the MICOS complex, a large protein complex of the mitochondrial inner membrane that plays crucial roles in the maintenance of crista junctions, inner membrane architecture, and formation of contact sites to the outer membrane; mitotic sister chromatid biorientation	MHS570	other_OG

@@ -1,0 +1,3 @@
+paired_counts	distinct_minimizer_count	k2_taxon	source	rel_abun	abun_filter	species_microbial_read_pair_total	minimizer_threshold	minimizer_microbe_ratio	minimizer_filter	taxa_pass_filter	mtx_LIBID
+6803650	3544432	Malassezia_globosa	non_contaminant	99.8861761666429	TRUE	6851683	68516.83	517308.2292336058	TRUE	TRUE	MHS350
+7753	126928	Haemophilus_parainfluenzae	non_contaminant	0.11382383335709252	TRUE	6851683	68516.83	18525.08354516693	TRUE	TRUE	MHS350

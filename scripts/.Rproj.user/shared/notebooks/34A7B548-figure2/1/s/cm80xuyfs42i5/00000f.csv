@@ -1,0 +1,29 @@
+"0","library(ecodist)
+"
+"2","Warning:"
+"2"," package ‘ecodist’ was built under R version 4.2.3
+"
+"2","
+Attaching package: ‘ecodist’
+
+"
+"2","The following object is masked from ‘package:vegan’:
+
+    mantel
+
+"
+"2","The following object is masked from ‘package:SummarizedExperiment’:
+
+    distance
+
+"
+"2","The following object is masked from ‘package:GenomicRanges’:
+
+    distance
+
+"
+"2","The following object is masked from ‘package:IRanges’:
+
+    distance
+
+"

@@ -1,0 +1,32 @@
+"0",""
+"0","AMP_hmm_results <- read_tsv(""../data/anti_bact_hmmer/all_mtx_proteins_anti_microbial_hmmscan_fmt.tsv"","
+"0","                            col_names = c(""target_name"",        "
+"0","                                          ""target_accession"","
+"0","                                          ""query_name"","
+"0","                                          ""query_accession"",  "
+"0","                                          ""full_seq_E_value"",  "
+"0","                                          ""full_seq_score"","
+"0","                                          ""full_seq_bias"","
+"0","                                          ""best_one_dom_E_value"",  "
+"0","                                          ""best_one_score"",  "
+"0","                                          ""best_one_bias"",   "
+"0","                                          ""exp"", "
+"0","                                          ""reg"", "
+"0","                                          ""clu"" ,"
+"0","                                          ""ov"", "
+"0","                                          ""env"","
+"0","                                          ""dom"","
+"0","                                          ""rep"","
+"0","                                          ""inc"", "
+"0","                                          ""description_of_target"")) %>% dplyr::filter(target_name != ""Staphylococcus_sle1"")"
+"1","[1mRows: [22m[34m1580[39m [1mColumns: [22m[34m19[39m
+"
+"1","[36m──[39m [1mColumn specification[22m [36m────────────────────────────────────────────────────────────────────────────────────────────────────────────────[39m
+[1mDelimiter:[22m ""\t""
+[31mchr[39m  (5): target_name, target_accession, query_name, query_accession, description_of_target
+[32mdbl[39m (14): full_seq_E_value, full_seq_score, full_seq_bias, best_one_dom_E_value, best_one_score, best_one_bias, exp, reg, clu, ov, e...
+"
+"1","
+[36mℹ[39m Use `spec()` to retrieve the full column specification for this data.
+[36mℹ[39m Specify the column types or set `show_col_types = FALSE` to quiet this message.
+"

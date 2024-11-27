@@ -1,0 +1,219 @@
+"0",""
+"0","library(tidyverse)"
+"0","library(reshape2)"
+"0",""
+"0",""
+"0","library(DESeq2)"
+"0",""
+"0","library(RColorBrewer)"
+"0",""
+"0","library(pheatmap)"
+"0","library(""ComplexHeatmap"")"
+"2","Warning:"
+"2"," package ‘ComplexHeatmap’ was built under R version 4.2.1
+"
+"2","Loading required package: grid
+"
+"2","========================================
+ComplexHeatmap version 2.12.1
+Bioconductor page: http://bioconductor.org/packages/ComplexHeatmap/
+Github page: https://github.com/jokergoo/ComplexHeatmap
+Documentation: http://jokergoo.github.io/ComplexHeatmap-reference
+
+If you use it in published research, please cite either one:
+- Gu, Z. Complex heatmaps reveal patterns and correlations in multidimensional 
+    genomic data. Bioinformatics 2016.
+- Gu, Z. Complex Heatmap Visualization. iMeta 2022.
+
+
+The new InteractiveComplexHeatmap package can directly export static 
+complex heatmaps into an interactive Shiny app with zero effort. Have a try!
+
+This message can be suppressed by:
+  suppressPackageStartupMessages(library(ComplexHeatmap))
+========================================
+! pheatmap() has been masked by ComplexHeatmap::pheatmap(). Most of the arguments
+   in the original pheatmap() are identically supported in the new function. You 
+   can still use the original function by explicitly calling pheatmap::pheatmap().
+
+"
+"2","
+Attaching package: ‘ComplexHeatmap’
+
+"
+"2","The following object is masked from ‘package:pheatmap’:
+
+    pheatmap
+
+"
+"0","library(tximport)"
+"0",""
+"0","#pheatmap() has been masked by ComplexHeatmap::pheatmap()"
+"0","#Most of the arguments"
+"0","#in the original pheatmap() are identically supported in the new function. You "
+"0","#can still use the original function by explicitly calling pheatmap::pheatmap()."
+"0",""
+"0","library(EnhancedVolcano)"
+"2","Loading required package: ggrepel
+"
+"0","library(ggpubr)"
+"0",""
+"0","library(""clusterProfiler"") #v4.4.4"
+"0","library(scales)"
+"2","
+Attaching package: ‘scales’
+
+"
+"2","The following object is masked from ‘package:purrr’:
+
+    discard
+
+"
+"2","The following object is masked from ‘package:readr’:
+
+    col_factor
+
+"
+"0","library(metagenomeSeq)"
+"2","Loading required package: limma
+"
+"2","Warning:"
+"2"," package ‘limma’ was built under R version 4.2.1
+"
+"2","
+Attaching package: ‘limma’
+
+"
+"2","The following object is masked from ‘package:DESeq2’:
+
+    plotMA
+
+"
+"2","The following object is masked from ‘package:BiocGenerics’:
+
+    plotMA
+
+"
+"2","Loading required package: glmnet
+"
+"2","Warning:"
+"2"," package ‘glmnet’ was built under R version 4.2.3
+"
+"2","Loading required package: Matrix
+"
+"2","
+Attaching package: ‘Matrix’
+
+"
+"2","The following object is masked from ‘package:S4Vectors’:
+
+    expand
+
+"
+"2","The following objects are masked from ‘package:tidyr’:
+
+    expand, pack, unpack
+
+"
+"2","Loaded glmnet 4.1-7
+"
+"0","library(ALDEx2) #v1.28.1"
+"2","Loading required package: zCompositions
+"
+"2","Warning:"
+"2"," package ‘zCompositions’ was built under R version 4.2.3
+"
+"2","Loading required package: MASS
+"
+"2","
+Attaching package: ‘MASS’
+
+"
+"2","The following object is masked from ‘package:AnnotationDbi’:
+
+    select
+
+"
+"2","The following object is masked from ‘package:clusterProfiler’:
+
+    select
+
+"
+"2","The following object is masked from ‘package:dplyr’:
+
+    select
+
+"
+"2","Loading required package: NADA
+"
+"2","Warning:"
+"2"," package ‘NADA’ was built under R version 4.2.3
+"
+"2","Loading required package: survival
+"
+"2","
+Attaching package: ‘NADA’
+
+"
+"2","The following object is masked from ‘package:IRanges’:
+
+    cor
+
+"
+"2","The following object is masked from ‘package:S4Vectors’:
+
+    cor
+
+"
+"2","The following object is masked from ‘package:stats’:
+
+    cor
+
+"
+"2","Loading required package: truncnorm
+"
+"2","Warning:"
+"2"," package ‘truncnorm’ was built under R version 4.2.1
+"
+"0","library(propr) #version 2.1.2"
+"2","
+Attaching package: ‘propr’
+
+"
+"2","The following object is masked from ‘package:ALDEx2’:
+
+    aldex.glm
+
+"
+"2","The following object is masked from ‘package:lattice’:
+
+    parallel
+
+"
+"2","The following object is masked from ‘package:clusterProfiler’:
+
+    simplify
+
+"
+"2","The following object is masked from ‘package:purrr’:
+
+    simplify
+
+"
+"0","#https://stackoverflow.com/questions/45902376/printing-venn-diagram-after-calculating-overlap"
+"0","library(VennDiagram)"
+"2","Warning:"
+"2"," package ‘VennDiagram’ was built under R version 4.2.3
+"
+"2","Loading required package: futile.logger
+"
+"2","
+Attaching package: ‘VennDiagram’
+
+"
+"2","The following object is masked from ‘package:ggpubr’:
+
+    rotate
+
+"
+"0","library(""GSEABase"")"

@@ -1,0 +1,16 @@
+"0","malassezia_secretory <- read_tsv(""../data/signalP_out/Malassezia_transcripts_translated_signalP6_prediction_results_secretory_fmt.tsv"",
+                                 col_names = c(""ID"", ""prediction"", 
+                                               ""OTHER"",""SP"", ""CS_position"", ""pangene"",
+                                               show_col_types=FALSE))
+"
+"1","[1mRows: [22m[34m1048[39m [1mColumns: [22m[34m6[39m
+"
+"1","[36m──[39m [1mColumn specification[22m [36m────────────────────────────────────────────────────────────────────────────────────────────────────────────────[39m
+[1mDelimiter:[22m ""\t""
+[31mchr[39m (4): ID, prediction, CS_position, pangene
+[32mdbl[39m (2): OTHER, SP
+"
+"1","
+[36mℹ[39m Use `spec()` to retrieve the full column specification for this data.
+[36mℹ[39m Specify the column types or set `show_col_types = FALSE` to quiet this message.
+"

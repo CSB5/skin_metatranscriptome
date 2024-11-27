@@ -1,0 +1,1245 @@
+---
+title: "species_level_DE"
+author: "Chiamh"
+date: "2024-11-19"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Load libraries
+
+```{r}
+
+library(tidyverse)
+library(DESeq2)
+library(RColorBrewer)
+library(pheatmap)
+
+library("clusterProfiler") #v4.4.4
+library("GSEABase")
+library(EnhancedVolcano)
+library(limma)
+
+library(ggbreak)
+
+library(tximport)
+
+```
+
+Load metadata
+
+```{r}
+
+metadata <- read_tsv("../metadata/skin_mtx_metadata_fmt.txt", show_col_types = FALSE) 
+
+#The library IDs of the 102 mtx libraries in this project
+mtx_to_pull <- read_tsv("../metadata/mtx_to_pull", col_names = "LIBID") %>% pull(LIBID)
+
+mtx_stats <- read_tsv("../metadata/MTX_QC_stats.txt", show_col_types = FALSE) 
+
+mtx_stats <- merge(mtx_stats, metadata, by ="LIBID", all.x=TRUE)
+
+mtx_stats_chosen <- mtx_stats %>% dplyr::filter(LIBID %in% mtx_to_pull)
+
+
+mtx_mgx_stats_chosen <- read_tsv(file="../metadata/mtx_mgx_stats_chosen.tsv",
+                                show_col_types = FALSE)
+
+
+S_epi_in_vitro_metadata <- read_tsv("../metadata/S_epi_in_vitro.txt")
+
+
+
+#library names of in house S epidermidis culture experiments
+#OS: osmotic stress
+#SP: stationary phase
+
+in_house_S_epi_in_vitro <- c("Sepi_ctrl1",
+                             "Sepi_ctrl2",
+                             "Sepi_ctrl3",
+                             "Sepi_OS1",
+                             "Sepi_OS2",
+                             "Sepi_OS3",
+                             "Sepi_SP1",
+                             "Sepi_SP2",
+                             "Sepi_SP3")
+
+
+
+#Beware of commas in the ECnum column.. need to split them into separate rows
+#Use the EC annotations from the original propan annotation files instead of from just the emapper2.1.6 output
+#S epidermidis pangene annotations
+S_epidermidis_anno <- read_csv("../metadata/1282.Staphylococcus.epidermidis.pangenome.annotation.matrix.csv") %>% dplyr::rename(propan_clusterID=Clusters)
+
+S_epidermidis_pangene_names <- read_tsv("../metadata/S_epidermidis_derep_pangenome_names.txt", col_names = "pangene")
+
+#Extract the ECnums from S_epidermidis_anno 
+
+S_epi_propan_EC <- S_epidermidis_anno %>% dplyr::select(propan_clusterID,`Enzyme Class`)
+colnames(S_epi_propan_EC)[2] <- "propan_EC_desc"
+
+#separate rows by ";"
+S_epi_propan_EC <- S_epi_propan_EC %>% dplyr::filter(propan_EC_desc != "-") %>% 
+  separate_rows(propan_EC_desc, sep="; ")
+
+
+#This regex utilizes lookahead and lookbehind to return the ECNum
+#CAUTION: if I did not separate the rows by ";", then I would have needed to use str_extract_all instead, since str_extract only gives the first match
+S_epi_propan_EC$ECnum <- str_extract(S_epi_propan_EC$propan_EC_desc, pattern="(?<=\\[)[0-9\\.]*(?=\\])")
+
+S_epi_propan_EC$propan_EC_desc <- gsub(pattern="\\[[0-9]*\\.[0-9]*\\.[0-9]*\\.[0-9]*\\]",replacement="",x=S_epi_propan_EC$propan_EC_desc)
+
+
+
+
+#Load KEGG annotations
+
+KEGG_term2name <- read_tsv("../metadata/KEGG_term2name.tsv", show_col_types = FALSE)
+
+KEGG_hum_disease_pathways <- read_tsv("../metadata/KEGG_hum_disease_pathway_modules.txt", 
+                                      show_col_types = FALSE,
+                                      col_names = "map_ID")
+
+KEGG_org_sys_pathways <- read_tsv("../metadata/KEGG_organismal_systems_pathway_modules.txt", 
+                                  show_col_types = FALSE,
+                                  col_names = "map_ID")
+
+
+
+#Load GO annotations
+
+# Load GO annotations
+GO_annot_all <- read_tsv("../metadata/all_GO_annotations.tsv", show_col_types = FALSE)
+
+
+#Select annotations associated with "Biological Process"
+GO_BP_term2name <- GO_annot_all %>% 
+  dplyr::filter(ontology=="BP") %>% 
+  dplyr::select(GO_ID, GO_desc) %>%
+  dplyr::rename(from=GO_ID, to=GO_desc)
+
+
+#Select annotations associated with "Molecular Function"
+GO_MF_term2name <- GO_annot_all %>% 
+  dplyr::filter(ontology=="MF") %>% 
+  dplyr::select(GO_ID, GO_desc) %>%
+  dplyr::rename(from=GO_ID, to=GO_desc)
+
+#
+## Load goslim_metagenome annotations
+
+goslim_metagenome_term2name <- read_tsv("../metadata/goslim_metagenome.txt", 
+                                    col_names = c("GO_slim","GO_desc"), show_col_types = FALSE) %>% 
+  dplyr::rename(from=GO_slim, to=GO_desc)
+
+
+
+#Load eggnog mapper annotations (with GO annotations) for the eight skin bacteria
+
+eight_skin_bact_proteins_emapper_annot <- read_tsv("../metadata/eight_skin_bact_proteins.emapper.annotations",
+                                                   comment="#", show_col_types = FALSE,
+                                                   col_names = c("query",  
+                                                                 "seed_ortholog",   
+                                                              "evalue",
+                                                              "score",
+                                                              "eggNOG_OGs",
+                                                              "max_annot_lvl",
+                                                              "COG_category",
+                                                              "Description",
+                                                              "Preferred_name", 
+                                                              "GOs", "EC", "KEGG_ko",
+                                                              "KEGG_Pathway", "KEGG_Module",
+                                                              "KEGG_Reaction",  "KEGG_rclass",
+                                                              "BRITE", "KEGG_TC", 
+                                                              "CAZy", "BiGG_Reaction", "PFAMs"))
+
+
+
+eight_skin_bact_proteins_emapper_annot$species <- word(eight_skin_bact_proteins_emapper_annot$query,1,2,sep="_")
+
+eight_skin_bact_proteins_emapper_annot$propan_clusterID <- word(eight_skin_bact_proteins_emapper_annot$query,3,4,sep="_")
+
+
+
+# KO pathway annotations
+#https://www.genome.jp/kegg/mapper/search.html
+#https://www.genome.jp/kegg-bin/show_organism?menu_type=pathway_maps&org=ko
+
+#ko.pathways <- download_KEGG(species="ko")
+#term2name <- ko.pathways$KEGGPATHID2NAME
+#write_tsv(term2name, file="../metadata/KEGG_term2name.tsv")
+
+#Load in term2name so that we do not have to download_KEGG every time we re-run this chunk
+KEGG_term2name <- read_tsv("../metadata/KEGG_term2name.tsv", show_col_types = FALSE)
+
+
+```
+
+Define custom functions
+
+```{r}
+
+source("custom_functions.R")
+
+source("DESeq2_wrappers.R")
+
+species_threshold_fn <- function(species, paired_read_threshold, k2_input){
+  
+  df_filt <- k2_input %>% dplyr::filter(name == species & paired_reads >= paired_read_threshold)
+  
+  return(df_filt)
+  
+}
+
+
+get_lib_vec_fn <- function(in_vivo_site="Tw",in_vitro_condition, in_vitro_study){
+  
+  #in_vivo IDs
+  in_vivo <- DESeq_metadata %>% dplyr::filter(condition %in% in_vivo_site) %>% rownames()
+  
+  
+  #in_vitro IDs
+  in_vitro <- S_epi_in_vitro_metadata %>% dplyr::filter(study %in% in_vitro_study & expt_desc %in% in_vitro_condition) %>% pull(Library_ID) %>% unique()
+  
+  output_vec <- c(in_vivo,in_vitro)
+  return(output_vec)
+  
+}
+
+#Modify the DESeq2 PCA function
+
+plotPCA_custom.DESeqTransform = function(object, intgroup="condition", ntop=500, returnData=FALSE)
+{
+  # calculate the variance for each gene
+  rv <- rowVars(assay(object))
+
+  # select the ntop genes by variance
+  select <- order(rv, decreasing=TRUE)[seq_len(min(ntop, length(rv)))]
+
+  # perform a PCA on the data in assay(x) for the selected genes
+  pca <- prcomp(t(assay(object)[select,]))
+
+  # the contribution to the total variance for each component
+  percentVar <- pca$sdev^2 / sum( pca$sdev^2 )
+
+  if (!all(intgroup %in% names(colData(object)))) {
+    stop("the argument 'intgroup' should specify columns of colData(dds)")
+  }
+
+  intgroup.df <- as.data.frame(colData(object)[, intgroup, drop=FALSE])
+  
+  # add the intgroup factors together to create a new grouping factor
+  group <- if (length(intgroup) > 1) {
+    factor(apply( intgroup.df, 1, paste, collapse=":"))
+  } else {
+    colData(object)[[intgroup]]
+  }
+
+  # assemble the data for the plot
+  d <- data.frame(PC1=pca$x[,1], PC2=pca$x[,2],
+                  PC3=pca$x[,3], PC4=pca$x[,4],
+                  PC5=pca$x[,5], PC6=pca$x[,6],
+                  PC7=pca$x[,7], PC8=pca$x[,8],
+                  group=group, intgroup.df, name=colnames(object))
+
+  if (returnData) {
+    variance_vector <- percentVar
+    attr(d, "percentVar") <- percentVar[1:2]
+    return(list(d, variance_vector))
+  }
+  
+  ggplot(data=d, aes_string(x="PC1", y="PC2", color="group")) + geom_point(size=5) + 
+    xlab(paste0("PC1: ",round(percentVar[1] * 100),"% variance")) +
+      ylab(paste0("PC2: ",round(percentVar[2] * 100),"% variance")) +
+        coord_fixed() + theme_classic() + scale_color_manual(values=c24)
+}
+
+setMethod("plotPCA", signature(object="DESeqTransform"), plotPCA_custom.DESeqTransform)
+
+
+
+
+```
+
+# Malassezia restricta analysis
+
+## Load Malassezia restricta gene annotations
+
+Gene counts from Salmon
+
+```{r}
+
+
+###Load Malassezia transcriptome eggNOG annotations. Also need to associate each query with a Malassezia locus tag
+#This can be done with Malassezia_tx2gene
+
+Malassezia_OG_annot <- read_tsv("../data/emapper_out/Malassezia_CDS.emapper.annotations",
+                                                   comment="#", show_col_types = FALSE,
+                                                   col_names = c("query",  
+                                                                 "seed_ortholog",   
+                                                              "evalue",
+                                                              "score",
+                                                              "eggNOG_OGs",
+                                                              "max_annot_lvl",
+                                                              "COG_category",
+                                                              "Description",
+                                                              "Preferred_name", 
+                                                              "GOs", "EC", "KEGG_ko",
+                                                              "KEGG_Pathway", "KEGG_Module",
+                                                              "KEGG_Reaction",  "KEGG_rclass",
+                                                              "BRITE", "KEGG_TC", 
+                                                              "CAZy", "BiGG_Reaction", "PFAMs"))
+
+
+
+#For salmon tximport
+Malassezia_tx2gene <- read_tsv("../metadata/Malassezia_tx2gene.tsv", col_names = FALSE, show_col_types = FALSE) #21037 transcripts and 21025 genes
+
+#Add Malassezia gene annotations to the eggnog annotation file
+colnames(Malassezia_tx2gene) <- c("query","gene")
+Malassezia_OG_annot <- merge(Malassezia_OG_annot, Malassezia_tx2gene, all.x=TRUE, by = "query")
+
+
+MGL_OG_annot <- Malassezia_OG_annot %>% dplyr::filter(str_detect(string=Malassezia_OG_annot$gene, pattern="MGL"))
+MGL_OG_annot$annot <- paste0(MGL_OG_annot$gene,"_",MGL_OG_annot$Description)
+
+#Details of M globosa genes and the 13 secreted lipases
+MGL_secretory_lipase <- MGL_OG_annot %>% dplyr::filter(str_detect(string=MGL_OG_annot$Description, pattern="Secretory lipase|^Lipase"))
+
+#
+Malassezia_salmon_files <- file.path("../data/mtx_species_mapping/Malassezia_salmon_out", paste0(mtx_to_pull, "_quant.sf"))
+
+names(Malassezia_salmon_files) <- mtx_to_pull
+
+Malassezia_txi.salmon <- tximport(Malassezia_salmon_files, type="salmon", tx2gene=Malassezia_tx2gene)
+
+Malassezia_count_matrix <- Malassezia_txi.salmon$counts
+
+#Convert to matrix of integers
+  
+Malassezia_integer_count_matrix <- round(Malassezia_count_matrix)
+mode(Malassezia_integer_count_matrix) <- "integer"
+#write.table(Malassezia_integer_count_matrix, file="../data/Malassezia_integer_count_matrix.txt", row.names=TRUE, col.names=TRUE)
+
+Malassezia_TPM_matrix <- Malassezia_txi.salmon$abundance
+#write.table(Malassezia_TPM_matrix, file="../data/Malassezia_TPM_matrix.txt", row.names=TRUE, col.names=TRUE)
+
+#We need to generate a custom term2gene dataframe specific to M restricta 
+
+M_res_term2gene <- get_Malassezia_term2gene_df(species="Malassezia_restricta")
+M_res_term2gene <- M_res_term2gene %>% dplyr::filter(!from %in% c(KEGG_hum_disease_pathways$map_ID,
+                                               KEGG_org_sys_pathways$map_ID))
+
+MGL_term2gene <- get_Malassezia_term2gene_df(species="Malassezia_globosa")
+MGL_term2gene <- MGL_term2gene %>% dplyr::filter(!from %in% c(KEGG_hum_disease_pathways$map_ID,
+                                               KEGG_org_sys_pathways$map_ID))
+
+
+
+
+
+###########
+##M restricta
+##########
+#Malassezia restricta has good annotations from the gtf file
+M_res_gtf_annots <- read_tsv("../metadata/M_restricta_GCA_003691605.1_ASM369160v1_cds_from_genomic_annots.tsv", 
+                             col_names = c("gene_tag","gene","proteinID"), show_col_types = FALSE)
+
+M_res_gtf_annots$annot <- ifelse(is.na(M_res_gtf_annots$gene_tag) & is.na(M_res_gtf_annots$proteinID), 
+                                 M_res_gtf_annots$gene, ifelse(is.na(M_res_gtf_annots$gene_tag)
+                                                               & !is.na(M_res_gtf_annots$proteinID), 
+                                                               M_res_gtf_annots$proteinID, M_res_gtf_annots$gene_tag)
+                                 )
+M_res_gtf_annots$annot <- paste0(M_res_gtf_annots$gene,"_",M_res_gtf_annots$annot)
+#Shorten very long label
+M_res_gtf_annots$annot <- gsub(pattern="putative CDP-alcohol phosphatidyltransferase class-I family protein C22A12.10", 
+                               replacement="CDP-alcohol phosphatidyltransferase",
+                               M_res_gtf_annots$annot)
+
+```
+## Differential expression analysis for Malassezia restricta
+
+```{r}
+
+mtx_Sc_Ch_libs <- mtx_stats_chosen %>% dplyr::filter(region %in% c("Sc","Ch")) %>% pull(LIBID)
+
+M_res_Sc_Ch_count_matrix <- Malassezia_count_matrix[grep("DNF",row.names(Malassezia_count_matrix)),
+                                                    mtx_Sc_Ch_libs]
+
+
+
+#select those with a minimum M restricta read threshold by Kraken2.
+#MTX data
+
+rna_k2_minimizer <- lapply(mtx_to_pull, function(x){
+  
+  df_out <- read_tsv(file=paste0("../data/k2_species_renorm/RNA/unfiltered/",x,"_k2_minimizer.s.tsv"),
+           show_col_types = FALSE)
+  return(df_out)
+  
+})
+
+names(rna_k2_minimizer) <- mtx_to_pull
+
+
+
+M_restricta_Sc_Ch <- lapply(rna_k2_minimizer[mtx_Sc_Ch_libs], function(df){
+  
+  output <- df %>% dplyr::filter(k2_taxon == "Malassezia_restricta") %>% dplyr::rename(LIBID=mtx_LIBID)
+  
+  output <- merge(output, mtx_stats_chosen %>% dplyr::select(c("LIBID","subj_region", "subject","region","low_conc")),
+                  by="LIBID")
+  
+  return(output)
+  
+}) %>% do.call("rbind",.)
+
+
+
+#Run DESeq2 on samples with at least 200K M restricta read pairs
+M_restricta_Sc_Ch_filt_DESeq <- run_DESeq_with_salmon_matrix(input_matrix = M_res_Sc_Ch_count_matrix,
+                                                           lib_vec=M_restricta_Sc_Ch %>% 
+                                                             dplyr::filter(paired_counts >= 200000) %>%  pull(LIBID),
+                                                           cond="Sc",
+                                                           ref_cond="Ch",
+                                                           run_test = TRUE,
+                                                           species="Malassezia_restricta")
+
+plotDispEsts(M_restricta_Sc_Ch_filt_DESeq[["dds"]])
+
+DESeq2::plotMA(M_restricta_Sc_Ch_filt_DESeq[["DE_results_shrunken"]])
+
+
+summary(M_restricta_Sc_Ch_filt_DESeq[["DE_results_shrunken"]])
+
+M_restricta_Sc_Ch_DE_res <- M_restricta_Sc_Ch_filt_DESeq[["DE_results_shrunken_df"]] %>% dplyr::rename(feature=gene)
+```
+
+## Panel A
+
+```{r}
+
+#Volcano plot
+
+###Color the points that are involved in peroxisome pathway, enriched lipid pathways or both 
+
+#points that correspond to "peroxisome" pathway - map04146
+M_res_term2gene_peroxisome <- M_res_term2gene %>% dplyr::filter(from == "map04146")
+#points that correspond to enriched lipid metabolic pathways
+#map00565: Ether lipid metabolism
+#map00564: Glycerophospholipid metabolism
+#map00600: Sphingolipid metabolism
+
+M_res_term2gene_enriched_lipid_metab <- M_res_term2gene %>% 
+  dplyr::filter(from %in%  c("map00561","map00564","map00600"))
+
+M_res_Sc_Ch_volcano_keyvals_color <- ifelse(M_restricta_Sc_Ch_DE_res$feature %in% 
+                                              intersect(M_res_term2gene_peroxisome$to,M_res_term2gene_enriched_lipid_metab$to), 'green',
+                                            ifelse(M_restricta_Sc_Ch_DE_res$feature %in% M_res_term2gene_peroxisome$to,'royalblue', 
+                                                   ifelse(M_restricta_Sc_Ch_DE_res$feature %in% M_res_term2gene_enriched_lipid_metab$to, "gold",
+                                            'black')))
+
+M_res_Sc_Ch_volcano_keyvals_color[is.na(M_res_Sc_Ch_volcano_keyvals_color)] <- 'black'
+names(M_res_Sc_Ch_volcano_keyvals_color)[M_res_Sc_Ch_volcano_keyvals_color == 'royalblue'] <- 'Peroxisome'
+names(M_res_Sc_Ch_volcano_keyvals_color)[M_res_Sc_Ch_volcano_keyvals_color == 'gold'] <- 'Ether lipid/Glycerophospholipid/Sphingolipid metabolism'
+names(M_res_Sc_Ch_volcano_keyvals_color)[M_res_Sc_Ch_volcano_keyvals_color == 'green'] <- 'Both'
+
+
+M_restricta_volcano_gene_labels <- data.frame(gene=rownames(M_restricta_Sc_Ch_DE_res))
+
+M_restricta_volcano_gene_labels <- merge(M_restricta_volcano_gene_labels, M_res_gtf_annots, all.x=TRUE, by ="gene")
+
+M_restricta_volcano_gene_labels$gene_annot <- ifelse(is.na(M_restricta_volcano_gene_labels$gene_tag),
+                                                     M_restricta_volcano_gene_labels$gene,
+                                                     M_restricta_volcano_gene_labels$gene_tag)
+
+
+M_restricta_Sc_Ch_DE_volcano <- EnhancedVolcano(M_restricta_Sc_Ch_DE_res,
+                lab = M_restricta_volcano_gene_labels$gene_annot,
+                title = "Malassezia restricta transcripts, Sc vs Ch",
+                x='log2FoldChange',
+                y='padj',
+                selectLab = c('plcN_1', 'plcN_2',
+                              'plcN_3', 'plcN_4',
+                              'plcN_5','plcN_6',
+                              'plcN_7', 'stt4', 'pik1',
+                              'Acot8','POT1', 'LACS7', 'POX2', 'PEX11B'),
+                #boxedLabels = TRUE,
+                drawConnectors = TRUE,
+                labFace = 'bold',
+                labSize = 3.0,
+                pCutoff = 0.05,
+                FCcutoff=0,
+                colCustom = M_res_Sc_Ch_volcano_keyvals_color)
+
+ggsave(filename="../plots/M_restricta_Sc_Ch_DE_volcano.pdf",
+       plot=M_restricta_Sc_Ch_DE_volcano,
+       height = 8, width = 10)
+
+
+M_restricta_Sc_Ch_DE_volcano
+
+```
+## Panel B
+
+Gene set enrichment analysis for M restricta results
+
+```{r}
+
+##GSEA with KEGG
+
+M_restricta_Sc_Ch_DE_GSEA_KEGG <- GSEA_from_DESeq(genelist = M_restricta_Sc_Ch_filt_DESeq$DE_results_shrunken_df$log2FoldChange,
+                                         gene_names = M_restricta_Sc_Ch_filt_DESeq$DE_results_shrunken_df$gene,
+                                         term2gene = M_res_term2gene,
+                                         term2name = KEGG_term2name)
+
+M_restricta_Sc_Ch_DE_NES_KEGG <- make_NES_barplot(M_restricta_Sc_Ch_DE_GSEA_KEGG@result, title= "Malassezia restricta transcripts, Sc vs Ch")
+
+ggsave(filename="../plots/M_restricta_Sc_Ch_DE_NES_KEGG.pdf",
+       plot=M_restricta_Sc_Ch_DE_NES_KEGG,
+       height = 8, width = 10)
+
+
+M_restricta_Sc_Ch_DE_NES_KEGG
+
+```
+
+# Malassezia globosa analysis
+
+## Malassezia globosa comparisons between Scalp and cheek
+
+```{r}
+
+M_globosa_Sc_Ch_count_matrix <- Malassezia_count_matrix[grep("MGL",row.names(Malassezia_count_matrix)),
+                                                    mtx_Sc_Ch_libs]
+
+
+M_globosa_Sc_Ch <- lapply(rna_k2_minimizer[mtx_Sc_Ch_libs], function(df){
+  
+  output <- df %>% dplyr::filter(k2_taxon == "Malassezia_globosa") %>% dplyr::rename(LIBID=mtx_LIBID)
+  
+  output <- merge(output, mtx_stats_chosen %>% dplyr::select(c("LIBID","subj_region", "subject","region","low_conc")),
+                  by="LIBID")
+  
+  return(output)
+  
+}) %>% do.call("rbind",.)
+
+
+
+M_globosa_Sc_Ch_PCA_input <- run_DESeq_with_salmon_matrix(input_matrix = M_globosa_Sc_Ch_count_matrix,
+                                                           lib_vec=M_globosa_Sc_Ch %>% dplyr::filter(paired_counts >= 200000) %>% pull(LIBID),
+                                                           cond="Sc",
+                                                           ref_cond="Ch",
+                                                           run_test = FALSE,
+                                                           species="Malassezia_globosa")
+
+plotPCA(M_globosa_Sc_Ch_PCA_input[["vsd"]], intgroup = "region", returnData=FALSE) + geom_text_repel(aes(label = name))
+```
+Run DESeq2 for M globosa between scalp and cheeks.
+
+```{r}
+
+M_globosa_Sc_Ch_filt_DESeq <- run_DESeq_with_salmon_matrix(input_matrix = M_globosa_Sc_Ch_count_matrix,
+                                                           lib_vec=M_globosa_Sc_Ch %>% 
+                                                             dplyr::filter(paired_counts >= 200000) %>%  pull(LIBID),
+                                                           cond="Sc",
+                                                           ref_cond="Ch",
+                                                           run_test = TRUE,
+                                                           species="Malassezia_globosa")
+
+plotDispEsts(M_globosa_Sc_Ch_filt_DESeq[["dds"]])
+
+DESeq2::plotMA(M_globosa_Sc_Ch_filt_DESeq[["DE_results_shrunken"]])
+
+
+summary(M_globosa_Sc_Ch_filt_DESeq[["DE_results_shrunken"]])
+
+# Very few DE genes
+M_globosa_Sc_Ch_DE_res <- M_globosa_Sc_Ch_filt_DESeq[["DE_results_shrunken_df"]] %>% dplyr::rename(feature=gene)
+
+
+#Add annotations to DESeq2 results
+M_globosa_Sc_Ch_DE_res_annot <- merge(M_globosa_Sc_Ch_DE_res,
+                                        MGL_OG_annot %>% dplyr::select(gene,Description) %>% 
+                                        dplyr::rename(feature=gene), 
+                                        by = "feature")
+
+```
+
+# Cutibacterium acnes analysis
+
+Get C_acnes counts after mapping to bacterial pangenomes.
+
+```{r}
+
+mtx_bt2_pangenome_counts <- lapply(mtx_to_pull, function(x){
+  df <- read_tsv(file=paste0("../data/mtx_species_mapping/bt2_out/RNA/",x,"_bt2_microbe_pangenome_aligned_filtered_cov.tsv"),
+                 show_col_types = FALSE)
+  df$LIBID <- x
+  
+  return(df)
+})
+
+
+C_acnes_mtx_bt2_pangenome_counts <- lapply(mtx_bt2_pangenome_counts, function(x){
+  
+  output <-  calculate_species_TPM(x, species="Cutibacterium_acnes")
+  
+  return(output)
+  
+}) %>% do.call("rbind",.)
+
+#add region information
+
+C_acnes_mtx_bt2_pangenome_counts <- merge(C_acnes_mtx_bt2_pangenome_counts, mtx_stats_chosen %>% dplyr::select(LIBID,region), by ="LIBID")
+                                          
+
+#The worry is that these Scalp and cheeks are not comparable due to difference in C acnes coverage
+#Sanity check shows this is ok
+
+#Aggregate read counts per library
+
+C_acnes_mtx_bt2_pangenome_counts_aggregate <- C_acnes_mtx_bt2_pangenome_counts %>% 
+                                              group_by(LIBID,region) %>% summarise(total_read_count_in_sample=sum(unpaired_read_count_sum))
+
+C_acnes_mtx_bt2_pangenome_counts_aggregate$region <- factor(C_acnes_mtx_bt2_pangenome_counts_aggregate$region,
+                                                            levels=c("Sc","Ch","Vf","Ac","Tw"))
+
+ggplot(C_acnes_mtx_bt2_pangenome_counts_aggregate %>% dplyr::filter(region %in% c("Sc","Ch")), 
+       aes(x=region,y=log10(total_read_count_in_sample))) + geom_boxplot() +
+  theme_classic() + 
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1), axis.title.x=element_blank()) + 
+  ggtitle("Expressed C. acnes features")
+
+
+```
+## Cutibacterium acnes comparisons between Scalp and cheek
+
+```{r}
+
+C_acnes_anno <- read_csv("../metadata/1747.Cutibacterium.acnes.pangenome.annotation.matrix.csv",
+                         show_col_types = FALSE) %>% dplyr::rename(propan_clusterID=Clusters)
+C_acnes_pangene_names <- read_tsv("../metadata/C_acnes_derep_pangenome_names.txt", 
+                                  col_names = "pangene",
+                                  show_col_types = FALSE) #9922
+
+
+#Read counts for the propan clusters that are expressed by a majority of individuals with C acnes for Sc and Ch
+
+C_acnes_mtx_cluster_counts <- C_acnes_mtx_bt2_pangenome_counts %>% 
+  dplyr::select(LIBID, propan_clusterID, unpaired_read_count_sum)
+
+#convert to input list
+C_acnes_mtx_cluster_counts_list <- split(C_acnes_mtx_cluster_counts, 
+                                                  f=C_acnes_mtx_cluster_counts$LIBID)
+
+C_acnes_Sc_Ch_DE_QC <- QC_bacteria_RNA_sites(list_of_counts = C_acnes_mtx_cluster_counts_list,
+                                                  species="Cutibacterium_acnes",
+                                                  site="Sc", ref_site="Ch",
+                                                  count_threshold = 200000,
+                                                  shared_individuals_bet_sites=TRUE)
+
+C_acnes_Sc_Ch_DE_QC[["PCA_plot"]]
+
+
+# Minimum 200K C acnes reads
+C_acnes_Sc_Ch_DE_analysis <- compare_bacteria_RNA_sites(list_of_counts = C_acnes_mtx_cluster_counts_list,
+                                                        species_anno=C_acnes_anno, 
+                                                        species_pangene_names = C_acnes_pangene_names,
+                                                  species="Cutibacterium_acnes",
+                                                  site="Sc", ref_site="Ch",
+                                                  count_threshold = 200000,
+                                                  shared_individuals_bet_sites=TRUE)
+
+plotDispEsts(C_acnes_Sc_Ch_DE_analysis[["species_site_filt_DESeq"]]$dds)
+
+DESeq2::plotMA(C_acnes_Sc_Ch_DE_analysis[["species_site_filt_DESeq"]]$DE_results_shrunken)
+
+
+summary(C_acnes_Sc_Ch_DE_analysis[["species_site_filt_DESeq"]]$DE_results_shrunken)
+
+
+#check the DE results 
+C_acnes_Sc_Ch_DE_results_shrunken <- C_acnes_Sc_Ch_DE_analysis[["species_site_filt_DESeq"]]$DE_results_shrunken_df
+
+C_acnes_Sc_Ch_DE_results_shrunken <- merge(C_acnes_Sc_Ch_DE_results_shrunken, C_acnes_anno, by = "propan_clusterID")
+
+C_acnes_Sc_Ch_DE_results_shrunken_signif <- C_acnes_Sc_Ch_DE_results_shrunken %>% dplyr::filter(padj < 0.05)
+
+```
+
+## Panel C
+
+Plot number of DE genes (upreg/downreg, adjusted p < 0.05) between scalp and cheek for M globosa, M restrica and C acnes
+
+
+```{r}
+
+microbial_Sc_vs_Ch_DE_list <- list(M_restricta_Sc_Ch_DE_res %>%  
+                                     dplyr::rename(pangene=feature) %>% 
+                                     dplyr::mutate(comparison="M_restricta"),
+                                          M_globosa_Sc_Ch_DE_res %>% 
+                                     dplyr::rename(pangene=feature) %>%
+                                     dplyr::mutate(comparison="M_globosa"),
+                                   C_acnes_Sc_Ch_DE_results_shrunken %>%
+                                     dplyr::rename(pangene=propan_clusterID) %>%
+                                            dplyr::mutate(comparison="C_acnes"))
+
+microbial_Sc_vs_Ch_DE_tally <- lapply(microbial_Sc_vs_Ch_DE_list, function(x){
+  
+  output <- tally_signif_DE(x)
+  return(output)
+  
+}) %>% do.call("rbind",.)
+
+
+microbial_Sc_vs_Ch_DE_tally_fmt <- pivot_longer(data=microbial_Sc_vs_Ch_DE_tally,
+                                   !comparison,
+                                   names_to="direction",
+                                   values_to="num_signif_features")
+
+microbial_Sc_vs_Ch_DE_tally_fmt$direction <- gsub(microbial_Sc_vs_Ch_DE_tally_fmt$direction, pattern="num_",
+                           replacement="")
+
+microbial_Sc_vs_Ch_DE_tally_fmt$direction <- factor(microbial_Sc_vs_Ch_DE_tally_fmt$direction, 
+                                       levels=c("upreg_features", "downreg_features"))
+
+microbial_Sc_vs_Ch_DE_tally_barplot <- ggplot(microbial_Sc_vs_Ch_DE_tally_fmt, aes(x=comparison, y=num_signif_features, fill=direction)) +
+  geom_col(position="dodge") + theme_classic()
+
+
+ggsave(plot=microbial_Sc_vs_Ch_DE_tally_barplot, 
+       filename = "../plots/microbial_Sc_vs_Ch_DE_tally_barplot.pdf")
+
+
+microbial_Sc_vs_Ch_DE_tally_barplot
+
+
+```
+
+
+# Staphylococcus epidermidis analysis
+
+## Data pre-processing for Staphylococcus epidermidis DESeq2 analysis
+
+Make S epidermidis term2gene df for clusterprofiler (GSEA)
+
+```{r}
+#This is term2gene for KEGG pathways e.g. map03010
+S_epi_KEGG_term2gene <- make_custom_term2gene_df(input_annot=S_epidermidis_anno,
+                                                pangene_names = S_epidermidis_pangene_names)
+
+#make term2gene for GO terms (MF and BP)
+
+S_epi_GO_term2gene <- make_custom_term2gene_df(input_annot = eight_skin_bact_proteins_emapper_annot %>% 
+                                           dplyr::filter(species=="Staphylococcus_epidermidis"), annotation_used = "GO")
+
+```
+
+
+Load kraken 2 counts for RNA 
+
+```{r}
+
+invivo_RNA_k2 <- lapply(mtx_to_pull, function(x){
+  read_tsv(paste0("../data/kraken2/RNA/",x,"_merged_k2.s.tsv"), 
+           col_names = c("rel_abun", "paired_reads", "name"),
+           show_col_types = FALSE)
+})
+
+names(invivo_RNA_k2) <- mtx_to_pull
+
+invivo_RNA_k2 <- lapply(mtx_to_pull, function(x){
+  invivo_RNA_k2[[x]]$LIBID <- x
+  return(invivo_RNA_k2[[x]])
+})
+
+invivo_RNA_k2_df <- do.call("rbind", invivo_RNA_k2)
+
+names(invivo_RNA_k2) <- mtx_to_pull
+
+```
+
+Select in vivo samples with a minimum threshold (200000 reads) of microbial RNA (e.g. S. epidermidis or C. acnes depending on the analysis). 
+
+```{r}
+
+S_epi_in_vivo_meta <- species_threshold_fn(species="Staphylococcus epidermidis", 
+                                           paired_read_threshold = 200000,
+                                           k2_input=invivo_RNA_k2_df)
+
+S_epi_in_vivo_meta <- merge(S_epi_in_vivo_meta %>% dplyr::rename(mtx_LIBID=LIBID), mtx_mgx_stats_chosen, by = "mtx_LIBID")
+#S_epi_in_vivo_meta <- S_epi_in_vivo_meta %>% dplyr::filter(region=="Ch"|region=="Tw")
+
+#to increase number of samples, group sebaceous sites together (Ch and Sc) for S epidermidis
+S_epi_in_vivo_meta$region_fmt <- ifelse(S_epi_in_vivo_meta$region == "Tw", "Tw", "Sebaceous" )
+
+
+
+#For C acnes
+C_acnes_in_vivo_meta <- species_threshold_fn(species="Cutibacterium acnes", paired_read_threshold = 200000, k2_input=invivo_RNA_k2_df)
+C_acnes_in_vivo_meta <- merge(C_acnes_in_vivo_meta %>% dplyr::rename(mtx_LIBID=LIBID), mtx_mgx_stats_chosen, by = "mtx_LIBID")
+
+
+```
+
+prepare DESeq2 metadata for S epidermidis
+
+```{r}
+
+temp_meta <- S_epi_in_vitro_metadata %>% dplyr::select(Library_ID, expt_desc, study) %>% 
+  unique %>% 
+  dplyr::rename(condition=expt_desc) %>% as.data.frame()
+temp_meta$expt_class <- "in_vitro"
+
+temp_meta2 <- S_epi_in_vivo_meta %>% dplyr::select(mtx_LIBID, region_fmt) %>% dplyr::rename(condition=region_fmt)
+temp_meta2$expt_class <- "in_vivo"
+temp_meta2$study <- "this_study"
+
+in_vitro_LIBID <- temp_meta %>% pull(Library_ID) 
+
+#Create row names with the associated sample names
+
+rownames(temp_meta) <- temp_meta$Library_ID
+rownames(temp_meta2) <- temp_meta2$mtx_LIBID
+
+DESeq_metadata <- rbind(temp_meta %>% dplyr::select(-Library_ID), temp_meta2 %>% dplyr::select(-mtx_LIBID))
+
+#batch information within the "study" variable
+DESeq_metadata$study <- factor(DESeq_metadata$study)
+
+#DESeq_metadata$batch <- ifelse(str_detect(rownames(DESeq_metadata),pattern="Sepi|MHS"),
+                               #"this_study","other_studies")
+
+#DESeq_metadata$batch <- factor(DESeq_metadata$batch)
+
+```
+
+
+Reminder: Both in vivo and in vitro RNA seq reads were mapped to the eight skin microbial pangenome using bowtie2.
+
+Prepare dataset of raw counts per cluster for S epidermidis. This will be for DESeq analysis and for deriving inputs for metabolic modelling.
+
+```{r}
+
+invivo_mtx_counts <- lapply(S_epi_in_vivo_meta$mtx_LIBID, function(x){
+  df <- read_tsv(file=paste0("../data/mtx_species_mapping/bt2_out/RNA/",x,"_bt2_microbe_pangenome_aligned_filtered_cov.tsv"),
+                 show_col_types = FALSE)
+  df$LIBID <- x
+  
+  df$condition <- DESeq_metadata[x, "condition"]
+  
+  #select only S epidermidis gene features
+  
+  df_filt <- df %>% dplyr::filter(str_detect(df$pangene, pattern = "Staphylococcus_epidermidis"))
+  
+  #sum up read counts within the propan clusters
+  ##clusters fit the propan definitions
+  df_filt$propan_clusterID <- str_match(string=df_filt$pangene, pattern="cluster_[0-9]*")[,1]
+  
+  df_filt_clust <- df_filt %>% group_by(propan_clusterID) %>% 
+    mutate(unpaired_read_count_sum=sum(unpaired_read_count)) %>% ungroup()
+  
+  output <- df_filt_clust %>% dplyr::select(c("propan_clusterID","unpaired_read_count_sum", "LIBID")) %>% unique(.)
+  
+  output <- output %>% dplyr::rename(pangene=propan_clusterID,unpaired_read_count=unpaired_read_count_sum)
+  
+  return(output)
+})
+
+
+invitro_mtx_counts <- lapply(in_vitro_LIBID, function(x){
+  df <- read_tsv(file=paste0("../data/mtx_species_mapping/S_epi_RNAseq_align_out/bt2_out/",x,"_bt2_microbe_pangenome_aligned_filtered_cov.tsv"),
+                 show_col_types = FALSE)
+  df$LIBID <- x
+  
+  df$condition <- DESeq_metadata[x, "condition"]
+  
+  #select only S epidermidis gene features
+  
+  df_filt <- df %>% dplyr::filter(str_detect(df$pangene, pattern = "Staphylococcus_epidermidis"))
+  
+  #sum up read counts within the propan clusters
+  ##clusters fit the propan definitions
+  df_filt$propan_clusterID <- str_match(string=df_filt$pangene, pattern="cluster_[0-9]*")[,1]
+  
+  df_filt_clust <- df_filt %>% group_by(propan_clusterID) %>% 
+    mutate(unpaired_read_count_sum=sum(unpaired_read_count)) %>% ungroup()
+  
+  output <- df_filt_clust %>% dplyr::select(c("propan_clusterID","unpaired_read_count_sum", "LIBID")) %>% unique(.)
+  
+  output <- output %>% dplyr::rename(pangene=propan_clusterID,unpaired_read_count=unpaired_read_count_sum)
+  
+  return(output)
+})
+
+all_S_epi_mtx_counts <- c(invivo_mtx_counts, invitro_mtx_counts)
+
+#https://stackoverflow.com/questions/72040033/name-lists-elements-based-on-column-they-are-containing
+names(all_S_epi_mtx_counts) <- sapply(all_S_epi_mtx_counts, function(x) unique(x$LIBID))
+
+```
+
+
+# Run DESeq2 for in vivo versus in vitro comparisons (Staphylococcus epidermidis)
+
+## Comparison 1: Tw vs stationary phase
+
+```{r}
+
+#compare with in house data and three external studies: Avican et al 2021, Ahle et al 2022 and Wang et al 2017
+
+Tw_vs_all_stat_phase <- run_DESeq_with_inputs_species_specific(input_list = all_S_epi_mtx_counts, 
+                                                 lib_vec = get_lib_vec_fn(in_vitro_condition="stationary_phase_liquid", 
+                                                                          in_vitro_study = c("this_study", 
+                                                                                             "Avican_et_al_2021", 
+                                                                                             "Wang_et_al_2017")), 
+                                              run_test = TRUE, batch_correct = TRUE)
+
+#PCA should be visualized after limma::removebatcheffect instead. See previous code chunk,
+#plotPCA(Tw_vs_all_stat_phase[["vsd"]], intgroup = "condition", returnData=FALSE)
+
+
+plotDispEsts(Tw_vs_all_stat_phase[["dds"]])
+
+DESeq2::plotMA(Tw_vs_all_stat_phase[["DE_results_shrunken"]])
+
+boxplot(Tw_vs_all_stat_phase$vsd_mat, 
+         xlab="", 
+         ylab="VST counts")
+
+
+summary(Tw_vs_all_stat_phase[["DE_results_shrunken"]])
+
+#save results
+Tw_vs_all_stat_phase_DE_res <- Tw_vs_all_stat_phase[["DE_results_shrunken_df"]]
+
+Tw_vs_all_stat_phase_DE_res <- merge(Tw_vs_all_stat_phase_DE_res,
+                             S_epidermidis_anno %>% dplyr::rename(pangene=propan_clusterID))
+
+
+write_tsv(Tw_vs_all_stat_phase_DE_res,"../data/DESeq2_out/S_epidermidis/S_epi_Tw_vs_all_stat_phase_DE_res.tsv")
+
+
+
+```
+
+##Comparison 2: Tw vs osmotic stress in vitro (in house and external studies). 
+
+
+```{r}
+
+#OS: osmotic stress
+
+Tw_vs_all_OS <- run_DESeq_with_inputs_species_specific(input_list = all_S_epi_mtx_counts, 
+                                                 lib_vec = get_lib_vec_fn(in_vitro_condition="osmotic_stress_liquid", in_vitro_study = c("this_study", "Avican_et_al_2021", "Wang_et_al_2017")), 
+                                                 batch_correct=TRUE, 
+                                                 run_test = TRUE)
+
+
+plotDispEsts(Tw_vs_all_OS[["dds"]])
+
+DESeq2::plotMA(Tw_vs_all_OS[["DE_results_shrunken"]])
+
+
+summary(Tw_vs_all_OS[["DE_results_shrunken"]])
+
+Tw_vs_all_OS_DE_res <- Tw_vs_all_OS$DE_results_shrunken_df
+Tw_vs_all_OS_DE_res <- merge(Tw_vs_all_OS_DE_res,
+                             S_epidermidis_anno %>% dplyr::rename(pangene=propan_clusterID))
+
+write_tsv(Tw_vs_all_OS_DE_res,"../data/DESeq2_out/S_epidermidis/S_epi_Tw_vs_all_OS_DE_res.tsv")
+```
+##Comparison 3: Tw vs log phase in vitro
+
+Do GSEA of Tw vs all (in house + external) log phase in vitro
+
+
+```{r}
+
+Tw_vs_all_log_phase <- run_DESeq_with_inputs_species_specific(input_list = all_S_epi_mtx_counts, 
+                                                 lib_vec = get_lib_vec_fn(in_vitro_condition="log_phase_liquid", 
+                                                                          in_vitro_study = c("this_study", 
+                                                                                             "Avican_et_al_2021", 
+                                                                                             "Wang_et_al_2017")), 
+                                             run_test = TRUE, batch_correct = TRUE)
+
+
+#plotPCA(Tw_vs_all_log_phase[["vsd"]], intgroup = "condition", returnData=FALSE)
+
+plotDispEsts(Tw_vs_all_log_phase[["dds"]])
+
+DESeq2::plotMA(Tw_vs_all_log_phase[["DE_results_shrunken"]])
+
+summary(Tw_vs_all_log_phase[["DE_results_shrunken"]])
+
+Tw_vs_all_log_phase_DE_res <- Tw_vs_all_log_phase$DE_results_shrunken_df
+Tw_vs_all_log_phase_DE_res <- merge(Tw_vs_all_log_phase_DE_res,
+                             S_epidermidis_anno %>% dplyr::rename(pangene=propan_clusterID))
+
+write_tsv(Tw_vs_all_log_phase_DE_res,"../data/DESeq2_out/S_epidermidis/S_epi_Tw_vs_all_log_phase_DE_res.tsv")
+```
+## Comparison 4: Seb vs OS in vitro
+
+Note cluster_17808
+
+```{r}
+#all studies
+
+Seb_vs_all_OS <- run_DESeq_with_inputs_species_specific(input_list = all_S_epi_mtx_counts, 
+                      lib_vec = get_lib_vec_fn(in_vivo_site = "Sebaceous",                                                        in_vitro_condition="osmotic_stress_liquid", 
+                                    in_vitro_study = c("this_study", 
+                                   "Avican_et_al_2021", 
+                                   "Wang_et_al_2017")), 
+                      run_test = TRUE,
+                      batch_correct = TRUE)
+
+
+
+#plotPCA(Seb_vs_all_OS[["vsd"]], intgroup = "condition", returnData=FALSE)
+
+
+Seb_vs_all_OS_DE_res <- Seb_vs_all_OS$DE_results_shrunken_df
+Seb_vs_all_OS_DE_res <- merge(Seb_vs_all_OS_DE_res,
+                             S_epidermidis_anno %>% dplyr::rename(pangene=propan_clusterID))
+
+
+write_tsv(Seb_vs_all_OS_DE_res,"../data/DESeq2_out/S_epi_Seb_vs_all_OS_DE_res.tsv")
+```
+
+## Comparison 5: Seb vs log phase in vitro
+
+Sebaceous vs external and in-house (all) log phase
+
+```{r}
+
+Seb_vs_all_log_phase <- run_DESeq_with_inputs_species_specific(input_list = all_S_epi_mtx_counts, 
+                      lib_vec = get_lib_vec_fn(in_vivo_site = "Sebaceous",                                                        in_vitro_condition="log_phase_liquid", 
+                                    in_vitro_study = c("this_study", 
+                                   "Avican_et_al_2021", 
+                                   "Wang_et_al_2017")), 
+                      run_test = TRUE,
+                      batch_correct = TRUE)
+
+
+
+#plotPCA(Seb_vs_all_log_phase[["vsd"]], intgroup = "condition", returnData=FALSE)
+
+Seb_vs_all_log_phase_DE_res <- Seb_vs_all_log_phase$DE_results_shrunken_df
+Seb_vs_all_log_phase_DE_res <- merge(Seb_vs_all_log_phase_DE_res,
+                             S_epidermidis_anno %>% dplyr::rename(pangene=propan_clusterID))
+
+write_tsv(Seb_vs_all_log_phase_DE_res,"../data/DESeq2_out/S_epi_Seb_vs_all_log_phase_DE_res.tsv")
+```
+
+## Comparison 6: Seb vs stat phase in vitro
+
+```{r}
+
+Seb_vs_all_stat_phase <- run_DESeq_with_inputs_species_specific(input_list = all_S_epi_mtx_counts, 
+                                                 lib_vec = get_lib_vec_fn(in_vivo_site = "Sebaceous", 
+                                                                          in_vitro_condition="stationary_phase_liquid", 
+                                                                          in_vitro_study = c("this_study", 
+                                                                                             "Avican_et_al_2021", 
+                                                                                             "Wang_et_al_2017")), 
+                                               run_test = TRUE, batch_correct = TRUE)
+
+
+#plotPCA(Seb_vs_all_stat_phase[["vsd"]], intgroup = "condition", returnData=FALSE)
+
+
+plotDispEsts(Seb_vs_all_stat_phase[["dds"]])
+
+DESeq2::plotMA(Seb_vs_all_stat_phase[["DE_results_shrunken"]])
+
+
+summary(Seb_vs_all_stat_phase[["DE_results_shrunken"]])
+
+
+
+Seb_vs_all_stat_phase_DE_res <- Seb_vs_all_stat_phase[["DE_results_shrunken_df"]]
+
+Seb_vs_all_stat_phase_DE_res <- merge(Seb_vs_all_stat_phase_DE_res,
+                             S_epidermidis_anno %>% dplyr::rename(pangene=propan_clusterID))
+
+
+write_tsv(Seb_vs_all_stat_phase_DE_res,"../data/DESeq2_out/S_epi_Seb_vs_all_stat_phase_DE_res.tsv")
+```
+
+## Panel E (Left)
+
+Principal component analysis (PCA) plot of S. epidermidis gene expression signatures from various in vitro and in vivo samples after batch correction using Limma. 
+
+Caveat: This analysis is solely for creating PCA plots. 
+https://support.bioconductor.org/p/133203/
+
+```{r}
+
+#Remove "Ahle et al 2022" from the metadata because strains were grown on plates and not on liquid.
+
+DESeq_metadata <- DESeq_metadata %>% dplyr::filter(study != "Ahle_et_al_2022")
+DESeq_metadata$study <- factor(DESeq_metadata$study, levels=c("Wang_et_al_2017","Avican_et_al_2021", "this_study"))
+
+
+
+#batch_correct = FALSE here because the design matrix shouldn't include the batch effect for purposes of PCA.
+S_epi_in_vivo_vs_in_vitro_DE <- run_DESeq_with_inputs_species_specific(input_list = all_S_epi_mtx_counts, 
+                                                 lib_vec = get_lib_vec_fn(in_vivo_site = c("Sebaceous",
+                                                                                           "Tw"),
+                                                                          in_vitro_condition=c("stationary_phase_liquid","osmotic_stress_liquid", "log_phase_liquid"), in_vitro_study = c("this_study", "Avican_et_al_2021", "Wang_et_al_2017")), 
+                                                 batch_correct = FALSE, run_test = FALSE)
+
+
+assay(S_epi_in_vivo_vs_in_vitro_DE[["vsd"]])<- limma::removeBatchEffect(assay(S_epi_in_vivo_vs_in_vitro_DE[["vsd"]]), 
+                                                                         batch=S_epi_in_vivo_vs_in_vitro_DE[["selected_metadata"]]$study,
+                                                                         design= model.matrix(~condition, 
+                                                                                              data = S_epi_in_vivo_vs_in_vitro_DE[["selected_metadata"]]))
+
+
+#PCA plot after batch correction
+plotPCA(S_epi_in_vivo_vs_in_vitro_DE[["vsd"]], intgroup = "expt_class", returnData=FALSE)
+
+
+invivo_invitro_PCA_batch_corrected <- plotPCA(S_epi_in_vivo_vs_in_vitro_DE[["vsd"]], intgroup = "condition", returnData=FALSE)
+
+
+invivo_invitro_PCA_batch_corrected <- invivo_invitro_PCA_batch_corrected + scale_color_manual(values=c("dodgerblue2",
+                                                                 "#E31A1C",
+                                                                 "green4","black","#6A3D9A"))
+
+ggsave(filename="../plots/invivo_invitro_PCA_batch_corrected.pdf", plot=invivo_invitro_PCA_batch_corrected)
+
+invivo_invitro_PCA_batch_corrected
+
+```
+
+
+```{r}
+##How about keeping the same principal components and just visualizing the in vitro data. How do they separate?
+
+
+
+invivo_invitro_PCA_batch_corrected_data <- plotPCA(S_epi_in_vivo_vs_in_vitro_DE[["vsd"]], intgroup = "condition", returnData=TRUE)
+
+#add study metadata again
+invivo_invitro_PCA_batch_corrected_df <- merge(invivo_invitro_PCA_batch_corrected_data[[1]],
+                                                   S_epi_in_vitro_metadata %>% dplyr::select(Library_ID,study) %>% dplyr::rename("name"="Library_ID"),
+                                                   by = "name", all.x=TRUE)
+
+
+invivo_invitro_PCA_batch_corrected_df$study <- ifelse(is.na(invivo_invitro_PCA_batch_corrected_df$study), "this_study",
+                                                      invivo_invitro_PCA_batch_corrected_df$study)
+
+invivo_invitro_PCA_batch_corrected_zoomed <- ggplot(data=invivo_invitro_PCA_batch_corrected_df %>% dplyr::filter(!group %in% c("Sebaceous",
+                                                                                 "Tw")), 
+       aes_string(x="PC1", y="PC2", color="group")) + geom_point(aes(shape=study),size=5) + 
+    xlab("PC1") +
+      ylab("PC2") +
+        coord_fixed() + theme_classic() + scale_color_manual(values=c("dodgerblue2",  "#E31A1C","black")) +
+  scale_shape_manual(values=c(15, 17, 4)) + scale_y_break(c(-20,-40))
+
+
+
+invivo_invitro_PCA_batch_corrected_zoomed
+
+ggsave(filename="../plots/invivo_invitro_PCA_batch_corrected_zoomed.pdf", plot=invivo_invitro_PCA_batch_corrected_zoomed)
+
+invivo_invitro_PCA_batch_corrected_zoomed
+
+```
+
+##Panel E (right)
+
+Barplots showing the number of differentially expressed genes from in vivo S. epidermidis versus different in vitro conditions. Sebaceous sites refer to both scalp and cheek samples with ≥ 200,000 S. epidermidis reads per library (n = 6). Toe webs refer to toe web samples with ≥ 200,000 S. epidermidis reads per library (n = 12)
+
+Bar chart of number of upreg and downreg genes for each comparison (6 in total)
+
+p adj < 0.05
+
+```{r}
+
+Seb_vs_all_log_phase_DE_res$comparison <- "Seb_vs_log_phase"
+Seb_vs_all_OS_DE_res$comparison <- "Seb_vs_OS"
+Seb_vs_all_stat_phase_DE_res$comparison <- "Seb_vs_stat_phase"
+Tw_vs_all_log_phase_DE_res$comparison <- "Tw_vs_log_phase"
+Tw_vs_all_OS_DE_res$comparison <- "Tw_vs_OS"
+Tw_vs_all_stat_phase_DE_res$comparison <- "Tw_vs_stat_phase"
+
+
+S_epi_DE_list <- tibble::lst(Seb_vs_all_log_phase_DE_res,
+                             Seb_vs_all_OS_DE_res,
+                             Seb_vs_all_stat_phase_DE_res,
+                             Tw_vs_all_log_phase_DE_res,
+                             Tw_vs_all_OS_DE_res,
+                             Tw_vs_all_stat_phase_DE_res)
+
+
+S_epi_DE_tally <- lapply(S_epi_DE_list, function(x){
+  
+  output <- tally_signif_DE(x)
+  return(output)
+  
+}) %>% do.call("rbind",.)
+
+
+S_epi_DE_tally_fmt <- pivot_longer(data=S_epi_DE_tally,
+                                   !comparison,
+                                   names_to="direction",
+                                   values_to="num_signif_features")
+
+S_epi_DE_tally_fmt$direction <- gsub(S_epi_DE_tally_fmt$direction, pattern="num_",
+                           replacement="")
+
+S_epi_DE_tally_fmt$direction <- factor(S_epi_DE_tally_fmt$direction, 
+                                       levels=c("upreg_features", "downreg_features"))
+
+S_epi_DE_tally_barplot <- ggplot(S_epi_DE_tally_fmt, aes(x=comparison, y=num_signif_features, fill=direction)) +
+  geom_col(position="dodge") + theme_classic()
+
+
+ggsave(plot=S_epi_DE_tally_barplot, 
+       filename = "../plots/S_epi_DE_tally_barplot.pdf")
+
+
+S_epi_DE_tally_barplot 
+```
+
+## Other Supplementary figure PCA plots
+
+PCA plot of in vivo vs in vitro samples (in-house samples only)
+
+```{r}
+
+
+#For In house results only
+
+#batch_correct = FALSE here because the design matrix shouldn't include the batch effect for purposes of PCA.
+S_epi_in_vivo_vs_in_vitro_in_house_DE <- run_DESeq_with_inputs_species_specific(input_list = all_S_epi_mtx_counts, 
+                                                 lib_vec = get_lib_vec_fn(in_vivo_site = c("Sebaceous",
+                                                                                           "Tw"),
+                                                                          in_vitro_condition=c("stationary_phase_liquid","osmotic_stress_liquid", "log_phase_liquid"), in_vitro_study = c("this_study")), 
+                                                 batch_correct = FALSE, run_test = FALSE)
+
+
+#PCA plot, no batch correction since this is in vivo vs in vitro data of the same batch
+invivo_invitro_in_house_PCA <- plotPCA(S_epi_in_vivo_vs_in_vitro_in_house_DE[["vsd"]], intgroup = "condition", returnData=FALSE) +
+  scale_color_manual(values=c("dodgerblue2",  "#E31A1C","green4","black","#6A3D9A"))
+
+
+
+ggsave(filename="../plots/invivo_invitro_in_house_PCA.pdf", plot=invivo_invitro_in_house_PCA)
+
+
+invivo_invitro_in_house_PCA
+
+
+
+
+
+```
+
+

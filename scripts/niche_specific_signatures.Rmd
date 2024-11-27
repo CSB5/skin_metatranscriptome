@@ -1,0 +1,908 @@
+---
+title: "Niche specific signatures"
+author: "Chiamh"
+date: "2024-11-19"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Load libraries.
+
+```{r}
+library(tidyverse)
+library(vegan)
+library(ecodist)
+
+library(ggpubr)
+
+```
+Define custom functions.
+
+```{r}
+
+
+source("custom_functions.R")
+
+source("ecodist_wrappers.R")
+
+
+facet_median_abundance_plot_fn <- function(mtx_list=MTX_species_k2_filtered, 
+                                    mgx_list=MGX_species_k2_filtered, 
+                                    metadata = mtx_mgx_stats_chosen,
+                                    chosen_species){
+  
+  options(dplyr.summarise.inform = FALSE)
+  
+  mtx_libs_to_choose <- mtx_mgx_stats_chosen %>% pull(mtx_LIBID)
+  mgx_libs_to_choose <- mtx_mgx_stats_chosen %>% pull(mgx_LIBID)
+  
+  
+  mtx_df <- lapply(mtx_list[mtx_libs_to_choose], function(df){
+    
+    df <- merge(df %>% dplyr::rename(LIBID=mtx_LIBID) %>% dplyr::filter(k2_taxon %in% chosen_species), 
+                metadata %>% dplyr::rename(LIBID=mtx_LIBID) %>% dplyr::select(LIBID,region,subj_region), 
+                by="LIBID")
+
+    return(df)
+    
+  }) %>% do.call("rbind",.)
+  
+  mtx_df_summarized <- mtx_df %>% group_by(region, k2_taxon) %>% summarise(median_rel_abun=median(rel_abun))
+    
+  mtx_df_summarized$type <- "RNA"
+  
+  ##
+  mgx_df <- lapply(mgx_list[mgx_libs_to_choose], function(df){
+    
+    df <- merge(df %>% dplyr::rename(LIBID=mgx_LIBID) %>% dplyr::filter(k2_taxon %in% chosen_species), 
+                metadata %>% dplyr::rename(LIBID=mgx_LIBID) %>% dplyr::select(LIBID,region,subj_region), 
+                by="LIBID")
+    
+    return(df)
+    
+  }) %>% do.call("rbind",.)
+  
+  mgx_df_summarized <- mgx_df %>% group_by(region, k2_taxon) %>% summarise(median_rel_abun=median(rel_abun))
+    
+  mgx_df_summarized$type <- "DNA"
+  
+  
+  combined_df <- rbind(mtx_df_summarized, mgx_df_summarized)  
+  
+  #Re-order factor levels for species
+  combined_df$k2_taxon <- factor(combined_df$k2_taxon, levels = chosen_species)
+  combined_df$region <- factor(combined_df$region, 
+                               levels=c("Sc","Ch","Ac","Vf","Tw"))
+
+  
+  ggplot(combined_df, 
+       aes(x=k2_taxon, y=log2(median_rel_abun), fill=type)) + geom_col(position="dodge") +
+    facet_wrap(~region, nrow=2, scales="free")+
+  theme_classic() + 
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1), axis.title.x=element_blank()) + scale_fill_manual(values = c24)
+  
+  
+}
+
+```
+
+
+Load metadata and supporting files.
+
+```{r}
+
+
+metadata <- read_tsv("../metadata/skin_mtx_metadata_fmt.txt", show_col_types = FALSE) 
+
+mtx_to_pull <- read_tsv("../metadata/mtx_to_pull", col_names = FALSE, show_col_types = FALSE) %>% pull(X1)
+
+mgx_to_pull <- read_tsv("../metadata/mgx_to_pull", col_names = FALSE, show_col_types = FALSE) %>% pull(X1)
+
+
+#mtx_to_pull and mgx_to_pull refer to the 102 Libraries with paired MTX and MGX data:
+
+mtx_to_pull <- read_tsv("../metadata/mtx_to_pull", col_names = FALSE, show_col_types = FALSE) %>% pull(X1)
+
+mgx_to_pull <- read_tsv("../metadata/mgx_to_pull", col_names = FALSE, show_col_types = FALSE) %>% pull(X1)
+
+mgx_stats <- read_tsv("../metadata/MGX_QC_stats.txt", show_col_types = FALSE) 
+
+mtx_stats <- read_tsv("../metadata/MTX_QC_stats.txt", show_col_types = FALSE) 
+
+mgx_stats <- merge(mgx_stats, metadata, by = "LIBID", all.x=TRUE)
+
+mtx_stats <- merge(mtx_stats, metadata, by ="LIBID", all.x=TRUE)
+
+mtx_stats_chosen <- mtx_stats %>% dplyr::filter(LIBID %in% mtx_to_pull)
+
+mgx_stats_chosen <- mgx_stats %>% dplyr::filter(LIBID %in% mgx_to_pull)
+
+mtx_mgx_stats_chosen <- read_tsv(file="../metadata/mtx_mgx_stats_chosen.tsv", show_col_types = FALSE)
+
+
+##########
+#MTX Library IDs per site
+
+mtx_Sc_ids <- mtx_mgx_stats_chosen %>% dplyr::filter(region=="Sc") %>% pull(mtx_LIBID)
+mtx_Ch_ids <- mtx_mgx_stats_chosen %>% dplyr::filter(region=="Ch") %>% pull(mtx_LIBID)
+mtx_Ac_ids <- mtx_mgx_stats_chosen %>% dplyr::filter(region=="Ac") %>% pull(mtx_LIBID)
+mtx_Vf_ids <- mtx_mgx_stats_chosen %>% dplyr::filter(region=="Vf") %>% pull(mtx_LIBID)
+mtx_Tw_ids <- mtx_mgx_stats_chosen %>% dplyr::filter(region=="Tw") %>% pull(mtx_LIBID)
+
+#MGX Library IDs per site
+
+mgx_Sc_ids <- mtx_mgx_stats_chosen %>% dplyr::filter(region=="Sc") %>% pull(mgx_LIBID)
+mgx_Ch_ids <- mtx_mgx_stats_chosen %>% dplyr::filter(region=="Ch") %>% pull(mgx_LIBID)
+mgx_Ac_ids <- mtx_mgx_stats_chosen %>% dplyr::filter(region=="Ac") %>% pull(mgx_LIBID)
+mgx_Vf_ids <- mtx_mgx_stats_chosen %>% dplyr::filter(region=="Vf") %>% pull(mgx_LIBID)
+mgx_Tw_ids <- mtx_mgx_stats_chosen %>% dplyr::filter(region=="Tw") %>% pull(mgx_LIBID)
+
+
+#Filtered and renormalized kraken2 profiles
+
+MTX_species_k2_filtered <- lapply(mtx_to_pull, function(x){
+  
+  output <- read_tsv(file=paste0("../data/k2_species_renorm/RNA/",x,"_k2_renorm.s.tsv"),show_col_types = FALSE)
+  
+  return(output)
+})
+
+names(MTX_species_k2_filtered) <- mtx_to_pull
+
+
+MGX_species_k2_filtered <- lapply(mgx_to_pull, function(x){
+  
+  output <- read_tsv(file=paste0("../data/k2_species_renorm/DNA/",x,"_k2_renorm.s.tsv"),show_col_types = FALSE)
+  
+  return(output)
+})
+
+names(MGX_species_k2_filtered) <- mgx_to_pull
+
+
+rna_k2_minimizer_renorm_df <- do.call("rbind", MTX_species_k2_filtered ) %>% dplyr::rename(LIBID=mtx_LIBID)
+
+
+mtx_species_site_prevalence <- get_species_prevalence_all_sites(rna_k2_minimizer_renorm_df, mol_type = "RNA")
+
+
+mtx_species_site_prevalence$region <- factor(mtx_species_site_prevalence$region, 
+                                             levels=c("Sc","Ch","Ac","Vf","Tw"))
+
+
+##########
+#Load kraken2 filtered and renormalized dataframes.
+
+#MTX data
+rna_k2_minimizer_renorm <- lapply(mtx_to_pull, function(x){
+  
+  df_out <- read_tsv(file=paste0("../data/k2_species_renorm/RNA/",x,"_k2_renorm.s.tsv"),
+           show_col_types = FALSE)
+  
+  return(df_out)
+  
+})
+
+names(rna_k2_minimizer_renorm) <- mtx_to_pull
+
+
+#MGX data
+k2_minimizer_renorm <- lapply(mgx_to_pull, function(x){
+  
+  df_out <- read_tsv(file=paste0("../data/k2_species_renorm/DNA/",x,"_k2_renorm.s.tsv"),
+           show_col_types = FALSE)
+  
+  return(df_out)
+  
+})
+
+names(k2_minimizer_renorm) <- mgx_to_pull
+
+
+#Load calculations for the transcription activity per species per site 
+
+#Transcriptional activity per species was defined as RNA/DNA ratio  (TPM (RNA)/CPM (DNA))
+
+Tw_species_ratio <- read_tsv("../data/Tw_species_ratio.tsv", show_col_types = FALSE)
+
+Ch_species_ratio <- read_tsv("../data/Ch_species_ratio.tsv", show_col_types = FALSE)
+
+Vf_species_ratio <- read_tsv("../data/Vf_species_ratio.tsv", show_col_types = FALSE)
+
+Ac_species_ratio <- read_tsv("../data/Ac_species_ratio.tsv", show_col_types = FALSE)
+
+Sc_species_ratio <- read_tsv("../data/Sc_species_ratio.tsv", show_col_types = FALSE)
+
+
+transcription_activity_all <- tibble::lst(Tw_species_ratio,
+                                          Ch_species_ratio,
+                                          Vf_species_ratio,
+                                          Ac_species_ratio,
+                                          Sc_species_ratio)
+
+
+transcription_activity_all_df <- do.call("rbind", transcription_activity_all)
+
+transcription_activity_all_df <- transcription_activity_all_df %>%
+  dplyr::rename(species=k2_taxon) %>%
+  dplyr::select(species, region, median_detect_transcriptional_activity, mean_detect_transcriptional_activity)
+
+
+#Load KEGG pathway and signature modules metadata (e.g https://www.genome.jp/brite/ko00002)
+
+KEGG_module_metadata <- read_tsv("../metadata/KEGG_pathway_modules_metadata",
+                                 show_col_types = FALSE,
+                                 col_names = c("module", "module_desc"))
+
+
+```
+
+
+
+
+## Panel A
+
+Boxplots showing median relative abundances (total sum scaled) of reads assigned to various skin commensals across different skin sites presented in log2 scale. 
+
+```{r}
+
+barplot_species <- c("Cutibacterium_acnes", 
+                     "Staphylococcus_capitis",
+                     "Staphylococcus_epidermidis",
+                     "Staphylococcus_hominis",
+                     "Malassezia_globosa",
+                     "Malassezia_restricta")
+
+
+site_median_abun_barplot <- facet_median_abundance_plot_fn(chosen_species = barplot_species)
+
+
+
+ggsave(plot=site_median_abun_barplot, 
+       filename = "../plots/site_median_abun_barplot.pdf", 
+       width=12, height=8)
+
+
+site_median_abun_barplot
+
+```
+## Panel B
+
+Bubble plot showing core, common and variable components of skin metagenomes (DNA) and metatranscriptomes (RNA) across different body sites. A species was called present in a metagenome if had ≥0.1% relative abundance. A species was called present in a metatranscriptome if it had non-zero relative abundance and was also detected in the metagenome. Core species in metagenomes and metatranscriptomes were defined as those present across >75% of samples at a given skin site. Common species for a skin site were defined as those present between 50% and 75% of samples. Variable species for a given skin site refer to other species that do not fall into the previous two categories, but which are present in ≥3 individuals. For RNA, bubbles are also shaded according to median transcriptional activity, defined as the ratio of normalized RNA counts of a species to that of their DNA. For visual clarity, only species which were core in at least one skin site were represented here. Sc, Ch, Ac, Vf and Tw are skin sites representing the scalp, cheek, antecubital fossa, volar forearm and toe web respectively. 
+
+
+```{r}
+
+#Using the kraken2 renormalized data, compute a species' prevalence at different skin sites for mtx and mgx data
+
+rna_k2_minimizer_renorm_df <- do.call("rbind", rna_k2_minimizer_renorm) %>% dplyr::rename(LIBID=mtx_LIBID)
+
+
+dna_k2_minimizer_renorm_df <- do.call("rbind", k2_minimizer_renorm) %>% dplyr::rename(LIBID=mgx_LIBID)
+
+mtx_species_site_prevalence <- get_species_prevalence_all_sites(rna_k2_minimizer_renorm_df, mol_type = "RNA")
+
+mgx_species_site_prevalence <- get_species_prevalence_all_sites(dna_k2_minimizer_renorm_df, mol_type = "DNA")
+
+
+mgx_species_site_prevalence_labelled <- define_core_variable(mgx_species_site_prevalence)
+mgx_species_site_prevalence_labelled <- mgx_species_site_prevalence_labelled %>% dplyr::rename(species=k2_taxon)
+
+
+mtx_species_site_prevalence_labelled <- define_core_variable(mtx_species_site_prevalence)
+mtx_species_site_prevalence_labelled <- mtx_species_site_prevalence_labelled %>% dplyr::rename(species=k2_taxon)
+
+
+
+#write_tsv(mgx_species_site_prevalence_labelled, "../data/mgx_species_site_prevalence_labelled.tsv")
+#write_tsv(mtx_species_site_prevalence_labelled, "../data/mtx_species_site_prevalence_labelled.tsv")
+
+#add transcriptional activity measurements to the dataframe with prevalence categories
+mtx_species_site_prevalence_labelled_with_activity  <- merge(mtx_species_site_prevalence_labelled,
+                                                             transcription_activity_all_df,
+                                                            by=c("species","region"),
+                                                            all.x = TRUE)
+
+
+mtx_species_site_prevalence_labelled_with_activity$log2_median_detect_transcriptional_activity <- log2(mtx_species_site_prevalence_labelled_with_activity$median_detect_transcriptional_activity)
+
+
+species_to_plot <- mtx_species_site_prevalence_labelled_with_activity %>% pull(species) %>% unique()
+
+
+
+```
+
+Balloon plot summarizing core, common and variable taxa (metagenomics).
+
+```{r}
+
+mgx_species_site_prevalence_labelled_to_plot <- mgx_species_site_prevalence_labelled %>% 
+                                                  dplyr::filter(species %in% species_to_plot) %>%
+                                                  mutate(region= fct_relevel(region, "Sc", "Ch", "Ac", "Vf", "Tw"))
+
+
+mgx_species_site_prevalence_labelled_to_plot$species <- factor(mgx_species_site_prevalence_labelled_to_plot$species,
+                                                               levels=rev(species_to_plot))
+
+
+mgx_taxa_core_variable_balloon <- ggballoonplot(mgx_species_site_prevalence_labelled_to_plot,
+                                        x ="region", y="species",  
+                                        size="percent_detected_at_site",
+                                        color="category_within_site",
+                                        fill="white",
+                                        size.range=c(1,10)) + rotate_x_text(angle = 90, hjust = 0.95, vjust=0.2) + scale_colour_manual(name = "category_within_site",values = c("purple","#56B4E9","black"))
+
+
+ggsave(filename="../plots/mgx_taxa_balloon_plot.pdf" ,
+       plot=mgx_taxa_core_variable_balloon,
+       width = 5, height = 10.5)
+
+mgx_taxa_core_variable_balloon 
+
+```
+
+Balloon plot summarizing core, common and variable taxa (metatranscriptomes).
+
+Intensity of fill color would be proportional to "transcriptional activity"
+
+```{r}
+
+mtx_species_site_prevalence_labelled_with_activity$region <- factor(mtx_species_site_prevalence_labelled_with_activity$region,
+                                                                    levels=c("Sc", "Ch", "Ac", "Vf", "Tw"))
+
+mtx_species_site_prevalence_labelled_with_activity$species <- factor(mtx_species_site_prevalence_labelled_with_activity$species,
+                                                               levels=rev(species_to_plot))
+  
+
+taxa_trans_activity_balloon <- ggballoonplot(data=mtx_species_site_prevalence_labelled_with_activity,
+                                        y="species", x ="region", 
+                                        fill="log2_median_detect_transcriptional_activity",
+                                        color="category_within_site",
+                                        size="percent_detected_at_site",
+                                        size.range=c(1,10))  + 
+  scale_fill_gradient2(low="blue", mid= "white",high="red",
+                       midpoint=0) +
+  rotate_x_text(angle = 90, hjust = 0.95, vjust=0.2) + scale_colour_manual(name = "category_within_site",values = c("purple","#56B4E9","black")) 
+  
+
+ggsave(filename="../plots/mtx_taxa_balloon_plot.pdf",
+       plot=taxa_trans_activity_balloon, width=5, height = 10.5)
+
+taxa_trans_activity_balloon
+
+
+
+```
+## Panel C
+
+Scatterplot of mean beta diversity (1 - Bray-Curtis dissimilarity) against mean alpha diversity (Simpson index) of core microbial pathways. Core microbial pathway expression was computed using HUMAnN 3.0. Core microbial pathways were defined as those which were present (non-zero expression) at a skin site in >75% of individuals and with <25% unclassified reads at species-level. Sc, Ch, Ac, Vf and Tw are skin sites representing the scalp, cheek, antecubital fossa, volar forearm and toe web respectively.
+
+
+First, obtain the RPK values of pathways from Humann3.
+N.B: Default Humann3 UniRef90 database does not work well due to out of date Uniref90 labels with this work.
+
+The inputs for this analysis are *_genefamilies_pathabundance.tsv, which contains the RPK values
+
+The sum of RPKs for each pathway does not equal to sum of pathway|species.
+Explanation: https://forum.biobakery.org/t/humann3-pathway-abundance-table-pathway-sum-and-species-sum-different/1471
+
+N.B
+1) The mtx_pathabun_CPM_df has already been filtered for kitome contaminants and non-microbial reads
+2) The mtx_pathabun_CPM_df does not have genus level classifications and above because they were abstracted to "unclassified"
+3) mtx_pathabun_CPM_df abstracts reaction abundances from false positive species (k2 misclassification) to "unclassified" at species level as well. 
+
+Calculate CoPM (copies per million)
+
+```{r}
+mtx_pathabun_CPM_df <- lapply(mtx_to_pull, function(x){
+  
+  df <- read_tsv(paste0("../data/humann_KO_pathway_out/RNA/",x,"_genefamilies_pathabundance_CPM.tsv"),
+                 show_col_types = FALSE)
+  
+  colnames(df)[1] <- "module"
+  colnames(df)[2] <- "CoPM"
+  df$LIBID <- x
+  
+  return(df)
+  
+}) %>% do.call("rbind",.)
+
+mtx_pathabun_CPM_df <- merge(mtx_pathabun_CPM_df, metadata %>% dplyr::select(LIBID, subj_region,
+                                                                        subject,
+                                                                        region))
+
+
+
+#reaction count at whole community level
+#https://forum.biobakery.org/t/humann3-pathway-abundance-table-pathway-sum-and-species-sum-different/1471
+#The following command excludes UNMAPPED and ININTEGRATED
+mtx_pathabun_whole_comm <- mtx_pathabun_CPM_df %>% 
+  dplyr::filter(str_detect(string=.$module,  pattern="g__|unclassified|UNMAPPED|UNINTEGRATED", negate=TRUE))
+
+
+#reaction count, based only from stratified level (detected at species + unclassified level)
+mtx_pathabun_strat_with_unclassified <- mtx_pathabun_CPM_df %>%
+  dplyr::filter(str_detect(string=.$module,  pattern="UNINTEGRATED", negate=TRUE) & str_detect(string=.$module,  pattern="\\|")) %>% dplyr::rename(module_taxonomy=module) %>% separate(., col = module_taxonomy, into = c("module", NA), sep = "\\|", remove=FALSE)
+
+mtx_pathcounts <- plyr::count(mtx_pathabun_strat_with_unclassified %>% dplyr::select(LIBID,module,region)%>%unique(), 
+                              c("module","region")) %>% dplyr::rename(pathway_freq=freq)
+
+#Count of the number of libraries for each region in the 102 pairs
+
+region_lib_count <- plyr::count(mtx_mgx_stats_chosen, "region") %>% dplyr::rename(n_samples=freq)
+
+mtx_pathcounts <- merge(mtx_pathcounts, region_lib_count, by = "region")
+
+#proportion of site with a specific pathway detected
+
+mtx_pathcounts$detection_percent <- (mtx_pathcounts$pathway_freq / mtx_pathcounts$n_samples)*100
+
+#Add module annotations
+#note there are some "split modules" such as M00913-1 and M00913-2. We will account for this as well
+
+mtx_pathcounts$module_uniq <- gsub(pattern="-[0-9]$", replacement="", x=mtx_pathcounts$module)
+
+mtx_pathcounts <- merge(mtx_pathcounts, KEGG_module_metadata %>% dplyr::rename(module_uniq=module))
+
+
+```
+
+
+Plot the contributional diversity of human microbiome pathways that were core to a body site (non-zero in >75% of individuals) and largely explained by known species (<25% unclassified in >75% of individuals) 
+
+
+```{r}
+
+#Shortlist modules that are "core": non-zero in >75% of individuals in each skin site. 
+
+mtx_pathcounts_core <- mtx_pathcounts %>% dplyr::filter(detection_percent > 75)
+
+# Now we need to find pathways that are "largely explained" at species level
+
+mtx_pathabun_stratified<- mtx_pathabun_CPM_df %>% 
+  dplyr::filter(str_detect(string=.$module,  pattern="g__|unclassified")) %>% 
+  dplyr::filter(str_detect(string=.$module,  pattern="UNINTEGRATED", negate = TRUE)) %>% dplyr::rename(module_taxonomy=module) %>% 
+  separate(., col = module_taxonomy, into = c("module", NA), sep = "\\|", remove=FALSE)
+
+#Get relative abundance of "unclassified" contributing to each pathway in each library
+
+#First find the sum of CoPMs (including unclassified) for each pathway in each library
+#This is NOT THE SAME as the unstratified pathway counts in mtx_pathabun_whole_comm
+
+mtx_pathabun_stratified_sum_per_lib <- mtx_pathabun_stratified %>% 
+  group_by(module,LIBID) %>% summarise(CoPM_sum=sum(CoPM)) %>% ungroup()
+
+
+#Next find the contributions of unclassfied for each pathway, stratified at species level in each library
+mtx_path_abun_unclassified <- mtx_pathabun_stratified %>% 
+  dplyr::filter(str_detect(string=.$module_taxonomy,  pattern="\\|unclassified")) %>% 
+  dplyr::rename(CoPM_unclassified=CoPM)
+
+
+mtx_pathabun_stratified_sum_per_lib <- merge(mtx_pathabun_stratified_sum_per_lib, 
+                                 mtx_path_abun_unclassified %>% 
+                                   dplyr::select(LIBID, module, CoPM_unclassified),
+                                 by=c("LIBID","module"), all.x = TRUE)
+
+
+mtx_pathabun_stratified_sum_per_lib$CoPM_unclassified <- ifelse(is.na(mtx_pathabun_stratified_sum_per_lib$CoPM_unclassified),
+                                                                0,
+                                                    mtx_pathabun_stratified_sum_per_lib$CoPM_unclassified)
+
+
+mtx_pathabun_stratified_sum_per_lib$module_unclassified_pcnt <- (mtx_pathabun_stratified_sum_per_lib$CoPM_unclassified/mtx_pathabun_stratified_sum_per_lib$CoPM_sum)*100
+
+#Add site metadata 
+mtx_pathabun_stratified_sum_per_lib <- merge(mtx_pathabun_stratified_sum_per_lib, 
+                                             metadata %>% dplyr::select(LIBID,region), by = "LIBID")
+
+
+#Extract those pathways with a non-trivial proportion of “unclassified” (>=25%) and count the frequency per site
+mtx_unclassified_path_region_count <- mtx_pathabun_stratified_sum_per_lib %>% 
+  dplyr::filter(module_unclassified_pcnt >= 25) %>% plyr::count(., c("module","region")) %>% 
+  dplyr::rename(high_unclassified_freq_per_site=freq)
+
+mtx_unclassified_path_region_count <- merge(mtx_unclassified_path_region_count, region_lib_count,
+                                            by="region")
+#Proportion of pathways with a non-trivial proportion of “unclassified” (>25%) in a non-trivial fraction of samples (>25%)
+mtx_unclassified_path_region_count$high_unclassified_pcnt_per_site <- (mtx_unclassified_path_region_count$high_unclassified_freq_per_site/mtx_unclassified_path_region_count$n_samples)*100
+
+#Pathways to exclude per site (due to high unclassified representation)
+mtx_path_to_exclude <- mtx_unclassified_path_region_count %>% dplyr::filter(high_unclassified_pcnt_per_site > 25)
+mtx_path_to_exclude$to_exclude <- TRUE
+
+mtx_pathcounts_core <- merge(mtx_pathcounts_core, 
+                             mtx_path_to_exclude %>% dplyr::select(region, module, to_exclude), 
+                             by = c("region","module"), all.x = TRUE)
+
+mtx_pathcounts_core$to_exclude <- ifelse(is.na(mtx_pathcounts_core$to_exclude),
+                                         FALSE,TRUE)
+
+mtx_pathcounts_core_filt <- mtx_pathcounts_core %>% dplyr::filter(to_exclude==FALSE)
+
+```
+
+The original Simpson index λ equals the probability that two entities taken at random from the dataset of interest (with replacement) represent the same type. Its transformation 1 − λ, therefore, equals the probability that the two entities represent different types.
+
+From the Vegan vignette, simpson returns 1-D
+
+Also compute between sample (same skin site) beta diversity (Bray Curtis) for each module.
+
+To calculate the Bray-Curtis dissimilarity between two sites you must assume that both sites are the same size, either in area or volume (as is relevant to species counts). This is because the equation doesn’t include any notion of space; it works only with the counts themselves
+
+Hence, Bray-Curtis disimilarities are computed on relative abundances per species per pathway/module
+
+```{r}
+
+mtx_KO_table <- read_tsv("../data/humann_KO_pathway_out/mtx_CPM_joined_stratified.tsv", show_col_types = FALSE) %>% as.data.frame()
+
+colnames(mtx_KO_table)[1] <- "module" 
+
+row.names(mtx_KO_table) <- mtx_KO_table$module
+
+#Simpson 1-D
+site_core_module_alpha_div <- get_contributional_alpha_diversity()
+#Extract just the mean alpha div values and associated metadata
+site_core_module_alpha_div_subset <- site_core_module_alpha_div %>% dplyr::select(-c("alpha_diversity_index","LIBID")) %>% 
+  unique()
+
+
+#bray curtis within site
+site_core_module_beta_div <- get_contributional_beta_diversity()
+
+
+#Merge the dataframes for plotting
+
+site_core_module_diversity <- merge(site_core_module_alpha_div_subset, site_core_module_beta_div,
+                                    by = c("module", "region"))
+
+site_core_module_diversity$within_sample_class <- ifelse(site_core_module_diversity$site_mean_alpha_diversity <= 0.5,
+                                                         "Low within", "High within")
+
+site_core_module_diversity$between_sample_class <- ifelse(site_core_module_diversity$site_mean_beta_diversity <= 0.5,
+                                                         "Low between", "High between")
+
+site_core_module_diversity$diversity_comment <- paste0(site_core_module_diversity$within_sample_class,
+                                                       ", ",site_core_module_diversity$between_sample_class)
+
+
+#colors: red, orange, purple, blue
+site_core_module_diversity$diversity_comment <- factor(site_core_module_diversity$diversity_comment,
+                                                          levels= c("High within, High between",
+                                                                    "High within, Low between",
+                                                                    "Low within, High between",
+                                                                    "Low within, Low between"))
+
+site_core_module_diversity$region <- factor(site_core_module_diversity$region,
+                                            levels=c("Sc","Ch","Ac","Vf","Tw"))
+
+site_core_module_diversity$module_uniq <- gsub(pattern="-[0-9]$", replacement="", x=site_core_module_diversity$module)
+
+site_core_module_diversity <- merge(site_core_module_diversity, 
+                                    KEGG_module_metadata %>% dplyr::rename(module_uniq=module), 
+                                    by = "module_uniq")
+
+#Add community alpha and beta diversity to the pathway contributional diversity plot
+
+rna_k2_filt_count_table <- pivot_wider(rna_k2_minimizer_renorm_df %>% dplyr::rename(mtx_LIBID=LIBID) %>%
+                                         dplyr::select(mtx_LIBID,k2_taxon,paired_counts), 
+                                       id_cols=k2_taxon, names_from=mtx_LIBID, 
+                                          values_from=paired_counts) %>% as.data.frame()
+
+rna_k2_filt_count_table[is.na(rna_k2_filt_count_table)] <- 0 
+
+
+mtx_community_alpha_div_list <- lapply(c("Sc","Ch","Ac","Vf","Tw"), function(i){
+  
+  #vector of library IDs
+  lib_for_site <- mtx_stats_chosen %>% dplyr::filter(region==i) %>% pull(LIBID)
+  
+  #Counts associated with each species for a site.
+  
+  site_counts_table <- rna_k2_filt_count_table %>%
+        dplyr::select(all_of(lib_for_site))
+  
+  #before transpose, remove any rows or matrix for which every feature is 0.
+  
+  site_counts_df <- site_counts_table[rowSums(site_counts_table)>0,colSums(site_counts_table)>0]
+
+  alpha_diversity <- vegan::diversity(t(site_counts_df), index="simpson")
+      
+  alpha_diversity_df <- data.frame(LIBID=names(alpha_diversity),alpha_diversity_index=alpha_diversity)
+  
+  #Calculate simpson diversity
+  alpha_diversity_df$site_mean_alpha_diversity <- mean(alpha_diversity_df$alpha_diversity_index)
+  
+  alpha_diversity_df$region <- i
+  
+  return(alpha_diversity_df)
+  
+})
+
+mtx_community_alpha_div_df <- do.call("rbind",mtx_community_alpha_div_list) %>% 
+  dplyr::select(-c(alpha_diversity_index, LIBID)) %>% unique()
+
+
+mtx_community_beta_div_list <- lapply(c("Sc","Ch","Ac","Vf","Tw"), function(i){
+  
+  #vector of library IDs
+  lib_for_site <- mtx_stats_chosen %>% dplyr::filter(region==i) %>% pull(LIBID)
+  
+  #Counts associated with each species for a site.
+  
+  site_counts_table <- rna_k2_filt_count_table %>%
+        dplyr::select(all_of(lib_for_site))
+  
+  #before transpose, remove any rows or matrix for which every feature is 0.
+  
+  site_counts_df <- site_counts_table[rowSums(site_counts_table)>0,colSums(site_counts_table)>0]
+
+  #Convert to relative abundance for beta diversity calculations
+      
+  site_ra_df <- apply(site_counts_df, MARGIN=2, counts_to_rel_abun, simplify = TRUE)
+  
+  #BC dissimilarity
+  #bcdist requires rows as samples and columns as species, so we transpose
+  beta_diversity <- ecodist::bcdist(t(site_ra_df), rmzero = TRUE) %>% as.matrix()
+      
+  beta_diversity_df  <- reshape2::melt(as.matrix(beta_diversity), varnames = c("row", "col"))
+      
+  #Arithmetic mean of the BC distance per module per site
+  beta_diversity_df <- beta_diversity_df %>% dplyr::filter(col!=row)
+  
+      
+  mean_beta_div <- mean(beta_diversity_df$value)
+      
+  mean_beta_div_df <- data.frame(site_mean_beta_diversity=mean_beta_div,
+                                region=i)
+    
+      
+  return(mean_beta_div_df)
+  
+  
+})
+
+mtx_community_beta_div_df <- do.call("rbind",mtx_community_beta_div_list)
+
+
+mtx_community_both_div_df <- merge(mtx_community_alpha_div_df, mtx_community_beta_div_df)
+
+
+mtx_community_both_div_df$region <- factor(mtx_community_both_div_df$region,
+                                            levels=c("Sc","Ch","Ac","Vf","Tw"))
+
+
+site_core_module_diversity_dotplot <- ggplot(data=site_core_module_diversity, 
+         aes(x=site_mean_alpha_diversity, y=site_mean_beta_diversity))+
+    geom_point(size =2, aes(color = diversity_comment)) + 
+  geom_point(data=mtx_community_both_div_df, size =3.5, shape= 18, color="black") +
+  facet_wrap(~region, ncol=5, nrow=1) +
+    theme_classic() + scale_colour_manual(name = "diversity_comment",
+                                          values = c("red", "orange","purple","light blue"))
+
+
+ggsave(filename="../plots/contributional_diversity.pdf", 
+       plot=site_core_module_diversity_dotplot,
+       height=5, width=15)
+
+site_core_module_diversity_dotplot
+
+
+```
+
+## Panel D
+
+Staphyloferrin A (M00876), a siderophore used by Staphylococcus bacteria for ferric iron retrieval, expressed by dominant Staph species, low within-sample but high between-sample contributional diversity. Myriad Staph species are capable of scavenging iron from Tw -> a necessity for survival in the Tw
+
+Stacked bar plots for species level pathway contributions at RNA level, estimated with HUMAnN3 for Staphyloferrin A biosynthesis, and with Kraken2 for community level relative abundances at RNA level. For all sub-figures, Sc, Ch, Ac, Vf and Tw indicate the skin sites scalp, cheek, antecubital fossa, volar forearm and toe web respectively. 
+
+```{r}
+
+#normalize species contribution for the same module within the same individual with total sum scaling
+
+mtx_pathabun_stratified_TSS <- mtx_pathabun_stratified %>% 
+  group_by(module,LIBID) %>% summarise(rel_abun_CoPM=(CoPM/sum(CoPM))*100, across())
+
+mtx_pathabun_stratified_TSS$species <- word(mtx_pathabun_stratified_TSS$module_taxonomy, start=2,end=2, sep="\\|")
+
+#Change to non-metaphlan labels
+
+mtx_pathabun_stratified_TSS$species_fmt <- ifelse(mtx_pathabun_stratified_TSS$species == "unclassified",
+                                                        "unclassified", 
+                                                  str_split_i(string=mtx_pathabun_stratified_TSS$species, pattern="s__", 2))
+
+mtx_pathabun_stratified_TSS$genus <- ifelse(mtx_pathabun_stratified_TSS$species_fmt == "unclassified",
+                                                        "unclassified", 
+                                                  str_split_i(string=mtx_pathabun_stratified_TSS$species_fmt, pattern="_", 1))
+
+
+mtx_staphyloferrin_Tw_barplot <- mtx_pathabun_stratified_TSS %>% dplyr::filter(module %in% c("M00876") & 
+                                                region %in% c("Tw")) %>%
+  ggplot(aes(fill=species_fmt, y=rel_abun_CoPM, x=subj_region)) +
+  geom_col()+
+  theme_classic() +
+  scale_fill_manual(values = c24 ) +
+  scale_y_continuous(expand = c(0, 0)) +
+  facet_grid(cols=vars(region),rows=vars(module), scales="free_x") +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.2, hjust=1)) +
+  theme(legend.text=element_text(size=8), axis.title.x=element_blank()) +
+  guides(fill=guide_legend(ncol =1)) +
+    ylab("relative contribution of species to pathway")
+
+
+
+mtx_staphyloferrin_Tw_barplot
+
+
+###Side plot to complement the toe web Staphyloferrin A pathway diagram
+
+Tw_species_side_fig <- c("Staphylococcus_capitis", "Staphylococcus_caprae",
+                           "Staphylococcus_epidermidis", "Staphylococcus_haemolyticus", 
+                           "Staphylococcus_hominis", "Staphylococcus_warneri")
+#To match the Staphyloferrin A pathway bar plot
+Tw_libs_side_fig <- mtx_staphyloferrin_Tw_barplot$data$LIBID %>% unique()
+
+
+staphyloferrin_Tw_pathway_vs_mtx_plot <- facet_pathway_vs_community_abundance_plot_fn(chosen_species = Tw_species_side_fig, 
+                                                                         chosen_region = "Tw",
+                                                                         metadata = mtx_mgx_stats_chosen %>% 
+                                                                           dplyr::filter(mtx_LIBID %in% Tw_libs_side_fig),
+                                                                         reaction_module = "M00876")
+
+
+
+ggsave(plot=staphyloferrin_Tw_pathway_vs_mtx_plot, filename = "../plots/staphyloferrin_Tw_pathway_vs_mtx_plot.pdf", width=12, height=8)
+
+staphyloferrin_Tw_pathway_vs_mtx_plot
+
+
+```
+
+
+## Supplemental panel
+Boxplots of core microbial pathways which are dominated (> 50% contribution) by species belonging to the genus Malassezia, Staphylococcus or Cutibacterium. Adjusted p-values for pairwise Wilcoxon ranked sum tests are shown. Sc, Ch, Ac, Vf and Tw are skin sites representing the scalp, cheek, antecubital fossa, volar forearm and toe web respectively.
+
+```{r}
+
+#normalize species contribution for the same module within the same individual with total sum scaling
+
+mtx_pathabun_stratified_TSS <- mtx_pathabun_stratified %>% 
+  group_by(module,LIBID) %>% summarise(rel_abun_CoPM=(CoPM/sum(CoPM))*100, across())
+
+mtx_pathabun_stratified_TSS$species <- word(mtx_pathabun_stratified_TSS$module_taxonomy, start=2,end=2, sep="\\|")
+
+#Change to non-metaphlan labels
+
+mtx_pathabun_stratified_TSS$species_fmt <- ifelse(mtx_pathabun_stratified_TSS$species == "unclassified",
+                                                        "unclassified", 
+                                                  str_split_i(string=mtx_pathabun_stratified_TSS$species, pattern="s__", 2))
+
+mtx_pathabun_stratified_TSS$genus <- ifelse(mtx_pathabun_stratified_TSS$species_fmt == "unclassified",
+                                                        "unclassified", 
+                                                  str_split_i(string=mtx_pathabun_stratified_TSS$species_fmt, pattern="_", 1))
+
+#
+
+
+mtx_pathabun_stratified_TSS_at_genus_level <- mtx_pathabun_stratified_TSS %>%
+  group_by(module,LIBID, genus) %>% summarise(genus_rel_abun = sum(rel_abun_CoPM))
+
+mtx_pathabun_stratified_TSS_at_genus_level$parent_module <- str_split_i(string=mtx_pathabun_stratified_TSS_at_genus_level$module, 
+                                                                        pattern="-", 1)
+
+
+mtx_pathabun_stratified_TSS_at_genus_level <- merge(mtx_pathabun_stratified_TSS_at_genus_level,
+                                                    KEGG_module_metadata %>% dplyr::rename(parent_module=module))
+
+
+mtx_pathabun_stratified_TSS_at_genus_level <- merge(mtx_pathabun_stratified_TSS_at_genus_level, 
+                                                    metadata %>% dplyr::select(LIBID, subj_region, subject, region))
+
+
+#Number of detected pathways per library, regardless of genus
+mtx_number_of_pathways <- mtx_pathabun_stratified_TSS_at_genus_level %>% 
+  dplyr::select(LIBID, module) %>% unique(.) %>% plyr::count(vars="LIBID") %>% dplyr::rename(total_pathway_no_in_library=freq)
+
+mtx_number_of_pathways <- merge(mtx_number_of_pathways, metadata %>% dplyr::select(LIBID, subj_region, subject, region))
+
+
+#Pathways that are mostly expressed by Malassezia spp
+
+mtx_pathabun_stratified_Malassezia_dominated <- mtx_pathabun_stratified_TSS_at_genus_level %>% 
+  dplyr::filter(genus == "Malassezia" & genus_rel_abun > 50)
+
+#percentage of pathways dominated by Malassezia
+
+mtx_pathway_Malassezia_dominated_summary <- mtx_pathabun_stratified_Malassezia_dominated %>% 
+  dplyr::select(LIBID, module) %>% unique(.) %>% 
+  plyr::count(vars="LIBID") %>% dplyr::rename(number_pathway_dominated_by=freq) %>% 
+  mutate(genus="Malassezia") %>% merge(., mtx_number_of_pathways) %>% 
+  mutate(percentage_pathways_dominated_by= (number_pathway_dominated_by/total_pathway_no_in_library)*100)
+
+
+
+#Pathways that are mostly expressed by Cutibacterium spp
+
+mtx_pathabun_stratified_Cutibacterium_dominated <- mtx_pathabun_stratified_TSS_at_genus_level %>% 
+  dplyr::filter(genus == "Cutibacterium" & genus_rel_abun > 50)
+
+
+mtx_pathway_Cutibacterium_dominated_summary <- mtx_pathabun_stratified_Cutibacterium_dominated %>% 
+  dplyr::select(LIBID, module) %>% unique(.) %>% 
+  plyr::count(vars="LIBID") %>% dplyr::rename(number_pathway_dominated_by=freq) %>% 
+  mutate(genus="Cutibacterium") %>% merge(., mtx_number_of_pathways) %>% 
+  mutate(percentage_pathways_dominated_by= (number_pathway_dominated_by/total_pathway_no_in_library)*100)
+
+
+#Pathways that are mostly expressed by Staphylococcus spp
+mtx_pathabun_stratified_Staphylococcus_dominated <- mtx_pathabun_stratified_TSS_at_genus_level %>% 
+  dplyr::filter(genus == "Staphylococcus" & genus_rel_abun > 50)
+
+
+
+mtx_pathway_Staphylococcus_dominated_summary <- mtx_pathabun_stratified_Staphylococcus_dominated %>% 
+  dplyr::select(LIBID, module) %>% unique(.) %>% 
+  plyr::count(vars="LIBID") %>% dplyr::rename(number_pathway_dominated_by=freq) %>% 
+  mutate(genus="Staphylococcus") %>% merge(., mtx_number_of_pathways) %>% 
+  mutate(percentage_pathways_dominated_by= (number_pathway_dominated_by/total_pathway_no_in_library)*100)
+
+
+#Combine the datasets for boxplot
+
+mtx_pathway_dominated_summary <- do.call("rbind",list(mtx_pathway_Malassezia_dominated_summary,
+                                                        mtx_pathway_Staphylococcus_dominated_summary,
+                                                        mtx_pathway_Cutibacterium_dominated_summary))
+
+mtx_pathway_dominated_summary$genus <- factor(mtx_pathway_dominated_summary$genus,levels = c("Malassezia",
+                                                                                             "Staphylococcus",
+                                                                                             "Cutibacterium"))
+
+mtx_pathway_dominated_summary$region <- factor(mtx_pathway_dominated_summary$region,
+                                               levels = c("Sc",
+                                                          "Ch",
+                                                          "Ac",
+                                                          "Vf",
+                                                          "Tw"))
+
+###
+#median contribution of Malassezia to pathways across sites besides Tw
+
+mtx_pathway_dominated_summary %>% dplyr::filter(genus=="Malassezia" & region %in% c("Sc","Ch","Vf", "Ac")) %>% 
+  pull(percentage_pathways_dominated_by) %>% median(.)
+
+
+
+###
+
+
+#boxplot with facet wrapping
+#https://rpkgs.datanovia.com/ggpubr/reference/geom_pwc.html for adjusted p values
+#
+
+mtx_pathway_dominated_boxplot <- ggplot(mtx_pathway_dominated_summary, aes(x=genus,y=percentage_pathways_dominated_by)) + 
+  geom_boxplot(aes(fill=genus)) + theme_classic() +  geom_pwc(
+    aes(group = genus), tip.length = 0,
+    method = "wilcox.test",
+    bracket.nudge.y = -0.08) + scale_y_continuous(expand = expansion(mult = c(0, 0.1))) +
+  facet_wrap(~region, ncol=5, nrow=1)
+
+#adjust p values for the sum of tests across the facets
+mtx_pathway_dominated_boxplot_padj <- ggadjust_pvalue(
+  mtx_pathway_dominated_boxplot, p.adjust.method = "BH",
+  label = "{p.adj.format}{p.adj.signif}", hide.ns = TRUE)
+
+
+mtx_pathway_dominated_boxplot_padj 
+
+ggsave(file="../plots/mtx_pathway_dominated_boxplot_padj.pdf",
+       plot=mtx_pathway_dominated_boxplot_padj ,
+       width=10,height=7)
+
+
+mtx_pathway_dominated_boxplot_padj 
+```
+

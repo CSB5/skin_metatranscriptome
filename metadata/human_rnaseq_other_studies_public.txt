@@ -1,0 +1,28 @@
+run_ID	sample_desc	rRNA_removal	polyA_enrichment	oligo_dT_primed_cDNA	patient_ID	region	skin_layer	instrument	sequencing_param	study	study_link
+SRR12952952	CTRL_tape_Healthy_111	TRUE	FALSE	FALSE	solberg_patient_11	Vf	stratum_corneum	NextSeq 500	SE75	Solberg et al  2020	https://doi.org/10.1016/j.jdermsci.2020.10.011
+SRR12952955	CTRL_tape_Healthy_121	TRUE	FALSE	FALSE	solberg_patient_12	Vf	stratum_corneum	NextSeq 500	SE75	Solberg et al  2020	https://doi.org/10.1016/j.jdermsci.2020.10.011
+SRR12952958	CTRL_tape_Healthy_131	TRUE	FALSE	FALSE	solberg_patient_13	Vf	stratum_corneum	NextSeq 500	SE75	Solberg et al  2020	https://doi.org/10.1016/j.jdermsci.2020.10.011
+SRR12952953	CTRL_biopsy_epidermis_Healthy_1110	TRUE	FALSE	FALSE	solberg_patient_11	Vf	epidermis	NextSeq 500	SE75	Solberg et al  2020	https://doi.org/10.1016/j.jdermsci.2020.10.011
+SRR12952956	CTRL_biopsy_epidermis_Healthy_1210	TRUE	FALSE	FALSE	solberg_patient_12	Vf	epidermis	NextSeq 500	SE75	Solberg et al  2020	https://doi.org/10.1016/j.jdermsci.2020.10.011
+SRR12952959	CTRL_biopsy_epidermis_Healthy_1310	TRUE	FALSE	FALSE	solberg_patient_13	Vf	epidermis	NextSeq 500	SE75	Solberg et al  2020	https://doi.org/10.1016/j.jdermsci.2020.10.011
+SRR12952954	CTRL_biopsy_dermis_Healthy_119	TRUE	FALSE	FALSE	solberg_patient_11	Vf	dermis	NextSeq 500	SE75	Solberg et al  2020	https://doi.org/10.1016/j.jdermsci.2020.10.011
+SRR12952957	CTRL_biopsy_dermis_Healthy_129	TRUE	FALSE	FALSE	solberg_patient_12	Vf	dermis	NextSeq 500	SE75	Solberg et al  2020	https://doi.org/10.1016/j.jdermsci.2020.10.011
+SRR12952960	CTRL_biopsy_dermis_Healthy_139	TRUE	FALSE	FALSE	solberg_patient_13	Vf	dermis	NextSeq 500	SE75	Solberg et al  2020	https://doi.org/10.1016/j.jdermsci.2020.10.011
+28--6_NL_RNAseq_11--20_skin_tape	28--6_NL_RNAseq_11--20_skin_tape	FALSE	FALSE	FALSE	leung_healthy_28--6	Ac	stratum_corneum	Ion Torrent Proton sequencer		Leung et al 2019	https://doi.org/10.1126/scitranslmed.aav2685
+42--0_NL_RNAseq_11--20_skin_tape	42--0_NL_RNAseq_11--20_skin_tape	FALSE	FALSE	FALSE	leung_healthy_42--0	Ac	stratum_corneum	Ion Torrent Proton sequencer		Leung et al 2019	https://doi.org/10.1126/scitranslmed.aav2685
+58--2_NL_RNAseq_11--20_skin_tape	58--2_NL_RNAseq_11--20_skin_tape	FALSE	FALSE	FALSE	leung_healthy_58--2	Ac	stratum_corneum	Ion Torrent Proton sequencer		Leung et al 2019	https://doi.org/10.1126/scitranslmed.aav2685
+61--6_NL_RNAseq_11--20_skin_tape	61--6_NL_RNAseq_11--20_skin_tape	FALSE	FALSE	FALSE	leung_healthy_61--6	Ac	stratum_corneum	Ion Torrent Proton sequencer		Leung et al 2019	https://doi.org/10.1126/scitranslmed.aav2685
+25--8_NL_RNA seq 11--20_skin_tape	25--8_NL_RNA seq 11--20_skin_tape	FALSE	FALSE	FALSE	leung_AD_FA-negative_25--8	Ac	stratum_corneum	Ion Torrent Proton sequencer		Leung et al 2019	https://doi.org/10.1126/scitranslmed.aav2685
+36--5_NL_RNA seq 11--20_skin_tape	36--5_NL_RNA seq 11--20_skin_tape	FALSE	FALSE	FALSE	leung_AD_FA-negative_36--5	Ac	stratum_corneum	Ion Torrent Proton sequencer		Leung et al 2019	https://doi.org/10.1126/scitranslmed.aav2685
+5--6_NL_RNA seq 11--20_skin_tape	5--6_NL_RNA seq 11--20_skin_tape	FALSE	FALSE	FALSE	leung_AD_FA-negative_5--6	Ac	stratum_corneum	Ion Torrent Proton sequencer		Leung et al 2019	https://doi.org/10.1126/scitranslmed.aav2685
+67--0_NL_RNA seq 11--20_skin_tape	67--0_NL_RNA seq 11--20_skin_tape	FALSE	FALSE	FALSE	leung_AD_FA-negative_67--0	Ac	stratum_corneum	Ion Torrent Proton sequencer		Leung et al 2019	https://doi.org/10.1126/scitranslmed.aav2685
+SRR23001302	GSM6919179: HS6; Homo sapiens; RNA-Seq	TRUE	FALSE	FALSE	amorim_HS6	upper arm	biopsy	NextSeq 500	SE75	Amorim et al 2023	https://pubmed.ncbi.nlm.nih.gov/37851822/
+SRR23001304	GSM6919178: HS5; Homo sapiens; RNA-Seq	TRUE	FALSE	FALSE	amorim_HS5	upper arm	biopsy	NextSeq 500	SE75	Amorim et al 2023	https://pubmed.ncbi.nlm.nih.gov/37851822/
+SRR23001306	GSM6919176: HS3; Homo sapiens; RNA-Seq	TRUE	FALSE	FALSE	amorim_HS3	upper arm	biopsy	NextSeq 500	SE75	Amorim et al 2023	https://pubmed.ncbi.nlm.nih.gov/37851822/
+SRR23001308	GSM6919175: HS2; Homo sapiens; RNA-Seq	TRUE	FALSE	FALSE	amorim_HS2	upper arm	biopsy	NextSeq 500	SE75	Amorim et al 2023	https://pubmed.ncbi.nlm.nih.gov/37851822/
+SRR23001310	GSM6919174: HS1; Homo sapiens; RNA-Seq	TRUE	FALSE	FALSE	amorim_HS1	upper arm	biopsy	NextSeq 500	SE75	Amorim et al 2023	https://pubmed.ncbi.nlm.nih.gov/37851822/
+SRR23001312	GSM6919177: HS4; Homo sapiens; RNA-Seq	TRUE	FALSE	FALSE	amorim_HS4	upper arm	biopsy	NextSeq 500	SE75	Amorim et al 2023	https://pubmed.ncbi.nlm.nih.gov/37851822/
+SRIS_healthy_1	SRIS_healthy_1	FALSE	TRUE	FALSE	SRIS_healthy_1	_	biopsy	Illumina HiSeq4000 	PE150	unpublished	unpublished
+SRIS_healthy_2	SRIS_healthy_2	FALSE	TRUE	FALSE	SRIS_healthy_2	_	biopsy	Illumina HiSeq4000 	PE150	unpublished	unpublished
+SRIS_healthy_3	SRIS_healthy_3	FALSE	TRUE	FALSE	SRIS_healthy_3	_	biopsy	Illumina HiSeq4000 	PE150	unpublished	unpublished
+SRIS_healthy_4	SRIS_healthy_4	FALSE	TRUE	FALSE	SRIS_healthy_4	_	biopsy	Illumina HiSeq4000 	PE150	unpublished	unpublished

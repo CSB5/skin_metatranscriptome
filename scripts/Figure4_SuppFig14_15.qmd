@@ -1,0 +1,943 @@
+---
+title: "Integration of metatranscriptomic data with metabolic models of S. epidermidis and C. acnes"
+format: html
+editor: source
+author: Aarthi Ravikrishnan
+---
+# Setup
+```{r setup, include=FALSE}
+rm(list=ls())
+knitr::opts_chunk$set(echo = TRUE)
+pacman::p_load(tidyverse, janitor, magrittr, reticulate, reshape2)
+pacman::p_load(vegan, ggpattern)
+
+py_install(c("cobra==0.29.0", "riptide", "pandas==2.1.3", "symengine==0.11.0", "scipy", "session_info"))
+sessionInfo()
+```
+
+# Helper functions
+```{r helper}
+figfolder <- 'plots'
+plot_image <- function(needed)
+{
+  col_group <- c(
+    'Log phase' = '#f8766d',
+    'Osmotic stress' = '#a3a500',
+    'Sebaceous' = '#00bf7d',
+    'Stationary phase' = '#00b0f6',
+    'Toe webs' = '#e76bf3'
+  )
+  
+  bar_plot_da <-
+    ggplot(data = needed,
+           aes(
+             x = variable,
+             y = val,
+             fill = group,
+             pattern = conditions
+           )) +
+    geom_bar_pattern(
+      stat = "identity",
+      position = position_dodge(preserve = "single"),
+      color = "black",
+      pattern_fill = ifelse(
+        needed$group == "Log phase",
+        "#f8766d",
+        ifelse(
+          needed$group == "Osmotic stress",
+          "#a3a500",
+          ifelse(
+            needed$group == "Stationary phase",
+            "#00b0f6",
+            ifelse(needed$group == "Sebaceous", "#00bf7d", "#e76bf3")
+          )
+        )
+      ),
+      pattern_angle = 45,
+      pattern_density = 0.1,
+      pattern_spacing = 0.05,
+      pattern_key_scale_factor = 0.6
+    ) +
+    scale_fill_manual(values = col_group) +
+    scale_pattern_manual(values = c("in-vitro" = "stripe", "in-vivo" = "none")) +
+    labs(fill = "Phase", pattern = "Condition") +
+    guides(pattern = guide_legend(override.aes = list(fill = "white")),
+           fill = guide_legend(override.aes = list(pattern = "none"))) +
+    theme_bw() +
+    ylab('Mean flux value \n (mmol/gDCW hr)') +
+    xlab('Reactions') +
+    theme(
+      axis.text = element_text(size = 16),
+      axis.text.x = element_text(angle = 90, vjust = 0.65),
+      axis.title = element_text(size = 16),
+      legend.text = element_text(size = 16),
+      legend.title = element_text(size = 18),
+      legend.position = 'right',
+      panel.grid.major = element_blank(),
+      panel.grid.minor = element_blank(),
+      strip.text = element_text(size = 14),
+      plot.title = element_text(face = 'bold', hjust = 0.5)
+    )
+  return(bar_plot_da)
+}
+
+my_theme_cacnes <- theme_bw() +
+   theme(axis.text = element_text(size=16),
+        axis.text.x = element_text(angle = 90, vjust = 0.65),
+        axis.title = element_text(size=18),
+        legend.text = element_text(size=18),
+        legend.title=element_text(size=20),
+        legend.position = 'right',
+        strip.text = element_text(size=14),
+        strip.background = element_blank(),
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        plot.title = element_text(face='bold', hjust=0.5)) 
+
+```
+
+# Reading media
+
+LB Medium conditions obtained from CarveMe
+```{r readmedia}
+media <- read_tsv(file.path('..', 'data', 'media_db_from_carveme.tsv'))
+media_lb <- media %>% filter(medium == 'LB')
+media_lb$compound <- str_replace_all(media_lb$compound, '__', '_')
+media_lb <- media_lb %>% mutate(rxn = paste0('EX_', compound))
+media_lb <- media_lb %>% mutate(rxn = paste0(rxn, '(e)'))
+```
+# Reading model in python
+```{python}
+import cobra
+import os
+import riptide
+from copy import deepcopy
+import pandas as pd
+import session_info
+
+session_info.show()
+model = cobra.io.read_sbml_model(os.path.join('..','data','Metabolic_model', 'Staphylococcus_epidermidis_ATCC_12228.xml'))
+# cobra.io.save_json_model(model, "../data/Metabolic_model/Staphylococcus_epidermidis_ATCC_12228.json")
+model.optimize()
+model_original = deepcopy(model)
+print(len(model.reactions))
+print(len(model.metabolites))
+print(len(model.genes))
+
+count = 0
+ubmedium ={}
+# for rxn in model.reactions:
+#   if 'EX_' in rxn.id:
+#     print(rxn.id)
+for rxn in model.reactions:
+  check = 0
+  if 'EX_' in rxn.id:
+    for cpd in r.media_lb['rxn']:
+        if cpd in rxn.id:
+          check+=1
+          #print(rxn.id, cpd)
+          count +=1
+          ubmedium[rxn.id] = 5
+    if check == 0:
+      #print(rxn.id)
+      pass
+print(len(set(r.media_lb['rxn']) - set(ubmedium.keys()))) #14 reactions not found
+
+# Set medium 
+model.medium = ubmedium
+# Optimise
+sol = model.optimize()
+
+print(model.summary())
+```
+# RIPTIDE with cumulative value
+### In vitro conditions
+
+```{python ripitideinvitro}
+logphase = riptide.read_transcription_file(os.path.join('..','data','RNA-Seq_data','staph_counts','invitro_mtx_mm_TPM_logphase_gmean_TPM.tsv'), header=True, sep='\t', norm=False)
+riptide_log = riptide.contextualize(model=model, transcriptome=logphase)
+
+osmoticstress = riptide.read_transcription_file(os.path.join('..','data','RNA-Seq_data','staph_counts','invitro_mtx_mm_TPM_OS_gmean_TPM.tsv'), header=True, sep='\t', norm=False)
+riptide_osmotic = riptide.contextualize(model=model, transcriptome=osmoticstress)
+
+stationaryphase = riptide.read_transcription_file(os.path.join('..','data','RNA-Seq_data','staph_counts','invitro_mtx_mm_TPM_SP_gmean_TPM.tsv'), header=True, sep='\t', norm='False')
+riptide_stat = riptide.contextualize(model=model, transcriptome=stationaryphase)
+
+os.path.join('..','data','RNA-Seq_data','staph_counts','invitro_mtx_mm_TPM_logphase_gmean_TPM.tsv')
+```
+### In vivo conditions
+
+We use the same constrained model for in vivo since the model was constrained with rich media in any case
+
+```{python riptideinvivo}
+seb = riptide.read_transcription_file(os.path.join('..','data','RNA-Seq_data','staph_counts','invivo_mtx_mm_TPM_sebaceous_gmean_TPM.tsv'), header=True, sep='\t', norm='False')
+riptide_seb = riptide.contextualize(model=model, transcriptome=seb)
+
+toe = riptide.read_transcription_file(os.path.join('..','data','RNA-Seq_data','staph_counts','invivo_mtx_mm_TPM_Tw_gmean_TPM.tsv'), header=True, sep='\t', norm='False')
+riptide_toe = riptide.contextualize(model=model, transcriptome=toe)
+```
+
+# Difference of metabolism across multiple conditions
+## Prepare data
+```{r nmdspreparedatastap, message=FALSE}
+set.seed(100)
+sub_sample <- sample(1:500, 250, replace = FALSE)
+log_flux <- py$riptide_log$flux_samples[sub_sample, ]
+osmotic_flux <- py$riptide_osmotic$flux_samples[sub_sample, ]
+stat_flux <- py$riptide_stat$flux_samples[sub_sample, ]
+seb_flux <- py$riptide_seb$flux_samples[sub_sample, ]
+toe_flux <- py$riptide_toe$flux_samples[sub_sample, ]
+
+```
+## Prepare metadata
+```{r mergedata, message=FALSE}
+log_flux$X <- NULL
+log_flux_samples <-
+  paste('log_flux_', 1:nrow(log_flux), sep = '')
+rownames(log_flux) <- log_flux_samples
+
+osmotic_flux$X <- NULL
+osmotic_flux_samples <-
+  paste('osmotic_flux_', 1:nrow(osmotic_flux), sep = '')
+rownames(osmotic_flux) <- osmotic_flux_samples
+
+stat_flux$X <- NULL
+stat_flux_samples <-
+  paste('stat_flux_', 1:nrow(stat_flux), sep = '')
+rownames(stat_flux) <- stat_flux_samples
+
+seb_flux$X <- NULL
+seb_flux_samples <-
+  paste('seb_flux_', 1:nrow(seb_flux), sep = '')
+rownames(seb_flux) <- seb_flux_samples
+
+toe_flux$X <- NULL
+toe_flux_samples <-
+  paste('toe_flux_', 1:nrow(toe_flux), sep = '')
+rownames(toe_flux) <- toe_flux_samples
+
+# Create metadata
+log_metadata <-
+  cbind(log_flux_samples, rep('log', length(log_flux_samples)))
+osmotic_metadata <-
+  cbind(osmotic_flux_samples, rep('osmotic', length(osmotic_flux_samples)))
+stat_metadata <-
+  cbind(stat_flux_samples, rep('stat', length(stat_flux_samples)))
+seb_metadata <-
+  cbind(seb_flux_samples, rep('seb', length(seb_flux_samples)))
+toe_metadata <-
+  cbind(toe_flux_samples, rep('toe', length(toe_flux_samples)))
+metadata <-
+  rbind(log_metadata,
+        osmotic_metadata,
+        seb_metadata,
+        stat_metadata,
+        toe_metadata)
+colnames(metadata) <- c('label', 'group')
+metadata <- as.data.frame(metadata)
+
+#write.csv(metadata, here('results','metadata.csv'))
+```
+## NMDS of  fluxes
+
+```{r nmdsstap, results = 'hide',warning=FALSE,message=FALSE,error=FALSE}
+flux_samples <-
+  bind_rows(log_flux, osmotic_flux, stat_flux, seb_flux, toe_flux)
+flux_samples[is.na(flux_samples)] <- 0
+# Since many reactions are negative, we add min to make it positive for bray curtis analysis
+print(abs(min(flux_samples))) #44.22
+flux_samples <- flux_samples + abs(min(flux_samples))
+flux_bray_dist <- vegdist(flux_samples, method = 'bray') # Bray-Curtis
+flux_nmds <-
+  as.data.frame(metaMDS(flux_bray_dist, k = 2, trymax = 25)$points)
+rownames(flux_nmds) <- rownames(flux_samples)
+
+dat_merged_all <- flux_nmds %>% rownames_to_column('label') %>%
+  left_join(metadata, by = 'label')
+```
+
+```{r plotmds, message=FALSE}
+MDS_plot <-
+  ggplot(dat_merged_all, aes(x = MDS1, y = MDS2, colour = group)) +
+  geom_point(size = 3) + theme_bw() +
+  theme(
+    legend.text = element_text(size = 12),
+    legend.title = element_text(size = 14),
+    axis.title = element_text(size = 14),
+    plot.title = element_text(face='italic', hjust=0.5),
+    axis.text = element_text(size = 12)
+  ) +
+  ggtitle('Staphylococcus epidermidis')
+print(MDS_plot)
+
+ggsave(
+  file.path('..','plots', 'SuppFig14A.svg'),
+  plot = MDS_plot,
+  device = "svg",
+  width = 8,
+  height = 5
+)
+ggsave(
+  file.path('..','plots', 'SuppFig14A.pdf'),
+  plot = MDS_plot,
+  device = "pdf",
+  width = 8,
+  height = 5
+)
+md_adonis <- metadata %>% column_to_rownames('label')
+md_adonis <-
+  md_adonis %>% mutate(
+    conditions = case_when(
+      group == 'log' ~ 'in-vitro',
+      group == 'osmotic' ~
+        'in-vitro',
+      group == 'stat' ~
+        'in-vitro',
+      group == 'seb' ~
+        'in-vivo',
+      group == 'toe' ~
+        'in-vivo'
+    )
+  )
+
+set.seed(100)
+adonis2(flux_bray_dist ~ md_adonis$group)
+```
+
+## Getting subsystems from model
+```{python modelstat}
+# Initialize dictionary to store subsystem reaction counts
+subsystem_reactions = {}
+
+# Iterate through reactions and count by subsystem
+for reaction in model.reactions:
+    if reaction.subsystem:
+        if reaction.subsystem in subsystem_reactions:
+            subsystem_reactions[reaction.subsystem] += 1
+        else:
+            subsystem_reactions[reaction.subsystem] = 1
+
+# Convert dictionary to dataframe
+df_python = pd.DataFrame(list(subsystem_reactions.items()), columns=['Subsystem', 'Reaction_Count'])
+subsystem_reactions.items
+
+# reaction subsystem info
+rxn_subsytem = {}
+# Iterate through reactions and count by subsystem
+for reaction in model.reactions:
+    if reaction.subsystem:
+        if reaction.id not in rxn_subsytem:
+            rxn_subsytem[reaction.id] = reaction.subsystem
+
+# Convert dictionary to dataframe
+df_rxn_subsytem = pd.DataFrame(list(rxn_subsytem.items()), columns=['reaction', 'Subsytems'])
+
+# reaction info
+rxn_info = {}
+# Iterate through reactions and count by subsystem
+for reaction in model.reactions:
+    if reaction.subsystem:
+        if reaction.id not in rxn_info:
+            rxn_info[reaction.id] = reaction.reaction
+
+# Convert dictionary to dataframe
+df_rxn_info_withrxns = pd.DataFrame(list(rxn_info.items()), columns=['reaction', 'rxnformula'])
+        
+```
+
+# Within the  metabolism, which reactions are different between conditions?
+## GLM
+```{r reactionsDA, message=FALSE}
+flux_samples <- bind_rows(log_flux, osmotic_flux, stat_flux, seb_flux,toe_flux)
+flux_samples[is.na(flux_samples)] <- 0
+rxns_to_test <- flux_samples %>% colnames()
+data_for_da <- flux_samples %>% rownames_to_column('label') %>% left_join(metadata, by='label')
+
+data_for_da <- data_for_da %>%
+  mutate(group_oh = case_when(group =='log' ~ 1,
+                              group == 'seb' ~ 2,
+                              group== 'osmotic' ~ 3,
+                              group == 'toe'~4,
+                              group == 'stat'~5))
+data_for_da[is.na(data_for_da)] <- 0
+flux_samples[is.na(flux_samples)] <- 0
+rxns_da <-
+  lapply(data_for_da[, rxns_to_test],
+         function(x)
+           coefficients(summary(
+             glm(x~group , data = data_for_da))))
+df_res <- data.frame()
+for (rxns in rxns_to_test){
+  tmp <- data.frame(rxns_da[[rxns]])
+  tmp$Reactions <- rxns
+  df_res <-  bind_rows(df_res,tmp)}
+
+df_res %<>%  rownames_to_column('coeff') 
+df_res <- df_res %>% filter(!grepl('(Intercept)', coeff))
+df_res %<>% dplyr::rename( 'p-val'="Pr...t..")
+df_res %<>%  clean_names()
+df_res$p_adj <- p.adjust(df_res$p_val, method = 'fdr')
+df_res <- df_res %>% dplyr::rename(reaction=reactions) %>% 
+  left_join(py$df_rxn_subsytem)
+df_res_fil <- df_res %>% dplyr::filter(p_adj<0.001, abs(estimate)>2)
+df_res_fil <- df_res_fil %>% left_join(py$df_rxn_subsytem)
+
+#write.csv(df_res_fil, file=file.path('..','results', 'differentially_abundant_reactions_GLM_staphepi.csv'))
+```
+## Prepare data to plot
+```{r barplotdataprep, message=FALSE}
+flux_samples_to_plot <-
+  bind_rows(log_flux, osmotic_flux, stat_flux, seb_flux, toe_flux)
+annot_column <-
+  data.frame(
+    test = c('log', 'osmotic', 'stat', 'seb', 'toe'),
+    conditions = c('in-vitro', 'in-vitro', 'in-vitro', 'in-vivo', 'in-vivo')
+  ) %>%
+  column_to_rownames('test')
+bar_plot_data <- flux_samples_to_plot %>%
+  dplyr::select(unique(df_res_fil$reaction)) %>%
+  rownames_to_column('label') %>%
+  left_join(metadata, by = 'label') %>%
+  reshape2::melt() %>%
+  group_by(group, variable) %>%
+  summarise(val = mean(value), stddev = sd(value)) %>%
+  left_join(annot_column %>% rownames_to_column('group'), by = 'group')
+bar_plot_data$group <- factor(bar_plot_data$group,
+                              levels = c("log", "stat", "osmotic", "seb", "toe"))
+rxn_subsytem <-
+  py$df_rxn_subsytem %>% dplyr::rename(variable = reaction)
+bar_plot_data %<>% left_join(rxn_subsytem, by = 'variable')
+```
+
+# Plot bar plots of reactions with different fluxes
+
+## Propionate metabolism
+```{r propionatemet,warning=FALSE}
+needed_rxns <- c('CYSTGL', 'OBTFL', 'PTA2', 'PPAKr', 'EX_ppa(e)')
+needed <- bar_plot_data %>%
+  filter(variable %in% needed_rxns)
+needed$variable <- factor(needed$variable, levels = needed_rxns)
+needed$group <- factor(
+  needed$group,
+  levels = c("log", "osmotic", "stat", "seb", "toe"),
+  labels = c(
+    "Log phase",
+    "Osmotic stress",
+    "Stationary phase",
+    "Sebaceous",
+    "Toe webs"
+  )
+)
+needed$pattern_condition <-
+  ifelse(needed$conditions == "in-vitro", "Striped", "Solid")
+cys_prop <- plot_image(needed) +
+  ggtitle('Staphylococcus epidermidis\nPropionate metabolism')
+
+ggsave(
+  file.path('..','plots', 'Figure4A.svg'),
+  plot = cys_prop,
+  device = "svg",
+  width = 8,
+  height = 5
+)
+ggsave(
+  file.path('..','plots', 'Figure4A.pdf'),
+  plot = cys_prop,
+  device = "pdf",
+  width = 8,
+  height = 5
+)
+print(cys_prop)
+```
+## PPP and Glycolysis 
+```{r glucosemet,warning=FALSE}
+glyco <- c('FBA3', 'PFK_3', 'TALA', 'FBA', 'PFK', 'L_LACD2', 'PPCKr')
+needed_glyco <- bar_plot_data %>%
+  filter(variable %in% glyco)
+needed_glyco$group <- factor(
+  needed_glyco$group,
+  levels = c("log", "osmotic", "stat", "seb", "toe"),
+  labels = c(
+    "Log phase",
+    "Osmotic stress",
+    "Stationary phase",
+    "Sebaceous",
+    "Toe webs"
+  )
+)
+needed_glyco$pattern_condition <-
+  ifelse(needed_glyco$conditions == "in-vitro", "Striped", "Solid")
+glyco <- plot_image(needed_glyco) +
+  ggtitle('Staphylococcus epidermidis\nGlycolytic pathway')
+ggsave(
+  file.path('..','plots', 'Figure4B.svg'),
+  plot = glyco,
+  device = "svg",
+  width = 8,
+  height = 5
+)
+ggsave(
+  file.path('..','plots', 'Figure4B.pdf'),
+  plot = glyco,
+  device = "pdf",
+  width = 8,
+  height = 5
+)
+print(glyco)
+```
+## Respiration
+```{r respiration,warning=FALSE}
+resp <- c('NADH5')
+needed_resp <- bar_plot_data %>%
+  filter(variable %in% resp)
+needed_resp$group <- factor(
+  needed_resp$group,
+  levels = c("log", "osmotic", "stat", "seb", "toe"),
+  labels = c(
+    "Log phase",
+    "Osmotic stress",
+    "Stationary phase",
+    "Sebaceous",
+    "Toe webs"
+  )
+)
+needed_resp$pattern_condition <-
+  ifelse(needed_resp$conditions == "in-vitro", "Striped", "Solid")
+
+resp <- plot_image(needed_resp)
+ggsave(
+  file.path('..','plots', 'SuppFig14B.svg'),
+  plot = resp,
+  device = "svg",
+  width = 8,
+  height = 5
+)
+ggsave(
+  file.path('..','plots', 'SuppFig14B.pdf'),
+  plot = resp,
+  device = "pdf",
+  width = 8,
+  height = 5
+)
+
+print(resp)
+```
+
+## Aminobutanol metabolism
+```{r abutd,warning=FALSE}
+aminobut <- c('ABUTD', 'ABUTR')
+needed_aminobut <- bar_plot_data %>%
+  filter(variable %in% aminobut)
+needed_aminobut$group <- factor(
+  needed_aminobut$group,
+  levels = c("log", "osmotic", "stat", "seb", "toe"),
+  labels = c(
+    "Log phase",
+    "Osmotic stress",
+    "Stationary phase",
+    "Sebaceous",
+    "Toe webs"
+  )
+)
+needed_aminobut$pattern_condition <-
+  ifelse(needed_aminobut$conditions == "in-vitro", "Striped", "Solid")
+abut <- plot_image(needed_aminobut)
+ggsave(
+  file.path('..','plots', 'SuppFig14C.svg'),
+  plot = abut,
+  device = "svg",
+  width = 8,
+  height = 5
+)
+ggsave(
+  file.path('..','plots', 'SuppFig14C.pdf'),
+  plot = abut,
+  device = "pdf",
+  width = 8,
+  height = 5
+)
+print(abut)
+```
+
+# Cutibacterium acnes
+# Reading model in python
+
+```{python readcacnesmodel}
+model_cacnes = cobra.io.read_sbml_model(os.path.join('..','data','Metabolic_model','Propionibacterium_acnes_KPA171202.xml'))
+
+#cobra.io.save_json_model(model, "../data/Metabolic_model/Propionibacterium_acnes_KPA171202.json")
+# Just the original model solution was 129.269
+model_cacnes.optimize() # Solution 129.269 
+model_cacnes_original = deepcopy(model_cacnes)
+print(len(model_cacnes.reactions)) #1323
+print(len(model_cacnes.metabolites)) #1134
+print(len(model_cacnes.genes)) #791
+```
+
+# Getting subsystems from model
+```{python modelcacnes}
+# Initialize dictionary to store subsystem reaction counts
+subsystem_reactions_cacnes = {}
+
+# Iterate through reactions and count by subsystem
+for reaction in model_cacnes.reactions:
+    if reaction.subsystem:
+        if reaction.subsystem in subsystem_reactions_cacnes:
+            subsystem_reactions_cacnes[reaction.subsystem] += 1
+        else:
+            subsystem_reactions_cacnes[reaction.subsystem] = 1
+
+# Convert dictionary to dataframe
+df_python = pd.DataFrame(list(subsystem_reactions_cacnes.items()), columns=['Subsystem', 'Reaction_Count'])
+subsystem_reactions_cacnes.items
+
+# reaction subsystem info
+rxn_subsytem_cacnes = {}
+# Iterate through reactions and count by subsystem
+for reaction in model_cacnes.reactions:
+    if reaction.subsystem:
+        if reaction.id not in rxn_subsytem_cacnes:
+            rxn_subsytem_cacnes[reaction.id] = reaction.subsystem
+
+# Convert dictionary to dataframe
+df_rxn_subsytem_cacnes = pd.DataFrame(list(rxn_subsytem_cacnes.items()), columns=['reaction', 'Subsytems'])
+
+# reaction info
+rxn_info_cacnes = {}
+# Iterate through reactions and count by subsystem
+for reaction in model_cacnes.reactions:
+    if reaction.subsystem:
+        if reaction.id not in rxn_info_cacnes:
+            rxn_info_cacnes[reaction.id] = reaction.reaction
+
+# Convert dictionary to dataframe
+df_rxn_info_cacnes_withrxns = pd.DataFrame(list(rxn_info_cacnes.items()), columns=['reaction', 'rxnformula'])
+        
+```
+# Reading media 
+```{python finalmodelcacnes}
+data_aftermed_cacnes = []
+for rxn in model_cacnes.reactions:
+  check = 0
+  if 'EX_' in rxn.id:
+    #print(rxn.id, rxn.lower_bound, rxn.upper_bound)  
+    data_aftermed_cacnes.append({
+            'rxn_id': rxn.id,
+            'lower_bound': rxn.lower_bound,
+            'upper_bound': rxn.upper_bound
+        })
+df_aftermed_cacnes = pd.DataFrame(data_aftermed_cacnes)
+
+cocktail = {'EX_adn(e)': 1, 'EX_amp(e)': 1, 'EX_aso3(e)': 1, 'EX_cd2(e)': 1, 'EX_cmp(e)': 1, 'EX_cro4(e)': 1, 'EX_dad_2(e)': 1, 'EX_dcyt(e)': 1, 'EX_gmp(e)': 1, 'EX_gsn(e)': 1, 'EX_h2s(e)': 1, 'EX_hg2(e)': 1, 'EX_hxan(e)': 1, 'EX_ins(e)': 1, 'EX_lipoate(e)': 1, 'EX_mobd(e)': 1, 'EX_ni2(e)': 1, 'EX_o2(e)': 0, 'EX_pheme(e)': 1, 'EX_pydx(e)': 1, 'EX_thymd(e)': 1, 'EX_ump(e)': 1, 'EX_uri(e)': 1, 'EX_2fe2s(e)': 1, 'EX_4fe4s(e)': 1, 'EX_aacp(e)': 1, 'EX_ala_L(e)': 0.5, 'EX_arg_L(e)': 0.5, 'EX_asn_L(e)': 0.5, 'EX_asp_L(e)': 0.5, 'EX_btn(e)': 1, 'EX_ca2(e)': 1, 'EX_cbl1(e)': 1, 'EX_chol(e)': 1, 'EX_cl(e)': 1, 'EX_cobalt2(e)': 1, 'EX_csn(e)': 1, 'EX_cu2(e)': 1, 'EX_cys_L(e)': 0.5, 'EX_fe2(e)': 1, 'EX_fe3(e)': 1, 'EX_fol(e)': 1, 'EX_glc_D(e)': 5, 'EX_gln_L(e)': 0.5, 'EX_glu_L(e)': 0.5, 'EX_gly(e)': 0, 'EX_glyc(e)': 10, 'EX_h(e)': 1, 'EX_h2o(e)': 1, 'EX_his_L(e)': 0.5, 'EX_ile_L(e)': 0.5, 'EX_k(e)': 1, 'EX_leu_L(e)': 0.5, 'EX_LPG2_Cat': 1, 'EX_lys_L(e)': 0.5, 'EX_met_L(e)': 0.5, 'EX_mg2(e)': 1, 'EX_mn2(e)': 1, 'EX_na1(e)': 1, 'EX_nac(e)': 1, 'EX_nh4(e)': 1, 'EX_phe_L(e)': 0.5, 'EX_pi(e)': 1, 'EX_pnto_R(e)': 1, 'EX_pro_L(e)': 0.5, 'EX_ribflv(e)': 1, 'EX_ser_L(e)': 0.5, 'EX_so3(e)': 1, 'EX_so4(e)': 1, 'EX_thm(e)': 1, 'EX_thr_L(e)': 0.5, 'EX_trp_L(e)': 0.5, 'EX_tyr_L(e)': 0.5, 'EX_ura(e)': 1, 'EX_val_L(e)': 0.5, 'EX_zn2(e)': 1 }
+
+for rxns in model_cacnes.reactions:
+  if 'EX_' in rxns.id:
+    model_cacnes.reactions.get_by_id(rxns.id).lower_bound = 0
+
+for rxn_id, lower_bound in cocktail.items():
+    if rxn_id in model_cacnes.reactions:
+        model_cacnes.reactions.get_by_id(rxn_id).lower_bound = -lower_bound
+        #print(f'done {rxn_id}')
+    #else:
+        #print(f"Reaction {rxn_id} not found in the model.")
+        
+print(model_cacnes.summary())
+```
+
+# RIPTIDE with cumulative value
+## Cheek
+
+```{python ripitidecheekcacnes}
+cheek = riptide.read_transcription_file(os.path.join('..','data','RNA-Seq_data','pacnes_counts','C_acnes_invivo_mtx_mm_TPM_Ch_gmean_TPM.tsv'), header=True, sep='\t', norm=False)
+riptide_cheek = riptide.contextualize(model=model_cacnes, transcriptome=cheek)
+```
+## Scalp
+
+```{python ripitidescalpscacnes}
+scalp = riptide.read_transcription_file(os.path.join('..','data','RNA-Seq_data','pacnes_counts','C_acnes_invivo_mtx_mm_TPM_Sc_gmean_TPM.tsv'), header=True, sep='\t', norm=False)
+riptide_scalp = riptide.contextualize(model=model_cacnes, transcriptome=scalp)
+```
+# Difference of metabolism across multiple conditions
+## Prepare data
+```{r preparedatacacnes}
+set.seed(100)
+sub_sample <- sample(1:500, 250, replace = FALSE)
+cheek_flux <- py$riptide_cheek$flux_samples[sub_sample, ]
+scalp_flux <- py$riptide_scalp$flux_samples[sub_sample, ]
+```
+
+## Prepare metadata
+```{r mergedatacacnes}
+cheek_flux$X <- NULL
+cheek_flux_samples <-
+  paste('cheek_flux_', 1:nrow(cheek_flux), sep = '')
+rownames(cheek_flux) <- cheek_flux_samples
+
+scalp_flux$X <- NULL
+scalp_flux_samples <-
+  paste('scalp_flux_', 1:nrow(scalp_flux), sep = '')
+rownames(scalp_flux) <- scalp_flux_samples
+
+cheek_metadata <-
+  cbind(cheek_flux_samples, rep('cheek', length(cheek_flux_samples)))
+scalp_metadata <-
+  cbind(scalp_flux_samples, rep('scalp', length(scalp_flux_samples)))
+metadata_cacnes <- rbind(cheek_metadata, scalp_metadata)
+colnames(metadata_cacnes) <- c('label', 'group')
+metadata_cacnes <- as.data.frame(metadata_cacnes)
+```
+## NMDS of  fluxes
+```{r nmdscacnes}
+flux_samples_cacnes <- bind_rows(cheek_flux, scalp_flux)
+flux_samples_cacnes[is.na(flux_samples_cacnes)] <- 0
+print(abs(min(flux_samples_cacnes)))
+flux_samples_cacnes <-
+  flux_samples_cacnes + abs(min(flux_samples_cacnes))
+flux_bray_dist_cacnes <-
+  vegdist(flux_samples_cacnes, method = 'bray')
+flux_nmds_cacnes <-
+  as.data.frame(metaMDS(flux_bray_dist_cacnes, k = 2, trymax = 25)$points)
+rownames(flux_nmds_cacnes) <- rownames(flux_samples_cacnes)
+
+dat_merged_all_cacnes <-
+  flux_nmds_cacnes %>% rownames_to_column('label') %>%
+  left_join(metadata_cacnes, by = 'label') %>% filter(group != 'staphcomp')
+
+MDS_plot_cacnes <-
+  ggplot(dat_merged_all_cacnes, aes(x = MDS1, y = MDS2, colour = group)) +
+  geom_point(size = 3) + theme_bw() +
+  labs(colour = 'Site') +
+  theme(
+    legend.text = element_text(size = 12),
+    legend.title = element_text(size = 14),
+    axis.title = element_text(size = 14),
+    axis.text = element_text(size = 12),
+    plot.title = element_text(face='italic', hjust=0.5)
+  ) +
+  scale_color_manual(values = c(
+    'cheek' = 'dodgerblue',
+    'scalp' = 'goldenrod1'
+  )) + ggtitle('Cutibacterium acnes')
+print(MDS_plot_cacnes)
+md_adonis_cacnes <- metadata_cacnes %>% column_to_rownames('label')
+set.seed(100)
+adonis2(flux_bray_dist_cacnes ~ md_adonis_cacnes$group)
+
+ggsave(
+  file.path('..','plots', 'SuppFig15.svg'),
+  plot = MDS_plot_cacnes,
+  device = "svg",
+  width = 8,
+  height = 5
+)
+ggsave(
+  file.path('..','plots', 'SuppFig15.pdf'),
+  plot = MDS_plot_cacnes,
+  device = "pdf",
+  width = 8,
+  height = 5
+)
+```
+# With in the  metabolism, which reactions are DA between conditions
+## GLM
+```{r reactionsDAcacnes, message=FALSE}
+rxns_to_test_cacnes <- flux_samples_cacnes %>% colnames()
+data_for_da_cacnes <-
+  flux_samples_cacnes %>%
+  rownames_to_column('label') %>% 
+  left_join(metadata_cacnes, by = 'label')
+data_for_da_cacnes <- data_for_da_cacnes %>%
+  mutate(
+    group_oh = case_when(
+      group == 'cheek' ~ 1,
+      group == 'scalp' ~ 2))
+data_for_da_cacnes[is.na(data_for_da_cacnes)] <- 0
+flux_samples_cacnes[is.na(flux_samples_cacnes)] <- 0
+rxns_da_cacnes <-
+  lapply(data_for_da_cacnes[, rxns_to_test_cacnes],
+         function(x)
+           coefficients(summary(
+             glm(x ~ group , data = data_for_da_cacnes)
+           )))
+df_res_cacnes <- data.frame()
+for (rxns in rxns_to_test_cacnes) {
+  tmp <- data.frame(rxns_da_cacnes[[rxns]])
+  tmp$Reactions <- rxns
+  df_res_cacnes <-  bind_rows(df_res_cacnes, tmp)
+}
+df_res_cacnes %<>%  rownames_to_column('coeff')
+df_res_cacnes <-
+  df_res_cacnes %>% filter(!grepl('(Intercept)', coeff))
+df_res_cacnes %<>% dplyr::rename('p-val' = "Pr...t..")
+df_res_cacnes %<>%  clean_names()
+df_res_cacnes$p_adj <-
+  p.adjust(df_res_cacnes$p_val, method = 'fdr')
+df_res_cacnes <-
+  df_res_cacnes %>% dplyr::rename(reaction = reactions) %>%
+  left_join(py$df_rxn_subsytem)
+df_res_cacnes_fil <-
+  df_res_cacnes %>% dplyr::filter(p_adj < 0.001)
+df_res_cacnes_fil <-
+  df_res_cacnes_fil %>% left_join(py$df_rxn_subsytem
+  )
+```
+
+## Prepare samples to plot
+```{r aminoacidcacnes, message=FALSE}
+flux_samples_cacnes_to_plot <- bind_rows(cheek_flux, scalp_flux)
+```
+
+# Bar plots propionate
+```{r barplotspropcacnes, message=FALSE,warning=FALSE}
+ppa_bar_plot_data <- flux_samples_cacnes_to_plot %>%
+  dplyr::select('MME', 'MMM2r', 'PPAKr', 'PTA2', 'PYRCT',
+                'EX_ppa(e)') %>%
+  rownames_to_column('label') %>%
+  left_join(metadata_cacnes, by = 'label') %>%
+  melt() %>%
+  group_by(group, variable) %>%
+  summarise(val = mean(value), stddev = sd(value)) %>%
+  dplyr::rename('reaction' = 'variable') %>%
+  left_join(df_res_fil %>%
+              dplyr::select(reaction, Subsytems),
+            by = 'reaction')
+
+ppa_bar_plot_data$val[is.na(ppa_bar_plot_data$val)] <- 0
+ppa_bar_plot_data$reaction <-
+  factor(
+    ppa_bar_plot_data$reaction,
+    levels = c('MME', 'MMM2r', 'PPAKr', 'PTA2', 'PYRCT', 'EX_ppa(e)'))
+flux_diff_ppa <-
+  ggplot(ppa_bar_plot_data, aes(x = reaction, y = val, fill = group)) +
+  geom_bar(stat = "identity",
+           color = "black",
+           position = position_dodge()) +
+  ylab('Mean flux value \n (mmol/gDCW hr)') +
+  xlab('Reactions') +
+  scale_fill_manual(values = c(
+    'cheek' = 'dodgerblue',
+    'scalp' = 'goldenrod1'
+  )) + labs(fill = 'Site') +
+  scale_y_continuous(breaks = scales::pretty_breaks(n = 5)) +
+  ggtitle('Cutibacterium acnes\nPropionate metabolism') +
+  my_theme_cacnes
+
+print(flux_diff_ppa)
+ggsave(
+  file.path('..','plots', 'Figure4C.svg'),
+  plot = flux_diff_ppa,
+  device = "svg",
+  width = 6,
+  height = 5
+)
+ggsave(
+  file.path('..','plots', 'Figure4C.pdf'),
+  plot = flux_diff_ppa,
+  device = "pdf",
+  width = 8,
+  height = 6
+)
+```
+
+# Bar plots Amino acids
+```{r prolineacnes, fig.height=6, fig.width=15, message=FALSE, warning=FALSE}
+bar_plot_data_aa_pr <- flux_samples_cacnes_to_plot %>%
+  dplyr::select(
+    'HISD',
+    'IZPN',
+    'NFLGLNH',
+    'NFORGLUAH',
+    'URCN',
+    'EX_his_L(e)',
+    'HISt2r',
+    'PRO1x',
+    'PROt2r',
+    'P5CD',
+    'EX_pro_L(e)'
+  ) %>% 
+  rownames_to_column('label') %>%
+  left_join(metadata_cacnes, by = 'label') %>%
+  reshape2::melt() %>%
+  group_by(group, variable) %>%
+  summarise(val = mean(value), stddev = sd(value)) %>%
+  dplyr::rename('reaction' = 'variable') %>%
+  left_join(df_res_fil %>%
+              dplyr::select(reaction, Subsytems),
+            by = 'reaction')
+bar_plot_data_aa_pr$val[is.na(bar_plot_data_aa_pr$val)] <- 0
+bar_plot_data_aa_pr <- bar_plot_data_aa_pr %>%
+  mutate(
+    Subsytems1 = case_when(
+      reaction == 'HISD' ~ 'Histidine metabolism',
+      reaction == 'IZPN' ~ 'Histidine metabolism',
+      reaction == 'NFLGLNH' ~ 'Histidine metabolism',
+      reaction == 'NFORGLUAH' ~ 'Histidine metabolism',
+      reaction == 'URCN' ~ 'Histidine metabolism',
+      reaction == 'EX_his_L(e)' ~ 'Histidine metabolism',
+      reaction == 'EX_arg_L(e)' ~ 'Proline and glutamate metabolism',
+      reaction == 'EX_pro_L(e)' ~ 'Proline and glutamate metabolism',
+      reaction == 'EX_glu_L(e)' ~ 'Glutamate metabolism',
+      reaction == 'PROt2r' ~ 'Proline and glutamate metabolism',
+      reaction == 'HISt2r' ~ 'Histidine metabolism',
+      reaction == 'P5CD' ~ 'Proline and glutamate metabolism',
+      reaction == 'PRO1x' ~ 'Proline and glutamate metabolism',
+      
+      TRUE ~ Subsytems
+    )
+  )
+
+
+bar_plot_data_aa_pr$reaction <-
+  factor(
+    bar_plot_data_aa_pr$reaction,
+    levels = c(
+      'EX_pro_L(e)',
+      'PROt2r',
+      'PRO1x',
+      'P5CD',
+      'EX_glu_L(e)',
+      'EX_his_L(e)',
+      'HISt2r',
+      'HISD',
+      'IZPN',
+      'NFLGLNH',
+      'NFORGLUAH',
+      'URCN'
+    )
+  )
+flux_diff_aa_pr <-
+  ggplot(bar_plot_data_aa_pr, aes(x = reaction, y = val, fill = group)) +
+  geom_bar(stat = "identity",
+           color = "black",
+           position = position_dodge()) +
+  facet_wrap( ~ Subsytems1, scales = 'free') +
+  ylab('Mean flux value \n (mmol/gDCW hr)') +
+  xlab('Reactions') +
+  my_theme_cacnes +
+  theme(strip.text = element_text(face="bold"))+
+  labs(fill = 'Site') +
+  scale_fill_manual(values = c(
+    'cheek' = 'dodgerblue',
+    'scalp' = 'goldenrod1'
+  )) +
+  ggtitle('Cutibacterium acnes')
+flux_diff_aa_pr
+
+ggsave(
+  file.path('..','plots', 'Figure4D.svg'),
+  plot = flux_diff_aa_pr,
+  device = "svg",
+  width = 14,
+  height = 5
+)
+
+ggsave(
+  file.path('..','plots', 'Figure4D.pdf'),
+  plot = flux_diff_aa_pr,
+  device = "pdf",
+  width = 14,
+  height = 5
+)
+```
+
+

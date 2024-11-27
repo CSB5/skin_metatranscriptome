@@ -1,0 +1,4358 @@
+---
+title: "skin_metatranscriptome_notebook"
+author: "Chiamh"
+date: '2022-06-28'
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+#https://www.rdocumentation.org/packages/pacman/versions/0.5.1/topics/p_load
+Load libraries
+
+```{r include=FALSE}
+library(tidyverse)
+library(reshape2)
+library(DESeq2)
+
+library(RColorBrewer)
+
+library(pheatmap)
+library("ComplexHeatmap")
+
+#pheatmap() has been masked by ComplexHeatmap::pheatmap()
+#Most of the arguments
+#in the original pheatmap() are identically supported in the new function. You 
+#can still use the original function by explicitly calling pheatmap::pheatmap().
+
+library(EnhancedVolcano)
+
+library(vegan)
+
+library(ggpubr)
+
+#https://stackoverflow.com/questions/9563711/r-color-palettes-for-many-data-classes/41230685#41230685
+library(Polychrome)
+
+
+
+#library(data.table)
+```
+
+Load metadata. Stats here are always in read pairs for each column
+
+
+```{r message=FALSE}
+
+metadata <- read_tsv("../metadata/skin_mtx_metadata_fmt.txt", show_col_types = FALSE) #duplicate libraries removed if 1 of them failed
+
+mgx_stats <- read_tsv("../metadata/MGX_QC_stats.txt", show_col_types = FALSE) 
+
+mtx_stats <- read_tsv("../metadata/MTX_QC_stats.txt", show_col_types = FALSE) 
+
+mgx_stats <- merge(mgx_stats, metadata, by = "LIBID", all.x=TRUE)
+
+mtx_stats <- merge(mtx_stats, metadata, by ="LIBID", all.x=TRUE)
+
+bact_og_metadata <- read_tsv("../metadata/bacteria_e5.og_annotations.tsv",
+                             col_names = c("bacteria_OG", 
+                                           "bacteria_eggnog_cat",
+                                           "bacteria_eggnog_desc"),
+                             show_col_types = FALSE)
+
+fungi_og_metadata <- read_tsv("../metadata/fungi_e5.og_annotations.tsv",
+                             col_names = c("fungi_OG", 
+                                           "fungi_eggnog_cat",
+                                           "fungi_eggnog_desc"),
+                             show_col_types = FALSE)
+
+
+virus_og_metadata <- read_tsv("../metadata/virus_e5.og_annotations.tsv",
+                              col_names = c("virus_OG",
+                                            "virus_eggnog_cat",
+                                            "virus_eggnog_desc"),
+                              show_col_types = FALSE)
+
+#From taxa_activity.Rmd
+mgx_species_site_prevalence_labelled <- read_tsv("../metadata/mgx_species_site_prevalence_labelled.tsv",
+                                                 show_col_types = FALSE)
+
+
+```
+
+Flag out the RNA libraries which failed to be fully processed by the pipeline.
+
+"Microbe count" refers to the sum of bacteria, fungal, viral and archaeal reads in kraken2 (not only species level)
+
+At first pass, 10/118 MTX libraries failed due to either corrupted fastq files (MHS400,401,403,404 & 444)...
+or insufficient reads after decont (MHS346 and more). All of them were submitted at lower than usual concentrations (1.3 nM) for sequencing.
+MHS444 was the zymo mock community which was not meant for RNA seq analysis anyway. 
+
+Details of these 10 libraries are in "mtx_failed" 
+
+RNA libraries with a microbial read count < 10^4 read pairs and are further excluded
+
+Examples of failed libraries examples are: MHS352, MHS353, MHS359, MHS354 and MHS417
+
+In Nov 2022, we did another round of sequencing to assess technical reproducibility (See feature_DESeq2.Rmd and 01/12/2022 lab meeting) and to "rescue" some failed samples.
+Of these, three could be rescued and they are: MHS593, MHS594 and MHS598 
+
+```{r}
+
+mtx_failed <- mtx_stats %>% dplyr::filter(is.na(K2_CLASSIFIED)|log10(MICROBE_COUNT)<4)
+
+mtx_completed<- mtx_stats %>% dplyr::filter(!is.na(K2_CLASSIFIED)) 
+
+ggplot(mtx_completed, aes(x=log10(MICROBE_COUNT))) + geom_histogram() + theme_classic()
+
+mtx_passed <- mtx_completed %>% dplyr::filter(log10(MICROBE_COUNT) >= 4)
+
+#This excludes the technical replicates which will be analyzed in a separate chunk.
+mtx_passed$comments <- ifelse(is.na(mtx_passed$comments), "No other comments", mtx_passed$comments)
+mtx_selected_libs <- mtx_passed %>% dplyr::filter(comments != "technical replicate analysis") %>% pull(LIBID)
+
+```
+
+Define helper functions
+
+#Need to fix get_top_filtered function..
+
+```{r}
+#exclude unclassified and homo sapiens
+get_top <- function(df, number_of_hits=5){
+  
+  top_df <- df %>% dplyr::select(-rel_abun) %>%
+    dplyr::filter(!k2_taxon %in% c("Homo sapiens", "unclassified"))
+  
+  #Recalculate relative abundance while excluding Human and unclassified reads
+  top_df$rel_abun <- (top_df$paired_reads / sum(top_df$paired_reads))*100
+  
+  top_df <- top_df  %>%
+    slice_max(rel_abun, n=number_of_hits) %>% dplyr::select(rel_abun, k2_taxon, LIBID)
+  
+  other_rel_abun <- 100 - sum(top_df$rel_abun)
+  library <- top_df$LIBID %>% unique()
+  
+  other_df <- data.frame(k2_taxon="others", 
+                         rel_abun=other_rel_abun,
+                         LIBID=library)
+  output <- rbind(top_df, other_df)
+  
+  taxa_to_add <- top_df$k2_taxon
+  
+  output$k2_taxon <- factor(output$k2_taxon)
+  
+  output$k2_taxon <- relevel(output$k2_taxon, "others")
+  
+  return(output)
+}
+
+
+get_simple_profile <- function(input_list, input_metadata, n) {
+  
+  profile <- lapply(input_list, function(x){get_top(x,n)})
+  
+  profile <- do.call("rbind", profile)
+  
+  taxa_to_add <- profile %>% pull(k2_taxon) %>% unique() %>% sort()
+  taxa_to_add <- taxa_to_add[!taxa_to_add %in% c("others" )] %>% as.character()
+  
+  #Now this ENTIRE VECTOR of taxa_to_add will be used to re-separate the species of EACH library into "others" vs the species to be plotted on a bar chart
+  
+  final_profile <- lapply(input_list, function(df){
+    
+    taxa_df <- df  %>% dplyr::filter(k2_taxon %in% taxa_to_add) %>%
+    dplyr::select(paired_reads, k2_taxon, LIBID)
+    
+    others_df <- df %>% 
+      dplyr::filter(!k2_taxon %in% c("unclassified", "Homo sapiens",
+                                                       taxa_to_add)) %>%
+    dplyr::select(paired_reads, k2_taxon, LIBID)
+    
+    #The denominator for the new relative abundance
+    total_reads <- sum(taxa_df$paired_reads) + sum(others_df$paired_reads)
+    
+    taxa_df$rel_abun <- (taxa_df$paired_reads/total_reads)*100
+    
+    other_rel_abun <- (sum(others_df$paired_reads) / total_reads)*100
+    
+    id <- taxa_df %>% pull(LIBID) %>% unique()
+  
+    other_df <- data.frame(k2_taxon="others", 
+                         rel_abun=other_rel_abun,
+                         LIBID=id)
+  
+    df_out <- rbind(taxa_df %>% dplyr::select(-paired_reads), other_df)
+
+  
+    return(df_out)
+    
+  })
+  
+  final_profile <- do.call("rbind", final_profile)
+  
+  output <- merge (final_profile, input_metadata, by = "LIBID", all.x=TRUE)
+  
+   #re-arrange factor levels so that "others" always come first :)
+  #Unclassified read fraction should have been removed prior to this.
+  output$k2_taxon <- factor(output$k2_taxon)
+  
+  output$k2_taxon <- relevel(output$k2_taxon, "others")
+  
+  return(output)
+  
+} 
+
+
+###function to get top n relative abundance of any species. Anything else outside the top n will be under "others"
+#unclassified and homo_sapiens were already filtered out from the inputs
+#sample_identifier can be a string like "CRAM_ID", "LIBRARY_ID", "LIBID" etc
+##Here,we only pick the top species that have passed the k2 minimizer check for false positives.
+get_top_filtered <- function(df, number_of_hits=5, sample_identifier){
+  
+  top_df <- df %>% dplyr::filter(taxa_pass_filter==TRUE) %>%
+    slice_max(rel_abun, n=number_of_hits) %>% dplyr::select(rel_abun, k2_taxon, all_of(sample_identifier))
+  
+  other_rel_abun <- 100 - sum(top_df$rel_abun)
+  identifier_vec <- top_df %>% pull(get(sample_identifier)) %>% unique()
+  
+  other_df <- data.frame(k2_taxon="others", 
+                         rel_abun=other_rel_abun,
+                         PLACEHOLDER=identifier_vec)
+  
+  colnames(other_df)[3] <- sample_identifier
+  
+  output <- rbind(top_df, other_df)
+  
+  taxa_to_add <- top_df$k2_taxon
+ 
+  output$k2_taxon <- factor(output$k2_taxon)
+  
+  output$k2_taxon <- relevel(output$k2_taxon, "others")
+    
+  return(output)
+}
+
+#subset_key, identifier and merging_key can be a string like "Library_ID"
+get_simple_profile_filtered <- function(input_list, input_metadata, subset_key, n, identifier, merging_key) {
+  
+  subset_vector <- input_metadata %>% pull(get(subset_key))
+  
+  input_list_subset <- input_list[subset_vector]
+  
+  profile <- lapply(input_list_subset, function(x){get_top_filtered(x,n, sample_identifier = identifier)})
+  
+  profile <- do.call("rbind", profile)
+  
+  taxa_to_add <- profile %>% pull(k2_taxon) %>% unique() %>% sort()
+  taxa_to_add <- taxa_to_add[!taxa_to_add %in% c("others" )] %>% as.character()
+  
+  #Now this ENTIRE VECTOR of taxa_to_add will be used to re-separate the species of EACH library into "others" vs the species to   be plotted on a bar chart
+  
+  final_profile <- lapply(input_list_subset, function(df){
+    
+    taxa_df <- df %>% dplyr::filter(taxa_pass_filter==TRUE) %>% dplyr::filter(k2_taxon %in% taxa_to_add) %>%
+    dplyr::select(rel_abun, k2_taxon, all_of(identifier))
+    
+    #This works because we are not removing any features from "taxa_df" = not changing the denominator for rel abundance  
+    other_rel_abun <- 100 - sum(taxa_df$rel_abun)
+    id <- taxa_df %>% pull(get(identifier)) %>% unique()
+  
+    other_df <- data.frame(k2_taxon="others", 
+                         rel_abun=other_rel_abun,
+                         PLACEHOLDER=id)
+  
+  colnames(other_df)[3] <- identifier
+  
+  df_out <- rbind(taxa_df, other_df)
+
+  
+  return(df_out)
+    
+  })
+  
+  final_profile <- do.call("rbind", final_profile)
+  
+  output <- merge (final_profile, input_metadata, by = merging_key, all.x=TRUE)
+  
+   #re-arrange factor levels so that "others" always come first :)
+  #Unclassified read fraction should have been removed prior to this.
+  output$k2_taxon <- factor(output$k2_taxon)
+  
+  output$k2_taxon <- relevel(output$k2_taxon, "others")
+  
+  return(output)
+  
+} 
+
+
+
+#colorblind friendly palette
+c24 <- c(
+  "dodgerblue2", "#E31A1C", # red
+  "green4",
+  "#6A3D9A", # purple
+  "#FF7F00", # orange
+  "black", "gold1",
+  "skyblue2",
+  "palegreen2",
+  "#CAB2D6", # lt purple
+  "#FDBF6F", # lt orange
+  "gray70", "khaki2",
+  "maroon", "orchid1", "deeppink1", "blue1", "steelblue4",
+  "darkturquoise", "green1", "yellow4", "yellow3",
+  "darkorange4", "brown"
+)
+
+#an expanded color palette from the Polychrome package
+Glasbey_26 <- glasbey.colors(26) %>% unname()
+
+
+rel_abun_plot_fn <- function(df, x_var, title){
+  
+  x_var_to_plot <- enquo(x_var)
+  
+  df %>%
+  ggplot(aes(fill=k2_taxon, y=rel_abun, x=!!x_var_to_plot)) +   #change x to SAMPLE_ID for larger datasets
+  geom_col()+
+  theme_classic() +
+  scale_fill_manual(values = c24 ) +
+  scale_y_continuous(expand = c(0, 0)) +
+  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1)) +
+  theme(legend.text=element_text(size=8), axis.title.x=element_blank()) +
+  ggtitle(title) + 
+    ylab("relative abundance") +guides(fill=guide_legend(ncol=2))}
+
+
+
+rel_abun_filt_plot_fn <- function(df, x_var, title){
+  
+  x_var_to_plot <- enquo(x_var)
+  
+  df %>%
+  ggplot(aes(fill=k2_taxon, y=rel_abun, x=!!x_var_to_plot)) + 
+  geom_col()+
+  theme_classic() +
+  scale_fill_manual(values = c24 ) +
+  scale_y_continuous(expand = c(0, 0)) +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
+  theme(legend.text=element_text(size=8), axis.title.x=element_blank()) +
+  ggtitle(title) + 
+    ylab("relative abundance") +guides(fill=guide_legend(ncol=2))}
+
+
+rel_abun_plot_fn2 <- function(df, x_var, title){
+  
+  x_var_to_plot <- enquo(x_var)
+  
+  df %>%
+  ggplot(aes(fill=k2_taxon, y=rel_abun, x=!!x_var_to_plot)) +
+  geom_col()+
+  theme_classic() +
+  scale_fill_manual(values = Glasbey26 ) +  #Use Glasbey26 to expand the color palette if necessary
+  scale_y_continuous(expand = c(0, 0)) +
+  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1)) +
+  theme(legend.text=element_text(size=8), axis.title.x=element_blank()) +
+  ggtitle(title) + 
+    ylab("relative abundance") }
+
+
+
+
+
+
+##Aux functions for get_fastspar_inputs 
+#"Name" refers to species/OTU name
+get_counts_fn <- function(sample_name, df){
+  df_filtered <- df  %>% dplyr::select(c(name, paired_reads))
+  colnames(df_filtered)[2] <- sample_name
+  
+  #Replace spaces in species names with "_"
+  df_filtered$name <- gsub(pattern=" ", replacement="_", df_filtered$name)
+  
+  return(df_filtered)
+}
+
+get_abun_fn <- function(sample_name, df){
+  df_filtered <- df  %>% dplyr::select(c(name, rel_abun))
+  #rescale abundances
+  df_filtered$rel_abun <-  (df_filtered$rel_abun /100)
+  colnames(df_filtered)[2] <- sample_name
+  
+  #Replace spaces in species names with "_"
+  df_filtered$name <- gsub(pattern=" ", replacement="_", df_filtered$name)
+  
+  return(df_filtered)
+}
+
+#function to obtain fastspar inputs from Kraken2 data 
+#input_list can be MTX_species_k2[mtx_to_pull] or MGX_species_k2[mgx_to_pull]
+#The elements of the input_list must be named according to their LIBID
+
+#anno_taxon is name, sample is LIBID
+get_fastspar_inputs <- function(input_list){
+  
+  list_subset_counts <- lapply(names(input_list), 
+                           function(x){get_counts_fn(sample_name=x, df=input_list[[x]])})
+  
+  #Reduce is like a sequential merges to get a "wide" dataframe where each row is an OTU/species "name" and each column after the first, is a LIBID
+  count_df <- Reduce(function(x,y,...) merge(x,y, by ="name",all=TRUE), list_subset_counts)
+  
+  list_subset_abun <- lapply(names(input_list), 
+                           function(x){get_abun_fn(sample_name=x, df=input_list[[x]])}) 
+  
+  abun_df <- Reduce(function(x,y,...) merge(x,y, by ="name",all=TRUE), list_subset_abun)
+  
+  #change NA to 0
+  count_df[is.na(count_df)] <- 0
+  abun_df[is.na(abun_df)] <- 0
+
+  colnames(count_df)[1] <- "#OTU ID"
+  colnames(abun_df)[1] <- "#OTU ID"
+  
+  #Only retain species with average paired read count > = 10
+  # https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1002687
+  
+  # This is similar to the criteria in the original sparCC paper:
+  #the data was further filtered by removing samples for which less than 500 reads were collected and OTUs that were, on average, represented by less   than 2 reads per sample.
+  #It may not be practical to perform sparCC for each body site due to small sample size. However,  contaminant signals should be well-correlated       regardless of body site
+  
+  #A threshold of mean 2 reads per sample still leave over 5000+ species. That's unnecessary.
+  
+  mean_count <- apply(count_df[,-1],1, mean)
+  mean_mask <- ifelse(mean_count >= 10, TRUE, FALSE)
+  
+  filtered_count_df <- count_df[mean_mask,]
+ 
+  return(tibble::lst(count_df, abun_df, filtered_count_df))
+}
+
+
+#############################################################
+#functions to load and process fastspar correlation matrices#
+#############################################################
+load_mat <- function(path_string){
+  result_df <- read_tsv(path_string, col_names = TRUE, show_col_types = FALSE) %>% as.data.frame() #setting rownames on tibble is depreciated
+  row.names(result_df) <- result_df$`#OTU ID`
+  result_df <- result_df[,-1]
+  output <- data.matrix(result_df)
+  return(output)
+}
+
+
+#Removes duplicates by taking lower triangle of corr and p value matrix from fastspar results, get corr coeff and p vals. Inputs are two matrices
+get_edges_fn <- function(corr_mat, corr_pval){
+  df_corr <- melt(replace(corr_mat, lower.tri(corr_mat, TRUE), NA), na.rm = TRUE) %>% dplyr::rename(corr_coeff=value)
+  df_pval <- melt(replace(corr_pval, lower.tri(corr_pval, TRUE), NA), na.rm = TRUE)%>% dplyr::rename(pval=value)
+  output <- merge(df_corr, df_pval, by = c("Var1", "Var2") )
+  return(output)
+}
+
+save_pheatmap_pdf <- function(x, filename, width=30, height=30) {
+  pdf(filename, width = width, height = height)
+  grid::grid.newpage()
+  grid::grid.draw(x$gtable)
+  dev.off()
+}
+
+
+```
+
+
+#This does not yet have k2 minimizer filtering, but this is okay because we first use unfiltered k2 data to find contaminants and artefacts 
+
+Load in species level kraken2 results for MTX libraries
+
+Need to Add the mtx pos control triplicates
+
+```{r}
+
+#add the mtx pos control triplicates to load.
+
+#library IDs of positive and negative controls for mtx data
+
+mtx_control_LIBIDs <- mtx_passed %>% dplyr::filter(region=="neg-ctrl" | region == "pos-ctrl") %>% pull(LIBID)
+
+mtx_neg_control_LIBIDs <- mtx_passed %>% dplyr::filter(region=="neg-ctrl") %>% pull(LIBID)
+
+mgx_neg_control_LIBIDs <- mgx_stats %>% dplyr::filter(region=="neg-ctrl") %>% pull(LIBID)
+
+
+mtx_selected_libs_with_ctrl <- c(mtx_selected_libs, mtx_control_LIBIDs) %>% unique(.)
+
+MTX_species_k2 <- lapply(mtx_selected_libs_with_ctrl, function(x){
+  read_tsv(paste0("../data/kraken2/RNA/",x,"_merged_k2.s.tsv"), 
+           col_names = c("rel_abun", "paired_reads", "k2_taxon"),
+           show_col_types = FALSE)
+})
+
+names(MTX_species_k2) <- mtx_selected_libs_with_ctrl
+
+MTX_species_k2 <- lapply(names(MTX_species_k2), function(x){
+  MTX_species_k2[[x]]$LIBID <- x
+  return(MTX_species_k2[[x]])
+})
+
+full_MTX_species <- do.call("rbind", MTX_species_k2)
+
+names(MTX_species_k2) <- mtx_selected_libs_with_ctrl
+
+####
+```
+
+
+## Checking species composition of MTX reads for negative controls
+
+From the plots, looks like mostly unclassified or non-skin microbes in the negative controls
+
+NEED TO FIX get_simple_profile (final profile fix)
+
+```{r message=FALSE, eval=FALSE}
+
+#MHS445 experimental ribodepletion was not efficient relative to the other two repeats. Add this as a cautionary comment in the excel file.
+
+rel_abun_plot_fn(get_simple_profile(MTX_species_k2[mtx_control_LIBIDs], mtx_passed, 6), 
+                 x_var=LIBID,
+                 title="Microbial RNAs in controls")
+
+
+ggsave(plot=last_plot(), filename = "../plots/mtx_controls_taxa.pdf")
+
+#now plot only for RNA negative controls
+
+rel_abun_plot_fn(get_simple_profile(MTX_species_k2[mtx_neg_control_LIBIDs], mtx_passed, 8), 
+                 x_var=LIBID,
+                 title="Microbial RNAs in negative controls")
+
+ggsave(plot=last_plot(), filename = "../plots/mtx_neg_controls_taxa.pdf")
+
+
+#Load kraken2 data for MGX negative controls
+
+MGX_neg_ctrl_species_k2 <- lapply(mgx_neg_control_LIBIDs, function(x){
+  read_tsv(paste0("../data/kraken2/DNA/",x,"_merged_k2.s.tsv"), 
+           col_names = c("rel_abun", "paired_reads", "k2_taxon"),
+           show_col_types = FALSE)
+})
+
+names(MGX_neg_ctrl_species_k2) <- mgx_neg_control_LIBIDs
+
+MGX_neg_ctrl_species_k2 <- lapply(names(MGX_neg_ctrl_species_k2), function(x){
+  MGX_neg_ctrl_species_k2[[x]]$LIBID <- x
+  return(MGX_neg_ctrl_species_k2[[x]])
+})
+
+names(MGX_neg_ctrl_species_k2) <- mgx_neg_control_LIBIDs
+
+rel_abun_plot_fn(get_simple_profile(MGX_neg_ctrl_species_k2 , mgx_stats, 10), 
+                 x_var=LIBID,
+                 title="Microbial DNAs in negative controls")
+
+ggsave(plot=last_plot(), filename = "../plots/mgx_neg_controls_taxa.pdf")
+
+```
+
+Load in genus level kraken2 results for the negative controls
+
+
+```{r}
+
+mtx_neg_ctrl_libs <- c("MHS340", "MHS348", "MHS431", "MHS602")
+
+MTX_neg_ctrl_genus_k2 <- lapply(mtx_neg_ctrl_libs, function(x){
+  read_tsv(paste0("../data/kraken2/RNA/",x,"_merged_k2.g.tsv"), 
+           col_names = c("rel_abun", "paired_reads", "name"),
+           show_col_types = FALSE)
+})
+
+names(MTX_neg_ctrl_genus_k2) <- mtx_neg_ctrl_libs
+
+MTX_neg_ctrl_genus_k2 <- lapply(names(MTX_neg_ctrl_genus_k2), function(x){
+  MTX_neg_ctrl_genus_k2[[x]]$LIBID <- x
+  return(MTX_neg_ctrl_genus_k2[[x]])
+})
+
+names(MTX_neg_ctrl_genus_k2) <- mtx_neg_ctrl_libs
+
+#Exclude any taxa with reads of below 0.1% relative abundance
+#Then remove human component and renormalize to 100% for non-human reads. Still includes "unclassified"
+
+MTX_neg_ctrl_genus_k2_renorm <- lapply(MTX_neg_ctrl_genus_k2, function(x){
+  
+  df_no_human <- x %>% dplyr::filter(name != "Homo") %>% dplyr::filter(rel_abun >= 0.1) %>%
+    mutate(renorm = rel_abun/sum(rel_abun)*100) %>% dplyr::select(-rel_abun) %>% dplyr::rename(rel_abun=renorm)
+  
+  return(df_no_human)
+  
+})
+
+#Get vector of contaminant genera across the three negative controls. Look for genera not associated with healthy humans (likely environmental)
+#There are 49 genera in total. Label the human associated ones
+
+mtx_contam_genera <- do.call("rbind", MTX_neg_ctrl_genus_k2_renorm) %>% dplyr::select(name) %>% unique() %>% dplyr::filter(name != "unclassified")
+
+
+#Do the same for mgx contaminant genera. MHS580 is also a negative control, but was not sequenced due to library failure.
+
+mgx_neg_ctrl_libs <- c("MHS470", "MHS524", "MHS552", "MHS566", "MHS581")
+
+MGX_neg_ctrl_genus_k2 <- lapply(mgx_neg_ctrl_libs, function(x){
+  read_tsv(paste0("../data/kraken2/DNA/",x,"_merged_k2.g.tsv"), 
+           col_names = c("rel_abun", "paired_reads", "name"),
+           show_col_types = FALSE)
+})
+
+names(MGX_neg_ctrl_genus_k2) <- mgx_neg_ctrl_libs
+
+MGX_neg_ctrl_genus_k2 <- lapply(names(MGX_neg_ctrl_genus_k2), function(x){
+  MGX_neg_ctrl_genus_k2[[x]]$LIBID <- x
+  return(MGX_neg_ctrl_genus_k2[[x]])
+})
+
+names(MGX_neg_ctrl_genus_k2) <- mgx_neg_ctrl_libs
+
+#Exclude any taxa with reads of below 0.1% relative abundance
+#Then remove human component and renormalize to 100% for non-human reads. Still includes "unclassified"
+#Also remove genera corresponding to spike-ins: Vibrio, Plesiomonas and Listeria
+
+MGX_neg_ctrl_genus_k2_renorm <- lapply(MGX_neg_ctrl_genus_k2, function(x){
+  
+  df_no_human <- x %>% dplyr::filter(!name %in% c("Homo", "Listeria", "Plesiomonas", "Vibrio")) %>% dplyr::filter(rel_abun >= 0.1) %>%
+    mutate(renorm = rel_abun/sum(rel_abun)*100) %>% dplyr::select(-rel_abun) %>% dplyr::rename(rel_abun=renorm)
+  
+  return(df_no_human)
+  
+})
+
+mgx_contam_genera <- do.call("rbind", MGX_neg_ctrl_genus_k2_renorm) %>% dplyr::select(name) %>% unique() %>% dplyr::filter(name != "unclassified")
+
+#Other host-microbe databases: https://academic.oup.com/nar/article/50/D1/D808/6413603
+
+#MicroPhenoDB https://pubmed.ncbi.nlm.nih.gov/33418085/ (Last checked on 27th Sep 2022)
+
+#Annotate contaminants, remove any species belonging to those genera which were not described on skin for disbiome and microphenoDB and manual NCBI search e.g. ("ACIDOVORAX" AND "Skin" AND "microbiome" AND "human" -> manually survey reports for this genera on healthy human skin). Also remove reads belong to human + the 3 bact spike in.
+
+#Last pubmed search date: 24th Nov 2022
+
+#load disbiome and microphenoDB results for genera reported on skin, both for mgx and mtx data
+
+disbiome_skin_res <- read_tsv("../metadata/mtx_contam_genera.tsv")
+
+
+
+initial_contam <- c(disbiome_skin_res %>% 
+                        filter(reported_for_skin_disease_in_disbiome == FALSE & 
+                                 reported_on_skin_in_microphenoDB ==FALSE &
+                                 pubmed_skin_microbiome == FALSE) %>% 
+                        pull(name))
+
+
+genera_to_remove <- c(disbiome_skin_res %>% 
+                        filter(reported_for_skin_disease_in_disbiome == FALSE & 
+                                 reported_on_skin_in_microphenoDB ==FALSE &
+                                 pubmed_skin_microbiome == FALSE) %>% 
+                        pull(name), "Homo", "Listeria", "Plesiomonas", "Vibrio") #34 candidates to remove
+
+#Use correlation analysis to remove more species. Use sparCC/fastspar.
+
+```
+### Find matching pairs of MTX and MTG libraries with existing annotations, for subjects (no controls needed)
+
+We end up with 102 Libraries with paired and usable MTX and MGX data
+
+```{r}
+#How many MGX libraries from subjects are suitable for analysis? There is only one failure in MHS512
+#MGX resequencing rescued SMT007_Ac. Use MHS592 instead of MHS512.
+#While MGX resequencing was done for SMT007_Sc, this did not improve it. Use MHS513 instead of MHS601
+
+#130 here
+subjects_MGX <- mgx_stats %>% dplyr::filter(MICROBE_COUNT != 0 & !is.na(subj_region)) %>% 
+  dplyr::filter(!region %in% c("neg-ctrl", "pos-ctrl")) %>% 
+  dplyr::select(LIBID,subj_region, subject,region) %>% dplyr::rename(mgx_LIBID=LIBID)
+
+#Resequencing for MTX rescued SMT027_Ac, SMT026_Ch and SMT005_Sc. Manually removed the failed ones from skin_mtx_metadata_fmt
+
+
+#102 metatranscriptomes corresponding to subjects
+subjects_MTX <- data.frame(LIBID=mtx_selected_libs) %>% merge(.,metadata%>%
+                                                                dplyr::select(LIBID,subj_region),by="LIBID", all.x=TRUE) %>% 
+  dplyr::filter(str_detect(subj_region, pattern="SMT")) %>% dplyr::rename(mtx_LIBID=LIBID)
+
+# 102 Libraries with paired and usable MTX and MGX data:
+paired_libraries <- merge(subjects_MGX, subjects_MTX, by = "subj_region") 
+
+
+mtx_to_pull <- paired_libraries %>% pull(mtx_LIBID)
+mgx_to_pull <- paired_libraries %>% pull(mgx_LIBID)
+
+
+mtx_stats_chosen <- mtx_stats %>% dplyr::filter(LIBID %in% mtx_to_pull)
+
+plyr::count(mtx_stats_chosen, "region")
+
+mgx_stats_chosen <- mgx_stats %>% dplyr::filter(LIBID %in% mgx_to_pull)
+
+#write_tsv(data.frame(LIBID=mtx_to_pull), file = "../metadata/mtx_to_pull", col_names = FALSE)
+#write_tsv(data.frame(LIBID=mgx_to_pull), file = "../metadata/mgx_to_pull", col_names = FALSE)
+```
+#Plot % of non-human reads over total reads (before de-duplication and rRNA removal) for both mgx and mtx
+#Wilcoxon rank sum test.
+```{r}
+
+mtx_non_human_proportion <- mtx_stats_chosen %>% 
+  dplyr::select(subj_region, AFTER_FASTP, AFT_HUMAN_RM)
+
+mtx_non_human_proportion$assay <- "metatranscriptome"
+
+mtx_non_human_proportion$percent_non_human <- (mtx_non_human_proportion$AFT_HUMAN_RM / mtx_non_human_proportion$AFTER_FASTP)*100
+
+#BT2 READS START for mgx is the same state as AFT_HUMAN_RM for mtx
+
+mgx_non_human_proportion <- mtx_stats_chosen %>% 
+  dplyr::select(subj_region, AFTER_FASTP, BT2_READS_START)
+
+mgx_non_human_proportion$assay <- "metagenome"
+
+mgx_non_human_proportion$percent_non_human <- (mgx_non_human_proportion$BT2_READS_START / mgx_non_human_proportion$AFTER_FASTP)*100
+
+
+mtx_mgx_non_human_percent <- rbind(mtx_non_human_proportion %>% 
+                                     dplyr::select(subj_region, percent_non_human, assay),
+                                   mgx_non_human_proportion %>% 
+                                     dplyr::select(subj_region, percent_non_human, assay))
+
+
+ggpaired(mtx_mgx_non_human_percent, x = "assay", y = "percent_non_human",
+         line.color = "gray", line.size = 0.4,
+         palette = "jco")+ ylab("% of reads not mapped to hg38") +
+  stat_compare_means(paired = TRUE, method="wilcox.test")
+
+
+ggsave(plot=last_plot(), 
+       filename = "../plots/mtx_mgx_non_human_percent.pdf", width =7, height=5 )
+
+
+```
+
+
+## Prepare data for fastspar (sparCC) analysis 
+
+We want to do compositional-aware correlations for contaminant identification
+
+We use Kraken counts for this analysis.
+
+```{r eval=FALSE}
+#Start with "long" Kraken dataframe with columns: "abundance", reads", "subj_region", "name".
+#This dataframe is full_MTX_species in this markdown file
+#NB: "name" refers to the species/OTU name
+
+#Choose only the 102 mtx libraries corresponding to subjects. No negative or positive control samples included here.
+subj_MTX_fastspar_input <- get_fastspar_inputs(MTX_species_k2[mtx_to_pull])
+
+
+subj_MGX_fastspar_input <- get_fastspar_inputs(MGX_species_k2[mgx_to_pull])
+
+#write_tsv(subj_MTX_fastspar_input[[3]], file="../processed/fastspar/subj_MTX_fastspar_input.tsv")
+#write_tsv(subj_MGX_fastspar_input[[3]], file="../processed/fastspar/subj_MGX_fastspar_input.tsv")
+
+```
+
+After running fastspar, load and analyze results. Remember that these matrices only contain the samples, without the extraction controls.
+
+```{r eval=FALSE}
+
+MTX_corr <- load_mat("../processed/fastspar/subj_MTX_median_correlation.tsv")
+MGX_corr <- load_mat("../processed/fastspar/subj_MGX_median_correlation.tsv")
+
+#derived from permuation test and bootstrapping
+MTX_pvalue <- load_mat("../processed/fastspar/subj_MTX_fastspar_pvalues.tsv")
+MGX_pvalue <- load_mat("../processed/fastspar/subj_MGX_fastspar_pvalues.tsv")
+
+MTX_corr_edge <- get_edges_fn(corr_mat=MTX_corr, corr_pval=MTX_pvalue) 
+MGX_corr_edge <- get_edges_fn(corr_mat=MGX_corr, corr_pval=MGX_pvalue)
+
+MTX_corr_edge$padj <- p.adjust(MTX_corr_edge$pval, method="fdr")
+
+MGX_corr_edge$padj <- p.adjust(MGX_corr_edge$pval, method="fdr")
+
+write_tsv(MTX_corr_edge, "../processed/fastspar/MTX_corr_edge.tsv")
+write_tsv(MGX_corr_edge, "../processed/fastspar/MGX_corr_edge.tsv")
+```
+
+Load in results from the previous chunk to save time. 
+
+```{r}
+MTX_corr <- load_mat("../processed/fastspar/subj_MTX_median_correlation.tsv")
+MGX_corr <- load_mat("../processed/fastspar/subj_MGX_median_correlation.tsv")
+
+#derived from permuation test and bootstrapping
+MTX_pvalue <- load_mat("../processed/fastspar/subj_MTX_fastspar_pvalues.tsv")
+MGX_pvalue <- load_mat("../processed/fastspar/subj_MGX_fastspar_pvalues.tsv")
+
+
+MTX_corr_edge <- read_tsv("../processed/fastspar/MTX_corr_edge.tsv", show_col_types = FALSE)
+
+MGX_corr_edge <- read_tsv("../processed/fastspar/MGX_corr_edge.tsv", show_col_types = FALSE)
+
+#Get strong correlations
+MTX_corr_edge_signif <- MTX_corr_edge %>% dplyr::filter(abs(corr_coeff)>=0.8 & padj < 0.05)
+MGX_corr_edge_signif <- MGX_corr_edge %>% dplyr::filter(abs(corr_coeff)>=0.8 & padj < 0.05)
+
+```
+
+### Find all edges that are strongly correlated with contaminant genera (corr_coeff >= + 0.8 and padj 0.05)
+
+N.B: contaminant genera here excludes spike ins and the genus "Homo". 
+
+Edges are species.
+
+```{r}
+
+initial_contam_mask <- stringi::stri_paste("^",initial_contam, collapse="|")
+
+
+
+find_contam_corr <- function(df, contam_genera=initial_contam_mask){
+  
+  df_filtered <- df %>% dplyr::filter(str_detect(df$Var1, contam_genera) | str_detect(df$Var2, contam_genera) )
+  return(df_filtered)
+}
+
+MGX_corr_with_contam <- find_contam_corr(df=MGX_corr_edge_signif)
+  
+MTX_corr_with_contam <- find_contam_corr(df=MTX_corr_edge_signif)
+
+#Store contaminants to remove in a vector
+#Does not include Homo sapiens or unclassified yet
+
+genera_mask <- stringi::stri_paste("^",genera_to_remove, collapse="|")
+
+species_to_remove <- c(MGX_corr_with_contam$Var1, MGX_corr_with_contam$Var2, 
+                       MTX_corr_with_contam$Var1, MTX_corr_with_contam$Var2) %>% unique(.)
+
+
+```
+
+## Contaminant removal using dual filters.
+
+We now have two decontamination filters: 1) Genera to remove and 2) Species to remove based on strong linear correlation with members of the genera in 1).
+
+Both mtx and mgx species level counts should be filtered using the same set of contaminants in "genera_to_remove" and "species to remove"
+
+This also removes the 3 spike ins : Listeria Plesiomonas, Vibrio
+ 
+These are environmental microbes that are not typically associated with human microbiome (regardless of site). 
+
+N.B: Jury is still out if we want to do such filtering for the gene/feature wise analysis. My sense is no, we should only do this filtering for making PCoA plots etc. In other words, just for kraken2 or bracken results. 
+
+
+### Apply decontamination and artefact removal to kraken2 species level reports.
+N.B: Decontamination, rare taxa and artifact removal applied to samples, not negative or positive controls.
+
+Host and kitome decontamination was done using the correlation analysis above
+
+For Artifact (kraken2 misclassification) removal, we will adopt a kmer:read count threshold.
+
+For taxon DNA (NOT RNA) measurements, use minimizer information from kraken2 to distinguish true from false positives.
+The criterion is inspired from the krakenuniq paper https://genomebiology.biomedcentral.com/articles/10.1186/s13059-018-1568-0:
+
+- at least 2000 unique k-mers per 1 million microbial read pairs
+
+For RNA, this is more complicated because highly expressed genes like rRNA (if no rRNA depletion) or housekeeping genes (after rRNA depletion) can dominate the reads, resulting in lower minimizer:read pair ratios than WGS inputs.
+
+To empirically determine a distinct minimizer:read pair ratio, perform rarefaction followed by kraken2 on a non-depleted (total RNA) vs rRNA depleted, defined community. A true positive species should have a different minimizer:read pair relationship to false positives. See k2_minimizer_analysis.Rmd
+
+The criterion for an rRNA depleted true positive is 
+
+- at least 10000 unique k-mers per 1 million microbial read pairs
+
+### It is only necessary to drop very LOW PREVALENCE (=/= low abundance) taxa for microbiome-phenotype association analyses. 
+
+We also should remove very rare taxa. 
+
+
+To summarize (see taxa_DESeq2 for the implementation):
+
+For MTX, use the criteria:  >= 10^4 distinct minimizers per million at species level, and >= 0.1% relative abundance.
+
+For MGX, use the following criteria:  (>= 2000 distinct minimizers per million at species level, and >= 0.1% relative abundance) 
+OR true positive detected in paired MTX data.
+
+Note: Species level reads are non-contaminant, non-spike in, microbial reads!
+
+Reads are renormalized to 100% after filtering.
+
+
+```{r}
+#Load filtered and renormalized kraken2 profiles
+
+MTX_species_k2_filtered <- lapply(mtx_to_pull, function(x){
+  
+  output <- read_tsv(file=paste0("../processed/k2_species_renorm/RNA/",x,"_k2_renorm.s.tsv"),show_col_types = FALSE)
+  
+  return(output)
+})
+
+names(MTX_species_k2_filtered) <- mtx_to_pull
+
+
+MGX_species_k2_filtered <- lapply(mgx_to_pull, function(x){
+  
+  output <- read_tsv(file=paste0("../processed/k2_species_renorm/DNA/",x,"_k2_renorm.s.tsv"),show_col_types = FALSE)
+  
+  return(output)
+})
+
+names(MGX_species_k2_filtered) <- mgx_to_pull
+
+```
+
+
+### Generate correlation heatmaps between contaminants and non-contaminants
+
+One heatmap each for MGX and MTX data
+
+The heatmap will have the comparisons in MGX_corr_with_contam/MTX_corr_with_contam + comparisons between the skin microbes and contaminants
+The heatmap will not include the spike in genera: Listeria, Plesiomonas and Vibrio
+
+
+```{r eval=FALSE}
+
+#For MGX data...
+#Get contaminant comparisons without spike ins
+
+
+remove_spikes <- function(df, spike_genera=c("^Listeria|^Plesiomonas|^Vibrio")){
+  
+  df_filtered <- df %>% dplyr::filter(str_detect(df$Var1, spike_genera, negate=TRUE) & str_detect(df$Var2, spike_genera, negate=TRUE) )
+  return(df_filtered)
+}
+
+
+MGX_corr_with_contam_no_spikes <- remove_spikes(MGX_corr_with_contam)
+
+MGX_contam_for_plotting <- c(MGX_corr_with_contam_no_spikes$Var1, 
+                                 MGX_corr_with_contam_no_spikes$Var2) %>% unique(.) %>% as.character(.)
+
+
+#Get a vector of candidate contaminant species AND skin species from the filtered kraken2 MGX data
+#k2_list can be MGX_species_k2_filtered
+#contam_vec can be MGX_contam_for_plotting
+get_skin_species_and_contams <- function(k2_list, contam_vec){
+  
+  skin_vec <- do.call("rbind",k2_list) %>% pull(name) %>% unique(.)
+  
+  output_vec <- c(skin_vec, contam_vec) %>% unique(.)
+  
+  return(output_vec)
+  
+}
+
+MGX_skin_species_and_contams <- get_skin_species_and_contams(k2_list=MGX_species_k2_filtered, 
+                                                         contam_vec = MGX_contam_for_plotting)
+
+MGX_skin_species_and_contams_perm <- gtools::permutations(n=length(MGX_skin_species_and_contams), 
+                                                          r = 2, MGX_skin_species_and_contams) %>% as.data.frame()
+
+MGX_skin_species_and_contams_perm$pattern <- paste0(MGX_skin_species_and_contams_perm$V1,
+                                                    "_",
+                                                    MGX_skin_species_and_contams_perm$V2)
+
+#df can be MGX_corr_edge, permutations_df can be MGX_skin_species_and_contams_perm
+#returns a list of two elements. The first element is a "melted" lower triangular df with the corr_coeffs and padj
+#the second element is a correlation matrix for hclust purposes
+
+#https://stackoverflow.com/questions/25935706/how-to-unmelt-data-with-reshape-r
+get_corr_for_heatmap <- function(df, permutations_df){
+  
+  df$pattern <- paste0(df$Var1,"_",df$Var2)
+  
+  melted_output <- df %>% dplyr::filter(pattern %in% permutations_df$pattern) %>% dplyr::select(-pattern)
+  
+  #need to add the same comparisons back to the matrix with correlation == 1, since they are the same feature
+  #need to add back the lower triangular for a symmetric matrix
+  
+  species <- melted_output$Var1 %>% unique(.)
+  same_comparisons <- data.frame(Var1=species, Var2=species, corr_coeff=1, pval=NA, padj=NA)
+  melted_output_symm <- melted_output %>% dplyr::rename("Var2"="Var1", "Var1"="Var2")
+
+  corr_mat <- dcast(data=do.call("rbind",list(melted_output,melted_output_symm, same_comparisons)), formula=Var1~Var2, value.var="corr_coeff")
+  
+  row.names(corr_mat) <- corr_mat$Var1
+  
+  corr_mat <- corr_mat %>% dplyr::select(-Var1) %>% as.matrix()
+  
+  output <- tibble::lst(melted_output, corr_mat)
+  return(output)
+  
+}
+
+#output is a list
+MGX_corr_edge_for_heatmap <- get_corr_for_heatmap(df=MGX_corr_edge, permutations_df = MGX_skin_species_and_contams_perm)
+
+#Plot heatmap with hclust
+#http://www.sthda.com/english/wiki/ggplot2-quick-correlation-matrix-heatmap-r-software-and-data-visualization
+#the input is a correlation matrix e.g. the second element of the output of get_corr_for_heatmap()
+
+plot_ggheatmap <-  function(corr_mat){
+  
+  # Use correlation between variables as distance
+  dd <- as.dist((1-corr_mat)/2)
+  hc <- hclust(dd)
+  
+  corr_mat_clustered <- corr_mat[hc$order, hc$order]
+  
+  df <- melt(corr_mat_clustered, value.name="corr_coeff")
+  
+  ggplot(data = df, aes(Var2, Var1, fill = corr_coeff))+
+    geom_tile()+
+    scale_fill_gradientn(colours=c("blue","white", "red"), 
+                         values=scales::rescale(c(-0.8, 0.3, 0.8)), space = "Lab",  
+                         name="sparCC Pearson \nCorrelation") +
+    theme_minimal()+ 
+    theme(axis.text.x = element_text(angle = 90, vjust = 0.2, hjust=1),
+           axis.title.x=element_blank(),
+          axis.title.y=element_blank())+
+    coord_fixed()
+}
+
+
+plot_ggheatmap(MGX_corr_edge_for_heatmap[["corr_mat"]])
+
+#ggsave(plot=last_plot(), filename = "../plots/mgx_corr_heatmap.pdf", width=40, height=40)
+
+```
+
+## QC: plot read pair counts after fastp QC for each site
+
+```{r message=FALSE}
+
+#after removal of both human reads by mapping to hg38 and removal of human, fungal and microbial rRNAs
+mtx_stats_for_plot <- rbind(data.frame(read_pairs=mtx_stats_chosen$AFTER_FASTP, region=mtx_stats_chosen$region, cat="before_rm"),
+data.frame(read_pairs=mtx_stats_chosen$AFT_RIBO_RM, region=mtx_stats_chosen$region,
+           cat="after_rm"))
+
+ggplot(mtx_stats_for_plot %>% mutate(region= fct_relevel(region, "Sc", "Ch", "Ac", "Vf", "Tw"),
+                                     cat=fct_relevel(cat, "before_rm", "after_rm")), 
+       aes(x=region, y=read_pairs, fill=cat)) + theme_classic() + geom_boxplot() + ggtitle("Before and after removal of rRNAs") 
+
+ggsave(plot=last_plot(), filename = "../plots/mtx_rRNA_stats_1.pdf")
+
+#Plot rRNA reads as a fraction of total non human reads (after experimental rRNA removal, but before computational removal)
+
+mtx_stats_chosen$rRNA_percent <- (1 - (mtx_stats_chosen$AFT_RIBO_RM/mtx_stats_chosen$AFT_HUMAN_RM))*100
+
+ggplot(mtx_stats_chosen %>% mutate(region= fct_relevel(region, "Sc", "Ch", "Ac", "Vf", "Tw")),
+       aes(x=region, y=100-rRNA_percent)) + theme_classic() + geom_boxplot() + ggtitle("% non-rRNAs after experimental depletion") 
+
+ggsave(plot=last_plot(), filename = "../plots/mtx_rRNA_stats_2.pdf")
+
+
+mgx_stats_for_plot <- rbind(data.frame(read_pairs=mgx_stats_chosen$AFTER_FASTP, region=mgx_stats_chosen$region, cat="before_rm"),
+data.frame(read_pairs=mgx_stats_chosen$MICROBE_COUNT, region=mgx_stats_chosen$region,
+           cat="after_rm"))
+
+
+ggplot(mgx_stats_for_plot %>% mutate(region= fct_relevel(region, "Sc", "Ch", "Ac", "Vf", "Tw"),
+                                     cat=fct_relevel(cat, "before_rm", "after_rm")), 
+       aes(x=region, y=read_pairs, fill=cat)) + theme_classic() + geom_boxplot() + ggtitle("mgx before and after filtering for human reads") 
+
+ggsave(plot=last_plot(), filename = "../plots/mgx_read_stats.pdf")
+
+
+#Plot duplication rates per site for mtx data
+
+ggplot(mtx_stats_chosen %>% mutate(region= fct_relevel(region, "Sc", "Ch", "Ac", "Vf", "Tw")),
+                                  aes(x=region, y=DUP_RATE)) +  theme_classic() + geom_boxplot()
+
+ggsave(plot=last_plot(), filename = "../plots/mtx_dup_rate.pdf")
+
+```
+
+Microbial reads in *_stats_chosen are the sum of microbial reads (bacterial, fungal, viral and archaeal) at species level and above. This also includes contributions from spike ins and contaminants
+
+However, we want to do taxa level TPM calculations, it should be over SPECIES level reads that are not contaminants nor spike ins, with k2 minimizer thresholds.
+
+See the k2_minimizer_analysis.Rmd for details.
+
+
+## QC check: plot number of microbial mtx reads against microbial mgx reads for the 102 libraries.
+#NB: the counts here are paired end.
+
+Caution: these microbe counts include contributions from contaminants and mgx spike ins.
+
+```{r}
+
+mtx_mgx_stats_chosen <- merge(mtx_stats_chosen %>% dplyr::select(LIBID, MICROBE_COUNT, subj_region, region) %>% 
+                                dplyr::rename(mtx_LIBID=LIBID, mtx_MICROBE_COUNT=MICROBE_COUNT),
+                              mgx_stats_chosen %>% dplyr::select(LIBID, MICROBE_COUNT, subj_region) %>% 
+                                dplyr::rename(mgx_LIBID=LIBID, mgx_MICROBE_COUNT=MICROBE_COUNT))
+
+#write_tsv(mtx_mgx_stats_chosen, file="../metadata/mtx_mgx_stats_chosen.tsv")
+
+
+ggplot(mtx_mgx_stats_chosen, aes(x=log10(mgx_MICROBE_COUNT), y=log10(mtx_MICROBE_COUNT),
+                                 colour=factor(region))) + 
+  geom_point(size = 3.5) + 
+  theme_classic() +
+  scale_color_manual(values=c24) 
+
+#ggsave(filename="../plots/mtx_mgx_read_count_scatter.pdf", plot=last_plot())
+
+
+#formatted to be compatible with the get_simple_profile_filtered function
+mtx_stats_chosen_fmt <- mtx_stats_chosen %>% dplyr::rename(mtx_LIBID=LIBID)
+mgx_stats_chosen_fmt <- mgx_stats_chosen %>% dplyr::rename(mgx_LIBID=LIBID)
+
+
+```
+##QC: Compute % annotated features
+
+See 05 lab book, 01/02/2024
+
+1) Sum the number of unpaired reads in _merged_all_aligned_taxonomy_summary.tsv, excluding "Homo sapiens" and "unclassified"
+
+2) Divide this count by the number of kraken reads (unpaired) corresponding to fungi + bacteria + archaea + virus
+
+
+```{r eval=FALSE}
+
+mtx_proportion_microbial_annotated <- lapply(mtx_to_pull, function(x){
+  
+  #paired
+  taxonomy_summary_df <- read_tsv(paste0("../data/MTX_tax_summary/",
+                                         x,
+                                         "_merged_all_aligned_taxonomy_summary.tsv"),
+                                  col_names = c("unpaired_counts",
+                                                "pangene",
+                                                "k2_taxon",
+                                                "Uniref90"),
+                                  show_col_types = FALSE)
+  
+  #sans unclassified and Homo_sapiens
+  microbe_taxonomy_summary_df <- taxonomy_summary_df %>% 
+    dplyr::filter(!k2_taxon %in% c("unclassified","Homo_sapiens"))
+  
+  #annotated over 50% of a gene body/feature
+  annotated_microbial_reads_unpaired <- sum(microbe_taxonomy_summary_df$unpaired_counts)
+  
+  #total microbial reads is the sum of bacteria, archaea, virus and fungi reads
+  total_microbial_reads_paired <- mtx_stats_chosen %>% 
+    dplyr::filter(LIBID==x) %>% pull("MICROBE_COUNT")
+  
+  total_microbial_reads_unpaired <- total_microbial_reads_paired * 2
+  
+  #proportion annotated
+  prop_microbe_reads_annotated <-  annotated_microbial_reads_unpaired/total_microbial_reads_unpaired
+  
+  output <- data.frame(LIBID=x,
+                       MICROBE_COUNT_UNPAIRED_ANNOTATED=annotated_microbial_reads_unpaired,
+                       MICROBE_COUNT_UNPAIRED=total_microbial_reads_unpaired,
+                       MICROBE_COUNT_PROPORTION_ANNOTATED=prop_microbe_reads_annotated)
+  return(output)
+  
+}) %>% do.call("rbind",.)
+
+#Add site information
+
+
+mtx_proportion_microbial_annotated <- merge(mtx_proportion_microbial_annotated, 
+                                            mtx_stats_chosen %>%
+                                              dplyr::select(LIBID,subject,region,subj_region,K2_UNCLASSIFIED,K2_CLASSIFIED),
+                                            by="LIBID")
+
+
+mtx_proportion_microbial_annotated$mol_type <- "RNA"
+
+
+#Write dataframe to save time
+write_tsv(mtx_proportion_microbial_annotated,
+          "../metadata/mtx_proportion_microbial_annotated.tsv")
+
+
+```
+
+
+
+Follow the same procedure for MGX
+
+```{r eval=FALSE}
+
+mgx_proportion_microbial_annotated <- lapply(mgx_to_pull, function(x){
+  
+  #paired
+  taxonomy_summary_df <- read_tsv(paste0("../data/MGX_tax_summary/",
+                                         x,
+                                         "_merged_all_aligned_taxonomy_summary.tsv"),
+                                  col_names = c("unpaired_counts",
+                                                "pangene",
+                                                "k2_taxon",
+                                                "Uniref90"),
+                                  show_col_types = FALSE)
+  
+  #sans unclassified and Homo_sapiens
+  microbe_taxonomy_summary_df <- taxonomy_summary_df %>% 
+    dplyr::filter(!k2_taxon %in% c("unclassified","Homo_sapiens"))
+  
+  #annotated over 50% of a gene body/feature
+  annotated_microbial_reads_unpaired <- sum(microbe_taxonomy_summary_df$unpaired_counts)
+  
+  #total microbial reads is the sum of bacteria, archaea, virus and fungi reads
+  total_microbial_reads_paired <- mgx_stats_chosen %>% 
+    dplyr::filter(LIBID==x) %>% pull("MICROBE_COUNT")
+  
+  total_microbial_reads_unpaired <- total_microbial_reads_paired * 2
+  
+  #proportion annotated
+  prop_microbe_reads_annotated <-  annotated_microbial_reads_unpaired/total_microbial_reads_unpaired
+  
+  output <- data.frame(LIBID=x,
+                       MICROBE_COUNT_UNPAIRED_ANNOTATED=annotated_microbial_reads_unpaired,
+                       MICROBE_COUNT_UNPAIRED=total_microbial_reads_unpaired,
+                       MICROBE_COUNT_PROPORTION_ANNOTATED=prop_microbe_reads_annotated)
+  return(output)
+  
+}) %>% do.call("rbind",.)
+
+#Add site information
+
+
+mgx_proportion_microbial_annotated <- merge(mgx_proportion_microbial_annotated, 
+                                            mgx_stats_chosen %>%
+                                              dplyr::select(LIBID,subject,region,subj_region,K2_UNCLASSIFIED,K2_CLASSIFIED),
+                                            by="LIBID")
+
+
+mgx_proportion_microbial_annotated$mol_type <- "DNA"
+
+
+#Write dataframe to save time
+write_tsv(mgx_proportion_microbial_annotated,
+          "../metadata/mgx_proportion_microbial_annotated.tsv")
+
+
+
+```
+
+
+Load results of previous chunk to save time
+
+```{r}
+
+mtx_proportion_microbial_annotated <- read_tsv("../metadata/mtx_proportion_microbial_annotated.tsv",
+                                               show_col_types = FALSE)
+
+mgx_proportion_microbial_annotated <- read_tsv("../metadata/mgx_proportion_microbial_annotated.tsv",
+                                               show_col_types = FALSE)
+
+
+mtx_mgx_proportion_microbial_annotated <- rbind(mtx_proportion_microbial_annotated,
+                                                mgx_proportion_microbial_annotated)
+
+
+```
+
+Box plot of proportion annotated features (microbial reads). No homo sapiens or unclassified
+
+```{r}
+
+ggplot(mtx_mgx_proportion_microbial_annotated %>% mutate(region= fct_relevel(region, "Sc", "Ch", "Ac", "Vf", "Tw")), 
+       aes(x=region, fill=mol_type ,y=MICROBE_COUNT_PROPORTION_ANNOTATED)) + scale_fill_manual(values=c("#4682B4","#B47846"))+
+  theme_classic() + geom_boxplot() + ylab("Proportion of annotated microbial reads")
+
+ggsave(filename="../plots/mtx_mgx_proportion_microbial_annotated.pdf", plot=last_plot())
+
+
+#Calculate median % annotated for mtx data
+
+mtx_proportion_microbial_annotated$mtx_MICROBE_COUNT_PROPORTION_ANNOTATED <- mtx_proportion_microbial_annotated$MICROBE_COUNT_PROPORTION_ANNOTATED *100
+
+
+mtx_proportion_microbial_annotated %>% group_by(region) %>% summarize(median_percentage_annot=
+                                                                        median(mtx_MICROBE_COUNT_PROPORTION_ANNOTATED))
+
+```
+
+
+
+
+#ggsave(filename="../plots/mtx_all_feature_count_summary.pdf", plot=last_plot())
+
+
+## Checking species composition of MTX reads for a positive control 
+
+
+Oh et al 2016 and Hospital microbiome paper FigS2 showed species composition without "unclassified" reads. By default, metaphlan does not give unclassified reads %
+
+
+The positive control here is the 3 microbe mix of Vibrio vulnificus, Plesiomonas shigelloides and Listeria monocytogenes.
+
+
+## Checking species composition of MTX and MGX reads for the different skin sites
+
+
+Some sanity checks. What is the MGX median relative abundance of C acnes, M restricta and M globosa across scalp, cheek, volar forearm and antecubital fossae?
+
+```{r}
+
+MGX_species_k2_filtered_df <- do.call("rbind", MGX_species_k2_filtered)
+
+MGX_species_k2_filtered_df <- merge(MGX_species_k2_filtered_df, 
+                                    mtx_mgx_stats_chosen %>% dplyr::select(mgx_LIBID,
+                                                                           subj_region,
+                                                                           region))
+
+#median relative abundance of different species across all sites except toe webs
+MGX_species_k2_filtered_df %>% dplyr::filter(region!="Tw" & 
+                                               k2_taxon == "Cutibacterium_acnes")  %>% pull(rel_abun) %>% median(.)
+
+MGX_species_k2_filtered_df %>% dplyr::filter(region!="Tw" & 
+                                               k2_taxon == "Malassezia_restricta")  %>% pull(rel_abun) %>% median(.)
+
+MGX_species_k2_filtered_df %>% dplyr::filter(region!="Tw" & 
+                                               k2_taxon == "Malassezia_globosa")  %>% pull(rel_abun) %>% median(.)
+
+MGX_species_k2_filtered_df %>% dplyr::filter(region=="Tw" & 
+                                               str_detect(MGX_species_k2_filtered_df$k2_taxon,
+                                                          pattern = "Staphylococcus")) %>% 
+  group_by(mgx_LIBID) %>% summarise(Staphylococcus_rel_abun=sum(rel_abun)) %>% ungroup() %>% pull(Staphylococcus_rel_abun) %>% median(.)
+
+
+MGX_species_k2_filtered_df %>% dplyr::filter(region=="Tw" & 
+                                               str_detect(MGX_species_k2_filtered_df$k2_taxon,
+                                                          pattern = "Corynebacterium")) %>% 
+  group_by(mgx_LIBID) %>% summarise(Corynebacterium_rel_abun=sum(rel_abun)) %>% ungroup() %>% pull(Corynebacterium_rel_abun) %>% median(.)
+
+
+#For mtx data
+
+
+MTX_species_k2_filtered_df <- do.call("rbind", MTX_species_k2_filtered)
+
+MTX_species_k2_filtered_df <- merge(MTX_species_k2_filtered_df, 
+                                    mtx_mgx_stats_chosen %>% dplyr::select(mtx_LIBID,
+                                                                           subj_region,
+                                                                           region))
+
+MTX_species_k2_filtered_df %>% dplyr::filter(region!="Tw" & k2_taxon == "Malassezia_globosa")  %>% pull(rel_abun) %>% median(.)
+
+MTX_species_k2_filtered_df %>% dplyr::filter(region!="Tw" & k2_taxon == "Malassezia_restricta")  %>% pull(rel_abun) %>% median(.)
+
+
+
+MTX_species_k2_filtered_df %>% dplyr::filter(region=="Ac" & 
+                                               str_detect(MTX_species_k2_filtered_df$k2_taxon,
+                                                          pattern = "Malassezia")) %>% 
+  group_by(mtx_LIBID) %>% summarise(Malassezia_rel_abun=sum(rel_abun)) %>% ungroup() %>% pull(Malassezia_rel_abun) %>% median(.)
+
+```
+
+
+
+
+
+
+For scalp (Sc), largely dominated by Malassezia transcripts. Some S. capitis representation.
+```{r message=FALSE}
+
+
+
+mtx_Sc_k2_plot <- rel_abun_filt_plot_fn(get_simple_profile_filtered(MTX_species_k2_filtered, 
+                                             input_metadata=mtx_stats_chosen_fmt %>% dplyr::filter(region=="Sc"), 
+                                             subset_key="mtx_LIBID",
+                                             n=3,
+                                             identifier="mtx_LIBID",
+                                             merging_key="mtx_LIBID"), 
+                 x_var=subj_region,
+                 title="RNAs of species on scalp")
+
+
+
+
+
+#The biggest difference in with minimizer filtering is the removal of Lawsonella cleavelandensis in the most updated results
+
+ggsave(plot=mtx_Sc_k2_plot, filename = "../plots/site_k2_barplots/mtx_scalp_taxa_classified_only.pdf", width =9, height=7 )
+
+
+mtx_Sc_k2_plot
+
+```
+For mgx on scalp
+
+```{r}
+mgx_Sc_k2_plot <- rel_abun_filt_plot_fn(get_simple_profile_filtered(MGX_species_k2_filtered, 
+                                             input_metadata=mgx_stats_chosen_fmt %>% dplyr::filter(region=="Sc"), 
+                                             subset_key="mgx_LIBID",
+                                             n=4,
+                                             identifier="mgx_LIBID",
+                                             merging_key="mgx_LIBID"), 
+                 x_var=subj_region,
+                 title="DNAs of species on scalp")
+
+ggsave(plot=mgx_Sc_k2_plot, 
+       filename = "../plots/site_k2_barplots/mgx_scalp_taxa_classified_only.pdf", width =9, height=7 )
+
+mgx_Sc_k2_plot
+
+##########Facet wrapped version of the plots
+#Exclude unclassified
+#Common colors for species:  "others", "Cutibacterium acnes", "Cutibacterium modestum"
+#"Staphylococcus epidermidis", "Staphylococcus capitis", "Malassezia restricta", "Malassezia globosa", "Malassezia arunalokei"
+
+scalp_species_to_plot <- c("Cutibacterium_acnes", "Cutibacterium_avidum", "Cutibacterium_modestum", 
+                           "Staphylococcus_epidermidis", "Staphylococcus_capitis", "Staphylococcus_pettenkoferi", 
+                           "Dermacoccus_nishinomiyaensis",
+                           "Malassezia_restricta", "Malassezia_globosa", "Malassezia_arunalokei",
+                           "Malassezia_furfur", "Malassezia_obtusa")
+
+
+facet_abundance_plot_fn <- function(mtx_list=MTX_species_k2_filtered, 
+                                    mgx_list=MGX_species_k2_filtered, 
+                                    metadata = mtx_mgx_stats_chosen,
+                                    chosen_species,
+                                    chosen_region,
+                                    manual_sample_order=FALSE,
+                                    subj_region_order #a vector
+                                    ){
+  
+  options(dplyr.summarise.inform = FALSE)
+  
+  mtx_libs_to_choose <- mtx_mgx_stats_chosen %>% dplyr::filter(region==chosen_region) %>% pull(mtx_LIBID)
+  mgx_libs_to_choose <- mtx_mgx_stats_chosen %>% dplyr::filter(region==chosen_region) %>% pull(mgx_LIBID)
+  
+  
+  mtx_df <- lapply(mtx_list[mtx_libs_to_choose], function(df){
+    
+    df <- merge(df %>% dplyr::rename(LIBID=mtx_LIBID), 
+                metadata %>% dplyr::rename(LIBID=mtx_LIBID) %>% dplyr::select(LIBID, subj_region), by="LIBID")
+    
+    df$species_relabelled <- ifelse(df$k2_taxon %in% chosen_species, df$k2_taxon, "others")
+    
+    df_summarized <- df %>% group_by(LIBID, subj_region, species_relabelled) %>% summarise(rel_abun_sum=sum(rel_abun))
+    
+    df_summarized$type <- "MTX"
+    
+    return(df_summarized)
+    
+  }) %>% do.call("rbind",.)
+  
+  mgx_df <- lapply(mgx_list[mgx_libs_to_choose], function(df){
+    
+    df <- merge(df %>% dplyr::rename(LIBID=mgx_LIBID), 
+                metadata %>% dplyr::rename(LIBID=mgx_LIBID) %>% dplyr::select(LIBID, subj_region), by="LIBID")
+    
+    df$species_relabelled <- ifelse(df$k2_taxon %in% chosen_species, df$k2_taxon, "others")
+    
+    df_summarized <- df %>% group_by(LIBID, subj_region, species_relabelled) %>% summarise(rel_abun_sum=sum(rel_abun))
+    
+    df_summarized$type <- "MGX"
+    
+    return(df_summarized)
+    
+  }) %>% do.call("rbind",.)
+  
+  combined_df <- rbind(mtx_df, mgx_df)  
+  
+  #Re-order factor levels to put unclassified and others first. 
+  taxa_to_add <- chosen_species[!chosen_species %in% c("unclassified" )]
+  combined_df$species_relabelled <- factor(combined_df$species_relabelled)
+  
+  combined_df$species_relabelled <- relevel(combined_df$species_relabelled, "others")
+  
+   if (manual_sample_order==TRUE){
+    combined_df$subj_region <- factor(combined_df$subj_region, levels=subj_region_order)
+  }
+  
+  
+  ggplot(combined_df, 
+       aes(x=subj_region, y=rel_abun_sum, fill=species_relabelled)) + geom_col() + #coord_flip() #+ 
+    facet_wrap(~type, ncol=1, nrow=2)+
+  theme_classic() + 
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1), axis.title.x=element_blank()) + 
+  ggtitle(paste0("Taxa on ",chosen_region)) + scale_fill_manual(values = c24)
+  
+  
+}
+
+
+###"others" as last. Should fix this to be consistent..
+
+facet_abundance_plot_fn_b <- function(mtx_list=MTX_species_k2_filtered, 
+                                    mgx_list=MGX_species_k2_filtered, 
+                                    metadata = mtx_mgx_stats_chosen,
+                                    chosen_species,
+                                    chosen_region,
+                                    manual_sample_order=FALSE,
+                                    subj_region_order #a vector
+                                    ){
+  
+  options(dplyr.summarise.inform = FALSE)
+  
+  mtx_libs_to_choose <- mtx_mgx_stats_chosen %>% dplyr::filter(region==chosen_region) %>% pull(mtx_LIBID)
+  mgx_libs_to_choose <- mtx_mgx_stats_chosen %>% dplyr::filter(region==chosen_region) %>% pull(mgx_LIBID)
+  
+  
+  mtx_df <- lapply(mtx_list[mtx_libs_to_choose], function(df){
+    
+    df <- merge(df %>% dplyr::rename(LIBID=mtx_LIBID), 
+                metadata %>% dplyr::rename(LIBID=mtx_LIBID) %>% dplyr::select(LIBID, subj_region), by="LIBID")
+    
+    df$species_relabelled <- ifelse(df$k2_taxon %in% chosen_species, df$k2_taxon, "others")
+    
+    df_summarized <- df %>% group_by(LIBID, subj_region, species_relabelled) %>% summarise(rel_abun_sum=sum(rel_abun))
+    
+    df_summarized$type <- "MTX"
+    
+    return(df_summarized)
+    
+  }) %>% do.call("rbind",.)
+  
+  mgx_df <- lapply(mgx_list[mgx_libs_to_choose], function(df){
+    
+    df <- merge(df %>% dplyr::rename(LIBID=mgx_LIBID), 
+                metadata %>% dplyr::rename(LIBID=mgx_LIBID) %>% dplyr::select(LIBID, subj_region), by="LIBID")
+    
+    df$species_relabelled <- ifelse(df$k2_taxon %in% chosen_species, df$k2_taxon, "others")
+    
+    df_summarized <- df %>% group_by(LIBID, subj_region, species_relabelled) %>% summarise(rel_abun_sum=sum(rel_abun))
+    
+    df_summarized$type <- "MGX"
+    
+    return(df_summarized)
+    
+  }) %>% do.call("rbind",.)
+  
+  combined_df <- rbind(mtx_df, mgx_df)  
+  
+  #Re-order factor levels to put unclassified and others first. 
+  taxa_to_add <- chosen_species[!chosen_species %in% c("unclassified" )]
+  #combined_df$species_relabelled <- factor(combined_df$species_relabelled)
+  
+  combined_df<- combined_df %>% mutate(species_relabelled = factor(species_relabelled, 
+                                                                   levels = c(taxa_to_add,"others")))
+  
+   if (manual_sample_order==TRUE){
+    combined_df$subj_region <- factor(combined_df$subj_region, levels=subj_region_order)
+  }
+  
+  
+  ggplot(combined_df, 
+       aes(x=subj_region, y=rel_abun_sum, fill=species_relabelled)) + geom_col() + #coord_flip() #+ 
+    facet_wrap(~type, ncol=1, nrow=2)+
+  theme_classic() + 
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1), axis.title.x=element_blank()) + 
+  ggtitle(paste0("Taxa on ",chosen_region)) + scale_fill_manual(values = c24)
+  
+  
+}
+
+
+
+
+combined_Sc_k2_plot <- facet_abundance_plot_fn(chosen_species = scalp_species_to_plot, chosen_region = "Sc")
+
+
+ggsave(plot=combined_Sc_k2_plot, filename = "../plots/site_k2_barplots/combined_scalp_taxa_classified_only.pdf", width=12, height=8)
+
+combined_Sc_k2_plot
+
+```
+
+
+For cheeks (Ch), largely dominated by Malassezia transcripts. More C.acnes. some commensal Staph expression
+```{r message=FALSE}
+
+####################
+
+cheek_species_to_plot <- c("Cutibacterium_acnes", "Cutibacterium_modestum", "Corynebacterium_kefirresidentii",
+                           "Staphylococcus_epidermidis", "Staphylococcus_capitis", 
+                           "Staphylococcus_hominis", "Micrococcus_luteus",
+                           "Malassezia_restricta","Malassezia_sympodialis", "Malassezia_globosa", 
+                          "Malassezia_dermatis", "Malassezia_arunalokei")
+
+
+combined_Ch_k2_plot <- facet_abundance_plot_fn(chosen_species = cheek_species_to_plot, chosen_region = "Ch")
+
+
+
+ggsave(plot=combined_Ch_k2_plot, filename = "../plots/site_k2_barplots/combined_Ch_taxa_classified_only.pdf", width=12, height=8)
+
+combined_Ch_k2_plot
+
+
+
+
+
+```
+
+For volar forearms (Vf),  C acnes and Malassezia are active. Some S.hominis
+```{r message=FALSE}
+
+Vf_species_to_plot <- c("Acinetobacter_schindleri", "Cutibacterium_acnes", "Cutibacterium_modestum", 
+                        "Corynebacterium_ureicelerivorans", "Corynebacterium_tuberculostearicum",
+                        "Dermacoccus_nishinomyiensis", "Dermacoccus_sp._PAMC28757",
+                           "Staphylococcus_epidermidis", "Staphylococcus_capitis", 
+                           "Staphylococcus_hominis", 
+                        "Micrococcus_luteus", "Moraxella_osloensis",
+                           "Malassezia_restricta","Malassezia_sympodialis", 
+                        "Malassezia_obtusa",
+                        "Malassezia_globosa", "Malassezia_furfur")
+
+
+combined_Vf_k2_plot <- facet_abundance_plot_fn(chosen_species = Vf_species_to_plot, chosen_region = "Vf")
+
+
+ggsave(plot=combined_Vf_k2_plot, filename = "../plots/site_k2_barplots/combined_Vf_taxa_classified_only.pdf", width=12, height=8)
+
+combined_Vf_k2_plot
+
+```
+
+
+For Antecubital fossae (Ac), dominated by Malassezia. Some S.hominis. https://www.frontiersin.org/articles/10.3389/fcimb.2020.614446/full
+```{r message=FALSE}
+
+####
+
+Ac_species_to_plot <- c( "Cutibacterium_acnes", "Cutibacterium_modestum", 
+                           "Staphylococcus_epidermidis", "Staphylococcus_capitis",
+                           "Staphylococcus_hominis", 
+                        "Micrococcus_luteus", "Moraxella_osloensis",
+                           "Malassezia_restricta","Malassezia_sympodialis", 
+                        "Malassezia_globosa","Malassezia_obtusa","Malassezia_furfur")
+
+
+combined_Ac_k2_plot <- facet_abundance_plot_fn(chosen_species = Ac_species_to_plot, chosen_region = "Ac")
+
+
+ggsave(plot=combined_Ac_k2_plot, filename = "../plots/site_k2_barplots/combined_Ac_taxa_classified_only.pdf", width=12, height=8)
+
+combined_Ac_k2_plot
+
+```
+
+
+For toe webs (Tw), more diverse. Much Staph expression, some Corynebacterium transcripts. Much fewer Malassezia transcripts.
+
+Split into Staph low vs Staph high categories???
+```{r message=FALSE}
+
+####
+
+
+Tw_species_to_plot <- c("Corynebacterium_tuberculostearicum",
+                           "Cutibacterium_acnes", 
+                        "Dermacoccus_sp._PAMC28757",
+                        "Deinococcus_wulumuqiensis",
+                        "Finegoldia_magna", "Gardnerella_vaginalis",
+                        "Staphylococcus_cohnii",
+                           "Staphylococcus_epidermidis", 
+                           "Staphylococcus_hominis", 
+                        "Staphylococcus_capitis",
+                        "Staphylococcus_caprae",
+                        "Staphylococcus_warneri",
+                        "Staphylococcus_haemolyticus",
+                        "Kocuria_rhizophila",
+                        "Micrococcus_luteus", "Moraxella_osloensis",
+                           "Malassezia_furfur", "Malassezia_globosa", "Malassezia_restricta")
+
+combined_Tw_k2_plot <- facet_abundance_plot_fn(chosen_species = Tw_species_to_plot, chosen_region = "Tw")
+
+
+ggsave(plot=combined_Tw_k2_plot, filename = "../plots/site_k2_barplots/combined_Tw_taxa_classified_only.pdf", width=12, height=8)
+
+combined_Tw_k2_plot
+
+
+###Side plot to complement the toe web Staphyloferrin A pathway diagram
+
+Tw_species_side_fig <- c("Staphylococcus_capitis", "Staphylococcus_caprae",
+                           "Staphylococcus_epidermidis", "Staphylococcus_haemolyticus", 
+                           "Staphylococcus_hominis", "Staphylococcus_warneri")
+#To match the Staphyloferrin A pathway bar plot
+Tw_libs_side_fig <- c("SMT001_Tw",
+                      "SMT002_Tw",
+                      "SMT003_Tw",
+                      "SMT008_Tw",
+                      "SMT012_Tw",
+                      "SMT014_Tw",
+                      "SMT015_Tw",
+                      "SMT016_Tw",
+                      "SMT017_Tw",
+                      "SMT018_Tw",
+                      "SMT019_Tw",
+                      "SMT020_Tw",
+                      "SMT021_Tw",
+                      "SMT023_Tw",
+                      "SMT026_Tw")
+
+
+combined_Tw_k2_side_plot <- facet_abundance_plot_fn_b(chosen_species = Tw_species_side_fig, chosen_region = "Tw")
+
+combined_Tw_k2_side_plot
+
+ggsave(plot=combined_Tw_k2_side_plot, filename = "../plots/site_k2_barplots/combined_Tw_taxa_side_plot_staph.pdf", width=12, height=8)
+```
+
+```{r}
+###Side plot, a dataframe to calculate Spearman correlation values, scatterplots of RNA vs DNA at species level etc
+
+prepare_species_ranks <- function(mtx_list=MTX_species_k2_filtered, 
+                                    mgx_list=MGX_species_k2_filtered, 
+                                    metadata = mtx_mgx_stats_chosen,
+                                    chosen_species,
+                                    chosen_region,
+                                    subset_species=TRUE
+                                    ){
+  
+  options(dplyr.summarise.inform = FALSE)
+  
+  mtx_libs_to_choose <- mtx_mgx_stats_chosen %>% dplyr::filter(region %in% chosen_region) %>% pull(mtx_LIBID)
+  mgx_libs_to_choose <- mtx_mgx_stats_chosen %>% dplyr::filter(region %in% chosen_region) %>% pull(mgx_LIBID)
+  
+  if (subset_species==TRUE){
+    mtx_df <- lapply(mtx_list[mtx_libs_to_choose], function(df){
+    
+    df <- merge(df %>% dplyr::select(mtx_LIBID, k2_taxon, rel_abun), 
+                metadata %>% dplyr::select(mtx_LIBID, subj_region), by="mtx_LIBID")
+  
+    
+	#subsetted for a set of species (chosen_species)
+    df_subset <- df %>% dplyr::filter(k2_taxon %in% chosen_species) %>% dplyr::rename(mtx_rel_abun=rel_abun)
+   
+    return(df_subset)
+    
+    })
+    } else if (subset_species == FALSE){
+    mtx_df <- lapply(mtx_list[mtx_libs_to_choose], function(df){
+    
+    df <- merge(df %>% dplyr::select(mtx_LIBID, k2_taxon, rel_abun), 
+                metadata %>% dplyr::select(mtx_LIBID, subj_region), by="mtx_LIBID") %>%
+                dplyr::rename(mtx_rel_abun=rel_abun)
+  
+    
+    return(df)
+    })
+    }
+  
+  mtx_df <- do.call("rbind", mtx_df)
+  
+  
+   if (subset_species==TRUE){
+    mgx_df <- lapply(mgx_list[mgx_libs_to_choose], function(df){
+    
+    df <- merge(df %>% dplyr::select(mgx_LIBID, k2_taxon, rel_abun), 
+                metadata %>% dplyr::select(mgx_LIBID, subj_region, region), by="mgx_LIBID")
+  
+    
+	#subsetted for a set of species (chosen_species)
+    df_subset <- df %>% dplyr::filter(k2_taxon %in% chosen_species) %>% dplyr::rename(mgx_rel_abun=rel_abun)
+   
+    return(df_subset)
+    
+    })
+    } else if (subset_species == FALSE){
+    mgx_df <- lapply(mgx_list[mgx_libs_to_choose], function(df){
+    
+    df <- merge(df %>% dplyr::select(mgx_LIBID, k2_taxon, rel_abun), 
+                metadata %>% dplyr::select(mgx_LIBID, subj_region, region), by="mgx_LIBID") %>%
+                dplyr::rename(mgx_rel_abun=rel_abun)
+  
+    
+    return(df)
+    })
+    }
+  
+  mgx_df <- do.call("rbind", mgx_df)
+  
+  combined_df <- merge(mgx_df, mtx_df, by = c("subj_region","k2_taxon"), all.x=TRUE)  
+  
+  combined_df$mtx_rel_abun <- replace_na(combined_df$mtx_rel_abun,0)
+  
+  return(combined_df %>% dplyr::select(-c(mtx_LIBID,mgx_LIBID)))
+  
+}
+
+
+
+#other species to plot for Tw
+
+#Tw_species_to_plot_for_cor <- c("Staphylococcus_cohnii",
+#                           "Staphylococcus_epidermidis", 
+#                           "Staphylococcus_hominis", 
+#                        "Staphylococcus_capitis",
+#                        "Staphylococcus_caprae",
+#                        "Staphylococcus_warneri",
+#                        "Staphylococcus_haemolyticus")
+
+
+
+#Tw_species_to_plot_for_cor2 <- c("Corynebacterium_tuberculostearicum",
+#                           "Cutibacterium_acnes", 
+#                        "Dermacoccus_sp._PAMC28757",
+#                        "Deinococcus_wulumuqiensis",
+#                        "Finegoldia_magna", "Gardnerella_vaginalis",
+#                        "Staphylococcus_cohnii",
+#                           "Staphylococcus_epidermidis", 
+#                           "Staphylococcus_hominis", 
+#                        "Staphylococcus_capitis",
+#                        "Staphylococcus_caprae",
+#                        "Staphylococcus_warneri",
+#                        "Staphylococcus_haemolyticus",
+#                        "Kocuria_rhizophila",
+#                        "Micrococcus_luteus", "Moraxella_osloensis")
+
+
+all_sites_for_cor_plot_df <- prepare_species_ranks(chosen_region = c("Sc","Ch",
+                                                "Ac","Vf","Tw"), subset_species = FALSE)
+
+
+all_sites_for_cor_plot_df$region <- factor(all_sites_for_cor_plot_df$region, 
+                                           levels=c("Sc","Ch","Ac","Vf","Tw"))
+
+all_sites_for_cor_plot_df$organism <- ifelse(str_detect(string=all_sites_for_cor_plot_df$k2_taxon,
+                                                        pattern="Malassezia"),"fungi","bacteria")
+
+all_sites_for_cor_plot_df$genus <- word(string=all_sites_for_cor_plot_df$k2_taxon, start=1, sep="_")
+
+#Only plot the species that are at least 50% prevalent (by DNA) per site. (Violin plot of correlations per region?)
+mgx_species_site_prevalence_labelled_threshold <- mgx_species_site_prevalence_labelled %>%
+                                                  dplyr::filter(category_within_site!="variable")
+
+
+#for variable species by metagenomes
+mgx_species_site_prevalence_labelled_variable <- mgx_species_site_prevalence_labelled %>%
+                                                  dplyr::filter(category_within_site=="variable")
+
+
+
+
+```
+
+
+Two types of plots: (Fig S10?)
+
+a) TPM  species metatranscriptome against CPM species metagenome for prevalent to core species per site. Facet plot with colored genera. 
+
+b) Violin plot distribution of log2(RNA/DNA) at species level for prevalent to core species within a site.
+
+```{r}
+#Load data. This was derived from taxa_DESeq2.Rmd
+
+combined_taxa_count_activity_df <- read_tsv("../processed/combined_taxa_count_activity_df.tsv",
+                                            show_col_types = FALSE)
+
+
+
+core_prevalent_combined_taxa_count_activity_df <- lapply(c("Sc","Ch","Ac","Vf","Tw"), function(x){
+  
+  #This will only retain species which are prevalent or core to a site.
+  mgx_species_specific_site <- mgx_species_site_prevalence_labelled_threshold %>% 
+    dplyr::filter(region==x)
+  
+  #dataframe with transcriptional activities of prevalent or core species at each site
+  specific_site_species_activity_df <- combined_taxa_count_activity_df %>% 
+    dplyr::filter(region==x & k2_taxon %in% mgx_species_specific_site$species)
+  
+  return(specific_site_species_activity_df)
+  
+}) %>% do.call("rbind",.)
+
+
+
+
+core_prevalent_combined_taxa_count_activity_df$region <- factor(core_prevalent_combined_taxa_count_activity_df$region, 
+                                           levels=c("Sc","Ch","Ac","Vf","Tw"))
+
+
+
+core_prevalent_combined_taxa_count_activity_df$genus <- word(string=core_prevalent_combined_taxa_count_activity_df$k2_taxon, 
+                                                             start=1, sep="_")  
+  
+
+core_prevalent_combined_taxa_TPM_scatter <- ggplot(core_prevalent_combined_taxa_count_activity_df, 
+       aes(y=mtx_TPM, x=mgx_CPM, color=genus)) + geom_point(size=2) + 
+  theme_classic() + scale_color_manual(values=c24) +
+  facet_wrap(~region, ncol=3, nrow=2, scales='free') +
+  scale_y_continuous(labels = function(x) format(x, scientific = TRUE)) +
+  scale_x_continuous(labels = function(x) format(x, scientific = TRUE)) +
+  theme(axis.line=element_line())  +
+  geom_abline(intercept=0, slope=1) + 
+  geom_abline(intercept=0, slope=4,linetype=3) +
+  geom_abline(intercept=0, slope=0.25,linetype=3)  
+  
+
+ggsave(plot = core_prevalent_combined_taxa_TPM_scatter, 
+       filename = "../plots/core_prevalent_combined_taxa_TPM_scatter.pdf", width = 10, height = 7)
+
+
+core_prevalent_combined_taxa_TPM_scatter
+
+```
+
+
+What if we did the visualization for variable species. Staph and Malassezia still important
+
+
+```{r}
+
+variable_combined_taxa_count_activity_df <- lapply(c("Sc","Ch","Ac","Vf","Tw"), function(x){
+  
+  #This will only retain species which are variable at each site.
+  mgx_species_specific_site <- mgx_species_site_prevalence_labelled_variable %>% 
+    dplyr::filter(region==x)
+  
+  #dataframe with transcriptional activities of variable species at each site
+  specific_site_species_activity_df <- combined_taxa_count_activity_df %>% 
+    dplyr::filter(region==x & k2_taxon %in% mgx_species_specific_site$species)
+  
+  return(specific_site_species_activity_df)
+  
+}) %>% do.call("rbind",.)
+
+
+
+
+variable_combined_taxa_count_activity_df$region <- factor(variable_combined_taxa_count_activity_df$region, 
+                                           levels=c("Sc","Ch","Ac","Vf","Tw"))
+
+
+
+variable_combined_taxa_count_activity_df$genus <- word(string=variable_combined_taxa_count_activity_df$k2_taxon, 
+                                                             start=1, sep="_")  
+
+
+#color by genera of variable species which have |transcriptional activity| > 4 and greater than 0
+variable_combined_taxa_count_activity_df$genus_filt <- ifelse(variable_combined_taxa_count_activity_df$transcriptional_activity>4|
+                                                                variable_combined_taxa_count_activity_df$transcriptional_activity <0.25 & variable_combined_taxa_count_activity_df$transcriptional_activity > 0,
+                                                              variable_combined_taxa_count_activity_df$genus,
+                                                              "others")
+
+#Put the "others" category as last.
+
+variable_genera_to_plot <- variable_combined_taxa_count_activity_df$genus_filt %>% unique(.)
+
+variable_genera_to_plot <- variable_genera_to_plot[variable_genera_to_plot!="others"] %>% sort(.)
+
+
+variable_combined_taxa_count_activity_df$genus_filt <- factor(variable_combined_taxa_count_activity_df$genus_filt,
+                                                              levels = c(variable_genera_to_plot, "others"))
+
+
+variable_combined_taxa_TPM_scatter <- ggplot(variable_combined_taxa_count_activity_df, 
+       aes(y=mtx_TPM, x=mgx_CPM, color=genus_filt)) + geom_point(size=2) + 
+  theme_classic() + scale_color_manual(values=c24) +
+  facet_wrap(~region, ncol=3, nrow=2, scales='free') +
+  scale_y_continuous(labels = function(x) format(x, scientific = TRUE)) +
+  scale_x_continuous(labels = function(x) format(x, scientific = TRUE)) +
+  theme(axis.line=element_line())  +
+  geom_abline(intercept=0, slope=1) + 
+  geom_abline(intercept=0, slope=4,linetype=3) +
+  geom_abline(intercept=0, slope=0.25,linetype=3)  
+
+ggsave(plot = variable_combined_taxa_TPM_scatter, 
+       filename = "../plots/variable_combined_taxa_TPM_scatter.pdf", width = 10, height = 7)
+
+variable_combined_taxa_TPM_scatter
+
+```
+
+
+
+
+
+
+Visualization with log scaling is more complicated and not used for manuscript
+
+```{r eval=FALSE}
+
+
+
+
+#Increase point size.
+ggplot(core_prevalent_combined_taxa_count_activity_df, 
+       aes(y=log2(mtx_TPM +1), x=log2(mgx_CPM+1), color=genus)) + geom_point() + 
+  theme_classic() + scale_color_manual(values=c24) +
+  facet_wrap(~region, ncol=3, nrow=2, scales='free') +
+  theme(axis.line=element_line()) + 
+  scale_x_continuous(limits=c(0,20)) + scale_y_continuous(limits=c(0,20)) +
+  geom_abline(intercept=0, slope=1) + 
+  geom_abline(intercept=2, slope=1,linetype=3) +
+  geom_abline(intercept=-2, slope=1,linetype=3)
+
+```
+
+
+
+```{r}
+species_TPM_pearson_cor_all_sites <- lapply(c("Sc","Ch","Ac","Vf","Tw"), function(x){
+  
+  #This will only retain species which are prevalent or core to a site.
+  mgx_species_specific_site <- mgx_species_site_prevalence_labelled_threshold %>% 
+    dplyr::filter(region==x)
+  
+  #perform Pearson correlation for each species within each site
+  species_per_site <- unique(mgx_species_specific_site$species)
+  
+  #dataframe with transcriptional activities
+  specific_site_species_abun_df <- combined_taxa_count_activity_df %>% 
+    dplyr::filter(region==x & k2_taxon %in% mgx_species_specific_site$species)
+  
+  
+  pearson_cor_vec <- vector(mode="numeric")
+  pearson_p_value_vec <- vector(mode="numeric")
+  
+  for (s in species_per_site){
+    
+    species_site_subset <- specific_site_species_abun_df %>% dplyr::filter(k2_taxon == s)
+    
+    pearson_results <- cor.test(species_site_subset$mtx_rel_abun, species_site_subset$mgx_rel_abun, method="pearson")
+    
+    #numeric
+    pearson_cor_vec <- c(pearson_cor_vec, pearson_results$estimate[[1]])
+    pearson_p_value_vec <- c(pearson_p_value_vec,pearson_results$p.value)
+  }
+  
+  output <- data.frame(species=species_per_site,
+                       region=x,
+                       pearson_cor=pearson_cor_vec,
+                       p_val=pearson_p_value_vec)
+  
+  return(output)
+  
+  
+})
+
+
+
+
+
+
+```
+
+
+
+
+Function that performs PEARSON correlation between mtx and mgx abundances of prevalent to core species (so > 50% prev)
+
+```{r eval=FALSE}
+#Raw relative abundances is not the best way of doing things given compositionality.
+
+species_pearson_cor_all_sites <- lapply(c("Sc","Ch","Ac","Vf","Tw"), function(x){
+  
+  mgx_species_specific_site <- mgx_species_site_prevalence_labelled_threshold %>% 
+    dplyr::filter(region==x)
+  
+  specific_site_species_abun_df <- all_sites_for_cor_plot_df %>% 
+    dplyr::filter(region==x & k2_taxon %in% mgx_species_specific_site$species)
+  
+  
+  #perform Pearson correlation for each species within each site
+  species_per_site <- unique(mgx_species_specific_site$species)
+  
+  pearson_cor_vec <- vector(mode="numeric")
+  pearson_p_value_vec <- vector(mode="numeric")
+  
+  for (s in species_per_site){
+    
+    species_site_subset <- specific_site_species_abun_df %>% dplyr::filter(k2_taxon == s)
+    
+    pearson_results <- cor.test(species_site_subset$mtx_rel_abun, species_site_subset$mgx_rel_abun, method="pearson")
+    
+    #numeric
+    pearson_cor_vec <- c(pearson_cor_vec, pearson_results$estimate[[1]])
+    pearson_p_value_vec <- c(pearson_p_value_vec,pearson_results$p.value)
+  }
+  
+  output <- data.frame(species=species_per_site,
+                       region=x,
+                       pearson_cor=pearson_cor_vec,
+                       p_val=pearson_p_value_vec)
+  
+  return(output)
+  
+  
+})
+```
+
+
+
+```{r}
+
+
+
+
+
+
+
+
+
+#Could be misleading due to fungi. Let's compute relative abundance amongst bacteria only
+
+
+all_sites_for_cor_plot_bacteria_df <- all_sites_for_cor_plot_df %>% dplyr::filter(organism=="bacteria")
+
+bacteria_sums_df <- all_sites_for_cor_plot_bacteria_df %>% group_by(subj_region) %>% 
+  summarize(mtx_sum_rel_abun=sum(mtx_rel_abun),
+            mgx_sum_rel_abun=sum(mgx_rel_abun) )
+
+all_sites_for_cor_plot_bacteria_df <- merge(all_sites_for_cor_plot_bacteria_df, bacteria_sums_df, by = "subj_region")
+
+all_sites_for_cor_plot_bacteria_df$mtx_rel_abun_in_bact <- (all_sites_for_cor_plot_bacteria_df$mtx_rel_abun/all_sites_for_cor_plot_bacteria_df$mtx_sum_rel_abun)*100
+
+all_sites_for_cor_plot_bacteria_df$mgx_rel_abun_in_bact <- (all_sites_for_cor_plot_bacteria_df$mgx_rel_abun/all_sites_for_cor_plot_bacteria_df$mgx_sum_rel_abun)*100
+
+
+all_sites_for_cor_plot_bacteria_scatter <- ggplot(all_sites_for_cor_plot_bacteria_df, 
+       aes(y=mtx_rel_abun_in_bact, x=mgx_rel_abun_in_bact)) + 
+  geom_point() + xlim(0,100) + geom_abline(intercept=0) +
+  theme_classic() + 
+  facet_wrap(~region, ncol=3, nrow=2, scales='free')
+
+ggsave(plot = all_sites_for_cor_plot_bacteria_scatter, filename = "../plots/all_sites_for_cor_plot_bacteria.pdf", width = 10, height = 7)
+
+all_sites_for_cor_plot_bacteria_scatter
+
+```
+
+
+```{r eval=FALSE}
+
+test <- prepare_species_ranks(chosen_species = Tw_species_to_plot_for_cor, 
+                                         chosen_region = "Tw")
+
+
+test3b <- test %>% group_by(subj_region) %>% 
+  summarize(mtx_sum_rel_abun_staph=sum(mtx_rel_abun),
+            mgx_sum_rel_abun_staph=sum(mgx_rel_abun) )
+
+test2 <- merge(test, test3b, by = "subj_region")
+
+
+test2$mtx_rel_abun_in_staph <- (test2$mtx_rel_abun/test2$mtx_sum_rel_abun_staph)*100
+test2$mgx_rel_abun_in_staph <- (test2$mgx_rel_abun/test2$mgx_sum_rel_abun_staph)*100
+
+
+test2_DNA <- test2 %>% 
+  dplyr::select(subj_region, k2_taxon, mgx_rel_abun_in_staph) %>% 
+  dplyr::rename(rel_abun_in_staph=mgx_rel_abun_in_staph)
+
+test2_DNA$subj_region <- paste0(test2$subj_region,"_DNA")
+
+
+test2_RNA <- test2 %>% 
+  dplyr::select(subj_region, k2_taxon, mtx_rel_abun_in_staph) %>%
+  dplyr::rename(rel_abun_in_staph=mtx_rel_abun_in_staph)
+
+test2_RNA$subj_region <- paste0(test2$subj_region,"_RNA")
+
+test2_combi <- rbind(test2_DNA, test2_RNA)
+
+test2_combi_wide <- pivot_wider(test2_combi, 
+                                id_cols=subj_region, 
+                                names_from=k2_taxon, 
+                                values_from=rel_abun_in_staph) %>% as.data.frame()
+
+row.names(test2_combi_wide) <- test2_combi_wide$subj_region
+
+test2_combi_wide_mat <- test2_combi_wide %>% dplyr::select(-subj_region) %>% as.matrix()
+
+test2_combi_wide_mat[is.na(test2_combi_wide_mat)] <- 0
+
+#BC dissimilarity
+#rows as samples and columns as species
+test_beta_diversity <- ecodist::bcdist(test2_combi_wide_mat, rmzero = TRUE) %>% as.matrix()
+
+#pull out the matching DNA-RNA comparisons (same individual)
+test_beta_diversity_melted <- melt(test_beta_diversity)
+test_beta_diversity_melted$key <- paste(test_beta_diversity_melted$Var1,test_beta_diversity_melted$Var2)
+
+#key for DNA-RNA comparisons
+Tw_DNA_RNA_comparisons <- paste(test2_DNA$subj_region,test2_RNA$subj_region) %>% unique(.)
+
+test_beta_diversity_melted_subset <- test_beta_diversity_melted %>% dplyr::filter(key %in% Tw_DNA_RNA_comparisons)
+
+#barplot for Staph species + Bray curtis diss at bottom? New supp fig?
+
+
+```
+##Rarefaction analysis for mtx and mgx features (Can also do rarefaction plots for species if desired)
+
+
+Plot the rarefaction curves using vegan::rarecurve function 
+https://blogs.iu.edu/ncgas/2019/09/04/rarefaction-curves-for-metagenomic-datasets/
+https://www.r-bloggers.com/2015/04/drawing-rarefaction-curves-with-custom-colours/
+
+
+https://rdrr.io/cran/vegan/man/rarefy.html
+https://grunwaldlab.github.io/metacoder_documentation/workshop--06--quality_control.html
+The relationship between the number of reads and the number of OTUs can be described using rarefaction curves. This is actually different concept than rarefaction, and it is done for different reasons. Rarefaction is a subsampling technique meant to correct for uneven sample size whereas rarefaction curves are used to estimate whether all the diveristy of the true community was captured.
+Each line represents a different sample (i.e. column) and shows how many OTUs are found in a random subsets of different numbers of reads. The rarecurve function from the vegan package will do the random sub-sampling and plot the results for an abundance matrix. 
+
+y would be number of gene features, x would be number of reads
+
+Each row a sample. Each gene feature a column.
+
+This chunk takes several minutes to run, so I've disabled it. Output plots have been saved to a github folder. 
+
+The rarefaction curves have been re-run as of 13th Feb 2023 
+
+```{r eval=FALSE}
+
+#First, write a function to process read count inputs by skin site, into a suitable form for rarefaction analysis and generate plots
+
+#mtx_list can be mtx_normalized
+
+#mgx_list can be mgx_all_bact_OG_counts_list etc
+#OG_type can be "bacteria_OG" or "fungi_OG etc
+#body_site can be "Ac", "Vf" etc
+
+#Helper function
+
+rarefy_and_plot <- function(count_list=mtx_normalized, OG_type, body_site){
+  
+  #for mtx data
+  
+  mtx_df_filt <- lapply(count_list, function(df){
+    
+    df_filt <- df  %>% dplyr::filter(region==body_site) %>% 
+      dplyr::filter(feature_class==OG_type | feature_class=="unmapped") %>%
+      dplyr::select(feature, subj_region, mtx_counts)
+    
+    return(df_filt)
+  })
+  
+  mtx_df_filt <- do.call("rbind", mtx_df_filt)
+  
+  mtx_df_wide <- mtx_df_filt  %>% 
+    pivot_wider(., id_cols=subj_region, names_from=feature, values_from=mtx_counts) %>% as.data.frame()
+  
+  rownames(mtx_df_wide) <- mtx_df_wide$subj_region
+  
+  mtx_df_wide <- mtx_df_wide %>% dplyr::select(-subj_region) %>% as.matrix()
+  
+  mtx_df_wide[is.na(mtx_df_wide)] <- 0
+  
+  #for mgx data
+    
+  mgx_df_filt <- lapply(count_list, function(df){
+    
+    df_filt <- df  %>% dplyr::filter(region==body_site) %>% 
+      dplyr::filter(feature_class==OG_type | feature_class=="unmapped") %>%
+      dplyr::select(feature, subj_region, mgx_counts)
+    
+    return(df_filt)
+  })
+  
+  mgx_df_filt <- do.call("rbind", mgx_df_filt)
+  
+  mgx_df_wide <- mgx_df_filt  %>% 
+    pivot_wider(., id_cols=subj_region, names_from=feature, values_from=mgx_counts) %>% as.data.frame()
+  
+  rownames(mgx_df_wide) <- mgx_df_wide$subj_region
+  
+  mgx_df_wide <- mgx_df_wide %>% dplyr::select(-subj_region) %>% as.matrix()
+  
+  mgx_df_wide[is.na(mgx_df_wide)] <- 0
+  
+  #plots for mtx
+  #https://stat.ethz.ch/pipermail/r-sig-ecology/2018-December/005867.html
+  
+  mtx_raremax <- min(rowSums(mtx_df_wide))
+ 
+  mtx_rarefy_out <- rarecurve(mtx_df_wide, step = 50000, sample = mtx_raremax, col = "blue", cex = 0.6)
+  
+  names(mtx_rarefy_out) <- rownames(mtx_df_wide)
+  
+  mtx_protox <- mapply(FUN = function(x, y) {
+  mydf <- as.data.frame(x)
+  colnames(mydf) <- "value"
+  mydf$subject <- y
+  mydf$subsample <- attr(x, "Subsample")
+  mydf
+  }, x = mtx_rarefy_out, y = as.list(names(mtx_rarefy_out)), SIMPLIFY = FALSE)
+  
+  mtx_xy <- do.call("rbind", mtx_protox)
+  
+  mtx_plot <- ggplot(mtx_xy, aes(x = subsample, y = value, color = subject)) +
+  theme_classic() +
+  scale_color_manual(values=c24) + 
+  geom_line(size=1.5) +
+  ggtitle(paste0("mtx",body_site,";raremax= ",mtx_raremax)) +
+  xlab("Sequencing depth") + ylab("# of transcribed features detected")
+  
+  #plots for mgx
+  
+  mgx_raremax <- min(rowSums(mgx_df_wide))
+ 
+  mgx_rarefy_out <- rarecurve(mgx_df_wide, step = 50000, sample = mgx_raremax, col = "blue", cex = 0.6)
+  
+  names(mgx_rarefy_out) <- rownames(mgx_df_wide)
+  
+  mgx_protox <- mapply(FUN = function(x, y) {
+  mydf <- as.data.frame(x)
+  colnames(mydf) <- "value"
+  mydf$subject <- y
+  mydf$subsample <- attr(x, "Subsample")
+  mydf
+  }, x = mgx_rarefy_out, y = as.list(names(mgx_rarefy_out)), SIMPLIFY = FALSE)
+  
+  mgx_xy <- do.call("rbind", mgx_protox)
+  
+  mgx_plot <- ggplot(mgx_xy, aes(x = subsample, y = value, color = subject)) +
+  theme_classic() +
+  scale_color_manual(values=c24) + 
+  geom_line(size=1.5) +
+  ggtitle(paste0("mgx;",body_site,";raremax= ",mgx_raremax)) +
+  xlab("Sequencing depth") + ylab("# of DNA features detected")
+  
+  output_plots <- ggarrange(mtx_plot, mgx_plot, 
+          labels = c("A", "B"),
+          ncol = 2, nrow = 1, common.legend = TRUE)
+  
+  return(output_plots)
+  
+}
+
+
+
+#rarefy_and_plot(OG_type = "bacteria_OG", body_site="Ch")
+
+
+get_rarefaction_plots <- function(){
+  
+  #slice by body site, pivot, and return a matrix of read counts. Each row a sample. Each gene feature a column. 
+  #"Other reads" are also grouped into a feature of its own
+  
+  #rarefaction curves
+  Ac_bact_plot <- rarefy_and_plot(OG_type="bacteria_OG", body_site="Ac")
+  Vf_bact_plot <- rarefy_and_plot(OG_type="bacteria_OG", body_site="Vf")
+  Ch_bact_plot <- rarefy_and_plot(OG_type="bacteria_OG", body_site="Ch")
+  Sc_bact_plot <- rarefy_and_plot(OG_type="bacteria_OG", body_site="Sc")
+  Tw_bact_plot <- rarefy_and_plot(OG_type="bacteria_OG", body_site="Tw")
+  
+  Ac_fungi_plot <- rarefy_and_plot(OG_type="fungi_OG", body_site="Ac")
+  Vf_fungi_plot <- rarefy_and_plot(OG_type="fungi_OG", body_site="Vf")
+  Ch_fungi_plot <- rarefy_and_plot(OG_type="fungi_OG", body_site="Ch")
+  Sc_fungi_plot <- rarefy_and_plot(OG_type="fungi_OG", body_site="Sc")
+  Tw_fungi_plot <- rarefy_and_plot(OG_type="fungi_OG", body_site="Tw")
+  
+  output <- tibble::lst(Ac_bact_plot, Vf_bact_plot, 
+                        Ch_bact_plot, Sc_bact_plot, 
+                        Tw_bact_plot,
+                        Ac_fungi_plot, Vf_fungi_plot,
+                        Ch_fungi_plot, Sc_fungi_plot,
+                        Tw_fungi_plot)
+  
+  return(output)
+  
+}
+
+rarefaction_plots <- get_rarefaction_plots()
+
+
+
+#Optionally if you want to use iNext
+#https://rdrr.io/github/vmikk/metagMisc/src/R/prepare_inext.R
+# #https://cran.r-project.org/web/packages/iNEXT/vignettes/Introduction.html
+
+
+ggsave(plot = rarefaction_plots[["Ac_bact_plot"]], filename = "../plots/mtx_bact_Ac_rarefaction.pdf", width = 14, height = 7)
+
+ggsave(plot = rarefaction_plots[["Vf_bact_plot"]], filename = "../plots/mtx_bact_Vf_rarefaction.pdf", width = 14, height = 7)
+
+ggsave(plot = rarefaction_plots[["Ch_bact_plot"]], filename = "../plots/mtx_bact_Ch_rarefaction.pdf", width = 14, height = 7)
+
+ggsave(plot = rarefaction_plots[["Sc_bact_plot"]], filename = "../plots/mtx_bact_Sc_rarefaction.pdf", width = 14, height = 7)
+
+ggsave(plot = rarefaction_plots[["Tw_bact_plot"]], filename = "../plots/mtx_bact_Tw_rarefaction.pdf", width = 14, height = 7)
+
+ggsave(plot = rarefaction_plots[["Ac_fungi_plot"]], filename = "../plots/mtx_fungi_Ac_rarefaction.pdf", width = 14, height = 7)
+
+ggsave(plot = rarefaction_plots[["Vf_fungi_plot"]], filename = "../plots/mtx_fungi_Vf_rarefaction.pdf", width = 14, height = 7)
+
+ggsave(plot = rarefaction_plots[["Ch_fungi_plot"]], filename = "../plots/mtx_fungi_Ch_rarefaction.pdf", width = 14, height = 7)
+
+ggsave(plot = rarefaction_plots[["Sc_fungi_plot"]], filename = "../plots/mtx_fungi_Sc_rarefaction.pdf", width = 14, height = 7)
+
+ggsave(plot = rarefaction_plots[["Tw_fungi_plot"]], filename = "../plots/mtx_fungi_Tw_rarefaction.pdf", width = 14, height = 7)
+
+
+```
+
+
+
+
+## PCA of DESeq2 for all sites at once
+
+```{r eval=FALSE}
+
+#Obtain count data for all eligible mtx and mgx
+
+get_DESeq_vsd_all_sites <- function(mtx_count_list, mgx_count_list){
+  
+  
+  ##############################################
+  ## prepare input read count matrix for DESeq2#
+  ##############################################
+  
+  #Obtain count data for eligible mtx and mgx
+  rna_rawcounts <- mtx_count_list %>% do.call("rbind",.)
+  
+  
+  rna_count_matrix <- pivot_wider(rna_rawcounts %>% 
+                        dplyr::select(feature, read_count_sum, LIBID), names_from = LIBID, values_from = read_count_sum) %>%
+                        as.data.frame()
+  
+  rownames(rna_count_matrix) <- rna_count_matrix$feature
+  
+  rna_count_matrix <- rna_count_matrix %>% dplyr::select(-feature) %>% as.matrix()
+  
+  #This matrix operation is much faster than mutate_all(~replace(.,is.na(.),0)) for tibbles/df
+  rna_count_matrix[is.na(rna_count_matrix)] <- 0 
+  
+  #############
+  dna_rawcounts <- mgx_count_list %>% do.call("rbind",.)
+  dna_count_matrix <- pivot_wider(dna_rawcounts %>% 
+                        dplyr::select(feature, read_count_sum, LIBID), names_from = LIBID, values_from = read_count_sum) %>%
+                        as.data.frame()
+  
+  rownames(dna_count_matrix) <- dna_count_matrix$feature
+  
+  dna_count_matrix <- dna_count_matrix %>% dplyr::select(-feature) %>% as.matrix()
+  
+  #This matrix operation is much faster than mutate_all(~replace(.,is.na(.),0)) for tibbles/df
+  dna_count_matrix[is.na(dna_count_matrix)] <- 0 
+  
+  
+  ##############################################
+  ## prepare metadata for DESeq2               #
+  ##############################################
+  
+  #the row names of metadata should be ordered in a way that matches the input matrix
+  rna_metadata <- eligible_mtx_metadata %>% dplyr::filter(mol_type == "RNA") %>%
+    dplyr::select(LIBID, subject, region, mol_type, UMI, low_conc) %>% as.data.frame()
+  
+  rownames(rna_metadata) <- rna_metadata$LIBID
+  
+  rna_metadata <- rna_metadata %>% dplyr::select(-LIBID)
+  
+  rna_metadata$subject <- as.factor(rna_metadata$subject)
+  rna_metadata$region <- as.factor(rna_metadata$region)
+  #reorder rows
+  rna_index <- match(colnames(rna_count_matrix), rownames(rna_metadata))
+  rna_metadata <- rna_metadata[rna_index,]
+  
+  ###############
+  dna_metadata <- eligible_mtx_metadata %>% dplyr::filter(mol_type == "DNA") %>%
+  dplyr::select(LIBID, subject, region, mol_type, UMI, low_conc) %>% as.data.frame()
+  
+  rownames(dna_metadata) <- dna_metadata$LIBID
+  
+  dna_metadata <- dna_metadata %>% dplyr::select(-LIBID)
+  
+  dna_metadata$subject <- as.factor(dna_metadata$subject)
+  dna_metadata$region <- as.factor(dna_metadata$region)
+  #reorder rows
+  dna_index <- match(colnames(dna_count_matrix), rownames(dna_metadata))
+  dna_metadata <- dna_metadata[dna_index,]
+  
+  ##############################################
+  ## Run DESeq2                                #
+  ##############################################
+  
+  dds_rna <- DESeqDataSetFromMatrix(countData = rna_count_matrix, 
+                                colData = rna_metadata, 
+                                design = ~ subject+region)
+
+  #Pre-filtering to keep rows with a minimum median read count.
+  keep_rna <- rowMedians(counts(dds_rna)) >= 10
+  dds_rna <- dds_rna[keep_rna,]
+
+  
+  
+  dds_dna <- DESeqDataSetFromMatrix(countData = dna_count_matrix, 
+                                colData = dna_metadata, 
+                                design = ~ subject+region)
+  
+  keep_dna <- rowMedians(counts(dds_dna)) >= 10
+  dds_dna <- dds_dna[keep_dna,]
+
+ #####Estimate size factors separately for mtx and mgx data 
+  
+  dds_rna <- estimateSizeFactors(dds_rna, type = "poscounts") 
+  dds_dna <- estimateSizeFactors(dds_dna, type = "poscounts") 
+  
+
+  rna_normalized_counts <- counts(dds_rna, normalized=TRUE)
+  dna_normalized_counts <- counts(dds_dna, normalized=TRUE)
+  
+  #See error and fix:https://support.bioconductor.org/p/98634/
+  rna_vsd <- vst(dds_rna, blind=FALSE, nsub=sum( rowMeans( counts(dds_rna, normalized=TRUE)) > 5 ))  
+  rna_vsd_mat <- assay(rna_vsd)
+  rna_vsd_cor <- cor(rna_vsd_mat)
+  
+  dna_vsd <- vst(dds_dna, blind=FALSE, nsub=sum( rowMeans( counts(dds_dna, normalized=TRUE)) > 5 ))  
+  dna_vsd_mat <- assay(dna_vsd)
+  dna_vsd_cor <- cor(dna_vsd_mat)
+  
+  output <- tibble::lst(rna_vsd, rna_vsd_cor, rna_metadata, dna_vsd, dna_vsd_cor, dna_metadata)
+  
+  return(output)
+  
+}
+
+bact_DESeq_vsd_all_sites <- get_DESeq_vsd_all_sites(mtx_count_list = mtx_bact_counts, 
+                                                    mgx_count_list = mgx_bact_counts)
+
+
+#vsd_cor_heatmap <- pheatmap(bact_DESeq_vsd_all_sites[["vsd_cor"]], 
+                            #annotation=select(bact_DESeq_vsd_all_sites[["selected_metadata"]], region))
+  
+plotPCA(bact_DESeq_vsd_all_sites[["rna_vsd"]], intgroup = "region")
+plotPCA(bact_DESeq_vsd_all_sites[["dna_vsd"]], intgroup = "region")
+
+
+fungi_DESeq_vsd_all_sites <- get_DESeq_vsd_all_sites(mtx_count_list = mtx_fungi_counts, 
+                                                    mgx_count_list = mgx_fungi_counts)
+
+plotPCA(fungi_DESeq_vsd_all_sites[["rna_vsd"]], intgroup = "region")
+plotPCA(fungi_DESeq_vsd_all_sites[["dna_vsd"]], intgroup = "region")
+
+
+#uniref90 and pangene features with no OG annotation
+other_DESeq_vsd_all_sites <- get_DESeq_vsd_all_sites(mtx_count_list = mtx_uniref_pangene_counts, 
+                                                    mgx_count_list = mgx_uniref_pangene_counts)
+
+plotPCA(other_DESeq_vsd_all_sites[["rna_vsd"]], intgroup = "region")
+
+
+plotPCA(other_DESeq_vsd_all_sites[["dna_vsd"]], intgroup = "region")
+
+
+#saveRDS(bact_DESeq_vsd_all_sites, file="../processed/DESeq2_out/bact_DESeq_vsd_all_sites.RDS")
+#saveRDS(fungi_DESeq_vsd_all_sites, file="../processed/DESeq2_out/fungi_DESeq_vsd_all_sites.RDS")
+#saveRDS(other_DESeq_vsd_all_sites, file="../processed/DESeq2_out/other_DESeq_vsd_all_sites.RDS")
+
+
+
+```
+
+
+Load in previous results
+
+```{r}
+
+bact_DESeq_vsd_all_sites <- readRDS("../processed/DESeq2_out/bact_DESeq_vsd_all_sites.RDS")
+
+fungi_DESeq_vsd_all_sites <- readRDS("../processed/DESeq2_out/fungi_DESeq_vsd_all_sites.RDS")
+
+other_DESeq_vsd_all_sites <- readRDS("../processed/DESeq2_out/other_DESeq_vsd_all_sites.RDS")
+
+
+plotPCA(bact_DESeq_vsd_all_sites[["rna_vsd"]], intgroup = "region")
+plotPCA(bact_DESeq_vsd_all_sites[["dna_vsd"]], intgroup = "region")
+
+
+plotPCA(fungi_DESeq_vsd_all_sites[["rna_vsd"]], intgroup = "region")
+plotPCA(fungi_DESeq_vsd_all_sites[["dna_vsd"]], intgroup = "region")
+
+```
+
+
+Take a look at all the dispersion and MA plots. I should bake this into the DESeq function next time. 
+
+```{r}
+#https://bookdown.org/ndphillips/YaRrr/saving-plots-to-a-file-with-pdf-jpeg-and-png.html
+# Plot heatmap
+
+#png(paste0("results/", clusters[x], "_specific_heatmap.png"))
+#pheatmap(rld_cor, annotation = cluster_metadata[, c("group_id"), drop=F])
+#dev.off()
+        
+# Plot dispersion estimates
+#png(paste0("results/", clusters[x], "_dispersion_plot.png"))  #Can try pdf() for vector image
+        #plotDispEsts(dds)
+        #dev.off()
+
+#bact_labels is a character vector of appropriate OGs like c('4I7CS', '2GKH3', '4H9W1', '4HJCS')
+make_DESeq_plots <- function(DE_results, 
+                             bact_labels=NULL,
+                             fungi_labels=NULL,
+                             misc_labels=NULL){
+  
+  comparison_name <- deparse(substitute(DE_results)) #returns name of a function arg as a string
+  
+  ######Plot dispersion estimates
+  #bact
+  pdf(file=paste0("../processed/DESeq2_out/bact_",comparison_name,"_dispersion.pdf"))
+  
+  plotDispEsts(DE_results[[1]][["ddsClean"]], ylim=c(0.001,10))
+  
+  dev.off()
+  
+  #fungi
+  
+  pdf(file=paste0("../processed/DESeq2_out/fungi_",comparison_name,"_dispersion.pdf"))
+  
+  plotDispEsts(DE_results[[2]][["ddsClean"]], ylim=c(0.001,10))
+  
+  dev.off()
+  
+  #pangene/uniref with no OG
+  
+  pdf(file=paste0("../processed/DESeq2_out/pangene_uniref_",comparison_name,"_dispersion.pdf"))
+  
+  plotDispEsts(DE_results[[3]][["ddsClean"]])
+  
+  dev.off()
+  
+  ######Volcano plots
+  
+  if (is.null(bact_labels)){
+  
+  bact_DE_volcano <- EnhancedVolcano(DE_results[[1]][["DE_results_clean_shrunken"]],
+                lab = rownames(DE_results[[1]][["DE_results_clean_shrunken"]]),
+                title = paste0("Bacterial OGs: ", comparison_name),
+                x='log2FoldChange',
+                y='padj',
+                #selectLab = c('4I7CS', '2GKH3', '4H9W1', '4HJCS'),
+                #boxedLabels = TRUE,
+                #drawConnectors = TRUE,
+                labFace = 'bold',
+                pCutoff = 0.05,
+                FCcutoff=1,
+                col=c('black', 'black', 'black', 'red3'))
+  } else {
+    
+    bact_DE_volcano <- EnhancedVolcano(DE_results[[1]][["DE_results_clean_shrunken"]],
+                lab = rownames(DE_results[[1]][["DE_results_clean_shrunken"]]),
+                title = paste0("Bacterial OGs: ", comparison_name),
+                x='log2FoldChange',
+                y='padj',
+                selectLab = bact_labels,
+                boxedLabels = TRUE,
+                drawConnectors = TRUE,
+                labFace = 'bold',
+                pCutoff = 0.05,
+                FCcutoff=1,
+                col=c('black', 'black', 'black', 'red3'))
+    
+  }
+  
+  if (is.null(fungi_labels)){
+  fungi_DE_volcano <- EnhancedVolcano(DE_results[[2]][["DE_results_clean_shrunken"]],
+                lab = rownames(DE_results[[2]][["DE_results_clean_shrunken"]]),
+                title = paste0("Fungal OGs: ", comparison_name),
+                x='log2FoldChange',
+                y='padj',
+                #selectLab = c('4I7CS', '2GKH3', '4H9W1', '4HJCS'),
+                #boxedLabels = TRUE,
+                #drawConnectors = TRUE,
+                labFace = 'bold',
+                pCutoff = 0.05,
+                FCcutoff=1,
+                col=c('black', 'black', 'black', 'red3'))
+  } else {
+    fungi_DE_volcano <- EnhancedVolcano(DE_results[[2]][["DE_results_clean_shrunken"]],
+                lab = rownames(DE_results[[2]][["DE_results_clean_shrunken"]]),
+                title = paste0("Fungal OGs: ", comparison_name),
+                x='log2FoldChange',
+                y='padj',
+                selectLab = fungi_labels,
+                boxedLabels = TRUE,
+                drawConnectors = TRUE,
+                labFace = 'bold',
+                pCutoff = 0.05,
+                FCcutoff=1,
+                col=c('black', 'black', 'black', 'red3'))
+    
+  }
+  if (is.null(misc_labels)){  
+  pangene_uniref_DE_volcano <- EnhancedVolcano(DE_results[[3]][["DE_results_clean_shrunken"]],
+                lab = rownames(DE_results[[3]][["DE_results_clean_shrunken"]]),
+                title = paste0("Other features: ", comparison_name),
+                x='log2FoldChange',
+                y='padj',
+                #selectLab = c('4I7CS', '2GKH3', '4H9W1', '4HJCS'),
+                #boxedLabels = TRUE,
+                #drawConnectors = TRUE,
+                labFace = 'bold',
+                pCutoff = 0.05,
+                FCcutoff=1,
+                col=c('black', 'black', 'black', 'red3'))
+  } else {
+    pangene_uniref_DE_volcano <- EnhancedVolcano(DE_results[[3]][["DE_results_clean_shrunken"]],
+                lab = rownames(DE_results[[3]][["DE_results_clean_shrunken"]]),
+                title = paste0("Other features: ", comparison_name),
+                x='log2FoldChange',
+                y='padj',
+                selectLab = misc_labels,
+                boxedLabels = TRUE,
+                drawConnectors = TRUE,
+                labFace = 'bold',
+                pCutoff = 0.05,
+                FCcutoff=1,
+                col=c('black', 'black', 'black', 'red3'))
+    
+  }
+  
+  ggsave(filename=paste0("../processed/DESeq2_out/bact_",comparison_name,"_volcano.pdf"), plot=bact_DE_volcano)
+  ggsave(filename=paste0("../processed/DESeq2_out/fungi_",comparison_name,"_volcano.pdf"), plot=fungi_DE_volcano)
+  ggsave(filename=paste0("../processed/DESeq2_out/pangene_uniref_",comparison_name,"_volcano.pdf"), plot=pangene_uniref_DE_volcano)
+  
+  
+}
+```
+
+> which(bact_DESeq_Ch_vs_Vf_l2fc$padj < 0.05 & bact_DESeq_Ch_vs_Vf_l2fc$log2FoldChange >= 1) %>% length()
+[1] 799
+> which(bact_DESeq_Ch_vs_Vf_l2fc$padj < 0.05 & bact_DESeq_Ch_vs_Vf_l2fc$log2FoldChange <= -1) %>% length()
+[1] 112
+
+
+Noticed that the features with no OGs seemed to have poorly fitted dispersion estimates.
+```{r eval=FALSE}
+make_DESeq_plots(DESeq_Sc_vs_Vf)
+
+make_DESeq_plots(DESeq_Sc_vs_Ch)
+
+make_DESeq_plots(DESeq_Sc_vs_Ac)
+
+make_DESeq_plots(DESeq_Sc_vs_Tw)
+
+make_DESeq_plots(DESeq_Ch_vs_Vf, bact_labels = c("COG3033", "COG0450",
+                                                 "COG3634", "COG0753", 
+                                                 "COG3511", "COG2272"),
+                                  fungi_labels = c("3NV1K", "3NUHK",
+                                                   "3NX5P", "3P4XY", "3P5A0"))
+
+make_DESeq_plots(DESeq_Ch_vs_Ac)
+
+make_DESeq_plots(DESeq_Ch_vs_Tw)
+
+make_DESeq_plots(DESeq_Vf_vs_Ac)
+
+make_DESeq_plots(DESeq_Vf_vs_Tw)
+
+
+#COG0804 urea catabolic process
+
+#https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6343930/
+  
+#COG3560 Nitroreductase
+
+#COG1018 is involved in NO detoxification in an aerobic process
+
+#COG0786: glutamate:sodium symporter.
+
+#COG0069: glutamate synthase activity
+
+#COG0174: glutamine synthase
+
+#8-amino-7-oxononanoate synthase COG0156  https://www.nature.com/articles/s41598-022-06189-5
+# adenosylmethionine-8-amino-7-oxononanoate transaminase activity COG0161
+
+#Read this: https://www.sciencedirect.com/science/article/pii/S0022202X21016663
+
+#https://cdnsciencepub.com/doi/10.1139/cjm-2020-0434
+
+#glutamine synthase and glutamate synthase :
+#Glutamate fermentation anaerobic
+#https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3973380/
+# https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6076278/ (Nitrogen starvation - GOCAT)
+
+make_DESeq_plots(DESeq_Tw_vs_Ac,bact_labels=c("COG0804", "COG3560", "COG1018", 
+                                              "COG0786", "COG0069", "COG0174"))
+
+```
+
+Important question for manuscript: 
+
+Given two different lysis conditions: EZ1 bead beating (ASMP) and Trizol bead beating, are the relative abundances (lysis efficiencies) similar? To do this comparison, we'd have to compare the DNA isolated from these two methods.
+
+We currently (as of 12/03/2024) do not have DNA (not RNA) data from trizol bead beating.
+
+What we do have, is EZ1 bead beating (ASMP) versus bead beating in DNA/RNA shield (Firmenich)
+
+The ASMP metagenomics lysis protocol is as follows:
+a) To DNA portion (~200uL), add 500 µL of ATL Buffer (Qiagen) to the sample and set Lysing Matrix E tubes for homogenization with FastPrep-24 Instrument at a speed of 6.0 m/s for 40 s, X2. 
+
+The Firmenich metagenomics lysis protocol is as follows:
+b) To DNA portion, add buffer ATL with ZR BashingBead lysis tubes. Perform bead beating 6.0 m/s for 1 minute x3.
+
+How do the metagenomic profiles compare? Using mock communities.
+
+The 3 samples to look out for:
+Sample ID
+	Library Conc (ng/uL)
+	MUXID
+	LibraryID
+
+ZYMO D6300-1	MUX12489	WMS8573
+
+ZYMO D6300 (ASMP P)	MUX12489	WMS8574
+
+VV LM PS-1	MUX12490	WMS8625
+
+ZYMO D6300-1 here is the Zymo mock comm (D6300) where I put in 600K cells and extracted DNA using the Firmenich protocol.
+ZYMO D6300 (ASMP P)-1 is the same Zymo mock comm that was extracted using the ASMP protocol.
+VV LM PS-1 is the mock comm that Amanda used for your metatrancriptome project and I used the same (total cell no. 10^6 CFU) and extracted DNA using the Firmenich protocol.
+
+
+
+```{r}
+
+zymo_species = c("Pseudomonas aeruginosa",
+                 "Escherichia coli",
+                 "Salmonella enterica",
+                 "Lactobacillus fermentum",
+                 "Enterococcus faecalis",
+                 "Staphylococcus aureus",
+                 "Listeria monocytogenes",
+                 "Bacillus subtilis",
+                 "Saccharomyces cerevisiae",
+                 "Cryptococcus neoformans")
+
+three_spike_species <- c("Listeria monocytogenes", "Plesiomonas shigelloides", "Vibrio vulnificus")
+
+WMS8573_firmenich_zymo_k2 <- read_tsv("../data/mock_comm/WMS8573_decont_k2.s.tsv", 
+                                      col_names = c("rel_abun", "paired_reads", "species")) %>% 
+  dplyr::filter(species %in% zymo_species)
+
+WMS8573_firmenich_zymo_k2$LIBID <- "WMS8573"
+
+
+WMS8574_ASMP_zymo_k2 <- read_tsv("../data/mock_comm/WMS8574_decont_k2.s.tsv", 
+                                      col_names = c("rel_abun", "paired_reads", "species")) %>% 
+  dplyr::filter(species %in% zymo_species)
+
+WMS8574_ASMP_zymo_k2$LIBID <- "WMS8574"
+
+
+WMS8625_firmenich_VV_LM_PS_k2 <- read_tsv("../data/mock_comm/WMS8625_decont_k2.s.tsv",
+                                col_names = c("rel_abun", "paired_reads", "species")) %>% 
+  dplyr::filter(species %in% three_spike_species )
+
+WMS8625_firmenich_VV_LM_PS_k2$LIBID <- "WMS8625"
+
+
+#MHS582	ZymoD6300	pos-ctrl for	DNA	using ASMP protocol (older sequencing batch)
+
+MHS582_ASMP_zymo_k2 <- read_tsv("../data/mock_comm/MHS582_decont_k2.s.tsv",
+                                col_names = c("rel_abun", "paired_reads", "species")) %>% 
+  dplyr::filter(species %in% zymo_species)
+
+
+MHS582_ASMP_zymo_k2$LIBID <- "MHS582"
+
+#Merge dataframes
+
+zymo_mgx_list <- list(WMS8573_firmenich_zymo_k2, WMS8574_ASMP_zymo_k2, MHS582_ASMP_zymo_k2)
+
+zymo_mgx_df <- do.call("rbind", zymo_mgx_list)
+
+zymo_mgx_df_wide <- pivot_wider(zymo_mgx_df, id_cols=species, names_from=LIBID, values_from=rel_abun)
+
+
+
+#Spearman correlation of zymo species abundances
+ggscatter(zymo_mgx_df_wide, x = "WMS8573", y = "WMS8574",
+          add = "reg.line"
+          )+
+  stat_cor(method = "pearson")  + ylab("ASMP_single_beat") + xlab("Firmenich_beat")
+
+
+
+ggscatter(zymo_mgx_df_wide, x = "MHS582", y = "WMS8574",
+          add = "reg.line"
+          )+
+  stat_cor(method = "spearman")  + ylab("ASMP_single_beat") + xlab("ASMP_dbl_beat_old_batch")
+```
+
+We want Bland Altman plots for agreement: https://journals.lww.com/jpcs/fulltext/2017/03010/decoding_the_bland_altman_plot__basic_review.10.aspx
+
+```{r}
+library(BlandAltmanLeh)
+
+bland.altman.plot(zymo_mgx_df_wide$WMS8573, zymo_mgx_df_wide$WMS8574, xlab="mean measurement", 
+                  ylab="differences", main="Example plot")
+
+```
+
+https://genomicsclass.github.io/book/pages/plots_to_avoid.html
+
+When new technologies or laboratory techniques are introduced, we are often shown scatter plots and correlations from replicated samples. High correlations are used to demonstrate that the new technique is reproducible. Correlation, however, can be very misleading. 
+
+In the plot on the left, we see the original data which shows very high correlation. Yet the data follows a distribution with very fat tails. Furthermore, 95% of the data is below the green line. The plot on the right is in the log scale:
+
+Although the correlation is reduced in the log-scale, it is very close to 1 in both cases. Does this mean these data are reproduced? To examine how well the second vector reproduces the first, we need to study the differences. We therefore should plot that instead. In this plot, we plot the difference (in the log scale) versus the average:
+
+These are referred to as Bland-Altman plots, or MA plots in the genomics literature, and we will talk more about them later. “MA” stands for “minus” and “average” because in this plot, the y-axis is the difference between two samples on the log scale (the log ratio is the difference of the logs), and the x-axis is the average of the samples on the log scale. In this plot, we see that the typical difference in the log (base 2) scale between two replicated measures is about 1. This means that when measurements should be the same, we will, on average, observe 2 fold difference. We can now compare this variability to the differences we want to detect and decide if this technology is precise enough for our purpose
+
+
+
+
+## other papers..
+
+https://www.frontiersin.org/articles/10.3389/fmicb.2020.01688/full
+https://www.frontiersin.org/articles/10.3389/fmicb.2020.00482/full
+https://www.nature.com/articles/s41598-022-04848-1
+
+
+
+https://stats.stackexchange.com/questions/298/in-linear-regression-when-is-it-appropriate-to-use-the-log-of-an-independent-va
+https://statmodeling.stat.columbia.edu/2019/08/21/you-should-usually-log-transform-your-positive-data/
+
+
+##########
+#Appendix
+#########
+
+
+
+
+## Appendix: Example DESeq2 analysis
+
+Create the DESeq2 object and estimate size factors.
+
+While it is not necessary to pre-filter low count genes before running the DESeq2 functions, there are two reasons which make pre-filtering useful: by removing rows in which there are very few reads, we reduce the memory size of the dds data object, and we increase the speed of the transformation and testing functions within DESeq2.
+
+The design indicates how to model the samples, here, that we want to measure the effect of the skin region, controlling for individual (subject) differences.
+ ~ subject + region. The variable of interest (i.e. region) should be placed last in the design.
+ 
+The dispersion estimates don’t appear to follow the assumptions made by DESeq2... then the variation in the data could be poorly estimated and the DE results could be less accurate.
+
+```{r eval=FALSE}
+
+test_libs <- eligible_mtx_metadata %>% dplyr::filter(region %in% c("Sc", "Ac")) %>% pull(LIBID)
+  
+test_selected_mtx_normalized <- mtx_normalized[test_libs] %>% do.call("rbind",.)
+  
+test <- pivot_wider(test_selected_mtx_normalized %>% dplyr::select(feature, mtx_norm_scaled_counts, subj_region), names_from = subj_region, values_from = mtx_norm_scaled_counts) %>% as.data.frame()
+  
+rownames(test) <- test$feature
+  
+test <- test %>% dplyr::select(-feature) %>% as.matrix()
+  
+
+test[is.na(test)] <- 0 
+
+
+test_metadata <- eligible_mtx_metadata %>% dplyr::filter(region %in% c("Sc", "Ac")) %>% dplyr::select(subj_region, subject, region) %>% as.data.frame()
+
+rownames(test_metadata) <- test_metadata$subj_region
+  
+test_metadata <- test_metadata %>% dplyr::select(-subj_region)
+  
+test_metadata$subject <- as.factor(test_metadata$subject)
+
+test_metadata$region <- as.factor(test_metadata$region)
+
+all(rownames(test_metadata) == colnames(test)) #returns TRUE
+
+dds <- DESeqDataSetFromMatrix(countData = test, colData = test_metadata, design = ~ subject + region)
+
+#Pre-filtering to keep rows with a minimum median read count 1000 out of 10^9 roughly approximates 1 CPM
+keep <- rowMedians(counts(dds)) >= 1000
+dds <- dds[keep,]
+
+dds <- estimateSizeFactors(dds)
+
+sizeFactors(dds)
+
+normalized_counts <- counts(dds, normalized=TRUE)
+
+vsd <- vst(dds, blind=TRUE)
+
+vsd_mat <- assay(vsd)
+
+vsd_cor <- cor(vsd_mat)
+```
+
+View heatmaps
+
+```{r eval=FALSE}
+#View(vsd_cor)
+
+pheatmap(vsd_cor, annotation=select(test_metadata, region))
+
+plotPCA(vsd, intgroup = "region")
+
+
+```
+
+Run DEseq2. Here we get an error message that
+"136 rows did not converge in beta, labelled in mcols(object)$betaConv. Use larger maxit argument with nbinomWaldTest"
+
+The advice for handling these convergence issues are: https://support.bioconductor.org/p/65091/
+i) omit them from the results step: ddsClean <- dds[which(mcols(dds)$betaConv),], because these are typically genes with very small counts and little power
+or
+ii) increase the maximum iterations with the following code. Instead of running DESeq(), run:
+
+dds <- estimateSizeFactors(dds)
+dds <- estimateDispersions(dds)
+dds <- nbinomWaldTest(dds, maxit=500)
+
+Despite using more max iterations, there was still a failure of convergence for 136 rows. Therefore, just do a clean up.
+
+```{r eval=FALSE}
+
+
+#dds <- estimateDispersions(dds) #takes about 5 minutes
+#dds <- nbinomWaldTest(dds, maxit=500)
+
+
+dds <- DESeq(dds) 
+
+ddsClean <- dds[which(mcols(dds)$betaConv),]
+```
+
+Check dispersion
+
+```{r eval=FALSE}
+#sanity check
+plotDispEsts(ddsClean)
+```
+
+
+From the author of DESeq2: "You don't need LFC shrinkage if you are only interested in getting a set of genes with FDR bound." https://support.bioconductor.org/p/129728/
+
+```{r eval=FALSE}
+DE_scalp_Vf <- results(ddsClean,contrast = c("region","Sc", "Vf"), alpha=0.05)
+
+DE_scalp_Vf_shrunken <- lfcShrink(ddsClean, contrast = c("region","Sc", "Vf"), type="ashr", res=DE_scalp_Vf)
+
+plotMA(DE_scalp_Vf_shrunken, ylim = c(-20,20))
+
+summary(DE_scalp_Vf_shrunken)
+
+DE_scalp_Vf_df <- data.frame(DE_scalp_Vf_shrunken)
+
+#Add annotations
+
+DE_scalp_Vf_df$feature <- rownames(DE_scalp_Vf_df)
+
+DE_scalp_Vf_df <- merge(DE_scalp_Vf_df, mtx_feature_annots, by = "feature", all.x=TRUE)
+
+```
+
+
+##Appendix
+
+Add expanded feature associations file (Outdated, do not use this file unless you are re-running it)
+
+```{r, eval=FALSE}
+
+
+mtx_feature_associations <- lapply(mtx_to_pull, function(x){
+  
+  pangene_associations <- mtx_pangene_features[[x]] %>%
+    dplyr::select(pangene, pangene_desc, uniref90_ID, uniref90_desc, emapper_max_annot_OG, eggnog_desc)
+  
+  #ts stands for translated search
+  ts_associations <- mtx_uniref90_features[[x]] %>% 
+    dplyr::select(uniref90_ID, uniref90_desc, emapper_max_annot_OG, eggnog_desc)
+  
+  ts_associations$pangene <- "-"
+  ts_associations$pangene_desc <- "-"
+  
+  
+  all_associations <- rbind(pangene_associations, ts_associations) %>% 
+    unique(.)
+
+  
+  return(all_associations)
+})
+
+mtx_feature_associations <- mtx_feature_associations %>% do.call("rbind",.) %>% unique(.)
+
+#There are 5 duplicated features, only for uniref90 labels: "UniRef90_F7H1D9", "UniRef90_A0A1E4FS84", "UniRef90_A0A533IQ36", "UniRef90_A0A7L2AFT2" and "UniRef90_A0A3B9S0R9"
+#Since they are ambiguous, remove the eggnog annotations for them
+mtx_feature_associations$emapper_max_annot_OG <- ifelse(mtx_feature_associations$uniref90_ID %in% c("UniRef90_F7H1D9", "UniRef90_A0A1E4FS84", 
+                                                                           "UniRef90_A0A533IQ36", "UniRef90_A0A7L2AFT2", 
+                                                                           "UniRef90_A0A3B9S0R9"), "-", mtx_feature_associations$emapper_max_annot_OG)
+
+mtx_feature_associations$eggnog_desc <- ifelse(mtx_feature_associations$uniref90_ID %in% c("UniRef90_F7H1D9", "UniRef90_A0A1E4FS84", 
+                                                                           "UniRef90_A0A533IQ36", "UniRef90_A0A7L2AFT2", 
+                                                                           "UniRef90_A0A3B9S0R9"), "-", mtx_feature_associations$eggnog_desc)
+
+mtx_feature_associations <- mtx_feature_associations %>% unique(.) #671760 associations. No repeats.
+
+
+
+#write_tsv(mtx_feature_associations, file="../processed/mtx_feature_associations.tsv")
+
+
+
+```
+
+
+
+## Appendix: An alternative way of specifying the DESeq2 design
+
+There are two different ways of testing for RNA/DNA ratio of body site/condition 1 vs body site/condition 2 see https://support.bioconductor.org/p/111743/ and https://support.bioconductor.org/p/110259/
+
+Approach #1
+
+design= ~subject+region+mol_type+region:mol_type
+
+DE_results <- results(dds,name = paste0("region",cond,".mol_typeRNA"), alpha=0.05)
+
+Approach #2 
+
+design=~subject+region+region:mol_type
+
+DE_results <- results(dds,contrast = list(paste0("region",cond,".mol_typeRNA"), 
+                                          paste0("region",ref_cond,".mol_typeRNA")), alpha=0.05)
+                                          
+Both approaches should give very similar results.
+
+Tested and confirmed.
+
+```{r eval=FALSE}
+run_DESeq_with_inputs_alt <- function(mtx_count_list, mgx_count_list, cond, ref_cond, 
+                                  size_factor_function = "poscounts", annot){
+  
+  libs_to_pull <- eligible_mtx_metadata %>% dplyr::filter(region %in% c(cond, ref_cond)) %>% pull(LIBID)
+  
+  ##############################################
+  ## prepare input read count matrix for DESeq2#
+  ##############################################
+  
+  #Obtain count data for eligible mtx and mgx
+  rawcounts <- c(mtx_count_list[libs_to_pull], mgx_count_list[libs_to_pull] )%>% do.call("rbind",.)
+  
+  count_matrix <- pivot_wider(rawcounts %>% 
+                        dplyr::select(feature, read_count_sum, LIBID), names_from = LIBID, values_from = read_count_sum) %>%
+                        as.data.frame()
+  
+  rownames(count_matrix) <- count_matrix$feature
+  
+  count_matrix <- count_matrix %>% dplyr::select(-feature) %>% as.matrix()
+  
+  #This matrix operation is much faster than mutate_all(~replace(.,is.na(.),0)) for tibbles/df
+  count_matrix[is.na(count_matrix)] <- 0 
+  
+  ##############################################
+  ## prepare metadata for DESeq2               #
+  ##############################################
+  
+  #the row names of metadata should automatically be ordered in a way that matches the input matrix
+  selected_metadata <- eligible_mtx_metadata %>% dplyr::filter(region %in% c(cond, ref_cond)) %>% 
+    dplyr::select(LIBID, subject, region, mol_type) %>% as.data.frame()
+  
+  rownames(selected_metadata) <- selected_metadata$LIBID
+  
+  selected_metadata <- selected_metadata %>% dplyr::select(-LIBID)
+  
+  selected_metadata$subject <- as.factor(selected_metadata$subject)
+  selected_metadata$region <- as.factor(selected_metadata$region)
+  selected_metadata$mol_type <- as.factor(selected_metadata$mol_type)
+  
+  #a vector of LIBIDs
+  RNA_libs <- selected_metadata %>% dplyr::filter(mol_type=="RNA") %>% row.names()
+  DNA_libs <- selected_metadata %>% dplyr::filter(mol_type=="DNA") %>% row.names()
+  
+  ##############################################
+  ## Run DESeq2                                #
+  ##############################################
+  
+  dds <- DESeqDataSetFromMatrix(countData = count_matrix, 
+                                colData = selected_metadata, 
+                                design = ~subject+region+region:mol_type)
+
+  #Pre-filtering to keep rows with a minimum median read count for transcripts AND gene counts.
+  #Caution: You cannot naively run "keep <- rowMedians(counts(dds)) >= 10", because the DNA read counts in the matrix might obscure this 
+  #There are cases where the gene counts are extremely low but transcript counts are high e.g. Sc vs Vf MET_02106687
+  
+  
+  mat <- counts(dds)
+  rna_mat <- mat[, colnames(mat) %in% RNA_libs]
+  dna_mat <- mat[, colnames(mat) %in% DNA_libs]
+  
+  keep <- (rowMedians(rna_mat) >= 10) & (rowMedians(dna_mat) >= 10)
+  dds <- dds[keep,]
+
+  #####Estimate size factors separately for mtx and mgx data (subsets of the dds) https://support.bioconductor.org/p/67455/#67498
+  sf <- numeric(ncol(dds))  #a numeric vector
+  idx1 <- dds$mol_type == "RNA"
+  sf[ idx1 ] <- estimateSizeFactorsForMatrix(counts(dds)[ , idx1], type=size_factor_function) #poscounts by default for zero inflated metagenomic data
+  idx2 <- dds$mol_type == "DNA"
+  sf [idx2 ] <- estimateSizeFactorsForMatrix(counts(dds)[ , idx2], type=size_factor_function)
+  sizeFactors(dds) <- sf
+  
+  
+  #dds <- estimateSizeFactors(dds, type = size_factor_function) #only if you want to estimate size factors using combined data for the two assays
+  
+  #factor relevel such that ref_cond and "DNA" are always the reference conditions
+  
+  dds$region <- relevel(dds$region, ref_cond)
+  dds$mol_type <- relevel(dds$mol_type, "DNA")
+  
+  normalized_counts <- counts(dds, normalized=TRUE)
+  
+  #See error and fix:https://support.bioconductor.org/p/98634/
+  vsd <- vst(dds, blind=TRUE, nsub=sum( rowMeans( counts(dds, normalized=TRUE)) > 5 ))  
+  
+  vsd_mat <- assay(vsd)
+  
+  vsd_cor <- cor(vsd_mat)
+  
+  #vsd_cor_heatmap <- pheatmap(vsd_cor, annotation=select(selected_metadata, region))
+  
+  #plotPCA(vsd, intgroup = "region")
+  
+
+  #dds <- DESeq(dds, reduced = ~subject+mol_type+region, test="LRT")   #Only if you want the likelihood ratio test
+  #ddsClean <- dds[which(mcols(dds)$fullBetaConv),]  #Removing rows which do not converge in beta 
+  
+  
+  dds <- DESeq(dds)   #wald test
+  ddsClean <- dds[which(mcols(dds)$betaConv),]  #Removing rows which do not converge in beta 
+  
+
+  #plotDispEsts(ddsClean)
+  
+  DE_results <-  results(dds,contrast = list(paste0("region",cond,".mol_typeRNA"), 
+                                          paste0("region",ref_cond,".mol_typeRNA")), alpha=0.05)
+
+  DE_results_clean <-  results(ddsClean,contrast = list(paste0("region",cond,".mol_typeRNA"), 
+                                          paste0("region",ref_cond,".mol_typeRNA")), alpha=0.05)
+  
+  #For ashr, if res is provided, then coef and contrast are ignored.
+  DE_results_shrunken <- lfcShrink(dds, type="ashr", res=DE_results)
+  
+  DE_results_clean_shrunken <- lfcShrink(ddsClean, type="ashr", res=DE_results_clean)
+
+  #plotMA(DE_results_shrunken, ylim = c(-20,20))
+
+  #summary(DE_results_shrunken)
+
+  DE_results_shrunken_df <- data.frame(DE_results_shrunken)
+  
+  DE_results_clean_shrunken_df <- data.frame(DE_results_clean_shrunken)
+
+  #Add annotations like bact_og_metadata
+
+  DE_results_shrunken_df$feature <- rownames(DE_results_shrunken_df)
+  
+  colnames(annot)[1] <- "feature"
+
+  DE_results_shrunken_df <- merge(DE_results_shrunken_df, annot, by = "feature", all.x=TRUE)
+  
+  DE_results_clean_shrunken_df$feature <- rownames(DE_results_clean_shrunken_df)
+
+  DE_results_clean_shrunken_df <- merge(DE_results_clean_shrunken_df, annot, by = "feature", all.x=TRUE)
+  
+  ##############################################
+  ## Save outputs                              #
+  ##############################################
+  #results are presented as cond vs ref_cond
+  outputs <- tibble::lst(skin_site=cond, ref_skin_site=ref_cond, 
+                         count_matrix, keep, selected_metadata,
+                         dds, ddsClean,
+                         normalized_counts,
+                         vsd, vsd_mat, vsd_cor,
+                         DE_results, DE_results_shrunken,
+                         DE_results_clean, DE_results_clean_shrunken,
+                         DE_results_shrunken_df,
+                         DE_results_clean_shrunken_df)
+  
+  return(outputs)
+}
+
+
+
+run_DESeq_comparisons_alt <- function(site_to_compare, site_reference){
+  
+  #bacterial OGs
+  
+  bact_OG_DE <- run_DESeq_with_inputs_alt(mtx_count_list=mtx_bact_counts, 
+                        mgx_count_list=mgx_bact_counts, 
+                        cond=site_to_compare, ref_cond=site_reference,
+                        annot=bact_og_metadata)
+  
+  #fungal OGs
+  
+  fungal_OG_DE <- run_DESeq_with_inputs_alt(mtx_count_list=mtx_fungi_counts, 
+                        mgx_count_list=mgx_fungi_counts, 
+                        cond=site_to_compare, ref_cond=site_reference,
+                        annot=fungi_og_metadata)
+  
+  
+  #Other features with no match to bacterial or fungal OG
+  
+  pangene_uniref_DE <- run_DESeq_with_inputs_alt(mtx_count_list=mtx_uniref_pangene_counts, 
+                        mgx_count_list=mgx_uniref_pangene_counts, 
+                        cond=site_to_compare, ref_cond=site_reference,
+                        annot=mtx_uniref_pangene_metadata)
+  
+  #list of lists
+  outputs <- tibble::lst(bact_OG_DE, fungal_OG_DE, pangene_uniref_DE)
+  return(outputs)
+  
+}
+
+DESeq_Sc_vs_Vf_test <- run_DESeq_comparisons_alt(site_to_compare = "Sc", site_reference = "Vf")
+
+
+make_DESeq_plots_alt <- function(DE_results, 
+                             bact_labels=FALSE,
+                             fungi_labels=FALSE,
+                             misc_labels=FALSE){
+  
+  comparison_name <- deparse(substitute(DE_results)) #returns name of a function arg as a string
+  
+  ######Plot dispersion estimates
+  #bact
+  pdf(file=paste0("../processed/DESeq2_out/test/bact_",comparison_name,"_dispersion.pdf"))
+  
+  plotDispEsts(DE_results[[1]][["ddsClean"]], ylim=c(0.001,10))
+  
+  dev.off()
+  
+  #fungi
+  
+  pdf(file=paste0("../processed/DESeq2_out/test/fungi_",comparison_name,"_dispersion.pdf"))
+  
+  plotDispEsts(DE_results[[2]][["ddsClean"]], ylim=c(0.001,10))
+  
+  dev.off()
+  
+  #pangene/uniref with no OG
+  
+  pdf(file=paste0("../processed/DESeq2_out/test/pangene_uniref_",comparison_name,"_dispersion.pdf"))
+  
+  plotDispEsts(DE_results[[3]][["ddsClean"]])
+  
+  dev.off()
+  
+  ######Volcano plots
+  
+  if (bact_labels==FALSE){
+  
+  bact_DE_volcano <- EnhancedVolcano(DE_results[[1]][["DE_results_clean_shrunken"]],
+                lab = rownames(DE_results[[1]][["DE_results_clean_shrunken"]]),
+                title = paste0("Bacterial OGs: ", comparison_name),
+                x='log2FoldChange',
+                y='padj',
+                #selectLab = c('4I7CS', '2GKH3', '4H9W1', '4HJCS'),
+                #boxedLabels = TRUE,
+                #drawConnectors = TRUE,
+                labFace = 'bold',
+                pCutoff = 0.05,
+                FCcutoff=1,
+                col=c('black', 'black', 'black', 'red3'))
+  } else {
+    
+    bact_DE_volcano <- EnhancedVolcano(DE_results[[1]][["DE_results_clean_shrunken"]],
+                lab = rownames(DE_results[[1]][["DE_results_clean_shrunken"]]),
+                title = paste0("Bacterial OGs: ", comparison_name),
+                x='log2FoldChange',
+                y='padj',
+                selectLab = bact_labels,
+                boxedLabels = TRUE,
+                drawConnectors = TRUE,
+                labFace = 'bold',
+                pCutoff = 0.05,
+                FCcutoff=1,
+                col=c('black', 'black', 'black', 'red3'))
+    
+  }
+  
+  if (fungi_labels==FALSE){
+  fungi_DE_volcano <- EnhancedVolcano(DE_results[[2]][["DE_results_clean_shrunken"]],
+                lab = rownames(DE_results[[2]][["DE_results_clean_shrunken"]]),
+                title = paste0("Fungal OGs: ", comparison_name),
+                x='log2FoldChange',
+                y='padj',
+                #selectLab = c('4I7CS', '2GKH3', '4H9W1', '4HJCS'),
+                #boxedLabels = TRUE,
+                #drawConnectors = TRUE,
+                labFace = 'bold',
+                pCutoff = 0.05,
+                FCcutoff=1,
+                col=c('black', 'black', 'black', 'red3'))
+  } else {
+    fungi_DE_volcano <- EnhancedVolcano(DE_results[[2]][["DE_results_clean_shrunken"]],
+                lab = rownames(DE_results[[2]][["DE_results_clean_shrunken"]]),
+                title = paste0("Fungal OGs: ", comparison_name),
+                x='log2FoldChange',
+                y='padj',
+                selectLab = fungi_labels,
+                boxedLabels = TRUE,
+                drawConnectors = TRUE,
+                labFace = 'bold',
+                pCutoff = 0.05,
+                FCcutoff=1,
+                col=c('black', 'black', 'black', 'red3'))
+    
+  }
+  if (misc_labels==FALSE){  
+  pangene_uniref_DE_volcano <- EnhancedVolcano(DE_results[[3]][["DE_results_clean_shrunken"]],
+                lab = rownames(DE_results[[3]][["DE_results_clean_shrunken"]]),
+                title = paste0("Other features: ", comparison_name),
+                x='log2FoldChange',
+                y='padj',
+                #selectLab = c('4I7CS', '2GKH3', '4H9W1', '4HJCS'),
+                #boxedLabels = TRUE,
+                #drawConnectors = TRUE,
+                labFace = 'bold',
+                pCutoff = 0.05,
+                FCcutoff=1,
+                col=c('black', 'black', 'black', 'red3'))
+  } else {
+    pangene_uniref_DE_volcano <- EnhancedVolcano(DE_results[[3]][["DE_results_clean_shrunken"]],
+                lab = rownames(DE_results[[3]][["DE_results_clean_shrunken"]]),
+                title = paste0("Other features: ", comparison_name),
+                x='log2FoldChange',
+                y='padj',
+                selectLab = misc_labels,
+                boxedLabels = TRUE,
+                drawConnectors = TRUE,
+                labFace = 'bold',
+                pCutoff = 0.05,
+                FCcutoff=1,
+                col=c('black', 'black', 'black', 'red3'))
+    
+  }
+  
+  ggsave(filename=paste0("../processed/DESeq2_out/test/bact_",comparison_name,"_volcano.pdf"), plot=bact_DE_volcano)
+  ggsave(filename=paste0("../processed/DESeq2_out/test/fungi_",comparison_name,"_volcano.pdf"), plot=fungi_DE_volcano)
+  ggsave(filename=paste0("../processed/DESeq2_out/test/pangene_uniref_",comparison_name,"_volcano.pdf"), plot=pangene_uniref_DE_volcano)
+  
+  
+}
+
+make_DESeq_plots_alt(DESeq_Sc_vs_Vf_test)
+
+
+
+```
+
+
+
+
+
+## Appendix 2: Make preliminary figures for CS-IRG grant, using Cheek vs VF results
+
+https://bioconductor.org/packages/devel/bioc/vignettes/EnhancedVolcano/inst/doc/EnhancedVolcano.html
+
+```{r eval=FALSE}
+#COG IDs of some "housekeeping" tRNA-synthetases: 3NVF4, 3NUQ1, 3NTZ4, 3NVJA, 3NVRS, 3NUP6
+
+#Load in processed DESeq2 object
+
+DESeq_Ch_vs_Vf <- readRDS(file = "../processed/DESeq2_out/DESeq_Ch_vs_Vf.RDS")
+
+DESeq_Ch_vs_Vf_shrunken <- DESeq_Ch_vs_Vf[["DE_results_shrunken"]]
+
+DESeq_Ch_vs_Vf_shrunken_df <- DESeq_Ch_vs_Vf[["DE_results_shrunken_df"]]
+
+EnhancedVolcano(DESeq_Ch_vs_Vf_shrunken,
+                lab = rownames(DESeq_Ch_vs_Vf_shrunken),
+                title = 'Metatranscriptomics, Cheek vs Volar forearm',
+                x='log2FoldChange',
+                y='pvalue',
+                selectLab = c('3P3N3','4I7CS', '2GKH3',
+                              '3NVF4', '3NUQ1', '3NTZ4', 
+                              '3NVJA', '3NVRS', '3NUP6'),
+                boxedLabels = TRUE,
+                labFace = 'bold',
+                pCutoff = 0.01,
+                FCcutoff=2,
+                col=c('black', 'black', 'black', 'red3'))
+
+```
+
+What about Cheek vs AC results?
+
+```{r eval=FALSE}
+
+#Load in processed DESeq2 object
+
+DESeq_Ch_vs_Ac <- readRDS(file = "../processed/DESeq2_out/DESeq_Ch_vs_Ac.RDS")
+
+DESeq_Ch_vs_Ac_shrunken <- DESeq_Ch_vs_Ac[["DE_results_shrunken"]]
+
+DESeq_Ch_vs_Ac_shrunken_df <- DESeq_Ch_vs_Ac[["DE_results_shrunken_df"]]
+
+#How many features upregulated or downreg with l2FC cut off 2 and padj < 0.01?
+
+
+DESeq_Ch_vs_Ac_shrunken_df %>% dplyr::filter(log2FoldChange >= 2 & padj < 0.01) %>% nrow(.) #2536
+
+DESeq_Ch_vs_Ac_shrunken_df %>% dplyr::filter(log2FoldChange <= 2 & padj < 0.01) %>% nrow(.) #30
+
+#3NU86 belongs to the actin family
+#The FCcutoff argument is the Cut-off for absolute log2 fold-change. 
+
+DE_Ch_vs_Ac_volcano <- EnhancedVolcano(DESeq_Ch_vs_Ac_shrunken,
+                lab = rownames(DESeq_Ch_vs_Ac_shrunken),
+                title = 'Metatranscriptomics, Cheek vs Antecubital fossae',
+                x='log2FoldChange',
+                y='padj',
+                selectLab = c('4I7CS', '2GKH3', '4H9W1', '4HJCS'),
+                boxedLabels = TRUE,
+                drawConnectors = TRUE,
+                labFace = 'bold',
+                pCutoff = 0.01,
+                FCcutoff=2,
+                col=c('black', 'black', 'black', 'red3'))
+
+
+DE_Ch_vs_Ac_volcano_insig <- EnhancedVolcano(DESeq_Ch_vs_Ac_shrunken,
+                lab = rownames(DESeq_Ch_vs_Ac_shrunken),
+                title = 'Metatranscriptomics, Cheek vs Antecubital fossae, unchanging genes',
+                x='log2FoldChange',
+                y='padj',
+                selectLab = c('3NU86','3NVF4', '3NUQ1', '3NTZ4', 
+                              '3NVJA', '3NVRS', '3NUP6'),
+                ylim=c(c(0, -log10(10e-3))),
+                xlim = c(-3,3),
+                drawConnectors = TRUE,
+                boxedLabels = TRUE,
+                labFace = 'bold',
+                pCutoff = 0.01,
+                FCcutoff=2,
+                col=c('black', 'black', 'black', 'red3'))
+
+#ggsave("../plots/DESeq_pilot/DE_Ch_vs_Ac_volcano.pdf", plot=DE_Ch_vs_Ac_volcano, device="pdf")
+
+#ggsave("../plots/DESeq_pilot/DE_Ch_vs_Ac_volcano_insig.pdf", plot=DE_Ch_vs_Ac_volcano_insig, device="pdf")
+
+```
+## Plot species breakdown for '4I7CS' = Staphylococcus haemolytic protein (PSMb) on cheek, 
+
+```{r eval=FALSE}
+
+process_mtx_tax_fn <- function(feature){
+  tax_df <- read_tsv(paste0("../processed/feature_specific/",feature,"_mtx_tax.tsv"), 
+                     col_names = c("pangene", "read_name", "taxa", "Uniref90_ID", "LIBID"))
+  
+  tax_df <- merge(tax_df, eligible_mtx_metadata %>% dplyr::select(LIBID, subj_region, region), 
+                   by ="LIBID", all.x=TRUE)
+  
+  tax_df <- tax_df %>% group_by(subj_region) %>% mutate(read_count_sum = n())
+  
+  tax_df <- tax_df %>% group_by(subj_region, taxa) %>% mutate(taxa_count = n())
+  
+  tax_df_summary <- tax_df %>% group_by(subj_region, taxa) %>% summarize(taxa_contrib=taxa_count/read_count_sum) %>% unique()
+  
+  output <- tibble::lst(tax_df, tax_df_summary)
+  return(output)
+}
+
+tax_4I7CS <- process_mtx_tax_fn("4I7CS")
+
+
+tax_4I7CS_to_plot <- tax_4I7CS[[2]]
+
+tax_4I7CS_to_plot$taxa_to_plot <- ifelse(str_detect(tax_4I7CS_to_plot$taxa, pattern="Staphylococcus"), 
+                                                    tax_4I7CS_to_plot$taxa, "other")
+
+ggplot(tax_4I7CS_to_plot %>% dplyr::filter(str_detect(string=subj_region, pattern="Ch")), 
+       aes(x=subj_region, y=taxa_contrib, fill=taxa_to_plot)) + geom_col() + 
+  theme_classic() + 
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1), axis.title.x=element_blank()) + 
+  ggtitle("Relative abundance of taxa expressing 4I7CS on cheek") + 
+  scale_fill_manual(values=c24)
+
+#ggsave("../plots/DESeq_pilot/cheek_4I7CS_taxa.pdf", plot=last_plot(), device="pdf")
+
+
+
+#ggplot(tax_4I7CS[[2]] %>% dplyr::filter(str_detect(string=subj_region, pattern="Ac")), 
+ #      aes(x=subj_region, y=taxa_contrib, fill=taxa)) + geom_col() + 
+#  theme_classic() + theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) + 
+#  ggtitle("Relative abundance of taxa expressing 4I7CS on Ac") + scale_fill_manual(values=c24)
+
+
+
+```
+## Plot species breakdown for #'2GKH3'= Tryptophanse on cheek 
+
+```{r eval=FALSE}
+
+tax_2GKH3 <- process_mtx_tax_fn("2GKH3")
+
+
+tax_2GKH3_to_plot <- tax_2GKH3[[2]]
+
+tax_2GKH3_to_plot$taxa_to_plot <- ifelse(str_detect(tax_2GKH3_to_plot$taxa, pattern="Cutibacterium|Malassezia"), 
+                                                    tax_2GKH3_to_plot$taxa, "other")
+
+
+ggplot(tax_2GKH3_to_plot %>% dplyr::filter(str_detect(string=subj_region, pattern="Ch")), 
+       aes(x=subj_region, y=taxa_contrib, fill=taxa_to_plot)) + geom_col() + 
+  theme_classic() + 
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1), axis.title.x=element_blank()) + 
+  ggtitle("Relative abundance of taxa expressing 2GKH3 on cheek") + 
+  scale_fill_manual(values=c24)
+
+#ggsave("../plots/DESeq_pilot/cheek_2GKH3_taxa.pdf", plot=last_plot(), device="pdf")
+
+```
+
+##'4H9W1' = alkyl hydroperoxide reductase on Ac
+
+```{r eval=FALSE}
+
+tax_4H9W1 <- process_mtx_tax_fn("4H9W1")
+
+
+tax_4H9W1_to_plot <- tax_4H9W1[[2]]
+
+tax_4H9W1_to_plot$taxa_to_plot <- ifelse(str_detect(tax_4H9W1_to_plot$taxa, pattern="Staphylococcus"), 
+                                                    tax_4H9W1_to_plot$taxa, "other")
+
+tax_4H9W1_to_plot$Staph_label <- ifelse(str_detect(tax_4H9W1_to_plot$taxa, 
+                                                   pattern="Staphylococcus aureus|Staphylococcus hominis|Staphylococcus capitis|Staphylococcus epidermidis|Staphylococcus haemolyticus"), 
+                                                    tax_4H9W1_to_plot$taxa, "other")
+
+
+ggplot(tax_4H9W1_to_plot %>% dplyr::filter(str_detect(string=subj_region, pattern="Ac")), 
+       aes(x=subj_region, y=taxa_contrib, fill=Staph_label)) + geom_col() + 
+  theme_classic() + 
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1), axis.title.x=element_blank()) + 
+  ggtitle("Relative abundance of taxa expressing 4H9W1 on Ac") + 
+  scale_fill_manual(values=c24)
+
+#ggsave("../plots/DESeq_pilot/Ac_4H9W1_taxa.pdf", plot=last_plot(), device="pdf")
+
+```
+
+##'4HJCS' =  Organic hydroperoxide resistance protein on Ac
+
+
+```{r eval=FALSE}
+
+tax_4HJCS <- process_mtx_tax_fn("4HJCS")
+
+
+tax_4HJCS_to_plot <- tax_4HJCS[[2]]
+
+tax_4HJCS_to_plot$taxa_to_plot <- ifelse(str_detect(tax_4HJCS_to_plot$taxa, pattern="Staphylococcus"), 
+                                                    tax_4HJCS_to_plot$taxa, "other")
+
+tax_4HJCS_to_plot$Staph_label <- ifelse(str_detect(tax_4HJCS_to_plot$taxa, 
+                                                   pattern="Staphylococcus aureus|Staphylococcus hominis|Staphylococcus capitis|Staphylococcus epidermidis|Staphylococcus haemolyticus"), 
+                                                    tax_4HJCS_to_plot$taxa, "other")
+
+
+ggplot(tax_4HJCS_to_plot %>% dplyr::filter(str_detect(string=subj_region, pattern="Ac")), 
+       aes(x=subj_region, y=taxa_contrib, fill=Staph_label)) + geom_col() + 
+  theme_classic() + 
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1), axis.title.x=element_blank()) + 
+  ggtitle("Relative abundance of taxa expressing 4HJCS on Ac") + 
+  scale_fill_manual(values=c24)
+
+#ggsave("../plots/DESeq_pilot/Ac_4HJCS_taxa.pdf", plot=last_plot(), device="pdf")
+
+```
+
+It is easier to use facets to keep the fill colors consistent
+
+```{r eval=FALSE}
+
+tax_4H9W1_to_plot$feature <- "4H9W1"
+tax_4HJCS_to_plot$feature <- "4HJCS"
+
+mtx_Ac_feature_plot <- rbind(tax_4H9W1_to_plot,tax_4HJCS_to_plot)
+
+ggplot(mtx_Ac_feature_plot %>% dplyr::filter(str_detect(string=subj_region, pattern="Ac")), 
+       aes(x=subj_region, y=taxa_contrib, fill=Staph_label)) + geom_col() + 
+  theme_classic() + 
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1), axis.title.x=element_blank()) + 
+  ggtitle("Relative abundance of taxa expressing orthologous genes on Ac") + 
+  scale_fill_manual(values=c24) +
+  facet_wrap(~feature)
+
+
+#ggsave("../plots/DESeq_pilot/Ac_4H9W1_4HJCS_taxa.pdf", plot=last_plot(), device="pdf")
+
+```
+
+Same facet plotting for 4I7CS and 2GKH3
+
+```{r eval=FALSE}
+
+tax_4I7CS_to_plot$feature <- "4I7CS"
+tax_2GKH3_to_plot$feature <- "2GKH3"
+
+mtx_Ch_feature_plot <- rbind(tax_4I7CS_to_plot,tax_2GKH3_to_plot)
+
+mtx_Ch_feature_plot$taxa_to_plot <- forcats::fct_relevel(mtx_Ch_feature_plot$taxa_to_plot, 
+                                                              "other", after = Inf)
+
+
+ggplot(mtx_Ch_feature_plot %>% dplyr::filter(str_detect(string=subj_region, pattern="Ch")), 
+       aes(x=subj_region, y=taxa_contrib, fill=taxa_to_plot)) + geom_col() + 
+  theme_classic() + 
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1), axis.title.x=element_blank()) + 
+  ggtitle("Relative abundance of taxa expressing orthologous genes on Ch") + 
+  scale_fill_manual(values=c24) +
+  facet_wrap(~feature)
+
+
+#ggsave("../plots/DESeq_pilot/Ch_2GKH3_4I7CS_taxa.pdf", plot=last_plot(), device="pdf")
+
+```
+
+
+It is good practice to consider fungal and bacterial OGs separately due to differential rate of drop outs in mgx data for bact vs fungi
+
+How many genes have mtx counts but no mgx counts (drop outs)? Are they low abundance?
+
+
+
+```{r eval=FALSE}
+#Feature summarization function
+#inputs can be mtx_bact_normalized_df, mtx_fungi_normalized_df and mtx_uniref_pangene_normalized_df
+
+feature_summary_fn <- function(df){
+  
+  df$tech_cat <- ifelse(df$mgx_counts!=0,"detected",
+                        ifelse(is.na(df$min_smooth), "missing","zero_smoothed"))
+  
+  out <- df %>% group_by(mtx_LIBID, tech_cat) %>% summarise(n=n())
+  
+  out <- merge(out, metadata %>% dplyr::rename(mtx_LIBID = LIBID), by = "mtx_LIBID" )
+  
+  return(out)
+  
+}
+
+
+mtx_bact_feature_summary <- feature_summary_fn(mtx_bact_normalized_df)
+
+mtx_fungi_feature_summary <- feature_summary_fn(mtx_fungi_normalized_df)
+
+mtx_uniref_pangene_feature_summary <- feature_summary_fn(mtx_uniref_pangene_normalized_df)
+```
+
+Box plots of # of features with valid counts, valid counts after zero smoothing and invalid counts, per body site. 
+
+```{r eval=FALSE}
+mtx_bact_feature_summary %>% mutate(tech_cat = fct_relevel(tech_cat, "detected", "zero_smoothed", "missing"),
+                                    region= fct_relevel(region, "Sc", "Ch", "Ac", "Vf", "Tw")) %>% 
+  ggplot(aes(x=region, y =n, fill=tech_cat)) + geom_boxplot() + theme_classic() + ggtitle("Detected genes for transcribed bacterial OGs")
+
+#ggsave(plot = last_plot(), filename = "../plots/mtx_bact_feature_summary.pdf")
+
+```
+
+
+```{r eval=FALSE}
+mtx_fungi_feature_summary %>% mutate(tech_cat = fct_relevel(tech_cat, "detected", "zero_smoothed", "missing"),
+                                     region= fct_relevel(region, "Sc", "Ch", "Ac", "Vf", "Tw")) %>% 
+  ggplot(aes(x=region, y =n, fill=tech_cat)) + geom_boxplot() + theme_classic() + ggtitle("Detected genes for transcribed fungal OGs")
+
+
+#ggsave(plot = last_plot(), filename = "../plots/mtx_fungi_feature_summary.pdf")
+```
+
+
+```{r eval=FALSE}
+mtx_uniref_pangene_feature_summary %>% mutate(tech_cat = fct_relevel(tech_cat, "detected", "zero_smoothed", "missing")) %>% 
+  ggplot(aes(x=region, y =n, fill=tech_cat)) + geom_boxplot() + theme_classic() + ggtitle("Detected genes for transcribed features with no OG annotations")
+
+#ggsave(plot = last_plot(), filename = "../plots/mtx_uniref_pangene_feature_summary.pdf")
+
+
+```
+
+## Scatter plots of y = log10(median transcript ratios) and x = percentage occurrence per site?
+
+Make one scatter plots for each site. Color them according to feature_cat: bacteria, fungi, virus, non OG features. This looks ugly.
+
+```{r eval=FALSE}
+#df can be Ac_transcript ratio, Tw_transcript ratio etc
+#"bacteria_OG", "fungi_OG", "virus_OG" and "other_features"  Other features here refers to non OG features
+
+feature_scatter_plot_fn <- function(df, title){
+  
+  #Filter away non-microbial OGs
+  input <- df %>% dplyr::filter(feature_class != "other_OG")
+  input$feature_class <- as.factor(input$feature_class)
+  
+  ggplot(data=input, aes(x=percent_detected_at_site, 
+                         y = log10(median_detect_transcript_ratio))) +
+    geom_point(aes(color=feature_class)) +  
+    theme_classic() + ggtitle(title) + 
+     scale_fill_manual(values=c24)
+}
+
+feature_scatter_plot_fn(df = Ac_transcript_ratio, title="Ac")
+```
+
+####################################
+#Use pheatmap instead to do both clustering and plotting https://btep.ccr.cancer.gov/docs/data-visualization-with-r/Lesson5_intro_to_ggplot/
+#Might be more informative to cluster by site and by functional class
+#pheatmap should take a matrix. Row = a feature, each column = sample id
+#filename is for the saved plot
+
+```{r, eval=FALSE}
+make_eggnog_pheatmap <- function(mode="general", body_site, chosen_eggnog_cat, 
+                                 save= FALSE,
+                                 plot_name="feature_heatmap.pdf", 
+                                 plot_height=40, plot_width=40, input_df=eggnog_heatmap_input){
+  
+  chosen_eggnog_cat <- toupper(chosen_eggnog_cat)
+  
+  if (mode=="general"){
+    eggnog_sel_vector <- eggnog_cat_metadata %>% 
+    dplyr::filter(eggnog_functional_cat == chosen_eggnog_cat) %>% pull(eggnog_cat)
+    
+    
+  } else if (mode=="specific"){
+     eggnog_sel_vector <- chosen_eggnog_cat
+  }
+ 
+  eggnog_sel_mask <- stringi::stri_paste(eggnog_sel_vector, collapse="|")
+  #####
+  
+  
+  #to a select a particular site and eggnog general category
+  input_subset <- input_df %>% dplyr::filter(region %in% body_site) %>%
+    dplyr::filter(str_detect(.$eggnog_cat, pattern=eggnog_sel_mask))
+  
+  #reorder factors for heatmap organization
+  #reordering the X axis in this order: Sc, Ch, Ac, Vf, Tw
+  
+  input_subset$subj_region <- as.factor(input_subset$subj_region)
+  
+  input_subset$region <- factor(input_subset$region, levels=c("Sc","Ch",
+                                                              "Ac","Vf",
+                                                              "Tw"))
+  #from the input. Can be single or multiple letters
+  vector_of_eggnog_cats <- unique(input_subset$eggnog_cat)
+  
+  #For example for "CELLULAR PROCESSES AND SIGNALING", sort in order of: D to Z in the eggnog_cat_metadata file, with earlier letters taking precedence when overlapping categories are found
+    
+  #initialize empty vector of defined length based on single letter categories
+  eggnog_cat_levels <- character(length(eggnog_sel_vector))
+    
+  for (i in 1:length(eggnog_sel_vector)){
+  eggnog_cat_levels <- c(eggnog_cat_levels,vector_of_eggnog_cats[str_detect(vector_of_eggnog_cats, 
+                                                               pattern=eggnog_sel_vector[i])]) %>% unique()
+
+  }
+  
+  eggnog_cat_levels <- eggnog_cat_levels[-1] #drop the empty element
+  
+  
+  input_subset$eggnog_cat <- factor(input_subset$eggnog_cat, levels=eggnog_cat_levels)
+  # https://stackoverflow.com/questions/6769703/order-data-frame-by-two-columns-in-r
+  input_subset$subj_region <- factor(input_subset$subj_region, levels=unique(input_subset$subj_region[order(input_subset$region)]))
+  
+ 
+  #Construct the feature matrix. Samples in columns, features in rows
+  
+  feature_matrix <- pivot_wider(input_subset %>% 
+                        dplyr::select(feature, log2_transcript_ratio , subj_region), 
+                        names_from = subj_region, values_from = log2_transcript_ratio) %>%
+                        as.data.frame()
+  
+  rownames(feature_matrix) <- feature_matrix$feature
+  
+  feature_matrix <- feature_matrix %>% dplyr::select(-feature) %>% as.matrix()
+  #This matrix operation is much faster than mutate_all(~replace(.,is.na(.),0)) for tibbles/df
+  #Caution: It is not appropriate to replace NA values in this feature matrix to 0 due to the log2 transform.
+  #feature_matrix[is.na(feature_matrix)] <- 0 
+  
+  #To manually order samples from Sc to Tw if desired:
+  #sample_order <- levels(input_subset$subj_region)
+  #feature_matrix <- feature_matrix[,sample_order]
+  
+  
+  #https://stats.stackexchange.com/questions/195446/choosing-the-right-linkage-method-for-hierarchical-clustering
+  heatmap <- pheatmap::pheatmap(feature_matrix, color=colorRampPalette(c("navy", "white", "red"))(100),
+                      scale="row", # Scale values in the direction of features (rows)
+                         clustering_method = "average")
+
+  
+  if(save==TRUE){
+  save_pheatmap_pdf(heatmap, filename = paste0("../plots/feature_heatmap/",plot_name), 
+                    width = plot_width, height = plot_height)
+  } 
+}
+
+make_eggnog_pheatmap(mode="specific", body_site= "Ch", chosen_eggnog_cat = c("I"),
+                     save=FALSE, plot_name = "Ch_eggnog_metab_lipid_I.pdf")
+
+
+
+make_eggnog_pheatmap(mode="general", body_site= "Ch", chosen_eggnog_cat = "METABOLISM",
+                     save=TRUE, plot_name = "Ch_eggnog_metab.pdf", plot_height = 200, plot_width = 200)
+```
+
+
+
+
+
+#############
+Do "missing genes" tend to be weakly expressed too i.e. from very low abundant organisms? Simple CPM for MTX against CPM (mgx) read plots. This might be worth plotting for a few examples.
+
+Plot for smallest and largest library reads per site
+
+```{r, eval=FALSE}
+
+#mtx_bact_normalized_df %>% dplyr::filter(mtx_LIBID=="MHS328") %>% 
+#  ggplot(aes(x=log10(mgx_CPM_unadjusted + 1), y =log10(mtx_CPM +1)) ) + geom_point() + theme_classic() + geom_abline(intercept = 0)
+
+#input df can be mtx_bact_normalized_df, mtx_fungi_normalized_df and mtx_uniref_pangene_normalized_df
+
+mtx_bact_normalized_df$tech_cat <- ifelse(mtx_bact_normalized_df$mgx_counts!=0,"detected",
+                        ifelse(is.na(mtx_bact_normalized_df$min_smooth), "missing","zero_smoothed"))
+
+#The library argument is a string like "MHS328"
+
+CPM_scatter_fn <- function(df, library, other_label){
+
+site <- df %>% dplyr::filter(mtx_LIBID==library) %>% pull(region) %>% unique()
+
+mgx_id <- df %>% dplyr::filter(mtx_LIBID==library) %>% pull(mgx_LIBID) %>% unique()
+
+non_human_rna_reads <- mtx_stats %>% dplyr::filter(LIBID==library) %>% 
+  pull(NON_HUMAN_COUNT) %>% unique()
+
+non_human_dna_reads <- mgx_stats %>% dplyr::filter(LIBID==mgx_id) %>% 
+  pull(NON_HUMAN_COUNT) %>% unique()
+
+#convert read pairs to unpaired counts
+
+non_human_rna_reads <- (non_human_rna_reads*2) %>% formatC(., format = "e", digits = 2)
+
+non_human_dna_reads <- (non_human_dna_reads*2) %>% formatC(., format = "e", digits = 2)
+
+df %>% dplyr::filter(mtx_LIBID==library) %>% mutate(tech_cat = fct_relevel(tech_cat, "detected", "zero_smoothed", "missing")) %>% ggplot(aes(x=log2(mgx_CPM_adjusted + 1), y =log2(mtx_CPM +1),colour=tech_cat)) + 
+  geom_point() + theme_classic() + 
+  geom_abline(intercept = 0) + 
+  ggtitle(paste0(library," ",other_label,", ",site,", mtx counts:",non_human_rna_reads,", mgx counts:",non_human_dna_reads))
+
+}
+
+
+#MHS374 and MHS360 have some of the lowest read counts in our dataset for cheeks and AC respectively
+CPM_scatter_fn(df=mtx_bact_normalized_df, "MHS374", "bact OGs")
+
+
+
+```
+
+```{r}
+
+CPM_scatter_fn(df=mtx_bact_normalized_df, "MHS360", "bact OGs")
+
+```
+
+What about cheeks and Ac with relatively "high counts"?  We see that even with 10 fold more non-human reads, most bact features in Ac are still relatively weakly transcribed.
+
+```{r}
+
+CPM_scatter_fn(df=mtx_bact_normalized_df, "MHS371", "bact OGs")
+
+CPM_scatter_fn(df=mtx_bact_normalized_df, "MHS350", "bact OGs")
+
+```
+Same plot for a high count cheek sample MHS384
+
+```{r}
+
+CPM_scatter_fn(df=mtx_bact_normalized_df, "MHS384", "bact OGs")
+
+```
+
+
+Plot an example for the other body sites...
+
+```{r}
+CPM_scatter_fn(df=mtx_bact_normalized_df, "MHS378", "bact OGs") #scalp, higher
+
+
+CPM_scatter_fn(df=mtx_bact_normalized_df, "MHS385", "bact OGs") #scalp, lower
+
+CPM_scatter_fn(df=mtx_bact_normalized_df, "MHS382", "bact OGs")
+
+CPM_scatter_fn(df=mtx_bact_normalized_df, "MHS372", "bact OGs")
+```
+
+
+So far we have focused on the RNA and DNA counts for the measurable and transcribed fraction of genes. What about mgx counts in general, even for genes that have no mtx counts?
+
+```{r}
+
+#helper function
+#appends metadata
+#also adds an "other reads" count which is all reads passing QC that are NOT assigned to the features in the table. This number will always be context specific
+merge_and_append <- function(input_df){
+ 
+  counts_df <- merge(input_df, mgx_stats_chosen %>% dplyr::select(LIBID, subj_region, NON_HUMAN_COUNT), by = "LIBID", all.x=TRUE) %>% dplyr::rename(mgx_counts=read_count_sum)
+  
+  counts_df$mgx_other_reads <- ((counts_df$NON_HUMAN_COUNT)*2) - sum(counts_df$mgx_counts)
+  
+  return(counts_df %>% dplyr::select(feature, subj_region, mgx_counts, mgx_other_reads))
+}
+
+
+#input_list can be either mgx_bact_counts, mgx_fungi_counts and mgx_uniref_pangene_counts
+get_all_mgx_site_counts <- function(input_list){
+  
+  #For the 102 pairs
+  Ac_mgx_libs <- mgx_stats_chosen %>% dplyr::filter(region=="Ac") %>% pull(LIBID)
+  
+  Ch_mgx_libs <- mgx_stats_chosen %>% dplyr::filter(region=="Ch") %>% pull(LIBID)
+  
+  Sc_mgx_libs <- mgx_stats_chosen %>% dplyr::filter(region=="Sc") %>% pull(LIBID)
+  
+  Tw_mgx_libs <- mgx_stats_chosen %>% dplyr::filter(region=="Tw") %>% pull(LIBID)
+  
+  Vf_mgx_libs <- mgx_stats_chosen %>% dplyr::filter(region=="Vf") %>% pull(LIBID)
+  
+  #For body site specific mgx feature counts
+  
+  Ac <- lapply(input_list[Ac_mgx_libs], function(x){merge_and_append(x)}) %>% do.call("rbind",.)
+  Ch <- lapply(input_list[Ch_mgx_libs], function(x){merge_and_append(x)}) %>% do.call("rbind",.)
+  Sc <- lapply(input_list[Sc_mgx_libs], function(x){merge_and_append(x)}) %>% do.call("rbind",.)
+  Tw <- lapply(input_list[Tw_mgx_libs], function(x){merge_and_append(x)}) %>% do.call("rbind",.)
+  Vf <- lapply(input_list[Vf_mgx_libs], function(x){merge_and_append(x)}) %>% do.call("rbind",.)
+  
+  output <- tibble::lst(Ac, Ch, Sc, Tw, Vf)
+  
+  return(output)
+}
+
+#All bact OGs, regardless of whether there were transcribed (based on mtx data) or not
+#The columns for each dataframe are feature, subj_region, mgx_counts and mgx_other_reads
+
+mgx_all_bact_OG_counts_list <- get_all_mgx_site_counts(mgx_bact_counts)
+
+#Same for all fungal OGs
+
+mgx_all_fungi_OG_counts_list <- get_all_mgx_site_counts(mgx_fungi_counts)
+
+#Same for all non OG features 
+
+mgx_uniref_pangene_counts_list <- get_all_mgx_site_counts(mgx_uniref_pangene_counts)
+```
+
+## Check that the removed genera + human ("Homo") + spike ins + unclassified account for most reads in the negative controls
+
+N.B: We do not include "unclassified" in the genera to remove. 
+
+This is now outdated, since we now have two decontamination filters: 1) Genera to remove and 2) Species to remove based on strong linear correlation with members of the genera in 1).
+
+```{r eval=FALSE}
+
+neg_ctrl_libs <- c("MHS340", "MHS348", "MHS431", "MHS470", "MHS524", "MHS552", "MHS566", "MHS581", "MHS602")
+
+neg_ctrl_metadata <- metadata %>% filter(LIBID %in% neg_ctrl_libs)
+
+neg_ctrl_genus_k2 <- c(MTX_neg_ctrl_genus_k2, MGX_neg_ctrl_genus_k2)
+
+#percentage of reads corresponding to genera to remove
+neg_ctrl_genera_to_remove_prop <- lapply(neg_ctrl_genus_k2, function(x){
+  
+  output <- x %>% dplyr::filter(name %in% c("unclassified", genera_to_remove))
+  
+  return(output)
+  
+})
+
+neg_ctrl_genera_to_remove_prop_df <- do.call("rbind", neg_ctrl_genera_to_remove_prop) %>% 
+  group_by(LIBID) %>% summarize(sum=sum(rel_abun))
+
+neg_ctrl_genera_to_remove_prop_df <- merge(neg_ctrl_genera_to_remove_prop_df, metadata, by ="LIBID")
+
+#These are for negative controls
+ggplot(neg_ctrl_genera_to_remove_prop_df, aes(x=mol_type, y=sum)) + geom_boxplot() + theme_classic() + 
+  ylab("% of reads belonging to unclassified and contaminant genera")
+
+
+#An alternative visualization
+
+contam_genera <- c(disbiome_skin_res %>% 
+                     filter(reported_for_skin_disease_in_disbiome == FALSE & 
+                              reported_on_skin_in_microphenoDB ==FALSE &
+                              pubmed_skin_microbiome == FALSE) %>% 
+                      pull(name), "Homo")
+
+contam_genera
+
+contam_genera_no_homo_no_spike <- c(disbiome_skin_res %>% 
+                     filter(reported_for_skin_disease_in_disbiome == FALSE & 
+                              reported_on_skin_in_microphenoDB ==FALSE &
+                              pubmed_skin_microbiome == FALSE) %>% 
+                      pull(name))
+
+
+#Get rel abundances per negative control, for four different categories of genera: env_contaminant, human reads, unclassified and others, out of all the reads classified at genus level
+
+summarize_neg_ctrl <- function(input_list=neg_ctrl_genus_k2,
+                               input_metadata=metadata){
+  
+#percentage of "contaminant genera" (37) out of all the reads classified at genus level + unclassified
+percent_contam <- lapply(input_list, function(x){
+  
+  x$category <- ifelse(x$name %in% contam_genera_no_homo_no_spike, "env_contaminant",
+                       ifelse(x$name=="unclassified", "unclassified",
+                              ifelse(x$name=="Homo", "human", "others")))
+  
+  x$percent_of_genus_reads <- (x$rel_abun/(sum(x$rel_abun)))*100
+  
+  return(x)
+  
+})
+
+percent_contam_df <- do.call("rbind", percent_contam) %>% 
+  group_by(LIBID,category) %>% summarize(sum_pct_genus_reads=sum(percent_of_genus_reads))
+
+percent_contam_df <- merge(percent_contam_df, input_metadata, by ="LIBID")
+
+return(percent_contam_df)
+  
+}
+
+neg_ctrl_summary_df <- summarize_neg_ctrl()
+
+ggplot(neg_ctrl_summary_df %>% dplyr::filter(mol_type=="RNA"), 
+       aes(fill=category, x=LIBID, y=sum_pct_genus_reads)) + 
+  geom_col()+
+  theme_classic() +
+  scale_fill_manual(values = c24 ) +
+  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1)) +
+  theme(legend.text=element_text(size=8), axis.title.x=element_blank()) +
+  ggtitle("Metatranscriptomic negative controls") + 
+    ylab("relative abundance")
+
+#ggsave(plot=last_plot(), filename = "../plots/mtx_neg_ctrl_dist_bar.pdf")
+
+ggplot(neg_ctrl_summary_df %>% dplyr::filter(mol_type=="DNA"), 
+       aes(fill=category, x=LIBID, y=sum_pct_genus_reads)) + 
+  geom_col()+
+  theme_classic() +
+  scale_fill_manual(values = c24 ) +
+  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1)) +
+  theme(legend.text=element_text(size=8), axis.title.x=element_blank()) +
+  ggtitle("Metagenomic negative controls") + 
+    ylab("relative abundance")
+
+#ggsave(plot=last_plot(), filename = "../plots/mgx_neg_ctrl_dist_bar.pdf")
+
+
+```
+
+## What about the proportion of reads belonging to just contaminant genera (not including spike-ins and unclassified) for real samples?
+
+N.B: outdated
+
+```{r eval=FALSE}
+
+ #Make boxplots per site instead of barplots
+#Use the MTX_species_k2 or MGX_species_k2 lists as inputs
+
+summarize_sample_kitome <- function(input_list,
+                               input_metadata=metadata){
+  
+contam_mask <- stringi::stri_paste("^",contam_genera_no_homo_no_spike, collapse="|")
+  
+#percentage of "contaminant genera" (37) out of all the reads classified at species level + unclassified
+percent_contam <- lapply(input_list, function(x){
+  
+  x$category <- ifelse(str_detect(x$name, pattern=contam_mask), "env_contaminant",
+                       ifelse(x$name=="unclassified", "unclassified",
+                              ifelse(str_detect(x$name, pattern="Homo"), "human", "others")))
+  
+  x$percent_of_species_reads <- (x$rel_abun/(sum(x$rel_abun)))*100
+  
+  return(x)
+  
+})
+
+percent_contam_df <- do.call("rbind", percent_contam) %>% 
+  group_by(LIBID,category) %>% summarize(sum_pct_reads=sum(percent_of_species_reads))
+
+percent_contam_df <- merge(percent_contam_df, input_metadata, by ="LIBID")
+
+return(percent_contam_df)
+  
+}
+
+
+MTX_sample_kitome_summary <- summarize_sample_kitome(input_list = MTX_species_k2[mtx_to_pull])
+
+#Note that MTX_species_k2[["MHS341"]] has a very high % of unclassified reads at mtx level
+
+ggplot(MTX_sample_kitome_summary %>% mutate(region= fct_relevel(region, "Sc", "Ch", "Ac", "Vf", "Tw")), 
+       aes(fill=category, x=region, y=sum_pct_reads)) + 
+  geom_boxplot()+
+  theme_classic() +
+  scale_fill_manual(values = c24 ) +
+  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1)) +
+  theme(legend.text=element_text(size=8), axis.title.x=element_blank()) +
+  ggtitle("Metatranscriptomes (n=98)") + 
+    ylab("relative abundance")
+
+#ggsave(filename="../plots/MTX_sample_kitome_summary.pdf", plot=last_plot())
+
+MGX_sample_kitome_summary <- summarize_sample_kitome(input_list = MGX_species_k2[mgx_to_pull])
+
+ggplot(MGX_sample_kitome_summary %>% mutate(region= fct_relevel(region, "Sc", "Ch", "Ac", "Vf", "Tw")), 
+       aes(fill=category, x=region, y=sum_pct_reads)) + 
+  geom_boxplot()+
+  theme_classic() +
+  scale_fill_manual(values = c24 ) +
+  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1)) +
+  theme(legend.text=element_text(size=8), axis.title.x=element_blank()) +
+  ggtitle("Metagenomes (n=98)") + 
+    ylab("relative abundance")
+
+#ggsave(filename="../plots/MGX_sample_kitome_summary.pdf", plot=last_plot())
+
+```
+
+What is the category for housekeeping genes? It seems like this is quite variable still and contradictory between reports
+
+Take a selection of housekeeping genes https://pubmed.ncbi.nlm.nih.gov/26149127/ and https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6984700/:
+
+gyrB DNA gyrase: COG0187
+gyrA DNA gyrase: COG0188  (also used in https://www.jidinnovations.org/article/S2667-0267(22)00038-8/fulltext)
+era GTP binding: COG1159
+secA intracellular transport: COG0653
+dnaG DNA replication, primase: COG0358
+gmk guanylate kinase activity: COG0194
+ftsZ Cell cycle control: COG0206
+
+
+In the literature, experimental evidence for stable housekeeping genes are:
+rpoB : COG0085, rho: COG1158, rpoD:COG0568 and gyrA
+
+Caveat: the stable expression of any potential reference candidate gene must be validated in each physiological condition or experimental treatment under study.
+
+
+
+## Which libraries have a high proportion of unclassified reads? (>= 33% for now)
+
+```{r eval=FALSE}
+
+unclassified_mtx <- read_tsv("../data/kraken2/mtx_k2_unclassified", col_names = c("filename", 
+                                                                                  "rel_abun",
+                                                                                  "paired_reads",
+                                                                                  "name"),
+                             show_col_types=FALSE)
+
+unclassified_mtx$LIBID <- gsub(pattern="_merged_k2.s.tsv",
+                               replacement="", x = unclassified_mtx$filename)
+
+unclassified_mtx <- merge(unclassified_mtx, metadata, by = "LIBID", all.x=TRUE)
+
+#Libraries which are not controls but still have high proportion of unclassified reads
+
+high_unclassified_mtx <- unclassified_mtx %>% dplyr::filter(region != "neg-ctrl" & rel_abun >= 33.33) %>% dplyr::filter(LIBID %in% mtx_passed$LIBID)
+
+#Looks like mostly affecting the volar forearm
+
+#write_tsv(high_unclassified_mtx, file="../data/kraken2/high_mtx_k2_unclassified", col_names = FALSE)
+
+#Compared the non-classified % with that when kraken2 was run using the SMGC MAGs as a database
+
+SMGC_unclassified_mtx <- read_tsv("../data/151022_SMGC_k2_results/RNA/SMGC_mtx_k2_unclassified", 
+                                  col_names = c("filename", 
+                                                "SMGC_rel_abun",
+                                                "SMGC_paired_reads",
+                                                "name"),
+                             show_col_types=FALSE)
+
+
+SMGC_unclassified_mtx$LIBID <- gsub(pattern="_merged_k2.s.tsv",
+                               replacement="", x = SMGC_unclassified_mtx$filename)
+
+unclassified_mtx <- merge(unclassified_mtx, SMGC_unclassified_mtx %>% dplyr::select(LIBID,SMGC_rel_abun,SMGC_paired_reads), 
+                          all.x=TRUE, by = "LIBID")
+
+#Box plot of unclassified relative abundances
+
+format_unclassified_mtx <- function(df=unclassified_mtx){
+  
+  df <- df %>% dplyr::filter(!is.na(SMGC_rel_abun))
+  
+  #relative abundance of unclassified reads
+  SMGC_df <- df %>% dplyr::select(SMGC_rel_abun) %>% dplyr::rename(unclassified_rel_abun=SMGC_rel_abun)
+  std_k2_df <- df %>% dplyr::select(rel_abun) %>% dplyr::rename(unclassified_rel_abun=rel_abun)
+  
+  SMGC_df$k2_database <- "SMGC"
+  std_k2_df$k2_database <- "NCBI_sequences"
+  
+  output <- rbind(SMGC_df,std_k2_df)
+  return(output)
+  
+}
+
+unclassified_mtx_fmt <- format_unclassified_mtx()
+
+ggplot(unclassified_mtx_fmt, aes(y=unclassified_rel_abun, x=k2_database)) + geom_boxplot() + theme_classic() + 
+  ylab("relative abundance of unclassified reads for different kraken2 databases")
+
+ggsave(filename="../plots/mtx_unclassified_boxplots.pdf", plot=last_plot())
+
+```
+## Analyze the origins of unclassified reads using blastN.
+
+Pick the 10 mtx libraries with >= 33% unclassified reads and do blast against nt database. See 03_mh_lab_book.Rmd for more details
+
+```{r eval=FALSE}
+#load results
+
+unclassified_mtx_blast <- lapply(high_unclassified_mtx %>% pull(LIBID), function(x){
+  read_tsv(paste0("../data/blast_out/",x,"_merged_unclassified_200k_nt_blast_out_filtered_cut_best_hits.tsv"), 
+           show_col_types = FALSE)
+})
+
+names(unclassified_mtx_blast) <- high_unclassified_mtx %>% pull(LIBID)
+
+#There are still multiple "best hits". Just pick the top best hit ("first line"). Each line would then represent a unique read out of 200 K max reads
+
+unclassified_mtx_blast_fmt <- lapply(high_unclassified_mtx %>% pull(LIBID), function(x){
+  
+  output <- unclassified_mtx_blast[[x]] %>% group_by(qseqid) %>% dplyr::filter(row_number()==1)
+  
+  return(output)
+  
+})
+
+names(unclassified_mtx_blast_fmt) <- high_unclassified_mtx %>% pull(LIBID)
+
+#summarized unclassified reads
+
+unclassified_mtx_blast_fmt_summary <- lapply(high_unclassified_mtx %>% pull(LIBID), function(x){
+  
+  output <- plyr::count(unclassified_mtx_blast_fmt[[x]], vars="stitle")
+  
+  undetermined_read_count <- 200000 - sum(output$freq)
+  
+  output <- output %>% add_row(stitle="undetermined",freq=undetermined_read_count)
+  
+  output$rel_abun_undetermined <- (output$freq)*100/200000
+  
+  output$LIBID <- x
+  
+  return(output)
+  
+})
+
+names(unclassified_mtx_blast_fmt_summary) <- high_unclassified_mtx %>% pull(LIBID)
+
+
+unclassified_mtx_blast_fmt_summary_df <- do.call("rbind", unclassified_mtx_blast_fmt_summary)
+
+```
+
+
+
+
+

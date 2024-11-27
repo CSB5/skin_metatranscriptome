@@ -1,0 +1,405 @@
+fungi_OG	read_count_sum	RPK_sum	fungi_eggnog_cat	fungi_eggnog_desc	LIBID	feature_class
+3NTW9|Fungi	100	208.78067484662577	J	Belongs to the universal ribosomal protein uL5 family	MHS334	fungi_OG
+3NTXF|Fungi	38	133.27772583670952	J	Belongs to the eukaryotic ribosomal protein eS4 family	MHS334	fungi_OG
+3NTY2|Fungi	52	114.01418316795933	C	Fumarate hydratase	MHS334	fungi_OG
+3NTY3|Fungi	12	44.9438202247191	H	Catalyzes the methyl transfer from S-adenosyl-methionine to the C-24 of zymosterol to form fecosterol	MHS334	fungi_OG
+3NTY4|Fungi	121	211.1692844677138	J	YdiU domain protein	MHS334	fungi_OG
+3NTZ0|Fungi	7	24.305555555555557	J	Belongs to the eukaryotic ribosomal protein eS7 family	MHS334	fungi_OG
+3NTZE|Fungi	248	426.11683848797253	Q	Belongs to the ABC transporter superfamily. ABCG family. PDR (TC 3.A.1.205) subfamily	MHS334	fungi_OG
+3NU07|Fungi	696	885.3798185971317	J	Belongs to the universal ribosomal protein uS3 family	MHS334	fungi_OG
+3NU0P|Fungi	82	154.42561205273068	O	Belongs to the TRAFAC class dynamin-like GTPase superfamily. Dynamin Fzo YdjA family	MHS334	fungi_OG
+3NU0R|Fungi	27	47.61904761904762	J	RNA-binding component of the eukaryotic translation initiation factor 3 (eIF-3) complex, which is involved in protein synthesis of a specialized repertoire of mRNAs and, together with other initiation factors, stimulates binding of mRNA and methionyl-tRNAi to the 40S ribosome. The eIF-3 complex specifically targets and initiates translation of a subset of mRNAs involved in cell proliferation	MHS334	fungi_OG
+3NU1K|Fungi	31	116.10486891385767	C	Core subunit of the mitochondrial membrane respiratory chain NADH dehydrogenase (Complex I) that is believed to belong to the minimal assembly required for catalysis. Complex I functions in the transfer of electrons from NADH to the respiratory chain	MHS334	fungi_OG
+3NU1P|Fungi	25	101.6260162601626	BT	F-box and JmjC domain protein	MHS334	fungi_OG
+3NU25|Fungi	30	101.01010101010101	U	Belongs to the WD repeat SEC13 family	MHS334	fungi_OG
+3NU2Q|Fungi	49	166.66666666666669	A	factor 8	MHS334	fungi_OG
+3NU2R|Fungi	142	269.1414305872137	J	60S ribosomal protein L5	MHS334	fungi_OG
+3NU38|Fungi	5	22.51984126984127	E	Aspartokinase	MHS334	fungi_OG
+3NU3D|Fungi	8	42.32804232804233	BK	RSC complex	MHS334	fungi_OG
+3NU3J|Fungi	2286	4127.396400808368	J	This protein promotes the GTP-dependent binding of aminoacyl-tRNA to the A-site of ribosomes during protein biosynthesis	MHS334	fungi_OG
+3NU50|Fungi	136	464.6889683708535	I	Belongs to the sterol desaturase family	MHS334	fungi_OG
+3NU51|Fungi	87	157.6086956521739	P	Belongs to the major facilitator superfamily. Sugar transporter (TC 2.A.1.1) family	MHS334	fungi_OG
+3NU56|Fungi	96	347.8260869565217	P	Belongs to the Ca(2 ) cation antiporter (CaCA) (TC 2.A.19) family	MHS334	fungi_OG
+3NU5A|Fungi	112	245.6140350877193	I	Enoyl-CoA hydratase isomerase	MHS334	fungi_OG
+3NU5S|Fungi	41	75.19549008910711	C	fumarate reductase	MHS334	fungi_OG
+3NU6V|Fungi	42	115.70247933884298	OPU	Vacuolar transporter chaperone	MHS334	fungi_OG
+3NU73|Fungi	252	349.60073967842834	E	oxidoreductase	MHS334	fungi_OG
+3NU7V|Fungi	16	46.487825899590604	MN	Belongs to the TRAFAC class myosin-kinesin ATPase superfamily. Myosin family	MHS334	fungi_OG
+3NU8E|Fungi	32	121.9685438863521	Q	Isopentenyl-diphosphate delta-isomerase	MHS334	fungi_OG
+3NU8K|Fungi	89	348.0204342273308	J	60s ribosomal protein	MHS334	fungi_OG
+3NU8W|Fungi	24	150.9433962264151	O	Belongs to the Rab GDI family	MHS334	fungi_OG
+3NU9E|Fungi	103	250.60827250608273	J	Belongs to the universal ribosomal protein uL11 family	MHS334	fungi_OG
+3NU9Y|Fungi	70	175.43859649122805	EF	ribose-phosphate pyrophosphokinase	MHS334	fungi_OG
+3NUAJ|Fungi	2	11.11111111111111	O	deubiquitination-protection protein dph1	MHS334	fungi_OG
+3NUAX|Fungi	76	333.3333333333333	C	Belongs to the mitochondrial carrier (TC 2.A.29) family	MHS334	fungi_OG
+3NUB4|Fungi	37	83.33333333333333	J	60S ribosomal protein	MHS334	fungi_OG
+3NUBK|Fungi	56	146.6120251147846	O	Proteasome	MHS334	fungi_OG
+3NUBV|Fungi	195	196.96969696969697	J	Elongation factor	MHS334	fungi_OG
+3NUCI|Fungi	74	298.7577639751553	G	Glyceraldehyde-3-phosphate dehydrogenase	MHS334	fungi_OG
+3NUD1|Fungi	149	432.17031573195953	J	Belongs to the eukaryotic ribosomal protein eS6 family	MHS334	fungi_OG
+3NUD2|Fungi	8	35.08771929824561	S	Ammecr1 family	MHS334	fungi_OG
+3NUET|Fungi	33	122.22222222222221	J	ribosomal protein	MHS334	fungi_OG
+3NUEX|Fungi	345	468.78935060262637	Q	Occurs in almost all aerobically respiring organisms and serves to protect cells from the toxic effects of hydrogen peroxide	MHS334	fungi_OG
+3NUF5|Fungi	67	204.807842103371	J	Belongs to the universal ribosomal protein uL3 family	MHS334	fungi_OG
+3NUFA|Fungi	1254	1397.5676000437636	P	plasma membrane ATPase	MHS334	fungi_OG
+3NUFS|Fungi	17	70.06303068187738	C	Belongs to the mitochondrial carrier (TC 2.A.29) family	MHS334	fungi_OG
+3NUG7|Fungi	52	145.65826330532212	G	Cell wall	MHS334	fungi_OG
+3NUH8|Fungi	44	92.24318658280923	S	transporter	MHS334	fungi_OG
+3NUHB|Fungi	32	96.09609609609609	DTZ	Belongs to the TRAFAC class TrmE-Era-EngA-EngB-Septin- like GTPase superfamily. Septin GTPase family	MHS334	fungi_OG
+3NUHC|Fungi	359	872.4611708482676	J	Belongs to the universal ribosomal protein uL1 family	MHS334	fungi_OG
+3NUHR|Fungi	19	102.15053763440861	S	peroxisome organization	MHS334	fungi_OG
+3NUHW|Fungi	24	112.67605633802818	C	Produces ATP from ADP in the presence of a proton gradient across the membrane	MHS334	fungi_OG
+3NUIX|Fungi	68	302.22222222222223	D	wd repeat-containing protein mip1	MHS334	fungi_OG
+3NUJB|Fungi	28	55.55555555555556	E	chorismate synthase	MHS334	fungi_OG
+3NUK2|Fungi	66	113.40206185567011	O	Heat Shock Protein	MHS334	fungi_OG
+3NUKD|Fungi	320	695.8486831589141	T	Guanine nucleotide-binding protein subunit beta-like protein	MHS334	fungi_OG
+3NUKK|Fungi	1439	2698.334544950932	C	Cytochrome c oxidase is the component of the respiratory chain that catalyzes the reduction of oxygen to water. Subunits 1- 3 form the functional core of the enzyme complex. Subunit 2 transfers the electrons from cytochrome c via its binuclear copper A center to the bimetallic center of the catalytic subunit 1	MHS334	fungi_OG
+3NUM3|Fungi	17	96.2121212121212	G	UDP-glucose-glucosephosphate glucosyltransferase	MHS334	fungi_OG
+3NUN0|Fungi	2	3.745318352059925	E	Amino acid permease	MHS334	fungi_OG
+3NUN2|Fungi	54	85.71428571428571	J	Leucyl-trna synthetase	MHS334	fungi_OG
+3NUNA|Fungi	40	153.2567049808429	C	alcohol dehydrogenase	MHS334	fungi_OG
+3NUQM|Fungi	509	813.1992659144995	C	Subunits I, II and III form the functional core of the enzyme complex	MHS334	fungi_OG
+3NURC|Fungi	90	191.0828025477707	O	Belongs to the ubiquitin-activating E1 family	MHS334	fungi_OG
+3NUS7|Fungi	49	101.44927536231884	G	Dihydroxyacetone kinase	MHS334	fungi_OG
+3NUSR|Fungi	1	3.8314176245210727	C	Inorganic pyrophosphatase	MHS334	fungi_OG
+3NUT0|Fungi	39	141.07142857142858	J	Belongs to the eukaryotic ribosomal protein eL19 family	MHS334	fungi_OG
+3NUUT|Fungi	1613	2372.3959153645587	Q	alcohol dehydrogenase	MHS334	fungi_OG
+3NUWE|Fungi	10	42.35269752511132	O	26S proteasome, regulatory subunit	MHS334	fungi_OG
+3NUXM|Fungi	42	180.60814687320712	U	Belongs to the small GTPase superfamily. Rho family	MHS334	fungi_OG
+3NUYA|Fungi	7	24.56140350877193	J	Belongs to the DEAD box helicase family	MHS334	fungi_OG
+3NUYI|Fungi	7	23.56902356902357	I	sporulation protein rmd8	MHS334	fungi_OG
+3NUZ6|Fungi	448	1527.0007483714708	J	Belongs to the eukaryotic ribosomal protein eL20 family	MHS334	fungi_OG
+3NUZQ|Fungi	4	11.11111111111111	J	Multifunctional protein that exhibits several independent functions at different levels of the cellular processes. 5'-3' exonuclease component of the nonsense-mediated mRNA decay (NMD) which is a highly conserved mRNA degradation pathway, an RNA surveillance system whose role is to identify and rid cells of mRNA with premature termination codons and thus prevents accumulation of potentially harmful truncated proteins	MHS334	fungi_OG
+3NV08|Fungi	118	342.0289855072464	A	Fibrillarin	MHS334	fungi_OG
+3NV0M|Fungi	34	86.51399491094148	P	cation-transporting ATPase	MHS334	fungi_OG
+3NV19|Fungi	193	401.79647277905576	T	Belongs to the BI1 family	MHS334	fungi_OG
+3NV1F|Fungi	14	59.20363908275174	J	Belongs to the eukaryotic ribosomal protein eL15 family	MHS334	fungi_OG
+3NV1H|Fungi	43	81.9047619047619	P	Sulfite reductase	MHS334	fungi_OG
+3NV31|Fungi	56	132.38770685579198	O	Belongs to the peptidase A1 family	MHS334	fungi_OG
+3NV3G|Fungi	86	145.5160744500846	I	Belongs to the enoyl-CoA hydratase isomerase family	MHS334	fungi_OG
+3NV4I|Fungi	58	333.33333333333337	U	Belongs to the small GTPase superfamily. Rho family	MHS334	fungi_OG
+3NV4S|Fungi	654	565.0667674477199	O	Belongs to the peptidase A1 family	MHS334	fungi_OG
+3NV4W|Fungi	48	177.77777777777777	J	This protein promotes the GTP-dependent binding of aminoacyl-tRNA to the A-site of ribosomes during protein biosynthesis	MHS334	fungi_OG
+3NV4X|Fungi	14	81.87134502923976	UY	Nonsense-mediated mRNA decay protein	MHS334	fungi_OG
+3NV5B|Fungi	8	32.520325203252035	F	Catalyzes the reversible transfer of the terminal phosphate group between ATP and AMP. Plays an important role in cellular energy homeostasis and in adenine nucleotide metabolism. Adenylate kinase activity is critical for regulation of the phosphate utilization and the AMP de novo biosynthesis pathways	MHS334	fungi_OG
+3NV6A|Fungi	33	65.08875739644971	A	splicing factor	MHS334	fungi_OG
+3NV6Q|Fungi	179	340.95238095238096	Q	peroxisomal hydratase-dehydrogenase-epimerase	MHS334	fungi_OG
+3NV83|Fungi	2	6.944444444444445	C	Dehydrogenase	MHS334	fungi_OG
+3NVA4|Fungi	22	122.22222222222223	F	Catalyzes the phosphorylation of pyrimidine nucleoside monophosphates at the expense of ATP. Plays an important role in de novo pyrimidine nucleotide biosynthesis. Has preference for UMP and dUMP as phosphate acceptors, but can also use CMP, dCMP and AMP	MHS334	fungi_OG
+3NVA5|Fungi	44	129.79351032448378	G	Polysaccharide deacetylase family protein	MHS334	fungi_OG
+3NVB2|Fungi	24	123.07692307692307	U	Endoplasmic reticulum-golgi intermediate compartment protein	MHS334	fungi_OG
+3NVB4|Fungi	148	483.66013071895424	C	Electron transfer flavoprotein	MHS334	fungi_OG
+3NVCP|Fungi	157	399.4038748137109	J	Belongs to the universal ribosomal protein uS7 family	MHS334	fungi_OG
+3NVD8|Fungi	26	57.39514348785872	Z	Tubulin is the major constituent of microtubules. It binds two moles of GTP, one at an exchangeable site on the beta chain and one at a non-exchangeable site on the alpha chain	MHS334	fungi_OG
+3NVDA|Fungi	155	322.7977295773906	E	glutamine synthetase	MHS334	fungi_OG
+3NVDN|Fungi	24	86.02150537634408	E	Ketol-acid reductoisomerase	MHS334	fungi_OG
+3NVEU|Fungi	54	174.75728155339806	DZ	Belongs to the TCTP family	MHS334	fungi_OG
+3NVFE|Fungi	538	1068.4038470120945	J	Belongs to the eukaryotic ribosomal protein eS1 family	MHS334	fungi_OG
+3NVFK|Fungi	175	303.81944444444446	CI	acyl-CoA dehydrogenase	MHS334	fungi_OG
+3NVG5|Fungi	51	97.14285714285714	BD	Belongs to the nucleosome assembly protein (NAP) family	MHS334	fungi_OG
+3NVGA|Fungi	1	3.7878787878787876	GT	serine threonine-protein phosphatase	MHS334	fungi_OG
+3NVGD|Fungi	1	4.901960784313726	J	Belongs to the universal ribosomal protein uS17 family	MHS334	fungi_OG
+3NVGH|Fungi	29	49.06937394247039	C	belongs to the flavoprotein pyridine nucleotide cytochrome reductase family	MHS334	fungi_OG
+3NVIF|Fungi	36	137.34900340092125	O	Polyubiquitin	MHS334	fungi_OG
+3NVIS|Fungi	1553	1534.2045935023639	C	Dehydrogenase	MHS334	fungi_OG
+3NVJE|Fungi	1325	1415.9403443610524	O	Belongs to the heat shock protein 70 family	MHS334	fungi_OG
+3NVK1|Fungi	35	113.26860841423948	J	cysteinyl-tRNA synthetase	MHS334	fungi_OG
+3NVKZ|Fungi	2	7.936507936507937	O	assists the folding of proteins upon ATP hydrolysis	MHS334	fungi_OG
+3NVMJ|Fungi	120	239.3413701852396	C	Isocitrate dehydrogenase NAD subunit, mitochondrial	MHS334	fungi_OG
+3NVMV|Fungi	12	42.10526315789474	O	26S proteasome regulatory subunit RPN8	MHS334	fungi_OG
+3NVMZ|Fungi	85	234.1597796143251	C	reductase	MHS334	fungi_OG
+3NVN7|Fungi	44	83.33333333333333	C	Glycerol-3-phosphate dehydrogenase	MHS334	fungi_OG
+3NVNH|Fungi	23	60.84656084656085	E	NAD( )-dependent glutamate dehydrogenase which degrades glutamate to ammonia and alpha-ketoglutarate	MHS334	fungi_OG
+3NVNR|Fungi	2	5.05050505050505	G	Phosphoenolpyruvate carboxykinase	MHS334	fungi_OG
+3NVNX|Fungi	1218	1326.0904439183737	C	oxidoreductase chain 4	MHS334	fungi_OG
+3NVP2|Fungi	14	49.64539007092199	T	Mitogen-activated protein kinase	MHS334	fungi_OG
+3NVPF|Fungi	40	98.21994009413778	C	Belongs to the mitochondrial carrier (TC 2.A.29) family	MHS334	fungi_OG
+3NVQ4|Fungi	353	342.5571225167808	U	Dehydrogenase	MHS334	fungi_OG
+3NVQC|Fungi	73	289.6825396825397	G	Fructose-BISphosphate ALDOLASE	MHS334	fungi_OG
+3NVR6|Fungi	58	264.8401826484018	O	Belongs to the GST superfamily	MHS334	fungi_OG
+3NVRR|Fungi	10	42.19409282700422	A	factor PRP46	MHS334	fungi_OG
+3NVS1|Fungi	112	296.2962962962963	O	Belongs to the heat shock protein 70 family	MHS334	fungi_OG
+3NVU5|Fungi	13	72.22222222222223	C	Produces ATP from ADP in the presence of a proton gradient across the membrane	MHS334	fungi_OG
+3NVUZ|Fungi	116	444.4444444444444	A	Belongs to the MAK16 family	MHS334	fungi_OG
+3NVVA|Fungi	9	42.85714285714286	JT	RNA-binding protein involved in post-transcriptional regulation through transcript degradation. May be involved in vacuolar protein transport (By similarity)	MHS334	fungi_OG
+3NVZ2|Fungi	61	228.4644194756554	A	zinc finger protein rts2	MHS334	fungi_OG
+3NVZY|Fungi	20	50.125313283208015	P	Sulfate permease	MHS334	fungi_OG
+3NW0C|Fungi	334	437.975912975913	O	Belongs to the class-II pyridine nucleotide-disulfide oxidoreductase family	MHS334	fungi_OG
+3NW20|Fungi	47	214.6118721461187	T	ARF GTPase activator	MHS334	fungi_OG
+3NW21|Fungi	32	118.5185185185185	G	Belongs to the glycosyl hydrolase 17 family	MHS334	fungi_OG
+3NW2G|Fungi	27	70.2538840469875	O	Heat Shock Protein	MHS334	fungi_OG
+3NW2J|Fungi	18	101.69491525423729	U	GTP-binding protein involved in nucleocytoplasmic transport. Required for the import of protein into the nucleus and also for RNA export. Involved in chromatin condensation and control of cell cycle	MHS334	fungi_OG
+3NW2R|Fungi	23	84.24908424908425	TU	domain-containing protein	MHS334	fungi_OG
+3NW35|Fungi	38	116.20795107033639	G	Triose-phosphate isomerase	MHS334	fungi_OG
+3NW3H|Fungi	72	235.29411764705884	M	Belongs to the phospholipid scramblase family	MHS334	fungi_OG
+3NW3N|Fungi	8	31.007751937984494	U	guanyl-nucleotide exchange factor	MHS334	fungi_OG
+3NW5J|Fungi	21	79.75589225589225	O	Belongs to the peptidase A1 family	MHS334	fungi_OG
+3NW5Q|Fungi	62	110.5169340463458	S	Belongs to the sodium solute symporter (SSF) (TC 2.A.21) family	MHS334	fungi_OG
+3NW5Z|Fungi	1	3.3333333333333335	C	Belongs to the complex I 75 kDa subunit family	MHS334	fungi_OG
+3NW60|Fungi	33	123.33965844402277	O	assists the folding of proteins upon ATP hydrolysis	MHS334	fungi_OG
+3NW61|Fungi	9	17.142857142857142	G	Belongs to the GPI family	MHS334	fungi_OG
+3NW69|Fungi	38	152.61044176706827	J	Hydrolyzes ATP, and can also hydrolyze GTP with lower efficiency. Has lower affinity for GTP	MHS334	fungi_OG
+3NW6Y|Fungi	50	110.37527593818984	B	Transcription factor	MHS334	fungi_OG
+3NW71|Fungi	62	215.2777777777778	J	Belongs to the eIF-2B alpha beta delta subunits family	MHS334	fungi_OG
+3NW78|Fungi	1	3.8314176245210727	K	DNA-dependent RNA polymerase catalyzes the transcription of DNA into RNA using the four ribonucleoside triphosphates as substrates	MHS334	fungi_OG
+3NW98|Fungi	130	490.97222222222223	J	Elongation factor 2	MHS334	fungi_OG
+3NW9X|Fungi	63	262.5	F	Catalyzes the synthesis of activated sulfate	MHS334	fungi_OG
+3NWA6|Fungi	27	112.5	S	Methyltransferase	MHS334	fungi_OG
+3NWAG|Fungi	33	67.07317073170732	C	Malate dehydrogenase	MHS334	fungi_OG
+3NWAP|Fungi	3	11.76470588235294	S	DUF1716 domain protein	MHS334	fungi_OG
+3NWB7|Fungi	200	401.94156391339493	J	Belongs to the eukaryotic ribosomal protein eS8 family	MHS334	fungi_OG
+3NWC7|Fungi	93	390.2615805524887	Z	Belongs to the actin family	MHS334	fungi_OG
+3NWCU|Fungi	48	170.21276595744683	S	RTA1 like protein	MHS334	fungi_OG
+3NWEP|Fungi	108	413.7931034482759	T	Protein phosphatase pp2a regulatory subunit B	MHS334	fungi_OG
+3NWET|Fungi	50	79.74481658692184	F	phosphoribosylaminoimidazole carboxylase	MHS334	fungi_OG
+3NWF8|Fungi	43	164.66964904464905	O	Proteasome subunit beta	MHS334	fungi_OG
+3NWFC|Fungi	460	912.7753854868663	J	Belongs to the universal ribosomal protein uS5 family	MHS334	fungi_OG
+3NWFI|Fungi	121	448.1481481481481	K	RNA polymerase II	MHS334	fungi_OG
+3NWGS|Fungi	25	85.9106529209622	P	Belongs to the V-ATPase proteolipid subunit family	MHS334	fungi_OG
+3NWIF|Fungi	24	94.11764705882352	GM	epimerase	MHS334	fungi_OG
+3NWIH|Fungi	2	9.00900900900901	O	Belongs to the AAA ATPase family	MHS334	fungi_OG
+3NWIQ|Fungi	220	536.5773497179625	EJ	elongation factor 3	MHS334	fungi_OG
+3NWJI|Fungi	103	192.88389513108612	E	Amino acid permease	MHS334	fungi_OG
+3NWK4|Fungi	110	278.05662805662803	T	Calcium sensor	MHS334	fungi_OG
+3NWKW|Fungi	51	293.1034482758621	C	Catalyzes the NAD( )-dependent oxidation of formate to carbon dioxide. Formate oxidation is the final step in the methanol oxidation pathway in methylotrophic microorganisms. Has a role in the detoxification of exogenous formate in non- methylotrophic organisms	MHS334	fungi_OG
+3NWPQ|Fungi	5	17.892310688856668	AJ	Nucleolar protein	MHS334	fungi_OG
+3NWQY|Fungi	263	454.23143350604494	J	60s ribosomal protein	MHS334	fungi_OG
+3NWRA|Fungi	58	238.68312757201647	DKT	Plays a complex role in regulating the basal catalytic activity of the alpha subunit	MHS334	fungi_OG
+3NWRM|Fungi	24	48.484848484848484	G	Ribose 5-phosphate isomerase	MHS334	fungi_OG
+3NWSK|Fungi	1849	2456.4956048533513	C	Belongs to the mitochondrial carrier (TC 2.A.29) family	MHS334	fungi_OG
+3NWSQ|Fungi	33	127.90697674418604	J	component of the eukaryotic translation initiation factor 3 (eIF-3) complex, which is involved in protein synthesis of a specialized repertoire of mRNAs and, together with other initiation factors, stimulates binding of mRNA and methionyl-tRNAi to the 40S ribosome. The eIF-3 complex specifically targets and initiates translation of a subset of mRNAs involved in cell proliferation	MHS334	fungi_OG
+3NWT8|Fungi	17	67.46031746031746	I	Saccharopine dehydrogenase	MHS334	fungi_OG
+3NWTN|Fungi	8	21.85792349726776	S	2-methylcitrate dehydratase	MHS334	fungi_OG
+3NWW7|Fungi	11	33.33333333333333	B	Belongs to the histone deacetylase family. HD Type 1 subfamily	MHS334	fungi_OG
+3NWY4|Fungi	60	199.4143076279459	J	Component of the ribosome, a large ribonucleoprotein complex responsible for the synthesis of proteins in the cell. The small ribosomal subunit (SSU) binds messenger RNAs (mRNAs) and translates the encoded message by selecting cognate aminoacyl- transfer RNA (tRNA) molecules. The large subunit (LSU) contains the ribosomal catalytic site termed the peptidyl transferase center (PTC), which catalyzes the formation of peptide bonds, thereby polymerizing the amino acids delivered by tRNAs into a polypeptide chain. The nascent polypeptides leave the ribosome through a tunnel in the LSU and interact with protein factors that function in enzymatic processing, targeting, and the membrane insertion of nascent chains at the exit of the ribosomal tunnel. uL10 forms part of the P stalk that participates in recruiting G proteins to the ribosome	MHS334	fungi_OG
+3NWY9|Fungi	41	231.63841807909606	T	GTPase-activating protein	MHS334	fungi_OG
+3NWYF|Fungi	355	1010.8188446493109	J	ribosomal protein	MHS334	fungi_OG
+3NWZC|Fungi	3	12.658227848101266	I	Phenylacetyl-CoA ligase	MHS334	fungi_OG
+3NX08|Fungi	68	294.37229437229433	K	DNA-binding protein creA	MHS334	fungi_OG
+3NX0Y|Fungi	31	107.6388888888889	J	seryl-trna synthetase	MHS334	fungi_OG
+3NX15|Fungi	56	165.19174041297933	I	Belongs to the terpene cyclase mutase family	MHS334	fungi_OG
+3NX1W|Fungi	190	200.42194092827006	K	cp2 transcription factor	MHS334	fungi_OG
+3NX2B|Fungi	71	275.1937984496124	G	Catalyzes the phosphorylation of ribose at O-5 in a reaction requiring ATP and magnesium. The resulting D-ribose-5- phosphate can then be used either for sythesis of nucleotides, histidine, and tryptophan, or as a component of the pentose phosphate pathway	MHS334	fungi_OG
+3NX2E|Fungi	42	117.64705882352942	IM	Ceramide glucosyltransferase	MHS334	fungi_OG
+3NX3C|Fungi	54	168.22429906542055	C	zinc-binding oxidoreductase	MHS334	fungi_OG
+3NX5J|Fungi	120	231.21387283236993	G	transporter	MHS334	fungi_OG
+3NX6Q|Fungi	71	234.32343234323432	H	Belongs to the malate synthase family	MHS334	fungi_OG
+3NX80|Fungi	1063	1895.9250521519152	C	Component of the ubiquinol-cytochrome c reductase complex (complex III or cytochrome b-c1 complex) that is part of the mitochondrial respiratory chain. The b-c1 complex mediates electron transfer from ubiquinol to cytochrome c. Contributes to the generation of a proton gradient across the mitochondrial membrane that is then used for ATP synthesis	MHS334	fungi_OG
+3NX90|Fungi	30	129.87012987012986	O	Proteasome subunit beta	MHS334	fungi_OG
+3NX9E|Fungi	58	219.6969696969697	O	Belongs to the peptidase C19 family	MHS334	fungi_OG
+3NX9R|Fungi	70	133.33333333333331	S	DUF159 domain protein	MHS334	fungi_OG
+3NXB5|Fungi	1501	1523.3576846629826	C	NADH dehydrogenase subunit 2	MHS334	fungi_OG
+3NXEA|Fungi	17	78.08857808857809	P	outer mitochondrial membrane protein porin	MHS334	fungi_OG
+3NXGJ|Fungi	4	17.77777777777778	S	Gpr fun34 family protein	MHS334	fungi_OG
+3NXGM|Fungi	191	467.7422015473186	J	60S ribosomal protein	MHS334	fungi_OG
+3NXHG|Fungi	73	114.77987421383648	C	reductase complex core protein 2	MHS334	fungi_OG
+3NXII|Fungi	84	148.14814814814815	I	o-acyltransferase	MHS334	fungi_OG
+3NXK5|Fungi	1	3.546099290780142	S	Telomere stability and silencing	MHS334	fungi_OG
+3NXKN|Fungi	78	288.88888888888886	O	20S-pre-rRNA D-site endonuclease NOB1	MHS334	fungi_OG
+3NXR8|Fungi	1	3.5087719298245617	E	amino acid	MHS334	fungi_OG
+3NXSP|Fungi	83	201.7851062794883	J	60s ribosomal protein	MHS334	fungi_OG
+3NXUE|Fungi	13	61.904761904761905	U	translocation protein Sec66	MHS334	fungi_OG
+3NXWA|Fungi	81	65.06172839506172	G	Belongs to the glycosyl hydrolase 5 (cellulase A) family	MHS334	fungi_OG
+3NXXB|Fungi	1	3.623188405797101	J	Belongs to the universal ribosomal protein uS19 family	MHS334	fungi_OG
+3NY0G|Fungi	5	23.474178403755868	C	electron transfer flavoprotein-ubiquinone oxidoreductase	MHS334	fungi_OG
+3NY2A|Fungi	1	3.4013605442176873	J	Initiation factor	MHS334	fungi_OG
+3NY3S|Fungi	48	145.45454545454544	S	Peroxisomal membrane protein	MHS334	fungi_OG
+3NY3V|Fungi	66	207.54716981132074	K	Flocculation suppression protein	MHS334	fungi_OG
+3NY3W|Fungi	140	390.1762725292137	O	Belongs to the chaperonin (HSP60) family	MHS334	fungi_OG
+3NY5G|Fungi	311	585.6873822975517	S	integral membrane protein	MHS334	fungi_OG
+3NY6K|Fungi	21	56.45161290322581	S	Protein of unknown function (DUF3429)	MHS334	fungi_OG
+3NY9G|Fungi	22	78.85304659498208	IQ	PQ loop repeat protein	MHS334	fungi_OG
+3NYD5|Fungi	59	265.76576576576576	S	thermophilic desulfurizing enzyme family protein	MHS334	fungi_OG
+3NYDF|Fungi	129	561.4814814814815	C	atp synthase	MHS334	fungi_OG
+3NYFG|Fungi	10	35.46099290780142	O	Plays an important role in the cellular response to the nitrogen source	MHS334	fungi_OG
+3NYGG|Fungi	3138	5795.280974397269	C	Cytochrome c oxidase is the component of the respiratory chain that catalyzes the reduction of oxygen to water. Subunits 1- 3 form the functional core of the enzyme complex. CO I is the catalytic subunit of the enzyme. Electrons originating in cytochrome c are transferred via the copper A center of subunit 2 and heme A of subunit 1 to the bimetallic center formed by heme A3 and copper B	MHS334	fungi_OG
+3NYII|Fungi	60	229.88505747126436	S	tim-barrel enzyme family protein	MHS334	fungi_OG
+3NYJU|Fungi	18	68.9655172413793	Q	short chain dehydrogenase reductase	MHS334	fungi_OG
+3NYK9|Fungi	24	98.76543209876543	O	to Saccharomyces cerevisiae AIR1 (YIL079C) and AIR2 (YDL175C)	MHS334	fungi_OG
+3NYM9|Fungi	330	738.255033557047	Q	nadp-dependent mannitol dehydrogenase	MHS334	fungi_OG
+3NYNM|Fungi	42	97.22222222222223	G	Major Facilitator Superfamily	MHS334	fungi_OG
+3NYQG|Fungi	63	105	J	Belongs to the eukaryotic ribosomal protein eL6 family	MHS334	fungi_OG
+3NYW2|Fungi	67	262.7450980392157	J	endonuclease subunit	MHS334	fungi_OG
+3NYWC|Fungi	149	340.1826484018265	S	Mannose-P-dolichol utilization defect 1	MHS334	fungi_OG
+3NYZB|Fungi	118	463.8473357078008	U	RAN-specific gtpase-activating protein	MHS334	fungi_OG
+3NZ15|Fungi	48	213.33333333333331	D	pre-rrna processing protein rrp12	MHS334	fungi_OG
+3NZ1A|Fungi	2	3.8095238095238093	K	RNA polymerase II subunit A C-terminal domain phosphatase SSU72	MHS334	fungi_OG
+3NZ2W|Fungi	54	98.90109890109889	O	Protein disulfide isomerase	MHS334	fungi_OG
+3NZE1|Fungi	395	917.5796717026103	G	thiamin diphosphate-binding protein	MHS334	fungi_OG
+3NZG9|Fungi	2	7.662835249042145	P	Destroys radicals which are normally produced within the cells and which are toxic to biological systems	MHS334	fungi_OG
+3NZK6|Fungi	267	243.06340644077653	C	Core subunit of the mitochondrial membrane respiratory chain NADH dehydrogenase (Complex I) that is believed to belong to the minimal assembly required for catalysis. Complex I functions in the transfer of electrons from NADH to the respiratory chain. The immediate electron acceptor for the enzyme is believed to be ubiquinone	MHS334	fungi_OG
+3NZP9|Fungi	75	182.48175182481754	OT	otu domain-containing protein	MHS334	fungi_OG
+3NZQR|Fungi	115	157.75034293552812	O	Essential component of the PAM complex, a complex required for the translocation of transit peptide-containing proteins from the inner membrane into the mitochondrial matrix in an ATP-dependent manner	MHS334	fungi_OG
+3NZRZ|Fungi	112	455.2845528455285	S	Pyrimidine 5'-nucleotidase	MHS334	fungi_OG
+3NZS2|Fungi	32	68.81720430107526	T	-domain-containing protein	MHS334	fungi_OG
+3NZVM|Fungi	58	141.11922141119223	S	glycerol dehydrogenase	MHS334	fungi_OG
+3NZVT|Fungi	91	172.65795206971677	P	Destroys radicals which are normally produced within the cells and which are toxic to biological systems	MHS334	fungi_OG
+3NZWT|Fungi	61	151.7412935323383	U	endoplasmic reticulum transmembrane protein	MHS334	fungi_OG
+3NZZX|Fungi	80	163.59918200408998	G	Belongs to the phosphoglycerate mutase family. BPG- dependent PGAM subfamily	MHS334	fungi_OG
+3P005|Fungi	38	130.58419243986256	Z	Tubulin is the major constituent of microtubules. It binds two moles of GTP, one at an exchangeable site on the beta chain and one at a non-exchangeable site on the alpha chain	MHS334	fungi_OG
+3P018|Fungi	130	305.1643192488263	G	mannitol-1-phosphate 5-dehydrogenase	MHS334	fungi_OG
+3P0H0|Fungi	903	1345.2498549211675	C	NADH-ubiquinone oxidoreductase chain 1	MHS334	fungi_OG
+3P0H4|Fungi	40	162.60162601626016	S	Catalyzes the conversion of methylglyoxal (MG) to D- lactate in a single glutathione (GSH)-independent step. May play a role in detoxifying endogenously produced glyoxals. Involved in protection against reactive oxygen species (ROS)	MHS334	fungi_OG
+3P0JM|Fungi	138	247.31182795698922	S	Secretory lipase	MHS334	fungi_OG
+3P0K6|Fungi	441	923.0418534530611	C	atp synthase	MHS334	fungi_OG
+3P0NA|Fungi	46	176.24521072796935	C	Pyridine nucleotide-disulphide oxidoreductase, dimerisation domain	MHS334	fungi_OG
+3P0RI|Fungi	18	50	UY	Nup85 Nucleoporin	MHS334	fungi_OG
+3P0XH|Fungi	1	6.172839506172839	P	Cytochrome b561	MHS334	fungi_OG
+3P1R2|Fungi	581	1646.6713405345522	J	Belongs to the universal ribosomal protein uS15 family	MHS334	fungi_OG
+3P1R7|Fungi	170	494.72297427080326	J	Belongs to the eukaryotic ribosomal protein eS12 family	MHS334	fungi_OG
+3P1RH|Fungi	14	58.333333333333336	J	Belongs to the universal ribosomal protein uL22 family	MHS334	fungi_OG
+3P1RT|Fungi	124	336.5285961363703	B	histone h3	MHS334	fungi_OG
+3P1RU|Fungi	22	82.39700374531834	J	Belongs to the universal ribosomal protein uL14 family	MHS334	fungi_OG
+3P1RZ|Fungi	165	441.0406504065041	J	Belongs to the universal ribosomal protein uS9 family	MHS334	fungi_OG
+3P1SD|Fungi	35	149.57264957264957	O	PPIases accelerate the folding of proteins. It catalyzes the cis-trans isomerization of proline imidic peptide bonds in oligopeptides	MHS334	fungi_OG
+3P1TH|Fungi	99	307.2039072039072	P	Proton-conducting pore forming subunit of the membrane integral V0 complex of vacuolar ATPase. V-ATPase is responsible for acidifying a variety of intracellular compartments in eukaryotic cells	MHS334	fungi_OG
+3P1TN|Fungi	14	83.48271446862995	J	ribosomal protein	MHS334	fungi_OG
+3P1U0|Fungi	58	187.70226537216828	S	NA	MHS334	fungi_OG
+3P1VJ|Fungi	84	314.6067415730337	J	translation machinery-associated protein 22	MHS334	fungi_OG
+3P1W8|Fungi	21	78.65168539325842	O	Glutathione S-transferase, N-terminal domain	MHS334	fungi_OG
+3P1WJ|Fungi	72	134.83146067415728	J	Ribosome biogenesis protein rlp24	MHS334	fungi_OG
+3P1YW|Fungi	115	297.3009734902511	J	40s ribosomal protein s19	MHS334	fungi_OG
+3P1Z7|Fungi	106	484.01826484018267	S	isoflavone reductase family protein	MHS334	fungi_OG
+3P20Z|Fungi	531	1749.6353584395551	J	Belongs to the universal ribosomal protein uS12 family	MHS334	fungi_OG
+3P21X|Fungi	1	3.8314176245210727	E	Catalyzes the formation of formate and 2-keto-4- methylthiobutyrate (KMTB) from 1,2-dihydroxy-3-keto-5- methylthiopentene (DHK-MTPene)	MHS334	fungi_OG
+3P222|Fungi	284	424.51420029895365	J	Belongs to the eukaryotic ribosomal protein eL13 family	MHS334	fungi_OG
+3P23V|Fungi	32	150.23474178403757	K	Transcription factor	MHS334	fungi_OG
+3P24F|Fungi	213	462.9848008385744	E	Belongs to the glutathione peroxidase family	MHS334	fungi_OG
+3P25U|Fungi	1	5.46448087431694	S	NA	MHS334	fungi_OG
+3P274|Fungi	160	242.4242424242424	F	Nucleoside diphosphate kinase	MHS334	fungi_OG
+3P285|Fungi	37	87.3932697137117	J	60s ribosomal protein	MHS334	fungi_OG
+3P286|Fungi	75	99.60159362549801	S	Tetratricopeptide repeat domain containing protein	MHS334	fungi_OG
+3P28W|Fungi	248	745.8796060039043	J	60S ribosomal protein L24	MHS334	fungi_OG
+3P2A4|Fungi	3	6.41025641025641	Q	thioesterase	MHS334	fungi_OG
+3P2B2|Fungi	36	109.09090909090908	J	Belongs to the universal ribosomal protein uS13 family	MHS334	fungi_OG
+3P2BQ|Fungi	65	225.69444444444446	K	Nascent polypeptide-associated complex subunit beta	MHS334	fungi_OG
+3P2CU|Fungi	71	125.2204585537919	S	NADH-ubiquinone oxidoreductase 21 kDa subunit	MHS334	fungi_OG
+3P2EH|Fungi	342	644.0677966101695	O	Redoxin	MHS334	fungi_OG
+3P2I4|Fungi	51	149.12280701754383	I	LAGLIDADG endonuclease	MHS334	fungi_OG
+3P2NF|Fungi	31	107.6388888888889	O	co-chaperone	MHS334	fungi_OG
+3P2QG|Fungi	1	4.385964912280701	U	Mitochondrial import receptor subunit tom20	MHS334	fungi_OG
+3P2QP|Fungi	338	905.0250626566416	C	Scaffold protein for the de novo synthesis of iron- sulfur (Fe-S) clusters within mitochondria, which is required for maturation of both mitochondrial and cytoplasmic 2Fe-2S and 4Fe-4S proteins	MHS334	fungi_OG
+3P2RD|Fungi	34	130.26819923371647	O	peptide methionine sulfoxide reductase	MHS334	fungi_OG
+3P2RM|Fungi	40	87.14596949891067	J	40s ribosomal protein s17	MHS334	fungi_OG
+3P2SB|Fungi	1	3.367003367003367	S	Putative adipose-regulatory protein (Seipin)	MHS334	fungi_OG
+3P2TD|Fungi	39	139.78494623655914	B	Histone H2a	MHS334	fungi_OG
+3P2TP|Fungi	109	356.2091503267974	S	NA	MHS334	fungi_OG
+3P2TQ|Fungi	105	231.78807947019868	J	ribosomal protein	MHS334	fungi_OG
+3P2TW|Fungi	73	181.59203980099502	S	NmrA-like family	MHS334	fungi_OG
+3P2U5|Fungi	21	66.07512311682257	O	Belongs to the glutaredoxin family. Monothiol subfamily	MHS334	fungi_OG
+3P2UG|Fungi	279	655.7885361119862	J	Seems to be required for maximal rate of protein biosynthesis. Enhances ribosome dissociation into subunits and stabilizes the binding of the initiator Met-tRNA(I) to 40 S ribosomal subunits	MHS334	fungi_OG
+3P2W4|Fungi	404	1045.4609204383803	J	60s ribosomal protein l32	MHS334	fungi_OG
+3P2WB|Fungi	175	435.3233830845771	J	60S ribosomal protein L22	MHS334	fungi_OG
+3P2XK|Fungi	51	157.4074074074074	J	Belongs to the universal ribosomal protein uS8 family	MHS334	fungi_OG
+3P2XV|Fungi	47	195.83333333333334	S	nadh-ubiquinone oxidoreductase 21.3 kda subunit	MHS334	fungi_OG
+3P2YN|Fungi	50	266.47882513661204	J	Belongs to the eukaryotic ribosomal protein eL27 family	MHS334	fungi_OG
+3P2Z6|Fungi	24	70.17543859649122	S	keto- reductase	MHS334	fungi_OG
+3P2ZU|Fungi	42	168.67469879518072	J	ribosomal protein	MHS334	fungi_OG
+3P333|Fungi	3	11.904761904761905	J	Belongs to the eukaryotic ribosomal protein eS24 family	MHS334	fungi_OG
+3P342|Fungi	36	88.23529411764706	B	Variant histone H2A which can replace H2A in some nucleosomes. Nucleosomes wrap and compact DNA into chromatin, limiting DNA accessibility to the cellular machineries which require DNA as a template. Histones thereby play a central role in transcription regulation, DNA repair, DNA replication and chromosomal stability. DNA accessibility is regulated via a complex set of post-translational modifications of histones, also called histone code, and nucleosome remodeling. This variant is enriched at promoters, it may keep them in a repressed state until the appropriate activation signal is received. Near telomeres, it may counteract gene silencing caused by the spread of heterochromatin proteins. Required for the RNA polymerase II and SPT15 TBP recruitment to the target genes. Involved in chromosome stability (By similarity)	MHS334	fungi_OG
+3P34B|Fungi	1	3.7037037037037033	C	Mitochondrial membrane ATP synthase (F(1)F(0) ATP synthase or Complex V) produces ATP from ADP in the presence of a proton gradient across the membrane which is generated by electron transport complexes of the respiratory chain. F-type ATPases consist of two structural domains, F(1) - containing the extramembraneous catalytic core, and F(0) - containing the membrane proton channel, linked together by a central stalk and a peripheral stalk. During catalysis, ATP synthesis in the catalytic domain of F(1) is coupled via a rotary mechanism of the central stalk subunits to proton translocation. Part of the complex F(0) domain and the peripheric stalk, which acts as a stator to hold the catalytic alpha(3)beta(3) subcomplex and subunit a ATP6 static relative to the rotary elements	MHS334	fungi_OG
+3P3DF|Fungi	69	245.19713261648747	J	Translation Initiation Factor	MHS334	fungi_OG
+3P3MV|Fungi	75	245.09803921568627	S	LAGLIDADG endonuclease	MHS334	fungi_OG
+3P3N3|Fungi	177	346.41449960598896	O	Belongs to the peptidase A1 family	MHS334	fungi_OG
+3P3UI|Fungi	76	229.443173150267	C	cytochrome C oxidase	MHS334	fungi_OG
+3P3VF|Fungi	249	631.4982405922801	J	40S ribosomal protein S20	MHS334	fungi_OG
+3P3VN|Fungi	1	3.623188405797101	J	ribosomal protein	MHS334	fungi_OG
+3P3VQ|Fungi	174	402.77777777777777	J	40s ribosomal protein	MHS334	fungi_OG
+3P3W3|Fungi	41	267.9738562091503	K	dna-directed rna	MHS334	fungi_OG
+3P3WN|Fungi	3	11.76470588235294	I	Carrier of the growing fatty acid chain in fatty acid biosynthesis	MHS334	fungi_OG
+3P3WW|Fungi	70	220.59583684965472	C	Electron carrier protein. The oxidized form of the cytochrome c heme group can accept an electron from the heme group of the cytochrome c1 subunit of cytochrome reductase. Cytochrome c then transfers this electron to the cytochrome oxidase complex, the final protein carrier in the mitochondrial electron-transport chain	MHS334	fungi_OG
+3P3X9|Fungi	49	161.11111111111111	O	prefoldin subunit 2	MHS334	fungi_OG
+3P3YN|Fungi	117	499.91516047854077	CD	nadh-ubiquinone oxidoreductase subunit grim-19	MHS334	fungi_OG
+3P3Z6|Fungi	178	607.1135695823125	J	Belongs to the eukaryotic ribosomal protein eL42 family	MHS334	fungi_OG
+3P3ZG|Fungi	38	100.52910052910053	J	60s ribosomal protein l35	MHS334	fungi_OG
+3P3ZX|Fungi	192	680.9098139373368	B	Core component of nucleosome. Nucleosomes wrap and compact DNA into chromatin, limiting DNA accessibility to the cellular machineries which require DNA as a template. Histones thereby play a central role in transcription regulation, DNA repair, DNA replication and chromosomal stability. DNA accessibility is regulated via a complex set of post-translational modifications of histones, also called histone code, and nucleosome remodeling	MHS334	fungi_OG
+3P404|Fungi	341	1385.432947156023	J	60S ribosomal protein	MHS334	fungi_OG
+3P40N|Fungi	474	1907.0714419045796	J	Belongs to the eukaryotic ribosomal protein eS26 family	MHS334	fungi_OG
+3P40Q|Fungi	44	114.51434878587196	K	factor 1	MHS334	fungi_OG
+3P414|Fungi	12	45.97701149425287	A	RNA-binding la domain protein	MHS334	fungi_OG
+3P41A|Fungi	187	798.5821770813138	J	60S ribosomal protein	MHS334	fungi_OG
+3P427|Fungi	158	313.4920634920635	O	Redoxin	MHS334	fungi_OG
+3P44Q|Fungi	232	450.59334597304166	P	oxidoreductase chain 6	MHS334	fungi_OG
+3P46H|Fungi	34	143.45991561181435	K	DNA-directed RNA polymerases i	MHS334	fungi_OG
+3P4B8|Fungi	341	1078.5762909134723	J	ribosomal protein	MHS334	fungi_OG
+3P4CI|Fungi	2	9.08766928011404	J	ribosomal protein	MHS334	fungi_OG
+3P4EF|Fungi	197	200.81549439347606	S	NA	MHS334	fungi_OG
+3P4GV|Fungi	32	183.9080459770115	P	Belongs to the ATPase C chain family	MHS334	fungi_OG
+3P4P8|Fungi	1	3.9215686274509802	KL	transposase	MHS334	fungi_OG
+3P4S8|Fungi	1	4.62962962962963	S	Disordered region of unknown function (DUF5315)	MHS334	fungi_OG
+3P4XY|Fungi	1653	3852.5314291443324	O	peroxiredoxin	MHS334	fungi_OG
+3P53R|Fungi	187	559.024878944732	J	Belongs to the eukaryotic ribosomal protein eL36 family	MHS334	fungi_OG
+3P542|Fungi	96	377.31188466947964	A	Small nuclear ribonucleoprotein	MHS334	fungi_OG
+3P54B|Fungi	83	211.19592875318065	S	NA	MHS334	fungi_OG
+3P54H|Fungi	148	550.4409810317748	J	Binds to the 23S rRNA	MHS334	fungi_OG
+3P557|Fungi	64	335.0375862424055	J	40s ribosomal protein s27	MHS334	fungi_OG
+3P579|Fungi	39	126.2135922330097	O	peptidyl-prolyl isomerase	MHS334	fungi_OG
+3P583|Fungi	77	396.68759949962634	J	40s ribosomal protein s28	MHS334	fungi_OG
+3P58J|Fungi	17	43.58974358974359	K	DNA-directed RNA polymerase i and iii	MHS334	fungi_OG
+3P5A0|Fungi	177	644.3583667423699	O	Belongs to the thioredoxin family	MHS334	fungi_OG
+3P5AF|Fungi	2	9.66183574879227	A	Small nuclear ribonucleoprotein	MHS334	fungi_OG
+3P5AW|Fungi	224	768.8457250105974	J	ribosomal protein L14	MHS334	fungi_OG
+3P5B7|Fungi	42	177.21518987341773	O	Ubiquitin-like protein	MHS334	fungi_OG
+3P5BS|Fungi	110	420.3855265779387	C	This protein is one of the nuclear-coded polypeptide chains of cytochrome c oxidase, the terminal oxidase in mitochondrial electron transport	MHS334	fungi_OG
+3P5CA|Fungi	83	310.15978089403745	J	Required for the processing of the 20S rRNA-precursor to mature 18S rRNA in a late step of the maturation of 40S ribosomal subunits. Has a physiological role leading to 18S rRNA stability	MHS334	fungi_OG
+3P5CB|Fungi	20	69.44444444444444	C	Core subunit of the mitochondrial membrane respiratory chain NADH dehydrogenase (Complex I) that is believed to belong to the minimal assembly required for catalysis. Complex I functions in the transfer of electrons from NADH to the respiratory chain. The immediate electron acceptor for the enzyme is believed to be ubiquinone	MHS334	fungi_OG
+3P5EJ|Fungi	18	71.42857142857143	C	Cytochrome b5	MHS334	fungi_OG
+3P5FF|Fungi	48	197.53086419753086	S	duf408 domain protein	MHS334	fungi_OG
+3P5FU|Fungi	128	346.88346883468836	S	Domain of unknown function (DUF4748)	MHS334	fungi_OG
+3P5GY|Fungi	93	246.03174603174602	S	NA	MHS334	fungi_OG
+3P5HS|Fungi	181	586.2173570132007	J	Belongs to the eukaryotic ribosomal protein P1 P2 family	MHS334	fungi_OG
+3P5PD|Fungi	20	85.47008547008546	S	FUN14 family	MHS334	fungi_OG
+3P5PV|Fungi	368	1434.387349966044	J	40S ribosomal protein S25	MHS334	fungi_OG
+3P5QE|Fungi	46	161.40350877192984	S	MAPEG family	MHS334	fungi_OG
+3P5VP|Fungi	11	20.833333333333332	G	alpha beta-hydrolase	MHS334	fungi_OG
+3P60M|Fungi	20	71.68458781362007	S	NA	MHS334	fungi_OG
+3P6KV|Fungi	15	89.28571428571428	J	40S ribosomal protein S29	MHS334	fungi_OG
+3P6KZ|Fungi	70	137.2549019607843	S	RNase P subunit Pop3	MHS334	fungi_OG
+3P6N1|Fungi	47	141.95670995670997	U	mitochondrial import receptor subunit tom22	MHS334	fungi_OG
+3P6PD|Fungi	135	542.1686746987951	S	NA	MHS334	fungi_OG
+3P6SR|Fungi	66	125	S	Protein of unknown function (DUF3602)	MHS334	fungi_OG
+3P6SS|Fungi	98	516.1346661835149	J	Belongs to the eukaryotic ribosomal protein eS30 family	MHS334	fungi_OG
+3P6XJ|Fungi	33	215.95304788582098	J	60s ribosomal protein l39	MHS334	fungi_OG
+3P6Y1|Fungi	3	16.19239244993772	S	unnamed protein	MHS334	fungi_OG
+3P6YG|Fungi	88	282.05128205128204	S	NADH dehydrogenase (ubiquinone) Fe-S protein 5	MHS334	fungi_OG
+3P73V|Fungi	40	110.19283746556474	S	NA	MHS334	fungi_OG
+3P75Y|Fungi	37	95.60723514211887	S	Extracellular mutant protein 11	MHS334	fungi_OG
+3P79M|Fungi	11	42.1455938697318	S	Heat shock protein	MHS334	fungi_OG
+3P7BC|Fungi	2253	9412.303164985258	P	Belongs to the ATPase C chain family	MHS334	fungi_OG
+3P7D2|Fungi	99	412.5	C	Cytochrome c oxidase subunit	MHS334	fungi_OG
+3P7PZ|Fungi	27	88.23529411764706	S	DNA polymerase delta, subunit 4	MHS334	fungi_OG
+3P7S3|Fungi	80	350.8771929824561	S	Protein of unknown function (DUF2945)	MHS334	fungi_OG
+3P7SJ|Fungi	38	143.93939393939394	S	Transcription factor	MHS334	fungi_OG
+3P7V5|Fungi	11	23.35456475583864	J	NA	MHS334	fungi_OG
+3P7ZQ|Fungi	69	277.10843373493975	O	Thioredoxin	MHS334	fungi_OG
+3P85H|Fungi	125	289.35185185185185	S	Secreted protein	MHS334	fungi_OG
+3P8HZ|Fungi	56	122.00435729847494	S	NA	MHS334	fungi_OG
+3P8IR|Fungi	42	233.33333333333334	S	atp synthase epsilon chain	MHS334	fungi_OG
+3P8K6|Fungi	48	177.77777777777777	J	Belongs to the bacterial ribosomal protein bS18 family	MHS334	fungi_OG
+3P8MY|Fungi	27	130.43478260869566	S	inhibitor	MHS334	fungi_OG
+3P8XK|Fungi	28	87.22741433021807	S	NA	MHS334	fungi_OG
+3P94E|Fungi	49	230.05981612534157	S	NA	MHS334	fungi_OG
+3P9DK|Fungi	39	111.11111111111111	J	30S ribosomal protein S17	MHS334	fungi_OG
+3PAJD|Fungi	21	122.80701754385964	S	NA	MHS334	fungi_OG
+3PCT9|Fungi	7	17.676767676767675	Q	2-oxopent-4-enoate hydratase activity	MHS334	fungi_OG
+3PE60|Fungi	255	543.872782541627	S	LAGLIDADG endonuclease	MHS334	fungi_OG
+3PEGK|Fungi	18	70.58823529411765	S	NA	MHS334	fungi_OG
+3PHHK|Fungi	454	645.5981065456098	S	NAD-specific glutamate dehydrogenase	MHS334	fungi_OG
+3PHPM|Fungi	282	376	S	thaumatin domain protein	MHS334	fungi_OG
+3PKSB|Fungi	136	328.5024154589372	S	NA	MHS334	fungi_OG
+3PM6V|Fungi	87	155.05509308832166	S	NA	MHS334	fungi_OG
+3PNHA|Fungi	602	299.95017438963623	P	NADH dehydrogenase (quinone) activity	MHS334	fungi_OG
+3PNHB|Fungi	73	214.7043646096751	P	NADH dehydrogenase (quinone) activity	MHS334	fungi_OG
+3PUJR|Fungi	145	406.1624649859944	S	NA	MHS334	fungi_OG
+3PUV1|Fungi	1	4.11522633744856	J	S25 ribosomal protein	MHS334	fungi_OG
+3PV05|Fungi	42	189.1891891891892	S	NA	MHS334	fungi_OG
+3Q10T|Fungi	167	445.3333333333333	F	mRNA biogenesis factor	MHS334	fungi_OG
+3Q1HQ|Fungi	25	154.320987654321	U	NA	MHS334	fungi_OG
+3Q3I8|Fungi	33	125	K	Histone acetyltransferase	MHS334	fungi_OG
+3Q3JB|Fungi	27	92.78350515463919	O	RING-like zinc finger	MHS334	fungi_OG
+3Q3M1|Fungi	31	147.9076479076479	J	ubiquitin-60s ribosomal protein l40	MHS334	fungi_OG
+3Q3SJ|Fungi	13	63.52296488571635	S	SCP-2 sterol transfer family	MHS334	fungi_OG
+3Q3ZN|Fungi	117	286.764705882353	O	PPIases accelerate the folding of proteins. It catalyzes the cis-trans isomerization of proline imidic peptide bonds in oligopeptides	MHS334	fungi_OG
+3Q48R|Fungi	94	522.2222222222223	T	camk protein kinase	MHS334	fungi_OG
+3Q4DX|Fungi	160	350.8771929824561	G	Glycosyl hydrolase	MHS334	fungi_OG
+3Q54I|Fungi	34	54.750402576489535	S	NA	MHS334	fungi_OG

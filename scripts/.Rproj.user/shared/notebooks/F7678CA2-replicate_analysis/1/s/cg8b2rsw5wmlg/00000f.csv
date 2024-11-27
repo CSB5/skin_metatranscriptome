@@ -1,0 +1,58 @@
+"0",""
+"0","metadata <- read_tsv(""../metadata/skin_mtx_metadata_fmt.txt"", show_col_types = FALSE)"
+"0",""
+"0",""
+"0","tech_reps_a <- metadata %>% dplyr::filter(subj_region %in% c(""SMT001_Tw"",""SMT023_Ch"",""SMT023_Ac"") & mol_type==""RNA"")"
+"0","tech_reps_b <- metadata %>% dplyr::filter(comments == ""technical replicate analysis"" & subj_region != ""3 Bac (VV:LM:PS)"")"
+"0",""
+"0","tech_reps <- c(tech_reps_a$LIBID, tech_reps_b$LIBID)"
+"0",""
+"0","tech_reps_metadata <- metadata %>% dplyr::filter(LIBID %in% tech_reps) "
+"0","	"
+"0",""
+"0","#metadata for the longitudinal cohort"
+"0","longitudinal_metadata <- read_tsv(""../metadata/skin_mtx_longitudinal_metadata.txt"") %>% "
+"0","  dplyr::filter(!subject %in% c(""Neg012"",""Neg013"",""Neg014""))"
+"1","[1mRows: [22m[34m48[39m [1mColumns: [22m[34m5[39m
+"
+"1","[36m──[39m [1mColumn specification[22m [36m────────────────────────────────────────────────────────────────────────────────────────────────────────────────[39m
+[1mDelimiter:[22m ""\t""
+[31mchr[39m (5): subj_region, subject, region, low_conc, mol_type
+"
+"1","
+[36mℹ[39m Use `spec()` to retrieve the full column specification for this data.
+[36mℹ[39m Specify the column types or set `show_col_types = FALSE` to quiet this message.
+"
+"0","longitudinal_metadata$LIBID <- longitudinal_metadata$subj_region"
+"0","longitudinal_metadata$sequenced <- ifelse(longitudinal_metadata$low_conc == ""fail"", FALSE, TRUE)"
+"0","longitudinal_metadata <- longitudinal_metadata %>% mutate_at('sequenced', ~replace_na(.,TRUE))"
+"0",""
+"0","#Only ""passed"" samples were sent for sequencing"
+"0","longitudinal_metadata_passed <- longitudinal_metadata %>% dplyr::filter(sequenced == TRUE)"
+"0",""
+"0",""
+"0","#load disbiome and microphenoDB results for genera reported on skin, both for mgx and mtx data"
+"0",""
+"0","disbiome_skin_res <- read_tsv(""../metadata/mtx_contam_genera.tsv"")"
+"1","[1mRows: [22m[34m72[39m [1mColumns: [22m[34m6[39m
+"
+"1","[36m──[39m [1mColumn specification[22m [36m────────────────────────────────────────────────────────────────────────────────────────────────────────────────[39m
+[1mDelimiter:[22m ""\t""
+[31mchr[39m (1): name
+[33mlgl[39m (5): reported_for_skin_disease_in_disbiome, MTX_neg_ctrl, MGX_neg_ctrl, reported_on_skin_in_microphenoDB, pubmed_skin_microbiome
+"
+"1","
+[36mℹ[39m Use `spec()` to retrieve the full column specification for this data.
+[36mℹ[39m Specify the column types or set `show_col_types = FALSE` to quiet this message.
+"
+"0","genera_to_remove <- c(disbiome_skin_res %>% "
+"0","                        filter(reported_for_skin_disease_in_disbiome == FALSE & "
+"0","                                 reported_on_skin_in_microphenoDB ==FALSE &"
+"0","                                 pubmed_skin_microbiome == FALSE) %>% "
+"0","                        pull(name), ""Homo"", ""Listeria"", ""Plesiomonas"", ""Vibrio"") #34 candidates to remove"
+"0",""
+"0","genera_mask <- stringi::stri_paste(""^"",genera_to_remove, collapse=""|"")"
+"0",""
+"0","#Derived from sparCC correlation analysis. Should add Homo_sapiens and unclassified to this"
+"0","species_to_remove <- read_tsv(""../metadata/species_to_remove"", col_names = FALSE, show_col_types = FALSE) %>% pull(X1)"
+"0",""

@@ -1,0 +1,7 @@
+"0",""
+"0",""
+"0",""
+"0","#Show for Ac"
+"0","ggplot(pilot_method_comparison_for_plot %>% dplyr::filter(region==""Ac""), aes(x= DV200, y = (RNA_conc_ng_per_ul))) + "
+"0","  geom_point(aes(shape=factor(rRNA_peaks), color=factor(method_used_in_manuscript)), size=2.5) +"
+"0","  theme_classic() + scale_shape_manual(values=c(1,19)) + ggtitle(""RNA from antecubital fossae"")"

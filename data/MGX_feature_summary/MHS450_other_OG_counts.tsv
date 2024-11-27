@@ -1,0 +1,839 @@
+other_OG	read_count_sum	RPK_sum	other_eggnog_cat	other_eggnog_desc	LIBID	feature_class
+1MDJP|Others	7	14.675052410901468	J	Exosome complex exonuclease MTR3. Source PGD	MHS450	other_OG
+1MGM6|Others	24	40.816326530612244	S	Leucine Rich Repeat	MHS450	other_OG
+1MGQ9|Others	7	21.604938271604937	O	Glutaredoxin	MHS450	other_OG
+1MJ9X|Others	14	27.944111776447105	S	Source PGD	MHS450	other_OG
+1MK9K|Others	6	19.047619047619047	S	NAD-specific glutamate dehydrogenase. Source PGD	MHS450	other_OG
+23NJK|Others	9	10.676156583629894	E	The alpha subunit is responsible for the aldol cleavage of indoleglycerol phosphate to indole and glyceraldehyde 3- phosphate	MHS450	other_OG
+23NVW|Others	25	34.585048010973935	F	Belongs to the dCTP deaminase family	MHS450	other_OG
+23PUF|Others	8	21.84422155959158	E	Catalyzes the NAD( )-dependent oxidative deamination of L-alanine to pyruvate, and the reverse reaction, the reductive amination of pyruvate	MHS450	other_OG
+23QIJ|Others	44	28.0970625798212	F	Catalyzes the ATP-dependent amination of UTP to CTP with either L-glutamine or ammonia as the source of nitrogen. Regulates intracellular CTP levels through interactions with the four ribonucleotide triphosphates	MHS450	other_OG
+23QQ9|Others	5	8.635578583765113	S	Belongs to the UPF0210 family	MHS450	other_OG
+23R5T|Others	3	7.299270072992702	S	Uncharacterized conserved protein (DUF2304)	MHS450	other_OG
+23RBN|Others	3	5.405405405405405	M	Catalyzes the epimerization of the C3' and C5'positions of dTDP-6-deoxy-D-xylo-4-hexulose, forming dTDP-6-deoxy-L-lyxo-4- hexulose	MHS450	other_OG
+23RH1|Others	44	26.143790849673202	P	PFAM TrkA-N domain protein	MHS450	other_OG
+23RWN|Others	19	41.53040333944857	C	COG2141 Coenzyme F420-dependent N5,N10-methylene tetrahydromethanopterin reductase and related flavin-dependent oxidoreductases	MHS450	other_OG
+23RXX|Others	5	10.964912280701753	O	COG0464 ATPases of the AAA class	MHS450	other_OG
+23S10|Others	32	35.79418344519016	G	COG3387 Glucoamylase and related glycosyl hydrolases	MHS450	other_OG
+23S1J|Others	5	17.921146953405017	E	transport systems, ATPase components	MHS450	other_OG
+23S1M|Others	2	4.566210045662101	N	COG0630 Type IV secretory pathway, VirB11 components, and related ATPases involved in archaeal flagella biosynthesis	MHS450	other_OG
+23S45|Others	2	3.5650623885918	J	RNA-binding protein (contains KH domains)	MHS450	other_OG
+23S4E|Others	4	4.796163069544365	S	hydrolases or acyltransferases (alpha beta hydrolase superfamily)	MHS450	other_OG
+23S6A|Others	3	5.3475935828877	L	COG0582 Integrase	MHS450	other_OG
+23S6W|Others	4	5.333333333333333	K	DNA binding protein	MHS450	other_OG
+23S6X|Others	16	42.41433283023086	P	copper-translocating P-type ATPase	MHS450	other_OG
+23S6Z|Others	11	17.377567140600316	T	COG2202 FOG PAS PAC domain	MHS450	other_OG
+23S7C|Others	183	177.84256559766766	L	DEAD DEAH box helicase	MHS450	other_OG
+23S81|Others	2	6.666666666666667	E	Serine-pyruvate aminotransferase archaeal aspartate aminotransferase	MHS450	other_OG
+23S8X|Others	1	3.745318352059925	E	Part of a heterotetrameric complex that catalyzes the two-step biosynthesis of anthranilate, an intermediate in the biosynthesis of L-tryptophan. In the first step, the glutamine- binding beta subunit (TrpG) of anthranilate synthase (AS) provides the glutamine amidotransferase activity which generates ammonia as a substrate that, along with chorismate, is used in the second step, catalyzed by the large alpha subunit of AS (TrpE) to produce anthranilate. In the absence of TrpG, TrpE can synthesize anthranilate directly from chorismate and high concentrations of ammonia	MHS450	other_OG
+23S98|Others	4	8.771929824561402	O	ATPase which is responsible for recognizing, binding, unfolding and translocation of substrate proteins into the archaeal 20S proteasome core particle. Is essential for opening the gate of the 20S proteasome via an interaction with its C- terminus, thereby allowing substrate entry and access to the site of proteolysis. Thus, the C-termini of the proteasomal ATPase function like a 'key in a lock' to induce gate opening and therefore regulate proteolysis. Unfolding activity requires energy from ATP hydrolysis, whereas ATP binding alone promotes ATPase-20S proteasome association which triggers gate opening, and supports translocation of unfolded substrates	MHS450	other_OG
+23S9K|Others	14	22.653721682847898	E	Glyoxalase bleomycin resistance protein dioxygenase	MHS450	other_OG
+23S9W|Others	4	12.820512820512821	L	PFAM Transposase DDE domain	MHS450	other_OG
+23SB2|Others	4	19.32367149758454	L	COG0675 Transposase and inactivated derivatives	MHS450	other_OG
+23SGU|Others	1	3.546099290780142	E	Belongs to the CarA family	MHS450	other_OG
+23SJ7|Others	249	205.95533498759303	L	DNA-dependent ATPase and 3'-5' DNA helicase that may be involved in repair of stalled replication forks	MHS450	other_OG
+23SJH|Others	15	16.233766233766232	E	periplasmic protein kinase ArgK and related GTPases of G3E family	MHS450	other_OG
+23SMU|Others	6	6.41025641025641	Q	Phenylacetate-CoA oxygenase subunit PaaA	MHS450	other_OG
+23SNZ|Others	4	18.51851851851852	E	Threonine dehydratase	MHS450	other_OG
+23SSF|Others	9	21.27659574468085	E	COG3839 ABC-type sugar transport systems, ATPase components	MHS450	other_OG
+23STJ|Others	6	11.904761904761905	I	COG0183 Acetyl-CoA acetyltransferase	MHS450	other_OG
+23SW6|Others	14	13.48747591522158	D	Binds and transfers iron-sulfur (Fe-S) clusters to target apoproteins. Can hydrolyze ATP	MHS450	other_OG
+23T26|Others	12	8.368200836820083	F	HTTM domain protein	MHS450	other_OG
+23T6H|Others	3	3.6363636363636367	I	Acetyl-CoA carboxylase, carboxyltransferase component (subunits alpha and beta)	MHS450	other_OG
+23T85|Others	4	7.707129094412331	S	zinc metalloprotease whose natural substrate is	MHS450	other_OG
+23T9M|Others	4	13.60544217687075	L	nuclease of the RecB family	MHS450	other_OG
+23TAK|Others	1	3.623188405797101	V	COG1131 ABC-type multidrug transport system, ATPase component	MHS450	other_OG
+23TB8|Others	7	10.606060606060606	S	IMG reference gene	MHS450	other_OG
+23TBV|Others	15	18.315018315018317	H	Catalyzes two steps in the biosynthesis of coenzyme A. In the first step cysteine is conjugated to 4'-phosphopantothenate to form 4-phosphopantothenoylcysteine, in the latter compound is decarboxylated to form 4'-phosphopantotheine	MHS450	other_OG
+23TDT|Others	8	13.201320132013201	Q	COG3670 Lignostilbene-alpha,beta-dioxygenase and related enzymes	MHS450	other_OG
+23TN7|Others	3	4.166666666666667	K	Transcriptional regulator	MHS450	other_OG
+23TX9|Others	1	3.5087719298245617	L	Transposase and inactivated derivatives	MHS450	other_OG
+23TXD|Others	13	9.44081336238199	G	Belongs to the phosphohexose mutase family	MHS450	other_OG
+23U5S|Others	13	8.513425016371972	H	NADPH-quinone reductase (modulator of drug activity B)	MHS450	other_OG
+23UA2|Others	2	6.600660066006601	O	Belongs to the serpin family	MHS450	other_OG
+23UFZ|Others	10	14.367816091954024	S	COG0491 Zn-dependent hydrolases, including glyoxylases	MHS450	other_OG
+23UJY|Others	16	40.712468193384225	E	COG0076 Glutamate decarboxylase and related PLP-dependent proteins	MHS450	other_OG
+23UQJ|Others	2	7.246376811594202	L	Transposase and inactivated derivatives	MHS450	other_OG
+23UUT|Others	475	772.3577235772358	L	Transposase Tn5 dimerisation domain	MHS450	other_OG
+23V5P|Others	49	88.76811594202898	Q	COG1335 Amidases related to nicotinamidase	MHS450	other_OG
+23VDS|Others	3	6.8965517241379315	J	This protein is one of the early assembly proteins of the 50S ribosomal subunit, although it is not seen to bind rRNA by itself. It is important during the early stages of 50S assembly	MHS450	other_OG
+23VEN|Others	5	14.367816091954024	K	COG2202 FOG PAS PAC domain	MHS450	other_OG
+23VIY|Others	4	10.840108401084011	E	Catalyzes the hydrolysis of the adenine ring of phosphoribosyl-AMP	MHS450	other_OG
+23VIZ|Others	4	10.335917312661499	J	Located on the platform of the 30S subunit	MHS450	other_OG
+23VJM|Others	6	6.389776357827476	O	Pyridine nucleotide-disulphide oxidoreductase	MHS450	other_OG
+23VNC|Others	9	17.341040462427745	S	membrane	MHS450	other_OG
+23VND|Others	6	13.88888888888889	K	COG1321 Mn-dependent transcriptional regulator	MHS450	other_OG
+23VQJ|Others	4	9.00900900900901	T	COG0589 Universal stress protein UspA and related nucleotide-binding proteins	MHS450	other_OG
+23VR4|Others	4	8.333333333333334	S	conserved protein, contains double-stranded beta-helix domain	MHS450	other_OG
+23VRK|Others	2	3.8314176245210727	N	ATPase involved in replication control, Cdc46 Mcm family	MHS450	other_OG
+23VXQ|Others	30	37.73584905660377	K	COG0454 Histone acetyltransferase HPA2 and related acetyltransferases	MHS450	other_OG
+23W11|Others	15	25.12562814070352	O	Methyltransferase	MHS450	other_OG
+23W3J|Others	3	9.09090909090909	E	Belongs to the urease gamma subunit family	MHS450	other_OG
+23W42|Others	4	7.285974499089253	S	HAD-superfamily hydrolase, subfamily IA, variant 1	MHS450	other_OG
+23W4S|Others	3	10.309278350515465	J	Seems to be required for maximal rate of protein biosynthesis. Enhances ribosome dissociation into subunits and stabilizes the binding of the initiator Met-tRNA(I) to 40 S ribosomal subunits	MHS450	other_OG
+23WAB|Others	3	7.633587786259541	V	Toxic component of a toxin-antitoxin (TA) module. An RNase	MHS450	other_OG
+23WEX|Others	8	21.164021164021165	S	Cyclophilin-like	MHS450	other_OG
+23WFU|Others	2	4.329004329004329	-	-	MHS450	other_OG
+23WMZ|Others	14	46.3899546564353	-	-	MHS450	other_OG
+23WPB|Others	1	4.016064257028113	F	Part of the phosphoribosylformylglycinamidine synthase complex involved in the purines biosynthetic pathway. Catalyzes the ATP-dependent conversion of formylglycinamide ribonucleotide (FGAR) and glutamine to yield formylglycinamidine ribonucleotide (FGAM) and glutamate. The FGAM synthase complex is composed of three subunits. PurQ produces an ammonia molecule by converting glutamine to glutamate. PurL transfers the ammonia molecule to FGAR to form FGAM in an ATP-dependent manner. PurS interacts with PurQ and PurL and is thought to assist in the transfer of the ammonia molecule from PurQ to PurL	MHS450	other_OG
+23WPJ|Others	30	28.248587570621467	Q	COG0500 SAM-dependent methyltransferases	MHS450	other_OG
+23WQB|Others	1	3.584229390681003	K	transcriptional regulators	MHS450	other_OG
+23WQD|Others	4	11.799410029498524	-	-	MHS450	other_OG
+23WQK|Others	3	10.101010101010102	-	-	MHS450	other_OG
+23WSU|Others	1	3.745318352059925	K	Transcriptional regulators	MHS450	other_OG
+23WSX|Others	2	7.017543859649123	C	Belongs to the acylphosphatase family	MHS450	other_OG
+23X1P|Others	5	17.61931710997925	K	Cytotoxic translational repressor of toxin-antitoxin stability system	MHS450	other_OG
+23XGY|Others	3	15.384615384615383	-	-	MHS450	other_OG
+23XK8|Others	2	10.1010101010101	S	Domain of unknown function (DUF4177)	MHS450	other_OG
+23XKC|Others	4	17.543859649122805	K	COG1522 Transcriptional regulators	MHS450	other_OG
+23XMJ|Others	3	13.157894736842103	K	COG1522 Transcriptional regulators	MHS450	other_OG
+23XN1|Others	1	4.566210045662101	-	-	MHS450	other_OG
+23XQN|Others	2	5.46448087431694	E	COG0346 Lactoylglutathione lyase and related lyases	MHS450	other_OG
+23Z2R|Others	2	6.802721088435375	S	Aldo/keto reductase family	MHS450	other_OG
+23ZH7|Others	3	4.016064257028113	I	Enoyl-(Acyl carrier protein) reductase	MHS450	other_OG
+2409K|Others	4	8.080808080808081	-	-	MHS450	other_OG
+240VI|Others	4	10.178117048346056	T	Histidine kinase-like ATPase domain	MHS450	other_OG
+2418A|Others	4	10.025062656641603	M	Glycosyl transferases group 1	MHS450	other_OG
+2420T|Others	6	20.61855670103093	I	KR domain	MHS450	other_OG
+242NJ|Others	19	36.39846743295019	F	Catalyzes a reversible aldol reaction between acetaldehyde and D-glyceraldehyde 3-phosphate to generate 2-deoxy- D-ribose 5-phosphate	MHS450	other_OG
+242VC|Others	2	3.3840947546531304	M	Glycosyl transferase family 2	MHS450	other_OG
+2432J|Others	20	17.18213058419244	L	Putative RNA methylase family UPF0020	MHS450	other_OG
+2433F|Others	11	14.666666666666666	P	TrkA-C domain	MHS450	other_OG
+243PX|Others	1	5.847953216374268	F	Major role in the synthesis of nucleoside triphosphates other than ATP. The ATP gamma phosphate is transferred to the NDP beta phosphate via a ping-pong mechanism, using a phosphorylated active-site intermediate	MHS450	other_OG
+244B0|Others	11	29.56989247311828	S	ASCH	MHS450	other_OG
+244XT|Others	12	14.760147601476016	M	Nucleotidyl transferase	MHS450	other_OG
+246KC|Others	4	6.472491909385114	S	RmuC family	MHS450	other_OG
+246NP|Others	2	4.1928721174004195	S	Conserved hypothetical protein 698	MHS450	other_OG
+246WR|Others	4	5.532503457814661	J	Catalyzes the base-exchange of a guanine (G) residue with the queuine precursor 7-aminomethyl-7-deazaguanine (PreQ1) at position 34 (anticodon wobble position) in tRNAs with GU(N) anticodons (tRNA-Asp, -Asn, -His and -Tyr). Catalysis occurs through a double-displacement mechanism. The nucleophile active site attacks the C1' of nucleotide 34 to detach the guanine base from the RNA, forming a covalent enzyme-RNA intermediate. The proton acceptor active site deprotonates the incoming PreQ1, allowing a nucleophilic attack on the C1' of the ribose to form the product. After dissociation, two additional enzymatic reactions on the tRNA convert PreQ1 to queuine (Q), resulting in the hypermodified nucleoside queuosine (7-(((4,5-cis-dihydroxy-2- cyclopenten-1-yl)amino)methyl)-7-deazaguanosine)	MHS450	other_OG
+24751|Others	3	5.154639175257732	S	Phage tail tape measure protein, TP901 family	MHS450	other_OG
+29M9D|Others	7	6.965174129353235	S	C-5 cytosine-specific DNA methylase	MHS450	other_OG
+2EEZG|Others	38	34.14195867026056	S	Type II/IV secretion system protein	MHS450	other_OG
+2N557|Others	13	16.861219195849547	-	-	MHS450	other_OG
+2N587|Others	1	4.694835680751174	-	-	MHS450	other_OG
+2N90U|Others	2	7.575757575757575	E	Catalyzes the reversible interconversion of serine and glycine with tetrahydrofolate (THF) serving as the one-carbon carrier. Also exhibits THF-independent aldolase activity toward beta-hydroxyamino acids, producing glycine and aldehydes, via a retro-aldol mechanism	MHS450	other_OG
+2N920|Others	15	33.11258278145695	E	PFAM Semialdehyde dehydrogenase NAD - binding	MHS450	other_OG
+2N921|Others	5	9.689922480620154	M	PFAM Oligosaccharyl transferase STT3 subunit	MHS450	other_OG
+2N9A8|Others	446	211.50719199499687	L	DNA-dependent ATPase and 3'-5' DNA helicase that may be involved in repair of stalled replication forks	MHS450	other_OG
+2N9AM|Others	3	12.82051282051282	M	Catalyzes the conversion of GDP-D-mannose to GDP-4- dehydro-6-deoxy-D-mannose	MHS450	other_OG
+2N9BC|Others	16	10.006253908692933	E	TIGRFAM asparagine synthase (glutamine-hydrolyzing)	MHS450	other_OG
+2N9CI|Others	1	5.847953216374268	E	Belongs to the class-IV pyridoxal-phosphate-dependent aminotransferase family	MHS450	other_OG
+2N9FX|Others	3	4.926108374384237	E	Belongs to the DegT DnrJ EryC1 family	MHS450	other_OG
+2N9IN|Others	6	8.695652173913045	S	Mitochondrial biogenesis AIM24	MHS450	other_OG
+2N9UF|Others	8	13.136288998357964	L	PFAM transposase, IS4 family protein	MHS450	other_OG
+2NA9C|Others	33	31.97674418604651	J	Catalyzes the attachment of serine to tRNA(Ser). Is also able to aminoacylate tRNA(Sec) with serine, to form the misacylated tRNA L-seryl-tRNA(Sec), which will be further converted into selenocysteinyl-tRNA(Sec)	MHS450	other_OG
+2NAJ9|Others	242	161.33333333333334	V	HsdM N-terminal domain	MHS450	other_OG
+2NAQZ|Others	9	10.752688172043012	Q	Leucine carboxyl methyltransferase	MHS450	other_OG
+2NASW|Others	153	152.69461077844312	S	Putative  PD-(D/E)XK family member, (DUF4420)	MHS450	other_OG
+2NAV5|Others	42	54.6875	P	divalent heavy-metal cations transporter	MHS450	other_OG
+2NB5Q|Others	22	43.13725490196078	V	HNH nucleases	MHS450	other_OG
+2NBAD|Others	5	9.157509157509157	M	PFAM conserved	MHS450	other_OG
+2NBBT|Others	71	35.1137487636004	L	AAA ATPase domain	MHS450	other_OG
+2NBC3|Others	8	23.209876543209877	L	PFAM HhH-GPD family protein	MHS450	other_OG
+2NBM6|Others	207	227.80093489789334	E	-	MHS450	other_OG
+2QPJC|Others	3	6.25	C	hydrogen-translocating pyrophosphatase activity	MHS450	other_OG
+2QQNF|Others	3	5.780346820809249	P	membrane protein TERC	MHS450	other_OG
+2QQY8|Others	6	20	S	NADPH-dependent FMN reductase	MHS450	other_OG
+2QR09|Others	5	17.54385964912281	C	electron transporter, transferring electrons within the cyclic electron transport pathway of photosynthesis activity	MHS450	other_OG
+2QRYE|Others	3	10.638297872340427	C	chlorophyll binding	MHS450	other_OG
+2QS4P|Others	14	17.4265654585365	-	-	MHS450	other_OG
+2QS6U|Others	5	5.257623554153523	S	Alpha-2-macroglobulin family	MHS450	other_OG
+2QU44|Others	2	4.566210045662101	-	-	MHS450	other_OG
+2QUSF|Others	1	3.436426116838488	S	5' nucleotidase, deoxy (Pyrimidine), cytosolic type C protein (NT5C)	MHS450	other_OG
+2R2P1|Others	10	11.074197120708748	S	Metallo-beta-lactamase superfamily	MHS450	other_OG
+2RYBC|Others	23	44.57364341085271	G	Acetyltransferase (GNAT) domain	MHS450	other_OG
+2S3Q5|Others	3	11.363636363636363	S	Intron encoded nuclease repeat motif	MHS450	other_OG
+2S5UM|Others	9	19.523624180537432	C	LAGLIDADG endonuclease	MHS450	other_OG
+2S6ZB|Others	5	29.23976608187134	-	-	MHS450	other_OG
+2S7N1|Others	33	39.67708503790978	S	Initiator Replication protein	MHS450	other_OG
+2S7RI|Others	15	29.942279942279942	S	DDE superfamily endonuclease	MHS450	other_OG
+2S94R|Others	2	4.357298474945534	L	bacterial (prokaryotic) histone like domain	MHS450	other_OG
+2SAAG|Others	2	5.333333333333333	S	Putative zinc- or iron-chelating domain	MHS450	other_OG
+2SD59|Others	93	369.04761904761904	-	-	MHS450	other_OG
+2SEIY|Others	4	7.448789571694599	S	HutD	MHS450	other_OG
+2SF6P|Others	1	4.329004329004329	-	-	MHS450	other_OG
+2SG2C|Others	1	3.9215686274509802	-	-	MHS450	other_OG
+2SH7H|Others	27	15.929203539823009	T	Sigma-54 interaction domain	MHS450	other_OG
+2SHF8|Others	4	15.32567049808429	Q	Fumarylacetoacetate (FAA) hydrolase family	MHS450	other_OG
+2SP0S|Others	1	5.952380952380952	S	Blastomyces yeast-phase-specific protein	MHS450	other_OG
+2SPGD|Others	6	15.748031496062993	H	Aspartate decarboxylase	MHS450	other_OG
+2SPKR|Others	1	4.504504504504505	T	PhnA domain	MHS450	other_OG
+2SQ9Y|Others	11	44.04053756333994	-	-	MHS450	other_OG
+2SR5E|Others	1	6.289308176100628	-	-	MHS450	other_OG
+2XAA7|Others	3	10	C	Produces ATP from ADP in the presence of a proton gradient across the membrane	MHS450	other_OG
+2XB2H|Others	6	16.666666666666668	A	Helicase associated domain (HA2)  Add an annotation	MHS450	other_OG
+2XBRR|Others	4	13.468013468013469	C	Produces ATP from ADP in the presence of a proton gradient across the membrane	MHS450	other_OG
+2XCNM|Others	2	4.1928721174004195	P	Cation efflux family	MHS450	other_OG
+2XCUK|Others	10	19.37984496124031	Q	positive regulation of sensory perception of pain	MHS450	other_OG
+2XE5R|Others	1	4.219409282700422	Q	RuBisCO catalyzes two reactions the carboxylation of D- ribulose 1,5-bisphosphate, the primary event in carbon dioxide fixation, as well as the oxidative fragmentation of the pentose substrate in the photorespiration process. Both reactions occur simultaneously and in competition at the same active site	MHS450	other_OG
+2XEWE|Others	3	9.25925925925926	J	Elongation factor Tu GTP binding domain	MHS450	other_OG
+2XGSJ|Others	1	4.11522633744856	C	essential for photochemical activity. FB is the terminal electron acceptor of PSI, donating electrons to ferredoxin. The C-terminus interacts with PsaA B D and helps assemble the protein into the PSI complex. Required for binding of PsaD and PsaE to PSI. PSI is a plastocyanin cytochrome c6- ferredoxin oxidoreductase, converting photonic excitation into a charge separation, which transfers an electron from the donor P700 chlorophyll pair to the spectroscopically characterized acceptors A0, A1, FX, FA and FB in turn	MHS450	other_OG
+2XPZG|Others	82	183.44519015659955	E	Phosphoadenosine phosphosulfate reductase	MHS450	other_OG
+2XQC1|Others	8	16.877637130801688	C	2Fe-2S -binding domain	MHS450	other_OG
+2XQU4|Others	14	35.35353535353535	F	PFAM CMP dCMP deaminase zinc-binding	MHS450	other_OG
+2XRNT|Others	22	51.46705146705146	G	Haloacid dehalogenase domain protein hydrolase, type 3	MHS450	other_OG
+2XRTY|Others	2	4.273504273504273	S	Iron-sulfur cluster-binding domain	MHS450	other_OG
+2XSYX|Others	29	21.77177177177177	J	Belongs to the class-II aminoacyl-tRNA synthetase family	MHS450	other_OG
+2XTAC|Others	37	34.74178403755869	H	Belongs to the FPP GGPP synthase family	MHS450	other_OG
+2XUEW|Others	3	8.19672131147541	S	NAD operon protein	MHS450	other_OG
+2XUHB|Others	2	8.438818565400844	M	PFAM Nucleotidyl transferase	MHS450	other_OG
+2XUT1|Others	93	67.53812636165577	O	COG1404 Subtilisin-like serine proteases	MHS450	other_OG
+2XUY6|Others	13	13.541666666666668	P	PFAM PKD domain containing protein	MHS450	other_OG
+2XV3E|Others	11	13.630731102850062	L	Site-specific tyrosine recombinase, which acts by catalyzing the cutting and rejoining of the recombining DNA molecules	MHS450	other_OG
+2XVHQ|Others	16	9.89486703772418	F	COG0737 5'-nucleotidase 2',3'-cyclic phosphodiesterase and related esterases	MHS450	other_OG
+2XW3U|Others	48	107.05266955266956	M	Catalyzes the two-step NADP-dependent conversion of GDP- 4-dehydro-6-deoxy-D-mannose to GDP-fucose, involving an epimerase and a reductase reaction	MHS450	other_OG
+2XWSZ|Others	29	53.7037037037037	L	Responsible for removing an oxidatively damaged form of guanine (7,8-dihydro-8-oxoguanine 7-oxoG) from DNA. Also nicks DNA at apurinic apyrimidinic sites (AP sites)	MHS450	other_OG
+2XXT5|Others	5	7.278020378457059	S	Protein of unknown function (DUF4013)	MHS450	other_OG
+2XYEC|Others	4	5.602240896358544	L	PFAM DNA methylase	MHS450	other_OG
+2XZCC|Others	2	3.875968992248062	S	Hemerythrin HHE cation binding domain	MHS450	other_OG
+2XZJY|Others	17	19.607843137254903	L	DNA methylase	MHS450	other_OG
+2XZQV|Others	8	16.666666666666668	L	P-loop Domain of unknown function (DUF2791)	MHS450	other_OG
+2Y25E|Others	20	33.16749585406302	S	Bacterial transferase hexapeptide (six repeats)	MHS450	other_OG
+2Y2QY|Others	25	38.75968992248062	-	-	MHS450	other_OG
+2Y4SW|Others	20	76.62835249042145	S	HicA toxin of bacterial toxin-antitoxin,	MHS450	other_OG
+2Y5VK|Others	5	12.165450121654501	-	-	MHS450	other_OG
+34GP4|Others	5	9.98003992015968	C	One of the components of the core complex of photosystem II (PSII). It binds chlorophyll and helps catalyze the primary light-induced photochemical processes of PSII. PSII is a light- driven water plastoquinone oxidoreductase, using light energy to abstract electrons from H(2)O, generating O(2) and a proton gradient subsequently used for ATP formation	MHS450	other_OG
+34GSR|Others	3	5.291005291005291	J	Belongs to the class-I aminoacyl-tRNA synthetase family	MHS450	other_OG
+34GZY|Others	2	6.666666666666667	OT	motif in proteasome subunits, Int-6, Nip-1 and TRIP-15	MHS450	other_OG
+34H3N|Others	8	8.658008658008658	B	LisH	MHS450	other_OG
+34H4F|Others	26	31.063321385902032	O	Fe-S assembly SufBCD system	MHS450	other_OG
+34H9T|Others	15	18.38235294117647	G	ATP-NAD kinase	MHS450	other_OG
+34HCP|Others	9	11.857707509881422	S	Domain of unknown function (DUF1967)	MHS450	other_OG
+34JFK|Others	1	4.166666666666667	KT	C-terminal domain on Strawberry notch homologue	MHS450	other_OG
+34JHZ|Others	17	42.302657287167776	C	PsaA and PsaB bind P700, the primary electron donor of photosystem I (PSI), as well as the electron acceptors A0, A1 and FX. PSI is a plastocyanin cytochrome c6-ferredoxin oxidoreductase, converting photonic excitation into a charge separation, which transfers an electron from the donor P700 chlorophyll pair to the spectroscopically characterized acceptors A0, A1, FX, FA and FB in turn. Oxidized P700 is reduced on the lumenal side of the thylakoid membrane by plastocyanin or cytochrome c6	MHS450	other_OG
+34JMJ|Others	4	7.285974499089253	O	Cyclophilin type peptidyl-prolyl cis-trans isomerase/CLD	MHS450	other_OG
+34JZ2|Others	3	5.9171597633136095	J	This protein promotes the GTP-dependent binding of aminoacyl-tRNA to the A-site of ribosomes during protein biosynthesis	MHS450	other_OG
+34K08|Others	25	47.63325717013948	C	response to herbicide	MHS450	other_OG
+34K42|Others	6	22.47191011235955	E	large subunit	MHS450	other_OG
+34K50|Others	1	3.9215686274509802	H	Involved in chlorophyll biosynthesis. Catalyzes the insertion of magnesium ion into protoporphyrin IX to yield Mg- protoporphyrin IX	MHS450	other_OG
+34K7J|Others	8	30.242869207508107	Q	RuBisCO catalyzes two reactions the carboxylation of D- ribulose 1,5-bisphosphate, the primary event in carbon dioxide fixation, as well as the oxidative fragmentation of the pentose substrate in the photorespiration process. Both reactions occur simultaneously and in competition at the same active site	MHS450	other_OG
+34KCV|Others	1	3.663003663003663	C	Belongs to the aconitase IPM isomerase family	MHS450	other_OG
+34KHM|Others	4	7.366482504604051	J	Binds 5S rRNA, forms part of the central protuberance of the 50S subunit	MHS450	other_OG
+34KQV|Others	2	6.0606060606060606	DZ	Regulator of chromosome condensation (RCC1) repeat	MHS450	other_OG
+34M2G|Others	6	16	J	Endoribonuclease L-PSP	MHS450	other_OG
+34MHI|Others	3	7.246376811594203	C	Cytochrome C oxidase subunit II, periplasmic domain	MHS450	other_OG
+34MTJ|Others	2	8.438818565400844	S	Acetyltransferase (GNAT) family	MHS450	other_OG
+37M7G|Others	1	4.065040650406504	S	Mitochondrial biogenesis AIM24	MHS450	other_OG
+37Q07|Others	9	14.150943396226415	JKL	zinc finger	MHS450	other_OG
+37RIF|Others	26	46.77241917740161	O	Cysteine-rich RLK (RECEPTOR-like protein kinase) 8	MHS450	other_OG
+37RRH|Others	8	28.621192863531515	I	DNA RNA polymerases superfamily protein	MHS450	other_OG
+37U2D|Others	4	14.336917562724013	-	-	MHS450	other_OG
+389ZI|Others	4	11.11111111111111	-	-	MHS450	other_OG
+38B8D|Others	9	18.20171954169094	S	NADPH-dependent FMN reductase	MHS450	other_OG
+38BGQ|Others	3	4.830917874396135	K	renal filtration cell differentiation	MHS450	other_OG
+38BH0|Others	1	4.065040650406504	G	phosphoenolpyruvate carboxykinase (ATP) activity	MHS450	other_OG
+38BTE|Others	3	12.987012987012987	IQ	transporter	MHS450	other_OG
+38BV2|Others	11	29.1005291005291	T	protein serine/threonine phosphatase activity	MHS450	other_OG
+38BVK|Others	4	14.611658071573682	M	protein localization to T-tubule	MHS450	other_OG
+38BZU|Others	5	9.689922480620154	S	negative regulation of quinolinate biosynthetic process	MHS450	other_OG
+38CQ6|Others	9	16.042780748663102	C	Produces ATP from ADP in the presence of a proton gradient across the membrane	MHS450	other_OG
+38CUF|Others	79	58.14400984176211	G	positive regulation of retrograde protein transport, ER to cytosol	MHS450	other_OG
+38DMD|Others	4	7.4074074074074066	H	Belongs to the uroporphyrinogen decarboxylase family	MHS450	other_OG
+38EH3|Others	1	3.584229390681003	H	ATP binding	MHS450	other_OG
+38EJA|Others	13	49.56966335558132	O	Belongs to the heat shock protein 70 family	MHS450	other_OG
+38EWT|Others	1	4.901960784313726	G	glucose-6-phosphate isomerase activity	MHS450	other_OG
+38FKG|Others	1	4.11522633744856	H	Belongs to the FPP GGPP synthase family	MHS450	other_OG
+38FQJ|Others	2	7.017543859649123	O	RNA cytidine acetyltransferase with specificity toward both 18S rRNA and tRNAs. Catalyzes the formation of N(4)- acetylcytidine (ac4C) in 18S rRNA. Required for early nucleolar cleavages of precursor rRNA at sites A0, A1 and A2 during 18S rRNA synthesis. Catalyzes the formation of ac4C in serine and leucine tRNAs. Requires	MHS450	other_OG
+38G9C|Others	4	6.4412238325281805	C	Belongs to the LDH MDH superfamily	MHS450	other_OG
+38GJA|Others	1	3.4722222222222223	E	phosphoglycerate dehydrogenase activity	MHS450	other_OG
+38R8D|Others	9	36.58536585365854	C	acetyl-coA hydrolase	MHS450	other_OG
+396NE|Others	14	19.943019943019944	S	Flavin reductase like domain	MHS450	other_OG
+39JRY|Others	20	15.987210231814549	H	GTP cyclohydrolase N terminal	MHS450	other_OG
+39QZ8|Others	5	11.337868480725623	EH	O-phospho-L-serine:2-oxoglutarate aminotransferase activity	MHS450	other_OG
+39R9S|Others	83	33.781033781033784	G	D-xylulose 5-phosphate/D-fructose 6-phosphate phosphoketolase	MHS450	other_OG
+39UAU|Others	5	8.333333333333334	G	isoprenoid biosynthetic process	MHS450	other_OG
+39VSG|Others	6	18.796747967479675	G	Fructose-bisphosphate aldolase class-II	MHS450	other_OG
+39YBY|Others	4	14.652014652014651	O	Uncharacterized protein family (UPF0051)	MHS450	other_OG
+3A5ES|Others	23	37.766830870279144	L	Methyladenine glycosylase	MHS450	other_OG
+3A5EU|Others	2	7.092198581560284	E	Bacterial extracellular solute-binding protein	MHS450	other_OG
+3A7MC|Others	5	9.157509157509157	S	Domain of unknown function (DUF1768)	MHS450	other_OG
+3A8AU|Others	2	5.376344086021505	C	Core subunit of the mitochondrial membrane respiratory chain NADH dehydrogenase (Complex I) that is believed to belong to the minimal assembly required for catalysis. Complex I functions in the transfer of electrons from NADH to the respiratory chain. The immediate electron acceptor for the enzyme is believed to be ubiquinone	MHS450	other_OG
+3A91D|Others	2	5.5096418732782375	E	Transferase family	MHS450	other_OG
+3A9W4|Others	5	9.162975296618601	S	Peptidase C26	MHS450	other_OG
+3AB1U|Others	11	19.6078431372549	S	NADPH-dependent FMN reductase	MHS450	other_OG
+3AB8X|Others	2	3.603603603603603	M	OmpA family	MHS450	other_OG
+3AFQ5|Others	19	61.01614434947768	S	OmpA family	MHS450	other_OG
+3AFWC|Others	11	34.26791277258567	EF	carbamoyl-phosphate synthase (glutamine-hydrolyzing) activity	MHS450	other_OG
+3AGGN|Others	6	7.142857142857143	S	Integral membrane protein TerC family	MHS450	other_OG
+3AGPF|Others	34	78.16091954022988	L	damaged DNA binding	MHS450	other_OG
+3ANDB|Others	6	13.333333333333332	L	DNA methylase	MHS450	other_OG
+3AP1D|Others	7	11.217948717948717	-	-	MHS450	other_OG
+3AQ0K|Others	3	6.622516556291391	L	ATP dependent DNA ligase domain	MHS450	other_OG
+3ARSI|Others	6	11.299435028248586	-	-	MHS450	other_OG
+3ASF7|Others	6	16.666666666666668	S	microtubule severing	MHS450	other_OG
+3ATJJ|Others	2	7.49063670411985	S	Putative zinc- or iron-chelating domain	MHS450	other_OG
+3AU8K|Others	41	63.862928348909655	S	ABC-2 family transporter protein	MHS450	other_OG
+3B93S|Others	2	9.389671361502348	C	L-aminoadipate-semialdehyde dehydrogenase activity	MHS450	other_OG
+3B96N|Others	1	4.761904761904762	J	Promotes mitochondrial protein synthesis. May act as a fidelity factor of the translation reaction, by catalyzing a one- codon backward translocation of tRNAs on improperly translocated ribosomes. Binds to mitochondrial ribosomes in a GTP-dependent manner	MHS450	other_OG
+3B97E|Others	8	17.77777777777778	C	acetyl-CoA metabolic process	MHS450	other_OG
+3B97J|Others	2	8.547008547008547	A	helicase activity	MHS450	other_OG
+3B99M|Others	1	3.584229390681003	O	Belongs to the heat shock protein 70 family	MHS450	other_OG
+3B9B3|Others	1	3.875968992248062	E	isocitrate dehydrogenase (NAD+) activity	MHS450	other_OG
+3B9CJ|Others	1	3.875968992248062	Q	L-amino-acid oxidase-like	MHS450	other_OG
+3B9DQ|Others	2	8.88888888888889	J	methionyl-tRNA aminoacylation	MHS450	other_OG
+3B9FF|Others	3	11.538804241290208	F	carbamoyl-phosphate synthase (glutamine-hydrolyzing) activity	MHS450	other_OG
+3B9FQ|Others	2	6.944444444444445	B	beta-catenin binding	MHS450	other_OG
+3B9GG|Others	4	12.578616352201257	A	Cleavage and polyadenylation	MHS450	other_OG
+3B9IQ|Others	1	4.016064257028113	F	ribonucleoside-diphosphate reductase activity	MHS450	other_OG
+3B9IR|Others	2	7.818930041152263	T	myosin light chain kinase activity	MHS450	other_OG
+3B9ME|Others	6	18.99335232668566	S	protein-containing complex binding	MHS450	other_OG
+3B9NZ|Others	1	3.5087719298245617	TZ	positive regulation of chromatin-mediated maintenance of transcription	MHS450	other_OG
+3B9P9|Others	6	36.36363636363636	S	RNA trimethylguanosine synthase activity	MHS450	other_OG
+3B9S0|Others	2	8.658008658008658	T	positive regulation of microtubule binding	MHS450	other_OG
+3B9S8|Others	1	3.745318352059925	EPT	extracellularly glutamate-gated ion channel activity	MHS450	other_OG
+3B9UG|Others	3	11.363636363636363	T	meiotic spindle elongation	MHS450	other_OG
+3B9XJ|Others	1	3.3333333333333335	S	selective autophagy	MHS450	other_OG
+3B9Y5|Others	7	13.409961685823754	J	threonyl-tRNA aminoacylation	MHS450	other_OG
+3B9YI|Others	2	7.936507936507937	C	cAMP biosynthetic process	MHS450	other_OG
+3BA18|Others	5	29.386343993085568	O	heat shock	MHS450	other_OG
+3BA1M|Others	1	3.875968992248062	K	negative regulation of leukocyte adhesion to arterial endothelial cell	MHS450	other_OG
+3BA1X|Others	6	29.850746268656714	TZ	atrial cardiac muscle cell development	MHS450	other_OG
+3BA42|Others	4	8.547008547008547	T	serine threonine-protein kinase	MHS450	other_OG
+3BA44|Others	2	6.802721088435375	Z	ATP-dependent microtubule motor activity, plus-end-directed	MHS450	other_OG
+3BA4U|Others	2	7.207417796478104	L	cell cycle DNA replication maintenance of fidelity	MHS450	other_OG
+3BA53|Others	7	17.811704834605596	TU	beta-N-acetylglucosaminylglycopeptide beta-1,4-galactosyltransferase activity	MHS450	other_OG
+3BA5H|Others	8	13.071895424836601	L	K02A2.6-like	MHS450	other_OG
+3BA6Z|Others	2	9.090350715558012	G	glyceraldehyde-3-phosphate dehydrogenase (NAD(P)+) (phosphorylating) activity	MHS450	other_OG
+3BA70|Others	1	5.128205128205128	S	D-glutamate cyclase activity	MHS450	other_OG
+3BA82|Others	1	3.584229390681003	O	Catalytic subunit of a complex which severs microtubules in an ATP-dependent manner. Microtubule severing may promote rapid reorganization of cellular microtubule arrays and the release of microtubules from the centrosome following nucleation	MHS450	other_OG
+3BA86|Others	1	3.875968992248062	T	intein-mediated protein splicing	MHS450	other_OG
+3BA9A|Others	2	4.62962962962963	S	nucleic acid binding	MHS450	other_OG
+3BAB8|Others	2	3.546099290780142	EPT	NMDA glutamate receptor activity	MHS450	other_OG
+3BABY|Others	1	4.504504504504505	O	negative regulation of hematopoietic stem cell differentiation	MHS450	other_OG
+3BAC4|Others	2	5.291005291005291	K	nuclear receptor subfamily 1, group H, member	MHS450	other_OG
+3BAD2|Others	2	10.582010582010582	F	GMP reductase activity	MHS450	other_OG
+3BADV|Others	2	9.389671361502348	O	serine-type exopeptidase activity	MHS450	other_OG
+3BAEK|Others	2	3.766478342749529	A	dosage compensation by inactivation of X chromosome	MHS450	other_OG
+3BAEX|Others	2	7.573812580231066	J	translation elongation factor activity	MHS450	other_OG
+3BAFJ|Others	2	3.8095238095238093	P	interleukin-3 production	MHS450	other_OG
+3BAFR|Others	1	6.5359477124183005	T	protein kinase activity	MHS450	other_OG
+3BAHK|Others	19	68.26849733028223	C	Produces ATP from ADP in the presence of a proton gradient across the membrane	MHS450	other_OG
+3BAI6|Others	1	4.065040650406504	C	proton-transporting ATPase activity, rotational mechanism	MHS450	other_OG
+3BAI9|Others	147	141.13478586339178	J	glutamine-tRNA ligase activity	MHS450	other_OG
+3BAJ6|Others	1	5.208333333333333	K	positive regulation of brown fat cell differentiation	MHS450	other_OG
+3BANP|Others	1	4.11522633744856	C	fatty acid beta-oxidation using acyl-CoA dehydrogenase	MHS450	other_OG
+3BAP3|Others	4	15.15151515151515	P	sulfuric ester hydrolase activity	MHS450	other_OG
+3BAR6|Others	1	4.065040650406504	P	sodium potassium-transporting ATPase subunit	MHS450	other_OG
+3BAST|Others	3	7.299270072992702	G	Catalyzes the rate-limiting step of the oxidative pentose-phosphate pathway, which represents a route for the dissimilation of carbohydrates besides glycolysis	MHS450	other_OG
+3BASZ|Others	6	7.117437722419929	M	Ankyrin repeats (3 copies)	MHS450	other_OG
+3BATQ|Others	1	4.975124378109452	C	isocitrate dehydrogenase (NADP+) activity	MHS450	other_OG
+3BAUF|Others	22	69.18238993710692	E	argininosuccinate synthase	MHS450	other_OG
+3BAUJ|Others	1	5.555555555555555	O	protein O-linked glycosylation via threonine	MHS450	other_OG
+3BAUV|Others	1	3.7878787878787876	Z	structural constituent of cytoskeleton	MHS450	other_OG
+3BAVD|Others	3	9.803921568627452	T	calmodulin-dependent protein phosphatase activity	MHS450	other_OG
+3BAX6|Others	14	51.85185185185185	C	anaerobic respiration	MHS450	other_OG
+3BB05|Others	1	3.623188405797101	Z	negative regulation of bleb assembly	MHS450	other_OG
+3BB2I|Others	1	5.291005291005291	I	oxidoreductase activity, acting on the CH-CH group of donors	MHS450	other_OG
+3BB3C|Others	3	9.25925925925926	C	fumarate hydratase activity	MHS450	other_OG
+3BB5F|Others	1	4.273504273504273	J	mitochondrial translation	MHS450	other_OG
+3BB5I|Others	4	15.618367780063345	J	This protein promotes the GTP-dependent binding of aminoacyl-tRNA to the A-site of ribosomes during protein biosynthesis	MHS450	other_OG
+3BB6Z|Others	2	7.017543859649123	T	5'-AMP-activated protein kinase catalytic subunit	MHS450	other_OG
+3BB83|Others	1	4.273504273504273	A	Catalytic subunit of the queuine tRNA-ribosyltransferase (TGT) that catalyzes the base-exchange of a guanine (G) residue with queuine (Q) at position 34 (anticodon wobble position) in tRNAs with GU(N) anticodons (tRNA-Asp, -Asn, -His and -Tyr), resulting in the hypermodified nucleoside queuosine (7-(((4,5-cis- dihydroxy-2-cyclopenten-1-yl)amino)methyl)-7-deazaguanosine). Catalysis occurs through a double-displacement mechanism. The nucleophile active site attacks the C1' of nucleotide 34 to detach the guanine base from the RNA, forming a covalent enzyme-RNA intermediate. The proton acceptor active site deprotonates the incoming queuine, allowing a nucleophilic attack on the C1' of the ribose to form the product	MHS450	other_OG
+3BB9G|Others	6	4.576659038901602	O	procollagen galactosyltransferase activity	MHS450	other_OG
+3BBAM|Others	43	51.74488567990373	F	5,10-methylenetetrahydrofolate-dependent methyltransferase activity	MHS450	other_OG
+3BBCM|Others	1	3.584229390681003	O	Belongs to the ubiquitin-conjugating enzyme family	MHS450	other_OG
+3BBD7|Others	1	3.584229390681003	L	ATP-dependent 5'-3' DNA helicase activity	MHS450	other_OG
+3BBF2|Others	2	9.25925925925926	T	cAMP-dependent protein kinase regulator activity	MHS450	other_OG
+3BBGP|Others	6	26.70953463019291	Z	ATP binding	MHS450	other_OG
+3BBHH|Others	5	19.9696772796188	E	glycine dehydrogenase (decarboxylating) activity	MHS450	other_OG
+3BBJD|Others	1	3.745318352059925	B	Histone-lysine N-methyltransferase, H3 lysine-79 specific	MHS450	other_OG
+3BBJF|Others	1	4.566210045662101	T	Down syndrome cell adhesion	MHS450	other_OG
+3BBKU|Others	8	22.22222222222222	Q	2,4-dienoyl-CoA reductase (NADPH) activity	MHS450	other_OG
+3BBNX|Others	21	38.04347826086956	S	Pecanex protein (C-terminus)	MHS450	other_OG
+3BBQ4|Others	6	9.523809523809524	O	Thiol-specific peroxidase that catalyzes the reduction of hydrogen peroxide and organic hydroperoxides to water and alcohols, respectively. Can reduce H(2)O(2) and short chain organic, fatty acid, and phospholipid hydroperoxides. Also has phospholipase activity, and can therefore either reduce the oxidized sn-2 fatty acyl grup of phospholipids (peroxidase activity) or hydrolyze the sn-2 ester bond of phospholipids (phospholipase activity). These activities are dependent on binding to phospholipids at acidic pH and to oxidized phospholipds at cytosolic pH. Plays a role in cell protection against oxidative stress by detoxifying peroxides and in phospholipid homeostasis	MHS450	other_OG
+3BBQ9|Others	1	3.745318352059925	C	4 iron, 4 sulfur cluster binding	MHS450	other_OG
+3BBQC|Others	3	6.802721088435374	Z	regulation of ATP-dependent microtubule motor activity, plus-end-directed	MHS450	other_OG
+3BBQZ|Others	3	5.813953488372093	G	malonyl-CoA decarboxylase activity	MHS450	other_OG
+3BBR0|Others	1	3.7037037037037033	T	Map microtubule affinity-regulating kinase	MHS450	other_OG
+3BBVK|Others	9	14.851485148514852	A	RNA exonuclease 2	MHS450	other_OG
+3BBXZ|Others	2	8.333333333333334	E	choline dehydrogenase activity	MHS450	other_OG
+3BBY0|Others	1	4.11522633744856	S	intraciliary transport	MHS450	other_OG
+3BBYD|Others	2	6.802721088435375	T	protein kinase D signaling	MHS450	other_OG
+3BBZM|Others	5	15.57632398753894	G	Glucan (1,4-alpha-), branching enzyme 1	MHS450	other_OG
+3BC00|Others	2	7.666886979510905	H	N-succinyltransferase activity	MHS450	other_OG
+3BC06|Others	4	12.820512820512821	A	Splicing factor 3a, subunit 2	MHS450	other_OG
+3BC0N|Others	2	11.299435028248588	B	histone-binding protein	MHS450	other_OG
+3BC0R|Others	1	4.975124378109452	O	Belongs to the AAA ATPase family	MHS450	other_OG
+3BC34|Others	13	17.98063623789765	Q	oxidation-reduction process	MHS450	other_OG
+3BC3C|Others	27	58.128913491440265	O	peptide-methionine (S)-S-oxide reductase activity	MHS450	other_OG
+3BC3N|Others	2	9.950248756218905	GOT	protein N-acetylglucosaminyltransferase activity	MHS450	other_OG
+3BC5W|Others	5	8.547008547008547	E	2-amino-3-ketobutyrate coenzyme a ligase	MHS450	other_OG
+3BC6F|Others	1	3.623188405797101	T	Ryanodine Receptor	MHS450	other_OG
+3BC6G|Others	11	19.097222222222225	E	Belongs to the class-III pyridoxal-phosphate-dependent aminotransferase family	MHS450	other_OG
+3BC9H|Others	1	3.663003663003663	O	aminopeptidase activity	MHS450	other_OG
+3BC9I|Others	2	8.547008547008547	L	nucleotide-excision repair, DNA duplex unwinding	MHS450	other_OG
+3BCBN|Others	2	6.410256410256411	S	negative regulation of CD4-positive, alpha-beta T cell proliferation	MHS450	other_OG
+3BCCB|Others	29	26.81082909767523	U	Autophagy-related protein 2 homolog	MHS450	other_OG
+3BCD3|Others	2	3.5650623885918	S	Kinase phosphorylation protein	MHS450	other_OG
+3BCDF|Others	4	18.671679197994987	J	negative regulation of translational initiation in response to stress	MHS450	other_OG
+3BCEE|Others	25	72.57612325995271	C	proton-transporting ATP synthase activity, rotational mechanism	MHS450	other_OG
+3BCFK|Others	2	6.116207951070336	O	protein domain specific binding	MHS450	other_OG
+3BCFQ|Others	1	3.546099290780142	A	factor 8	MHS450	other_OG
+3BCGZ|Others	1	4.901960784313726	Z	actin filament binding	MHS450	other_OG
+3BCJG|Others	15	13.047371996788339	C	aldehyde dehydrogenase (NAD) activity	MHS450	other_OG
+3BCJW|Others	2	3.6429872495446265	H	Coenzyme A synthase	MHS450	other_OG
+3BCKD|Others	3	15.873015873015873	K	camera-type eye development	MHS450	other_OG
+3BCPJ|Others	1	4.694835680751174	T	diacylglycerol kinase activity	MHS450	other_OG
+3BCSX|Others	6	19.801980198019802	TU	Unc-13 homolog	MHS450	other_OG
+3BCX9|Others	1	3.9682539682539684	T	numb homolog	MHS450	other_OG
+3BCXD|Others	11	29.969785834888476	EI	propionyl-CoA carboxylase activity	MHS450	other_OG
+3BCY7|Others	4	19.047619047619047	S	protein ubiquitination	MHS450	other_OG
+3BCY8|Others	1	4.11522633744856	O	positive regulation of centriole elongation	MHS450	other_OG
+3BCYC|Others	2	7.168458781362006	T	Receptor	MHS450	other_OG
+3BCYJ|Others	11	10.628019323671499	S	WD repeat-containing protein 5	MHS450	other_OG
+3BD0V|Others	25	91.97712856249441	Q	3-hydroxy-2-methylbutyryl-CoA dehydrogenase activity	MHS450	other_OG
+3BD2A|Others	2	10.1010101010101	T	acetylcholine-gated cation-selective channel activity	MHS450	other_OG
+3BD3H|Others	1	4.566210045662101	I	malonate catabolic process	MHS450	other_OG
+3BD45|Others	1	3.9682539682539684	G	glycogen phosphorylase activity	MHS450	other_OG
+3BD5Y|Others	18	12.738853503184712	Q	Alkyl sulfatase dimerisation	MHS450	other_OG
+3BD7E|Others	1	4.219409282700422	U	positive regulation of vesicle docking	MHS450	other_OG
+3BD95|Others	6	10.81081081081081	U	activation of phospholipase D activity	MHS450	other_OG
+3BD9T|Others	1	3.436426116838488	K	SRY (Sex determining region Y)-box	MHS450	other_OG
+3BDBM|Others	1	3.875968992248062	U	GTP binding	MHS450	other_OG
+3BDDJ|Others	4	16.06425702811245	J	Belongs to the class-I aminoacyl-tRNA synthetase family	MHS450	other_OG
+3BDGP|Others	6	21.276595744680854	P	solute carrier family 4, sodium bicarbonate cotransporter, member 9	MHS450	other_OG
+3BDGU|Others	1	3.875968992248062	BK	phosphorylase kinase regulator activity	MHS450	other_OG
+3BDI4|Others	2	5.46448087431694	I	O-acyltransferase	MHS450	other_OG
+3BDJI|Others	1	4.385964912280701	K	spliceosomal complex assembly	MHS450	other_OG
+3BDQE|Others	1	4.385964912280701	K	Dachshund	MHS450	other_OG
+3BDQF|Others	2	8.689839572192513	Z	structural constituent of cytoskeleton	MHS450	other_OG
+3BDQK|Others	7	29.166666666666668	C	NAD(P)+ transhydrogenase (AB-specific) activity	MHS450	other_OG
+3BDSD|Others	73	100.1371742112483	O	ATP-dependent serine protease that mediates the selective degradation of misfolded, unassembled or oxidatively damaged polypeptides as well as certain short-lived regulatory proteins in the mitochondrial matrix. May also have a chaperone function in the assembly of inner membrane protein complexes. Participates in the regulation of mitochondrial gene expression and in the maintenance of the integrity of the mitochondrial genome. Binds to mitochondrial	MHS450	other_OG
+3BDSY|Others	5	5.0352467270896275	T	Arf GTPase-activating protein	MHS450	other_OG
+3BDX3|Others	7	28.52277564921243	E	glutaryl-CoA dehydrogenase activity	MHS450	other_OG
+3BE0G|Others	11	17.214397496087635	O	protein import into mitochondrial intermembrane space	MHS450	other_OG
+3BE1F|Others	8	15.779092702169626	S	Vacuolar protein sorting-associated protein VTA1 homolog	MHS450	other_OG
+3BE2A|Others	3	3.53356890459364	S	Serine hydrolase involved in the detoxification of formaldehyde	MHS450	other_OG
+3BE46|Others	1	3.7037037037037033	U	guanine nucleotide exchange factor 1	MHS450	other_OG
+3BE4R|Others	4	7.1301247771836	H	7,8-dihydroneopterin 3'-triphosphate biosynthetic process	MHS450	other_OG
+3BE59|Others	7	32.863849765258216	G	phosphoglycerate kinase activity	MHS450	other_OG
+3BE79|Others	1	3.663003663003663	U	member RAS oncogene family	MHS450	other_OG
+3BEAC|Others	2	7.017543859649123	KOT	Belongs to the class I-like SAM-binding methyltransferase superfamily. Protein arginine N- methyltransferase family	MHS450	other_OG
+3BEBG|Others	1	4.329004329004329	S	intracellular distribution of mitochondria	MHS450	other_OG
+3BEEB|Others	19	53.435328324842	EI	methylcrotonoyl-CoA carboxylase activity	MHS450	other_OG
+3BEHI|Others	4	8.658008658008658	BK	chromatin assembly or disassembly	MHS450	other_OG
+3BEHX|Others	8	12.578616352201257	C	alpha-ketoacid dehydrogenase activity	MHS450	other_OG
+3BEKC|Others	3	11.76470588235294	E	cellular amide catabolic process	MHS450	other_OG
+3BEMU|Others	3	7.246376811594203	K	aryl hydrocarbon receptor binding	MHS450	other_OG
+3BEN4|Others	4	6.908462867012091	OU	membrane insertase activity	MHS450	other_OG
+3BENV|Others	1	5.291005291005291	I	oxidoreductase activity, acting on paired donors, with oxidation of a pair of donors resulting in the reduction of molecular oxygen to two molecules of water	MHS450	other_OG
+3BEPH|Others	3	8.849557522123893	J	tRNA 3'-terminal CCA addition	MHS450	other_OG
+3BEPT|Others	16	26.533996683250415	O	serine-type endopeptidase activity	MHS450	other_OG
+3BEQR|Others	1	3.7878787878787876	T	type 2A serotonin receptor binding	MHS450	other_OG
+3BESW|Others	2	7.662835249042145	M	dolichyl-phosphate beta-D-mannosyltransferase activity	MHS450	other_OG
+3BEWD|Others	2	6.872852233676976	O	positive regulation of reciprocal meiotic recombination	MHS450	other_OG
+3BEZ9|Others	1	3.5087719298245617	S	protein modification by small protein conjugation	MHS450	other_OG
+3BF3D|Others	2	7.207417796478104	T	calmodulin-dependent protein kinase activity	MHS450	other_OG
+3BF6J|Others	9	32.967032967032964	IQ	3-oxoacyl-[acyl-carrier-protein] synthase activity	MHS450	other_OG
+3BF6T|Others	1	3.745318352059925	C	succinate-CoA ligase (ADP-forming) activity	MHS450	other_OG
+3BF7U|Others	1	5.05050505050505	K	Iroquois-class homeodomain protein	MHS450	other_OG
+3BF9J|Others	12	14.869888475836431	C	aerobic electron transport chain	MHS450	other_OG
+3BF9N|Others	10	12.391573729863692	S	Vitamin B6 photo-protection and homoeostasis	MHS450	other_OG
+3BFAG|Others	1	3.546099290780142	O	unfolded protein binding	MHS450	other_OG
+3BFFD|Others	10	6.561679790026247	L	KRAB-A domain containing 2	MHS450	other_OG
+3BFIX|Others	1	3.546099290780142	T	phosphorylase kinase activity	MHS450	other_OG
+3BFJH|Others	1	3.4013605442176873	O	zinc ion binding	MHS450	other_OG
+3BFJJ|Others	1	3.9215686274509802	K	DNA-directed 5'-3' RNA polymerase activity	MHS450	other_OG
+3BFKF|Others	1	4.694835680751174	O	Belongs to the AAA ATPase family	MHS450	other_OG
+3BFQM|Others	16	16.309887869520896	O	magnesium ion homeostasis	MHS450	other_OG
+3BFRG|Others	1	6.666666666666667	K	nucleic acid-templated transcription	MHS450	other_OG
+3BFVW|Others	2	8.032128514056225	B	Control of topological states of DNA by transient breakage and subsequent rejoining of DNA strands. Topoisomerase II makes double-strand breaks	MHS450	other_OG
+3BFZH|Others	1	3.436426116838488	T	regulation of Golgi inheritance	MHS450	other_OG
+3BG1H|Others	8	11.958146487294469	S	retinal binding	MHS450	other_OG
+3BG40|Others	2	7.4074074074074066	L	DNA-directed DNA polymerase activity	MHS450	other_OG
+3BG57|Others	1	3.9682539682539684	S	DHHC palmitoyltransferase	MHS450	other_OG
+3BG7G|Others	3	13.513513513513514	A	factor 18	MHS450	other_OG
+3BG8X|Others	3	6.802721088435374	O	chitin deacetylase activity	MHS450	other_OG
+3BGBM|Others	7	15.053763440860214	T	calcium ion binding	MHS450	other_OG
+3BGCX|Others	3	11.153298528713812	C	electron transport coupled proton transport	MHS450	other_OG
+3BGGI|Others	12	40.82503556187767	G	Belongs to the MIP aquaporin (TC 1.A.8) family	MHS450	other_OG
+3BGKU|Others	2	4.62962962962963	O	proline rich protein	MHS450	other_OG
+3BGKX|Others	7	10.46337817638266	L	base-excision repair, AP site formation via deaminated base removal	MHS450	other_OG
+3BGMA|Others	2	7.751937984496124	G	inositol monophosphate 1-phosphatase activity	MHS450	other_OG
+3BGSS|Others	2	9.523809523809524	S	kinetochore assembly	MHS450	other_OG
+3BGT2|Others	2	3.436426116838488	K	RNA polymerase II subunit A C-terminal domain phosphatase	MHS450	other_OG
+3BGT7|Others	10	22.988505747126435	C	belongs to the LDH MDH superfamily	MHS450	other_OG
+3BGVG|Others	7	19.96927803379416	G	Phosphorylase b kinase catalyzes the phosphorylation of serine in certain substrates, including troponin I	MHS450	other_OG
+3BGWG|Others	1	3.875968992248062	U	phosphatidic acid transporter activity	MHS450	other_OG
+3BHF5|Others	13	55.55555555555555	AJ	iron-responsive element binding	MHS450	other_OG
+3BHFC|Others	24	27.491408934707906	OW	collagen catabolic process	MHS450	other_OG
+3BHK4|Others	2	9.803921568627452	J	seryl-tRNA aminoacylation	MHS450	other_OG
+3BHNA|Others	1	4.62962962962963	J	translation initiation factor activity	MHS450	other_OG
+3BHQZ|Others	1	4.901960784313726	U	Golgi vesicle docking	MHS450	other_OG
+3BHTK|Others	163	228.64309599692433	C	dihydrolipoyl dehydrogenase	MHS450	other_OG
+3BHYG|Others	3	5.291005291005291	D	cell cycle G1/S phase transition	MHS450	other_OG
+3BI15|Others	8	8.080808080808081	S	protein kinase activity	MHS450	other_OG
+3BI4I|Others	3	16.404742211193824	J	positive regulation of DNA N-glycosylase activity	MHS450	other_OG
+3BIFX|Others	1	3.8314176245210727	P	potassium-transporting ATPase alpha chain	MHS450	other_OG
+3BIS4|Others	1	4.694835680751174	I	catalytic activity. It is involved in the biological process described with metabolic process	MHS450	other_OG
+3BIX7|Others	4	19.607843137254903	T	G-protein coupled receptor activity. It is involved in the biological process described with G-protein coupled receptor signaling pathway	MHS450	other_OG
+3BIZD|Others	2	9.132420091324201	D	regulation of biological quality	MHS450	other_OG
+3BJ4D|Others	1	4.273504273504273	T	T-cell surface protein tactile	MHS450	other_OG
+3BJPC|Others	2	9.66183574879227	O	protein K48-linked ubiquitination	MHS450	other_OG
+3BKB2|Others	12	17.02127659574468	E	Succinylglutamate desuccinylase / Aspartoacylase family	MHS450	other_OG
+3BKGR|Others	52	57.39514348785872	E	thiomorpholine-carboxylate dehydrogenase activity	MHS450	other_OG
+3BM2Z|Others	2	4.47427293064877	A	enzyme-directed rRNA 2'-O-methylation	MHS450	other_OG
+3BMK3|Others	1	5.208333333333333	Z	Tubulin/FtsZ family, C-terminal domain	MHS450	other_OG
+3BMQY|Others	20	40.16064257028113	P	carbonate dehydratase activity	MHS450	other_OG
+3BND9|Others	1	3.745318352059925	T	von Willebrand factor (vWF) type C domain	MHS450	other_OG
+3BNHA|Others	2	7.4074074074074066	M	Mycolic acid cyclopropane synthetase	MHS450	other_OG
+3BNHD|Others	3	12.82051282051282	S	Resistance to inhibitors of cholinesterase homologue 3	MHS450	other_OG
+3BNKS|Others	39	66.01484441906936	E	Cobalamin-independent synthase, Catalytic domain	MHS450	other_OG
+3BNVW|Others	3	11.11111111111111	H	Phosphomethylpyrimidine synthase, chloroplastic-like	MHS450	other_OG
+3BPA4|Others	6	39.21568627450981	-	-	MHS450	other_OG
+3BPBN|Others	34	38.70565567267369	T	GTP diphosphatase activity	MHS450	other_OG
+3BPC3|Others	1	4.385964912280701	B	Histone H3.3-like	MHS450	other_OG
+3BPCH|Others	1	3.663003663003663	B	nucleosome assembly	MHS450	other_OG
+3BPCP|Others	13	12.63362487852284	J	Ribosomal protein S11	MHS450	other_OG
+3BPD2|Others	2	8.658008658008658	E	Chorismate synthase	MHS450	other_OG
+3BPDH|Others	3	15.15151515151515	B	nucleosomal DNA binding	MHS450	other_OG
+3BPJT|Others	6	5.649717514124293	-	-	MHS450	other_OG
+3BPTP|Others	42	38.888888888888886	H	-	MHS450	other_OG
+3BPYI|Others	1	5.847953216374268	J	Belongs to the universal ribosomal protein uS9 family	MHS450	other_OG
+3BQ45|Others	2	5.089058524173028	L	Ribonuclease H protein	MHS450	other_OG
+3BQAA|Others	1	4.273504273504273	B	Core component of nucleosome. Nucleosomes wrap and compact DNA into chromatin, limiting DNA accessibility to the cellular machineries which require DNA as a template. Histones thereby play a central role in transcription regulation, DNA repair, DNA replication and chromosomal stability. DNA accessibility is regulated via a complex set of post-translational modifications of histones, also called histone code, and nucleosome remodeling	MHS450	other_OG
+3BQAG|Others	1	5.128205128205128	K	positive regulation of transcription elongation from RNA polymerase II promoter	MHS450	other_OG
+3BQBW|Others	1	3.367003367003367	A	RNA splicing	MHS450	other_OG
+3BQQT|Others	27	22.900763358778626	F	acetate kinase activity	MHS450	other_OG
+3BQRD|Others	24	34.04255319148936	S	Coiled-coil domain containing 188	MHS450	other_OG
+3BR23|Others	7	9.803921568627452	S	DJ-1/PfpI family	MHS450	other_OG
+3BRCC|Others	10	26.666666666666668	J	Ribosomal protein S12	MHS450	other_OG
+3BRDZ|Others	2	7.575757575757575	A	Small nuclear ribonucleoprotein	MHS450	other_OG
+3BRE5|Others	1	3.663003663003663	Z	dynein, light chain	MHS450	other_OG
+3BRG5|Others	1	3.4722222222222223	O	peptidyl-prolyl cis-trans isomerase activity	MHS450	other_OG
+3BRPG|Others	3	11.904761904761905	S	Hematological and neurological expressed 1-like	MHS450	other_OG
+3BRQ6|Others	1	6.172839506172839	K	nucleic acid binding	MHS450	other_OG
+3BS7Y|Others	2	4.444444444444445	-	-	MHS450	other_OG
+3BSSY|Others	1	3.5087719298245617	G	lysozyme activity	MHS450	other_OG
+3BT0Z|Others	6	19.607843137254903	-	-	MHS450	other_OG
+3BT19|Others	3	6.622516556291391	Q	KR domain	MHS450	other_OG
+3BT3C|Others	15	24.03846153846154	C	Cytochrome c oxidase subunit	MHS450	other_OG
+3BTXU|Others	2	9.389671361502348	K	negative regulation of programmed cell death	MHS450	other_OG
+3BTZE|Others	1	4.273504273504273	U	negative regulation of translational elongation	MHS450	other_OG
+3BU2T|Others	2	10.582010582010582	S	machinery associated 7 homolog (S. cerevisiae)	MHS450	other_OG
+3BWF0|Others	1	3.4013605442176873	-	-	MHS450	other_OG
+3BX24|Others	1	3.745318352059925	-	-	MHS450	other_OG
+3BX8A|Others	8	22.03856749311295	EH	Thiamine pyrophosphate enzyme, central domain	MHS450	other_OG
+3BXAV|Others	1	4.166666666666667	L	transposition, RNA-mediated	MHS450	other_OG
+3BXHT|Others	35	35.24672708962739	T	Bacterial regulatory helix-turn-helix proteins, AraC family	MHS450	other_OG
+3BXJ8|Others	3	10	G	Phosphoenolpyruvate carboxykinase	MHS450	other_OG
+3BXNQ|Others	29	19.066403681788298	I	4-coumarate--CoA	MHS450	other_OG
+3BXRP|Others	2	6.802721088435375	Z	positive regulation of mechanosensory behavior	MHS450	other_OG
+3BY0F|Others	26	39.2156862745098	H	Probable molybdopterin binding domain	MHS450	other_OG
+3BYBY|Others	6	29.817953546767107	Z	ATP binding	MHS450	other_OG
+3BYSV|Others	4	7.936507936507937	S	ABC transporter	MHS450	other_OG
+3BYU5|Others	11	18.900343642611684	G	Fructose-1-6-bisphosphatase, N-terminal domain	MHS450	other_OG
+3BZJ7|Others	2	7.936507936507937	HK	Phosphomethylpyrimidine kinase	MHS450	other_OG
+3BZTE|Others	4	6.802721088435375	J	Ribosomal protein L10	MHS450	other_OG
+3C1K8|Others	10	29.239766081871345	S	Endoribonuclease L-PSP	MHS450	other_OG
+3C2SB|Others	11	20.71563088512241	J	Ribosomal protein L6	MHS450	other_OG
+3C345|Others	1	4.219409282700422	-	-	MHS450	other_OG
+3C4FT|Others	180	410.946589106293	-	-	MHS450	other_OG
+3CKJU|Others	9	21.73913043478261	G	DNA gyrase C-terminal domain, beta-propeller	MHS450	other_OG
+3CNSW|Others	6	23.52941176470588	E	Porphyromonas-type peptidyl-arginine deiminase	MHS450	other_OG
+3CNTJ|Others	3	10.101010101010102	-	-	MHS450	other_OG
+3CQF8|Others	6	10.6951871657754	S	Transposase	MHS450	other_OG
+3G75A|Others	1	4.166666666666667	S	Alkaline neutral invertase	MHS450	other_OG
+3G7AK|Others	4	15.348935273033943	H	Belongs to the chalcone stilbene synthases family	MHS450	other_OG
+3G7BE|Others	2	8.547008547008547	E	glutamate synthase	MHS450	other_OG
+3G7BX|Others	2	6.872852233676976	O	Belongs to the heat shock protein 70 family	MHS450	other_OG
+3G7CZ|Others	3	13.246065139473274	E	tryptophan synthase	MHS450	other_OG
+3G7DD|Others	1	6.172839506172839	J	Serine--tRNA	MHS450	other_OG
+3G7MJ|Others	35	23.219250235637965	C	NAD(P)H-quinone oxidoreductase chain	MHS450	other_OG
+3G7Q8|Others	2	10.75268817204301	S	Belongs to the sulfotransferase 1 family	MHS450	other_OG
+3G7SE|Others	24	97.01129729790975	C	One of the components of the core complex of photosystem II (PSII). It binds chlorophyll and helps catalyze the primary light-induced photochemical processes of PSII. PSII is a light- driven water plastoquinone oxidoreductase, using light energy to abstract electrons from H(2)O, generating O(2) and a proton gradient subsequently used for ATP formation	MHS450	other_OG
+3G7YZ|Others	1	3.436426116838488	O	Zinc finger, C3HC4 type (RING finger)	MHS450	other_OG
+3G7Z0|Others	11	30.555555555555557	J	protein synthesis. May act as a fidelity factor of the translation reaction, by catalyzing a one- codon backward translocation of tRNAs on improperly translocated ribosomes	MHS450	other_OG
+3G82M|Others	1	4.444444444444445	J	Chloroplast-localized elongation factor EF-G involved in protein synthesis in plastids. Catalyzes the GTP-dependent ribosomal translocation step during translation elongation. During this step, the ribosome changes from the pre-translocational (PRE) to the post-translocational (POST) state as the newly formed A- site-bound peptidyl-tRNA and P-site-bound deacylated tRNA move to the P and E sites, respectively. Catalyzes the coordinated movement of the two tRNA molecules, the mRNA and conformational changes in the ribosome	MHS450	other_OG
+3G85T|Others	5	14.370748299319729	C	Cytochrome b6-f complex subunit 4	MHS450	other_OG
+3G86B|Others	8	17.543859649122805	G	Endoglucanase	MHS450	other_OG
+3G89E|Others	8	32.92181069958848	E	Branched-chain-amino-acid aminotransferase-like protein 3	MHS450	other_OG
+3G8AS|Others	6	28.985507246376812	F	Carbamoyl-phosphate synthase large chain	MHS450	other_OG
+3G8BD|Others	2	8.88888888888889	O	Belongs to the ClpA ClpB family	MHS450	other_OG
+3G8BF|Others	2	5.602240896358544	C	Succinyl-CoA synthetase functions in the citric acid cycle (TCA), coupling the hydrolysis of succinyl-CoA to the synthesis of ATP and thus represents the only step of substrate- level phosphorylation in the TCA. The alpha subunit of the enzyme binds the substrates coenzyme A and phosphate, while succinate binding and nucleotide specificity is provided by the beta subunit	MHS450	other_OG
+3G8BW|Others	74	175.70588918235228	L	Uncharacterized protein K02A2.6-like	MHS450	other_OG
+3G8BZ|Others	1	4.016064257028113	O	Belongs to the peptidase C1 family	MHS450	other_OG
+3G8C3|Others	1	4.065040650406504	T	belongs to the protein kinase superfamily	MHS450	other_OG
+3G8EZ|Others	3	13.539873780837636	T	serine threonine-protein kinase	MHS450	other_OG
+3G8FG|Others	6	7.092198581560284	O	Belongs to the heat shock protein 70 family	MHS450	other_OG
+3G8HA|Others	13	42.48366013071895	O	Belongs to the ClpA ClpB family	MHS450	other_OG
+3G8HW|Others	16	35.08771929824561	O	Belongs to the AAA ATPase family	MHS450	other_OG
+3G8IW|Others	1	3.7878787878787876	T	LRR receptor-like serine threonine-protein kinase	MHS450	other_OG
+3G8J9|Others	2	3.745318352059925	O	ankyrin repeat	MHS450	other_OG
+3G8JH|Others	1	4.975124378109452	E	Tryptophan aminotransferase-related protein	MHS450	other_OG
+3G8MV|Others	11	35.59851634125029	L	DNA RNA polymerases superfamily protein	MHS450	other_OG
+3G8PC|Others	7	13.565891472868216	K	Belongs to the GRAS family	MHS450	other_OG
+3G8UH|Others	1	3.9215686274509802	S	GDSL esterase lipase	MHS450	other_OG
+3G8UK|Others	4	24.691358024691358	L	Belongs to the helicase family. RecQ subfamily	MHS450	other_OG
+3G90F|Others	9	34.883720930232556	H	Glutamate-cysteine ligase	MHS450	other_OG
+3G93T|Others	2	8.130081300813009	O	Belongs to the peptidase A1 family	MHS450	other_OG
+3G94P|Others	1	4.830917874396135	K	E3 SUMO-protein ligase	MHS450	other_OG
+3G9BJ|Others	6	18.01801801801802	A	KH domain-containing protein	MHS450	other_OG
+3G9F4|Others	1	3.4722222222222223	K	mediator of RNA polymerase II transcription subunit	MHS450	other_OG
+3G9FP|Others	8	27.339356795349715	C	ATP synthase subunit alpha	MHS450	other_OG
+3G9TM|Others	2	3.766478342749529	U	The coatomer is a cytosolic protein complex that binds to dilysine motifs and reversibly associates with Golgi non- clathrin-coated vesicles, which further mediate biosynthetic protein transport from the ER, via the Golgi up to the trans Golgi network. Coatomer complex is required for budding from Golgi membranes, and is essential for the retrograde Golgi-to-ER transport of dilysine-tagged proteins	MHS450	other_OG
+3G9TQ|Others	1	4.975124378109452	I	Belongs to the 'GDSL' lipolytic enzyme family	MHS450	other_OG
+3G9UD|Others	1	3.546099290780142	U	Belongs to the adaptor complexes medium subunit family	MHS450	other_OG
+3G9ZX|Others	1	5.952380952380952	E	isochorismate synthase	MHS450	other_OG
+3GA3W|Others	2	12.820512820512821	T	serine threonine-protein kinase	MHS450	other_OG
+3GA4N|Others	1	4.016064257028113	O	PPIases accelerate the folding of proteins. It catalyzes the cis-trans isomerization of proline imidic peptide bonds in oligopeptides	MHS450	other_OG
+3GAGX|Others	7	28.22108937901697	G	Belongs to the glyceraldehyde-3-phosphate dehydrogenase family	MHS450	other_OG
+3GAK6|Others	4	10.666666666666666	K	Myb-related protein	MHS450	other_OG
+3GAN1|Others	1	4.975124378109452	G	Belongs to the hexokinase family	MHS450	other_OG
+3GAQN|Others	1	5.05050505050505	O	Belongs to the heat shock protein 70 family	MHS450	other_OG
+3GAR3|Others	2	7.662835249042145	T	Non-specific serine threonine protein kinase	MHS450	other_OG
+3GARP|Others	2	5.899705014749262	K	(NAC) domain-containing protein	MHS450	other_OG
+3GARU|Others	1	3.9682539682539684	G	alpha-mannosidase	MHS450	other_OG
+3GB0E|Others	1	5.555555555555555	A	ATP-dependent RNA helicase	MHS450	other_OG
+3GB3T|Others	6	11.428571428571429	T	Wall-associated receptor kinase	MHS450	other_OG
+3GB72|Others	2	8.771929824561402	EO	Aminopeptidase	MHS450	other_OG
+3GBBC|Others	4	16.81329423264907	I	phosphatidylinositol phosphatidylcholine transfer protein	MHS450	other_OG
+3GBDB|Others	1	3.5087719298245617	S	Domain of unknown function (DUF4220)	MHS450	other_OG
+3GBGY|Others	2	7.246376811594202	G	Glycosyltransferase-like protein	MHS450	other_OG
+3GBI2|Others	2	6.734006734006734	S	Abscisic acid receptor	MHS450	other_OG
+3GBIS|Others	16	21.164021164021165	Q	Tropinone reductase homolog	MHS450	other_OG
+3GBIX|Others	3	3.7593984962406015	S	At1g28695-like	MHS450	other_OG
+3GBUN|Others	4	8.23045267489712	C	Core subunit of the mitochondrial membrane respiratory chain NADH dehydrogenase (Complex I) that is believed to belong to the minimal assembly required for catalysis. Complex I functions in the transfer of electrons from NADH to the respiratory chain. The immediate electron acceptor for the enzyme is believed to be ubiquinone	MHS450	other_OG
+3GC22|Others	6	21.739130434782606	E	Auxin transporter-like protein	MHS450	other_OG
+3GC2W|Others	2	9.00900900900901	S	palmitoyl-(protein) hydrolase activity	MHS450	other_OG
+3GC4V|Others	6	18.96775481681142	O	ATPase family	MHS450	other_OG
+3GC4Z|Others	1	3.623188405797101	F	phosphoribosylaminoimidazole carboxylase	MHS450	other_OG
+3GCAR|Others	3	12.448559670781894	T	Calmodulin mediates the control of a large number of enzymes, ion channels and other proteins by Ca(2 ). Among the enzymes to be stimulated by the calmodulin-Ca(2 ) complex are a number of protein kinases and phosphatases	MHS450	other_OG
+3GCBW|Others	3	11.497463110366336	S	Haloacid dehalogenase-like hydrolase domain-containing protein At3g48420	MHS450	other_OG
+3GCE8|Others	3	10.204081632653061	C	Belongs to the isocitrate and isopropylmalate dehydrogenases family	MHS450	other_OG
+3GCIP|Others	12	38.0178904016159	C	ATP synthase subunit beta	MHS450	other_OG
+3GCMW|Others	5	11.574074074074074	J	pumilio homolog	MHS450	other_OG
+3GCTC|Others	1	4.065040650406504	U	Beach domain-containing protein	MHS450	other_OG
+3GCV4|Others	3	11.706349206349206	IT	Sphingoid long-chain bases kinase 2	MHS450	other_OG
+3GCV5|Others	2	3.546099290780142	L	DNA RNA polymerases superfamily protein	MHS450	other_OG
+3GCW8|Others	54	165.5570340723447	C	PsaA and PsaB bind P700, the primary electron donor of photosystem I (PSI), as well as the electron acceptors A0, A1 and FX. PSI is a plastocyanin-ferredoxin oxidoreductase, converting photonic excitation into a charge separation, which transfers an electron from the donor P700 chlorophyll pair to the spectroscopically characterized acceptors A0, A1, FX, FA and FB in turn. Oxidized P700 is reduced on the lumenal side of the thylakoid membrane by plastocyanin	MHS450	other_OG
+3GD0M|Others	1	4.566210045662101	O	Belongs to the AAA ATPase family	MHS450	other_OG
+3GD1X|Others	5	15.780730897009965	O	subtilisin-like protease	MHS450	other_OG
+3GD41|Others	3	10.526315789473685	V	L-gulonolactone	MHS450	other_OG
+3GD4B|Others	1	5.208333333333333	T	E3 ubiquitin-protein ligase	MHS450	other_OG
+3GD4G|Others	47	89.01515151515152	B	NatA auxiliary	MHS450	other_OG
+3GD5I|Others	6	25.75681654315615	C	Component of the cytochrome b6-f complex, which mediates electron transfer between photosystem II (PSII) and photosystem I (PSI), cyclic electron flow around PSI, and state transitions	MHS450	other_OG
+3GD6V|Others	1	3.9682539682539684	A	La-related protein	MHS450	other_OG
+3GD78|Others	1	4.016064257028113	G	Belongs to the pyruvate kinase family	MHS450	other_OG
+3GD7P|Others	2	5.698005698005699	O	Belongs to the ClpA ClpB family	MHS450	other_OG
+3GDC3|Others	38	136.69750221865036	C	RuBisCO catalyzes two reactions the carboxylation of D- ribulose 1,5-bisphosphate, the primary event in carbon dioxide fixation, as well as the oxidative fragmentation of the pentose substrate in the photorespiration process. Both reactions occur simultaneously and in competition at the same active site	MHS450	other_OG
+3GDDG|Others	1	6.172839506172839	L	cellular component organization	MHS450	other_OG
+3GDE2|Others	2	6.802721088435375	J	50S ribosomal protein L2	MHS450	other_OG
+3GDE9|Others	2	4.040404040404041	K	B3 domain-containing protein	MHS450	other_OG
+3GDEX|Others	45	65.77152600170503	J	Belongs to the class-I aminoacyl-tRNA synthetase family	MHS450	other_OG
+3GDJE|Others	13	51.32762798420651	C	NADH dehydrogenase (Ubiquinone) iron-sulfur protein	MHS450	other_OG
+3GDNP|Others	2	7.491582491582491	C	NDH shuttles electrons from NAD(P)H plastoquinone, via FMN and iron-sulfur (Fe-S) centers, to quinones in the photosynthetic chain and possibly in a chloroplast respiratory chain. The immediate electron acceptor for the enzyme in this species is believed to be plastoquinone. Couples the redox reaction to proton translocation, and thus conserves the redox energy in a proton gradient	MHS450	other_OG
+3GDRX|Others	6	11.627906976744185	Q	glutathione synthetase	MHS450	other_OG
+3GDU8|Others	2	5.847953216374268	P	Potassium transporter	MHS450	other_OG
+3GDVE|Others	41	8.997147245995171	K	RNA polymerase	MHS450	other_OG
+3GE5Q|Others	1	5.05050505050505	L	38.1 kDa protein	MHS450	other_OG
+3GE8P|Others	41	111.64608989255781	C	One of the components of the core complex of photosystem II (PSII). It binds chlorophyll and helps catalyze the primary light-induced photochemical processes of PSII. PSII is a light- driven water plastoquinone oxidoreductase, using light energy to abstract electrons from H(2)O, generating O(2) and a proton gradient subsequently used for ATP formation	MHS450	other_OG
+3GE9N|Others	1	4.385964912280701	F	Provides the precursors necessary for DNA synthesis. Catalyzes the biosynthesis of deoxyribonucleotides from the corresponding ribonucleotides	MHS450	other_OG
+3GEA1|Others	1	3.5087719298245617	S	function. Its presence in a non-photosynthetic plant (Epifagus virginiana) and experiments in tobacco indicate that it has an essential function which is probably not related to photosynthesis	MHS450	other_OG
+3GEAS|Others	2	6.600660066006601	C	Proton-conducting membrane transporter	MHS450	other_OG
+3GECI|Others	1	3.584229390681003	S	Hydrolase, alpha beta fold family protein	MHS450	other_OG
+3GEEJ|Others	2	7.8425976884975235	C	Cytochrome c oxidase is the component of the respiratory chain that catalyzes the reduction of oxygen to water. Subunits 1- 3 form the functional core of the enzyme complex. CO I is the catalytic subunit of the enzyme. Electrons originating in cytochrome c are transferred via the copper A center of subunit 2 and heme A of subunit 1 to the bimetallic center formed by heme A3 and copper B	MHS450	other_OG
+3GEGN|Others	4	15.15151515151515	O	Belongs to the ClpA ClpB family	MHS450	other_OG
+3GEJE|Others	19	8.74769797421731	GMO	Belongs to the glycosyl hydrolase 31 family	MHS450	other_OG
+3GENN|Others	1	4.273504273504273	U	Ras-related protein	MHS450	other_OG
+3GEW0|Others	1	4.273504273504273	G	beta-galactosidase	MHS450	other_OG
+3GEYD|Others	25	66.47866452116881	C	Photosystem II (PSII) is a light-driven water plastoquinone oxidoreductase that uses light energy to abstract electrons from H(2)O, generating O(2) and a proton gradient subsequently used for ATP formation. It consists of a core antenna complex that captures photons, and an electron transfer chain that converts photonic excitation into a charge separation. The D1 D2 (PsbA PsbA) reaction center heterodimer binds P680, the primary electron donor of PSII as well as several subsequent electron acceptors	MHS450	other_OG
+3GEZ9|Others	6	11.375126390293225	JKL	Retroviral aspartyl protease	MHS450	other_OG
+3GF68|Others	17	65.3182481554581	C	Photosystem II (PSII) is a light-driven water plastoquinone oxidoreductase that uses light energy to abstract electrons from H(2)O, generating O(2) and a proton gradient subsequently used for ATP formation. It consists of a core antenna complex that captures photons, and an electron transfer chain that converts photonic excitation into a charge separation. The D1 D2 (PsbA PsbA) reaction center heterodimer binds P680, the primary electron donor of PSII as well as several subsequent electron acceptors. D2 is needed for assembly of a stable PSII complex	MHS450	other_OG
+3GF6S|Others	2	7.575757575757575	G	cla,cla1,def,dxps2,dxs	MHS450	other_OG
+3GF9J|Others	1	3.875968992248062	A	Protein pleiotropic regulatory locus	MHS450	other_OG
+3GFCB|Others	22	36.1247947454844	O	Belongs to the peptidase M10A family	MHS450	other_OG
+3GFH5|Others	1	4.273504273504273	U	Belongs to the small GTPase superfamily. Arf family	MHS450	other_OG
+3GFJJ|Others	2	8.88888888888889	K	SANT  SWI3, ADA2, N-CoR and TFIIIB'' DNA-binding domains	MHS450	other_OG
+3GFNR|Others	2	6.600660066006601	K	B3 domain-containing protein	MHS450	other_OG
+3GFUC|Others	5	11.82033096926714	J	Mitochondrial GTPase that catalyzes the GTP-dependent ribosomal translocation step during translation elongation. During this step, the ribosome changes from the pre-translocational (PRE) to the post-translocational (POST) state as the newly formed A- site-bound peptidyl-tRNA and P-site-bound deacylated tRNA move to the P and E sites, respectively. Catalyzes the coordinated movement of the two tRNA molecules, the mRNA and conformational changes in the ribosome	MHS450	other_OG
+3GFVM|Others	1	3.7037037037037033	L	Cysteine-rich RLK (RECEPTOR-like protein kinase) 8	MHS450	other_OG
+3GFWY|Others	27	26.865671641791046	K	DNA-directed RNA polymerase	MHS450	other_OG
+3GFY9|Others	4	14.590508993494067	F	Involved in chlorophyll biosynthesis. Catalyzes the insertion of magnesium ion into protoporphyrin IX to yield Mg- protoporphyrin IX	MHS450	other_OG
+3GFZE|Others	1	3.8314176245210727	G	glucuronokinase	MHS450	other_OG
+3GG0Z|Others	9	15.228426395939087	EI	Component of the acetyl coenzyme A carboxylase (ACC) complex. Biotin carboxylase (BC) catalyzes the carboxylation of biotin on its carrier protein (BCCP) and then the CO(2) group is transferred by the transcarboxylase to acetyl-CoA to form malonyl- CoA	MHS450	other_OG
+3GG28|Others	3	5.208333333333334	T	phosphatidylinositol 4-phosphate 5-kinase	MHS450	other_OG
+3GG2K|Others	15	26.40675776034892	L	Mitochondrial protein	MHS450	other_OG
+3GGAX|Others	1	4.830917874396135	C	Cytochrome c oxidase is the component of the respiratory chain that catalyzes the reduction of oxygen to water. Subunits 1- 3 form the functional core of the enzyme complex. Subunit 2 transfers the electrons from cytochrome c via its binuclear copper A center to the bimetallic center of the catalytic subunit 1	MHS450	other_OG
+3GGCG|Others	8	27.491408934707906	J	One of the primary rRNA binding proteins, it binds directly to 16S rRNA where it nucleates assembly of the head domain of the 30S subunit	MHS450	other_OG
+3GGET|Others	1	5.847953216374268	K	MYB family transcription factor	MHS450	other_OG
+3GGF5|Others	8	15.686274509803921	C	NDH shuttles electrons from NAD(P)H plastoquinone, via FMN and iron-sulfur (Fe-S) centers, to quinones in the photosynthetic chain and possibly in a chloroplast respiratory chain. The immediate electron acceptor for the enzyme in this species is believed to be plastoquinone. Couples the redox reaction to proton translocation, and thus conserves the redox energy in a proton gradient	MHS450	other_OG
+3GGF9|Others	5	15.015015015015015	J	RIBOSOMAL protein	MHS450	other_OG
+3GGMZ|Others	2	9.523809523809524	S	isoform X1	MHS450	other_OG
+3GGRB|Others	8	27.77777777777778	S	Belongs to the peroxisomal membrane protein PXMP2 4 family	MHS450	other_OG
+3GGVX|Others	2	8.88888888888889	K	HUA2-like protein	MHS450	other_OG
+3GGWT|Others	4	16.256938937351308	C	NADH dehydrogenase (Ubiquinone) iron-sulfur protein	MHS450	other_OG
+3GGZK|Others	114	263.51144746397586	L	strictosidine synthase activity	MHS450	other_OG
+3GH1R|Others	25	31.891750330131575	C	NDH shuttles electrons from NAD(P)H plastoquinone, via FMN and iron-sulfur (Fe-S) centers, to quinones in the photosynthetic chain and possibly in a chloroplast respiratory chain. The immediate electron acceptor for the enzyme in this species is believed to be plastoquinone. Couples the redox reaction to proton translocation, and thus conserves the redox energy in a proton gradient	MHS450	other_OG
+3GH5Y|Others	8	31.32666599355585	C	PsaA and PsaB bind P700, the primary electron donor of photosystem I (PSI), as well as the electron acceptors A0, A1 and FX. PSI is a plastocyanin-ferredoxin oxidoreductase, converting photonic excitation into a charge separation, which transfers an electron from the donor P700 chlorophyll pair to the spectroscopically characterized acceptors A0, A1, FX, FA and FB in turn. Oxidized P700 is reduced on the lumenal side of the thylakoid membrane by plastocyanin	MHS450	other_OG
+3GH9B|Others	2	3.7037037037037033	C	ATP synthase subunit a, chloroplastic	MHS450	other_OG
+3GHBB|Others	17	50.121022191648194	C	cytochrome b6	MHS450	other_OG
+3GHED|Others	5	18.369453044375646	C	NDH shuttles electrons from NAD(P)H plastoquinone, via FMN and iron-sulfur (Fe-S) centers, to quinones in the photosynthetic chain and possibly in a chloroplast respiratory chain. The immediate electron acceptor for the enzyme in this species is believed to be plastoquinone. Couples the redox reaction to proton translocation, and thus conserves the redox energy in a proton gradient	MHS450	other_OG
+3GHFH|Others	4	13.60544217687075	L	transposition, RNA-mediated	MHS450	other_OG
+3GHHM|Others	17	39.88911689527308	A	DEAD-box ATP-dependent RNA helicase	MHS450	other_OG
+3GHQJ|Others	79	37.14151386929949	O	gag-polypeptide of LTR copia-type	MHS450	other_OG
+3GHZ0|Others	9	28.571428571428573	S	Encodes a protein DOMINO1 that belongs to a plant-specific gene family sharing a common motif present in the tomato DEFECTIVE CHLOROPLASTS AND LEAVES (LeDCL) protein. DOMINO1 is located in the nucleus. Arabidopsis embryos carrying the domino1 mutation grow slowly in comparison with wild type embryos and reach only the globular stage at desiccation. The primary defect of the mutation at the cellular level is the large size of the nucleolus that can be observed soon after fertilization in the nuclei of both the embryo and the endosperm. DOMINO1 might have a role in ribosome biogenesis and in determining the rate of cell division	MHS450	other_OG
+3GHZM|Others	4	11.904761904761903	J	40s ribosomal protein	MHS450	other_OG
+3GIAJ|Others	1	4.761904761904762	S	LRR-repeat protein	MHS450	other_OG
+3GIK7|Others	2	12.578616352201257	-	-	MHS450	other_OG
+3GIN2|Others	1	4.166666666666667	C	ATP synthase epsilon chain	MHS450	other_OG
+3GIPC|Others	13	33.333333333333336	J	Belongs to the universal ribosomal protein uL14 family	MHS450	other_OG
+3GIPW|Others	8	19.464720194647203	J	Belongs to the universal ribosomal protein uL16 family	MHS450	other_OG
+3GISB|Others	5	12.077294685990339	C	NDH shuttles electrons from NAD(P)H plastoquinone, via FMN and iron-sulfur (Fe-S) centers, to quinones in the photosynthetic chain and possibly in a chloroplast respiratory chain. The immediate electron acceptor for the enzyme in this species is believed to be plastoquinone. Couples the redox reaction to proton translocation, and thus conserves the redox energy in a proton gradient	MHS450	other_OG
+3GJ4H|Others	1	4.566210045662101	S	mitotic sister chromatid biorientation	MHS450	other_OG
+3GJ4Y|Others	4	9.876543209876543	C	Cytochrome b5	MHS450	other_OG
+3GJA2|Others	3	10.989010989010989	S	lipid phosphate phosphatase beta	MHS450	other_OG
+3GJJI|Others	20	83.8723695866553	J	Belongs to the universal ribosomal protein uS12 family	MHS450	other_OG
+3GJP6|Others	3	12.048192771084338	C	This b-type cytochrome is tightly associated with the reaction center of photosystem II (PSII). PSII is a light-driven water plastoquinone oxidoreductase that uses light energy to abstract electrons from H(2)O, generating O(2) and a proton gradient subsequently used for ATP formation. It consists of a core antenna complex that captures photons, and an electron transfer chain that converts photonic excitation into a charge separation	MHS450	other_OG
+3GJSS|Others	15	80.9840435489064	C	essential for photochemical activity. FB is the terminal electron acceptor of PSI, donating electrons to ferredoxin. The C-terminus interacts with PsaA B D and helps assemble the protein into the PSI complex. Required for binding of PsaD and PsaE to PSI. PSI is a plastocyanin-ferredoxin oxidoreductase, converting photonic excitation into a charge separation, which transfers an electron from the donor P700 chlorophyll pair to the spectroscopically characterized acceptors A0, A1, FX, FA and FB in turn	MHS450	other_OG
+3GJY5|Others	5	23.153942428035045	J	ribosomal protein L23	MHS450	other_OG
+3GJZB|Others	1	3.745318352059925	J	Belongs to the universal ribosomal protein uL6 family	MHS450	other_OG
+3GK4J|Others	6	20.759710930442637	S	Protein of unknown function (DUF2647)	MHS450	other_OG
+3GKAY|Others	2	8.130081300813009	C	quinone binding	MHS450	other_OG
+3GKFQ|Others	2	4.329004329004329	S	Protein of unknown function (DUF1677)	MHS450	other_OG
+3GKGJ|Others	25	73.74631268436578	-	-	MHS450	other_OG
+3GKHF|Others	79	279.06810035842295	-	-	MHS450	other_OG
+3GKIP|Others	2	7.326007326007326	J	30S ribosomal protein S15	MHS450	other_OG
+3GKK9|Others	1	3.9215686274509802	-	-	MHS450	other_OG
+3GKMR|Others	6	19.047619047619047	S	-	MHS450	other_OG
+3GKNG|Others	13	53.904138813824495	-	-	MHS450	other_OG
+3GKTZ|Others	2	9.575569358178052	-	-	MHS450	other_OG
+3GKXW|Others	1	4.761904761904762	C	NADH-ubiquinone/plastoquinone oxidoreductase chain 4L	MHS450	other_OG
+3GMB0|Others	1	3.623188405797101	-	-	MHS450	other_OG
+3GMF3|Others	33	136.68984399534685	S	-	MHS450	other_OG
+3GMMD|Others	2	9.950248756218905	-	-	MHS450	other_OG
+3GMNA|Others	1	4.385964912280701	-	-	MHS450	other_OG
+3GMP7|Others	6	31.25	-	-	MHS450	other_OG
+3GMRH|Others	9	22.713059298425154	-	-	MHS450	other_OG
+3GMT2|Others	1	5.46448087431694	E	Ribulose bisphosphate carboxylase large chain, catalytic domain	MHS450	other_OG
+3GMUP|Others	2	7.017543859649123	-	-	MHS450	other_OG
+3GMW1|Others	19	89.33274802458295	-	-	MHS450	other_OG
+3GN9D|Others	7	14.675052410901468	T	Universal stress protein family	MHS450	other_OG
+3GNZM|Others	40	21.57497303128371	L	transposition, RNA-mediated	MHS450	other_OG
+3GP09|Others	1	3.436426116838488	-	-	MHS450	other_OG
+3GP4Z|Others	2	4.301075268817204	L	transposition, RNA-mediated	MHS450	other_OG
+3GP9U|Others	6	20.202020202020204	S	Photosystem I psaA/psaB protein	MHS450	other_OG
+3GPFG|Others	3	17.24137931034483	B	Core component of nucleosome. Nucleosomes wrap and compact DNA into chromatin, limiting DNA accessibility to the cellular machineries which require DNA as a template. Histones thereby play a central role in transcription regulation, DNA repair, DNA replication and chromosomal stability. DNA accessibility is regulated via a complex set of post-translational modifications of histones, also called histone code, and nucleosome remodeling	MHS450	other_OG
+3GPYG|Others	3	12.796662720559219	-	-	MHS450	other_OG
+3GQ31|Others	1	3.584229390681003	-	-	MHS450	other_OG
+3GQ9H|Others	11	49.549549549549546	-	-	MHS450	other_OG
+3GQEZ|Others	2	7.8431372549019605	L	RNA-directed 5'-3' RNA polymerase activity	MHS450	other_OG
+3GQJZ|Others	3	16.129032258064516	-	-	MHS450	other_OG
+3GQN5|Others	3	13.333333333333332	-	-	MHS450	other_OG
+3GQZM|Others	5	19.37984496124031	-	-	MHS450	other_OG
+3GR1G|Others	9	33.465858437903925	-	-	MHS450	other_OG
+3GR3G|Others	23	90.19607843137254	-	-	MHS450	other_OG
+3GRP8|Others	3	14.285714285714286	-	-	MHS450	other_OG
+3GRSH|Others	3	7.518796992481203	-	-	MHS450	other_OG
+3GRSR|Others	1	3.623188405797101	-	-	MHS450	other_OG
+3GRTV|Others	24	57.971014492753625	-	-	MHS450	other_OG
+3GSGH|Others	1	5.05050505050505	-	-	MHS450	other_OG
+3GUZH|Others	7	15.555555555555555	L	Reverse transcriptase (RNA-dependent DNA polymerase)	MHS450	other_OG
+3GV44|Others	1	4.504504504504505	S	Rho GTPase-activating protein	MHS450	other_OG
+3GY43|Others	2	4.938271604938271	S	Ribosomal protein S10	MHS450	other_OG
+3GYBP|Others	1	5.05050505050505	S	Ankyrin repeats (3 copies)	MHS450	other_OG
+3GYJW|Others	3	10.715386987357386	T	Integrase core domain	MHS450	other_OG
+3GYT9|Others	2	7.4074074074074066	L	domain in FBox and BRCT domain containing plant proteins	MHS450	other_OG
+3GYZ4|Others	2	11.49425287356322	-	-	MHS450	other_OG
+3GZ88|Others	19	61.48867313915858	-	-	MHS450	other_OG
+3GZPS|Others	2	3.8535645472061657	-	-	MHS450	other_OG
+3QBV3|Others	12	40.40404040404041	EI	Carboxyl transferase domain	MHS450	other_OG
+3QDM0|Others	5	14.005602240896359	C	Flavoprotein (FP) subunit of succinate dehydrogenase (SDH) that is involved in complex II of the mitochondrial electron transport chain and is responsible for transferring electrons from succinate to ubiquinone (coenzyme Q)	MHS450	other_OG
+3QGGQ|Others	2	3.584229390681003	-	-	MHS450	other_OG
+3X86U|Others	7	9.929078014184398	K	DNA-dependent RNA polymerase catalyzes the transcription of DNA into RNA using the four ribonucleoside triphosphates as substrates	MHS450	other_OG
+3XEH7|Others	8	7.889546351084813	H	Catalyzes the reductive methylation of 2'-deoxyuridine- 5'-monophosphate (dUMP) to 2'-deoxythymidine-5'-monophosphate (dTMP) while utilizing 5,10-methylenetetrahydrofolate (mTHF) as the methyl donor, and NADPH and FADH(2) as the reductant	MHS450	other_OG
+3XRWD|Others	80	135.17154302236855	C	ATPase alpha subunit	MHS450	other_OG
+3XSMK|Others	1	4.566210045662101	Z	Tubulin is the major constituent of microtubules. It binds two moles of GTP, one at an exchangeable site on the beta chain and one at a non-exchangeable site on the alpha chain	MHS450	other_OG
+3ZB63|Others	2	7.751937984496124	Q	Short chain dehydrogenase	MHS450	other_OG
+41SDT|Others	7	6.18921308576481	H	Radical SAM	MHS450	other_OG
+41SN0|Others	8	35.08771929824561	J	Belongs to the class I-like SAM-binding methyltransferase superfamily. rRNA adenine N(6)-methyltransferase family	MHS450	other_OG
+41SNB|Others	2	6.872852233676976	C	NADH ubiquinone oxidoreductase	MHS450	other_OG
+41SSK|Others	4	13.60544217687075	O	PPIC-type PPIASE domain	MHS450	other_OG
+41SSR|Others	6	17.857142857142858	O	Thioredoxin	MHS450	other_OG
+41ST7|Others	3	11.627906976744185	K	Lrp/AsnC ligand binding domain	MHS450	other_OG
+41SWG|Others	9	57.69230769230769	-	-	MHS450	other_OG
+41SZM|Others	13	9.298998569384835	P	Sodium:sulfate symporter transmembrane region	MHS450	other_OG
+4QIIB|Others	16	22.03856749311295	S	Bacterial SH3 domain	MHS450	other_OG
+4QKKV|Others	5	9.803921568627452	S	peptidoglycan catabolic process	MHS450	other_OG
+4QKMY|Others	3	11.235955056179774	-	-	MHS450	other_OG
+4QKPW|Others	3	7.142857142857143	S	exonuclease activity	MHS450	other_OG
+4QKQU|Others	22	13.213213213213212	S	Terminase-like family	MHS450	other_OG
+4QMBY|Others	45	115.11299435028249	S	Domain of unknown function (DUF4326)	MHS450	other_OG
+4QMMH|Others	82	117.310443490701	S	Pfam:Gamma_PGA_hydro	MHS450	other_OG
+arCOG00464|Others	3	5.747126436781609	L	COG0122 3-methyladenine DNA glycosylase 8-oxoguanine DNA glycosylase	MHS450	other_OG
+arCOG00818|Others	7	22.653721682847898	S	AbrB family; SpoVT / AbrB like domain	MHS450	other_OG
+arCOG01381|Others	10	11.990407673860911	M	PFAM Glycosyl transferase family 2	MHS450	other_OG
+arCOG01459|Others	5	10.482180293501049	C	Catalyzes the NAD(P)( )-dependent oxidation of D-glucose to D-gluconate via gluconolactone. Can utilize both NAD( ) and NADP( ) as electron acceptor. Is involved in the degradation of glucose through a	MHS450	other_OG
+arCOG01754|Others	1	3.436426116838488	EH	D-isomer specific 2-hydroxyacid dehydrogenase	MHS450	other_OG
+arCOG01943|Others	21	33.81642512077295	Q	COG1335 Amidases related to nicotinamidase	MHS450	other_OG
+arCOG02043|Others	7	28.56425702811245	S	membrane protein, required for N-linked glycosylation	MHS450	other_OG
+arCOG02898|Others	11	17.214397496087635	S	Polyketide cyclase / dehydrase and lipid transport	MHS450	other_OG
+arCOG02999|Others	31	109.85520094562649	S	conserved protein, contains double-stranded beta-helix domain	MHS450	other_OG
+arCOG03042|Others	5	11.337868480725623	KLT	PFAM Tetratricopeptide repeat	MHS450	other_OG
+arCOG03086|Others	1	4.444444444444445	S	HicA toxin of bacterial toxin-antitoxin,; PFAM YcfA family protein	MHS450	other_OG
+arCOG03264|Others	10	14.492753623188406	-	PFAM PEGA domain	MHS450	other_OG
+arCOG03965|Others	12	10.582010582010582	S	COG3335 Transposase and inactivated derivatives; DDE superfamily endonuclease	MHS450	other_OG
+arCOG04357|Others	4	7.0546737213403885	L	Responsible for removing an oxidatively damaged form of guanine (7,8-dihydro-8-oxoguanine 7-oxoG) from DNA. Also nicks DNA at apurinic apyrimidinic sites (AP sites)	MHS450	other_OG
+arCOG06161|Others	16	46.783625730994146	-	-	MHS450	other_OG
+arCOG06386|Others	4	20.126639529624605	S	Protein of unknown function (DUF2892)	MHS450	other_OG
+arCOG07605|Others	11	20.37037037037037	T	Histidine kinase-like ATPases; signal transduction histidine kinase	MHS450	other_OG
+arCOG10325|Others	1	3.9682539682539684	-	-	MHS450	other_OG
+arCOG10634|Others	2	5.5096418732782375	S	Calcium binding	MHS450	other_OG
+arCOG11020|Others	7	14.056224899598394	S	cell adhesion involved in biofilm formation	MHS450	other_OG
+COG0477|Others	6	10.471204188481677	EGP	Major facilitator Superfamily	MHS450	other_OG
+COG1960|Others	17	40.84804933363912	I	acyl-CoA dehydrogenase activity	MHS450	other_OG
+COG2801|Others	15	13.850415512465375	T	Transposase and inactivated derivatives; transposition	MHS450	other_OG
+KOG0042|Others	1	4.11522633744856	C	sn-glycerol-3-phosphate:ubiquinone-8 oxidoreductase activity	MHS450	other_OG
+KOG0059|Others	11	10.328638497652582	V	ATPase activity, coupled to transmembrane movement of substances	MHS450	other_OG
+KOG0102|Others	27	55.85821005698763	O	unfolded protein binding	MHS450	other_OG
+KOG0138|Others	1	3.5087719298245617	E	glutaryl-CoA dehydrogenase activity	MHS450	other_OG
+KOG0141|Others	6	5.2631578947368425	EI	isovaleryl-CoA dehydrogenase activity	MHS450	other_OG
+KOG0207|Others	3	8.19672131147541	P	cation-transporting ATPase activity	MHS450	other_OG
+KOG0246|Others	2	9.389671361502348	Z	microtubule motor activity	MHS450	other_OG
+KOG0355|Others	26	12.524084778420038	L	DNA topoisomerase type II (ATP-hydrolyzing) activity	MHS450	other_OG
+KOG0430|Others	3	5.555555555555555	C	xanthine catabolic process	MHS450	other_OG
+KOG0438|Others	7	14.056224899598394	J	structural constituent of ribosome	MHS450	other_OG
+KOG0454|Others	10	32.05128205128205	E	3-isopropylmalate dehydratase activity	MHS450	other_OG
+KOG0460|Others	6	12.658227848101266	J	translation elongation factor activity	MHS450	other_OG
+KOG0470|Others	1	4.444444444444445	G	1,4-alpha-glucan branching enzyme activity	MHS450	other_OG
+KOG0523|Others	9	20.27027027027027	G	transketolase activity	MHS450	other_OG
+KOG0683|Others	4	8.602150537634408	E	glutamine biosynthetic process	MHS450	other_OG
+KOG0725|Others	12	19.863597612958227	Q	oxidation-reduction process	MHS450	other_OG
+KOG0899|Others	1	3.745318352059925	J	structural constituent of ribosome	MHS450	other_OG
+KOG0927|Others	2	9.389671361502348	S	ATPase activity	MHS450	other_OG
+KOG1051|Others	53	66.16729088639201	O	ATP binding	MHS450	other_OG
+KOG1075|Others	36	63.162932395464765	E	Ribonuclease H protein; intron homing	MHS450	other_OG
+KOG1187|Others	1	3.5087719298245617	KLT	protein serine/threonine kinase activity	MHS450	other_OG
+KOG1190|Others	2	8.032128514056225	O	regulation of secretory granule organization	MHS450	other_OG
+KOG1203|Others	10	11.074197120708748	GM	divinyl chlorophyllide a 8-vinyl-reductase activity	MHS450	other_OG
+KOG1255|Others	3	16.129032258064516	C	succinate-CoA ligase (GDP-forming) activity	MHS450	other_OG
+KOG1262|Others	1	4.273504273504273	C	delta24-sterol reductase activity	MHS450	other_OG
+KOG1294|Others	12	15.444015444015443	L	double-stranded DNA 3'-5' exodeoxyribonuclease activity	MHS450	other_OG
+KOG1335|Others	2	7.092198581560284	C	dihydrolipoyl dehydrogenase activity	MHS450	other_OG
+KOG1350|Others	4	11.299435028248588	C	proton-transporting ATP synthase activity, rotational mechanism	MHS450	other_OG
+KOG1377|Others	2	3.7243947858472994	F	'de novo' UMP biosynthetic process	MHS450	other_OG
+KOG1399|Others	45	27.3224043715847	P	N,N-dimethylaniline monooxygenase activity	MHS450	other_OG
+KOG1484|Others	192	235.3744407763764	P	regulation of sequestering of zinc ion	MHS450	other_OG
+KOG1513|Others	26	49.808429118773944	S	cellular response to interleukin-11	MHS450	other_OG
+KOG1745|Others	1	5.46448087431694	B	protein heterodimerization activity	MHS450	other_OG
+KOG2004|Others	72	57.41626794258373	O	ATP-dependent serine protease that mediates the selective degradation of misfolded, unassembled or oxidatively damaged polypeptides as well as certain short-lived regulatory proteins in the mitochondrial matrix. May also have a chaperone function in the assembly of inner membrane protein complexes. Participates in the regulation of mitochondrial gene expression and in the maintenance of the integrity of the mitochondrial genome. Binds to mitochondrial	MHS450	other_OG
+KOG2094|Others	1	3.584229390681003	L	DNA-directed DNA polymerase activity	MHS450	other_OG
+KOG2132|Others	22	14.696058784235136	IQ	tRNAPhe (7-(3-amino-3-carboxypropyl)wyosine37-C2)-hydroxylase activity	MHS450	other_OG
+KOG2276|Others	2	9.132420091324201	E	dipeptidase activity	MHS450	other_OG
+KOG2403|Others	3	13.513513513513514	C	anaerobic respiration	MHS450	other_OG
+KOG2504|Others	4	7.984031936127744	IQ	monocarboxylate transporter; monocarboxylic acid transmembrane transporter activity	MHS450	other_OG
+KOG2550|Others	1	6.172839506172839	F	IMP dehydrogenase activity	MHS450	other_OG
+KOG2615|Others	3	10.526315789473685	I	major facilitator superfamily; tetracycline transmembrane transporter activity	MHS450	other_OG
+KOG2700|Others	2	8.333333333333334	F	(S)-2-(5-amino-1-(5-phospho-D-ribosyl)imidazole-4-carboxamido)succinate AMP-lyase (fumarate-forming) activity	MHS450	other_OG
+KOG3137|Others	15	28.735632183908045	J	peptide deformylase activity	MHS450	other_OG
+KOG3277|Others	3	3.5587188612099645	S	protein import into mitochondrial matrix	MHS450	other_OG
+KOG3370|Others	1	5.555555555555555	F	dUTP metabolic process	MHS450	other_OG
+KOG3383|Others	3	7.462686567164178	Q	EVE domain	MHS450	other_OG
+KOG3422|Others	4	5.270092226613966	J	rRNA binding	MHS450	other_OG
+KOG3504|Others	3	11.76470588235294	J	cytoplasmic translation; structural constituent of ribosome	MHS450	other_OG
+KOG4012|Others	1	3.4013605442176873	B	nucleosome assembly	MHS450	other_OG
+KOG4177|Others	4	9.950248756218905	I	spectrin binding	MHS450	other_OG
+KOG4205|Others	2	4.830917874396135	S	RNA binding; poly(U) RNA binding	MHS450	other_OG
+KOG4658|Others	4	8.385744234800839	S	ADP binding	MHS450	other_OG
+KOG4663|Others	3	5.617977528089887	C	electron transfer activity	MHS450	other_OG
+KOG4669|Others	2	9.950248756218905	C	ATP synthesis coupled electron transport	MHS450	other_OG
+KOG4853|Others	6	28.571428571428573	S	Component of the MICOS complex, a large protein complex of the mitochondrial inner membrane that plays crucial roles in the maintenance of crista junctions, inner membrane architecture, and formation of contact sites to the outer membrane; mitotic sister chromatid biorientation	MHS450	other_OG

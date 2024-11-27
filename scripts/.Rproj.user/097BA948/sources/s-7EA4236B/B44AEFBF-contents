@@ -1,0 +1,1381 @@
+---
+title: "hg38_DESeq2"
+author: "Chiamh"
+date: '2023-04-19'
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+
+```{r}
+
+library(tidyverse)
+library(reshape2)
+library(DESeq2)
+
+library(RColorBrewer)
+
+library(pheatmap)
+library("ComplexHeatmap")
+library(tximport)
+
+#pheatmap() has been masked by ComplexHeatmap::pheatmap()
+#Most of the arguments
+#in the original pheatmap() are identically supported in the new function. You 
+#can still use the original function by explicitly calling pheatmap::pheatmap().
+
+library(EnhancedVolcano)
+library(ggpubr)
+
+
+
+```
+
+Custom functions
+
+```{r}
+
+##modify the plotPCA function
+
+plotPCA_custom.DESeqTransform = function(object, intgroup="condition", ntop=500, returnData=FALSE)
+{
+  # calculate the variance for each gene
+  rv <- rowVars(assay(object))
+
+  # select the ntop genes by variance
+  select <- order(rv, decreasing=TRUE)[seq_len(min(ntop, length(rv)))]
+
+  # perform a PCA on the data in assay(x) for the selected genes
+  pca <- prcomp(t(assay(object)[select,]))
+
+  # the contribution to the total variance for each component
+  percentVar <- pca$sdev^2 / sum( pca$sdev^2 )
+
+  if (!all(intgroup %in% names(colData(object)))) {
+    stop("the argument 'intgroup' should specify columns of colData(dds)")
+  }
+
+  intgroup.df <- as.data.frame(colData(object)[, intgroup, drop=FALSE])
+  
+  # add the intgroup factors together to create a new grouping factor
+  group <- if (length(intgroup) > 1) {
+    factor(apply( intgroup.df, 1, paste, collapse=":"))
+  } else {
+    colData(object)[[intgroup]]
+  }
+
+  # assembly the data for the plot
+  d <- data.frame(PC1=pca$x[,1], PC2=pca$x[,2], group=group, intgroup.df, name=colnames(object))
+
+  if (returnData) {
+    attr(d, "percentVar") <- percentVar[1:2]
+    return(d)
+  }
+  
+  ggplot(data=d, aes_string(x="PC1", y="PC2", color="group")) + geom_point(size=5) + 
+    xlab(paste0("PC1: ",round(percentVar[1] * 100),"% variance")) +
+      ylab(paste0("PC2: ",round(percentVar[2] * 100),"% variance")) +
+        coord_fixed() + theme_classic()
+}
+
+setMethod("plotPCA", signature(object="DESeqTransform"), plotPCA_custom.DESeqTransform)
+
+
+```
+
+
+Load in metadata
+
+```{r}
+
+metadata <- read_tsv("../metadata/skin_mtx_metadata_fmt.txt", show_col_types = FALSE) 
+
+mgx_stats <- read_tsv("../metadata/MGX_QC_stats.txt", show_col_types = FALSE) 
+
+mtx_stats <- read_tsv("../metadata/MTX_QC_stats.txt", show_col_types = FALSE) 
+
+mgx_stats <- merge(mgx_stats, metadata, by = "LIBID", all.x=TRUE)
+
+mtx_stats <- merge(mtx_stats, metadata, by ="LIBID", all.x=TRUE)
+
+
+mtx_to_pull <- read_tsv("../metadata/mtx_to_pull", col_names = FALSE, show_col_types = FALSE) %>% pull(X1)
+
+mgx_to_pull <- read_tsv("../metadata/mgx_to_pull", col_names = FALSE, show_col_types = FALSE) %>% pull(X1)
+
+mtx_stats_chosen <- mtx_stats %>% dplyr::filter(LIBID %in% mtx_to_pull)
+
+mgx_stats_chosen <- mgx_stats %>% dplyr::filter(LIBID %in% mgx_to_pull)
+
+mtx_mgx_stats_chosen <- read_tsv(file="../metadata/mtx_mgx_stats_chosen.tsv", show_col_types = FALSE)
+
+
+#Load QC for hg38 mapping for main cohort, more deeply sequenced mtx samples, and skin rna seq from other studies
+
+other_studies_RNAseq_metadata <- read_tsv("../metadata/human_rnaseq_other_studies.txt", show_col_types = FALSE) %>%
+  dplyr::rename(LIBID=run_ID)
+
+#QC derived from qualimap outputs
+#Note that solberg and amorim are single end 75 bp reads while main_cohort is PE
+solberg_hg38_QC <- read_tsv("../data/hg38_mtx_mapping/solberg_skin_tape/solberg_skin_tape_mtx_hg38_qualimap_QC.tsv", show_col_types = FALSE)
+
+solberg_hg38_QC <- merge(solberg_hg38_QC, other_studies_RNAseq_metadata, by = "LIBID")
+
+solberg_hg38_QC$study <- "solberg_et_al"
+
+#approximate Giga nucleotides
+solberg_hg38_QC$approx_giga_nt <- (solberg_hg38_QC$READS_ALIGNED * 75)/10^9
+
+
+amorim_hg38_QC <- read_tsv("../data/hg38_mtx_mapping/amorim_leishmania/amorim_leishmania_mtx_hg38_qualimap_QC.tsv", show_col_types = FALSE)
+
+amorim_hg38_QC <- merge(amorim_hg38_QC, other_studies_RNAseq_metadata, by = "LIBID")
+
+amorim_hg38_QC$study <- "amorim_et_al"
+
+amorim_hg38_QC$approx_giga_nt <- (amorim_hg38_QC$READS_ALIGNED * 75)/10^9
+
+other_studies_hg38_QC <- rbind(solberg_hg38_QC, amorim_hg38_QC)
+
+
+#The 102 in the main cohort
+main_cohort_hg38_QC <- read_tsv("../data/hg38_mtx_mapping/main_cohort_mtx_hg38_qualimap_QC.tsv", show_col_types = FALSE)
+
+main_cohort_hg38_QC <- merge(main_cohort_hg38_QC, mtx_stats_chosen %>% dplyr::select(LIBID,region))
+
+main_cohort_hg38_QC$study <- "main_cohort_in_house" 
+
+main_cohort_hg38_QC$skin_layer <- "stratum_corneum"
+
+#PE150
+main_cohort_hg38_QC$approx_giga_nt <- (main_cohort_hg38_QC$READ_PAIRS_ALIGNED * 2 * 150)/10^9
+
+
+#Some additionally deeply sequenced libraries (this cohort)
+#Deeper sequencing for scalp and cheek might be more successful
+
+deeper_seq_RNAseq_metadata <- read_tsv("../metadata/deeper_sequencing_skin_mtx.txt", show_col_types = FALSE) %>% dplyr::rename(region=Site)
+
+deeper_seq_hg38_QC <- read_tsv("../data/hg38_mtx_mapping/deeper_seq/deeper_seq_cohort_mtx_hg38_qualimap_QC.tsv", 
+                               show_col_types = FALSE)
+
+deeper_seq_hg38_QC <- merge(deeper_seq_hg38_QC, deeper_seq_RNAseq_metadata %>% dplyr::select(LIBID,region))
+
+
+deeper_seq_hg38_QC$study <- "deeper_seq_in_house"
+
+
+deeper_seq_hg38_QC$skin_layer <- "stratum_corneum"
+
+#PE150
+deeper_seq_hg38_QC$approx_giga_nt <- (deeper_seq_hg38_QC$READ_PAIRS_ALIGNED * 2 * 150)/10^9
+
+#Skin explants from SRIS (biopsied then cultured for a day)
+
+SRIS_explant_hg38_QC <- read_tsv("../data/hg38_mtx_mapping/SRIS_skin_explants/SRIS_skin_explants_mtx_hg38_qualimap_QC.tsv", 
+                               show_col_types = FALSE)
+
+SRIS_explant_hg38_QC <- merge(SRIS_explant_hg38_QC, other_studies_RNAseq_metadata, by = "LIBID")
+
+
+SRIS_explant_hg38_QC$study <- "SRIS"
+
+
+SRIS_explant_hg38_QC$skin_layer <- "explant"
+
+#PE150
+SRIS_explant_hg38_QC$approx_giga_nt <- (SRIS_explant_hg38_QC$READ_PAIRS_ALIGNED * 2 * 150)/10^9
+
+other_studies_hg38_QC_fmt <- rbind(other_studies_hg38_QC %>% dplyr::select(-READS_ALIGNED), 
+                                   SRIS_explant_hg38_QC %>% dplyr::select(-READ_PAIRS_ALIGNED))
+
+
+paste0(SRIS_explant_hg38_QC$study,"_",SRIS_explant_hg38_QC$region,"_",SRIS_explant_hg38_QC$skin_layer)
+```
+
+#Giga nucleotide analysis
+
+Systematically fewer reads for human in our main cohort.
+
+```{r}
+
+#These are giga nucleotides for human reads
+cols_to_select <- c("LIBID","EXONIC_ALIGNMENTS","INTRONIC_ALIGNMENTS",
+                    "INTERGENIC_ALIGNMENTS","OVERLAPPING_EXON_ALIGNMENTS","region","study","skin_layer","approx_giga_nt")
+
+
+all_studies_hg38_QC <- rbind(main_cohort_hg38_QC %>% dplyr::select(all_of(cols_to_select)),
+                             other_studies_hg38_QC_fmt %>% dplyr::select(all_of(cols_to_select)))
+
+all_studies_hg38_QC$skin_layer <- gsub(pattern=" ",replacement="_", x=all_studies_hg38_QC$skin_layer)
+
+
+all_studies_hg38_QC$plotting_category <- paste0(all_studies_hg38_QC$study,"_",all_studies_hg38_QC$region,"_",all_studies_hg38_QC$skin_layer)
+
+
+deeper_seq_hg38_QC_fmt <- deeper_seq_hg38_QC %>% dplyr::select(all_of(cols_to_select))
+
+deeper_seq_hg38_QC_fmt$plotting_category <- "deeper_seq_in_house_stratum_corneum"
+
+all_studies_hg38_QC <- rbind(all_studies_hg38_QC, deeper_seq_hg38_QC_fmt)
+
+all_studies_hg38_QC$plotting_category <- factor(all_studies_hg38_QC$plotting_category,
+                                                levels=c("main_cohort_in_house_Sc_stratum_corneum",
+                                                         "main_cohort_in_house_Ch_stratum_corneum",
+                                                         "main_cohort_in_house_Ac_stratum_corneum",
+                                                         "main_cohort_in_house_Vf_stratum_corneum",
+                                                         "main_cohort_in_house_Tw_stratum_corneum",
+                                                         "deeper_seq_in_house_stratum_corneum",
+                                                         "solberg_et_al_Vf_stratum_corneum",
+                                                         "solberg_et_al_Vf_epidermis",
+                                                         "solberg_et_al_Vf_dermis",
+                                                         "amorim_et_al_upper arm_biopsy",
+                                                         "SRIS___explant"))
+
+
+
+
+all_studies_hg38_QC_giga_nt_boxplot <- ggplot(all_studies_hg38_QC, aes(x=plotting_category, y=approx_giga_nt)) + geom_boxplot() + theme_classic() +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+
+
+ggsave(all_studies_hg38_QC_giga_nt_boxplot, 
+       filename = "../plots/mtx_hg38_QC/all_studies_hg38_QC_giga_nt_boxplot.pdf",
+       height=7, width=10)
+
+
+all_studies_hg38_QC_giga_nt_boxplot
+
+```
+
+
+
+
+Load in mtx data that was pseudo-aligned with salmon to hg38 transcriptome (decoy aware).
+
+The decoy aware transcriptome and the tx2gene file were downloaded from http://refgenomes.databio.org/v3/
+
+See other pubs for skin specific genes in humans: https://pubmed.ncbi.nlm.nih.gov/25411189/ and https://www.sciencedirect.com/science/article/pii/S2211124718314219
+and https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4305515/
+```{r}
+####
+
+hg38_tx2gene <- read_tsv("../metadata/hg38_txp2gene.tsv", col_names = FALSE, show_col_types = FALSE)
+
+main_cohort_hg38_salmon_files <- file.path("../data/hg38_mtx_mapping/", paste0(mtx_to_pull, "_quant.sf"))
+
+names(main_cohort_hg38_salmon_files) <- mtx_to_pull
+
+main_cohort_hg38_txi.salmon <- tximport(main_cohort_hg38_salmon_files, type="salmon", tx2gene=hg38_tx2gene)
+
+main_cohort_hg38_count_matrix <- main_cohort_hg38_txi.salmon$counts
+
+#https://support.bioconductor.org/p/91218/
+#This TPM matrix is not for DESeq2, but for QC purposes
+main_cohort_hg38_TPM_matrix <- main_cohort_hg38_txi.salmon$abundance
+
+
+##Get the top 100 genes (by median TPM) for each skin site
+main_cohort_hg38_mtx_top_expr_genes <- lapply(c("Sc","Ch","Ac", "Vf", "Tw"), function(site){
+  
+  lib_vec <- mtx_stats_chosen %>% dplyr::filter(region == site ) %>% pull(LIBID)
+  
+  site_TPM_df <- main_cohort_hg38_TPM_matrix[,lib_vec] %>% as.data.frame()
+  site_TPM_df$gene <- row.names(site_TPM_df)
+  
+  #convert to long format
+  site_TPM_df_long <- site_TPM_df %>% pivot_longer(.,cols =! gene, names_to = "LIBID", values_to = "TPM")
+  
+  site_TPM_summary <- site_TPM_df_long %>% group_by(gene) %>% summarise(median_TPM = median(TPM))  %>% ungroup()
+  
+  output <- site_TPM_summary %>% dplyr::filter(median_TPM>0)
+  
+  output$site <- site
+  
+  output <- output[order(output$median_TPM, decreasing=TRUE),]
+  
+  return(output)
+  
+})
+
+names(main_cohort_hg38_mtx_top_expr_genes) <- c("Sc","Ch","Ac", "Vf", "Tw")
+
+#save data
+lapply(names(main_cohort_hg38_mtx_top_expr_genes), function(site){
+  write_tsv(main_cohort_hg38_mtx_top_expr_genes[[site]], file=paste0("../processed/hg38_mtx_median_TPM_",site,".tsv"))
+})
+
+#Do some PCA clustering of skin mtx pseudoaligned to hg38?
+
+```
+
+
+Check for expression of genes in the epidermal differentiation complex
+https://www.researchgate.net/figure/Schematic-representation-of-the-epidermal-differentiation-complex-on-chromosome-1q21_fig2_51895262
+https://en.m.wikipedia.org/wiki/Epidermal_differentiation_complex
+
+C1orf68/LEP7/XP32 is not represented in my tx2gene annotation 
+HRNR is S100A16 in my annotation
+
+Exclude AK125884 because it is a pseudogene
+
+
+Look at other markers not in the EDC, based on single cell RNA seq studies
+
+(1)
+https://www.nature.com/articles/s42003-020-0922-4
+differentiated keratinocytes (#5) were defined by KRT1, KRT10, SBSN, and KRTDAP expression
+
+(2)
+https://www.frontiersin.org/journals/genetics/articles/10.3389/fgene.2021.797747/full#supplementary-material
+Keratinocyte markers: ITGB1, ITGA6, TP63, KRT1/5/10/14, KRTDAP, SBSN (Fig S2)
+
+(3)
+https://www.nature.com/articles/s41467-020-18075-7 (look at fig 1)
+Basal -> spinous -> granular -> cornified (dead)
+
+Basal SC communities BAS-I – BAS-IV represented ~4%, ~9%, ~7% and ~3% of the entire population pool, respectively, and were enriched for known basal keratinocyte marker genes including KRT14, KRT5, and CDH3
+The spinous community SPN, representing ~54% of the entire population pool, showed heightened expression of KRT1, KRT10, DSG1, and CDH1 that continued to be expressed in granular keratinocytes 
+Differentiated granular keratinocytes (GRN, ~16% of total cells) expressed the differentiation gene markers DSC1, KRT2, IVL, and TGM3
+
+
+
+
+```{r}
+
+##########
+##EDC genes
+##########
+
+
+EDC_genes <- "^IVL|^LOR|^SPRR|^LCE|^S100A|^FLG|^TCHH|^CRNN|^RPTN|CRCT1|KPRP|SMCP|LELP1|PGLYRP3|PGLYRP4"
+
+
+main_cohort_hg38_mtx_EDC_expression <- lapply(c("Sc","Ch","Ac", "Vf", "Tw"), function(site){
+  
+  lib_vec <- mtx_stats_chosen %>% dplyr::filter(region == site ) %>% pull(LIBID)
+  
+  site_TPM_df <- main_cohort_hg38_TPM_matrix[,lib_vec] %>% as.data.frame()
+  site_TPM_df$gene <- row.names(site_TPM_df)
+  
+  EDC_TPM_df <- site_TPM_df %>% dplyr::filter(str_detect(string = site_TPM_df$gene, pattern=EDC_genes))
+  
+  #convert to long format
+  EDC_TPM_df_long <- EDC_TPM_df %>% pivot_longer(.,cols =! gene, names_to = "LIBID", values_to = "TPM")
+  
+  EDC_TPM_df_long$site <- site
+  
+  return(EDC_TPM_df_long)
+  
+}) %>% do.call("rbind", .)
+
+#number of genes in the EDC is 68
+main_cohort_hg38_mtx_EDC_expression %>% pull(gene) %>% unique(.) %>% length() #68
+
+
+#proportion of EDC genes (68) with at least non-zero TPM per library
+
+main_cohort_hg38_mtx_EDC_expr_summary <- main_cohort_hg38_mtx_EDC_expression %>% 
+    group_by(LIBID,site) %>% mutate(detected = sum(TPM != 0)) %>% dplyr::select(-c(TPM,gene)) %>% unique(.)
+    
+main_cohort_hg38_mtx_EDC_expr_summary$proportion_detected <- main_cohort_hg38_mtx_EDC_expr_summary$detected/68
+
+main_cohort_hg38_mtx_EDC_expr_summary$site <- as.factor(main_cohort_hg38_mtx_EDC_expr_summary$site)
+
+main_cohort_hg38_mtx_EDC_expr_boxplot <- main_cohort_hg38_mtx_EDC_expr_summary %>% mutate(site= fct_relevel(site, "Sc", "Ch", "Ac", "Vf", "Tw")) %>% 
+  ggplot(aes(x=site, y=proportion_detected, fill=site)) + geom_boxplot() + theme_classic() + 
+  ggtitle("Proportion of epidermal differentiation complex genes (n=68) with non-zero TPM in main cohort")
+
+ggsave(main_cohort_hg38_mtx_EDC_expr_boxplot, 
+       filename = "../plots/mtx_hg38_QC/main_cohort_hg38_mtx_EDC_expr_boxplot.pdf",
+       height=7, width=10)
+
+
+
+main_cohort_hg38_mtx_EDC_expr_boxplot
+
+
+##########
+##Keratinocyte markers
+##########
+
+keratinocyte_markers <- c("ITGA1","ITGA6","TP63",
+                          "KRT1","KRT5","KRT10",
+                          "KRT14","KRTDAP","SBSN",
+                          "CDH3","CDH1","DSG1",
+                          "DSC1","KRT2","IVL","TGM3")
+
+
+main_cohort_hg38_mtx_kera_marker_expression <- lapply(c("Sc","Ch","Ac", "Vf", "Tw"), function(site){
+  
+  lib_vec <- mtx_stats_chosen %>% dplyr::filter(region == site ) %>% pull(LIBID)
+  
+  site_TPM_df <- main_cohort_hg38_TPM_matrix[,lib_vec] %>% as.data.frame()
+  site_TPM_df$gene <- row.names(site_TPM_df)
+  
+  kera_marker_TPM_df <- site_TPM_df %>% dplyr::filter(gene %in% keratinocyte_markers)
+  
+  #convert to long format
+  kera_marker_TPM_df_long <- kera_marker_TPM_df %>% pivot_longer(.,cols =! gene, names_to = "LIBID", values_to = "TPM")
+  
+  kera_marker_TPM_df_long$site <- site
+  
+  return(kera_marker_TPM_df_long)
+  
+}) %>% do.call("rbind", .)
+
+#proportion of kera_marker genes with at least non-zero TPM per library
+
+main_cohort_hg38_mtx_kera_marker_expr_summary <- main_cohort_hg38_mtx_kera_marker_expression %>% 
+    group_by(LIBID,site) %>% mutate(detected = sum(TPM != 0)) %>% dplyr::select(-c(TPM,gene)) %>% unique(.)
+    
+main_cohort_hg38_mtx_kera_marker_expr_summary$proportion_detected <- main_cohort_hg38_mtx_kera_marker_expr_summary$detected/length(keratinocyte_markers)
+
+main_cohort_hg38_mtx_kera_marker_expr_summary$site <- as.factor(main_cohort_hg38_mtx_kera_marker_expr_summary$site)
+
+main_cohort_hg38_mtx_kera_marker_expr_boxplot <- main_cohort_hg38_mtx_kera_marker_expr_summary %>% mutate(site= fct_relevel(site, "Sc", "Ch", "Ac", "Vf", "Tw")) %>% 
+  ggplot(aes(x=site, y=proportion_detected, fill=site)) + geom_boxplot() + theme_classic() + 
+  ggtitle("Proportion of keratinocyte marker genes with non-zero TPM in main cohort")
+
+
+ggsave(main_cohort_hg38_mtx_kera_marker_expr_boxplot, 
+       filename = "../plots/mtx_hg38_QC/main_cohort_hg38_mtx_kera_marker_expr_boxplot.pdf",
+       height=7, width=10)
+
+
+main_cohort_hg38_mtx_kera_marker_expr_boxplot
+
+
+```
+
+What about more deeply sequenced RNA?
+
+```{r}
+
+deeper_seq_filenames <- deeper_seq_hg38_QC_fmt %>% pull(LIBID)
+
+deeper_seq_hg38_salmon_files <- file.path("../data/hg38_mtx_mapping/deeper_seq/", paste0(deeper_seq_filenames, "_quant.sf"))
+
+names(deeper_seq_hg38_salmon_files) <- deeper_seq_filenames
+
+deeper_seq_hg38_txi.salmon <- tximport(deeper_seq_hg38_salmon_files, type="salmon", tx2gene=hg38_tx2gene)
+
+deeper_seq_hg38_count_matrix <- deeper_seq_hg38_txi.salmon$counts
+
+#https://support.bioconductor.org/p/91218/
+#This TPM matrix is not for DESeq2, but for QC purposes
+deeper_seq_hg38_TPM_matrix <- deeper_seq_hg38_txi.salmon$abundance
+
+
+deeper_seq_hg38_mtx_EDC_expression <- lapply(c("Sc","Ch","Ac"), function(site){
+  
+  lib_vec <- deeper_seq_hg38_QC_fmt %>% dplyr::filter(region == site ) %>% pull(LIBID)
+  
+  site_TPM_df <- deeper_seq_hg38_TPM_matrix[,lib_vec] %>% as.data.frame()
+  site_TPM_df$gene <- row.names(site_TPM_df)
+  
+  EDC_TPM_df <- site_TPM_df %>% dplyr::filter(str_detect(string = site_TPM_df$gene, pattern=EDC_genes))
+  
+  #convert to long format
+  EDC_TPM_df_long <- EDC_TPM_df %>% pivot_longer(.,cols =! gene, names_to = "LIBID", values_to = "TPM")
+  
+  EDC_TPM_df_long$site <- site
+  
+  return(EDC_TPM_df_long)
+  
+}) %>% do.call("rbind", .)
+
+
+
+#proportion of EDC genes (68) with at least non-zero TPM per library
+
+deeper_seq_hg38_mtx_EDC_expr_summary <- deeper_seq_hg38_mtx_EDC_expression %>% 
+    group_by(LIBID,site) %>% mutate(detected = sum(TPM != 0)) %>% dplyr::select(-c(TPM,gene)) %>% unique(.)
+    
+deeper_seq_hg38_mtx_EDC_expr_summary$proportion_detected <- deeper_seq_hg38_mtx_EDC_expr_summary$detected/68
+
+deeper_seq_hg38_mtx_EDC_expr_summary$site <- as.factor(deeper_seq_hg38_mtx_EDC_expr_summary$site)
+
+deeper_seq_hg38_mtx_EDC_expr_boxplot <- deeper_seq_hg38_mtx_EDC_expr_summary %>% mutate(site= fct_relevel(site, "Sc", "Ch")) %>% 
+  ggplot(aes(x=site, y=proportion_detected, fill=site)) + geom_boxplot() + theme_classic() + 
+  ggtitle("Proportion of epidermal differentiation complex genes (n=68) with non-zero TPM in more deeply sequenced samples")
+
+
+ggsave(deeper_seq_hg38_mtx_EDC_expr_boxplot, 
+       filename = "../plots/mtx_hg38_QC/deeper_seq_hg38_mtx_EDC_expr_boxplot.pdf",
+       height=7, width=10)
+
+
+
+deeper_seq_hg38_mtx_EDC_expr_boxplot
+
+#
+deeper_seq_hg38_mtx_kera_marker_expression <- lapply(c("Sc","Ch","Ac"), function(site){
+  
+  lib_vec <- deeper_seq_hg38_QC_fmt %>% dplyr::filter(region == site ) %>% pull(LIBID)
+  
+  site_TPM_df <- deeper_seq_hg38_TPM_matrix[,lib_vec] %>% as.data.frame()
+  site_TPM_df$gene <- row.names(site_TPM_df)
+  
+  kera_marker_TPM_df <- site_TPM_df %>% dplyr::filter(gene %in% keratinocyte_markers)
+  
+  #convert to long format
+  kera_marker_TPM_df_long <- kera_marker_TPM_df %>% pivot_longer(.,cols =! gene, names_to = "LIBID", values_to = "TPM")
+  
+  kera_marker_TPM_df_long$site <- site
+  
+  return(kera_marker_TPM_df_long)
+  
+}) %>% do.call("rbind", .)
+
+#proportion of kera_marker genes with at least non-zero TPM per library
+
+deeper_seq_hg38_mtx_kera_marker_expr_summary <- deeper_seq_hg38_mtx_kera_marker_expression %>% 
+    group_by(LIBID,site) %>% mutate(detected = sum(TPM != 0)) %>% dplyr::select(-c(TPM,gene)) %>% unique(.)
+    
+deeper_seq_hg38_mtx_kera_marker_expr_summary$proportion_detected <- deeper_seq_hg38_mtx_kera_marker_expr_summary$detected/length(keratinocyte_markers)
+
+deeper_seq_hg38_mtx_kera_marker_expr_summary$site <- as.factor(deeper_seq_hg38_mtx_kera_marker_expr_summary$site)
+
+deeper_seq_hg38_mtx_kera_marker_expr_boxplot <- deeper_seq_hg38_mtx_kera_marker_expr_summary %>% mutate(site= fct_relevel(site, "Sc", "Ch", "Ac")) %>% 
+  ggplot(aes(x=site, y=proportion_detected, fill=site)) + geom_boxplot() + theme_classic() + 
+  ggtitle("Proportion of keratinocyte marker genes with non-zero TPM in more deeply sequenced samples")
+
+
+ggsave(deeper_seq_hg38_mtx_kera_marker_expr_boxplot, 
+       filename = "../plots/mtx_hg38_QC/deeper_seq_hg38_mtx_kera_marker_expr_boxplot.pdf",
+       height=7, width=10)
+
+
+deeper_seq_hg38_mtx_kera_marker_expr_boxplot
+
+
+
+
+```
+
+
+
+What about the other studies?
+
+```{r}
+
+solberg_filenames <- other_studies_RNAseq_metadata %>% 
+  dplyr::filter(str_detect(string=.$study,pattern="Solberg")) %>% pull(LIBID)
+
+amorim_filenames <- other_studies_RNAseq_metadata %>% 
+  dplyr::filter(str_detect(string=.$study,pattern="Amorim")) %>% pull(LIBID)
+
+SRIS_explant_filenames <- other_studies_RNAseq_metadata %>% 
+  dplyr::filter(str_detect(string=.$sample_desc,pattern="SRIS")) %>% pull(LIBID)
+
+
+solberg_hg38_salmon_files <- file.path("../data/hg38_mtx_mapping/solberg_skin_tape/", paste0(solberg_filenames, "_quant.sf"))
+
+amorim_hg38_salmon_files <- file.path("../data/hg38_mtx_mapping/amorim_leishmania/", paste0(amorim_filenames, "_quant.sf"))
+
+SRIS_hg38_salmon_files <- file.path("../data/hg38_mtx_mapping/SRIS_skin_explants/", paste0(SRIS_explant_filenames, "_quant.sf"))
+
+names(solberg_hg38_salmon_files) <- solberg_filenames
+
+names(amorim_hg38_salmon_files) <- amorim_filenames
+
+names(SRIS_hg38_salmon_files) <- SRIS_explant_filenames
+
+other_studies_hg38_salmon_files <- c(solberg_hg38_salmon_files, amorim_hg38_salmon_files, SRIS_hg38_salmon_files)
+
+other_studies_hg38_txi.salmon <- tximport(other_studies_hg38_salmon_files, type="salmon", tx2gene=hg38_tx2gene)
+
+other_studies_hg38_count_matrix <- other_studies_hg38_txi.salmon$counts
+
+#################
+#https://support.bioconductor.org/p/91218/
+#This TPM matrix is not for DESeq2, but for QC purposes
+other_studies_hg38_TPM_matrix <- other_studies_hg38_txi.salmon$abundance
+
+
+
+
+other_studies_hg38_mtx_EDC_expression <- lapply(c("stratum_corneum","epidermis","dermis", "biopsy", "explant"), function(site){
+  
+  lib_vec <- other_studies_hg38_QC_fmt %>% dplyr::filter(skin_layer == site ) %>% pull(LIBID)
+  
+  site_TPM_df <- other_studies_hg38_TPM_matrix[,lib_vec] %>% as.data.frame()
+  site_TPM_df$gene <- row.names(site_TPM_df)
+  
+  EDC_TPM_df <- site_TPM_df %>% dplyr::filter(str_detect(string = site_TPM_df$gene, pattern=EDC_genes))
+  
+  #convert to long format
+  EDC_TPM_df_long <- EDC_TPM_df %>% pivot_longer(.,cols =! gene, names_to = "LIBID", values_to = "TPM")
+  
+  EDC_TPM_df_long$site <- site
+  
+  return(EDC_TPM_df_long)
+  
+}) %>% do.call("rbind", .)
+
+#number of genes in the EDC is 68
+
+
+#proportion of EDC genes (68) with at least non-zero TPM per library
+
+other_studies_hg38_mtx_EDC_expr_summary <- other_studies_hg38_mtx_EDC_expression %>% 
+    group_by(LIBID,site) %>% mutate(detected = sum(TPM != 0)) %>% dplyr::select(-c(TPM,gene)) %>% unique(.)
+    
+other_studies_hg38_mtx_EDC_expr_summary$proportion_detected <- other_studies_hg38_mtx_EDC_expr_summary$detected/68
+
+other_studies_hg38_mtx_EDC_expr_summary$site <- as.factor(other_studies_hg38_mtx_EDC_expr_summary$site)
+
+other_studies_hg38_mtx_EDC_expr_boxplot <- other_studies_hg38_mtx_EDC_expr_summary %>% mutate(site= fct_relevel(site, "stratum_corneum","epidermis","dermis", "biopsy", "explant")) %>% 
+  ggplot(aes(x=site, y=proportion_detected, fill=site)) + geom_boxplot() + theme_classic() + 
+  ggtitle("Proportion of epidermal differentiation complex genes (n=68) with non-zero TPM in other studies")
+
+
+ggsave(other_studies_hg38_mtx_EDC_expr_boxplot, 
+       filename = "../plots/mtx_hg38_QC/other_studies_hg38_mtx_EDC_expr_boxplot.pdf",
+       height=7, width=10)
+
+
+other_studies_hg38_mtx_EDC_expr_boxplot
+
+
+#keratinocyte markers
+
+other_studies_hg38_mtx_kera_marker_expression <- lapply(c("stratum_corneum","epidermis","dermis", "biopsy", "explant"), function(site){
+  
+  lib_vec <- other_studies_hg38_QC_fmt %>% dplyr::filter(skin_layer == site ) %>% pull(LIBID)
+  
+  site_TPM_df <- other_studies_hg38_TPM_matrix[,lib_vec] %>% as.data.frame()
+  site_TPM_df$gene <- row.names(site_TPM_df)
+  
+  kera_marker_TPM_df <- site_TPM_df %>% dplyr::filter(gene %in% keratinocyte_markers)
+  
+  #convert to long format
+  kera_marker_TPM_df_long <- kera_marker_TPM_df %>% pivot_longer(.,cols =! gene, names_to = "LIBID", values_to = "TPM")
+  
+  kera_marker_TPM_df_long$site <- site
+  
+  return(kera_marker_TPM_df_long)
+  
+}) %>% do.call("rbind", .)
+
+#proportion of kera_marker genes with at least non-zero TPM per library
+
+other_studies_hg38_mtx_kera_marker_expr_summary <- other_studies_hg38_mtx_kera_marker_expression %>% 
+    group_by(LIBID,site) %>% mutate(detected = sum(TPM != 0)) %>% dplyr::select(-c(TPM,gene)) %>% unique(.)
+    
+other_studies_hg38_mtx_kera_marker_expr_summary$proportion_detected <- other_studies_hg38_mtx_kera_marker_expr_summary$detected/length(keratinocyte_markers)
+
+other_studies_hg38_mtx_kera_marker_expr_summary$site <- as.factor(other_studies_hg38_mtx_kera_marker_expr_summary$site)
+
+other_studies_hg38_mtx_kera_marker_expr_boxplot <- other_studies_hg38_mtx_kera_marker_expr_summary %>% mutate(site= fct_relevel(site, "stratum_corneum","epidermis","dermis", "biopsy", "explant")) %>% 
+  ggplot(aes(x=site, y=proportion_detected, fill=site)) + geom_boxplot() + theme_classic() + 
+  ggtitle("Proportion of keratinocyte marker genes with non-zero TPM in other studies")
+
+
+ggsave(other_studies_hg38_mtx_kera_marker_expr_boxplot, 
+       filename = "../plots/mtx_hg38_QC/other_studies_hg38_mtx_kera_marker_expr_boxplot.pdf",
+       height=7, width=10)
+
+
+other_studies_hg38_mtx_kera_marker_expr_boxplot
+
+
+```
+
+Marker gene detection for Leung et al 
+
+No TPM calculations here so just use read counts instead.
+
+```{r}
+
+#8 non lesional samples
+#For some reason, MARCH1 and MARCH2 have duplicated rows in their count matrix
+#I have manually renamed them to MARCH1b and MARCH2b
+Leung_hg38_mtx_count_matrix <- read.table("../data/hg38_mtx_mapping/leung_skin_tape/Leung_STM_2019_NL_skintape_raw_count.txt",
+                                          sep = "\t", row.names = 1, header=TRUE)
+
+
+
+Leung_hg38_mtx_EDC_expression <- Leung_hg38_mtx_count_matrix %>% as.data.frame()
+
+Leung_hg38_mtx_EDC_expression$gene <- row.names(Leung_hg38_mtx_EDC_expression)
+  
+Leung_hg38_mtx_EDC_expression  <- Leung_hg38_mtx_EDC_expression %>% dplyr::filter(str_detect(string = .$gene, pattern=EDC_genes))
+  
+#convert to long format
+Leung_hg38_mtx_EDC_expression <- Leung_hg38_mtx_EDC_expression %>% pivot_longer(.,cols =! gene, names_to = "LIBID", values_to = "counts")
+  
+Leung_hg38_mtx_EDC_expression$site <- "Ac"
+  
+
+  
+#proportion of EDC genes (68) with at least non-zero counts
+
+Leung_hg38_mtx_EDC_expr_summary <- Leung_hg38_mtx_EDC_expression %>% 
+    group_by(LIBID,site) %>% mutate(detected = sum(counts != 0)) %>% dplyr::select(-c(counts,gene)) %>% unique(.)
+    
+Leung_hg38_mtx_EDC_expr_summary$proportion_detected <- Leung_hg38_mtx_EDC_expr_summary$detected/68
+
+Leung_hg38_mtx_EDC_expr_boxplot <- Leung_hg38_mtx_EDC_expr_summary %>% 
+  ggplot(aes(x=site, y=proportion_detected, fill=site)) + geom_boxplot() + theme_classic() + 
+  ggtitle("Proportion of epidermal differentiation complex genes (n=68) with non-zero counts in skin tapes from Leung et al")
+
+
+ggsave(Leung_hg38_mtx_EDC_expr_boxplot, 
+       filename = "../plots/mtx_hg38_QC/Leung_hg38_mtx_EDC_expr_boxplot.pdf",
+       height=7, width=7)
+
+
+Leung_hg38_mtx_EDC_expr_boxplot
+
+
+##
+
+
+Leung_hg38_mtx_kera_marker_expression <- Leung_hg38_mtx_count_matrix %>% as.data.frame()
+
+Leung_hg38_mtx_kera_marker_expression$gene <- row.names(Leung_hg38_mtx_kera_marker_expression)
+  
+Leung_hg38_mtx_kera_marker_expression  <- Leung_hg38_mtx_kera_marker_expression %>% dplyr::filter(gene %in% keratinocyte_markers)
+  
+#convert to long format
+Leung_hg38_mtx_kera_marker_expression <- Leung_hg38_mtx_kera_marker_expression %>% pivot_longer(.,cols =! gene, names_to = "LIBID", values_to = "counts")
+  
+Leung_hg38_mtx_kera_marker_expression$site <- "Ac"
+  
+
+  
+#proportion of kera_marker genes (68) with at least non-zero counts
+
+Leung_hg38_mtx_kera_marker_expr_summary <- Leung_hg38_mtx_kera_marker_expression %>% 
+    group_by(LIBID,site) %>% mutate(detected = sum(counts != 0)) %>% dplyr::select(-c(counts,gene)) %>% unique(.)
+    
+Leung_hg38_mtx_kera_marker_expr_summary$proportion_detected <- Leung_hg38_mtx_kera_marker_expr_summary$detected/length(keratinocyte_markers)
+
+Leung_hg38_mtx_kera_marker_expr_boxplot <- Leung_hg38_mtx_kera_marker_expr_summary %>% 
+  ggplot(aes(x=site, y=proportion_detected, fill=site)) + geom_boxplot() + theme_classic() + 
+  ggtitle("Proportion of keratinocyte marker genes with non-zero counts in skin tapes from Leung et al")
+
+
+ggsave(Leung_hg38_mtx_kera_marker_expr_boxplot, 
+       filename = "../plots/mtx_hg38_QC/Leung_hg38_mtx_kera_marker_expr_boxplot.pdf",
+       height=7, width=7)
+
+
+Leung_hg38_mtx_kera_marker_expr_boxplot
+
+
+
+
+```
+
+
+
+
+
+Plot gene coverage statistics for the main cohort
+
+```{r}
+
+mtx_Sc_ids <- mtx_stats_chosen %>% dplyr::filter(region=="Sc") %>% pull(LIBID)
+
+mtx_Ch_ids <- mtx_stats_chosen %>% dplyr::filter(region=="Ch") %>% pull(LIBID)
+
+mtx_Ac_ids <- mtx_stats_chosen %>% dplyr::filter(region=="Ac") %>% pull(LIBID)
+
+mtx_Vf_ids <- mtx_stats_chosen %>% dplyr::filter(region=="Vf") %>% pull(LIBID)
+
+mtx_Tw_ids <- mtx_stats_chosen %>% dplyr::filter(region=="Tw") %>% pull(LIBID)
+
+#for the main cohort
+main_cohort_hg38_cov_spline <- lapply(mtx_to_pull, function(name){
+  
+  histo_df <- read_tsv(paste0("../data/hg38_mtx_mapping/",name,"_coverage_profile_along_genes_high.txt"), 
+                       show_col_types = FALSE)
+  
+  
+  colnames(histo_df)[1] <- "normalized_position"
+  colnames(histo_df)[2] <- "counts"
+  
+  #min-max rescaling from 0 to 1
+  #normalized_coverage computed by scaling counts internally to range from 0-1
+  histo_df$normalized_coverage <- (histo_df$counts - min(histo_df$counts))/(max(histo_df$counts)-min(histo_df$counts))
+  
+  
+  #spline interpolation of points
+  spline_df <- as.data.frame(spline(histo_df$normalized_position,histo_df$normalized_coverage))
+  
+  spline_df$LIBID <- name
+  
+  return(spline_df)
+  
+}) %>% do.call("rbind",.)
+
+
+#merge additional metadata info for plotting convenience
+main_cohort_hg38_cov_spline <- merge(main_cohort_hg38_cov_spline,mtx_stats_chosen %>% dplyr::select(LIBID,region),by="LIBID")
+
+
+main_cohort_hg38_cov_spline <- main_cohort_hg38_cov_spline %>% dplyr::rename(normalized_position=x, 
+                                                                             normalized_coverage=y)
+
+main_cohort_hg38_cov_spline$region <- factor(main_cohort_hg38_cov_spline$region, 
+                                             levels=c("Sc","Ch","Ac","Vf","Tw"))
+
+#Substantial degradation, but not much worse than solberg tapes
+
+ggplot(main_cohort_hg38_cov_spline %>% dplyr::filter(region == "Sc"),
+       aes(x = normalized_position, y = normalized_coverage, color=LIBID)) +
+  geom_line() + theme_classic() + ggtitle("Read coverage over highest expressed human genes, Scalp")
+
+
+ggplot(main_cohort_hg38_cov_spline %>% dplyr::filter(region == "Ch"),
+       aes(x = normalized_position, y = normalized_coverage, color=LIBID)) +
+  geom_line() + theme_classic() + ggtitle("Read coverage over highest expressed human genes, Cheeks")
+
+
+ggplot(main_cohort_hg38_cov_spline %>% dplyr::filter(region == "Ac"),
+       aes(x = normalized_position, y = normalized_coverage, color=LIBID)) +
+  geom_line() + theme_classic() + ggtitle("Read coverage over highest expressed human genes, Ac")
+
+
+
+ggplot(main_cohort_hg38_cov_spline %>% dplyr::filter(region == "Vf"),
+       aes(x = normalized_position, y = normalized_coverage, color=LIBID)) +
+  geom_line() + theme_classic() + ggtitle("Read coverage over highest expressed human genes, Vf")
+
+
+ggplot(main_cohort_hg38_cov_spline %>% dplyr::filter(region == "Tw"),
+       aes(x = normalized_position, y = normalized_coverage, color=LIBID)) +
+  geom_line() + theme_classic() + ggtitle("Read coverage over highest expressed human genes, Tw")
+
+
+#facet
+
+main_cohort_hg38_cov_spline_facets <- ggplot(main_cohort_hg38_cov_spline,
+       aes(x = normalized_position, y = normalized_coverage, color=LIBID)) +
+  geom_line() + theme_classic() + 
+  ggtitle("Read coverage over highest expressed human genes, main cohort") + facet_wrap(vars(region), scales = "free_x") + 
+  theme(legend.position="none")
+
+
+ggsave(main_cohort_hg38_cov_spline_facets, 
+       filename = "../plots/mtx_hg38_QC/main_cohort_hg38_cov_spline_facets.pdf",
+       height=7, width=10)
+
+
+
+main_cohort_hg38_cov_spline_facets
+
+```
+
+
+Plot gene coverage statistics for other studies
+
+```{r}
+
+
+#for Solberg's samples
+solberg_hg38_cov_spline <- lapply(solberg_filenames, function(name){
+  
+  histo_df <- read_tsv(paste0("../data/hg38_mtx_mapping/solberg_skin_tape/",name,"_coverage_profile_along_genes_high.txt"), 
+                       show_col_types = FALSE)
+  
+  
+  colnames(histo_df)[1] <- "normalized_position"
+  colnames(histo_df)[2] <- "counts"
+  
+  #min-max rescaling from 0 to 1
+  #normalized_coverage computed by scaling counts internally to range from 0-1
+  histo_df$normalized_coverage <- (histo_df$counts - min(histo_df$counts))/(max(histo_df$counts)-min(histo_df$counts))
+  
+  #spline interpolation of points
+  spline_df <- as.data.frame(spline(histo_df$normalized_position,histo_df$normalized_coverage))
+  
+  spline_df$LIBID <- name
+  
+  return(spline_df)
+  
+}) %>% do.call("rbind",.)
+
+
+#merge additional metadata info for plotting convenience
+#also quite degraded
+solberg_hg38_cov_spline <- merge(solberg_hg38_cov_spline,solberg_hg38_QC %>% dplyr::select(LIBID,region, skin_layer),by="LIBID")
+
+
+solberg_hg38_cov_spline <- solberg_hg38_cov_spline %>% dplyr::rename(normalized_position=x, 
+                                                                             normalized_coverage=y)
+
+
+ggplot(solberg_hg38_cov_spline %>% dplyr::filter(skin_layer=="stratum_corneum"),
+       aes(x = normalized_position, y = normalized_coverage, color=LIBID)) +
+  geom_line() + theme_classic() + ggtitle("Read coverage over highest expressed human genes, Vf stratum corneum") 
+
+
+ggplot(solberg_hg38_cov_spline %>% dplyr::filter(skin_layer=="epidermis"),
+       aes(x = normalized_position, y = normalized_coverage, color=LIBID)) +
+  geom_line() + theme_classic() + ggtitle("Read coverage over highest expressed human genes, Vf epidermis") 
+
+
+ggplot(solberg_hg38_cov_spline %>% dplyr::filter(skin_layer=="dermis"),
+       aes(x = normalized_position, y = normalized_coverage, color=LIBID)) +
+  geom_line() + theme_classic() + ggtitle("Read coverage over highest expressed human genes, Vf dermis") 
+
+
+solberg_hg38_cov_spline_facets <- ggplot(solberg_hg38_cov_spline,
+       aes(x = normalized_position, y = normalized_coverage, color=LIBID)) +
+  geom_line() + theme_classic() + 
+  ggtitle("Read coverage over highest expressed human genes, Solberg et al") + facet_wrap(vars(skin_layer), scales = "free_x") + 
+  theme(legend.position="none")
+
+
+ggsave(solberg_hg38_cov_spline_facets, 
+       filename = "../plots/mtx_hg38_QC/solberg_hg38_cov_spline_facets.pdf",
+       height=7, width=10)
+
+solberg_hg38_cov_spline_facets
+
+```
+
+
+#For Amorim leishmania biopsies
+
+```{r}
+amorim_hg38_cov_spline <- lapply(amorim_filenames, function(name){
+  
+  histo_df <- read_tsv(paste0("../data/hg38_mtx_mapping/amorim_leishmania/",name,"_coverage_profile_along_genes_high.txt"), 
+                       show_col_types = FALSE)
+  
+  
+  colnames(histo_df)[1] <- "normalized_position"
+  colnames(histo_df)[2] <- "counts"
+  
+  #min-max rescaling from 0 to 1
+  #normalized_coverage computed by scaling counts internally to range from 0-1
+  histo_df$normalized_coverage <- (histo_df$counts - min(histo_df$counts))/(max(histo_df$counts)-min(histo_df$counts))
+  
+  #spline interpolation of points
+  spline_df <- as.data.frame(spline(histo_df$normalized_position,histo_df$normalized_coverage))
+  
+  spline_df$LIBID <- name
+  
+  return(spline_df)
+  
+}) %>% do.call("rbind",.)
+
+amorim_hg38_cov_spline <- merge(amorim_hg38_cov_spline,amorim_hg38_QC %>% dplyr::select(LIBID,region, skin_layer),by="LIBID")
+
+
+amorim_hg38_cov_spline <- amorim_hg38_cov_spline %>% dplyr::rename(normalized_position=x, 
+                                                                             normalized_coverage=y)
+
+amorim_hg38_cov_spline_facets <- ggplot(amorim_hg38_cov_spline,
+       aes(x = normalized_position, y = normalized_coverage, color=LIBID)) +
+  geom_line() + theme_classic() + ggtitle("Read coverage over highest expressed human genes, Amorim et al") +theme(legend.position="none")
+
+
+ggsave(amorim_hg38_cov_spline_facets, 
+       filename = "../plots/mtx_hg38_QC/amorim_hg38_cov_spline_facets.pdf",
+       height=7, width=10)
+
+amorim_hg38_cov_spline_facets
+
+```
+
+#For SRIS skin explants
+
+```{r}
+
+
+
+SRIS_hg38_cov_spline <- lapply(SRIS_explant_filenames, function(name){
+  
+  histo_df <- read_tsv(paste0("../data/hg38_mtx_mapping/SRIS_skin_explants/",name,"_coverage_profile_along_genes_high.txt"), 
+                       show_col_types = FALSE)
+  
+  
+  colnames(histo_df)[1] <- "normalized_position"
+  colnames(histo_df)[2] <- "counts"
+  
+  #min-max rescaling from 0 to 1
+  #normalized_coverage computed by scaling counts internally to range from 0-1
+  histo_df$normalized_coverage <- (histo_df$counts - min(histo_df$counts))/(max(histo_df$counts)-min(histo_df$counts))
+  
+  #spline interpolation of points
+  spline_df <- as.data.frame(spline(histo_df$normalized_position,histo_df$normalized_coverage))
+  
+  spline_df$LIBID <- name
+  
+  return(spline_df)
+  
+}) %>% do.call("rbind",.)
+
+SRIS_hg38_cov_spline <- merge(SRIS_hg38_cov_spline,all_studies_hg38_QC %>% dplyr::select(LIBID,region, skin_layer),by="LIBID")
+
+
+SRIS_hg38_cov_spline <- SRIS_hg38_cov_spline %>% dplyr::rename(normalized_position=x, 
+                                                                             normalized_coverage=y)
+
+SRIS_hg38_cov_spline_facets <- ggplot(SRIS_hg38_cov_spline,
+       aes(x = normalized_position, y = normalized_coverage, color=LIBID)) +
+  geom_line() + theme_classic() + ggtitle("Read coverage over highest expressed human genes, SRIS explants") +theme(legend.position="none")
+
+
+ggsave(SRIS_hg38_cov_spline_facets, 
+       filename = "../plots/mtx_hg38_QC/SRIS_hg38_cov_spline_facets.pdf",
+       height=7, width=10)
+
+SRIS_hg38_cov_spline_facets
+
+
+
+
+```
+
+
+
+#DESeq2 analysis
+
+Updated as of 20/06/2024
+
+Use DESeq2 to get variance stabilize transform counts
+
+Let's stick with scalp and cheeks since the other sites have lower counts
+
+
+```{r}
+
+#add dv200
+
+main_cohort_hg38_QC <- merge(main_cohort_hg38_QC, mtx_stats_chosen %>% dplyr::select(LIBID, subject, DV200))
+
+main_cohort_hg38_QC$DV200 <- as.numeric(main_cohort_hg38_QC$DV200)
+
+get_vst_data <- function(count_matrix=main_cohort_hg38_count_matrix, QC_metadata=main_cohort_hg38_QC, skin_site){
+  
+  #Convert to matrix of integers from salmon count outputs
+  hg38_count_matrix <- round(count_matrix)
+  mode(hg38_count_matrix) <- "integer"
+  
+  hg38_DESeq_metadata <- QC_metadata %>% 
+    dplyr::select(LIBID, subject, region, approx_giga_nt, DV200) %>% 
+    as.data.frame() %>% dplyr::filter(region %in% skin_site)
+  
+  rownames(hg38_DESeq_metadata) <- hg38_DESeq_metadata$LIBID
+  
+  hg38_DESeq_metadata <- hg38_DESeq_metadata %>% dplyr::select(-LIBID)
+  
+  hg38_DESeq_metadata$subject <- as.factor(hg38_DESeq_metadata$subject)
+  
+  hg38_DESeq_metadata$region <- as.factor(hg38_DESeq_metadata$region)
+  
+  #subset the count matrix
+  
+  hg38_count_matrix <- hg38_count_matrix[,rownames(hg38_DESeq_metadata)]
+  
+  #the row names of metadata should automatically be ordered in a way that matches the input matrix
+  #reorder rows of the metadata
+  
+  hg38_idx <- match(colnames(hg38_count_matrix), rownames(hg38_DESeq_metadata))
+  hg38_DESeq_metadata <- hg38_DESeq_metadata[hg38_idx,]
+  
+  #https://support.bioconductor.org/p/79209/
+  #The design of ~1 is to allow for the functions to run for technical reasons (this design is used under some settings for estimating the transformations for example). This is not testing for any differential expression
+  hg38_dds <- DESeqDataSetFromMatrix(countData = hg38_count_matrix, 
+                                colData = hg38_DESeq_metadata, 
+                                design = ~1)
+  
+  hg38_mat <- counts(hg38_dds)
+  
+  hg38_keep <- (rowMedians(hg38_mat) >= 10)
+  
+  hg38_dds <- hg38_dds[hg38_keep,]
+  
+  #####Estimate size factors#
+  #If in normal RNA-seq there is at least one zero per gene that means that (I guess) either samples are notably under-sequenced or there are any other kinds of dropout events that I'd investigate. it is in any case not normal and should probably not be ignored by just adding a pseudocount. 
+  #One way to handle it is to use poscounts
+  
+  #The "poscounts" estimator deals with a gene with some zeros, by calculating a modified geometric mean by taking the n-th root of the
+  #product of the non-zero counts. This evolved out of use cases with Paul McMurdie's phyloseq package for metagenomic samples
+  
+  hg38_dds <- estimateSizeFactors(hg38_dds, type = "poscounts")
+  
+  hg38_normalized_counts <- counts(hg38_dds, normalized=TRUE)
+  
+  #Note:https://support.bioconductor.org/p/98634/
+  #See DESeq2 vignette about blind dispersion estimation
+  
+  #blind=TRUE should be used for comparing samples in a manner unbiased by prior information on samples, for example to perform sample QA (quality assurance). blind=FALSE should be used for transforming data for downstream analysis, where the full use of the design information should be made.
+  
+  
+  #May have to manually define nsub here because there are fewer than the default 1000 features for vst
+  #hg38_vsd <- vst(hg38_dds, blind=TRUE, nsub=sum( rowMedians( counts(hg38_dds, normalized=TRUE)) >= 10 ) ) 
+  
+  hg38_vsd <- vst(hg38_dds, blind=TRUE) 
+  hg38_vsd_mat <- assay(hg38_vsd)
+  hg38_vsd_cor <- cor(hg38_vsd_mat)
+
+  output <- tibble::lst(hg38_count_matrix, hg38_DESeq_metadata,
+                        hg38_vsd,hg38_vsd_mat,hg38_vsd_cor)
+  
+  return(output)
+  
+}
+
+
+Sc_main_cohort_hg38_vst <- get_vst_data(skin_site = "Sc")
+
+Ch_main_cohort_hg38_vst <- get_vst_data(skin_site = "Ch")
+
+#I guess…pca and color by dv200 or giga nucleotide... If it doesn’t show up in the first few PCs then ignore
+
+plotPCA(Sc_main_cohort_hg38_vst$hg38_vsd, intgroup = "DV200", returnData=FALSE) + 
+  theme_classic() + scale_color_continuous(type = "viridis") + ggtitle("Colored by DV200, Scalp")
+
+
+plotPCA(Sc_main_cohort_hg38_vst$hg38_vsd, intgroup = "approx_giga_nt", returnData=FALSE) + 
+  theme_classic() + scale_color_continuous(type = "viridis") + ggtitle("Colored by library size, Scalp")
+
+#Cheeks look even better
+
+plotPCA(Ch_main_cohort_hg38_vst$hg38_vsd, intgroup = "DV200", returnData=FALSE) + 
+  theme_classic() + scale_color_continuous(type = "viridis") + ggtitle("Colored by DV200, Cheeks")
+
+plotPCA(Ch_main_cohort_hg38_vst$hg38_vsd, intgroup = "approx_giga_nt", returnData=FALSE) + 
+  theme_classic() + scale_color_continuous(type = "viridis") + ggtitle("Colored by library size, Cheeks")
+
+```
+Gene set variation analysis (GSVA) provides an estimate of pathway activity by transforming an input gene-by-sample expression data matrix into a corresponding gene-set-by-sample expression data matrix. This resulting expression data matrix can be then used with classical analytical methods such as differential expression, classification, survival analysis, clustering or correlation analysis in a pathway-centric manner. 
+
+GSVA: https://bioconductor.org/packages/devel/bioc/vignettes/GSVA/inst/doc/GSVA.html#fig:gbmSignature
+
+install packages Matrix
+
+#Archived code
+
+#DESeq2 analysis (old, all sites)
+```{r eval=FALSE}
+
+
+#Run DESeq2
+#Convert to matrix of integers
+  
+hg38_count_matrix <- round(hg38_count_matrix)
+mode(hg38_count_matrix) <- "integer"
+
+hg38_DESeq_metadata <- mtx_stats_chosen %>% dplyr::select(LIBID, subject, region) %>% as.data.frame()
+  
+rownames(hg38_DESeq_metadata) <- hg38_DESeq_metadata$LIBID
+  
+hg38_DESeq_metadata <- hg38_DESeq_metadata %>% dplyr::select(-LIBID)
+  
+hg38_DESeq_metadata$subject <- as.factor(hg38_DESeq_metadata$subject)
+hg38_DESeq_metadata$region <- as.factor(hg38_DESeq_metadata$region)
+  
+#the row names of metadata should automatically be ordered in a way that matches the input matrix
+#reorder rows of the metadata
+hg38_idx <- match(colnames(hg38_count_matrix), rownames(hg38_DESeq_metadata))
+hg38_DESeq_metadata <- hg38_DESeq_metadata[hg38_idx,]
+
+hg38_dds <- DESeqDataSetFromMatrix(countData = hg38_count_matrix, 
+                                colData = hg38_DESeq_metadata, 
+                                design = ~subject+region)
+
+
+hg38_mat <- counts(hg38_dds)
+  
+hg38_keep <- (rowMedians(hg38_mat) >= 10)
+hg38_dds <- hg38_dds[hg38_keep,]
+  
+#####Estimate size factors
+#If in normal RNA-seq there is at least one zero per gene that means that (I guess) either samples are notably under-sequenced or there are any other kinds of dropout events that I'd investigate. it is in any case not normal and should probably not be ignored by just adding a pseudocount. 
+#One way to handle it is to use poscounts
+#The "poscounts" estimator deals with a gene with some zeros, by calculating a modified geometric mean by taking the n-th root of the product of the non-zero counts. This evolved out of use cases with Paul McMurdie's phyloseq package for metagenomic samples
+hg38_dds <- estimateSizeFactors(hg38_dds, type = "poscounts")
+
+hg38_normalized_counts <- counts(hg38_dds, normalized=TRUE)
+  
+#See error and fix:https://support.bioconductor.org/p/98634/
+#See DESeq2 vignette about blind dispersion estimation
+#I had to manually define nsub here because there are fewer than the default 1000 features for vst
+#Perhaps including all skin sites simultaneously was not a good idea? Too much variability?
+  
+hg38_vsd <- vst(hg38_dds, blind=TRUE, nsub=sum( rowMedians( counts(hg38_dds, normalized=TRUE)) >= 10 ) )  
+  
+hg38_vsd_mat <- assay(hg38_vsd)
+  
+hg38_vsd_cor <- cor(hg38_vsd_mat)
+
+
+
+#I guess…pca and color by dv200 or giga nucleotide haha.. If it doesn’t show up in the first few PCs then ignore
+
+plotPCA(hg38_vsd, intgroup = "region", returnData=FALSE)
+
+```
+Calculate the proportion of "low count" features (<10) PER LIBRARY and summarize per site.
+
+The count matrix has 35,940 features (rows)
+
+```{r eval=FALSE}
+
+hg38_count_df <- hg38_count_matrix %>% as.data.frame()
+
+hg38_count_vec <- vector(mode="numeric", length= length(colnames(hg38_count_df)))
+
+for (i in 1:length(colnames(hg38_count_df))){
+  
+  LIBID <- colnames(hg38_count_df)[i]
+  
+  hg38_count_vec[i] <- sum(hg38_count_df[,LIBID]<10)
+  
+}
+
+
+hg38_count_summary <- data.frame(LIBID=colnames(hg38_count_df), low_count_features=hg38_count_vec)
+
+hg38_count_summary$low_count_proportion <- hg38_count_summary$low_count_features / 35940
+
+hg38_count_summary <- merge(hg38_count_summary, metadata, by = "LIBID")
+
+hg38_low_count_boxplot <- hg38_count_summary %>% mutate(region= fct_relevel(region, "Sc", "Ch", "Ac", "Vf", "Tw")) %>% 
+  ggplot(aes(x=region, y=low_count_proportion, fill=region)) + geom_boxplot() + theme_classic() + 
+  ggtitle("Proportion of features (n=35940) with < 10 counts")
+
+
+
+ggsave(filename="../plots/DESeq_hg38/hg38_low_count_boxplot.pdf", 
+       plot=hg38_low_count_boxplot, width = 14, height = 7)
+
+
+hg38_low_count_boxplot
+```
+
+
+
+Calculate the proportion of "low count" features (<10) PER LIBRARY and summarize per site.
+
+The count matrix has 35,940 features (rows)
+
+```{r eval=FALSE}
+
+hg38_count_df <- hg38_count_matrix %>% as.data.frame()
+
+hg38_count_vec <- vector(mode="numeric", length= length(colnames(hg38_count_df)))
+
+for (i in 1:length(colnames(hg38_count_df))){
+  
+  LIBID <- colnames(hg38_count_df)[i]
+  
+  hg38_count_vec[i] <- sum(hg38_count_df[,LIBID]<10)
+  
+}
+
+
+hg38_count_summary <- data.frame(LIBID=colnames(hg38_count_df), low_count_features=hg38_count_vec)
+
+hg38_count_summary$low_count_proportion <- hg38_count_summary$low_count_features / 35940
+
+hg38_count_summary <- merge(hg38_count_summary, metadata, by = "LIBID")
+
+hg38_low_count_boxplot <- hg38_count_summary %>% mutate(region= fct_relevel(region, "Sc", "Ch", "Ac", "Vf", "Tw")) %>% 
+  ggplot(aes(x=region, y=low_count_proportion, fill=region)) + geom_boxplot() + theme_classic() + 
+  ggtitle("Proportion of features (n=35940) with < 10 counts")
+
+
+
+ggsave(filename="../plots/DESeq_hg38/hg38_low_count_boxplot.pdf", 
+       plot=hg38_low_count_boxplot, width = 14, height = 7)
+
+
+hg38_low_count_boxplot
+```
+
+Heatmap of selected immune genes "expressed" in our dataset, by TPM. (Salmon quant.sf has TPM)
+
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3178996/  and https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3645662/
+and https://www.frontiersin.org/articles/10.3389/fimmu.2018.00080/full
+
+Interleukin -1 receptor family[15] (IL-1A, IL-1B, IL-18, IL-33, IL-36) IL-1 is a pro-inflammatory primary cytokine. It links the innate and acquired immune systems to provide synergistic host defense activities in the skin. 
+
+In skin, KCs are both a source of IL-36 and important cellular target that can be activated to undergo proliferation and release additional cytokines and chemokines (18). 
+
+
+IL-2 family
+
+IL-2, IL-4, the closely related cytokine IL-13 and IL-21
+
+
+IL-10 family
+IL-10, IL-19, IL-22, IL-26, IL-24, IL-20
+
+```{r eval=FALSE}
+
+
+#Get transcript IDs for the interleukins
+
+skin_ILs <- c("IL1A", "IL1B", "IL18", 
+              "IL33", "IL36A", "IL36B", 
+              "IL36G", "IL2", "IL13",
+              "IL21", "IL10", "IL19",
+              "IL22", "IL26", "IL24",
+              "IL20")
+
+#Include FLG as positive control
+selected_IL1_fam <- c("IL1A", "IL1B", "IL18", 
+                      "IL36A", "IL36B", "IL36G",
+                      "FLG")
+
+Vf_skin_ILs_TPM <- hg38_TPM_matrix[skin_ILs, mtx_stats_chosen %>% dplyr::filter(region=="Vf")%>%pull(LIBID)]
+
+Ch_skin_ILs_TPM <- hg38_TPM_matrix[skin_ILs, mtx_stats_chosen %>% dplyr::filter(region=="Ch")%>%pull(LIBID)]
+
+Sc_skin_ILs_TPM <- hg38_TPM_matrix[skin_ILs, mtx_stats_chosen %>% dplyr::filter(region=="Sc")%>%pull(LIBID)]
+
+
+#Use the Ch results to make heatmap
+
+Ch_skin_selected_IL1_fam_TPM <- hg38_TPM_matrix[selected_IL1_fam, 
+                                                mtx_stats_chosen %>% dplyr::filter(region=="Ch")%>%pull(LIBID)]
+
+
+Ch_skin_selected_IL1_fam_TPM_melt <- melt(Ch_skin_selected_IL1_fam_TPM, value.name="TPM")
+Ch_skin_selected_IL1_fam_TPM_melt <- Ch_skin_selected_IL1_fam_TPM_melt %>% 
+  dplyr::rename(gene=Var1, LIBID=Var2)
+
+#
+
+Ch_skin_selected_IL1_fam_TPM_melt$gene <- factor(Ch_skin_selected_IL1_fam_TPM_melt$gene, 
+                                                 levels=rev(selected_IL1_fam))
+
+Ch_skin_selected_IL1_fam_TPM_heatmap <- ggplot(data=Ch_skin_selected_IL1_fam_TPM_melt, 
+                             aes(x=LIBID,  
+                                 y = gene, 
+                                 fill=log10(TPM + 1))) + geom_tile(colour ="white") + 
+  scale_fill_gradient(low="white", high="red") + 
+  theme(axis.ticks = element_blank()) +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.2, hjust=1)) +
+  theme(axis.title = element_blank()) +
+  theme(legend.position="right")
+
+Ch_skin_selected_IL1_fam_TPM_heatmap
+
+ggsave(plot=Ch_skin_selected_IL1_fam_TPM_heatmap,
+       filename = "../plots/DESeq_hg38/Ch_skin_selected_IL1_fam_TPM_heatmap.pdf",
+       height = 7, width =10)
+
+Ch_skin_selected_IL1_fam_TPM_heatmap
+
+```
+
+
+
+
+
+

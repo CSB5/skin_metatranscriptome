@@ -1,0 +1,3 @@
+paired_counts	distinct_minimizer_count	k2_taxon	source	rel_abun	abun_filter	species_microbial_read_pair_total	minimizer_threshold	minimizer_microbe_ratio	minimizer_filter	taxa_pass_filter	mtx_LIBID
+2912613	1557086	Malassezia_globosa	non_contaminant	83.08194828381461	TRUE	3612427	36124.27	431035.97664395714	TRUE	TRUE	MHS429
+593098	362634	Cutibacterium_acnes	non_contaminant	16.91805171618539	TRUE	3612427	36124.27	100385.14273091193	TRUE	TRUE	MHS429

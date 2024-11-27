@@ -1,0 +1,1102 @@
+---
+title: "mtx_RNA_mapping_QC"
+author: "Chiamh"
+date: '2023-09-05'
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Load libraries
+
+```{r}
+library(tidyverse)
+library(ggpubr)
+```
+
+
+Load metadata
+
+```{r}
+
+#For main cohort
+metadata <- read_tsv("../metadata/skin_mtx_metadata_fmt.txt", show_col_types = FALSE) 
+
+
+mtx_to_pull <- read_tsv("../metadata/mtx_to_pull", col_names = FALSE, show_col_types = FALSE) %>% pull(X1)
+
+neg_ctrl_to_pull <- metadata %>% dplyr::filter(region == "neg-ctrl") %>% pull(LIBID)
+
+main_cohort_QC <- read_tsv("../metadata/MTX_QC_stats.txt") %>%
+  dplyr::filter(LIBID %in% mtx_to_pull)
+
+main_cohort_neg_ctrl_QC <- read_tsv("../metadata/MTX_QC_stats.txt") %>%
+  dplyr::filter(LIBID %in% neg_ctrl_to_pull)
+
+
+#For pilot cohort QC
+
+pilot_QC_wetlab_metadata <- read_tsv("../metadata/pilot_cohort_RNA_wetlab_QC.txt", show_col_types = FALSE)
+
+
+#distribution of libraries per site in the pilot QC, apart from the single sample with a tapestation error
+
+plyr::count(pilot_QC_wetlab_metadata %>% dplyr::filter(!is.na(rRNA_Peak)), vars="region")
+
+#For libraries made using different methods
+
+pilot_diff_methods_QC <- read_tsv("../metadata/pilot_different_RNA_methods_QC.txt", show_col_types = FALSE)
+
+#Filter for the rows that were not done on microbial cultures and which did not correspond to the method chosen for the manuscript
+
+pilot_diff_methods_QC_filt <- pilot_diff_methods_QC %>% 
+  dplyr::filter(collection_method != "Culture added to DNA/RNA Shield") %>%
+  dplyr::filter(extraction_method_of_choice==FALSE)
+
+
+pilot_diff_methods_QC_filt$rRNA_peaks <- ifelse(pilot_diff_methods_QC_filt$rRNA_peaks=="Yes", TRUE, FALSE)
+
+```
+
+Load filtered kraken2 data
+```{r}
+
+rna_k2_minimizer_renorm <- lapply(mtx_to_pull, function(x){
+  
+  df_out <- read_tsv(file=paste0("../processed/k2_species_renorm/RNA/",x,"_k2_renorm.s.tsv"),
+           show_col_types = FALSE)
+  
+  return(df_out)
+  
+})
+
+names(rna_k2_minimizer_renorm) <- mtx_to_pull
+
+
+
+```
+
+
+SCATTER PLOT (for 13/06/2024 lab meeting, not for manuscript)
+
+rna conc (y axis) VS dv200 (x axis) 
+
+Presence of rRNA peak -> Filled vs unfilled
+
+ Method used in this manuscript vs other methods: color
+
+
+```{r}
+
+pilot_QC_wetlab_for_plot <- pilot_QC_wetlab_metadata %>% 
+  dplyr::filter(!is.na(rRNA_Peak)) %>% dplyr::filter(region != "neg_ctrl")
+
+pilot_QC_wetlab_for_plot$rRNA_Peak <- ifelse(pilot_QC_wetlab_for_plot$rRNA_Peak == 1, TRUE, FALSE)
+
+pilot_QC_wetlab_for_plot_fmt <- pilot_QC_wetlab_for_plot %>% 
+  dplyr::rename(RNA_conc_ng_per_ul = rna_conc, rRNA_peaks=rRNA_Peak) %>% 
+  dplyr::select(region, RNA_conc_ng_per_ul, rRNA_peaks, DV200)
+
+pilot_QC_wetlab_for_plot_fmt$method_used_in_manuscript <- TRUE
+
+
+pilot_diff_methods_QC_for_plot_fmt <- pilot_diff_methods_QC_filt %>% 
+  dplyr::select(region, RNA_conc_ng_per_ul, rRNA_peaks, DV200)
+
+
+pilot_diff_methods_QC_for_plot_fmt$method_used_in_manuscript <- FALSE
+
+
+pilot_method_comparison_for_plot <- rbind(pilot_QC_wetlab_for_plot_fmt, pilot_diff_methods_QC_for_plot_fmt)
+
+pilot_method_comparison_for_plot$RNA_conc_ng_per_ul <- as.numeric(pilot_method_comparison_for_plot$RNA_conc_ng_per_ul)
+
+
+#Less informative if not filtered by region
+ggplot(pilot_method_comparison_for_plot, aes(x= DV200, y = log2(RNA_conc_ng_per_ul))) + 
+  geom_point(aes(shape=factor(rRNA_peaks), color=factor(method_used_in_manuscript)), size=2.5) +
+  theme_classic() + scale_shape_manual(values=c(1,19))
+
+
+
+#Show for Ac
+ggplot(pilot_method_comparison_for_plot %>% dplyr::filter(region=="Ac"), aes(x= DV200, y = (RNA_conc_ng_per_ul))) + 
+  geom_point(aes(shape=factor(rRNA_peaks), color=factor(method_used_in_manuscript)), size=2.5) +
+  theme_classic() + scale_shape_manual(values=c(1,19)) + ggtitle("RNA from antecubital fossae")
+
+
+
+```
+
+
+For manuscript: Bar plot of DV200 for main (full) cohort across sites.
+One data point excluded due to tape station failure
+
+```{r}
+
+main_cohort_QC <- merge(main_cohort_QC, metadata %>% dplyr::select(LIBID, subj_region, region))
+
+main_cohort_QC$DV200 <- as.numeric(main_cohort_QC$DV200)
+
+
+main_cohort_QC$region <- factor(main_cohort_QC$region, levels=c("Sc","Ch","Ac","Vf","Tw"))
+
+main_cohort_dv200_boxplot <- ggplot(main_cohort_QC %>% dplyr::filter(!is.na(DV200)), aes(y= DV200, x = (region))) + 
+  geom_boxplot() +
+  theme_classic() + ggtitle("Full cohort, RNA")
+
+
+ggsave(plot=main_cohort_dv200_boxplot, filename = "../figures/main_cohort_dv200_boxplot.pdf", width =7, height=5)
+
+
+
+main_cohort_dv200_boxplot
+
+```
+
+
+
+
+Plot % of NON rRNA over total after experimental but before computational rRNA removal
+
+Also
+
+```{r}
+
+main_cohort_QC$proportion_rRNA_detected_computationally <- (main_cohort_QC$AFT_HUMAN_RM - main_cohort_QC$AFT_RIBO_RM)/main_cohort_QC$AFT_HUMAN_RM
+
+
+main_cohort_QC$percentage_rRNA_detected_computationally <- main_cohort_QC$proportion_rRNA_detected_computationally * 100
+
+main_cohort_QC$percentage_non_rRNA <- 100 - main_cohort_QC$percentage_rRNA_detected_computationally
+
+
+ggplot(main_cohort_QC,
+       aes(x=region, y=percentage_non_rRNA)) + 
+  geom_boxplot() + theme_classic() + 
+  ylab("% non rRNA reads")
+
+ggsave(plot=last_plot(), 
+       filename = "../plots/percent_non_rRNA_remaining_after_wetlab.pdf", width =7, height=5 )
+
+
+main_cohort_QC %>% group_by(region) %>% summarize(median_percentage_rRNA=median(percentage_rRNA_detected_computationally))
+
+
+```
+
+
+Load picard metrics and gene body coverage information from picard CollectRnaSeqMetrics for the eight bacteria species pangenome mapping outcomes. This is the preferred QC metric to use.
+
+While this is called a "histogram, in R we use a spline interpolation to fit a smooth curve over each point
+
+https://stackoverflow.com/questions/35205795/plot-smooth-line-through-all-data-points
+
+
+The median 5 prime bias of the 1000 most highly expressed transcripts. The 5 prime bias is calculated per transcript as: mean coverage of the 5 prime-most 100 bases divided by the mean coverage of the whole transcript.
+
+The median 3 prime bias of the 1000 most highly expressed transcripts, where 3 prime bias is calculated per transcript as: mean coverage of the 3 prime-most 100 bases divided by the mean coverage of the whole transcript.
+
+Values closer to 1 indicate absence of bias, while values departing from 1 indicate a coverage bias.
+The bias metric is calculated by Picard tools on the 1000 most highly expressed transcripts and corresponds to the mean coverage of the 3′(or 5′)-most 100 bases divided by the mean coverage of the whole transcript
+
+```{r}
+
+picard_pangenome_metrics_filenames <- list.files(path="../processed/picard_RNA_metrics/eight_species_pangenome_mapping/", pattern="*_picard_RNA_metrics")
+
+picard_pangenome_histovalues_filenames <-  list.files(path="../processed/picard_RNA_metrics/eight_species_pangenome_mapping/", pattern="*_picard_gene_cov_hist")
+
+
+picard_pangenome_metrics <- lapply(picard_pangenome_metrics_filenames, function(name){
+  
+  metric_df <- read_tsv(paste0("../processed/picard_RNA_metrics/eight_species_pangenome_mapping/",name), show_col_types = FALSE)
+  
+  metric_df$LIBID <- name %>% gsub(pattern="_picard_RNA_metrics.tsv", replacement="",.)
+  
+  return(metric_df)
+  
+}) %>% do.call("rbind",.)
+
+###Add a factor "binning" each library to # of correct strand reads: 
+
+
+picard_pangenome_metrics$sample_bin <- cut(picard_pangenome_metrics$CORRECT_STRAND_READS, breaks = c(1000, 50000, 5e7), include.lowest = TRUE, labels = c("<= 50000 mapped reads","> 50000 mapped reads"))
+
+picard_pangenome_metrics <- merge(picard_pangenome_metrics, metadata %>% dplyr::select(LIBID,region),by="LIBID",all.x = TRUE)
+
+#cut(picard_pangenome_metrics$CORRECT_STRAND_READS, breaks = c(1000, 50000, 100000, 250000, 500000, 5e7), include.lowest = TRUE)
+
+
+
+picard_pangenome_histogram <- lapply(picard_pangenome_histovalues_filenames, function(name){
+  
+  histo_df <- read_tsv(paste0("../processed/picard_RNA_metrics/eight_species_pangenome_mapping/",name), show_col_types = FALSE)
+  
+  histo_df$LIBID <- name %>% gsub(pattern="_picard_gene_cov_hist.tsv", replacement="",.)
+  
+  return(histo_df)
+  
+}) %>% do.call("rbind",.)
+
+
+colnames(picard_pangenome_histogram)[2] <- "normalized_coverage"
+
+picard_pangenome_histogram <- merge(picard_pangenome_histogram,metadata %>% dplyr::select(LIBID,region),by="LIBID",all.x = TRUE)
+
+
+picard_pangenome_cov_spline <- lapply(picard_pangenome_histovalues_filenames, function(name){
+  
+  histo_df <- read_tsv(paste0("../processed/picard_RNA_metrics/eight_species_pangenome_mapping/",name), show_col_types = FALSE)
+  
+  histo_df$LIBID <- name %>% gsub(pattern="_picard_gene_cov_hist.tsv", replacement="",.)
+  
+  colnames(histo_df)[2] <- "normalized_coverage"
+  
+  #spline interpolation of points
+  spline_df <- as.data.frame(spline(histo_df$normalized_position,histo_df$normalized_coverage))
+  
+  spline_df$LIBID <- name %>% gsub(pattern="_picard_gene_cov_hist.tsv", replacement="",.)
+  
+  return(spline_df)
+  
+}) %>% do.call("rbind",.)
+
+colnames(picard_pangenome_cov_spline)[1] <- "normalized_position"
+colnames(picard_pangenome_cov_spline)[2] <- "normalized_coverage"
+
+#merge additional metadata info for plotting convenience
+picard_pangenome_cov_spline <- merge(picard_pangenome_cov_spline,metadata %>% dplyr::select(LIBID,region),by="LIBID",all.x = TRUE)
+picard_pangenome_cov_spline_with_metrics <- merge(picard_pangenome_cov_spline, 
+                                                  picard_pangenome_metrics %>% dplyr::select(LIBID,sample_bin))
+
+```
+
+When all libraries are plotted.
+```{r}
+ggplot(picard_pangenome_cov_spline %>% dplyr::filter(region == "Sc"),
+       aes(x = normalized_position, y = normalized_coverage, color=LIBID)) +
+  geom_line() + theme_classic()
+
+ggplot(picard_pangenome_cov_spline %>% dplyr::filter(region == "Ch"),
+       aes(x = normalized_position, y = normalized_coverage, color=LIBID)) +
+  geom_line() + theme_classic()
+
+ggplot(picard_pangenome_cov_spline %>% dplyr::filter(region == "Vf"),
+       aes(x = normalized_position, y = normalized_coverage, color=LIBID)) +
+  geom_line() + theme_classic()
+
+ggplot(picard_pangenome_cov_spline %>% dplyr::filter(region == "Ac"),
+       aes(x = normalized_position, y = normalized_coverage, color=LIBID)) +
+  geom_line() + theme_classic()
+
+
+ggplot(picard_pangenome_cov_spline %>% dplyr::filter(region == "Tw"),
+       aes(x = normalized_position, y = normalized_coverage, color=LIBID)) +
+  geom_line() + theme_classic()
+
+
+
+```
+
+When libraries are plotted, differentiated by those with <= 50000 mapped reads and those with > 50000 mapped reads
+
+```{r}
+picard_bact_cov_Sc_plot <- ggplot(picard_pangenome_cov_spline_with_metrics %>% dplyr::filter(region == "Sc"),
+       aes(x = normalized_position, y = normalized_coverage, color=sample_bin)) +
+  geom_line() + theme_classic() + scale_colour_manual(values = c("cyan3", "coral" ), drop=FALSE) + ggtitle("Scalp")
+
+
+ggsave(picard_bact_cov_Sc_plot, 
+       filename = "../plots/coverage_plots/picard_bact_cov_Sc_plot.pdf", width =7, height=5 )
+
+
+
+picard_bact_cov_Ch_plot <- ggplot(picard_pangenome_cov_spline_with_metrics %>% dplyr::filter(region == "Ch"),
+       aes(x = normalized_position, y = normalized_coverage, color=sample_bin)) +
+  geom_line() + theme_classic() + scale_colour_manual(values = c("cyan3", "coral" ), drop=FALSE) + ggtitle("Cheeks")
+
+ggsave(picard_bact_cov_Ch_plot, 
+       filename = "../plots/coverage_plots/picard_bact_cov_Ch_plot.pdf", width =7, height=5 )
+
+
+picard_bact_cov_Vf_plot <- picard_bact_cov_Vf_plot <- ggplot(picard_pangenome_cov_spline_with_metrics %>% dplyr::filter(region == "Vf"),
+       aes(x = normalized_position, y = normalized_coverage, color=sample_bin)) +
+  geom_line() + theme_classic() + scale_colour_manual(values = c("cyan3", "coral" ), drop=FALSE) + ggtitle("Vf")
+
+ggsave(picard_bact_cov_Vf_plot, 
+       filename = "../plots/coverage_plots/picard_bact_cov_Vf_plot.pdf", width =7, height=5 )
+
+picard_bact_cov_Ac_plot <- ggplot(picard_pangenome_cov_spline_with_metrics %>% dplyr::filter(region == "Ac"),
+       aes(x = normalized_position, y = normalized_coverage, color=sample_bin)) +
+  geom_line() + theme_classic() + scale_colour_manual(values = c("cyan3", "coral" ), drop=FALSE) + ggtitle("Ac")
+
+ggsave(picard_bact_cov_Ac_plot, 
+       filename = "../plots/coverage_plots/picard_bact_cov_Ac_plot.pdf", width =7, height=5 )
+
+
+picard_bact_cov_Tw_plot <- ggplot(picard_pangenome_cov_spline_with_metrics %>% dplyr::filter(region == "Tw"),
+       aes(x = normalized_position, y = normalized_coverage, color=sample_bin)) +
+  geom_line() + theme_classic() + scale_colour_manual(values = c("cyan3", "coral" ), drop=FALSE) + ggtitle("Tw")
+
+ggsave(picard_bact_cov_Tw_plot, 
+       filename = "../plots/coverage_plots/picard_bact_cov_Tw_plot.pdf", width =7, height=5 )
+
+```
+
+
+
+
+Load picard metrics for fungal mapping (M_glo or M_res)
+
+5 RNA seq libraries from cultured M globosa, Wu et al 2015 (Dawson's team) https://pubmed.ncbi.nlm.nih.gov/26539826/
+
+
+
+```{r}
+picard_fungal_metrics_filenames <- list.files(path="../processed/picard_RNA_metrics/fungal_mapping/", pattern="*_picard_RNA_metrics")
+
+picard_fungal_histovalues_filenames <-  list.files(path="../processed/picard_RNA_metrics/fungal_mapping/", pattern="*_picard_gene_cov_hist")
+
+#Some metrics are 0, presumably because there are fewer than 1000 highly expressed genes?
+picard_fungal_metrics <- lapply(picard_fungal_metrics_filenames, function(name){
+  
+  metric_df <- read_tsv(paste0("../processed/picard_RNA_metrics/fungal_mapping/",name), show_col_types = FALSE)
+  
+  metric_df$LIBID <- name %>% gsub(pattern="_picard_RNA_metrics.tsv", replacement="",.)
+  
+  return(metric_df)
+  
+}) %>% do.call("rbind",.)
+
+
+#What are the LIBIDs with > 500000 mapped reads to the fungal genome
+picard_fungal_chosen_IDs <- picard_fungal_metrics %>% dplyr::filter(CORRECT_STRAND_READS >= 500000) %>% pull(LIBID)
+
+
+picard_fungal_histogram <- lapply(picard_fungal_histovalues_filenames, function(name){
+  
+  histo_df <- read_tsv(paste0("../processed/picard_RNA_metrics/fungal_mapping/",name), show_col_types = FALSE)
+  
+  histo_df$LIBID <- name %>% gsub(pattern="_picard_gene_cov_hist.tsv", replacement="",.)
+  
+  return(histo_df)
+  
+}) %>% do.call("rbind",.)
+
+
+colnames(picard_fungal_histogram)[2] <- "normalized_coverage"
+
+picard_fungal_histogram <- merge(picard_fungal_histogram,metadata %>% dplyr::select(LIBID,region),by="LIBID",all.x = TRUE)
+
+picard_fungal_histogram$region <- ifelse(is.na(picard_fungal_histogram$region),"Wu_et_al_2015",picard_fungal_histogram$region)
+
+
+##Spline dfs for gene coverage plotting
+picard_fungal_cov_spline <- lapply(picard_fungal_histovalues_filenames, function(name){
+  
+  histo_df <- read_tsv(paste0("../processed/picard_RNA_metrics/fungal_mapping/",name), show_col_types = FALSE)
+  
+  histo_df$LIBID <- name %>% gsub(pattern="_picard_gene_cov_hist.tsv", replacement="",.)
+  
+  colnames(histo_df)[2] <- "normalized_coverage"
+  
+  #spline interpolation of points
+  spline_df <- as.data.frame(spline(histo_df$normalized_position,histo_df$normalized_coverage))
+  
+  spline_df$LIBID <- name %>% gsub(pattern="_picard_gene_cov_hist.tsv", replacement="",.)
+  
+  return(spline_df)
+  
+}) %>% do.call("rbind",.)
+
+colnames(picard_fungal_cov_spline)[1] <- "normalized_position"
+colnames(picard_fungal_cov_spline)[2] <- "normalized_coverage"
+
+
+picard_fungal_cov_spline <- merge(picard_fungal_cov_spline,metadata %>% dplyr::select(LIBID,region),by="LIBID",all.x = TRUE)
+
+picard_fungal_cov_spline$region <- ifelse(is.na(picard_fungal_cov_spline$region),"Wu_et_al_2015",picard_fungal_cov_spline$region)
+
+
+
+```
+
+Plot read coverage over fungal genes (top 1000 most highly expressed per lib).
+
+```{r}
+
+ggplot(picard_fungal_cov_spline %>% dplyr::filter(region == "Sc"),
+       aes(x = normalized_position, y = normalized_coverage, color=LIBID)) +
+  geom_line() + theme_classic()
+
+ggplot(picard_fungal_cov_spline %>% dplyr::filter(region == "Ch"),
+       aes(x = normalized_position, y = normalized_coverage, color=LIBID)) +
+  geom_line() + theme_classic()
+
+ggplot(picard_fungal_cov_spline %>% dplyr::filter(region == "Vf"),
+       aes(x = normalized_position, y = normalized_coverage, color=LIBID)) +
+  geom_line() + theme_classic()
+
+#One weird sample to remove?
+ggplot(picard_fungal_cov_spline %>% dplyr::filter(region == "Ac"),
+       aes(x = normalized_position, y = normalized_coverage, color=LIBID)) +
+  geom_line() + theme_classic()
+
+#May not want to show just for two libraries
+ggplot(picard_fungal_cov_spline %>% dplyr::filter(region == "Tw"),
+       aes(x = normalized_position, y = normalized_coverage, color=LIBID)) +
+  geom_line() + theme_classic()
+```
+
+If only plotted for samples with >= 500K reads.... This would only drop 11 libraries from the comparison
+
+```{r}
+
+picard_fungal_cov_Sc_plot <- ggplot(picard_fungal_cov_spline %>% dplyr::filter(region == "Sc" & LIBID %in% picard_fungal_chosen_IDs),
+       aes(x = normalized_position, y = normalized_coverage)) +
+  geom_line() + theme_classic() + ggtitle("Scalp")
+
+ggsave(picard_fungal_cov_Sc_plot, 
+       filename = "../plots/coverage_plots/picard_fungal_cov_Sc_plot.pdf", width =7, height=5 )
+
+
+picard_fungal_cov_Ch_plot <- ggplot(picard_fungal_cov_spline %>% dplyr::filter(region == "Ch" & LIBID %in% picard_fungal_chosen_IDs),
+       aes(x = normalized_position, y = normalized_coverage)) +
+  geom_line() + theme_classic() + ggtitle("Cheeks")
+
+ggsave(picard_fungal_cov_Ch_plot, 
+       filename = "../plots/coverage_plots/picard_fungal_cov_Ch_plot.pdf", width =7, height=5 )
+
+picard_fungal_cov_Vf_plot <- ggplot(picard_fungal_cov_spline %>% dplyr::filter(region == "Vf" & LIBID %in% picard_fungal_chosen_IDs),
+       aes(x = normalized_position, y = normalized_coverage)) +
+  geom_line() + theme_classic() + ggtitle("Vf")
+
+ggsave(picard_fungal_cov_Vf_plot, 
+       filename = "../plots/coverage_plots/picard_fungal_cov_Vf_plot.pdf", width =7, height=5 )
+
+picard_fungal_cov_Ac_plot <- ggplot(picard_fungal_cov_spline %>% dplyr::filter(region == "Ac" & LIBID %in% picard_fungal_chosen_IDs),
+       aes(x = normalized_position, y = normalized_coverage)) +
+  geom_line() + theme_classic() + ggtitle("Ac")
+
+ggsave(picard_fungal_cov_Ac_plot, 
+       filename = "../plots/coverage_plots/picard_fungal_cov_Ac_plot.pdf", width =7, height=5 )
+
+#May not want to show just for so few libraries
+picard_fungal_cov_Tw_plot <- ggplot(picard_fungal_cov_spline %>% dplyr::filter(region == "Tw" & LIBID %in% picard_fungal_chosen_IDs),
+       aes(x = normalized_position, y = normalized_coverage)) +
+  geom_line() + theme_classic() + ggtitle("Tw")
+
+ggsave(picard_fungal_cov_Tw_plot, 
+       filename = "../plots/coverage_plots/picard_fungal_cov_Tw_plot.pdf", width =7, height=5 )
+
+
+picard_fungal_cov_Wu_plot <- ggplot(picard_fungal_cov_spline %>% dplyr::filter(region == "Wu_et_al_2015"),
+       aes(x = normalized_position, y = normalized_coverage)) +
+  geom_line() + theme_classic() + ggtitle("Wu et al 2015")
+
+
+ggsave(picard_fungal_cov_Wu_plot, 
+       filename = "../plots/coverage_plots/picard_fungal_cov_Wu_plot.pdf", width =7, height=5 )
+
+```
+
+Plot the fraction of reads mapping to exonic, intergenic and intronic regions in the dataset vs Wu et al's for Malassezia globosa.
+
+```{r}
+
+picard_region_fraction_df <- picard_fungal_metrics %>% 
+  dplyr::filter(LIBID %in% picard_fungal_chosen_IDs) %>% dplyr::select(LIBID, PCT_INTRONIC_BASES,
+                                                                       PCT_INTERGENIC_BASES,
+                                                                       PCT_MRNA_BASES)
+
+picard_region_fraction_df$PCT_INTRONIC_BASES <- picard_region_fraction_df$PCT_INTRONIC_BASES * 100
+picard_region_fraction_df$PCT_INTERGENIC_BASES <- picard_region_fraction_df$PCT_INTERGENIC_BASES * 100
+picard_region_fraction_df$PCT_MRNA_BASES <- picard_region_fraction_df$PCT_MRNA_BASES*100
+
+picard_region_fraction_df$sample_desc <- ifelse(str_detect(picard_region_fraction_df$LIBID, pattern="MHS"),
+                                                "this_study", "Wu_et_al_2015")
+
+#Only select those libraries which were mapped to M_globosa (including Wu_et_al_2015)
+
+picard_region_fraction_M_glo_df <- picard_region_fraction_df %>% dplyr::filter(sample_desc== "Wu_et_al_2015" |
+                                                                                 LIBID %in% mtx_to_M_globosa_QC$id)
+
+
+#Box plot of the different regional fractions
+
+picard_region_fraction_M_glo_long_df <- pivot_longer(picard_region_fraction_M_glo_df,
+                                                     cols=c("PCT_INTRONIC_BASES",
+                                                            "PCT_INTERGENIC_BASES",
+                                                            "PCT_MRNA_BASES"),
+                                                     names_to = "genomic_region",
+                                                     values_to = "percentage") 
+
+
+
+  
+picard_region_fraction_M_glo_plot <- ggplot(picard_region_fraction_M_glo_long_df, 
+       aes(x=sample_desc, y=percentage)) + facet_wrap(~genomic_region, ncol=3, nrow=1)+
+  theme_classic() + 
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1), axis.title.x=element_blank()) + geom_boxplot() + ggtitle("% reads mapping to genomic regions of M globosa") #+stat_compare_means(method = "wilcox.test")
+
+
+ggsave(picard_region_fraction_M_glo_plot, 
+       filename = "../plots/picard_region_fraction_M_glo_plot.pdf", width =7, height=5 )
+
+
+```
+
+Another QC figure for the manuscript: box plot with paired wilcoxon signed rank test to show differences in % annotations between "pilot cohort" samples annotated using Humann3 with default chocophlan databases vs the same samples annotated with IHSMGC and UniRef90
+
+```{r}
+
+#n=21
+#THESE ARE UNALIGNED READS AT EACH STAGE
+pilot_cohort_humann3 <- read_tsv("../metadata/pilot_cohort_humann3.tsv", show_col_types = FALSE)
+pilot_cohort_humann3 <- pilot_cohort_humann3 %>% dplyr::rename(humann3_unaligned_aft_nuc_search=aft_nuc_search,
+                                                               humann3_unaligned_aft_transl_search=aft_transl_search)
+
+pilot_cohort_humann3$humann3_aligned_aft_nuc_search <- 100 - pilot_cohort_humann3$humann3_unaligned_aft_nuc_search
+
+pilot_cohort_humann3$humann3_aligned_aft_transl_search <- 100 - pilot_cohort_humann3$humann3_unaligned_aft_transl_search
+
+pilot_cohort_humann3$annotation_method <- "Humann3 default"
+
+pilot_cohort_humann3$MICROBIAL_PERCENT_ANNOTATED <- pilot_cohort_humann3$humann3_aligned_aft_transl_search
+
+
+#annotation stats from our in house mtx pipeline
+#See skin_metatranscriptome_notebook.Rmd for how this table was generated
+mtx_proportion_microbial_annotated <- read_tsv("../metadata/mtx_proportion_microbial_annotated.tsv",
+                                               show_col_types = FALSE)
+
+#for direct comparison with humann3 for the pilot cohort
+pilot_cohort_microbial_annotated <- mtx_proportion_microbial_annotated %>% dplyr::filter(LIBID %in% pilot_cohort_humann3$LIBID)
+
+pilot_cohort_microbial_annotated$MICROBIAL_PERCENT_ANNOTATED <- pilot_cohort_microbial_annotated$MICROBE_COUNT_PROPORTION_ANNOTATED * 100
+
+pilot_cohort_microbial_annotated$annotation_method <- "in house pipeline"
+
+pilot_cohort_mtx_vs_humann3 <- rbind(pilot_cohort_microbial_annotated %>% 
+                                       dplyr::select(LIBID, MICROBIAL_PERCENT_ANNOTATED, annotation_method),
+      pilot_cohort_humann3 %>% dplyr::select(LIBID, MICROBIAL_PERCENT_ANNOTATED, annotation_method))
+
+#pilot_cohort_mtx_vs_humann3 <- merge(pilot_cohort_microbial_annotated %>% dplyr::select(LIBID, #MICROBE_COUNT_PERCENT_ANNOTATED), pilot_cohort_humann3)
+
+
+ggplot(pilot_cohort_mtx_vs_humann3,
+       aes(x=annotation_method, y=MICROBIAL_PERCENT_ANNOTATED)) + 
+  geom_boxplot() + theme_classic() + stat_compare_means(paired = TRUE,method = "wilcox.test") +ylab("% of reads functionally annotated")
+
+
+ggpaired(pilot_cohort_mtx_vs_humann3, x = "annotation_method", y = "MICROBIAL_PERCENT_ANNOTATED",
+         line.color = "gray", line.size = 0.4,
+         palette = "jco")+ ylab("% of reads functionally annotated") +
+  stat_compare_means(paired = TRUE, method="wilcox.test")
+
+
+ggsave(plot=last_plot(), 
+       filename = "../plots/pilot_cohort_mtx_vs_humann3.pdf", width =7, height=5 )
+
+
+```
+
+
+
+
+
+Another QC figure for the manuscript: Box plots of total extracted RNA and RIN numbers per site.
+
+RNA eluted in 14 ul of buffer/water
+
+This plot uses data from a smaller "pilot" cohort (extracted 24/11/2021) + the longitudinal cohort
+
+To robustness of our protocol was assessed with a pilot cohort consisting of both a cross-sectional group (n = 24 samples) and a longitudinal group sampled across three consecutive days (n = 45 samples) + 3 negative controls
+
+
+```{r}
+
+#pilot_QC_wetlab_metadata <- pilot_QC_wetlab_metadata %>% dplyr::filter(!is.na(RIN))
+
+pilot_QC_wetlab_metadata$rna_mass <- pilot_QC_wetlab_metadata$rna_conc * 14
+
+pilot_QC_wetlab_metadata$region <- factor(pilot_QC_wetlab_metadata$region, 
+                                          levels=c("Sc","Ch","Vf","Ac","Tw","neg_ctrl"))
+
+ggplot(pilot_QC_wetlab_metadata %>% dplyr::filter(!is.na(rna_mass)),
+       aes(x=region, y=rna_mass)) + 
+  geom_boxplot() + theme_classic() + 
+  ylab("Mass of extracted RNA (ng)")
+
+ggsave(plot=last_plot(), 
+       filename = "../plots/pilot_QC_wetlab_RNA_mass.pdf", width =7, height=5 )
+
+#Set RIN to 0 if rRNA peaks cannot be observed?
+#What proportion of libraries have observable rRNA peaks and RIN?
+
+
+
+ggplot(pilot_QC_wetlab_metadata %>% dplyr::filter(!is.na(RIN)),
+       aes(x=region, y=RIN)) + 
+  geom_boxplot() + theme_classic() + 
+  ylab("RIN of extracted RNA")
+
+ggsave(plot=last_plot(), 
+       filename = "../plots/pilot_QC_wetlab_RIN.pdf", width =7, height=5 )
+
+
+pilot_QC_wetlab_metadata %>% group_by(region) %>% summarise(rna_mass_median = median(rna_mass, na.rm=TRUE))
+
+
+### For non-negative controls, how many had successful libraries built?
+
+pilot_QC_wetlab_samples_metadata <- pilot_QC_wetlab_metadata %>% dplyr::filter(region != "neg_ctrl")
+
+##Add read count information for pilot cohort. 
+#Based on: for i in `cat ../data/pilot_and_tech_and_longitudinal_reps/pilot_cohort_library_IDs.txt`; do bash get_pilot_MTX_QC_stats.sh "$i" ../metadata/ ; done
+
+pilot_cohort_read_count_QC <- read_tsv("../metadata/pilot_MTX_QC_stats.txt")
+
+#median microbial reads in samples (not negative controls)
+
+pilot_cohort_samples_read_count_QC <- pilot_cohort_read_count_QC %>% dplyr::filter(!LIBID %in% c("Neg012",
+                                                                                                 "Neg013",
+                                                                                                 "Neg014"))
+median(pilot_cohort_samples_read_count_QC$MICROBE_COUNT) # 2207917
+
+mean(pilot_cohort_samples_read_count_QC$MICROBE_COUNT) #2827611
+
+length(which(pilot_cohort_samples_read_count_QC$MICROBE_COUNT >= 1e6)) #53
+
+
+
+
+# median in gigabases (PE150)
+(2207917 * 300)/10^9
+
+```
+
+##Metrics for non-ribodepleted samples
+
+We had 4 non-ribodepleted (no microbial rRNA depletion in wet lab) samples
+
+```{r}
+
+non_ribodepleted_mtx <- read_tsv("../metadata/no_ribodepletion_MTX_QC_stats.txt", show_col_types = FALSE)
+
+
+non_ribodepleted_mtx$category <- "no microbial rRNA depletion"
+
+
+pilot_cohort_samples_read_count_QC$category <- "with microbial rRNA depletion"
+
+pilot_cohort_samples_read_count_QC$COMMENTS <- NA
+
+ribo_deplete_versus_non_deplete <- rbind(pilot_cohort_samples_read_count_QC %>% dplyr::select(colnames(non_ribodepleted_mtx)),
+                                         non_ribodepleted_mtx)
+
+
+ribo_deplete_versus_non_deplete$proportion_rRNA_detected_computationally <- (ribo_deplete_versus_non_deplete$AFT_HUMAN_RM - ribo_deplete_versus_non_deplete$AFT_RIBO_RM)/ribo_deplete_versus_non_deplete$AFT_HUMAN_RM
+
+
+ribo_deplete_versus_non_deplete$percentage_rRNA_detected_computationally <- ribo_deplete_versus_non_deplete$proportion_rRNA_detected_computationally * 100
+
+ribo_deplete_versus_non_deplete$percentage_non_rRNA <- 100 - ribo_deplete_versus_non_deplete$percentage_rRNA_detected_computationally
+
+ggplot(ribo_deplete_versus_non_deplete,
+       aes(x=category, y=percentage_non_rRNA)) + 
+  geom_boxplot() + theme_classic() + stat_compare_means(method = "wilcox.test") +
+  ylab("% of non rRNA reads")
+
+
+ggsave(plot=last_plot(), 
+       filename = "../plots/ribo_deplete_versus_non_deplete.pdf", width =7, height=5 )
+
+
+ribo_deplete_versus_non_deplete %>% dplyr::filter(category=="no microbial rRNA depletion") %>% pull(percentage_rRNA_detected_computationally) %>% median(.)
+
+ribo_deplete_versus_non_deplete %>% dplyr::filter(category=="with microbial rRNA depletion") %>% pull(percentage_rRNA_detected_computationally) %>% median(.)
+
+#(67.25663/20.42567) is more than 3 fold.
+
+```
+
+
+
+
+
+
+##Appendix (No longer used)
+
+Load picard metrics and gene body coverage information from picard CollectRnaSeqMetrics for bacteria
+
+How do we compare metrics? 
+
+Just a qualitative comparison of profiles.
+
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3821180/#SD1 (Supp fig S3a has an informative profile for short transcripts (length < 1000 nt))
+
+https://bmcgenomics.biomedcentral.com/articles/10.1186/s12864-017-3827-y (important figure 3)
+
+https://www.nature.com/articles/srep03678  (warning of technical variation for low input sequencing protocols)
+
+
+https://github.com/trinityrnaseq/Griffithlab_rnaseq_tutorial/blob/master/manuscript/supplementary_tables/supplementary_table_7.md
+Base positions at the extreme ends of transcripts tend to be slightly underrepresented at both the 5’ and 3’ end because there are less cDNA fragments that can be generated from the ends that would cover these positions than in the center of a transcript (PMID: 21410973)
+
+
+
+```{r}
+
+picard_bacteria_metrics_filenames <- list.files(path="../processed/picard_RNA_metrics/bacteria_mapping/", pattern="*_picard_RNA_metrics")
+
+picard_bacteria_histovalues_filenames <-  list.files(path="../processed/picard_RNA_metrics/bacteria_mapping/", pattern="*_picard_gene_cov_hist")
+
+#Some metrics are 0, presumably because there are fewer than 1000 highly expressed genes?
+picard_bacteria_metrics <- lapply(picard_bacteria_metrics_filenames, function(name){
+  
+  metric_df <- read_tsv(paste0("../processed/picard_RNA_metrics/bacteria_mapping/",name), show_col_types = FALSE)
+  
+  metric_df$LIBID <- name %>% gsub(pattern="_picard_RNA_metrics.tsv", replacement="",.)
+  
+  return(metric_df)
+  
+}) %>% do.call("rbind",.)
+
+picard_bacteria_metrics <- merge(picard_bacteria_metrics, mtx_to_map_for_QC %>% rename(LIBID=mtx_LIBID), by = "LIBID", all.x = TRUE)
+
+
+picard_bacteria_histogram <- lapply(picard_bacteria_histovalues_filenames, function(name){
+  
+  histo_df <- read_tsv(paste0("../processed/picard_RNA_metrics/bacteria_mapping/",name), show_col_types = FALSE)
+  
+  histo_df$LIBID <- name %>% gsub(pattern="_picard_gene_cov_hist.tsv", replacement="",.)
+  
+  return(histo_df)
+  
+}) %>% do.call("rbind",.)
+
+
+colnames(picard_bacteria_histogram)[2] <- "normalized_coverage"
+
+picard_bacteria_histogram <- merge(picard_bacteria_histogram,metadata %>% dplyr::select(LIBID,region),by="LIBID",all.x = TRUE)
+
+picard_bacteria_histogram$region <- ifelse(is.na(picard_bacteria_histogram$region),"Kang_et_al_2015",picard_bacteria_histogram$region)
+
+```
+
+Plot the histogram of gene coverage from picard, with Kang et al's data in a separate panel
+
+While this is called a "histogram, in R we use a spline interpolation to fit a smooth curve over each point
+
+https://stackoverflow.com/questions/35205795/plot-smooth-line-through-all-data-points
+
+```{r}
+
+picard_bacteria_cov_spline <- lapply(picard_bacteria_histovalues_filenames, function(name){
+  
+  histo_df <- read_tsv(paste0("../processed/picard_RNA_metrics/bacteria_mapping/",name), show_col_types = FALSE)
+  
+  histo_df$LIBID <- name %>% gsub(pattern="_picard_gene_cov_hist.tsv", replacement="",.)
+  
+  colnames(histo_df)[2] <- "normalized_coverage"
+  
+  #spline interpolation of points
+  spline_df <- as.data.frame(spline(histo_df$normalized_position,histo_df$normalized_coverage))
+  
+  spline_df$LIBID <- name %>% gsub(pattern="_picard_gene_cov_hist.tsv", replacement="",.)
+  
+  return(spline_df)
+  
+}) %>% do.call("rbind",.)
+
+colnames(picard_bacteria_cov_spline)[1] <- "normalized_position"
+colnames(picard_bacteria_cov_spline)[2] <- "normalized_coverage"
+
+
+picard_bacteria_cov_spline <- merge(picard_bacteria_cov_spline,metadata %>% dplyr::select(LIBID,region),by="LIBID",all.x = TRUE)
+
+picard_bacteria_cov_spline$region <- ifelse(is.na(picard_bacteria_cov_spline$region),"Kang_et_al_2015",picard_bacteria_cov_spline$region)
+
+#Add the counts and the microbe that the reads were mapped to. The pangene histograms looks much better...
+picard_bacteria_cov_spline <- merge(picard_bacteria_cov_spline,mtx_to_map_for_QC %>% dplyr::rename(LIBID=mtx_LIBID),
+                                    by="LIBID", all.x = TRUE)
+
+```
+
+
+Color by individual
+
+```{r}
+
+#"Kang_et_al_2015" separate
+
+
+ggplot(picard_bacteria_cov_spline %>% dplyr::filter(region == "Kang_et_al_2015"),
+       aes(x = normalized_position, y = normalized_coverage, color=LIBID)) +
+  geom_line() + theme_classic()
+
+
+
+#https://bioconductor.org/packages/release/bioc/html/CoverageView.html
+```
+
+
+#Outdated
+
+Purpose of this is to get Picard and qualimap QC metrics for mtx data
+
+For each library, extract the most abundant (by read count) bacterial species (so not Malassezia)
+
+```{r eval=FALSE}
+
+extract_most_abundant_bacteria_fn <- function(df){
+  
+  output <- df %>% dplyr::select(paired_counts, k2_taxon, mtx_LIBID) %>% 
+    dplyr::filter(str_detect(.$k2_taxon, pattern = "Malassezia", negate=TRUE)) %>% slice_max(.,order_by = paired_counts,n=1)
+  
+  
+  return(output)
+  
+  
+}
+
+extract_most_abundant_Malassezia_fn <- function(df){
+  
+  output <- df %>% dplyr::select(paired_counts, k2_taxon, mtx_LIBID) %>% 
+    dplyr::filter(str_detect(.$k2_taxon, pattern = "Malassezia")) %>% slice_max(.,order_by = paired_counts,n=1)
+  
+  
+  return(output)
+  
+  
+}
+
+
+
+```
+
+#Try a different strategy. 
+#For any library with that does not have C acnes, S hominis, S epidermidis or S capitis as the most abundant bacteria with at least 100K reads, 
+
+Check if there are at least 100K paired C acnes, Staphylococcus hominis, Staphyloccoccus epidermidis or S capitis reads
+
+```{r eval=FALSE}
+mtx_most_abundant_bacteria <- lapply(rna_k2_minimizer_renorm, function(x){
+  
+  output <- extract_most_abundant_bacteria_fn(x)
+  return(output)
+  
+}) %>% do.call("rbind",.)
+
+
+
+
+
+mtx_abundant_bacteria_subset_A <- mtx_most_abundant_bacteria %>% dplyr::filter(k2_taxon %in% 
+                                                                                 c("Cutibacterium_acnes",
+                                                                                   "Staphylococcus_hominis",
+                                                                                   "Staphylococcus_epidermidis",
+                                                                                   "Staphylococcus_capitis")
+                                                                                & paired_counts >= 100000)
+#15 entries
+mtx_to_search <- mtx_most_abundant_bacteria %>% dplyr::filter(!mtx_LIBID %in% mtx_abundant_bacteria_subset_A$mtx_LIBID)
+
+
+mtx_abundant_bacteria_subset_B <- lapply(mtx_to_search$mtx_LIBID, function(x){
+  
+  output <- rna_k2_minimizer_renorm[[x]] %>% 
+    dplyr::filter(k2_taxon %in% c("Cutibacterium_acnes", "Staphylococcus_hominis",  "Staphylococcus_epidermidis", "Staphylococcus_capitis")
+                  & paired_counts >= 100000)
+  return(output)
+  
+}) %>% do.call("rbind",.)
+
+mtx_abundant_bacteria_subset_B <- mtx_abundant_bacteria_subset_B %>% group_by(mtx_LIBID) %>% 
+  slice_max(.,order_by = paired_counts,n=1) %>% ungroup() %>% dplyr::select(paired_counts, k2_taxon, mtx_LIBID)
+
+
+mtx_to_search <- mtx_to_search %>%dplyr::filter(!mtx_LIBID %in% mtx_abundant_bacteria_subset_B$mtx_LIBID) 
+
+#For the remaining, take whichever microbe has the highest read count > 100K
+mtx_abundant_bacteria_subset_C <- mtx_to_search %>% dplyr::filter(paired_counts >=100000)
+
+#For what is left, map to the most abundant species, except for MHS350 which only has a few thousand bacteria reads
+mtx_to_search <- mtx_to_search %>%dplyr::filter(!mtx_LIBID %in% mtx_abundant_bacteria_subset_C$mtx_LIBID) %>% 
+  dplyr::filter(paired_counts > 10000)
+
+#We can do bacterial mapping for the remaining 102-2 = 100 libraries, with most of them having > 100K read counts for a given bacterial species. 
+
+mtx_to_map_for_QC <- do.call("rbind", list(mtx_abundant_bacteria_subset_A,
+                                           mtx_abundant_bacteria_subset_B,
+                                           mtx_abundant_bacteria_subset_C,
+                                           mtx_to_search))
+
+#What are the two libraries with insufficient bacterial reads? "MHS350" "MHS408"
+mtx_to_pull[!mtx_to_pull %in% mtx_to_map_for_QC$mtx_LIBID]
+
+
+#What are all the microbes that we should map to? 
+unique(mtx_to_map_for_QC$k2_taxon)
+
+```
+[1] "Cutibacterium_acnes"          "Staphylococcus_hominis"       "Staphylococcus_epidermidis"   "Staphylococcus_capitis"      
+[5] "Dermacoccus_nishinomiyaensis" "Staphylococcus_warneri"       "Rothia_mucilaginosa"          "Staphylococcus_cohnii"
+
+For each library, extract the most abundant (by read count) fungal species (Malassezia)
+
+```{r eval=FALSE}
+
+mtx_most_abundant_Malassezia<- lapply(rna_k2_minimizer_renorm, function(x){
+  
+  output <- extract_most_abundant_Malassezia_fn(x)
+  return(output)
+  
+}) %>% do.call("rbind",.)
+
+
+mtx_abundant_Malassezia_globosa_restricta <- lapply(rna_k2_minimizer_renorm, function(df){
+  
+  output <- df %>% dplyr::select(paired_counts, k2_taxon, mtx_LIBID)  %>% 
+    dplyr::filter(k2_taxon %in% c("Malassezia_restricta", "Malassezia_globosa")) %>%
+    slice_max(.,order_by = paired_counts,n=1) %>%
+    dplyr::filter(paired_counts >=100000)
+  
+  return(output)
+  
+}) %>% do.call("rbind",.)
+
+```
+
+
+To make things easier, we will have just two mappings to Malassezia genomes: M globosa and M restricta. This also includes MHS350 and MHS408 which had low bacterial reads. This represents the majority of libraries: 71/102
+
+Malassezia mapping will be done using STAR
+Mapping to bacteria genomes will be done using bowtie2.
+
+Write outputs to organize mapping efforts.
+
+```{r eval=FALSE}
+
+#For C acnes
+
+mtx_to_C_acnes_QC <- mtx_to_map_for_QC %>% dplyr::filter(k2_taxon=="Cutibacterium_acnes") %>% dplyr::rename(id=mtx_LIBID)
+
+mtx_to_C_acnes_QC$read1 <- paste0(mtx_to_C_acnes_QC$id,"_merged_decont_1.fastq.gz") 
+
+mtx_to_C_acnes_QC$read2 <- paste0(mtx_to_C_acnes_QC$id,"_merged_decont_2.fastq.gz") 
+
+write_csv(mtx_to_C_acnes_QC %>% dplyr::select(id,read1,read2), file="../genomes/mtx_for_C_acnes_mapping.csv")
+
+#For S hominis
+
+mtx_to_S_hominis_QC <- mtx_to_map_for_QC %>% dplyr::filter(k2_taxon=="Staphylococcus_hominis") %>% dplyr::rename(id=mtx_LIBID)
+
+mtx_to_S_hominis_QC$read1 <- paste0(mtx_to_S_hominis_QC$id,"_merged_decont_1.fastq.gz") 
+
+mtx_to_S_hominis_QC$read2 <- paste0(mtx_to_S_hominis_QC$id,"_merged_decont_2.fastq.gz") 
+
+write_csv(mtx_to_S_hominis_QC %>% dplyr::select(id,read1,read2), file="../genomes/mtx_for_S_hominis_mapping.csv")
+
+#For S epidermidis
+
+mtx_to_S_epidermidis_QC <- mtx_to_map_for_QC %>% dplyr::filter(k2_taxon=="Staphylococcus_epidermidis") %>% dplyr::rename(id=mtx_LIBID)
+
+mtx_to_S_epidermidis_QC$read1 <- paste0(mtx_to_S_epidermidis_QC$id,"_merged_decont_1.fastq.gz") 
+
+mtx_to_S_epidermidis_QC$read2 <- paste0(mtx_to_S_epidermidis_QC$id,"_merged_decont_2.fastq.gz") 
+
+write_csv(mtx_to_S_epidermidis_QC %>% dplyr::select(id,read1,read2), file="../genomes/mtx_for_S_epidermidis_mapping.csv")
+
+#For S capitis
+
+mtx_to_S_capitis_QC <- mtx_to_map_for_QC %>% dplyr::filter(k2_taxon=="Staphylococcus_capitis") %>% dplyr::rename(id=mtx_LIBID)
+
+mtx_to_S_capitis_QC$read1 <- paste0(mtx_to_S_capitis_QC$id,"_merged_decont_1.fastq.gz") 
+
+mtx_to_S_capitis_QC$read2 <- paste0(mtx_to_S_capitis_QC$id,"_merged_decont_2.fastq.gz") 
+
+write_csv(mtx_to_S_capitis_QC %>% dplyr::select(id,read1,read2), file="../genomes/mtx_for_S_capitis_mapping.csv")
+
+#For S warneri
+
+mtx_to_S_warneri_QC <- mtx_to_map_for_QC %>% dplyr::filter(k2_taxon=="Staphylococcus_warneri") %>% dplyr::rename(id=mtx_LIBID)
+
+mtx_to_S_warneri_QC$read1 <- paste0(mtx_to_S_warneri_QC$id,"_merged_decont_1.fastq.gz") 
+
+mtx_to_S_warneri_QC$read2 <- paste0(mtx_to_S_warneri_QC$id,"_merged_decont_2.fastq.gz") 
+
+write_csv(mtx_to_S_warneri_QC %>% dplyr::select(id,read1,read2), file="../genomes/mtx_for_S_warneri_mapping.csv")
+
+#For S cohnii
+
+mtx_to_S_cohnii_QC <- mtx_to_map_for_QC %>% dplyr::filter(k2_taxon=="Staphylococcus_cohnii") %>% dplyr::rename(id=mtx_LIBID)
+
+mtx_to_S_cohnii_QC$read1 <- paste0(mtx_to_S_cohnii_QC$id,"_merged_decont_1.fastq.gz") 
+
+mtx_to_S_cohnii_QC$read2 <- paste0(mtx_to_S_cohnii_QC$id,"_merged_decont_2.fastq.gz") 
+
+write_csv(mtx_to_S_cohnii_QC %>% dplyr::select(id,read1,read2), file="../genomes/mtx_for_S_cohnii_mapping.csv")
+
+#For Dermacoccus_nishinomiyaensis
+
+mtx_to_D_nishinomiyaensis_QC <- mtx_to_map_for_QC %>% dplyr::filter(k2_taxon=="Dermacoccus_nishinomiyaensis") %>% dplyr::rename(id=mtx_LIBID)
+
+mtx_to_D_nishinomiyaensis_QC$read1 <- paste0(mtx_to_D_nishinomiyaensis_QC$id,"_merged_decont_1.fastq.gz") 
+
+mtx_to_D_nishinomiyaensis_QC$read2 <- paste0(mtx_to_D_nishinomiyaensis_QC$id,"_merged_decont_2.fastq.gz") 
+
+write_csv(mtx_to_D_nishinomiyaensis_QC %>% dplyr::select(id,read1,read2), file="../genomes/mtx_for_D_nishinomiyaensis_mapping.csv")
+
+#For Rothia_mucilaginosa
+
+mtx_to_R_mucilaginosa_QC <- mtx_to_map_for_QC %>% dplyr::filter(k2_taxon=="Rothia_mucilaginosa") %>% dplyr::rename(id=mtx_LIBID)
+
+mtx_to_R_mucilaginosa_QC$read1 <- paste0(mtx_to_R_mucilaginosa_QC$id,"_merged_decont_1.fastq.gz") 
+
+mtx_to_R_mucilaginosa_QC$read2 <- paste0(mtx_to_R_mucilaginosa_QC$id,"_merged_decont_2.fastq.gz") 
+
+write_csv(mtx_to_R_mucilaginosa_QC %>% dplyr::select(id,read1,read2), file="../genomes/mtx_for_R_mucilaginosa_mapping.csv")
+
+
+###########
+#For M globosa
+
+mtx_to_M_globosa_QC <- mtx_abundant_Malassezia_globosa_restricta %>% dplyr::filter(k2_taxon=="Malassezia_globosa") %>% dplyr::rename(id=mtx_LIBID)
+
+mtx_to_M_globosa_QC$read1 <- paste0(mtx_to_M_globosa_QC$id,"_merged_decont_1.fastq.gz")
+
+mtx_to_M_globosa_QC$read2 <- paste0(mtx_to_M_globosa_QC$id,"_merged_decont_2.fastq.gz") 
+
+write_csv(mtx_to_M_globosa_QC %>% dplyr::select(id,read1,read2), file="../genomes/mtx_for_M_globosa_mapping.csv")
+
+
+#For M restricta
+
+mtx_to_M_restricta_QC <- mtx_abundant_Malassezia_globosa_restricta %>% dplyr::filter(k2_taxon=="Malassezia_restricta") %>% dplyr::rename(id=mtx_LIBID)
+
+mtx_to_M_restricta_QC$read1 <- paste0(mtx_to_M_restricta_QC$id,"_merged_decont_1.fastq.gz")
+
+mtx_to_M_restricta_QC$read2 <- paste0(mtx_to_M_restricta_QC$id,"_merged_decont_2.fastq.gz") 
+
+write_csv(mtx_to_M_restricta_QC %>% dplyr::select(id,read1,read2), file="../genomes/mtx_for_M_restricta_mapping.csv")
+
+
+```
+
+These are the libraries for Malassezia globosa and Malassezia restricta mapping
+
+```{r eval=FALSE}
+
+mtx_to_M_globosa_QC <- read_csv("../genomes/mtx_for_M_globosa_mapping.csv")
+
+mtx_to_M_globosa_QC$mapped_to_species <- "Malassezia_globosa"
+
+mtx_to_M_restricta_QC <- read_csv("../genomes/mtx_for_M_restricta_mapping.csv")
+
+mtx_to_M_restricta_QC$mapped_to_species <- "Malassezia_restricta"
+
+```
+

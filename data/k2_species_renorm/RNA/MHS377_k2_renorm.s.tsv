@@ -1,0 +1,9 @@
+paired_counts	distinct_minimizer_count	k2_taxon	source	rel_abun	abun_filter	species_microbial_read_pair_total	minimizer_threshold	minimizer_microbe_ratio	minimizer_filter	taxa_pass_filter	mtx_LIBID
+5805220	805916	Staphylococcus_epidermidis	non_contaminant	87.409345413886	TRUE	6777501	67775.01	118910.49518104091	TRUE	TRUE	MHS377
+134997	516732	Staphylococcus_haemolyticus	non_contaminant	2.032653267720839	TRUE	6777501	67775.01	76242.26097495227	TRUE	TRUE	MHS377
+123300	191976	Staphylococcus_warneri	non_contaminant	1.8565312407681611	TRUE	6777501	67775.01	28325.484570197776	TRUE	TRUE	MHS377
+62115	315845	Staphylococcus_capitis	non_contaminant	0.9352671372288268	TRUE	6777501	67775.01	46601.98500892881	TRUE	TRUE	MHS377
+40644	254707	Staphylococcus_hominis	non_contaminant	0.6119777433072275	TRUE	6777501	67775.01	37581.25598210904	TRUE	TRUE	MHS377
+309602	421820	Corynebacterium_tuberculostearicum	non_contaminant	4.6616852003593205	TRUE	6777501	67775.01	62238.27927137156	TRUE	TRUE	MHS377
+16325	84110	Corynebacterium_kefirresidentii	non_contaminant	0.24580594083974233	TRUE	6777501	67775.01	12410.178914027456	TRUE	TRUE	MHS377
+149215	475573	Cutibacterium_acnes	non_contaminant	2.246734055889872	TRUE	6777501	67775.01	70169.37363786445	TRUE	TRUE	MHS377

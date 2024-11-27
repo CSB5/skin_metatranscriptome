@@ -1,0 +1,906 @@
+bacteria_OG	read_count_sum	RPK_sum	bacteria_eggnog_cat	bacteria_eggnog_desc	LIBID	feature_class
+2Z7K7|Bacteria	281	298.3014861995754	S	NA	MHS329	bacteria_OG
+2Z7RS|Bacteria	28	90.13177620320478	S	Protein of unknown function (DUF2891)	MHS329	bacteria_OG
+2Z7S6|Bacteria	62	55.111111111111114	S	Protein of unknown function (DUF2493)	MHS329	bacteria_OG
+2Z7UG|Bacteria	47	86.08058608058607	S	Protein of unknown function (DUF2840)	MHS329	bacteria_OG
+2Z87P|Bacteria	32	116.22496965031051	C	photosynthetic electron transport in photosystem II	MHS329	bacteria_OG
+2Z8JK|Bacteria	35	204.6783625730994	C	Photosystem II (PSII) is a light-driven water plastoquinone oxidoreductase that uses light energy to abstract electrons from H(2)O, generating O(2) and a proton gradient subsequently used for ATP formation. It consists of a core antenna complex that captures photons, and an electron transfer chain that converts photonic excitation into a charge separation. The D1 D2 (PsbA PsbA) reaction center heterodimer binds P680, the primary electron donor of PSII as well as several subsequent electron acceptors. D2 is needed for assembly of a stable PSII complex	MHS329	bacteria_OG
+2Z8XV|Bacteria	164	148.95549500454132	S	NA	MHS329	bacteria_OG
+2Z90C|Bacteria	19	39.09465020576132	S	Protein of unknown function (DUF3710)	MHS329	bacteria_OG
+2Z9GU|Bacteria	10	36.63003663003663	S	Carotene biosynthesis associated membrane protein	MHS329	bacteria_OG
+2ZAV8|Bacteria	57	110.20382217136782	S	EcsC protein family	MHS329	bacteria_OG
+2ZAVY|Bacteria	19	95.95959595959596	S	NA	MHS329	bacteria_OG
+2ZB5X|Bacteria	244	410.7744107744108	S	TraE protein	MHS329	bacteria_OG
+2ZC43|Bacteria	1344	2133.3333333333335	S	NA	MHS329	bacteria_OG
+2ZCB4|Bacteria	116	297.4358974358974	S	NA	MHS329	bacteria_OG
+2ZDTD|Bacteria	29	100.69444444444446	S	NA	MHS329	bacteria_OG
+2ZFSE|Bacteria	19	68.84057971014492	S	Family of unknown function	MHS329	bacteria_OG
+2ZJ01|Bacteria	4	23.809523809523807	S	NA	MHS329	bacteria_OG
+2ZKBY|Bacteria	59	150.1272264631043	S	NA	MHS329	bacteria_OG
+2ZQ2R|Bacteria	5	12.82051282051282	S	NA	MHS329	bacteria_OG
+2ZQ7H|Bacteria	52	106.33946830265849	S	NA	MHS329	bacteria_OG
+2ZR52|Bacteria	1	5.847953216374268	S	Putative zincin peptidase	MHS329	bacteria_OG
+2ZRDK|Bacteria	11	53.14009661835749	S	NA	MHS329	bacteria_OG
+2ZT9H|Bacteria	28	86.00347739692002	S	NA	MHS329	bacteria_OG
+2ZTTZ|Bacteria	56	146.98162729658793	S	NA	MHS329	bacteria_OG
+2ZWTE|Bacteria	47	159.8639455782313	S	Protein of unknown function (DUF2516)	MHS329	bacteria_OG
+2ZXFJ|Bacteria	24	106.66666666666666	S	NA	MHS329	bacteria_OG
+30466|Bacteria	6	26.31578947368421	S	NA	MHS329	bacteria_OG
+3049Z|Bacteria	11	48.24561403508772	S	NA	MHS329	bacteria_OG
+3057T|Bacteria	33	94.40005073566718	K	regulator	MHS329	bacteria_OG
+30590|Bacteria	38	121.77635098983414	S	NA	MHS329	bacteria_OG
+30595|Bacteria	3	12.676767676767676	S	Belongs to the UPF0346 family	MHS329	bacteria_OG
+3059S|Bacteria	19	87.96296296296296	S	NA	MHS329	bacteria_OG
+305BR|Bacteria	30	187.3249299719888	S	NA	MHS329	bacteria_OG
+305CS|Bacteria	38	186.80555555555554	S	NA	MHS329	bacteria_OG
+306K4|Bacteria	5	21.09704641350211	S	NA	MHS329	bacteria_OG
+30B7N|Bacteria	21	82.35294117647058	S	Transcriptional activator TraM	MHS329	bacteria_OG
+30D1S|Bacteria	233	626.3440860215054	S	NA	MHS329	bacteria_OG
+30F8J|Bacteria	36	95.23809523809524	S	Domain of unknown function (DUF4889)	MHS329	bacteria_OG
+30GEI|Bacteria	22	105.12820512820512	S	NA	MHS329	bacteria_OG
+30HVV|Bacteria	13	50.98039215686274	S	NA	MHS329	bacteria_OG
+30JNC|Bacteria	80	155.94541910331384	S	Cobalamin synthesis G C-terminus	MHS329	bacteria_OG
+30NUV|Bacteria	30	76.24075921520478	S	NA	MHS329	bacteria_OG
+30PVX|Bacteria	26	108.33333333333334	S	NA	MHS329	bacteria_OG
+30RAD|Bacteria	24	114.28571428571428	S	NA	MHS329	bacteria_OG
+30SDJ|Bacteria	40	99.50248756218905	S	NA	MHS329	bacteria_OG
+30U67|Bacteria	3	19.607843137254903	S	NA	MHS329	bacteria_OG
+30USV|Bacteria	12	41.23711340206186	S	NA	MHS329	bacteria_OG
+313TT|Bacteria	2	5.952380952380952	S	In the first step of glycine, betaine and sarcosine reductases, the substrate is bound to component PB via a Schiff base intermediate. Then the PB-activated substrate is nucleophilically attacked by the selenol anion of component PA to transform it to a carboxymethylated selenoether and the respective amine. By action of component PC, acetyl phosphate is formed, leaving component PA in its oxidized state. Finally component PA becomes reduced by the thioredoxin system to start a new catalytic cycle of reductive deamination	MHS329	bacteria_OG
+315VY|Bacteria	32	66.66666666666667	S	NA	MHS329	bacteria_OG
+318WM|Bacteria	295	676.0188950941528	S	Protein of unknown function (DUF3000)	MHS329	bacteria_OG
+31AZ0|Bacteria	29	36.069651741293534	S	NA	MHS329	bacteria_OG
+31CDG|Bacteria	29	108.61423220973782	S	Protein of unknown function (DUF1153)	MHS329	bacteria_OG
+31DNS|Bacteria	67	119.4295900178253	S	K COG5665 CCR4-NOT transcriptional regulation complex, NOT5 subunit	MHS329	bacteria_OG
+31DT5|Bacteria	112	362.45954692556637	S	NA	MHS329	bacteria_OG
+31F41|Bacteria	125	218.15008726003492	S	Probable zinc-ribbon domain	MHS329	bacteria_OG
+31HH7|Bacteria	106	179.3570219966159	S	Domain of unknown function (DUF1942)	MHS329	bacteria_OG
+31IA9|Bacteria	10	54.6448087431694	S	NA	MHS329	bacteria_OG
+31IEU|Bacteria	43	86.34538152610442	S	NA	MHS329	bacteria_OG
+31ISY|Bacteria	9	62.50000000000001	S	NA	MHS329	bacteria_OG
+31J02|Bacteria	37	158.1196581196581	S	NA	MHS329	bacteria_OG
+31JA5|Bacteria	24	45.45454545454545	S	NA	MHS329	bacteria_OG
+31JGD|Bacteria	144	342.8571428571429	S	NA	MHS329	bacteria_OG
+31JH8|Bacteria	4	14.652014652014651	S	NA	MHS329	bacteria_OG
+31M72|Bacteria	20	60.06006006006006	S	NA	MHS329	bacteria_OG
+31MCA|Bacteria	697	1105.5457098736645	S	NA	MHS329	bacteria_OG
+31MHH|Bacteria	82	110.21505376344086	S	NA	MHS329	bacteria_OG
+31MIR|Bacteria	33	83.33333333333333	S	NA	MHS329	bacteria_OG
+31MTV|Bacteria	16	54.421768707483	S	NA	MHS329	bacteria_OG
+31P3X|Bacteria	41	155.30303030303028	S	NA	MHS329	bacteria_OG
+31Q26|Bacteria	50	173.94879022786	S	Phospholipase_D-nuclease N-terminal	MHS329	bacteria_OG
+31QDV|Bacteria	319	949.2805892966833	S	NA	MHS329	bacteria_OG
+31RKR|Bacteria	1	5.952380952380952	S	NA	MHS329	bacteria_OG
+31UDV|Bacteria	24	121.52292152292152	S	NA	MHS329	bacteria_OG
+31UH4|Bacteria	38	145.59386973180077	S	NA	MHS329	bacteria_OG
+31XWG|Bacteria	153	397.80777662397594	S	NA	MHS329	bacteria_OG
+31Y3Z|Bacteria	16	68.37606837606837	S	NA	MHS329	bacteria_OG
+321E0|Bacteria	91	330.00962127175717	S	NA	MHS329	bacteria_OG
+323MZ|Bacteria	24	47.90419161676647	S	Membrane bound FAD containing D-sorbitol dehydrogenase	MHS329	bacteria_OG
+3257K|Bacteria	31	139.63963963963963	S	NA	MHS329	bacteria_OG
+327N2|Bacteria	32	85.33333333333333	S	NA	MHS329	bacteria_OG
+328S9|Bacteria	37	158.1196581196581	S	NA	MHS329	bacteria_OG
+32AQR|Bacteria	51	183.18528907589214	S	Uncharacterised nucleotidyltransferase	MHS329	bacteria_OG
+32BDB|Bacteria	40	80.8080808080808	S	NA	MHS329	bacteria_OG
+32BKV|Bacteria	93	392.40506329113924	S	FeoA domain	MHS329	bacteria_OG
+32HUB|Bacteria	15	67.19734660033167	S	Protein of unknown function (DUF3107)	MHS329	bacteria_OG
+32QUS|Bacteria	21	42.944785276073624	S	Electron transfer DM13	MHS329	bacteria_OG
+32R9I|Bacteria	60	112.99435028248587	S	Uncharacterized protein conserved in bacteria (DUF2242)	MHS329	bacteria_OG
+32REF|Bacteria	23	58.97435897435897	S	Suppressor of fused protein (SUFU)	MHS329	bacteria_OG
+32RKK|Bacteria	146	459.1194968553459	S	pathogenesis	MHS329	bacteria_OG
+32RMG|Bacteria	30	86.20689655172414	S	Arsenical resistance operon trans-acting repressor arsD	MHS329	bacteria_OG
+32RNQ|Bacteria	2	6.734006734006734	S	Domain of unknown function (DUF4193)	MHS329	bacteria_OG
+32RUK|Bacteria	26	99.61685823754789	K	Acts as a transcriptional regulator. Probably redox- responsive. The apo- but not holo-form probably binds DNA	MHS329	bacteria_OG
+32RUZ|Bacteria	5	10.16260162601626	S	NA	MHS329	bacteria_OG
+32RWD|Bacteria	46	161.40350877192984	S	NA	MHS329	bacteria_OG
+32S2G|Bacteria	473	1133.4574936967515	S	NA	MHS329	bacteria_OG
+32SFN|Bacteria	6	18.69158878504673	S	Protein of unknown function (DUF3151)	MHS329	bacteria_OG
+32T6W|Bacteria	29	60.41666666666667	S	Inovirus Gp2	MHS329	bacteria_OG
+32T9B|Bacteria	6	32.78688524590164	S	COG NOG15344 non supervised orthologous group	MHS329	bacteria_OG
+32TCV|Bacteria	7	29.21241399502269	K	4 iron, 4 sulfur cluster binding	MHS329	bacteria_OG
+32TNS|Bacteria	55	190.97222222222223	S	aminopeptidase	MHS329	bacteria_OG
+32TPU|Bacteria	75	178.57142857142858	S	Protein of unknown function (DUF3052)	MHS329	bacteria_OG
+32TT8|Bacteria	31	116.10486891385767	S	NA	MHS329	bacteria_OG
+32TTI|Bacteria	293	725.1635596535261	C	oxidoreductase activity, acting on a heme group of donors, oxygen as acceptor	MHS329	bacteria_OG
+32U3U|Bacteria	41	148.55072463768116	S	NA	MHS329	bacteria_OG
+32UF9|Bacteria	45	122.95081967213115	S	SPW repeat	MHS329	bacteria_OG
+32UKY|Bacteria	138	228.85572139303483	S	NA	MHS329	bacteria_OG
+32UQ6|Bacteria	52	97.92843691148775	S	NA	MHS329	bacteria_OG
+32UXB|Bacteria	38	86.7579908675799	S	SPW repeat	MHS329	bacteria_OG
+32WBZ|Bacteria	29	63.59649122807017	S	Protein of unknown function (DUF3021)	MHS329	bacteria_OG
+32X7X|Bacteria	25	109.64912280701753	J	NA	MHS329	bacteria_OG
+32X8C|Bacteria	55	261.9047619047619	S	NA	MHS329	bacteria_OG
+32Y97|Bacteria	32	174.86338797814207	S	Protein of unknown function (DUF3117)	MHS329	bacteria_OG
+32Y9G|Bacteria	72	301.0979306239831	S	NA	MHS329	bacteria_OG
+32YJA|Bacteria	21	85.3658536585366	S	Atp-binding protein	MHS329	bacteria_OG
+32Z2S|Bacteria	1	5.847953216374268	S	Phospholipase_D-nuclease N-terminal	MHS329	bacteria_OG
+32Z3P|Bacteria	74	316.2393162393162	S	NA	MHS329	bacteria_OG
+32ZH9|Bacteria	24	121.2121212121212	S	COG3668 Plasmid stabilization system protein	MHS329	bacteria_OG
+32ZIZ|Bacteria	20	62.893081761006286	S	NA	MHS329	bacteria_OG
+32ZSR|Bacteria	25	44.80286738351254	S	NA	MHS329	bacteria_OG
+3300A|Bacteria	4	13.60544217687075	S	NA	MHS329	bacteria_OG
+330GU|Bacteria	21	90.9090909090909	S	Glycine zipper 2TM domain	MHS329	bacteria_OG
+330UV|Bacteria	28	109.80392156862744	S	NA	MHS329	bacteria_OG
+330XE|Bacteria	26	93.18996415770609	S	Protein of unknown function (DUF4233)	MHS329	bacteria_OG
+330Z9|Bacteria	30	136.986301369863	S	NA	MHS329	bacteria_OG
+332PH|Bacteria	44	168.5823754789272	S	NA	MHS329	bacteria_OG
+33360|Bacteria	18	75	S	NA	MHS329	bacteria_OG
+333MD|Bacteria	67	180.10752688172042	S	NA	MHS329	bacteria_OG
+334EC|Bacteria	74	152.2633744855967	S	NA	MHS329	bacteria_OG
+3357V|Bacteria	2	8.130081300813009	S	NA	MHS329	bacteria_OG
+335H0|Bacteria	17	79.81220657276995	S	Oxidoreductase-like protein, N-terminal	MHS329	bacteria_OG
+336AB|Bacteria	12	67.79661016949153	S	NA	MHS329	bacteria_OG
+338C5|Bacteria	127	217.09401709401712	S	NA	MHS329	bacteria_OG
+33A40|Bacteria	24	82.47422680412372	S	Trp biosynthesis associated, transmembrane protein, oprn chp	MHS329	bacteria_OG
+33AEK|Bacteria	1	3.9682539682539684	S	transcriptional activator, Ogr delta	MHS329	bacteria_OG
+33AVR|Bacteria	10	46.948356807511736	J	Belongs to the bacterial ribosomal protein bL32 family	MHS329	bacteria_OG
+33B8C|Bacteria	33	127.90697674418604	S	TIGRFAM pentapeptide MXKDX repeat protein	MHS329	bacteria_OG
+33BGB|Bacteria	25	105.48523206751055	S	NA	MHS329	bacteria_OG
+33BGJ|Bacteria	26	131.3131313131313	S	NA	MHS329	bacteria_OG
+33BI6|Bacteria	18	88.9603382524603	S	NA	MHS329	bacteria_OG
+33BZN|Bacteria	1	4.166666666666667	S	Protein of unknown function (DUF2835)	MHS329	bacteria_OG
+33CNM|Bacteria	133	443.1585791961109	S	Protein of unknown function (DUF3017)	MHS329	bacteria_OG
+33CRW|Bacteria	715	1485.8201396662935	S	NA	MHS329	bacteria_OG
+33D21|Bacteria	54	261.5868028279654	S	MT0933-like antitoxin protein	MHS329	bacteria_OG
+33DGY|Bacteria	39	154.76190476190476	S	Lantibiotic alpha	MHS329	bacteria_OG
+33FQ1|Bacteria	16	91.95402298850576	S	NA	MHS329	bacteria_OG
+33FSC|Bacteria	516	998.9297364978298	S	NA	MHS329	bacteria_OG
+33H3S|Bacteria	363	633.5078534031414	S	NA	MHS329	bacteria_OG
+33HE5|Bacteria	40	83.85744234800839	S	NA	MHS329	bacteria_OG
+33HVV|Bacteria	33	98.21428571428571	S	NA	MHS329	bacteria_OG
+33I0Z|Bacteria	40	101.78117048346056	S	NA	MHS329	bacteria_OG
+33I9W|Bacteria	34	123.41696535244921	S	NA	MHS329	bacteria_OG
+33KPA|Bacteria	1	4.219409282700422	S	NA	MHS329	bacteria_OG
+33KYV|Bacteria	14	48.10996563573883	S	Phospholipase_D-nuclease N-terminal	MHS329	bacteria_OG
+33MCB|Bacteria	2074	3781.5118397085607	S	NA	MHS329	bacteria_OG
+33Q5K|Bacteria	13	56.74696009208588	S	Protein of unknown function (DUF1725)	MHS329	bacteria_OG
+33REW|Bacteria	7	27.81225382792592	S	NA	MHS329	bacteria_OG
+33UBR|Bacteria	66	181.4089523766943	S	NA	MHS329	bacteria_OG
+33UDM|Bacteria	54	134.32835820895522	L	Single-strand binding protein family	MHS329	bacteria_OG
+33YCQ|Bacteria	94	219.1142191142191	S	NA	MHS329	bacteria_OG
+33ZID|Bacteria	33	157.14285714285714	S	NA	MHS329	bacteria_OG
+342RU|Bacteria	26	78.78787878787878	S	NA	MHS329	bacteria_OG
+344NS|Bacteria	35	76.25272331154684	S	NA	MHS329	bacteria_OG
+348ZG|Bacteria	51	155.96330275229357	S	NA	MHS329	bacteria_OG
+COG0001|Bacteria	28	84.84848484848484	H	glutamate-1-semialdehyde 2,1-aminomutase activity	MHS329	bacteria_OG
+COG0006|Bacteria	79	294.4652517686226	E	proline dipeptidase activity	MHS329	bacteria_OG
+COG0007|Bacteria	50	225.4893461505883	H	Multifunctional enzyme that catalyzes the SAM-dependent methylations of uroporphyrinogen III at position C-2 and C-7 to form precorrin-2 via precorrin-1. Then it catalyzes the NAD- dependent ring dehydrogenation of precorrin-2 to yield sirohydrochlorin. Finally, it catalyzes the ferrochelation of sirohydrochlorin to yield siroheme	MHS329	bacteria_OG
+COG0008|Bacteria	360	319.7800183099816	J	Catalyzes the attachment of glutamate to tRNA(Glu) in a two-step reaction glutamate is first activated by ATP to form Glu-AMP and then transferred to the acceptor end of tRNA(Glu)	MHS329	bacteria_OG
+COG0009|Bacteria	104	161.24031007751938	J	L-threonylcarbamoyladenylate synthase	MHS329	bacteria_OG
+COG0014|Bacteria	1	3.3333333333333335	E	Catalyzes the NADPH-dependent reduction of L-glutamate 5-phosphate into L-glutamate 5-semialdehyde and phosphate. The product spontaneously undergoes cyclization to form 1-pyrroline-5- carboxylate	MHS329	bacteria_OG
+COG0015|Bacteria	33	58.20105820105821	F	Belongs to the lyase 1 family. Adenylosuccinate lyase subfamily	MHS329	bacteria_OG
+COG0018|Bacteria	19	117.28395061728395	J	arginyl-trna synthetase	MHS329	bacteria_OG
+COG0019|Bacteria	9	18.51851851851852	E	diaminopimelate decarboxylase activity	MHS329	bacteria_OG
+COG0022|Bacteria	144	274.2857142857143	C	dehydrogenase e1 component	MHS329	bacteria_OG
+COG0024|Bacteria	206	287.30822873082286	E	Methionine aminopeptidase	MHS329	bacteria_OG
+COG0026|Bacteria	36	63.4920634920635	F	Catalyzes the ATP-dependent conversion of 5- aminoimidazole ribonucleotide (AIR) and HCO(3)(-) to N5- carboxyaminoimidazole ribonucleotide (N5-CAIR)	MHS329	bacteria_OG
+COG0027|Bacteria	24	80	F	Involved in the de novo purine biosynthesis. Catalyzes the transfer of formate to 5-phospho-ribosyl-glycinamide (GAR), producing 5-phospho-ribosyl-N-formylglycinamide (FGAR). Formate is provided by PurU via hydrolysis of 10-formyl-tetrahydrofolate	MHS329	bacteria_OG
+COG0028|Bacteria	255	483.9070296230915	EH	Belongs to the TPP enzyme family	MHS329	bacteria_OG
+COG0031|Bacteria	41	43.524416135881104	E	Belongs to the cysteine synthase cystathionine beta- synthase family	MHS329	bacteria_OG
+COG0037|Bacteria	71	292.18106995884773	D	tRNA processing	MHS329	bacteria_OG
+COG0039|Bacteria	35	67.32913338096165	C	L-malate dehydrogenase activity	MHS329	bacteria_OG
+COG0042|Bacteria	263	572.9847494553377	J	Catalyzes the synthesis of 5,6-dihydrouridine (D), a modified base found in the D-loop of most tRNAs, via the reduction of the C5-C6 double bond in target uridines	MHS329	bacteria_OG
+COG0045|Bacteria	2	7.168458781362006	C	succinate-CoA ligase (ADP-forming) activity	MHS329	bacteria_OG
+COG0047|Bacteria	89	166.383237169754	F	phosphoribosylformylglycinamidine synthase activity	MHS329	bacteria_OG
+COG0049|Bacteria	468	1190.8232236649758	J	tRNA binding	MHS329	bacteria_OG
+COG0050|Bacteria	1348	1673.4674752625626	J	This protein promotes the GTP-dependent binding of aminoacyl-tRNA to the A-site of ribosomes during protein biosynthesis	MHS329	bacteria_OG
+COG0051|Bacteria	114	238.1993006993007	J	transcription antitermination factor activity, RNA binding	MHS329	bacteria_OG
+COG0052|Bacteria	19	63.97306397306398	J	Belongs to the universal ribosomal protein uS2 family	MHS329	bacteria_OG
+COG0053|Bacteria	19	47.893964542589785	P	Belongs to the cation diffusion facilitator (CDF) transporter (TC 2.A.4) family	MHS329	bacteria_OG
+COG0054|Bacteria	43	73.8831615120275	H	6,7-dimethyl-8-ribityllumazine synthase activity	MHS329	bacteria_OG
+COG0055|Bacteria	67	132.93650793650792	C	Produces ATP from ADP in the presence of a proton gradient across the membrane. The catalytic sites are hosted primarily by the beta subunits	MHS329	bacteria_OG
+COG0056|Bacteria	16	64.67619387741604	C	Produces ATP from ADP in the presence of a proton gradient across the membrane. The alpha chain is a regulatory subunit	MHS329	bacteria_OG
+COG0057|Bacteria	172	244.82896858738314	G	glyceraldehyde-3-phosphate dehydrogenase (NAD+) (phosphorylating) activity	MHS329	bacteria_OG
+COG0059|Bacteria	12	44.44444444444444	EH	Involved in the biosynthesis of branched-chain amino acids (BCAA). Catalyzes an alkyl-migration followed by a ketol- acid reduction of (S)-2-acetolactate (S2AL) to yield (R)-2,3- dihydroxy-isovalerate. In the isomerase reaction, S2AL is rearranged via a Mg-dependent methyl migration to produce 3- hydroxy-3-methyl-2-ketobutyrate (HMKB). In the reductase reaction, this 2-ketoacid undergoes a metal-dependent reduction by NADPH to yield (R)-2,3-dihydroxy-isovalerate	MHS329	bacteria_OG
+COG0065|Bacteria	40	115.34211873770448	E	Catalyzes the isomerization between 2-isopropylmalate and 3-isopropylmalate, via the formation of 2-isopropylmaleate	MHS329	bacteria_OG
+COG0073|Bacteria	23	41.21863799283154	J	Is required not only for elongation of protein synthesis but also for the initiation of all mRNA translation through initiator tRNA(fMet) aminoacylation	MHS329	bacteria_OG
+COG0074|Bacteria	14	34.5679012345679	C	Succinyl-CoA synthetase functions in the citric acid cycle (TCA), coupling the hydrolysis of succinyl-CoA to the synthesis of either ATP or GTP and thus represents the only step of substrate-level phosphorylation in the TCA. The alpha subunit of the enzyme binds the substrates coenzyme A and phosphate, while succinate binding and nucleotide specificity is provided by the beta subunit	MHS329	bacteria_OG
+COG0079|Bacteria	18	52.63157894736842	E	Belongs to the class-II pyridoxal-phosphate-dependent aminotransferase family. Histidinol-phosphate aminotransferase subfamily	MHS329	bacteria_OG
+COG0080|Bacteria	54	127.55918780015165	J	Forms part of the ribosomal stalk which helps the ribosome interact with GTP-bound translation factors	MHS329	bacteria_OG
+COG0081|Bacteria	156	343.62393318332016	J	regulation of translation	MHS329	bacteria_OG
+COG0085|Bacteria	119	162.21879637572385	K	RNA polymerase activity	MHS329	bacteria_OG
+COG0086|Bacteria	189	468.03971864951126	K	DNA-dependent RNA polymerase catalyzes the transcription of DNA into RNA using the four ribonucleoside triphosphates as substrates	MHS329	bacteria_OG
+COG0087|Bacteria	53	161.16776375753216	J	One of the primary rRNA binding proteins, it binds directly near the 3'-end of the 23S rRNA, where it nucleates assembly of the 50S subunit	MHS329	bacteria_OG
+COG0088|Bacteria	181	338.36361278221744	J	Forms part of the polypeptide exit tunnel	MHS329	bacteria_OG
+COG0090|Bacteria	96	212.66028577543793	J	One of the primary rRNA binding proteins. Required for association of the 30S and 50S subunits to form the 70S ribosome, for tRNA binding and peptide bond formation. It has been suggested to have peptidyltransferase activity	MHS329	bacteria_OG
+COG0091|Bacteria	183	510.3764321815717	J	The globular domain of the protein is located near the polypeptide exit tunnel on the outside of the subunit, while an extended beta-hairpin is found that lines the wall of the exit tunnel in the center of the 70S ribosome	MHS329	bacteria_OG
+COG0092|Bacteria	266	462.6107911596845	J	Binds the lower part of the 30S subunit head. Binds mRNA in the 70S ribosome, positioning it for translation	MHS329	bacteria_OG
+COG0093|Bacteria	61	196.6645450688004	J	Binds to 23S rRNA. Forms part of two intersubunit bridges in the 70S ribosome	MHS329	bacteria_OG
+COG0094|Bacteria	216	405.0557741795873	J	This is 1 of the proteins that binds and probably mediates the attachment of the 5S RNA into the large ribosomal subunit, where it forms part of the central protuberance. In the 70S ribosome it contacts protein S13 of the 30S subunit (bridge B1b), connecting the 2 subunits	MHS329	bacteria_OG
+COG0095|Bacteria	3	10.309278350515465	H	Lipoate-protein ligase	MHS329	bacteria_OG
+COG0096|Bacteria	91	336.3175100954641	J	One of the primary rRNA binding proteins, it binds directly to 16S rRNA central domain where it helps coordinate assembly of the platform of the 30S subunit	MHS329	bacteria_OG
+COG0097|Bacteria	483	1064.5227404030916	J	This protein binds to the 23S rRNA, and is important in its secondary structure. It is located near the subunit interface in the base of the L7 L12 stalk, and near the tRNA binding site of the peptidyltransferase center	MHS329	bacteria_OG
+COG0098|Bacteria	270	590.7398289407768	J	Located at the back of the 30S subunit body where it stabilizes the conformation of the head with respect to the body	MHS329	bacteria_OG
+COG0099|Bacteria	99	349.3954225700781	J	Located at the top of the head of the 30S subunit, it contacts several helices of the 16S rRNA. In the 70S ribosome it contacts the 23S rRNA (bridge B1a) and protein L5 of the 50S subunit (bridge B1b), connecting the 2 subunits	MHS329	bacteria_OG
+COG0100|Bacteria	26	87.83003676358885	J	Located on the platform of the 30S subunit, it bridges several disparate RNA helices of the 16S rRNA. Forms part of the Shine-Dalgarno cleft in the 70S ribosome	MHS329	bacteria_OG
+COG0102|Bacteria	21	52.56671855498058	J	This protein is one of the early assembly proteins of the 50S ribosomal subunit, although it is not seen to bind rRNA by itself. It is important during the early stages of 50S assembly	MHS329	bacteria_OG
+COG0103|Bacteria	165	555.7247549252879	J	maturation of SSU-rRNA from tricistronic rRNA transcript (SSU-rRNA, 5.8S rRNA, LSU-rRNA)	MHS329	bacteria_OG
+COG0104|Bacteria	43	159.25925925925924	F	Plays an important role in the de novo pathway of purine nucleotide biosynthesis. Catalyzes the first committed step in the biosynthesis of AMP from IMP	MHS329	bacteria_OG
+COG0109|Bacteria	67	187.67507002801122	O	protoheme IX farnesyltransferase activity	MHS329	bacteria_OG
+COG0110|Bacteria	167	385.87999698637134	HJ	maltose O-acetyltransferase activity	MHS329	bacteria_OG
+COG0113|Bacteria	89	235.05625344660675	H	porphobilinogen synthase activity	MHS329	bacteria_OG
+COG0115|Bacteria	151	221.3515298655361	E	Belongs to the class-IV pyridoxal-phosphate-dependent aminotransferase family	MHS329	bacteria_OG
+COG0126|Bacteria	290	680.7511737089202	F	phosphoglycerate kinase activity	MHS329	bacteria_OG
+COG0127|Bacteria	22	90.53497942386832	F	Pyrophosphatase that catalyzes the hydrolysis of nucleoside triphosphates to their monophosphate derivatives, with a high preference for the non-canonical purine nucleotides XTP (xanthosine triphosphate), dITP (deoxyinosine triphosphate) and ITP. Seems to function as a house-cleaning enzyme that removes non-canonical purine nucleotides from the nucleotide pool, thus preventing their incorporation into DNA RNA and avoiding chromosomal lesions	MHS329	bacteria_OG
+COG0148|Bacteria	147	149.77963811928333	G	phosphopyruvate hydratase activity	MHS329	bacteria_OG
+COG0151|Bacteria	36	63.4920634920635	F	Belongs to the GarS family	MHS329	bacteria_OG
+COG0154|Bacteria	36	130.43478260869563	J	amidase activity	MHS329	bacteria_OG
+COG0162|Bacteria	104	240.74074074074073	J	Catalyzes the attachment of tyrosine to tRNA(Tyr) in a two-step reaction tyrosine is first activated by ATP to form Tyr- AMP and then transferred to the acceptor end of tRNA(Tyr)	MHS329	bacteria_OG
+COG0166|Bacteria	56	71.10283452565332	G	Belongs to the GPI family	MHS329	bacteria_OG
+COG0167|Bacteria	5	12.43781094527363	F	dihydroorotate dehydrogenase activity	MHS329	bacteria_OG
+COG0172|Bacteria	107	479.3730079444365	J	Catalyzes the attachment of serine to tRNA(Ser). Is also able to aminoacylate tRNA(Sec) with serine, to form the misacylated tRNA L-seryl-tRNA(Sec), which will be further converted into selenocysteinyl-tRNA(Sec)	MHS329	bacteria_OG
+COG0173|Bacteria	88	228.3090044284074	J	Aspartyl-tRNA synthetase with relaxed tRNA specificity since it is able to aspartylate not only its cognate tRNA(Asp) but also tRNA(Asn). Reaction proceeds in two steps L-aspartate is first activated by ATP to form Asp-AMP and then transferred to the acceptor end of tRNA(Asp Asn)	MHS329	bacteria_OG
+COG0174|Bacteria	172	446.9302291976949	E	glutamine synthetase	MHS329	bacteria_OG
+COG0175|Bacteria	94	272.46376811594206	EH	sulfate reduction	MHS329	bacteria_OG
+COG0178|Bacteria	1	3.4722222222222223	L	The UvrABC repair system catalyzes the recognition and processing of DNA lesions. UvrA is an ATPase and a DNA-binding protein. A damage recognition complex composed of 2 uvrA and 2 uvrB subunits scans DNA for abnormalities. When the presence of a lesion has been verified by uvrB, the uvrA molecules dissociate	MHS329	bacteria_OG
+COG0179|Bacteria	50	179.3900543900544	Q	Fumarylacetoacetate (FAA) hydrolase	MHS329	bacteria_OG
+COG0183|Bacteria	19	37.03703703703704	I	Belongs to the thiolase family	MHS329	bacteria_OG
+COG0184|Bacteria	138	510.0693480843726	J	Forms an intersubunit bridge (bridge B4) with the 23S rRNA of the 50S subunit in the ribosome	MHS329	bacteria_OG
+COG0185|Bacteria	148	517.7919976463666	J	Protein S19 forms a complex with S13 that binds strongly to the 16S ribosomal RNA	MHS329	bacteria_OG
+COG0186|Bacteria	199	747.2753034510603	J	One of the primary rRNA binding proteins, it binds specifically to the 5'-end of 16S ribosomal RNA	MHS329	bacteria_OG
+COG0187|Bacteria	91	219.78319783197833	L	DNA topoisomerase II activity	MHS329	bacteria_OG
+COG0188|Bacteria	66	205.26315789473685	L	A type II topoisomerase that negatively supercoils closed circular double-stranded (ds) DNA in an ATP-dependent manner to modulate DNA topology and maintain chromosomes in an underwound state. Negative supercoiling favors strand separation, and DNA replication, transcription, recombination and repair, all of which involve strand separation. Also able to catalyze the interconversion of other topological isomers of dsDNA rings, including catenanes and knotted rings. Type II topoisomerases break and join 2 DNA strands simultaneously in an ATP-dependent manner	MHS329	bacteria_OG
+COG0190|Bacteria	36	79.4417606011809	F	Catalyzes the oxidation of 5,10- methylenetetrahydrofolate to 5,10-methenyltetrahydrofolate and then the hydrolysis of 5,10-methenyltetrahydrofolate to 10- formyltetrahydrofolate	MHS329	bacteria_OG
+COG0191|Bacteria	1	3.5087719298245617	G	fructose-bisphosphate aldolase activity	MHS329	bacteria_OG
+COG0192|Bacteria	45	194.2483660130719	H	Catalyzes the formation of S-adenosylmethionine (AdoMet) from methionine and ATP. The overall synthetic reaction is composed of two sequential steps, AdoMet formation and the subsequent tripolyphosphate hydrolysis which occurs prior to release of AdoMet from the enzyme	MHS329	bacteria_OG
+COG0194|Bacteria	656	1188.238193828256	F	GDP metabolic process	MHS329	bacteria_OG
+COG0196|Bacteria	65	114.03508771929826	H	riboflavin kinase activity	MHS329	bacteria_OG
+COG0197|Bacteria	164	484.5203764877523	J	Binds 23S rRNA and is also seen to make contacts with the A and possibly P site tRNAs	MHS329	bacteria_OG
+COG0198|Bacteria	165	574.3471305487724	J	One of the proteins that surrounds the polypeptide exit tunnel on the outside of the subunit	MHS329	bacteria_OG
+COG0199|Bacteria	244	1028.335719421113	J	Binds 16S rRNA, required for the assembly of 30S particles and may also be responsible for determining the conformation of the 16S rRNA at the A site	MHS329	bacteria_OG
+COG0200|Bacteria	196	472.9675111820672	J	Binds to the 23S rRNA	MHS329	bacteria_OG
+COG0201|Bacteria	305	235.88553750966744	U	protein transport	MHS329	bacteria_OG
+COG0202|Bacteria	90	120.66696036418493	K	RNA polymerase activity	MHS329	bacteria_OG
+COG0203|Bacteria	221	569.1595618097604	J	ribosomal protein L17	MHS329	bacteria_OG
+COG0205|Bacteria	38	88.57808857808858	G	6-phosphofructokinase activity	MHS329	bacteria_OG
+COG0206|Bacteria	30	118.59338692815827	D	Essential cell division protein that forms a contractile ring structure (Z ring) at the future cell division site. The regulation of the ring assembly controls the timing and the location of cell division. One of the functions of the FtsZ ring is to recruit other cell division proteins to the septum to produce a new cell wall between the dividing cells. Binds GTP and shows GTPase activity	MHS329	bacteria_OG
+COG0208|Bacteria	59	175.6378002256004	F	Provides the precursors necessary for DNA synthesis. Catalyzes the biosynthesis of deoxyribonucleotides from the corresponding ribonucleotides	MHS329	bacteria_OG
+COG0210|Bacteria	61	231.06060606060606	L	DNA helicase	MHS329	bacteria_OG
+COG0211|Bacteria	127	400.0356075320715	J	Belongs to the bacterial ribosomal protein bL27 family	MHS329	bacteria_OG
+COG0212|Bacteria	88	133.9421613394216	H	Belongs to the 5-formyltetrahydrofolate cyclo-ligase family	MHS329	bacteria_OG
+COG0216|Bacteria	64	100.1564945226917	J	Peptide chain release factor 1 directs the termination of translation in response to the peptide chain termination codons UAG and UAA	MHS329	bacteria_OG
+COG0217|Bacteria	173	467.9878569030371	K	transcriptional regulatory protein	MHS329	bacteria_OG
+COG0221|Bacteria	169	361.1111111111111	C	Catalyzes the hydrolysis of inorganic pyrophosphate (PPi) forming two phosphate ions	MHS329	bacteria_OG
+COG0222|Bacteria	126	388.6577357499344	J	ribosome binding	MHS329	bacteria_OG
+COG0223|Bacteria	8	36.03603603603604	J	Attaches a formyl group to the free amino group of methionyl-tRNA(fMet). The formyl group appears to play a dual role in the initiator identity of N-formylmethionyl-tRNA by promoting its recognition by IF2 and preventing the misappropriation of this tRNA by the elongation apparatus	MHS329	bacteria_OG
+COG0224|Bacteria	61	162.2962079295959	C	Produces ATP from ADP in the presence of a proton gradient across the membrane. The gamma chain is believed to be important in regulating ATPase activity and the flow of protons through the CF(0) complex	MHS329	bacteria_OG
+COG0225|Bacteria	33	83.85772913816689	O	Has an important function as a repair enzyme for proteins that have been inactivated by oxidation. Catalyzes the reversible oxidation-reduction of methionine sulfoxide in proteins to methionine	MHS329	bacteria_OG
+COG0226|Bacteria	289	513.8763213841482	P	Part of the ABC transporter complex PstSACB involved in phosphate import	MHS329	bacteria_OG
+COG0227|Bacteria	50	210.9704641350211	J	Belongs to the bacterial ribosomal protein bL28 family	MHS329	bacteria_OG
+COG0228|Bacteria	29	101.52031827223642	J	four-way junction DNA binding	MHS329	bacteria_OG
+COG0229|Bacteria	7	28.11244979919679	O	Has an important function as a repair enzyme for proteins that have been inactivated by oxidation. Catalyzes the reversible oxidation-reduction of methionine sulfoxide in proteins to methionine	MHS329	bacteria_OG
+COG0230|Bacteria	39	232.14285714285714	J	Belongs to the bacterial ribosomal protein bL34 family	MHS329	bacteria_OG
+COG0234|Bacteria	193	633.7451119793461	O	Binds to Cpn60 in the presence of Mg-ATP and suppresses the ATPase activity of the latter	MHS329	bacteria_OG
+COG0235|Bacteria	4	16.260162601626018	G	Class ii aldolase	MHS329	bacteria_OG
+COG0236|Bacteria	36	131.55303477884124	IQ	Carrier of the growing fatty acid chain in fatty acid biosynthesis	MHS329	bacteria_OG
+COG0238|Bacteria	47	178.77038989812897	J	Binds as a heterodimer with protein S6 to the central domain of the 16S rRNA, where it helps stabilize the platform of the 30S subunit	MHS329	bacteria_OG
+COG0244|Bacteria	722	1597.312455851873	J	Forms part of the ribosomal stalk, playing a central role in the interaction of the ribosome with GTP-bound translation factors	MHS329	bacteria_OG
+COG0245|Bacteria	1	4.385964912280701	I	2-C-methyl-D-erythritol 2,4-cyclodiphosphate synthase activity	MHS329	bacteria_OG
+COG0246|Bacteria	8	31.007751937984494	G	Mannitol dehydrogenase	MHS329	bacteria_OG
+COG0250|Bacteria	206	295.28407044395794	K	Participates in transcription elongation, termination and antitermination	MHS329	bacteria_OG
+COG0254|Bacteria	95	349.57264957264954	J	rRNA binding	MHS329	bacteria_OG
+COG0255|Bacteria	263	1119.8711635154552	J	Belongs to the universal ribosomal protein uL29 family	MHS329	bacteria_OG
+COG0256|Bacteria	84	207.4074074074074	J	This is one of the proteins that binds and probably mediates the attachment of the 5S RNA into the large ribosomal subunit, where it forms part of the central protuberance	MHS329	bacteria_OG
+COG0260|Bacteria	59	127.7056277056277	E	Presumably involved in the processing and regular turnover of intracellular proteins. Catalyzes the removal of unsubstituted N-terminal amino acids from various peptides	MHS329	bacteria_OG
+COG0261|Bacteria	90	283.0188679245283	J	This protein binds to 23S rRNA in the presence of protein L20	MHS329	bacteria_OG
+COG0262|Bacteria	45	182.9268292682927	H	Key enzyme in folate metabolism. Catalyzes an essential reaction for de novo glycine and purine synthesis, and for DNA precursor synthesis	MHS329	bacteria_OG
+COG0263|Bacteria	34	131.7829457364341	E	Catalyzes the transfer of a phosphate group to glutamate to form L-glutamate 5-phosphate	MHS329	bacteria_OG
+COG0265|Bacteria	59	93.67601246105919	O	Trypsin-like serine proteases, typically periplasmic, contain C-terminal PDZ domain	MHS329	bacteria_OG
+COG0267|Bacteria	5	29.23976608187134	J	Belongs to the bacterial ribosomal protein bL33 family	MHS329	bacteria_OG
+COG0269|Bacteria	369	759.2844435392095	G	3-dehydro-L-gulonate-6-phosphate decarboxylase activity	MHS329	bacteria_OG
+COG0271|Bacteria	31	121.56862745098039	T	Belongs to the BolA IbaG family	MHS329	bacteria_OG
+COG0277|Bacteria	281	307.39829006450566	C	FAD linked oxidase domain protein	MHS329	bacteria_OG
+COG0281|Bacteria	10	57.91666666666667	C	malic enzyme	MHS329	bacteria_OG
+COG0285|Bacteria	32	144.14414414414415	H	dihydrofolate synthase activity	MHS329	bacteria_OG
+COG0288|Bacteria	65	257.93650793650795	P	reversible hydration of carbon dioxide	MHS329	bacteria_OG
+COG0289|Bacteria	7	31.11111111111111	E	4-hydroxy-tetrahydrodipicolinate reductase	MHS329	bacteria_OG
+COG0291|Bacteria	1	4.566210045662101	J	Belongs to the bacterial ribosomal protein bL35 family	MHS329	bacteria_OG
+COG0292|Bacteria	160	433.98959583833533	J	Binds directly to 23S ribosomal RNA and is necessary for the in vitro assembly process of the 50S ribosomal subunit. It is not involved in the protein synthesizing functions of that subunit	MHS329	bacteria_OG
+COG0297|Bacteria	43	116.95733569809835	G	glycogen (starch) synthase activity	MHS329	bacteria_OG
+COG0299|Bacteria	66	214.0485312899106	F	Catalyzes the transfer of a formyl group from 10- formyltetrahydrofolate to 5-phospho-ribosyl-glycinamide (GAR), producing 5-phospho-ribosyl-N-formylglycinamide (FGAR) and tetrahydrofolate	MHS329	bacteria_OG
+COG0302|Bacteria	84	145.0777202072539	H	gtp cyclohydrolase	MHS329	bacteria_OG
+COG0303|Bacteria	121	359.5798041342596	H	'Molybdopterin	MHS329	bacteria_OG
+COG0305|Bacteria	229	214.75378599595717	L	Participates in initiation and elongation during chromosome replication	MHS329	bacteria_OG
+COG0306|Bacteria	25	47.89272030651341	P	phosphate transporter	MHS329	bacteria_OG
+COG0307|Bacteria	6	24.691358024691358	H	riboflavin synthase, alpha	MHS329	bacteria_OG
+COG0310|Bacteria	126	214.09903228085045	P	cobalt ion transport	MHS329	bacteria_OG
+COG0316|Bacteria	60	185.1851851851852	P	Belongs to the HesB IscA family	MHS329	bacteria_OG
+COG0317|Bacteria	38	103.04386143312318	KT	In eubacteria ppGpp (guanosine 3'-diphosphate 5-' diphosphate) is a mediator of the stringent response that coordinates a variety of cellular activities in response to changes in nutritional abundance	MHS329	bacteria_OG
+COG0318|Bacteria	404	915.727685359221	IQ	PFAM AMP-dependent synthetase and ligase	MHS329	bacteria_OG
+COG0320|Bacteria	24	53.09959349593497	H	Catalyzes the radical-mediated insertion of two sulfur atoms into the C-6 and C-8 positions of the octanoyl moiety bound to the lipoyl domains of lipoate-dependent enzymes, thereby converting the octanoylated domains into lipoylated derivatives	MHS329	bacteria_OG
+COG0322|Bacteria	8	29.304029304029303	L	excinuclease ABC activity	MHS329	bacteria_OG
+COG0325|Bacteria	8	31.007751937984494	F	Pyridoxal 5'-phosphate (PLP)-binding protein, which is involved in PLP homeostasis	MHS329	bacteria_OG
+COG0329|Bacteria	6	21.236341171473804	E	Catalyzes the condensation of (S)-aspartate-beta- semialdehyde (S)-ASA and pyruvate to 4-hydroxy- tetrahydrodipicolinate (HTPA)	MHS329	bacteria_OG
+COG0330|Bacteria	11	45.143756035261504	O	HflC and HflK could	MHS329	bacteria_OG
+COG0331|Bacteria	6	18.867924528301888	I	[acyl-carrier-protein] S-malonyltransferase activity	MHS329	bacteria_OG
+COG0334|Bacteria	32	116.4021164021164	E	Belongs to the Glu Leu Phe Val dehydrogenases family	MHS329	bacteria_OG
+COG0335|Bacteria	77	204.94535867670197	J	large ribosomal subunit rRNA binding	MHS329	bacteria_OG
+COG0336|Bacteria	51	89.47368421052633	J	Belongs to the RNA methyltransferase TrmD family	MHS329	bacteria_OG
+COG0343|Bacteria	26	48.41713221601489	F	queuine tRNA-ribosyltransferase activity	MHS329	bacteria_OG
+COG0345|Bacteria	43	84.42923839053424	E	Catalyzes the reduction of 1-pyrroline-5-carboxylate (PCA) to L-proline	MHS329	bacteria_OG
+COG0346|Bacteria	232	616.3569244285256	E	lactoylglutathione lyase activity	MHS329	bacteria_OG
+COG0355|Bacteria	88	251.85065870978866	C	proton-transporting ATP synthase activity, rotational mechanism	MHS329	bacteria_OG
+COG0356|Bacteria	41	100.49019607843138	C	it plays a direct role in the translocation of protons across the membrane	MHS329	bacteria_OG
+COG0358|Bacteria	21	41.91616766467066	L	DNA primase activity	MHS329	bacteria_OG
+COG0360|Bacteria	108	341.88097369312106	J	Binds together with S18 to 16S ribosomal RNA	MHS329	bacteria_OG
+COG0361|Bacteria	368	1499.37989996904	J	One of the essential components for the initiation of protein synthesis. Stabilizes the binding of IF-2 and IF-3 on the 30S subunit to which N-formylmethionyl-tRNA(fMet) subsequently binds. Helps modulate mRNA selection, yielding the 30S pre- initiation complex (PIC). Upon addition of the 50S ribosomal subunit IF-1, IF-2 and IF-3 are released leaving the mature 70S translation initation complex	MHS329	bacteria_OG
+COG0364|Bacteria	42	130.3748951970296	G	Catalyzes the oxidation of glucose 6-phosphate to 6- phosphogluconolactone	MHS329	bacteria_OG
+COG0365|Bacteria	16	76.19047619047619	I	Catalyzes the conversion of acetate into acetyl-CoA (AcCoA), an essential intermediate at the junction of anabolic and catabolic pathways. AcsA undergoes a two-step reaction. In the first half reaction, AcsA combines acetate with ATP to form acetyl-adenylate (AcAMP) intermediate. In the second half reaction, it can then transfer the acetyl group from AcAMP to the sulfhydryl group of CoA, forming the product AcCoA	MHS329	bacteria_OG
+COG0370|Bacteria	30	136.986301369863	P	Transporter of a GTP-driven Fe(2 ) uptake system	MHS329	bacteria_OG
+COG0372|Bacteria	44	89.45569124146789	C	Belongs to the citrate synthase family	MHS329	bacteria_OG
+COG0377|Bacteria	433	727.442179258925	C	NDH-1 shuttles electrons from NADH, via FMN and iron- sulfur (Fe-S) centers, to quinones in the respiratory chain. The immediate electron acceptor for the enzyme in this species is believed to be ubiquinone. Couples the redox reaction to proton translocation (for every two electrons transferred, four hydrogen ions are translocated across the cytoplasmic membrane), and thus conserves the redox energy in a proton gradient	MHS329	bacteria_OG
+COG0378|Bacteria	97	172.40462609817862	KO	Facilitates the functional incorporation of the urease nickel metallocenter. This process requires GTP hydrolysis, probably effectuated by UreG	MHS329	bacteria_OG
+COG0380|Bacteria	29	58.58444614683858	G	Probably involved in the osmoprotection via the biosynthesis of trehalose. Catalyzes the transfer of glucose from UDP-glucose (UDP-Glc) to D-glucose 6-phosphate (Glc-6-P) to form trehalose-6-phosphate. Acts with retention of the anomeric configuration of the UDP-sugar donor	MHS329	bacteria_OG
+COG0384|Bacteria	190	214.68926553672316	CO	phenazine biosynthesis protein PhzF	MHS329	bacteria_OG
+COG0388|Bacteria	2	6.872852233676976	L	Catalyzes the ATP-dependent amidation of deamido-NAD to form NAD. Uses L-glutamine as a nitrogen source	MHS329	bacteria_OG
+COG0389|Bacteria	14	62.482024733966064	L	Poorly processive, error-prone DNA polymerase involved in untargeted mutagenesis. Copies undamaged DNA at stalled replication forks, which arise in vivo from mismatched or misaligned primer ends. These misaligned primers can be extended by PolIV. Exhibits no 3'-5' exonuclease (proofreading) activity. May be involved in translesional synthesis, in conjunction with the beta clamp from PolIII	MHS329	bacteria_OG
+COG0396|Bacteria	69	127.32792489412726	O	ATPase activity	MHS329	bacteria_OG
+COG0415|Bacteria	103	106.2951496388029	L	Belongs to the DNA photolyase family	MHS329	bacteria_OG
+COG0431|Bacteria	413	1194.382202035997	P	NADPH-dependent FMN reductase	MHS329	bacteria_OG
+COG0436|Bacteria	32	119.54395142854105	E	Aminotransferase	MHS329	bacteria_OG
+COG0438|Bacteria	15	51.54639175257732	M	transferase activity, transferring glycosyl groups	MHS329	bacteria_OG
+COG0442|Bacteria	19	83.33333333333333	J	prolyl-tRNA aminoacylation	MHS329	bacteria_OG
+COG0443|Bacteria	754	688.1184288559688	O	Heat shock 70 kDa protein	MHS329	bacteria_OG
+COG0444|Bacteria	31	59.38697318007662	P	Belongs to the ABC transporter superfamily	MHS329	bacteria_OG
+COG0447|Bacteria	75	163.15628815628816	H	Converts o-succinylbenzoyl-CoA (OSB-CoA) to 1,4- dihydroxy-2-naphthoyl-CoA (DHNA-CoA)	MHS329	bacteria_OG
+COG0448|Bacteria	36	72.28915662650603	H	Catalyzes the synthesis of ADP-glucose, a sugar donor used in elongation reactions on alpha-glucans	MHS329	bacteria_OG
+COG0449|Bacteria	6	23.80952380952381	M	glutamine-fructose-6-phosphate transaminase (isomerizing) activity	MHS329	bacteria_OG
+COG0450|Bacteria	424	892.7422960169629	O	alkyl hydroperoxide reductase	MHS329	bacteria_OG
+COG0452|Bacteria	14	30.70175438596491	H	Catalyzes two steps in the biosynthesis of coenzyme A. In the first step cysteine is conjugated to 4'-phosphopantothenate to form 4-phosphopantothenoylcysteine, in the latter compound is decarboxylated to form 4'-phosphopantotheine	MHS329	bacteria_OG
+COG0456|Bacteria	41	107.61154855643045	K	acetyltransferase	MHS329	bacteria_OG
+COG0457|Bacteria	36	129.76953601953602	M	Tetratricopeptide repeat	MHS329	bacteria_OG
+COG0459|Bacteria	17	34.136546184738954	O	protein refolding	MHS329	bacteria_OG
+COG0460|Bacteria	3	10.638297872340427	E	homoserine dehydrogenase	MHS329	bacteria_OG
+COG0461|Bacteria	21	34.23073813566174	F	Catalyzes the transfer of a ribosyl phosphate group from 5-phosphoribose 1-diphosphate to orotate, leading to the formation of orotidine monophosphate (OMP)	MHS329	bacteria_OG
+COG0463|Bacteria	29	70.04830917874396	M	Glycosyl transferase, family 2	MHS329	bacteria_OG
+COG0465|Bacteria	1	4.166666666666667	O	Acts as a processive, ATP-dependent zinc metallopeptidase for both cytoplasmic and membrane proteins. Plays a role in the quality control of integral membrane proteins	MHS329	bacteria_OG
+COG0468|Bacteria	379	555.2851675016319	L	Can catalyze the hydrolysis of ATP in the presence of single-stranded DNA, the ATP-dependent uptake of single-stranded DNA by duplex DNA, and the ATP-dependent hybridization of homologous single-stranded DNAs. It interacts with LexA causing its activation and leading to its autocatalytic cleavage	MHS329	bacteria_OG
+COG0469|Bacteria	6	23.52941176470588	G	pyruvate kinase activity	MHS329	bacteria_OG
+COG0470|Bacteria	73	184.34343434343432	L	DNA polymerase III	MHS329	bacteria_OG
+COG0473|Bacteria	30	66.66666666666667	CE	3-isopropylmalate dehydrogenase activity	MHS329	bacteria_OG
+COG0476|Bacteria	49	104.17360417360416	H	Involved in molybdopterin and thiamine biosynthesis, family 2	MHS329	bacteria_OG
+COG0477|Bacteria	58	135.08550153141766	EGP	Major facilitator Superfamily	MHS329	bacteria_OG
+COG0479|Bacteria	17	53.96825396825397	C	Belongs to the succinate dehydrogenase fumarate reductase iron-sulfur protein family	MHS329	bacteria_OG
+COG0480|Bacteria	172	369.8807523237961	J	Catalyzes the GTP-dependent ribosomal translocation step during translation elongation. During this step, the ribosome changes from the pre-translocational (PRE) to the post- translocational (POST) state as the newly formed A-site-bound peptidyl-tRNA and P-site-bound deacylated tRNA move to the P and E sites, respectively. Catalyzes the coordinated movement of the two tRNA molecules, the mRNA and conformational changes in the ribosome	MHS329	bacteria_OG
+COG0482|Bacteria	6	21.978021978021978	J	sulfurtransferase activity	MHS329	bacteria_OG
+COG0483|Bacteria	3	11.904761904761905	G	inositol monophosphate 1-phosphatase activity	MHS329	bacteria_OG
+COG0484|Bacteria	24	37.735849056603776	O	heat shock protein binding	MHS329	bacteria_OG
+COG0488|Bacteria	200	269.01162054450407	L	(ABC) transporter	MHS329	bacteria_OG
+COG0489|Bacteria	25	42.586778301064015	D	protein tyrosine kinase activity	MHS329	bacteria_OG
+COG0492|Bacteria	76	205.82117610260846	C	ferredoxin-NADP+ reductase activity	MHS329	bacteria_OG
+COG0494|Bacteria	50	85.03401360544218	L	nUDIX hydrolase	MHS329	bacteria_OG
+COG0496|Bacteria	146	201.93637621023512	P	Nucleotidase that shows phosphatase activity on nucleoside 5'-monophosphates	MHS329	bacteria_OG
+COG0501|Bacteria	136	148.14814814814815	O	Belongs to the peptidase M48B family	MHS329	bacteria_OG
+COG0503|Bacteria	47	114.28571428571428	F	Catalyzes a salvage reaction resulting in the formation of AMP, that is energically less costly than de novo synthesis	MHS329	bacteria_OG
+COG0504|Bacteria	26	105.6910569105691	F	CTP synthase activity	MHS329	bacteria_OG
+COG0505|Bacteria	114	292.92192980982696	F	Belongs to the CarA family	MHS329	bacteria_OG
+COG0508|Bacteria	72	149.13147860471685	C	dehydrogenase complex catalyzes the overall conversion of	MHS329	bacteria_OG
+COG0513|Bacteria	130	251.93798449612402	L	Belongs to the DEAD box helicase family	MHS329	bacteria_OG
+COG0515|Bacteria	33	63.703703703703695	KLT	serine threonine protein kinase	MHS329	bacteria_OG
+COG0517|Bacteria	61	173.4920634920635	K	IMP dehydrogenase activity	MHS329	bacteria_OG
+COG0518|Bacteria	121	252.08333333333334	F	GMP synthase (glutamine-hydrolyzing) activity	MHS329	bacteria_OG
+COG0522|Bacteria	14	35.794522276915316	J	One of the primary rRNA binding proteins, it binds directly to 16S rRNA where it nucleates assembly of the body of the 30S subunit	MHS329	bacteria_OG
+COG0526|Bacteria	598	1619.5765440547225	CO	COG0526, thiol-disulfide isomerase and thioredoxins	MHS329	bacteria_OG
+COG0528|Bacteria	19	35.381750465549345	F	UMP kinase activity	MHS329	bacteria_OG
+COG0531|Bacteria	31	67.53812636165577	E	amino acid	MHS329	bacteria_OG
+COG0532|Bacteria	45	163.8387927861612	J	One of the essential components for the initiation of protein synthesis. Protects formylmethionyl-tRNA from spontaneous hydrolysis and promotes its binding to the 30S ribosomal subunits. Also involved in the hydrolysis of GTP during the formation of the 70S ribosomal complex	MHS329	bacteria_OG
+COG0536|Bacteria	40	86.19540805169548	C	An essential GTPase which binds GTP, GDP and possibly (p)ppGpp with moderate affinity, with high nucleotide exchange rates and a fairly low GTP hydrolysis rate. Plays a role in control of the cell cycle, stress response, ribosome biogenesis and in those bacteria that undergo differentiation, in morphogenesis control	MHS329	bacteria_OG
+COG0538|Bacteria	1	3.3333333333333335	C	isocitrate dehydrogenase activity	MHS329	bacteria_OG
+COG0539|Bacteria	634	598.589675024772	J	negative regulation of cytoplasmic translation	MHS329	bacteria_OG
+COG0540|Bacteria	13	54.16666666666667	F	Belongs to the ATCase OTCase family	MHS329	bacteria_OG
+COG0542|Bacteria	142	359.0684370531287	O	response to heat	MHS329	bacteria_OG
+COG0544|Bacteria	25	48.732943469785575	D	peptidyl-prolyl cis-trans isomerase activity	MHS329	bacteria_OG
+COG0545|Bacteria	31	65.40084388185655	O	Peptidyl-prolyl cis-trans isomerase	MHS329	bacteria_OG
+COG0546|Bacteria	22	75.08960573476702	O	phosphoglycolate phosphatase activity	MHS329	bacteria_OG
+COG0549|Bacteria	79	190.6937278406038	E	Belongs to the carbamate kinase family	MHS329	bacteria_OG
+COG0551|Bacteria	87	159.34065934065933	L	DNA topoisomerase type I activity	MHS329	bacteria_OG
+COG0552|Bacteria	19	79.85794013191273	U	protein localization to endoplasmic reticulum	MHS329	bacteria_OG
+COG0553|Bacteria	23	77.6158623984711	L	Transcription regulator that activates transcription by stimulating RNA polymerase (RNAP) recycling in case of stress conditions such as supercoiled DNA or high salt concentrations. Probably acts by releasing the RNAP, when it is trapped or immobilized on tightly supercoiled DNA. Does not activate transcription on linear DNA. Probably not involved in DNA repair	MHS329	bacteria_OG
+COG0555|Bacteria	186	216.7832167832168	P	PFAM binding-protein-dependent transport systems inner membrane component	MHS329	bacteria_OG
+COG0557|Bacteria	10	20.2020202020202	K	exoribonuclease II activity	MHS329	bacteria_OG
+COG0563|Bacteria	158	301.4806280935313	F	adenylate kinase activity	MHS329	bacteria_OG
+COG0566|Bacteria	28	32.863849765258216	J	Belongs to the class IV-like SAM-binding methyltransferase superfamily. RNA methyltransferase TrmH family	MHS329	bacteria_OG
+COG0567|Bacteria	8	26.936026936026938	C	Dehydrogenase, E1 component	MHS329	bacteria_OG
+COG0568|Bacteria	842	1189.2279703232016	K	sigma factors are initiation factors that promote the attachment of RNA polymerase to specific initiation sites and are then released	MHS329	bacteria_OG
+COG0576|Bacteria	75	108.5682987235664	O	Participates actively in the response to hyperosmotic and heat shock by preventing the aggregation of stress-denatured proteins, in association with DnaK and GrpE. It is the nucleotide exchange factor for DnaK and may function as a thermosensor. Unfolded proteins bind initially to DnaJ	MHS329	bacteria_OG
+COG0577|Bacteria	1	3.745318352059925	V	efflux transmembrane transporter activity	MHS329	bacteria_OG
+COG0578|Bacteria	219	245.65296811083172	C	Belongs to the FAD-dependent glycerol-3-phosphate dehydrogenase family	MHS329	bacteria_OG
+COG0579|Bacteria	409	600.1151465123598	P	oxidoreductase	MHS329	bacteria_OG
+COG0580|Bacteria	22	94.01709401709401	G	Belongs to the MIP aquaporin (TC 1.A.8) family	MHS329	bacteria_OG
+COG0582|Bacteria	449	449.5615731785945	L	viral genome integration into host DNA	MHS329	bacteria_OG
+COG0583|Bacteria	696	948.1891300655202	K	DNA-binding transcription factor activity	MHS329	bacteria_OG
+COG0588|Bacteria	289	409.4938712496233	G	phosphoglycerate mutase activity	MHS329	bacteria_OG
+COG0589|Bacteria	279	429.7703744906812	T	response to stress	MHS329	bacteria_OG
+COG0590|Bacteria	231	433.5491305968884	FJ	tRNA wobble adenosine to inosine editing	MHS329	bacteria_OG
+COG0592|Bacteria	1	4.329004329004329	L	DNA-directed DNA polymerase activity	MHS329	bacteria_OG
+COG0594|Bacteria	14	40.229885057471265	J	ribonuclease P activity	MHS329	bacteria_OG
+COG0595|Bacteria	51	111.81657848324515	H	An RNase that has 5'-3' exonuclease and possibly endonuclease activity. Involved in maturation of rRNA and in some organisms also mRNA maturation and or decay	MHS329	bacteria_OG
+COG0599|Bacteria	43	105.25289226451483	L	Antioxidant protein with alkyl hydroperoxidase activity. Required for the reduction of the AhpC active site cysteine residues and for the regeneration of the AhpC enzyme activity	MHS329	bacteria_OG
+COG0604|Bacteria	23	47.91666666666667	C	alcohol dehydrogenase	MHS329	bacteria_OG
+COG0605|Bacteria	190	501.0825115816086	C	Destroys radicals which are normally produced within the cells and which are toxic to biological systems	MHS329	bacteria_OG
+COG0607|Bacteria	27	65.21739130434783	P	Catalyzes the ATP-dependent transfer of a sulfur to tRNA to produce 4-thiouridine in position 8 of tRNAs, which functions as a near-UV photosensor. Also catalyzes the transfer of sulfur to the sulfur carrier protein ThiS, forming ThiS-thiocarboxylate. This is a step in the synthesis of thiazole, in the thiamine biosynthesis pathway. The sulfur is donated as persulfide by IscS	MHS329	bacteria_OG
+COG0609|Bacteria	75	82.5751768144267	P	Belongs to the binding-protein-dependent transport system permease family. FecCD subfamily	MHS329	bacteria_OG
+COG0614|Bacteria	131	270.9978768577495	P	abc-type fe3 -hydroxamate transport system, periplasmic component	MHS329	bacteria_OG
+COG0617|Bacteria	11	28.205128205128204	J	tRNA 3'-terminal CCA addition	MHS329	bacteria_OG
+COG0620|Bacteria	1	4.11522633744856	E	Catalyzes the transfer of a methyl group from 5- methyltetrahydrofolate to homocysteine resulting in methionine formation	MHS329	bacteria_OG
+COG0621|Bacteria	7	24.305555555555557	J	Catalyzes the methylthiolation of N6- (dimethylallyl)adenosine (i(6)A), leading to the formation of 2- methylthio-N6-(dimethylallyl)adenosine (ms(2)i(6)A) at position 37 in tRNAs that read codons beginning with uridine	MHS329	bacteria_OG
+COG0624|Bacteria	1	4.566210045662101	E	Catalyzes the hydrolysis of N-succinyl-L,L- diaminopimelic acid (SDAP), forming succinate and LL-2,6- diaminoheptanedioate (DAP), an intermediate involved in the bacterial biosynthesis of lysine and meso-diaminopimelic acid, an essential component of bacterial cell walls	MHS329	bacteria_OG
+COG0625|Bacteria	208	247.61904761904762	O	glutathione transferase activity	MHS329	bacteria_OG
+COG0627|Bacteria	22	52.20376988297947	J	Serine hydrolase involved in the detoxification of formaldehyde	MHS329	bacteria_OG
+COG0629|Bacteria	682	1553.5493068681299	L	single-stranded DNA binding	MHS329	bacteria_OG
+COG0640|Bacteria	54	139.53488372093022	K	Transcriptional regulator	MHS329	bacteria_OG
+COG0642|Bacteria	261	416.39213444337247	T	Histidine kinase	MHS329	bacteria_OG
+COG0651|Bacteria	31	57.0902394106814	CP	ATP synthesis coupled electron transport	MHS329	bacteria_OG
+COG0652|Bacteria	234	735.8490566037735	O	PPIases accelerate the folding of proteins. It catalyzes the cis-trans isomerization of proline imidic peptide bonds in oligopeptides	MHS329	bacteria_OG
+COG0653|Bacteria	59	81.26721763085399	U	protein targeting	MHS329	bacteria_OG
+COG0656|Bacteria	228	349.87824026477546	AT	L-ascorbic acid biosynthetic process	MHS329	bacteria_OG
+COG0662|Bacteria	4	18.01801801801802	G	Cupin 2, conserved barrel domain protein	MHS329	bacteria_OG
+COG0665|Bacteria	168	172.8960636028699	E	tRNA (5-methylaminomethyl-2-thiouridylate)-methyltransferase activity	MHS329	bacteria_OG
+COG0667|Bacteria	6	20	C	Aldo Keto reductase	MHS329	bacteria_OG
+COG0673|Bacteria	286	801.9684287337037	KT	inositol 2-dehydrogenase activity	MHS329	bacteria_OG
+COG0674|Bacteria	166	289.7033158813264	C	pyruvate-flavodoxin oxidoreductase activity	MHS329	bacteria_OG
+COG0686|Bacteria	12	32.25806451612903	E	Belongs to the AlaDH PNT family	MHS329	bacteria_OG
+COG0690|Bacteria	13	51.58730158730159	U	P-P-bond-hydrolysis-driven protein transmembrane transporter activity	MHS329	bacteria_OG
+COG0691|Bacteria	71	168.6270872350815	O	Required for rescue of stalled ribosomes mediated by trans-translation. Binds to transfer-messenger RNA (tmRNA), required for stable association of tmRNA with ribosomes. tmRNA and SmpB together mimic tRNA shape, replacing the anticodon stem-loop with SmpB. tmRNA is encoded by the ssrA gene	MHS329	bacteria_OG
+COG0693|Bacteria	266	497.7236425371545	Q	protein deglycase activity	MHS329	bacteria_OG
+COG0695|Bacteria	11	40.29304029304029	O	Has a glutathione-disulfide oxidoreductase activity in the presence of NADPH and glutathione reductase. Reduces low molecular weight disulfides and proteins	MHS329	bacteria_OG
+COG0696|Bacteria	267	255.40696972837134	G	Catalyzes the interconversion of 2-phosphoglycerate and 3-phosphoglycerate	MHS329	bacteria_OG
+COG0698|Bacteria	23	89.14728682170542	G	ribose 5-phosphate isomerase	MHS329	bacteria_OG
+COG0704|Bacteria	75	99.2063492063492	P	Plays a role in the regulation of phosphate uptake	MHS329	bacteria_OG
+COG0708|Bacteria	106	129.90196078431373	L	Exodeoxyribonuclease III	MHS329	bacteria_OG
+COG0711|Bacteria	96	172.91807852292837	C	Component of the F(0) channel, it forms part of the peripheral stalk, linking F(1) to F(0)	MHS329	bacteria_OG
+COG0712|Bacteria	58	135.75231417070137	C	F(1)F(0) ATP synthase produces ATP from ADP in the presence of a proton or sodium gradient. F-type ATPases consist of two structural domains, F(1) containing the extramembraneous catalytic core and F(0) containing the membrane proton channel, linked together by a central stalk and a peripheral stalk. During catalysis, ATP synthesis in the catalytic domain of F(1) is coupled via a rotary mechanism of the central stalk subunits to proton translocation	MHS329	bacteria_OG
+COG0719|Bacteria	179	305.2630791497455	O	Fe-S assembly protein	MHS329	bacteria_OG
+COG0721|Bacteria	4	17.77777777777778	J	Allows the formation of correctly charged Asn-tRNA(Asn) or Gln-tRNA(Gln) through the transamidation of misacylated Asp- tRNA(Asn) or Glu-tRNA(Gln) in organisms which lack either or both of asparaginyl-tRNA or glutaminyl-tRNA synthetases. The reaction takes place in the presence of glutamine and ATP through an activated phospho-Asp-tRNA(Asn) or phospho-Glu-tRNA(Gln)	MHS329	bacteria_OG
+COG0723|Bacteria	79	420.36685641998736	C	plastoquinol--plastocyanin reductase activity	MHS329	bacteria_OG
+COG0728|Bacteria	41	142.36111111111111	M	peptidoglycan biosynthetic process	MHS329	bacteria_OG
+COG0735|Bacteria	14	84.84848484848484	P	belongs to the Fur family	MHS329	bacteria_OG
+COG0739|Bacteria	117	83.87096774193549	M	heme binding	MHS329	bacteria_OG
+COG0740|Bacteria	75	220.0431634642161	OU	serine-type endopeptidase activity	MHS329	bacteria_OG
+COG0743|Bacteria	9	37.1987951807229	I	1-deoxy-D-xylulose-5-phosphate reductoisomerase activity	MHS329	bacteria_OG
+COG0744|Bacteria	18	45.334035334035335	M	Peptidoglycan polymerase that catalyzes glycan chain elongation from lipid-linked precursors	MHS329	bacteria_OG
+COG0745|Bacteria	3	10.101010101010102	T	RESPONSE REGULATOR receiver	MHS329	bacteria_OG
+COG0752|Bacteria	12	42.55319148936171	J	glycyl-tRNA synthetase alpha subunit	MHS329	bacteria_OG
+COG0753|Bacteria	3069	2646.509849167478	P	catalase activity	MHS329	bacteria_OG
+COG0758|Bacteria	17	74.56140350877193	LU	DNA mediated transformation	MHS329	bacteria_OG
+COG0759|Bacteria	25	89.76685018351685	M	Could be involved in insertion of integral membrane proteins into the membrane	MHS329	bacteria_OG
+COG0760|Bacteria	12	30.40779153191331	O	Chaperone involved in the correct folding and assembly of outer membrane proteins. Recognizes specific patterns of aromatic residues and the orientation of their side chains, which are found more frequently in integral outer membrane proteins. May act in both early periplasmic and late outer membrane-associated steps of protein maturation	MHS329	bacteria_OG
+COG0761|Bacteria	5	22.524350649350648	IM	Catalyzes the conversion of 1-hydroxy-2-methyl-2-(E)- butenyl 4-diphosphate (HMBPP) into a mixture of isopentenyl diphosphate (IPP) and dimethylallyl diphosphate (DMAPP). Acts in the terminal step of the DOXP MEP pathway for isoprenoid precursor biosynthesis	MHS329	bacteria_OG
+COG0762|Bacteria	15	59.523809523809526	D	integral membrane protein	MHS329	bacteria_OG
+COG0764|Bacteria	119	264.99690785405073	I	3-hydroxyoctanoyl-[acyl-carrier-protein] dehydratase activity	MHS329	bacteria_OG
+COG0765|Bacteria	47	57.17761557177616	P	amino acid transport	MHS329	bacteria_OG
+COG0767|Bacteria	236	301.404853128991	Q	ABC-type transport system involved in resistance to organic solvents, permease component	MHS329	bacteria_OG
+COG0768|Bacteria	32	58.93186003683241	M	penicillin binding	MHS329	bacteria_OG
+COG0770|Bacteria	52	240.74074074074073	M	UDP-N-acetylmuramoyl-tripeptide-D-alanyl-D-alanine ligase activity	MHS329	bacteria_OG
+COG0772|Bacteria	35	135.65891472868216	D	Belongs to the SEDS family	MHS329	bacteria_OG
+COG0776|Bacteria	161	559.1131879727799	L	regulation of translation	MHS329	bacteria_OG
+COG0777|Bacteria	38	43.42015025406029	I	Component of the acetyl coenzyme A carboxylase (ACC) complex. Biotin carboxylase (BC) catalyzes the carboxylation of biotin on its carrier protein (BCCP) and then the CO(2) group is transferred by the transcarboxylase to acetyl-CoA to form malonyl- CoA	MHS329	bacteria_OG
+COG0781|Bacteria	1	3.9215686274509802	J	Involved in transcription antitermination. Required for transcription of ribosomal RNA (rRNA) genes. Binds specifically to the boxA antiterminator sequence of the ribosomal RNA (rrn) operons	MHS329	bacteria_OG
+COG0782|Bacteria	79	293.7512320126158	K	Necessary for efficient RNA polymerase transcription elongation past template-encoded arresting sites. The arresting sites in DNA have the property of trapping a certain fraction of elongating RNA polymerases that pass through, resulting in locked ternary complexes. Cleavage of the nascent transcript by cleavage factors such as GreA or GreB allows the resumption of elongation from the new 3'terminus	MHS329	bacteria_OG
+COG0783|Bacteria	540	1300.7584852106309	P	Belongs to the Dps family	MHS329	bacteria_OG
+COG0789|Bacteria	103	206.8273092369478	K	Transcriptional regulator	MHS329	bacteria_OG
+COG0790|Bacteria	31	82.01058201058201	U	COG0790 FOG TPR repeat, SEL1 subfamily	MHS329	bacteria_OG
+COG0791|Bacteria	85	195.12933813454302	M	NLP P60 protein	MHS329	bacteria_OG
+COG0794|Bacteria	433	1030.782399354723	M	Belongs to the SIS family. GutQ KpsF subfamily	MHS329	bacteria_OG
+COG0799|Bacteria	32	90.3954802259887	H	negative regulation of ribosome biogenesis	MHS329	bacteria_OG
+COG0801|Bacteria	3	12.5	H	2-amino-4-hydroxy-6-hydroxymethyldihydropteridine pyrophosphokinase	MHS329	bacteria_OG
+COG0803|Bacteria	26	86.22902438691914	P	Belongs to the bacterial solute-binding protein 9 family	MHS329	bacteria_OG
+COG0804|Bacteria	29	57.97258297258297	E	urea catabolic process	MHS329	bacteria_OG
+COG0805|Bacteria	171	206.52173913043478	U	protein transport	MHS329	bacteria_OG
+COG0806|Bacteria	42	75.67567567567566	J	An accessory protein needed during the final step in the assembly of 30S ribosomal subunit, possibly for assembly of the head region. Probably interacts with S19. Essential for efficient processing of 16S rRNA. May be needed both before and after RbfA during the maturation of 16S rRNA. It has affinity for free ribosomal 30S subunits but not for 70S ribosomes	MHS329	bacteria_OG
+COG0810|Bacteria	42	215.3846153846154	M	Interacts with outer membrane receptor proteins that carry out high-affinity binding and energy dependent uptake into the periplasmic space of specific substrates. It could act to transduce energy from the cytoplasmic membrane to specific energy- requiring processes in the outer membrane, resulting in the release into the periplasm of ligands bound by these outer membrane proteins	MHS329	bacteria_OG
+COG0816|Bacteria	82	207.96795692570342	L	Could be a nuclease involved in processing of the 5'-end of pre-16S rRNA	MHS329	bacteria_OG
+COG0817|Bacteria	80	288.09100872353883	L	Nuclease that resolves Holliday junction intermediates in genetic recombination. Cleaves the cruciform structure in supercoiled DNA by nicking to strands with the same polarity at sites symmetrically opposed at the junction in the homologous arms and leaves a 5'-terminal phosphate and a 3'-terminal hydroxyl group	MHS329	bacteria_OG
+COG0819|Bacteria	17	48.0225988700565	K	Catalyzes an amino-pyrimidine hydrolysis reaction at the C5' of the pyrimidine moiety of thiamine compounds, a reaction that is part of a thiamine salvage pathway	MHS329	bacteria_OG
+COG0821|Bacteria	7	28.45528455284553	I	Converts 2C-methyl-D-erythritol 2,4-cyclodiphosphate (ME-2,4cPP) into 1-hydroxy-2-methyl-2-(E)-butenyl 4-diphosphate	MHS329	bacteria_OG
+COG0822|Bacteria	161	555.0903920023167	C	iron-sulfur transferase activity	MHS329	bacteria_OG
+COG0824|Bacteria	84	186.7728655808126	IQ	Thioesterase	MHS329	bacteria_OG
+COG0826|Bacteria	4	16.877637130801688	O	peptidase U32	MHS329	bacteria_OG
+COG0827|Bacteria	3	14.636075949367088	L	DNA restriction-modification system	MHS329	bacteria_OG
+COG0828|Bacteria	76	429.37853107344637	J	Belongs to the bacterial ribosomal protein bS21 family	MHS329	bacteria_OG
+COG0829|Bacteria	26	92.1985815602837	O	nickel cation binding	MHS329	bacteria_OG
+COG0830|Bacteria	45	182.9268292682927	O	nickel cation binding	MHS329	bacteria_OG
+COG0838|Bacteria	169	442.60345687973506	C	NDH-1 shuttles electrons from NADH, via FMN and iron- sulfur (Fe-S) centers, to quinones in the respiratory chain. The immediate electron acceptor for the enzyme in this species is believed to be ubiquinone. Couples the redox reaction to proton translocation (for every two electrons transferred, four hydrogen ions are translocated across the cytoplasmic membrane), and thus conserves the redox energy in a proton gradient	MHS329	bacteria_OG
+COG0840|Bacteria	531	305.17241379310343	NT	transmembrane signaling receptor activity	MHS329	bacteria_OG
+COG0842|Bacteria	14	72.42687431366677	V	Transport permease protein	MHS329	bacteria_OG
+COG0843|Bacteria	210	267.99435462537065	C	Cytochrome c oxidase is the component of the respiratory chain that catalyzes the reduction of oxygen to water. Subunits 1- 3 form the functional core of the enzyme complex. CO I is the catalytic subunit of the enzyme. Electrons originating in cytochrome c are transferred via the copper A center of subunit 2 and heme A of subunit 1 to the bimetallic center formed by heme A3 and copper B	MHS329	bacteria_OG
+COG0845|Bacteria	1	5.128205128205128	M	Belongs to the membrane fusion protein (MFP) (TC 8.A.1) family	MHS329	bacteria_OG
+COG0849|Bacteria	127	103.2520325203252	D	cell division	MHS329	bacteria_OG
+COG0855|Bacteria	1	4.11522633744856	P	Catalyzes the reversible transfer of the terminal phosphate of ATP to form a long-chain polyphosphate (polyP)	MHS329	bacteria_OG
+COG0858|Bacteria	54	120	J	One of several proteins that assist in the late maturation steps of the functional core of the 30S ribosomal subunit. Associates with free 30S ribosomal subunits (but not with 30S subunits that are part of 70S ribosomes or polysomes). Required for efficient processing of 16S rRNA. May interact with the 5'-terminal helix region of 16S rRNA	MHS329	bacteria_OG
+COG0861|Bacteria	27	57.692307692307686	P	Integral membrane protein TerC family	MHS329	bacteria_OG
+COG1003|Bacteria	23	85.18518518518518	E	The glycine cleavage system catalyzes the degradation of glycine. The P protein binds the alpha-amino group of glycine through its pyridoxal phosphate cofactor	MHS329	bacteria_OG
+COG1005|Bacteria	92	186.90296631473103	C	NDH-1 shuttles electrons from NADH, via FMN and iron- sulfur (Fe-S) centers, to quinones in the respiratory chain. The immediate electron acceptor for the enzyme in this species is believed to be ubiquinone. Couples the redox reaction to proton translocation (for every two electrons transferred, four hydrogen ions are translocated across the cytoplasmic membrane), and thus conserves the redox energy in a proton gradient. This subunit may bind ubiquinone	MHS329	bacteria_OG
+COG1007|Bacteria	15	54.94505494505494	C	ATP synthesis coupled electron transport	MHS329	bacteria_OG
+COG1008|Bacteria	12	26.31578947368421	C	NDH-1 shuttles electrons from NAD(P)H, via FMN and iron- sulfur (Fe-S) centers, to quinones in the respiratory chain. The immediate electron acceptor for the enzyme in this species is believed to be plastoquinone. Couples the redox reaction to proton translocation (for every two electrons transferred, four hydrogen ions are translocated across the cytoplasmic membrane), and thus conserves the redox energy in a proton gradient	MHS329	bacteria_OG
+COG1012|Bacteria	402	850.7947022279594	C	belongs to the aldehyde dehydrogenase family	MHS329	bacteria_OG
+COG1015|Bacteria	21	114.84959137541296	G	Phosphotransfer between the C1 and C5 carbon atoms of pentose	MHS329	bacteria_OG
+COG1018|Bacteria	2395	3251.749856169959	C	Is involved in NO detoxification in an aerobic process, termed nitric oxide dioxygenase (NOD) reaction that utilizes O(2) and NAD(P)H to convert NO to nitrate, which protects the bacterium from various noxious nitrogen compounds. Therefore, plays a central role in the inducible response to nitrosative stress	MHS329	bacteria_OG
+COG1020|Bacteria	424	826.5107212475633	Q	D-alanine [D-alanyl carrier protein] ligase activity	MHS329	bacteria_OG
+COG1022|Bacteria	12	56.33802816901409	I	Amp-dependent synthetase and ligase	MHS329	bacteria_OG
+COG1024|Bacteria	6	20.025271052417054	I	Enoyl-CoA hydratase	MHS329	bacteria_OG
+COG1028|Bacteria	212	338.5292683316155	IQ	Short-chain dehydrogenase reductase Sdr	MHS329	bacteria_OG
+COG1045|Bacteria	114	190	E	serine acetyltransferase	MHS329	bacteria_OG
+COG1048|Bacteria	21	35.175879396984925	C	Catalyzes the isomerization of citrate to isocitrate via cis-aconitate	MHS329	bacteria_OG
+COG1053|Bacteria	152	341.7981591058514	C	succinate dehydrogenase	MHS329	bacteria_OG
+COG1062|Bacteria	44	146.66666666666669	C	S-(hydroxymethyl)glutathione dehydrogenase activity	MHS329	bacteria_OG
+COG1063|Bacteria	4109	6649.182805094943	E	alcohol dehydrogenase	MHS329	bacteria_OG
+COG1071|Bacteria	28	66.3265306122449	C	oxidoreductase activity, acting on the aldehyde or oxo group of donors, disulfide as acceptor	MHS329	bacteria_OG
+COG1073|Bacteria	138	254.14364640883977	G	alpha beta	MHS329	bacteria_OG
+COG1075|Bacteria	151	263.2876330563653	KLT	acetyltransferases and hydrolases with the alpha beta hydrolase fold	MHS329	bacteria_OG
+COG1098|Bacteria	11	50.22831050228311	J	S1 RNA binding domain	MHS329	bacteria_OG
+COG1104|Bacteria	64	239.7003745318352	E	cysteine desulfurase activity	MHS329	bacteria_OG
+COG1108|Bacteria	185	300.66166493481313	P	ABC-type Mn2 Zn2 transport systems permease components	MHS329	bacteria_OG
+COG1109|Bacteria	94	262.04640388850913	G	Catalyzes the conversion of glucosamine-6-phosphate to glucosamine-1-phosphate	MHS329	bacteria_OG
+COG1113|Bacteria	27	48.91304347826087	E	amino acid transport	MHS329	bacteria_OG
+COG1116|Bacteria	80	98.03921568627452	P	anion transmembrane transporter activity	MHS329	bacteria_OG
+COG1120|Bacteria	191	320.6845238095238	HP	ATPase activity	MHS329	bacteria_OG
+COG1121|Bacteria	34	64.39393939393939	P	(ABC) transporter	MHS329	bacteria_OG
+COG1131|Bacteria	4	20.833333333333332	V	(ABC) transporter	MHS329	bacteria_OG
+COG1132|Bacteria	119	319.0560774643873	V	(ABC) transporter	MHS329	bacteria_OG
+COG1136|Bacteria	207	310.5817208226847	V	(ABC) transporter	MHS329	bacteria_OG
+COG1139|Bacteria	30	50.505050505050505	C	Iron-sulfur cluster binding protein	MHS329	bacteria_OG
+COG1141|Bacteria	35	62.05673758865249	C	Ferredoxin	MHS329	bacteria_OG
+COG1145|Bacteria	99	302.7121023171587	C	4fe-4S ferredoxin, iron-sulfur binding domain protein	MHS329	bacteria_OG
+COG1146|Bacteria	76	253.0043784520296	C	Ferredoxins are iron-sulfur proteins that transfer electrons in a wide variety of metabolic reactions	MHS329	bacteria_OG
+COG1154|Bacteria	29	68.5579196217494	H	Catalyzes the acyloin condensation reaction between C atoms 2 and 3 of pyruvate and glyceraldehyde 3-phosphate to yield 1-deoxy-D-xylulose-5-phosphate (DXP)	MHS329	bacteria_OG
+COG1160|Bacteria	17	62.96296296296296	P	GTP binding	MHS329	bacteria_OG
+COG1164|Bacteria	7	12.280701754385966	E	Oligoendopeptidase f	MHS329	bacteria_OG
+COG1169|Bacteria	132	286.44595730205225	HQ	isochorismate synthase	MHS329	bacteria_OG
+COG1175|Bacteria	6	27.027027027027028	P	transmembrane transport	MHS329	bacteria_OG
+COG1179|Bacteria	24	153.84615384615384	H	involved in molybdopterin and THIamine biosynthesis family 1	MHS329	bacteria_OG
+COG1185|Bacteria	93	198.5878855444073	J	polyribonucleotide nucleotidyltransferase activity	MHS329	bacteria_OG
+COG1186|Bacteria	16	39.06167192836198	J	Peptide chain release factor 2 directs the termination of translation in response to the peptide chain termination codons UGA and UAA	MHS329	bacteria_OG
+COG1188|Bacteria	38	142.32209737827714	J	Ribosome-associated heat shock protein implicated in the recycling of the 50S subunit, (S4 paralog))	MHS329	bacteria_OG
+COG1190|Bacteria	3	10	J	Belongs to the class-II aminoacyl-tRNA synthetase family	MHS329	bacteria_OG
+COG1192|Bacteria	105	180.96390401290583	D	Involved in chromosome partitioning	MHS329	bacteria_OG
+COG1194|Bacteria	75	150.6024096385542	L	a g-specific adenine glycosylase	MHS329	bacteria_OG
+COG1196|Bacteria	7	25.64102564102564	D	nuclear chromosome segregation	MHS329	bacteria_OG
+COG1200|Bacteria	20	83.72093023255815	L	Critical role in recombination and DNA repair. Helps process Holliday junction intermediates to mature products by catalyzing branch migration. Has a DNA unwinding activity characteristic of a DNA helicase with a 3'- to 5'- polarity. Unwinds branched duplex DNA (Y-DNA)	MHS329	bacteria_OG
+COG1209|Bacteria	38	65.59203142536477	M	Catalyzes the formation of dTDP-glucose, from dTTP and glucose 1-phosphate, as well as its pyrophosphorolysis	MHS329	bacteria_OG
+COG1215|Bacteria	17	57.823129251700685	M	transferase activity, transferring glycosyl groups	MHS329	bacteria_OG
+COG1216|Bacteria	43	122.7604512276045	V	Glycosyl transferase, family 2	MHS329	bacteria_OG
+COG1217|Bacteria	26	44.21768707482993	T	gtp-binding protein TYPA	MHS329	bacteria_OG
+COG1230|Bacteria	17	36.09341825902336	P	cation diffusion facilitator family transporter	MHS329	bacteria_OG
+COG1231|Bacteria	13	73.44632768361582	E	oxidoreductase activity	MHS329	bacteria_OG
+COG1233|Bacteria	43	179.16666666666669	Q	COG1233 Phytoene dehydrogenase and related	MHS329	bacteria_OG
+COG1247|Bacteria	45	86.20689655172413	M	-acetyltransferase	MHS329	bacteria_OG
+COG1249|Bacteria	653	932.2567946992143	C	Belongs to the class-I pyridine nucleotide-disulfide oxidoreductase family	MHS329	bacteria_OG
+COG1251|Bacteria	35	75.18867746974573	C	Belongs to the nitrite and sulfite reductase 4Fe-4S domain family	MHS329	bacteria_OG
+COG1252|Bacteria	11	47.61904761904761	C	NADH dehydrogenase	MHS329	bacteria_OG
+COG1253|Bacteria	57	111.4452341899034	E	flavin adenine dinucleotide binding	MHS329	bacteria_OG
+COG1259|Bacteria	11	53.13131313131313	K	PFAM Uncharacterised ACR, COG1259	MHS329	bacteria_OG
+COG1266|Bacteria	18	61.22448979591837	V	CAAX protease self-immunity	MHS329	bacteria_OG
+COG1274|Bacteria	3	12.5	H	phosphoenolpyruvate carboxykinase (GTP) activity	MHS329	bacteria_OG
+COG1278|Bacteria	2	7.326007326007326	K	Cold shock	MHS329	bacteria_OG
+COG1281|Bacteria	13	32.33830845771144	O	Redox regulated molecular chaperone. Protects both thermally unfolding and oxidatively damaged proteins from irreversible aggregation. Plays an important role in the bacterial defense system toward oxidative stress	MHS329	bacteria_OG
+COG1292|Bacteria	66	131.46566334485797	M	Belongs to the BCCT transporter (TC 2.A.15) family	MHS329	bacteria_OG
+COG1294|Bacteria	49	91.76029962546816	C	oxidase, subunit	MHS329	bacteria_OG
+COG1297|Bacteria	13	23.423423423423422	S	OPT oligopeptide transporter protein	MHS329	bacteria_OG
+COG1301|Bacteria	1	3.8314176245210727	C	dicarboxylic acid transport	MHS329	bacteria_OG
+COG1302|Bacteria	575	1411.0445431160065	M	Protein conserved in bacteria	MHS329	bacteria_OG
+COG1309|Bacteria	108	282.3354656833466	K	transcriptional regulator	MHS329	bacteria_OG
+COG1314|Bacteria	49	179.48717948717947	U	P-P-bond-hydrolysis-driven protein transmembrane transporter activity	MHS329	bacteria_OG
+COG1321|Bacteria	15	60.74256074256074	K	iron dependent repressor	MHS329	bacteria_OG
+COG1322|Bacteria	25	92.59259259259258	NT	Protein conserved in bacteria	MHS329	bacteria_OG
+COG1328|Bacteria	21	59.32203389830509	F	CTP reductase activity	MHS329	bacteria_OG
+COG1329|Bacteria	2	7.017543859649123	K	Transcriptional regulator	MHS329	bacteria_OG
+COG1344|Bacteria	134	108.6780210867802	N	Flagellin is the subunit protein which polymerizes to form the filaments of bacterial flagella	MHS329	bacteria_OG
+COG1349|Bacteria	40	111.6824821498989	K	DNA-binding transcription factor activity	MHS329	bacteria_OG
+COG1358|Bacteria	178	591.002704804991	J	cellular component organization or biogenesis	MHS329	bacteria_OG
+COG1359|Bacteria	123	595.5752119375734	E	(4S)-4-hydroxy-5-phosphonooxypentane-2,3-dione isomerase activity	MHS329	bacteria_OG
+COG1373|Bacteria	6	31.19837336383276	V	ATPase (AAA superfamily	MHS329	bacteria_OG
+COG1376|Bacteria	20	81.30081300813008	D	ErfK ybiS ycfS ynhG family protein	MHS329	bacteria_OG
+COG1377|Bacteria	30	149.25373134328356	N	Required for formation of the rod structure in the basal body of the flagellar apparatus. Together with FliI and FliH, may constitute the export apparatus of flagellin	MHS329	bacteria_OG
+COG1388|Bacteria	94	61.197916666666664	M	LysM domain	MHS329	bacteria_OG
+COG1392|Bacteria	15	50.505050505050505	P	Phosphate transport regulator	MHS329	bacteria_OG
+COG1393|Bacteria	35	88.70863075924724	P	Belongs to the ArsC family	MHS329	bacteria_OG
+COG1396|Bacteria	365	1128.1755053619622	K	sequence-specific DNA binding	MHS329	bacteria_OG
+COG1399|Bacteria	169	416.8750320054859	K	metal-binding, possibly nucleic acid-binding protein	MHS329	bacteria_OG
+COG1404|Bacteria	16	36.529680365296805	O	Belongs to the peptidase S8 family	MHS329	bacteria_OG
+COG1409|Bacteria	191	332.3395643336242	DZ	Hydrolyzes cAMP to 5'-AMP. Plays an important regulatory role in modulating the intracellular concentration of cAMP, thereby influencing cAMP-dependent processes	MHS329	bacteria_OG
+COG1410|Bacteria	24	81.63265306122449	E	methionine synthase	MHS329	bacteria_OG
+COG1420|Bacteria	24	43.47826086956521	K	regulation of RNA biosynthetic process	MHS329	bacteria_OG
+COG1429|Bacteria	25	92.59259259259258	H	ligase activity, forming nitrogen-metal bonds	MHS329	bacteria_OG
+COG1432|Bacteria	132	318.84057971014494	M	Conserved Protein	MHS329	bacteria_OG
+COG1438|Bacteria	23	47.03476482617587	K	arginine binding	MHS329	bacteria_OG
+COG1443|Bacteria	21	84.33734939759036	I	Catalyzes the 1,3-allylic rearrangement of the homoallylic substrate isopentenyl (IPP) to its highly electrophilic allylic isomer, dimethylallyl diphosphate (DMAPP)	MHS329	bacteria_OG
+COG1445|Bacteria	226	476.7932489451477	G	protein-N(PI)-phosphohistidine-fructose phosphotransferase system transporter activity	MHS329	bacteria_OG
+COG1461|Bacteria	67	201.9312036536109	G	Dihydroxyacetone kinase	MHS329	bacteria_OG
+COG1468|Bacteria	61	116.21237000547345	L	defense response to virus	MHS329	bacteria_OG
+COG1472|Bacteria	16	74.07407407407408	G	Belongs to the glycosyl hydrolase 3 family	MHS329	bacteria_OG
+COG1475|Bacteria	8	16.260162601626018	K	DNA binding	MHS329	bacteria_OG
+COG1476|Bacteria	75	195.40998217468805	K	TRANSCRIPTIONal	MHS329	bacteria_OG
+COG1486|Bacteria	2	7.017543859649123	G	melibiose metabolic process	MHS329	bacteria_OG
+COG1488|Bacteria	27	93.75	H	Catalyzes the synthesis of beta-nicotinate D- ribonucleotide from nicotinate and 5-phospho-D-ribose 1-phosphate at the expense of ATP	MHS329	bacteria_OG
+COG1506|Bacteria	28	104.8689138576779	E	peptidase	MHS329	bacteria_OG
+COG1510|Bacteria	79	116.0058737151248	K	regulation of RNA biosynthetic process	MHS329	bacteria_OG
+COG1511|Bacteria	8	28.070175438596493	Q	domain protein	MHS329	bacteria_OG
+COG1544|Bacteria	25	93.70139858778214	J	Required for dimerization of active 70S ribosomes into 100S ribosomes in stationary phase	MHS329	bacteria_OG
+COG1546|Bacteria	28	57.61316872427984	F	Belongs to the CinA family	MHS329	bacteria_OG
+COG1554|Bacteria	8	29.304029304029303	G	hydrolase, family 65, central catalytic	MHS329	bacteria_OG
+COG1574|Bacteria	1	3.3333333333333335	G	metal-dependent hydrolase with the TIM-barrel fold	MHS329	bacteria_OG
+COG1585|Bacteria	5	16.835016835016837	OU	Membrane protein implicated in regulation of membrane protease activity	MHS329	bacteria_OG
+COG1589|Bacteria	68	105.91599210664089	D	Essential cell division protein. May link together the upstream cell division proteins, which are predominantly cytoplasmic, with the downstream cell division proteins, which are predominantly periplasmic. May control correct divisome assembly	MHS329	bacteria_OG
+COG1593|Bacteria	164	113.41632088520056	G	TRAP-type C4-dicarboxylate transport system, large permease component	MHS329	bacteria_OG
+COG1595|Bacteria	162	300.1284378053888	K	DNA-templated transcription, initiation	MHS329	bacteria_OG
+COG1609|Bacteria	32	101.52269226211638	K	Transcriptional regulator	MHS329	bacteria_OG
+COG1620|Bacteria	107	410.25001474587526	C	l-lactate permease	MHS329	bacteria_OG
+COG1622|Bacteria	111	117.32285862184465	C	oxidoreductase activity, acting on a heme group of donors, oxygen as acceptor	MHS329	bacteria_OG
+COG1651|Bacteria	69	105.62106671684542	O	Required for disulfide bond formation in some periplasmic proteins. Acts by transferring its disulfide bond to other proteins and is reduced in the process	MHS329	bacteria_OG
+COG1662|Bacteria	8	46.783625730994146	L	PFAM IS1 transposase	MHS329	bacteria_OG
+COG1670|Bacteria	162	404.51914706158954	J	COG1670 acetyltransferases, including N-acetylases of ribosomal proteins	MHS329	bacteria_OG
+COG1674|Bacteria	20	51.648971636662054	D	ftsk spoiiie	MHS329	bacteria_OG
+COG1691|Bacteria	25	106.83760683760683	C	(AIR) carboxylase	MHS329	bacteria_OG
+COG1695|Bacteria	24	68.98602438299137	K	Transcriptional regulator	MHS329	bacteria_OG
+COG1696|Bacteria	53	64.47688564476886	M	Membrane protein involved in D-alanine export	MHS329	bacteria_OG
+COG1702|Bacteria	5	22.73792780121894	T	phosphate starvation-inducible protein PhoH	MHS329	bacteria_OG
+COG1714|Bacteria	6	26.31578947368421	M	RDD family	MHS329	bacteria_OG
+COG1716|Bacteria	175	408.9301507554587	T	ATPase activity	MHS329	bacteria_OG
+COG1733|Bacteria	1	4.830917874396135	K	regulation of RNA biosynthetic process	MHS329	bacteria_OG
+COG1737|Bacteria	17	69.10569105691057	K	Transcriptional regulator	MHS329	bacteria_OG
+COG1742|Bacteria	8	32.92181069958848	K	UPF0060 membrane protein	MHS329	bacteria_OG
+COG1746|Bacteria	14	67.6328502415459	J	tRNA cytidylyltransferase activity	MHS329	bacteria_OG
+COG1758|Bacteria	11	41.19850187265917	K	RNA polymerase activity	MHS329	bacteria_OG
+COG1760|Bacteria	75	167.57690518902396	E	l-serine dehydratase	MHS329	bacteria_OG
+COG1762|Bacteria	30	67.56756756756756	G	phosphoenolpyruvate-dependent sugar phosphotransferase system	MHS329	bacteria_OG
+COG1764|Bacteria	203	504.8456652453011	O	response to oxidative stress	MHS329	bacteria_OG
+COG1785|Bacteria	48	89.3854748603352	P	Belongs to the alkaline phosphatase family	MHS329	bacteria_OG
+COG1788|Bacteria	399	675.1269035532995	I	Acyl CoA acetate 3-ketoacid CoA transferase, alpha subunit	MHS329	bacteria_OG
+COG1792|Bacteria	16	27.2108843537415	M	Involved in formation and maintenance of cell shape	MHS329	bacteria_OG
+COG1797|Bacteria	242	172.73376159885797	H	cobyrinic acid a,c-diamide synthase activity	MHS329	bacteria_OG
+COG1804|Bacteria	184	172.28464419475654	C	L-carnitine dehydratase bile acid-inducible protein F	MHS329	bacteria_OG
+COG1806|Bacteria	11	42.04119850187266	L	Bifunctional serine threonine kinase and phosphorylase involved in the regulation of the	MHS329	bacteria_OG
+COG1820|Bacteria	14	26.81992337164751	G	Belongs to the metallo-dependent hydrolases superfamily. NagA family	MHS329	bacteria_OG
+COG1825|Bacteria	69	178.29457364341084	J	This is one of the proteins that binds to the 5S RNA in the ribosome where it forms part of the central protuberance	MHS329	bacteria_OG
+COG1835|Bacteria	56	259.25925925925924	I	transferase activity, transferring acyl groups other than amino-acyl groups	MHS329	bacteria_OG
+COG1837|Bacteria	106	441.13088557533	L	Belongs to the UPF0109 family	MHS329	bacteria_OG
+COG1841|Bacteria	51	239.66355619648382	J	ribosomal large subunit assembly	MHS329	bacteria_OG
+COG1842|Bacteria	28	71.08868142430515	KT	Phage shock protein A	MHS329	bacteria_OG
+COG1846|Bacteria	64	139.33121019108282	K	Transcriptional regulator	MHS329	bacteria_OG
+COG1853|Bacteria	20	82.3045267489712	K	conserved protein domain typically associated with flavoprotein oxygenases, DIM6 NTAB family	MHS329	bacteria_OG
+COG1861|Bacteria	263	194.8148148148148	M	Spore coat polysaccharide biosynthesis protein F CMP-KDO synthetase	MHS329	bacteria_OG
+COG1862|Bacteria	57	220.93023255813952	U	Preprotein translocase	MHS329	bacteria_OG
+COG1873|Bacteria	14	44.0251572327044	EG	PFAM PRC-barrel domain	MHS329	bacteria_OG
+COG1874|Bacteria	22	67.2782874617737	G	Beta-galactosidase	MHS329	bacteria_OG
+COG1881|Bacteria	123	109.9195710455764	EGP	PFAM PEBP family protein	MHS329	bacteria_OG
+COG1882|Bacteria	15	28.90173410404624	C	Formate acetyltransferase	MHS329	bacteria_OG
+COG1884|Bacteria	44	64.61086637298091	I	Catalyzes the reversible interconversion of isobutyryl- CoA and n-butyryl-CoA, using radical chemistry. Also exhibits GTPase activity, associated with its G-protein domain (MeaI) that functions as a chaperone that assists cofactor delivery and proper holo-enzyme assembly	MHS329	bacteria_OG
+COG1887|Bacteria	33	44	M	Glycosyl glycerophosphate transferases involved in teichoic acid biosynthesis TagF TagB EpsJ RodC	MHS329	bacteria_OG
+COG1902|Bacteria	30	89.28571428571428	C	pentaerythritol trinitrate reductase activity	MHS329	bacteria_OG
+COG1905|Bacteria	6	20	C	PFAM NADH dehydrogenase (ubiquinone) 24 kDa subunit	MHS329	bacteria_OG
+COG1928|Bacteria	29	71.07843137254902	O	C-terminal four TMM region of protein-O-mannosyltransferase	MHS329	bacteria_OG
+COG1930|Bacteria	73	160.48850574712645	P	Part of the energy-coupling factor (ECF) transporter complex CbiMNOQ involved in cobalt import	MHS329	bacteria_OG
+COG1937|Bacteria	142	546.8299948139752	Q	Protein conserved in bacteria	MHS329	bacteria_OG
+COG1938|Bacteria	37	100.2710027100271	T	PAC2 family	MHS329	bacteria_OG
+COG1942|Bacteria	72	177.77777777777777	K	4-Oxalocrotonate Tautomerase	MHS329	bacteria_OG
+COG1960|Bacteria	38	80.03848003848005	I	acyl-CoA dehydrogenase activity	MHS329	bacteria_OG
+COG1961|Bacteria	40	118.98448350127624	L	COG1961 Site-specific recombinases, DNA invertase Pin homologs	MHS329	bacteria_OG
+COG1970|Bacteria	14	53.63984674329502	M	mechanosensitive ion channel activity	MHS329	bacteria_OG
+COG1984|Bacteria	1	4.901960784313726	E	allophanate hydrolase subunit 2	MHS329	bacteria_OG
+COG1987|Bacteria	14	70.24265644955301	N	bacterial-type flagellum assembly	MHS329	bacteria_OG
+COG1995|Bacteria	52	123.80952380952381	H	Catalyzes the NAD(P)-dependent oxidation of 4- (phosphohydroxy)-L-threonine (HTP) into 2-amino-3-oxo-4- (phosphohydroxy)butyric acid which spontaneously decarboxylates to form 3-amino-2-oxopropyl phosphate (AHAP)	MHS329	bacteria_OG
+COG1999|Bacteria	37	145.09803921568627	M	signal sequence binding	MHS329	bacteria_OG
+COG2001|Bacteria	81	171.91352510273362	K	Belongs to the MraZ family	MHS329	bacteria_OG
+COG2031|Bacteria	72	158.94039735099338	I	fatty acid transporter	MHS329	bacteria_OG
+COG2061|Bacteria	12	35.39823008849557	E	Catalyzes the anaerobic formation of alpha-ketobutyrate and ammonia from threonine in a two-step reaction. The first step involved a dehydration of threonine and a production of enamine intermediates (aminocrotonate), which tautomerizes to its imine form (iminobutyrate). Both intermediates are unstable and short- lived. The second step is the nonenzymatic hydrolysis of the enamine imine intermediates to form 2-ketobutyrate and free ammonia. In the low water environment of the cell, the second step is accelerated by RidA	MHS329	bacteria_OG
+COG2065|Bacteria	150	392.1847552882036	F	Also displays a weak uracil phosphoribosyltransferase activity which is not physiologically significant	MHS329	bacteria_OG
+COG2070|Bacteria	18	81.08108108108108	T	2-Nitropropane dioxygenase	MHS329	bacteria_OG
+COG2086|Bacteria	41	146.95340501792114	C	electron transfer activity	MHS329	bacteria_OG
+COG2088|Bacteria	48	183.4181351865641	D	sporulation resulting in formation of a cellular spore	MHS329	bacteria_OG
+COG2089|Bacteria	13	46.09929078014185	M	acid synthase	MHS329	bacteria_OG
+COG2091|Bacteria	16	48.048048048048045	H	lysine biosynthetic process via aminoadipic acid	MHS329	bacteria_OG
+COG2113|Bacteria	15	52.083333333333336	E	Glycine betaine	MHS329	bacteria_OG
+COG2130|Bacteria	14	60.33811589367145	K	NADP-dependent	MHS329	bacteria_OG
+COG2135|Bacteria	168	256.8807339449541	V	peptidase activity	MHS329	bacteria_OG
+COG2141|Bacteria	22	138.36477987421384	C	COG2141 Coenzyme F420-dependent N5,N10-methylene tetrahydromethanopterin reductase and related flavin-dependent oxidoreductases	MHS329	bacteria_OG
+COG2146|Bacteria	49	130.66666666666666	P	nitrite reductase [NAD(P)H] activity	MHS329	bacteria_OG
+COG2151|Bacteria	251	799.1358289818273	L	metal-sulfur cluster biosynthetic enzyme	MHS329	bacteria_OG
+COG2153|Bacteria	16	61.30268199233716	K	protein acetylation	MHS329	bacteria_OG
+COG2159|Bacteria	72	69.97084548104957	E	amidohydrolase	MHS329	bacteria_OG
+COG2166|Bacteria	38	93.13725490196079	E	iron-sulfur cluster assembly	MHS329	bacteria_OG
+COG2171|Bacteria	31	89.58025423371656	E	N-acyltransferase activity	MHS329	bacteria_OG
+COG2176|Bacteria	37	47.98962386511025	L	DNA-directed DNA polymerase activity	MHS329	bacteria_OG
+COG2177|Bacteria	45	145.37720017172074	D	Part of the ABC transporter FtsEX involved in	MHS329	bacteria_OG
+COG2185|Bacteria	12	34.08985641500695	I	Catalyzes the reversible interconversion of isobutyryl- CoA and n-butyryl-CoA, using radical chemistry. Also exhibits GTPase activity, associated with its G-protein domain (MeaI) that functions as a chaperone that assists cofactor delivery and proper holo-enzyme assembly	MHS329	bacteria_OG
+COG2188|Bacteria	4	23.391812865497073	K	Transcriptional regulator	MHS329	bacteria_OG
+COG2189|Bacteria	140	120.27491408934709	L	Belongs to the N(4) N(6)-methyltransferase family	MHS329	bacteria_OG
+COG2197|Bacteria	52	130.63481847004695	K	response regulator	MHS329	bacteria_OG
+COG2205|Bacteria	319	283.98795218859647	T	protein histidine kinase activity	MHS329	bacteria_OG
+COG2207|Bacteria	121	145.08393285371704	K	Transcriptional regulator	MHS329	bacteria_OG
+COG2214|Bacteria	53	210.3174603174603	O	Heat shock protein DnaJ domain protein	MHS329	bacteria_OG
+COG2217|Bacteria	254	599.8980112404589	P	Heavy metal translocating P-type atpase	MHS329	bacteria_OG
+COG2224|Bacteria	64	213.33333333333334	C	Isocitrate lyase	MHS329	bacteria_OG
+COG2226|Bacteria	28	137.44740532959327	Q	methyltransferase	MHS329	bacteria_OG
+COG2255|Bacteria	36	64.51612903225806	L	four-way junction helicase activity	MHS329	bacteria_OG
+COG2259|Bacteria	379	645.2177850903892	O	Doxx family	MHS329	bacteria_OG
+COG2261|Bacteria	529	1986.88147009781	D	transglycosylase associated protein	MHS329	bacteria_OG
+COG2267|Bacteria	1451	2630.603976246619	I	carboxylic ester hydrolase activity	MHS329	bacteria_OG
+COG2270|Bacteria	15	30.67484662576687	G	Major facilitator Superfamily	MHS329	bacteria_OG
+COG2303|Bacteria	56	223.68220015278837	E	Involved in the biosynthesis of the osmoprotectant glycine betaine. Catalyzes the oxidation of choline to betaine aldehyde and betaine aldehyde to glycine betaine at the same rate	MHS329	bacteria_OG
+COG2314|Bacteria	15	52.083333333333336	J	TM2 domain	MHS329	bacteria_OG
+COG2327|Bacteria	42	109.81120521169133	F	Polysaccharide pyruvyl transferase	MHS329	bacteria_OG
+COG2334|Bacteria	33	164.17910447761193	T	A protein kinase that phosphorylates Ser and Thr residues. Probably acts to suppress the effects of stress linked to accumulation of reactive oxygen species. Probably involved in the extracytoplasmic stress response	MHS329	bacteria_OG
+COG2371|Bacteria	25	100.40160642570281	O	Involved in urease metallocenter assembly. Binds nickel. Probably functions as a nickel donor during metallocenter assembly	MHS329	bacteria_OG
+COG2388|Bacteria	33	114.58333333333334	G	GCN5-related N-acetyl-transferase	MHS329	bacteria_OG
+COG2608|Bacteria	79	377.9173629919899	P	mercury ion transmembrane transporter activity	MHS329	bacteria_OG
+COG2609|Bacteria	59	176.73505572441744	C	component of the pyruvate dehydrogenase (PDH) complex, that catalyzes the overall conversion of pyruvate to acetyl-CoA and CO(2)	MHS329	bacteria_OG
+COG2703|Bacteria	56	111.77644710578842	P	oxygen carrier activity	MHS329	bacteria_OG
+COG2716|Bacteria	50	128.2051282051282	E	regulation of RNA biosynthetic process	MHS329	bacteria_OG
+COG2720|Bacteria	72	195.1219512195122	V	vancomycin resistance protein	MHS329	bacteria_OG
+COG2730|Bacteria	20	81.30081300813008	G	Belongs to the glycosyl hydrolase 5 (cellulase A) family	MHS329	bacteria_OG
+COG2747|Bacteria	71	221.18380062305295	N	anti-sigma28 factor FlgM	MHS329	bacteria_OG
+COG2761|Bacteria	27	79.64601769911503	Q	dithiol-disulfide isomerase involved in polyketide biosynthesis	MHS329	bacteria_OG
+COG2764|Bacteria	78	184.39716312056737	E	glyoxalase bleomycin resistance protein dioxygenase	MHS329	bacteria_OG
+COG2801|Bacteria	315	380.9222178787396	L	Transposase and inactivated derivatives	MHS329	bacteria_OG
+COG2805|Bacteria	6	23.52941176470588	NU	Type II/IV secretion system protein	MHS329	bacteria_OG
+COG2812|Bacteria	40	133.57546408393867	L	DNA polymerase III is a complex, multichain enzyme responsible for most of the replicative synthesis in bacteria. This DNA polymerase also exhibits 3' to 5' exonuclease activity	MHS329	bacteria_OG
+COG2814|Bacteria	12	40.816326530612244	EGP	Major facilitator Superfamily	MHS329	bacteria_OG
+COG2818|Bacteria	48	86.48648648648648	L	Glycosylase	MHS329	bacteria_OG
+COG2823|Bacteria	131	278.1316348195329	NU	Periplasmic or secreted lipoprotein	MHS329	bacteria_OG
+COG2827|Bacteria	24	82.47422680412372	L	Endonuclease containing a URI domain	MHS329	bacteria_OG
+COG2847|Bacteria	25	105.48523206751055	P	Copper chaperone PCu(A)C	MHS329	bacteria_OG
+COG2855|Bacteria	13	29.680365296803654	P	membrane	MHS329	bacteria_OG
+COG2868|Bacteria	20	71.68458781362007	J	ribosomal protein	MHS329	bacteria_OG
+COG2875|Bacteria	165	185.1851851851852	H	Belongs to the precorrin methyltransferase family	MHS329	bacteria_OG
+COG2885|Bacteria	232	390.02405002405004	M	chlorophyll binding	MHS329	bacteria_OG
+COG2887|Bacteria	28	50.59733646690168	L	Belongs to the helicase family. UvrD subfamily	MHS329	bacteria_OG
+COG2898|Bacteria	24	49.079754601226995	K	Catalyzes the transfer of a lysyl group from L-lysyl- tRNA(Lys) to membrane-bound phosphatidylglycerol (PG), which produces lysylphosphatidylglycerol (LPG), a major component of the bacterial membrane with a positive net charge. LPG synthesis contributes to bacterial virulence as it is involved in the resistance mechanism against cationic antimicrobial peptides (CAMP) produces by the host's immune system (defensins, cathelicidins) and by the competing microorganisms	MHS329	bacteria_OG
+COG2902|Bacteria	9	37.028360819590205	E	Dehydrogenase	MHS329	bacteria_OG
+COG2916|Bacteria	61	218.98148148148147	D	Histone family protein nucleoid-structuring protein H-NS	MHS329	bacteria_OG
+COG2917|Bacteria	126	210	D	probably involved in intracellular septation	MHS329	bacteria_OG
+COG2932|Bacteria	124	187.87878787878788	K	Transcriptional regulator	MHS329	bacteria_OG
+COG2948|Bacteria	22	55.13784461152882	U	multi-organism process	MHS329	bacteria_OG
+COG2961|Bacteria	1	4.219409282700422	S	Specifically methylates the adenine in position 2030 of 23S rRNA	MHS329	bacteria_OG
+COG2963|Bacteria	49	164.98316498316498	L	transposase activity	MHS329	bacteria_OG
+COG2967|Bacteria	48	101.91082802547771	P	ApaG domain	MHS329	bacteria_OG
+COG2971|Bacteria	15	78.125	G	BadF BadG BcrA BcrD	MHS329	bacteria_OG
+COG2980|Bacteria	108	200	M	Together with LptD, is involved in the assembly of lipopolysaccharide (LPS) at the surface of the outer membrane. Required for the proper assembly of LptD. Binds LPS and may serve as the LPS recognition site at the outer membrane	MHS329	bacteria_OG
+COG2987|Bacteria	2	11.11111111111111	E	Catalyzes the conversion of urocanate to 4-imidazolone- 5-propionate	MHS329	bacteria_OG
+COG3000|Bacteria	6	27.370478983382206	I	fatty acid hydroxylase	MHS329	bacteria_OG
+COG3012|Bacteria	44	157.70609318996415	U	SEC-C Motif Domain Protein	MHS329	bacteria_OG
+COG3019|Bacteria	26	48.964218455743875	S	metal-binding protein	MHS329	bacteria_OG
+COG3044|Bacteria	232	209.5754290876242	H	ATPase of the ABC class	MHS329	bacteria_OG
+COG3064|Bacteria	100	188.7446269799211	M	Membrane	MHS329	bacteria_OG
+COG3087|Bacteria	9	42.85714285714286	D	Lytic transglycosylase with a strong preference for naked glycan strands that lack stem peptides	MHS329	bacteria_OG
+COG3103|Bacteria	61	110.27787466573655	T	Sh3 type 3 domain protein	MHS329	bacteria_OG
+COG3104|Bacteria	82	125.9600614439324	E	oligopeptide transport	MHS329	bacteria_OG
+COG3118|Bacteria	216	659.3878996283885	O	belongs to the thioredoxin family	MHS329	bacteria_OG
+COG3125|Bacteria	27	92.78350515463919	C	oxidoreductase activity, acting on diphenols and related substances as donors, oxygen as acceptor	MHS329	bacteria_OG
+COG3127|Bacteria	54	87.8048780487805	Q	ABC-type transport system involved in lysophospholipase L1, biosynthesis, permease component	MHS329	bacteria_OG
+COG3174|Bacteria	33	111.11111111111111	S	membrane	MHS329	bacteria_OG
+COG3181|Bacteria	407	523.9816116481063	E	Tripartite tricarboxylate transporter family receptor	MHS329	bacteria_OG
+COG3184|Bacteria	58	104.5045045045045	KT	Protein conserved in bacteria	MHS329	bacteria_OG
+COG3203|Bacteria	25	96.89922480620154	M	Forms passive diffusion pores that allow small molecular weight hydrophilic materials across the outer membrane	MHS329	bacteria_OG
+COG3209|Bacteria	3	14.087244023800793	M	COG3209 Rhs family protein	MHS329	bacteria_OG
+COG3237|Bacteria	93	415.6588339914399	K	CsbD-like	MHS329	bacteria_OG
+COG3240|Bacteria	14	48.611111111111114	I	lipase activity	MHS329	bacteria_OG
+COG3253|Bacteria	24	52.980132450331126	H	May function as heme-dependent peroxidase	MHS329	bacteria_OG
+COG3266|Bacteria	1214	1100.496827170034	GM	domain, Protein	MHS329	bacteria_OG
+COG3268|Bacteria	22	72.60726072607261	S	Saccharopine dehydrogenase	MHS329	bacteria_OG
+COG3285|Bacteria	10	56.49717514124294	L	dna ligase	MHS329	bacteria_OG
+COG3288|Bacteria	26	76.6961651917404	C	NAD(P)+ transhydrogenase (AB-specific) activity	MHS329	bacteria_OG
+COG3307|Bacteria	21	111.11111111111111	M	-O-antigen	MHS329	bacteria_OG
+COG3310|Bacteria	156	344.3708609271523	S	Protein conserved in bacteria	MHS329	bacteria_OG
+COG3311|Bacteria	78	296.8340755532312	K	Transcriptional regulator	MHS329	bacteria_OG
+COG3316|Bacteria	10	19.618704703872965	L	Transposase and inactivated derivatives	MHS329	bacteria_OG
+COG3321|Bacteria	1522	2842.8236614511125	Q	synthase	MHS329	bacteria_OG
+COG3327|Bacteria	129	330.7692307692308	K	negative regulation of DNA-templated transcription, initiation	MHS329	bacteria_OG
+COG3335|Bacteria	19	78.83141762452107	L	DDE superfamily endonuclease	MHS329	bacteria_OG
+COG3344|Bacteria	40	149.73803101624253	L	reverse transcriptase	MHS329	bacteria_OG
+COG3346|Bacteria	144	216.2168628576897	GK	SURF1 family	MHS329	bacteria_OG
+COG3384|Bacteria	28	63.492063492063494	I	dioxygenase	MHS329	bacteria_OG
+COG3385|Bacteria	3	16.129032258064516	L	transposase activity	MHS329	bacteria_OG
+COG3396|Bacteria	27	98.90109890109889	P	Phenylacetate-CoA oxygenase	MHS329	bacteria_OG
+COG3411|Bacteria	82	104.72541507024265	C	Ferredoxin	MHS329	bacteria_OG
+COG3414|Bacteria	261	879.1629826112585	G	Phosphotransferase system galactitol-specific IIB component	MHS329	bacteria_OG
+COG3415|Bacteria	227	530.5772658713835	L	Transposase	MHS329	bacteria_OG
+COG3442|Bacteria	9	32.25806451612903	M	glutamine amidotransferase	MHS329	bacteria_OG
+COG3451|Bacteria	66	178.8617886178862	U	type IV secretory pathway VirB4	MHS329	bacteria_OG
+COG3467|Bacteria	102	236.11111111111111	T	pyridoxamine 5'-phosphate	MHS329	bacteria_OG
+COG3485|Bacteria	14	88.0503144654088	Q	protocatechuate 3,4-dioxygenase	MHS329	bacteria_OG
+COG3502|Bacteria	24	53.33333333333333	O	Protein conserved in bacteria	MHS329	bacteria_OG
+COG3505|Bacteria	43	161.00707449022053	U	Type IV secretory pathway VirD4	MHS329	bacteria_OG
+COG3527|Bacteria	21	43.118965799378174	Q	Alpha-acetolactate decarboxylase	MHS329	bacteria_OG
+COG3530|Bacteria	37	137.03703703703704	L	Putative quorum-sensing-regulated virulence factor	MHS329	bacteria_OG
+COG3539|Bacteria	119	168.79432624113477	NU	Fimbrial protein	MHS329	bacteria_OG
+COG3542|Bacteria	34	70.02032520325204	G	PFAM Cupin superfamily (DUF985)	MHS329	bacteria_OG
+COG3544|Bacteria	27	118.42105263157895	P	Protein conserved in bacteria	MHS329	bacteria_OG
+COG3549|Bacteria	123	436.1702127659575	K	Plasmid maintenance system killer	MHS329	bacteria_OG
+COG3557|Bacteria	55	113.59450862213292	J	Belongs to the UPF0374 family	MHS329	bacteria_OG
+COG3560|Bacteria	372	1004.5542192980192	S	Nitroreductase	MHS329	bacteria_OG
+COG3583|Bacteria	47	176.27765064836	NU	domain protein	MHS329	bacteria_OG
+COG3588|Bacteria	31	47.60372124388861	G	fructose-bisphosphate aldolase	MHS329	bacteria_OG
+COG3590|Bacteria	6	12.121212121212121	O	peptidase	MHS329	bacteria_OG
+COG3599|Bacteria	167	271.1014264290546	D	regulation of cell shape	MHS329	bacteria_OG
+COG3609|Bacteria	91	348.57898215465957	K	addiction module antidote protein, CC2985 family	MHS329	bacteria_OG
+COG3616|Bacteria	8	29.629629629629626	E	Alanine racemase, N-terminal domain	MHS329	bacteria_OG
+COG3628|Bacteria	2	7.4074074074074066	L	GPW Gp25 family protein	MHS329	bacteria_OG
+COG3629|Bacteria	12	62.5	K	intracellular signal transduction	MHS329	bacteria_OG
+COG3631|Bacteria	6	15.037593984962406	GM	Ketosteroid isomerase-related protein	MHS329	bacteria_OG
+COG3634|Bacteria	102	243.94942298742484	C	alkyl hydroperoxide reductase activity	MHS329	bacteria_OG
+COG3642|Bacteria	6	28.169014084507044	T	lipopolysaccharide core region biosynthetic process	MHS329	bacteria_OG
+COG3663|Bacteria	40	73.26007326007326	L	DNA glycosylase	MHS329	bacteria_OG
+COG3667|Bacteria	51	215.18987341772154	P	copper resistance	MHS329	bacteria_OG
+COG3668|Bacteria	63	192.6605504587156	D	Plasmid stabilization system	MHS329	bacteria_OG
+COG3679|Bacteria	22	63.76811594202899	S	Belongs to the UPF0342 family	MHS329	bacteria_OG
+COG3686|Bacteria	32	74.07407407407408	S	Membrane	MHS329	bacteria_OG
+COG3691|Bacteria	20	82.3045267489712	S	Protein conserved in bacteria	MHS329	bacteria_OG
+COG3694|Bacteria	120	147.05882352941177	S	transport system, permease component	MHS329	bacteria_OG
+COG3696|Bacteria	56	186.66666666666669	P	Belongs to the resistance-nodulation-cell division (RND) (TC 2.A.6) family	MHS329	bacteria_OG
+COG3706|Bacteria	128	115.00449236298293	T	GGDEF domain	MHS329	bacteria_OG
+COG3714|Bacteria	12	57.142857142857146	I	YhhN family	MHS329	bacteria_OG
+COG3791|Bacteria	11	31.884057971014496	E	Glutathione-dependent formaldehyde-activating	MHS329	bacteria_OG
+COG3807|Bacteria	70	146.7505241090147	L	Bacterial SH3 domain	MHS329	bacteria_OG
+COG3809|Bacteria	25	84.17508417508418	S	Transcription factor zinc-finger	MHS329	bacteria_OG
+COG3828|Bacteria	39	140.4656535003545	N	Trehalose utilisation	MHS329	bacteria_OG
+COG3832|Bacteria	97	256.3443374331584	J	glyoxalase III activity	MHS329	bacteria_OG
+COG3833|Bacteria	20	39.682539682539684	P	ABC-type maltose transport systems, permease component	MHS329	bacteria_OG
+COG3836|Bacteria	40	136.0544217687075	G	Belongs to the HpcH HpaI aldolase family	MHS329	bacteria_OG
+COG3842|Bacteria	201	251.9752399499235	P	ATPase activity	MHS329	bacteria_OG
+COG3845|Bacteria	22	74.78562618832083	P	ABC transporter	MHS329	bacteria_OG
+COG3856|Bacteria	2	5.333333333333333	S	small basic protein	MHS329	bacteria_OG
+COG3861|Bacteria	1497	2153.7347119222054	P	electron transporter, transferring electrons within the cyclic electron transport pathway of photosynthesis activity	MHS329	bacteria_OG
+COG3871|Bacteria	133	266.76881171263193	K	stress protein (general stress protein 26)	MHS329	bacteria_OG
+COG3879|Bacteria	2	4.385964912280701	E	Bacterial protein of unknown function (DUF881)	MHS329	bacteria_OG
+COG3905|Bacteria	66	251.16827730139286	K	.,Oxidizes proline to glutamate for use as a carbon and nitrogen source	MHS329	bacteria_OG
+COG3942|Bacteria	112	334.7536487413067	U	CHAP domain	MHS329	bacteria_OG
+COG3944|Bacteria	7	40.229885057471265	M	biosynthesis protein	MHS329	bacteria_OG
+COG3956|Bacteria	120	217.39130434782606	E	TIGRFAM MazG family protein	MHS329	bacteria_OG
+COG4108|Bacteria	2	10.256410256410255	J	Increases the formation of ribosomal termination complexes and stimulates activities of RF-1 and RF-2. It binds guanine nucleotides and has strong preference for UGA stop codons. It may interact directly with the ribosome. The stimulation of RF- 1 and RF-2 is significantly reduced by GTP and GDP, but not by GMP	MHS329	bacteria_OG
+COG4113|Bacteria	63	144.82758620689654	S	Toxic component of a toxin-antitoxin (TA) module. An RNase	MHS329	bacteria_OG
+COG4129|Bacteria	78	168.99476596909008	U	membrane	MHS329	bacteria_OG
+COG4176|Bacteria	20	40.16064257028113	P	ABC-type proline glycine betaine transport system permease component	MHS329	bacteria_OG
+COG4226|Bacteria	13	38.69047619047619	K	protein encoded in hypervariable junctions of pilus gene clusters	MHS329	bacteria_OG
+COG4300|Bacteria	39	66.66666666666667	P	Cadmium resistance transporter	MHS329	bacteria_OG
+COG4339|Bacteria	64	94.3952802359882	L	protein conserved in bacteria	MHS329	bacteria_OG
+COG4413|Bacteria	81	95.74468085106383	E	Urea transporter	MHS329	bacteria_OG
+COG4454|Bacteria	6	14.388489208633095	P	pyrroloquinoline quinone binding	MHS329	bacteria_OG
+COG4456|Bacteria	96	410.2564102564102	L	Virulence-associated protein	MHS329	bacteria_OG
+COG4466|Bacteria	28	89.74358974358974	S	Protein conserved in bacteria	MHS329	bacteria_OG
+COG4470|Bacteria	24	57.142857142857146	J	Protein conserved in bacteria	MHS329	bacteria_OG
+COG4472|Bacteria	1	3.4013605442176873	S	Bacterial protein of unknown function (DUF965)	MHS329	bacteria_OG
+COG4481|Bacteria	24	105.26315789473684	K	Protein conserved in bacteria	MHS329	bacteria_OG
+COG4581|Bacteria	7	17.15686274509804	L	dead DEAH box helicase	MHS329	bacteria_OG
+COG4585|Bacteria	12	42.55319148936171	T	Histidine kinase	MHS329	bacteria_OG
+COG4604|Bacteria	11	42.1455938697318	P	ABC transporter, ATP-binding protein	MHS329	bacteria_OG
+COG4606|Bacteria	39	136.84210526315792	P	Belongs to the binding-protein-dependent transport system permease family. FecCD subfamily	MHS329	bacteria_OG
+COG4607|Bacteria	57	81.54506437768241	P	ABC-type enterochelin transport system periplasmic component	MHS329	bacteria_OG
+COG4608|Bacteria	20	39.47123252204209	P	Belongs to the ABC transporter superfamily	MHS329	bacteria_OG
+COG4625|Bacteria	9	54.54545454545454	T	pathogenesis	MHS329	bacteria_OG
+COG4644|Bacteria	487	539.3990010344106	L	lycopene metabolic process	MHS329	bacteria_OG
+COG4652|Bacteria	31	64.9895178197065	S	NA	MHS329	bacteria_OG
+COG4699|Bacteria	28	104.53074433656957	S	Protein conserved in bacteria	MHS329	bacteria_OG
+COG4712|Bacteria	92	393.16239316239313	S	double-strand break repair protein	MHS329	bacteria_OG
+COG4721|Bacteria	74	137.95472287275567	S	ABC-type cobalt transport system, permease component	MHS329	bacteria_OG
+COG4760|Bacteria	322	598.4287925822773	D	membrane	MHS329	bacteria_OG
+COG4767|Bacteria	27	62.06896551724138	V	VanZ like family	MHS329	bacteria_OG
+COG4768|Bacteria	90	202.01640940063967	S	protein containing a divergent version of the methyl-accepting chemotaxis-like domain	MHS329	bacteria_OG
+COG4770|Bacteria	23	89.6574679254418	I	biotin carboxylase activity	MHS329	bacteria_OG
+COG4773|Bacteria	19	67.3758865248227	P	Receptor	MHS329	bacteria_OG
+COG4786|Bacteria	93	118.77394636015325	N	Flagellar basal body rod	MHS329	bacteria_OG
+COG4799|Bacteria	33	94.87578095825519	I	Acetyl-CoA carboxylase, carboxyltransferase component subunits alpha and beta	MHS329	bacteria_OG
+COG4838|Bacteria	26	88.43537414965986	S	Belongs to the UPF0358 family	MHS329	bacteria_OG
+COG4842|Bacteria	37	186.86868686868686	D	Belongs to the WXG100 family	MHS329	bacteria_OG
+COG4873|Bacteria	11	62.14689265536723	S	Protein conserved in bacteria	MHS329	bacteria_OG
+COG4894|Bacteria	34	60.931899641577054	DZ	glucomannan catabolic process	MHS329	bacteria_OG
+COG4932|Bacteria	495	861.3814674525729	M	domain protein	MHS329	bacteria_OG
+COG4970|Bacteria	158	262.0232172470979	NU	Tfp pilus assembly protein FimT	MHS329	bacteria_OG
+COG4974|Bacteria	30	106.70015132489777	L	Belongs to the 'phage' integrase family	MHS329	bacteria_OG
+COG4980|Bacteria	48	175.74637414454347	D	gas vesicle protein	MHS329	bacteria_OG
+COG4991|Bacteria	95	241.7302798982188	T	sh3 domain protein	MHS329	bacteria_OG
+COG5002|Bacteria	74	140.31458737341092	T	protein histidine kinase activity	MHS329	bacteria_OG
+COG5013|Bacteria	14	27.131782945736433	C	Belongs to the prokaryotic molybdopterin-containing oxidoreductase family	MHS329	bacteria_OG
+COG5016|Bacteria	68	124.59003873550738	C	pyruvate	MHS329	bacteria_OG
+COG5340|Bacteria	26	108.33333333333334	K	Psort location Cytoplasmic, score	MHS329	bacteria_OG
+COG5361|Bacteria	314	540.4896282893698	P	Conserved Protein	MHS329	bacteria_OG
+COG5470|Bacteria	20	85.07073715562176	K	NIPSNAP family containing protein	MHS329	bacteria_OG
+COG5479|Bacteria	389	731.4141414141415	M	isomerase activity	MHS329	bacteria_OG
+COG5487|Bacteria	32	166.66666666666666	S	UPF0391 membrane protein	MHS329	bacteria_OG
+COG5492|Bacteria	27	62.08642877440832	N	domain, Protein	MHS329	bacteria_OG
+COG5542|Bacteria	28	74.09936050613322	O	integral membrane protein	MHS329	bacteria_OG
+COG5547|Bacteria	46	176.984126984127	S	Small integral membrane protein	MHS329	bacteria_OG
+COG5566|Bacteria	27	52.325581395348834	S	PFAM Mor transcription activator	MHS329	bacteria_OG
+COG5597|Bacteria	127	460.1449275362318	M	Glycosyl transferase family 8	MHS329	bacteria_OG
+COG5639|Bacteria	126	538.4615384615385	G	conserved small protein	MHS329	bacteria_OG
+COG5662|Bacteria	32	119.8501872659176	K	AntiSigma factor	MHS329	bacteria_OG

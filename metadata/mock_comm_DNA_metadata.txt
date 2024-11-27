@@ -1,0 +1,7 @@
+sample_id	LIBID	DNA_extraction_method	mock_comm_id
+MC4-E	MMM334	EZ1	MC4-uniform
+MC5-E	MMM335	EZ1	MC5-log10
+MC19-E	MMM336	EZ1	MC19-uniform
+MC4-T	MMM339	trizol	MC4-uniform
+MC5-T	MMM340	trizol	MC5-log10
+MC19-T	MMM341	trizol	MC19-uniform

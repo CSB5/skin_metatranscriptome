@@ -1,0 +1,271 @@
+---
+title: "ENA_metadata_formatting"
+author: "Chiamh"
+date: "2024-11-22"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r}
+library(tidyverse)
+```
+
+Fastq files to upload to ENA:
+1) Pilot Cohort + longitudinal cohort
+2) Full Cohort 
+3) Mock community libraries
+4) Skin biopsies from A*SRL
+5) S. epidermidis in vitro cultures
+
+The ENA ERC000011 minimum checklist (as of Nov 2024) has the columns in this order:  "tax_id", "scientific_name", "sample_alias", "sample_title", "sample_description", "collection date", "geographic location (country and/or sea)"
+
+Importantly, the checklist has a #unique_name_prefix row
+Possible prefixes would be "MHS", "Neg", "MMM", "SMT", "SRIS", "Sepi"
+
+Metagenomes will be labelled with taxid "256318" with the scientific_name: "metagenome"
+
+Metatranscriptomes will be labelled with taxid "1586248" with the scientific_name: "mixed RNA library"
+
+## Pilot cohort
+
+Samples which were not sequenced/failed sequencing were not uploaded. These are flagged with "metatranscriptomic library construction failed" or 
+"Not sequenced because paired metagenomic library failed"
+
+```{r}
+
+pilot_cohort_ENA <- read_tsv("../metadata/pilot_cohort_ENA_preformat.tsv", show_col_types = FALSE)
+
+pilot_cohort_ENA$sample_alias <- pilot_cohort_ENA$LIBID
+
+pilot_cohort_ENA$tax_id <- "1586248"
+
+pilot_cohort_ENA$scientific_name <- "mixed RNA library"
+
+pilot_cohort_ENA$common_name <- pilot_cohort_ENA$scientific_name
+
+pilot_cohort_ENA$sample_title <- "skin_metatranscriptomics"
+
+pilot_cohort_ENA$isolation_source <- "skin"
+
+pilot_cohort_ENA$`geographic location (country and/or sea)` <- "Singapore"
+
+pilot_cohort_ENA$sample_description <- paste0(pilot_cohort_ENA$subj_region,"_", pilot_cohort_ENA$scientific_name)
+
+pilot_cohort_ENA$sample_description <- gsub(pattern=" ", replacement="_", x=pilot_cohort_ENA$sample_description)
+
+pilot_cohort_ENA$`collection date` <- ifelse(str_detect(string=pilot_cohort_ENA$sample_alias, pattern="MHS"), "2022", "2023")
+
+
+pilot_cohort_ENA <- pilot_cohort_ENA %>%  dplyr::select("sample_alias", "tax_id", "scientific_name", 
+"common_name", "sample_title", "sample_description", "isolation_source", "collection date", "geographic location (country and/or sea)")
+
+```
+
+## Full cohort
+
+This includes the 102 pairs (MTX + MGX) libraries analyzed in the manuscript, as well as all QC failed (but sequenced) libraries, negative controls and technical replicates
+
+```{r}
+
+full_cohort_ENA <- read_tsv("../metadata/skin_mtx_metadata_fmt.txt", show_col_types = FALSE)
+
+full_cohort_ENA$tax_id <- ifelse(full_cohort_ENA$mol_type == "RNA", "1586248",
+                                 ifelse(full_cohort_ENA$mol_type == "DNA", "256318", NA))
+
+full_cohort_ENA$scientific_name <- ifelse(full_cohort_ENA$mol_type == "RNA", "mixed RNA library",
+                                 ifelse(full_cohort_ENA$mol_type == "DNA", "metagenome", NA))
+
+full_cohort_ENA$common_name <- full_cohort_ENA$scientific_name
+
+full_cohort_ENA$sample_title <- "skin_metatranscriptomics"
+
+full_cohort_ENA$isolation_source <- "skin"
+
+full_cohort_ENA$`geographic location (country and/or sea)` <- "Singapore"
+
+full_cohort_ENA$sample_description <- paste0(full_cohort_ENA$subj_region,"_", full_cohort_ENA$scientific_name)
+
+full_cohort_ENA$sample_description <- gsub(pattern=" ", replacement="_", x=full_cohort_ENA$sample_description)
+
+full_cohort_ENA$sample_alias <- full_cohort_ENA$LIBID
+
+full_cohort_ENA <- full_cohort_ENA %>% dplyr::select("sample_alias", "tax_id", "scientific_name", 
+"common_name", "sample_title", "sample_description", "isolation_source", "geographic location (country and/or sea)")
+
+full_cohort_ENA$`collection date` <- "2022"
+
+```
+
+## Mock community libraries (DNA)
+
+These were used for comparative tests between method E and method T nucleic acid extractions (DNA).
+
+```{r}
+
+mock_community_ENA <- read_tsv("../metadata/mock_comm_DNA_metadata.txt", show_col_types = FALSE)
+
+mock_community_ENA$tax_id <- "256318"
+
+mock_community_ENA$scientific_name <- "metagenome"
+
+mock_community_ENA$common_name <- mock_community_ENA$scientific_name
+
+mock_community_ENA$sample_title <- "skin_metatranscriptomics"
+
+mock_community_ENA$isolation_source <- "in vitro cultures"
+
+mock_community_ENA$`geographic location (country and/or sea)` <- "Singapore"
+
+mock_community_ENA$sample_description <- paste0(mock_community_ENA$mock_comm_id,"_", mock_community_ENA$DNA_extraction_method, "_",
+                                                mock_community_ENA$scientific_name)
+
+mock_community_ENA$sample_description <- gsub(pattern=" ", replacement="_", x=mock_community_ENA$sample_description)
+
+mock_community_ENA$sample_alias <- mock_community_ENA$LIBID
+
+mock_community_ENA <- mock_community_ENA %>% dplyr::select("sample_alias", "tax_id", "scientific_name", 
+"common_name", "sample_title", "sample_description", "isolation_source", "geographic location (country and/or sea)")
+
+mock_community_ENA$`collection date` <- "2023"
+
+```
+
+##Skin Biopsies from A*SRL
+
+```{r}
+ASRL_biopsies_ENA <- read_tsv("../metadata/human_rnaseq_other_studies_public.txt") %>% 
+  dplyr::filter(study_link == "unpublished")
+
+ASRL_biopsies_ENA$tax_id <- "1586248"
+
+ASRL_biopsies_ENA$scientific_name <- "mixed RNA library"
+
+ASRL_biopsies_ENA$common_name <- ASRL_biopsies_ENA$scientific_name
+
+ASRL_biopsies_ENA$sample_title <- "skin_metatranscriptomics"
+
+ASRL_biopsies_ENA$isolation_source <- "biopsy"
+
+ASRL_biopsies_ENA$`geographic location (country and/or sea)` <- "Singapore"
+
+ASRL_biopsies_ENA$sample_description <- paste0(ASRL_biopsies_ENA$sample_desc,"_",
+                                                "biopsy")
+
+ASRL_biopsies_ENA$sample_description <- gsub(pattern=" ", replacement="_", x=ASRL_biopsies_ENA$sample_description)
+
+ASRL_biopsies_ENA$sample_alias <- ASRL_biopsies_ENA$run_ID
+
+ASRL_biopsies_ENA <- ASRL_biopsies_ENA %>% dplyr::select("sample_alias", "tax_id", "scientific_name", 
+"common_name", "sample_title", "sample_description", "isolation_source", "geographic location (country and/or sea)")
+
+ASRL_biopsies_ENA$`collection date` <- "2023"
+
+```
+
+#S. epidermidis in vitro cultures
+
+```{r}
+
+in_vitro_ENA <- read_tsv("../metadata/S_epi_in_vitro.txt", show_col_types = FALSE) %>% dplyr::filter(study=="this_study")
+
+in_vitro_ENA$tax_id <- "1282"
+
+in_vitro_ENA$scientific_name <- "Staphylococcus epidermidis"
+
+in_vitro_ENA$common_name <- in_vitro_ENA$scientific_name
+
+in_vitro_ENA$sample_title <- "skin_metatranscriptomics"
+
+in_vitro_ENA$isolation_source <- "in vitro cultures"
+
+in_vitro_ENA$`geographic location (country and/or sea)` <- "Singapore"
+
+in_vitro_ENA$sample_description <- paste0(in_vitro_ENA$expt_desc,"_RNA")
+
+in_vitro_ENA$sample_alias <- in_vitro_ENA$Library_ID
+
+in_vitro_ENA <- in_vitro_ENA %>% dplyr::select("sample_alias", "tax_id", "scientific_name", 
+"common_name", "sample_title", "sample_description", "isolation_source", "geographic location (country and/or sea)")
+
+in_vitro_ENA$`collection date` <- "2023"
+
+```
+
+
+Write out.
+
+```{r}
+
+combined_ENA <- do.call("rbind", list(pilot_cohort_ENA,
+                                      full_cohort_ENA,
+                                      mock_community_ENA,
+                                      in_vitro_ENA,
+                                      ASRL_biopsies_ENA)) %>% unique(.)
+
+#order columns
+
+combined_ENA <- combined_ENA %>% dplyr::select("tax_id", "scientific_name", "sample_alias", "sample_title", "sample_description", "collection date", "geographic location (country and/or sea)")
+
+write_tsv(combined_ENA, "../metadata/skin_MTX_ENA-default sample checklist.tsv")
+
+```
+
+
+#Split the checklist by prefixes
+
+Update, this is no longer necessary with the new ERC000011 template.
+
+Possible prefixes would be "MHS", "MMM", "SMT", "SRIS", "Sepi"
+
+```{r eval=FALSE}
+combined_ENA <- do.call("rbind", list(pilot_cohort_ENA,
+                                      full_cohort_ENA,
+                                      mock_community_ENA,
+                                      in_vitro_ENA,
+                                      ASRL_biopsies_ENA)) %>% unique(.)
+
+#order columns
+
+combined_ENA <- combined_ENA %>% dplyr::select("sample_alias", "tax_id", "scientific_name", 
+"common_name", "sample_title", "sample_description", "isolation_source", "geographic location (country and/or sea)")
+
+
+#split by prefixes
+
+MHS_ENA <- combined_ENA %>% dplyr::filter(str_detect(string=combined_ENA$sample_alias,
+                                                     pattern="MHS"))
+
+MMM_ENA <- combined_ENA %>% dplyr::filter(str_detect(string=combined_ENA$sample_alias,
+                                                     pattern="MMM"))
+
+SMT_ENA <- combined_ENA %>% dplyr::filter(str_detect(string=combined_ENA$sample_alias,
+                                                     pattern="SMT"))
+
+SRIS_ENA <- combined_ENA %>% dplyr::filter(str_detect(string=combined_ENA$sample_alias,
+                                                     pattern="SRIS"))
+
+Sepi_ENA <- combined_ENA %>% dplyr::filter(str_detect(string=combined_ENA$sample_alias,
+                                                     pattern="Sepi"))
+#TRUE
+nrow(MHS_ENA) + nrow(MMM_ENA) + nrow(SMT_ENA) + nrow(SRIS_ENA) + nrow(Sepi_ENA) == nrow(combined_ENA)
+
+#write out
+
+write_tsv(MHS_ENA, "../metadata/MHS_ENA.tsv")
+
+write_tsv(MMM_ENA, "../metadata/MMM_ENA.tsv")
+
+write_tsv(SMT_ENA, "../metadata/SMT_ENA.tsv")
+
+write_tsv(SRIS_ENA, "../metadata/SRIS_ENA.tsv")
+
+write_tsv(Sepi_ENA, "../metadata/Sepi_ENA.tsv")
+
+```
+
+
+
