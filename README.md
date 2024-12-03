@@ -19,7 +19,7 @@ Large datasets and annotations have been uploaded to figshare [here](https://fig
 Please direct any questions or feedback to [Minghao Chia](mailto:chia_minghao@gis.a-star.edu.sg) and [Niranjan Nagarajan](mailto:nagarajann@gis.a-star.edu.sg).
 
 ## Navigating the figures, scripts and plots 
-The metadata (skin sites and read counts) for the full cohort is [here](./metadata/mtx_mgx_stats_chosen.tsv)
+The metadata (skin sites and read counts) for the full cohort is [here](./metadata/mtx_mgx_stats_chosen.tsv).\
 Please refer to [repository map](./repository_map.txt) for the relationship between figure panels, scripts and plots in this repository.
 
 
