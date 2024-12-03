@@ -1,6 +1,6 @@
-Files and scripts to generate figures for the manuscript titled "Skin metatranscriptomics reveals landscape of variation in microbial activity and gene expression across the human body". \
+Files and scripts to generate figures for the manuscript titled "Skin metatranscriptomics reveals landscape of variation in microbial activity and gene expression across the human body".
 
-To run the scripts,clone this repository, download the large datasets from figshare and specify working directory to the scripts/ subfolder or open the project using the .Rproj file
+To run the scripts, clone this repository, download the large datasets from figshare and specify working directory to the scripts/ subfolder or open the project using the .Rproj file
 
 ## Directory structure
 
