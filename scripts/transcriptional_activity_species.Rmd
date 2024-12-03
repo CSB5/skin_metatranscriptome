@@ -1,0 +1,424 @@
+---
+title: "transcriptional_activity_species"
+author: "Chiamh"
+date: '2024-04-30'
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Load libraries
+
+```{r}
+library(tidyverse)
+library(ggpubr)
+library(reshape2)
+library(ggbreak)
+```
+
+Load metadata and supporting files.
+
+```{r}
+
+combined_taxa_count_activity_df <- read_tsv("../data/combined_taxa_count_activity_df.tsv",
+                                            show_col_types = FALSE)
+
+
+##For each species, only keep the regions (skin sites) with at least 5 libraries where the species can be detected (metagenomically present)
+subsetted_taxa_count_df <- combined_taxa_count_activity_df %>% 
+  dplyr::filter(k2_taxon %in% c("Cutibacterium_acnes","Malassezia_globosa",
+                                "Malassezia_restricta","Staphylococcus_capitis",
+                                "Staphylococcus_epidermidis","Staphylococcus_hominis",
+                                "Corynebacterium_tuberculostearicum",
+                                "Corynebacterium_kefirresidentii"))
+
+#These species are prevalent across multple skin sites (metagenomic level): Cutibacterium acnes, Malassezia globosa, Malassezia restricta, Staphylococcus capitis, Staphylococcus epidermidis and staphylococcus hominis
+taxa_to_KW_test <- c("Cutibacterium_acnes","Malassezia_globosa",
+                                "Malassezia_restricta","Staphylococcus_capitis",
+                                "Staphylococcus_epidermidis","Staphylococcus_hominis",
+                      "Corynebacterium_tuberculostearicum",
+                     "Corynebacterium_kefirresidentii")
+
+
+
+
+```
+
+
+# Transcriptional activity of selected prevalent bacteria across skin sites.
+
+The distribution of the Kruskal-Wallis test statistic approximates a chi-square distribution, with k-1 degrees of freedom, if the number of observations in each group is 5 or more. 
+
+Every taxa tested here is represented in at least 5 or more libraries per site, at the metagenomic level
+
+```{r}
+
+#kruskal wallis test
+#return output as a list of lists
+subsetted_taxa_KW_test_results <- lapply(taxa_to_KW_test, function(species_name){
+  
+  species_specific_df <- subsetted_taxa_count_df %>% dplyr::filter(k2_taxon == species_name)
+  
+  KW_test_result <- kruskal.test(transcriptional_activity ~ region, data = species_specific_df)
+  
+  #unadjusted for multiple comparisons
+  KW_p_value <- KW_test_result$p.value
+  
+
+  #For some reason, ggpubr::compare_means does not output identical p values as pairwise.wilcox.test
+  #pairwise_wilcox_result <- compare_means(transcriptional_activity ~ region, 
+  #                     p.adjust.method = "fdr", method='wilcox.test', data = species_specific_df)
+  
+
+  pairwise_wilcox_result_triangular <- pairwise.wilcox.test(species_specific_df$transcriptional_activity,
+                                                            species_specific_df$region, 
+                                                            p.adjust.method = "fdr", exact=FALSE)
+  
+  pairwise_wilcox_result_triangular <- melt(pairwise_wilcox_result_triangular$p.value, na.rm=TRUE) %>%
+    dplyr::rename(group1=Var1, group2=Var2, p.adj=value)
+   
+  #add dummy rows for self comparisons
+   self_comparison_df <- data.frame(group1=c("Sc","Ch","Ac","Vf","Tw"),
+                                    group2=c("Sc","Ch","Ac","Vf","Tw"),
+                                    p.adj=NA,
+                                    p_adj.signif=NA,
+                                    p.adj_exp=NA)
+   
+  
+ pairwise_wilcox_result_triangular$p_adj.signif <- case_when(
+  pairwise_wilcox_result_triangular$p.adj >= 0.05 ~ "ns",
+  pairwise_wilcox_result_triangular$p.adj < 1e-04  ~ "****",
+  pairwise_wilcox_result_triangular$p.adj < 1e-03 ~ "***",
+  pairwise_wilcox_result_triangular$p.adj < 1e-02 ~ "**",
+  pairwise_wilcox_result_triangular$p.adj < 0.05 ~ "*")
+  
+  pairwise_wilcox_result_triangular$p_adj.signif <- factor(pairwise_wilcox_result_triangular$p_adj.signif,
+                                                  levels=c("****","***","**","*","ns"))
+
+  pairwise_wilcox_result_triangular$p.adj_exp <- format(pairwise_wilcox_result_triangular$p.adj, 
+                                                        scientific=TRUE, digits=3)
+  
+  
+  #This is fine because groups 1 and 2 are interchangable for pairwise comparisons
+  pairwise_wilcox_result_triangular_mirror <- pairwise_wilcox_result_triangular %>% dplyr::rename(group1=group2,
+                                                                                        group2=group1)
+  
+  
+  pairwise_wilcox_result_full <- do.call("rbind",list(pairwise_wilcox_result_triangular, 
+                                                pairwise_wilcox_result_triangular_mirror,
+                                                self_comparison_df))
+  
+  pairwise_wilcox_result_full$group1 <- factor(pairwise_wilcox_result_full$group1, levels=c("Sc",
+                                                                                  "Ch",
+                                                                                  "Ac",
+                                                                                  "Vf",
+                                                                                  "Tw"))
+  
+  pairwise_wilcox_result_full$group2 <- factor(pairwise_wilcox_result_full$group2, levels=c("Sc",
+                                                                                  "Ch",
+                                                                                  "Ac",
+                                                                                  "Vf",
+                                                                                  "Tw"))
+  
+  KW_summary_df <- data.frame(k2_taxon=species_name,kruskal_wallis_p_value=KW_p_value)
+  
+  output <- lst(KW_summary_df, KW_test_result, pairwise_wilcox_result_full)
+  
+  return(output)
+  
+  
+})
+
+
+names(subsetted_taxa_KW_test_results) <- taxa_to_KW_test
+
+
+subsetted_taxa_KW_test_summary <- lapply(taxa_to_KW_test, function(x){
+  
+  df_out <- subsetted_taxa_KW_test_results[[x]]$KW_summary_df
+  
+}) %>% do.call("rbind",.)
+
+#adjust for multiple testing
+
+subsetted_taxa_KW_test_summary$kruskal_wallis_p_adj <- p.adjust(subsetted_taxa_KW_test_summary$kruskal_wallis_p_value,
+                                                                method="fdr")
+
+
+```
+
+For box plots, we transform the transcriptional activities by log2(transcription activity + 1).
+
+This transformation preserves the zero values. The Wilcoxon test should give identical results since rank ordering is preserved).
+
+```{r}
+
+#Boxplots for transcriptional activity, per species
+#only show the significant differences
+
+subsetted_taxa_count_df$log2_transcriptional_activity <- log2(subsetted_taxa_count_df$transcriptional_activity + 1)
+
+subsetted_taxa_count_df$region <- factor(subsetted_taxa_count_df$region, levels=c("Sc",
+                                                                                  "Ch",
+                                                                                  "Ac",
+                                                                                  "Vf",
+                                                                                  "Tw"))
+```
+
+For Cutibacterium acnes
+
+```{r}
+#########
+#C_acnes#
+#########
+
+#Displaying the p value in the boxplot is too messy. We can display them in a companion heatmap
+
+
+C_acnes_trans_act_boxplot <- ggplot(subsetted_taxa_count_df %>% 
+         dplyr::filter(k2_taxon == "Cutibacterium_acnes"), 
+       aes(x=region,y=log2_transcriptional_activity)) + geom_boxplot() +
+  theme_classic() + 
+  theme(axis.title.x=element_blank()) + 
+  ggtitle("C.acnes transcriptional activity") + scale_y_break(c(2,4), ticklabels=c(4.0, 4.5)) + 
+  ylab("log2 (transcriptional activity + 1)")
+
+
+C_acnes_trans_act_boxplot
+
+
+C_acnes_pairwise_wilcox_result <- subsetted_taxa_KW_test_results$Cutibacterium_acnes$pairwise_wilcox_result_full
+
+
+
+C_acnes_trans_act_p_val_plot <- ggplot(data=C_acnes_pairwise_wilcox_result, aes(x=group1, y = group2, fill=p_adj.signif)) + 
+  geom_tile(colour ="white") + geom_text(aes(label=p.adj_exp)) +
+  scale_fill_manual(values=c(#"#b62020",
+                             "#fe2e2e",
+                             "#fe8181",
+                             "#ffb6c1",
+                             "white")) + 
+  scale_x_discrete(expand = c(0, 0)) + 
+  scale_y_discrete(expand = c(0, 0)) + 
+  theme(axis.ticks = element_blank()) +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.2, hjust=1)) +
+  theme(panel.background = element_rect(fill = 'white')) +
+  theme(axis.title = element_blank()) + ggtitle("C_acnes")
+
+
+
+
+C_acnes_trans_act_p_val_plot
+
+
+
+
+
+```
+
+For Staphylococcus capitis
+
+```{r}
+S_capitis_trans_act_boxplot <- ggplot(subsetted_taxa_count_df %>% 
+         dplyr::filter(k2_taxon == "Staphylococcus_capitis"), 
+       aes(x=region,y=log2_transcriptional_activity)) + geom_boxplot() +
+  theme_classic() + 
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1), 
+        axis.title.x=element_blank()) + 
+  ggtitle("S_capitis transcriptional activity") + ylab("log2 (transcriptional activity + 1)")
+
+
+S_capitis_trans_act_boxplot
+
+
+S_capitis_pairwise_wilcox_result <- subsetted_taxa_KW_test_results$Staphylococcus_capitis$pairwise_wilcox_result_full
+
+
+S_capitis_trans_act_p_val_plot <- ggplot(data=S_capitis_pairwise_wilcox_result, aes(x=group1, y = group2, fill=p_adj.signif)) + 
+  geom_tile(colour ="white") + geom_text(aes(label=p.adj_exp)) +
+  scale_fill_manual(values=c(#"#b62020",
+                             "#fe2e2e",
+                             "#fe8181",
+                             "#ffb6c1",
+                             "white")) + 
+  scale_x_discrete(expand = c(0, 0)) + 
+  scale_y_discrete(expand = c(0, 0)) + 
+  theme(axis.ticks = element_blank()) +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.2, hjust=1)) +
+  theme(panel.background = element_rect(fill = 'white')) +
+  theme(axis.title = element_blank()) + ggtitle("S_capitis")
+
+
+S_capitis_trans_act_p_val_plot
+
+```
+For Staphylococcus epidermidis
+
+```{r}
+
+S_epidermidis_trans_act_boxplot <- ggplot(subsetted_taxa_count_df %>% 
+         dplyr::filter(k2_taxon == "Staphylococcus_epidermidis"), 
+       aes(x=region,y=log2_transcriptional_activity)) + geom_boxplot() +
+  theme_classic() + 
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1), 
+        axis.title.x=element_blank()) + 
+  ggtitle("S_epidermidis transcriptional activity") + ylab("log2 (transcriptional activity + 1)")
+
+
+S_epidermidis_trans_act_boxplot
+
+
+S_epidermidis_pairwise_wilcox_result <- subsetted_taxa_KW_test_results$Staphylococcus_epidermidis$pairwise_wilcox_result_full
+
+
+S_epidermidis_trans_act_p_val_plot <- ggplot(data=S_epidermidis_pairwise_wilcox_result, aes(x=group1, y = group2, fill=p_adj.signif)) + 
+  geom_tile(colour ="white") + geom_text(aes(label=p.adj_exp)) +
+  scale_fill_manual(values=c("#b62020",
+                             "#fe2e2e",
+                             "#fe8181",
+                             #"#ffb6c1",
+                             "white")) + 
+  scale_x_discrete(expand = c(0, 0)) + 
+  scale_y_discrete(expand = c(0, 0)) + 
+  theme(axis.ticks = element_blank()) +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.2, hjust=1)) +
+  theme(panel.background = element_rect(fill = 'white')) +
+  theme(axis.title = element_blank()) + ggtitle("S_epidermidis")
+
+
+S_epidermidis_trans_act_p_val_plot
+
+```
+Assemble subplots into facets
+
+```{r}
+
+
+bacteria_species_transcriptional_activity <- ggarrange(C_acnes_trans_act_boxplot, S_capitis_trans_act_boxplot, S_epidermidis_trans_act_boxplot,
+                                                       C_acnes_trans_act_p_val_plot, S_capitis_trans_act_p_val_plot, S_epidermidis_trans_act_p_val_plot,
+                                                       ncol = 3, nrow = 3)
+
+ggsave(plot=bacteria_species_transcriptional_activity, filename="../plots/bacteria_species_transcriptional_activity.pdf",
+       width = 12, height = 8)
+
+
+bacteria_species_transcriptional_activity 
+
+```
+## Transcriptional activity of  prevalent fungi across skin sites.
+
+The distribution of the Kruskal-Wallis test statistic approximates a chi-square distribution, with k-1 degrees of freedom, if the number of observations in each group is 5 or more. 
+
+Every taxa tested here is represented in at least 5 or more libraries per site, at the metagenomic level.
+
+```{r}
+
+
+#########
+#M_globosa#
+#########
+
+
+M_globosa_trans_act_boxplot <- ggplot(subsetted_taxa_count_df %>% 
+         dplyr::filter(k2_taxon == "Malassezia_globosa"), 
+       aes(x=region,y=log2_transcriptional_activity)) + geom_boxplot() +
+  theme_classic() + 
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1), 
+        axis.title.x=element_blank()) + 
+  ggtitle("M_globosa transcriptional activity") + ylab("log2 (transcriptional activity + 1)")
+
+
+M_globosa_trans_act_boxplot
+
+
+M_globosa_pairwise_wilcox_result <- subsetted_taxa_KW_test_results$Malassezia_globosa$pairwise_wilcox_result_full
+
+
+
+M_globosa_trans_act_p_val_plot <- ggplot(data=M_globosa_pairwise_wilcox_result, aes(x=group1, y = group2, fill=p_adj.signif)) + 
+  geom_tile(colour ="white") + geom_text(aes(label=p.adj_exp)) +
+  scale_fill_manual(values=c(#"#b62020",
+                             "#fe2e2e",
+                             "#fe8181",
+                             #"#ffb6c1",
+                             "white")) + 
+  scale_x_discrete(expand = c(0, 0)) + 
+  scale_y_discrete(expand = c(0, 0)) + 
+  theme(axis.ticks = element_blank()) +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.2, hjust=1)) +
+  theme(panel.background = element_rect(fill = 'white')) +
+  theme(axis.title = element_blank()) + ggtitle("M_globosa")
+
+
+
+M_globosa_trans_act_p_val_plot
+
+
+
+```
+
+For Malassezia restricta
+
+```{r}
+
+#########
+#M_restricta#
+#########
+
+
+M_restricta_trans_act_boxplot <- ggplot(subsetted_taxa_count_df %>% 
+         dplyr::filter(k2_taxon == "Malassezia_restricta"), 
+       aes(x=region,y=log2_transcriptional_activity)) + geom_boxplot() +
+  theme_classic() + 
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1), 
+        axis.title.x=element_blank()) + 
+  ggtitle("M_restricta transcriptional activity") + ylab("log2 (transcriptional activity + 1)")
+
+
+M_restricta_trans_act_boxplot
+
+
+M_restricta_pairwise_wilcox_result <- subsetted_taxa_KW_test_results$Malassezia_restricta$pairwise_wilcox_result_full
+
+
+M_restricta_trans_act_p_val_plot <- ggplot(data=M_restricta_pairwise_wilcox_result, aes(x=group1, y = group2, fill=p_adj.signif)) + 
+  geom_tile(colour ="white") + geom_text(aes(label=p.adj_exp)) +
+  scale_fill_manual(values=c("#b62020",
+                             "#fe2e2e",
+                             "#fe8181",
+                             "#ffb6c1",
+                             "white")) + 
+  scale_x_discrete(expand = c(0, 0)) + 
+  scale_y_discrete(expand = c(0, 0)) + 
+  theme(axis.ticks = element_blank()) +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.2, hjust=1)) +
+  theme(panel.background = element_rect(fill = 'white')) +
+  theme(axis.title = element_blank()) + ggtitle("M_restricta")
+
+
+
+M_restricta_trans_act_p_val_plot
+
+
+
+```
+
+
+Assemble subplots into facets
+
+```{r}
+
+
+fungal_species_transcriptional_activity <- ggarrange(M_globosa_trans_act_boxplot, M_restricta_trans_act_boxplot,
+                                                       M_globosa_trans_act_p_val_plot, M_restricta_trans_act_p_val_plot,
+                                                       ncol = 2, nrow = 2)
+
+ggsave(plot=fungal_species_transcriptional_activity, filename="../plots/fungal_species_transcriptional_activity.pdf",
+       width = 12, height = 8)
+
+
+fungal_species_transcriptional_activity 
+
+```

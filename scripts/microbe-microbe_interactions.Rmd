@@ -9,7 +9,7 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-# Figure 4: Expression of anti-microbial genes and mining for antagonistic microbe-microbe relationships
+# Expression of anti-microbial genes and mining for antagonistic microbe-microbe relationships
 
 ```{r}
 library(tidyverse)
@@ -64,6 +64,144 @@ mtx_Tw_ids <- mtx_mgx_stats_chosen %>% dplyr::filter(region=="Tw") %>% pull(mtx_
 #load custom functions
 source("aldex2_wrappers.R")
 
+#Function to extract species specific clr abundances
+
+extract_species_clr <- function(species){
+  
+  species_clr <- lapply(aldex_clr_values, function(x){
+   
+    x$mgx_LIBID <- rownames(x)
+    df_subset <- x[,c("mgx_LIBID",species)]
+    
+    return(df_subset)
+    
+  }) %>% do.call("rbind",.)
+  
+  return(species_clr)
+}
+
+#Function to extract species specific k2 read counts
+
+extract_species_k2_counts <- function(species, input_list=rna_k2_minimizer_renorm){
+  
+  species_k2 <- lapply(input_list, function(x){
+   
+    df_subset <- x %>% dplyr::filter(k2_taxon == species) %>% dplyr::select(mtx_LIBID, paired_counts)
+    
+    return(df_subset)
+    
+  }) %>% do.call("rbind",.)
+  
+  return(species_k2)
+}
+
+#Function to melt the pid matrix after MSA into a df for heatmapping
+
+flattenMatrix <- function(path_to_matrix){
+  
+  pim <- read_table(path_to_matrix,
+                    skip = 1,
+                    col_names = FALSE, 
+                    show_col_types = FALSE) %>% 
+    as.data.frame()
+
+  
+  colnames(pim) <- c("peptide_id",pim$X1)
+  
+  rownames(pim) <- pim$peptide_id
+  
+  peptide_order <- sort(pim$peptide_id)
+  
+  pim <- pim %>% dplyr::select(-peptide_id) 
+  
+  ##Reorder rows and columns in the mat
+
+  pim <- pim[peptide_order, peptide_order]
+  
+  pim[lower.tri(pim)] <- NA
+
+  pim$peptide_id <- rownames(pim)
+
+
+  # Reshape to suit ggplot, remove NAs, and sort the labels
+  pim_melt <- reshape2::melt(pim, 
+                                                        "peptide_id", 
+                                                na.rm=TRUE,
+                                                value.name="percent_id")
+
+  #three s.f
+  pim_melt$percent_id <- signif(pim_melt$percent_id,
+                                                   3)
+  
+  return(pim_melt)
+  
+}
+
+#Function to re-position the pairwise comparisons to the upper triangular for nicer triangular heatmaps
+reposition_triangular <- function(cov_df, pim_df){
+  
+  cov_df <- cov_df %>% dplyr::select(c("qseq_name",
+                                       "sseq_name",
+                                       "qseq_cov",
+                                       "sseq_cov"))
+  
+  cov_df$qseq_cov <-  signif(cov_df$qseq_cov, 3)
+  cov_df$sseq_cov <-  signif(cov_df$sseq_cov, 3)
+  
+  #add self comparisons, which would be 100% coverage by definition
+  peptide_ids <- c(cov_df$qseq_name, cov_df$sseq_name) %>% unique(.)
+  self_comparisons_df <- data.frame(qseq_name=peptide_ids,
+                                    sseq_name=peptide_ids,
+                                    qseq_cov=100,
+                                    sseq_cov=100)
+  
+  cov_df <- rbind(cov_df, self_comparisons_df)
+  
+  cov_df_mirror <- cov_df %>% dplyr::rename(sseqid=qseq_name,
+                                            qseqid=sseq_name,
+                                            sseq_coverage=qseq_cov,
+                                            qseq_coverage=sseq_cov) %>%
+                              dplyr::rename(qseq_name=qseqid,
+                                            sseq_name=sseqid,
+                                            qseq_cov=qseq_coverage,
+                                            sseq_cov=sseq_coverage)
+  
+  cov_df_fmt <- rbind(cov_df, cov_df_mirror)
+  
+  #temp key for filtering
+  cov_df_fmt$comparison <- paste0(cov_df_fmt$qseq_name,"-",cov_df_fmt$sseq_name)
+  pim_df$comparison <- paste0(pim_df$variable,"-",pim_df$peptide_id)
+  
+  cov_df_filtered <- cov_df_fmt %>% dplyr::filter(comparison %in% pim_df$comparison)
+  
+  #in this format: query coverage % (subject coverage %)
+  #cov_df_filtered$query_and_subj_cov <- paste0(cov_df_filtered$qseq_cov,
+  #                                             " (",cov_df_filtered$sseq_cov,")")
+ 
+  return(cov_df_filtered %>% dplyr::select(-comparison))
+  
+  
+}
+
+
+transcript_vs_clr_scatterplot <- function(vst_mat, mean_clr, transcript, species){
+  
+  
+  vst_df <- t(vst_mat) %>% as.data.frame()
+  
+  vst_df$mtx_LIBID <- rownames(vst_df)
+  
+  species_mean_clr <- mean_clr %>% dplyr::select(species,"mtx_LIBID")
+  
+  transcript_and_clr_df <- merge(vst_df,species_mean_clr, by ="mtx_LIBID")
+  
+  ggscatter(transcript_and_clr_df, x = species, 
+          y = transcript, add = "reg.line") + stat_cor(method="spearman") + theme_classic()
+  
+  
+}
+
+
 ```
 
 Load filtered and renormalized kraken2 results
@@ -92,8 +230,6 @@ malassezia_secretory <- read_tsv("../data/signalP_out/Malassezia_transcripts_tra
 
 
 ```
-
-
 
 Load various results from hmmscan.
 
@@ -491,27 +627,628 @@ hmm_AM_fisher_test_results$p_adj <- p.adjust(hmm_AM_fisher_test_results$fisher_e
 
 ```
 
-## Figure 4C
 
-Correlation analysis of Malassezia restricta transcripts with the metagenomic abundances of other organisms, from scalp.
+# Supplementary Figures
+
+## Variability of species and RNA abundances as a function of expression of selected antimicrobials.
+
+Note: aldex_raw_clr_values is a large file and can be downloaded from figshare. 
+See https://figshare.com/articles/dataset/R_objects_storing_aldex2_centered_log_ratio_transformed_values_metagenomes_/25699095
+
+See compute_aldex_clr.Rmd in the scripts/ folder for the code used to compute aldex_raw_clr_values.
+
+(A) Boxplots of centered log ratio (CLR) DNA abundances of S. hominis & S. epidermidis from volar forearms or toe webs. 
+Comparisons are between those with and without expression of lacticin 481 family peptides. 
+
+(B) Same as (A), except showing the RNA counts for the species. 
+
+
+```{r eval=FALSE}
+
+lacticin481_presence <- hmm_AM_df_heatmap_input %>% 
+  dplyr::filter(description_of_target == "lacticin 481 family lantibiotic") %>%
+  dplyr::rename(mtx_LIBID = LIBID)
+
+lacticin481_presence <- merge(lacticin481_presence, mtx_mgx_stats_chosen %>% dplyr::select(-c("mtx_MICROBE_COUNT",
+                                                                                              "mgx_MICROBE_COUNT")))
+
+
+S_epi_clr <- extract_species_clr("Staphylococcus_epidermidis")
+S_hom_clr <- extract_species_clr("Staphylococcus_hominis")
+
+S_epi_hom_clr <- merge(S_epi_clr, S_hom_clr, by = "mgx_LIBID")
+#inverse of log2 to add the values up
+S_epi_hom_clr$inv_S_epi <- 2^(S_epi_hom_clr$Staphylococcus_epidermidis)
+S_epi_hom_clr$inv_S_hom <- 2^(S_epi_hom_clr$Staphylococcus_hominis)
+
+S_epi_hom_clr$inv_S_epi_hom <- S_epi_hom_clr$inv_S_epi + S_epi_hom_clr$inv_S_hom
+#Log 2 transform to get clr of (S epi+ S hom)
+S_epi_hom_clr$Staphylococcus_epidermidis_hominis <- log2(S_epi_hom_clr$inv_S_epi_hom)
+
+#Some libraries are not represented here because the organism is "absent" i.e. <0.1%
+S_epi_k2_counts <- extract_species_k2_counts("Staphylococcus_epidermidis") %>% dplyr::rename(S_epidermidis_paired_counts=paired_counts)
+S_hom_k2_counts <- extract_species_k2_counts("Staphylococcus_hominis") %>% dplyr::rename(S_hominis_paired_counts=paired_counts)
+S_epi_hom_k2_counts <- merge(S_epi_k2_counts, S_hom_k2_counts, all.x = TRUE, all.y = TRUE)
+
+lacticin481_presence_clr <- merge(lacticin481_presence, S_epi_hom_clr %>% 
+                                    dplyr::select(mgx_LIBID,Staphylococcus_epidermidis,
+                                                  Staphylococcus_hominis,Staphylococcus_epidermidis_hominis))
+
+
+lacticin481_presence_rna_k2_counts <- merge(lacticin481_presence, S_epi_hom_k2_counts, all.x=TRUE)
+
+lacticin481_presence_rna_k2_counts$S_epidermidis_paired_counts <- replace_na(lacticin481_presence_rna_k2_counts$S_epidermidis_paired_counts,0)
+
+lacticin481_presence_rna_k2_counts$S_hominis_paired_counts <- 
+  replace_na(lacticin481_presence_rna_k2_counts$S_hominis_paired_counts,0)
+
+lacticin481_presence_rna_k2_counts$S_epidermidis_hominis_paired_counts <- lacticin481_presence_rna_k2_counts$S_epidermidis_paired_counts +
+                                                                          lacticin481_presence_rna_k2_counts$S_hominis_paired_counts
+
+
+
+lacticin481_presence_clr$mtx_presence <- ifelse(lacticin481_presence_clr$presence==0, "absent","present")
+
+lacticin481_presence_clr$plotting_cat <- paste0(lacticin481_presence_clr$region,"_",lacticin481_presence_clr$mtx_presence)
+
+lacticin481_presence_clr$plotting_cat <- factor(lacticin481_presence_clr$plotting_cat,
+                                            levels=c("Sc_present","Sc_absent",
+                                                     "Ch_present","Ch_absent",
+                                                     "Ac_present", "Ac_absent",
+                                                     "Vf_present", "Vf_absent",
+                                                     "Tw_present", "Tw_absent"))
+
+lacticin481_presence_rna_k2_counts$mtx_presence <- ifelse(lacticin481_presence_rna_k2_counts$presence==0, "absent","present")
+
+lacticin481_presence_rna_k2_counts$plotting_cat <- paste0(lacticin481_presence_rna_k2_counts$region,"_",lacticin481_presence_rna_k2_counts$mtx_presence)
+
+lacticin481_presence_rna_k2_counts$plotting_cat <- factor(lacticin481_presence_rna_k2_counts$plotting_cat,
+                                            levels=c("Sc_present","Sc_absent",
+                                                     "Ch_present","Ch_absent",
+                                                     "Ac_present", "Ac_absent",
+                                                     "Vf_present", "Vf_absent",
+                                                     "Tw_present", "Tw_absent"))
+
+#Just look at toe webs and volar forearms
+lacticin481_comparisons <- list(c("Vf_present","Vf_absent"),
+                                c("Tw_present","Tw_absent"))
+
+#Looks like lacticin481 presence associated with greater abundances of S hom + S epi... split by site..
+lacticin481_presence_rna_k2_counts_boxplot <- ggplot(lacticin481_presence_rna_k2_counts %>% dplyr::filter(region %in% c("Vf","Tw") & S_epidermidis_hominis_paired_counts != 0), 
+       aes(x=plotting_cat, y=log10(S_epidermidis_hominis_paired_counts))) + 
+  geom_boxplot() + theme_classic()  + stat_compare_means(method="wilcox.test", 
+                                                        comparisons=lacticin481_comparisons)
+
+ggsave(plot=lacticin481_presence_rna_k2_counts_boxplot,
+       filename = "../plots/lacticin481_presence_rna_k2_counts_boxplot.pdf",
+       height = 5, width =7)
+
+lacticin481_presence_rna_k2_counts_boxplot
+
+lacticin481_presence_rna_k2_counts %>% dplyr::filter(region %in% c("Vf","Tw")) %>% plyr::count("plotting_cat")
+
+
+lacticin481_presence_clr_boxplot <- ggplot(lacticin481_presence_clr %>% dplyr::filter(region %in% c("Vf","Tw")), 
+       aes(x=plotting_cat, y=Staphylococcus_epidermidis_hominis)) + 
+  geom_boxplot() + theme_classic() + stat_compare_means(method="wilcox.test", 
+                                                        comparisons=lacticin481_comparisons)
+
+ggsave(plot=lacticin481_presence_clr_boxplot,
+       filename = "../plots/lacticin481_presence_clr_boxplot.pdf",
+       height = 5, width =7)
+
+lacticin481_presence_clr_boxplot
+
+
+lacticin481_presence_clr %>% dplyr::filter(region %in% c("Vf","Tw")) %>% plyr::count("plotting_cat")
+
+
+```
+
+(C) Boxplots of DNA abundances (CLR) of C. acnes from sebaceous or non-sebaceous sites, excluding toe webs. Comparisons are between those with and without expression of thiopeptides. 
+
+(D) Same as (C), except showing the RNA counts for the species. Samples with no detected RNA counts for C. acnes were excluded.
+
+
+```{r}
+
+#Load aldex clr results computed from Bracken for metagenomes 
+#each row is a library ID, each column is a species
+aldex_clr_values <- readRDS("../data/aldex_clr_values.RDS")
+
+
+thiopeptide_presence <- hmm_AM_df_heatmap_input %>% 
+  dplyr::filter(description_of_target == "thiazolylpeptide-type bacteriocin") %>%
+  dplyr::rename(mtx_LIBID = LIBID)
+
+
+thiopeptide_presence <- merge(thiopeptide_presence, mtx_mgx_stats_chosen %>% dplyr::select(-c("mtx_MICROBE_COUNT",
+                                                                                              "mgx_MICROBE_COUNT"))) 
+C_acnes_clr <- extract_species_clr("Cutibacterium_acnes")
+
+#Some libraries are not represented here because C.acnes is "absent" i.e. <0.1%
+C_acnes_k2_counts <- extract_species_k2_counts("Cutibacterium_acnes")
+
+#exclude toe webs which have low C acnes abundances to begin with
+
+thiopeptide_presence <- merge(thiopeptide_presence, C_acnes_clr)
+
+#How about C acnes read counts..
+thiopeptide_presence <- merge(thiopeptide_presence, C_acnes_k2_counts, all.x=TRUE)
+
+#Paired counts refers to mtx read pairs classified as C acnes
+thiopeptide_presence$paired_counts <- replace_na(thiopeptide_presence$paired_counts,0)
+
+thiopeptide_presence$mtx_presence <- ifelse(thiopeptide_presence$presence==0, "absent","present")
+
+thiopeptide_presence$plotting_cat <- paste0(thiopeptide_presence$region,"_",thiopeptide_presence$mtx_presence)
+
+thiopeptide_presence$plotting_cat <- factor(thiopeptide_presence$plotting_cat,
+                                            levels=c("Sc_present","Sc_absent",
+                                                     "Ch_present","Ch_absent",
+                                                     "Ac_present", "Ac_absent",
+                                                     "Vf_present", "Vf_absent",
+                                                     "Tw_present", "Tw_absent"))
+
+
+thiopeptide_presence$plotting_cat_2 <- gsub(pattern="Sc|Ch", replacement="sebaceous",x = thiopeptide_presence$plotting_cat)
+
+thiopeptide_presence$plotting_cat_2 <- gsub(pattern="Ac|Vf|Tw", replacement="non_sebaceous",x = thiopeptide_presence$plotting_cat_2)
+
+
+thiopeptide_presence$plotting_cat_2 <- factor(thiopeptide_presence$plotting_cat_2,
+                                            levels=c("sebaceous_present","sebaceous_absent",
+                                                     "non_sebaceous_present","non_sebaceous_absent"))
+
+
+#
+
+#for plotting
+
+#thiopeptide_comparisons <- list(c("present", "absent_other"),c("present","absent_Tw"),c("absent_other","absent_Tw"))
+
+thiopeptide_comparisons <- list(c("Sc_present", "Sc_absent"),
+                                c("Ch_present","Ch_absent"),
+                                c("Ac_present","Ac_absent"),
+                                c("Vf_present","Vf_absent"))
+
+thiopeptide_comparisons_2 <- list(c("sebaceous_present", "sebaceous_absent"),
+                                c("non_sebaceous_present","non_sebaceous_absent"))
+
+#Panel C
+#Looks like thiopeptide presence associated with greater abundances of C acnes... split by site..
+ggplot(thiopeptide_presence %>% dplyr::filter(region != "Tw"), aes(x=plotting_cat, y=Cutibacterium_acnes)) + 
+  geom_boxplot() + theme_classic() + stat_compare_means(method="wilcox.test", 
+                                                        comparisons=thiopeptide_comparisons)
+
+
+thiopeptide_presence_C_acnes_clr <- ggplot(thiopeptide_presence %>% dplyr::filter(region != "Tw"), aes(x=plotting_cat_2, y=Cutibacterium_acnes)) + 
+  geom_boxplot() + theme_classic() + stat_compare_means(method="wilcox.test", 
+                                                        comparisons=thiopeptide_comparisons_2)
+
+
+ggsave(plot=thiopeptide_presence_C_acnes_clr,
+       filename = "../plots/thiopeptide_presence_C_acnes_clr.pdf",
+       height = 5, width =7)
+
+
+thiopeptide_presence_C_acnes_clr
+
+
+#Panel D
+thiopeptide_presence_rna_k2_counts <- ggplot(thiopeptide_presence %>% dplyr::filter(region != "Tw" & paired_counts!=0), 
+                                             aes(x=plotting_cat_2, y=log10(paired_counts))) + 
+  geom_boxplot() + theme_classic() + stat_compare_means(method="wilcox.test", 
+                                                        comparisons=thiopeptide_comparisons_2)
+
+
+ggsave(plot=thiopeptide_presence_rna_k2_counts,
+       filename = "../plots/thiopeptide_presence_rna_k2_counts.pdf",
+       height = 5, width =7)
+
+thiopeptide_presence_rna_k2_counts
+
+
+
+```
+
+## Percentage amino acid identity and coverage statistics from pairwise comparisons of thiopeptides.
+
+After MSA with MUSCLE, plot heatmap of resulting percentage identity matrix (pim)
+http://pseudofish.com/triangle-heatmaps-in-r-using-ggplot.html
+
+Heatmaps showing various pairwise comparisons of thiopeptide amino acid sequences. Thiopeptide sequences were identified using profile hidden Markov models.
+
+```{r}
+
+detected_thiopeptides <- MTX_signif_hmm_expr_taxa_filt_AM %>% dplyr::filter(unpaired_read_count >= 5 & 
+                                                     description_of_target %in% c("thiazolylpeptide-type bacteriocin",
+                                                                                  "thiazolylpeptide-type bacteriocin precursor"))
+
+detected_thiopeptides_ids <- detected_thiopeptides %>% pull(query_name) %>% unique(.)
+
+
+
+detected_thiopeptide_pim_melt<- flattenMatrix("../data/anti_bact_hmmer/MSA/thiopeptide_TIGR03892_pim.txt")
+
+
+thiopeptide_pim_heatmap <- ggplot(data=detected_thiopeptide_pim_melt, aes(x=peptide_id, 
+                                                                          y = variable, 
+                                                                          fill=percent_id)) + 
+  geom_tile(colour ="white") + 
+  geom_text(aes(label=percent_id))+
+   scale_fill_distiller(palette = "Reds", direction=1) +
+  scale_x_discrete(expand = c(0, 0)) + 
+  scale_y_discrete(expand = c(0, 0)) + 
+  theme(axis.ticks = element_blank()) +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.2, hjust=1)) +
+  theme(axis.title = element_blank()) +
+  theme(panel.grid = element_blank()) + ggtitle("% AA identity")
+
+
+##Plot a separate heatmap with query coverage % and (subject coverage %)
+#Query on Y axis, subject on X axis
+
+thiopeptide_pairwise_cov <- read_tsv("../data/anti_bact_hmmer/MSA/thiopeptide_pairwise_cov.tsv", 
+                                     show_col_types = FALSE)
+
+thiopeptide_pairwise_cov_fmt <- reposition_triangular(cov_df=thiopeptide_pairwise_cov,
+                                                      pim_df = detected_thiopeptide_pim_melt)
+
+
+
+thiopeptide_order <- sort(detected_thiopeptide_pim_melt$peptide_id %>% unique(.))
+
+
+thiopeptide_pairwise_cov_fmt$qseq_name <- factor(thiopeptide_pairwise_cov_fmt$qseq_name, 
+                                             levels=thiopeptide_order)
+
+thiopeptide_pairwise_cov_fmt$sseq_name <- factor(thiopeptide_pairwise_cov_fmt$sseq_name, 
+                                             levels=thiopeptide_order)
+
+
+
+thiopeptide_qcov_heatmap <- ggplot(data=thiopeptide_pairwise_cov_fmt, 
+                                  aes(x=sseq_name, 
+                                      y = qseq_name, 
+                                      fill=qseq_cov)) + 
+  geom_tile(colour ="white") + 
+  geom_text(aes(label=qseq_cov))+
+   scale_fill_distiller(palette = "Reds", direction=1) +
+  scale_x_discrete(expand = c(0, 0)) + 
+  scale_y_discrete(expand = c(0, 0)) + 
+  theme(axis.ticks = element_blank()) +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.2, hjust=1)) +
+  theme(axis.title = element_blank()) +
+  theme(panel.grid = element_blank()) + ggtitle("% query coverage")
+
+
+thiopeptide_scov_heatmap <- ggplot(data=thiopeptide_pairwise_cov_fmt, 
+                                  aes(x=sseq_name, 
+                                      y = qseq_name, 
+                                      fill=sseq_cov)) + 
+  geom_tile(colour ="white") + 
+  geom_text(aes(label=sseq_cov))+
+   scale_fill_distiller(palette = "Reds", direction=1) +
+  scale_x_discrete(expand = c(0, 0)) + 
+  scale_y_discrete(expand = c(0, 0)) + 
+  theme(axis.ticks = element_blank()) +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.2, hjust=1)) +
+  theme(axis.title = element_blank()) +
+  theme(panel.grid = element_blank()) + ggtitle("% subject coverage")
+
+
+#Assemble the panels
+
+thiopeptide_AA_heatmaps <- ggarrange(thiopeptide_pim_heatmap,
+          thiopeptide_qcov_heatmap,
+          thiopeptide_scov_heatmap,
+          ncol = 3)
+
+
+ggsave(plot=thiopeptide_AA_heatmaps,
+       filename = "../plots/thiopeptide_AA_heatmaps.pdf",
+       height = 8, width =28)
+
+
+
+```
+
+## Percentage amino acid identity and coverage statistics from pairwise comparisons of bacteriocins of the lactococcin 972 family.
+
+Heatmaps showing various pairwise comparisons of peptide sequences. Peptides of the lactococcin 972 family were identified using profile hidden Markov models.
+
+```{r}
+
+detected_lactococcin972 <- MTX_signif_hmm_expr_taxa_filt_AM %>% dplyr::filter(unpaired_read_count >= 5 & 
+                                                     description_of_target %in% c("lactococcin 972 family bacteriocin"))
+
+
+detected_lactococcin972_ids <- detected_lactococcin972 %>% pull(query_name) %>% unique(.)
+
+detected_lactococcin972_pim_melt<- flattenMatrix("../data/anti_bact_hmmer/MSA/lactococcin972_TIGR01653_pim_fmt.txt")
+
+
+lactococcin972_order <- levels(detected_lactococcin972_pim_melt$variable)
+
+lactococcin972_order <- gsub(pattern="zz",replacement="", lactococcin972_order)
+
+detected_lactococcin972_pim_melt$peptide_id <- gsub(pattern="zz",replacement="", detected_lactococcin972_pim_melt$peptide_id)
+detected_lactococcin972_pim_melt$variable <- gsub(pattern="zz",replacement="", detected_lactococcin972_pim_melt$variable)
+
+detected_lactococcin972_pim_melt$peptide_id <- factor(detected_lactococcin972_pim_melt$peptide_id, levels=lactococcin972_order)
+detected_lactococcin972_pim_melt$variable <- factor(detected_lactococcin972_pim_melt$variable, levels=lactococcin972_order)
+
+
+
+lactococcin972_pim_heatmap <- ggplot(data=detected_lactococcin972_pim_melt, aes(x=peptide_id, 
+                                                                          y = variable, 
+                                                                          fill=percent_id)) + 
+  geom_tile(colour ="white") + 
+  geom_text(aes(label=percent_id))+
+   scale_fill_distiller(palette = "Reds", direction=1) +
+  scale_x_discrete(expand = c(0, 0)) + 
+  scale_y_discrete(expand = c(0, 0)) + 
+  theme(axis.ticks = element_blank()) +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.2, hjust=1)) +
+  theme(axis.title = element_blank()) +
+  theme(panel.grid = element_blank()) + ggtitle("% AA identity")
+
+
+
+#pairwise coverage heatmaps
+
+lactococcin972_pairwise_cov <- read_tsv("../data/anti_bact_hmmer/MSA/lactococcin972_pairwise_cov.tsv", 
+                                     show_col_types = FALSE)
+
+lactococcin972_pairwise_cov_fmt <- reposition_triangular(cov_df=lactococcin972_pairwise_cov,
+                                                      pim_df = detected_lactococcin972_pim_melt)
+
+
+
+lactococcin972_pairwise_cov_fmt$qseq_name <- factor(lactococcin972_pairwise_cov_fmt$qseq_name, 
+                                             levels=lactococcin972_order)
+
+lactococcin972_pairwise_cov_fmt$sseq_name <- factor(lactococcin972_pairwise_cov_fmt$sseq_name, 
+                                             levels=lactococcin972_order)
+
+
+
+lactococcin972_qcov_heatmap <- ggplot(data=lactococcin972_pairwise_cov_fmt, 
+                                  aes(x=sseq_name, 
+                                      y = qseq_name, 
+                                      fill=qseq_cov)) + 
+  geom_tile(colour ="white") + 
+  geom_text(aes(label=qseq_cov))+
+   scale_fill_distiller(palette = "Reds", direction=1) +
+  scale_x_discrete(expand = c(0, 0)) + 
+  scale_y_discrete(expand = c(0, 0)) + 
+  theme(axis.ticks = element_blank()) +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.2, hjust=1)) +
+  theme(axis.title = element_blank()) +
+  theme(panel.grid = element_blank()) + ggtitle("% query coverage")
+
+
+
+lactococcin972_scov_heatmap <- ggplot(data=lactococcin972_pairwise_cov_fmt, 
+                                  aes(x=sseq_name, 
+                                      y = qseq_name, 
+                                      fill=sseq_cov)) + 
+  geom_tile(colour ="white") + 
+  geom_text(aes(label=sseq_cov))+
+   scale_fill_distiller(palette = "Reds", direction=1) +
+  scale_x_discrete(expand = c(0, 0)) + 
+  scale_y_discrete(expand = c(0, 0)) + 
+  theme(axis.ticks = element_blank()) +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.2, hjust=1)) +
+  theme(axis.title = element_blank()) +
+  theme(panel.grid = element_blank()) + ggtitle("% subject coverage")
+
+
+
+#Assemble the panels
+
+lactococcin972_AA_heatmaps <- ggarrange(lactococcin972_pim_heatmap,
+          lactococcin972_qcov_heatmap,
+          lactococcin972_scov_heatmap,
+          ncol = 3)
+
+
+ggsave(plot=lactococcin972_AA_heatmaps,
+       filename = "../plots/lactococcin972_AA_heatmaps.pdf",
+       height = 8, width =28)
+
+
+```
+
+## Percentage amino acid identity and coverage statistics from pairwise comparisons of halocins
+
+Heatmaps showing various pairwise comparisons of peptide sequences. Peptides of the halocin family were identified using profile hidden Markov models.
+
+```{r}
+
+detected_halocins <- MTX_signif_hmm_expr_taxa_filt_AM %>% dplyr::filter(unpaired_read_count >= 5 & 
+                                                     description_of_target %in% c("bacteriocin halocin C8-like domain",
+                                                                                  "halocin C8 precursor-like protein"))
+
+detected_halocins_ids <- detected_halocins %>% pull(query_name) %>% unique(.)
+
+
+detected_halocin_pim_melt<- flattenMatrix("../data/anti_bact_hmmer/MSA/halocin_TIGR04449_pim.txt")
+
+halocin_pim_heatmap <- ggplot(data=detected_halocin_pim_melt, aes(x=peptide_id, 
+                                                                          y = variable, 
+                                                                          fill=percent_id)) + 
+  geom_tile(colour ="white") + 
+  geom_text(aes(label=percent_id))+
+   scale_fill_distiller(palette = "Reds", direction=1) +
+  scale_x_discrete(expand = c(0, 0)) + 
+  scale_y_discrete(expand = c(0, 0)) + 
+  theme(axis.ticks = element_blank()) +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.2, hjust=1)) +
+  theme(axis.title = element_blank()) +
+  theme(panel.grid = element_blank()) + ggtitle("% AA identity")
+
+
+#Pairwise coverage plots
+
+halocin_pairwise_cov <- read_tsv("../data/anti_bact_hmmer/MSA/halocin_pairwise_cov.tsv", 
+                                     show_col_types = FALSE)
+
+halocin_pairwise_cov_fmt <- reposition_triangular(cov_df=halocin_pairwise_cov,
+                                                      pim_df = detected_halocin_pim_melt)
+
+
+
+halocin_order <- sort(detected_halocin_pim_melt$peptide_id %>% unique(.))
+
+
+halocin_pairwise_cov_fmt$qseq_name <- factor(halocin_pairwise_cov_fmt$qseq_name, 
+                                             levels=halocin_order)
+
+halocin_pairwise_cov_fmt$sseq_name <- factor(halocin_pairwise_cov_fmt$sseq_name, 
+                                             levels=halocin_order)
+
+
+
+halocin_qcov_heatmap <- ggplot(data=halocin_pairwise_cov_fmt, 
+                                  aes(x=sseq_name, 
+                                      y = qseq_name, 
+                                      fill=qseq_cov)) + 
+  geom_tile(colour ="white") + 
+  geom_text(aes(label=qseq_cov))+
+   scale_fill_distiller(palette = "Reds", direction=1) +
+  scale_x_discrete(expand = c(0, 0)) + 
+  scale_y_discrete(expand = c(0, 0)) + 
+  theme(axis.ticks = element_blank()) +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.2, hjust=1)) +
+  theme(axis.title = element_blank()) +
+  theme(panel.grid = element_blank()) + ggtitle("% query coverage")
+
+
+
+halocin_scov_heatmap <- ggplot(data=halocin_pairwise_cov_fmt, 
+                                  aes(x=sseq_name, 
+                                      y = qseq_name, 
+                                      fill=sseq_cov)) + 
+  geom_tile(colour ="white") + 
+  geom_text(aes(label=sseq_cov))+
+   scale_fill_distiller(palette = "Reds", direction=1) +
+  scale_x_discrete(expand = c(0, 0)) + 
+  scale_y_discrete(expand = c(0, 0)) + 
+  theme(axis.ticks = element_blank()) +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.2, hjust=1)) +
+  theme(axis.title = element_blank()) +
+  theme(panel.grid = element_blank()) + ggtitle("% subject coverage")
+
+
+#Assemble the panels
+
+halocin_AA_heatmaps <- ggarrange(halocin_pim_heatmap,
+          halocin_qcov_heatmap,
+          halocin_scov_heatmap,
+          ncol = 3)
+
+
+ggsave(plot=halocin_AA_heatmaps,
+       filename = "../plots/halocin_AA_heatmaps.pdf",
+       height = 8, width =28)
+
+
+```
+
+
+
+## Correlation analysis of Malassezia restricta transcripts with the metagenomic abundances of other organisms, from scalp.
 
 We require:
-a) Normalized and variance stabilized (DESeq2) Malassezia restricta RNA read counts after Salmon pseudoalignment
+a) Normalized and variance stabilized (DESeq2) microbial RNA read counts
 b) Compositionality aware (centered log ratio) transformed counts of another organism e.g. Cutibacterium acnes for DNA/metagenomes
 
-The correlations were computed as such:
+
+
+
+```{r eval=FALSE}
+
+#Load  bacterial mtx reads
+eight_skin_bact_mtx_counts <- lapply(mtx_to_pull, function(x){
+    df <- read_tsv(file=paste0("../data/mtx_species_mapping/bt2_out/RNA/",
+                               x,
+                               "_bt2_microbe_pangenome_aligned_filtered_cov.tsv"),
+                 show_col_types = FALSE)
+	  df$LIBID <- x
+	  
+	  return(df)
+  
+	
+	})
+
+
+names(eight_skin_bact_mtx_counts) <- mtx_to_pull
+
+#Convert this list to a matrix, samples as columns. 
+
+eight_skin_bact_mtx_counts_matrix <- do.call("rbind",eight_skin_bact_mtx_counts)
+
+eight_skin_bact_mtx_counts_matrix <- pivot_wider(eight_skin_bact_mtx_counts_matrix %>% 
+                        dplyr::select(pangene, unpaired_read_count, LIBID), names_from = LIBID, 
+                        values_from = unpaired_read_count) %>%
+                        as.data.frame()
+
+rownames(eight_skin_bact_mtx_counts_matrix) <- eight_skin_bact_mtx_counts_matrix$pangene
+  
+eight_skin_bact_mtx_counts_matrix <- eight_skin_bact_mtx_counts_matrix %>% dplyr::select(-pangene) %>% as.matrix()
+  
+#This matrix operation is much faster than mutate_all(~replace(.,is.na(.),0)) 
+eight_skin_bact_mtx_counts_matrix[is.na(eight_skin_bact_mtx_counts_matrix)] <- 0
+
+#Load signal P results
+eight_skin_microbial_secretory <- read_tsv("../data/signalP_out/eight_skin_bact_pangenome_signalP6_prediction_results_secretory.txt",
+                                           col_names = c("pangene","prediction",
+                                                         "OTHER","SP","LIPO","TAT","TATLIPO", "PILIN", "CS_position"),
+                                           show_col_types = FALSE)
+
+
+#For salmon tximport (Malassezia)
+Malassezia_tx2gene <- read_tsv("../metadata/Malassezia_tx2gene.tsv", col_names = FALSE, show_col_types = FALSE) #21037 transcripts and 21025 genes
+#Add Malassezia gene annotations to the eggnog annotation file
+colnames(Malassezia_tx2gene) <- c("query","gene")
+
+Malassezia_salmon_files <- file.path("../data/Malassezia_mtx_mapping", paste0(mtx_to_pull, "_quant.sf"))
+
+names(Malassezia_salmon_files) <- mtx_to_pull
+
+Malassezia_txi.salmon <- tximport(Malassezia_salmon_files, type="salmon", tx2gene=Malassezia_tx2gene)
+
+Malassezia_count_matrix <- Malassezia_txi.salmon$counts
+
+#Convert to matrix of integers
+Malassezia_integer_count_matrix <- round(Malassezia_count_matrix)
+mode(Malassezia_integer_count_matrix) <- "integer"
+
+#Malassezia signal P 6 results
+malassezia_secretory <- read_tsv("../data/signalP_out/Malassezia_transcripts_translated_signalP6_prediction_results_secretory_fmt.tsv",
+                                 col_names = c("ID", "prediction", 
+                                               "OTHER","SP", "CS_position", "pangene"),
+                                               show_col_types=FALSE)
+
+
+
+
+```
+
+Compute the correlations.
+
 Note: aldex_raw_clr_values is a large file and can be downloaded from figshare. 
-See https://figshare.com/account/projects/202683/articles/25699095
+See https://figshare.com/articles/dataset/R_objects_storing_aldex2_centered_log_ratio_transformed_values_metagenomes_/25699095
 
 See compute_aldex_clr.Rmd in the scripts/ folder for the code used to compute aldex_raw_clr_values.
 
 ```{r eval=FALSE}
-
-Malassezia_integer_count_matrix <- read.table(file="../data/Malassezia_integer_count_matrix.txt")
-
 #computed using aldex2, centered log ratio transform
 aldex_raw_clr_values <- readRDS("../data/aldex_raw_clr_values.RDS") 
 
+###M restricta transcripts versus C acnes abundances
 M_res_mtx_vs_C_acnes_mgx_Sc <- get_mtx_vs_mgx_correlation(mtx_count_matrix = Malassezia_integer_count_matrix,
                                               aldex_clr_input = aldex_raw_clr_values[["Sc_bracken_clr"]],
                                    secretory_prediction_df = malassezia_secretory,
@@ -528,9 +1265,75 @@ M_res_mtx_vs_C_acnes_mgx_Sc_corr_df$significant <- ifelse(M_res_mtx_vs_C_acnes_m
 
 write_tsv(M_res_mtx_vs_C_acnes_mgx_Sc_corr_df, "../data/M_res_mtx_vs_C_acnes_mgx_Sc_corr_df.tsv")
 
+#save outputs
+saveRDS(M_res_mtx_vs_C_acnes_mgx_Sc, file="../data/M_res_mtx_vs_C_acnes_mgx_Sc.RDS")
+
+###M restricta transcripts versus M restricta abundances
+
+M_res_mtx_vs_M_res_mgx_Sc <- get_mtx_vs_mgx_correlation(mtx_count_matrix = Malassezia_integer_count_matrix,
+                                              aldex_clr_input = aldex_raw_clr_values[["Sc_bracken_clr"]],
+                                   secretory_prediction_df = malassezia_secretory,
+  site_libs=mtx_Sc_ids,
+  species_transcriptome_name = "DNF",
+  species_transcriptome_read_threshold=200000,
+  responding_species = "Malassezia_restricta", cor_test_method = "spearman" )
+
+#save outputs
+saveRDS(M_res_mtx_vs_M_res_mgx_Sc, file="../data/M_res_mtx_vs_M_res_mgx_Sc.RDS")
+
+
+###C acnes transcripts versus C granulosum abundances
+
+##One hit to a lysophospholipase, but another hit in the opposite direction to a triacylglycerol lipase
+C_acnes_mtx_vs_C_gran_mgx_Ch <- get_mtx_vs_mgx_correlation(mtx_count_matrix = eight_skin_bact_mtx_counts_matrix,
+                                   aldex_clr_input = aldex_raw_clr_values[["Ch_bracken_clr"]],
+                                   secretory_prediction_df = eight_skin_microbial_secretory,
+  site_libs=mtx_Ch_ids,species_transcriptome_name = "Cutibacterium_acnes",
+  responding_species = "Cutibacterium_granulosum", cor_test = "spearman",
+  species_transcriptome_read_threshold=200000,
+  manual_vst_nsub = FALSE)
+
+#save outputs
+saveRDS(C_acnes_mtx_vs_C_gran_mgx_Ch, file="../data/C_acnes_mtx_vs_C_gran_mgx_Ch.RDS")
+
+###C acnes transcripts versus C acnes abundances
+
+
+C_acnes_mtx_vs_C_acnes_mgx_Ch <- get_mtx_vs_mgx_correlation(mtx_count_matrix = eight_skin_bact_mtx_counts_matrix,
+                                   aldex_clr_input = aldex_raw_clr_values[["Ch_bracken_clr"]],
+                                   secretory_prediction_df = eight_skin_microbial_secretory,
+  site_libs=mtx_Ch_ids,species_transcriptome_name = "Cutibacterium_acnes",
+  responding_species = "Cutibacterium_acnes", cor_test = "spearman",
+  species_transcriptome_read_threshold=200000,
+  manual_vst_nsub = FALSE)
+
+
+#save outputs
+saveRDS(C_acnes_mtx_vs_C_acnes_mgx_Ch, file="../data/C_acnes_mtx_vs_C_acnes_mgx_Ch.RDS")
+
 ```
 
-Plot the correlations (from scalp)
+Load processed (aggregated) aldex2 clr abundances for Sc and Ch
+
+```{r}
+aldex_clr_values <- readRDS("../data/aldex_clr_values.RDS")
+
+aldex_clr_values_fmt <- lapply(names(aldex_clr_values), function(x){
+  
+  df_fmt <- aldex_clr_values[[x]]
+  df_fmt$mgx_LIBID <- rownames(df_fmt)
+  
+  df_fmt <- merge(df_fmt, mtx_mgx_stats_chosen %>% dplyr::select(mgx_LIBID, mtx_LIBID), by="mgx_LIBID")
+  
+  return(df_fmt)
+  
+})
+
+names(aldex_clr_values_fmt) <- names(aldex_clr_values)
+```
+
+
+Scatterplot of adjusted p-values and Spearman Rho coefficients derived from correlating Malassezia restricta transcript abundances with Cutibacterium acnes metagenomic abundances across individuals on scalp sites.
 
 ```{r}
 
@@ -546,7 +1349,7 @@ M_res_mtx_vs_C_acnes_mgx_Sc_corr_volcano <- ggplot(data=M_res_mtx_vs_C_acnes_mgx
                    size = 3)
 
 
-ggsave(filename="../plots/fig4C_volcano.pdf",
+ggsave(filename="../plots/M_res_mtx_vs_C_acnes_mgx_Sc_corr_volcano.pdf",
        plot=M_res_mtx_vs_C_acnes_mgx_Sc_corr_volcano,
        height = 5, width = 8)
 
@@ -556,5 +1359,145 @@ M_res_mtx_vs_C_acnes_mgx_Sc_corr_volcano
 
 
 ```
+
+
+Scatterplot showing negative correlation between variance stabilized (vst) levels of a transcript from a Barwin domain-containing protein (DNF11_2196) expressed in Malassezia restricta and centered log ratio (clr) abundances of Cutibacterium acnes.
+
+```{r}
+
+M_res_mtx_vs_C_acnes_mgx_Sc <- readRDS("../data/M_res_mtx_vs_C_acnes_mgx_Sc.RDS")
+
+M_res_DNF11_2196_vs_C_acnes_mgx_scatter <- transcript_vs_clr_scatterplot(vst_mat = M_res_mtx_vs_C_acnes_mgx_Sc$count_matrix_vst_secretory,
+                              mean_clr = aldex_clr_values_fmt[["Sc_bracken_clr"]],
+                              transcript="DNF11_2196",
+                              species="Cutibacterium_acnes") + xlab("Mean clr (Cutibacterium acnes)") + ylab("vst (DNF11_2196)")
+
+
+ggsave(filename="../plots/M_res_DNF11_2196_vs_C_acnes_mgx_scatter.pdf",
+       plot=M_res_DNF11_2196_vs_C_acnes_mgx_scatter,
+       height = 5, width = 8)
+
+
+M_res_DNF11_2196_vs_C_acnes_mgx_scatter
+
+```
+Scatterplot showing negative correlation between variance stabilized (vst) levels of a transcript from a Barwin domain-containing protein (DNF11_2196) expressed in Malassezia restricta and centered log ratio (clr) abundances of Malassezia restricta (same organism).
+
+```{r}
+
+M_res_mtx_vs_M_res_mgx_Sc <- readRDS("../data/M_res_mtx_vs_M_res_mgx_Sc.RDS")
+
+M_res_DNF11_2196_vs_M_res_mgx_scatter <- transcript_vs_clr_scatterplot(vst_mat = M_res_mtx_vs_M_res_mgx_Sc$count_matrix_vst_secretory,
+                              mean_clr = aldex_clr_values_fmt[["Sc_bracken_clr"]],
+                              transcript="DNF11_2196",
+                              species="Malassezia_restricta") + xlab("Mean clr (Malassezia_restricta)") + ylab("vst (DNF11_2196)")
+
+ggsave(filename="../plots/M_res_DNF11_2196_vs_M_res_mgx_scatter.pdf",
+       plot=M_res_DNF11_2196_vs_M_res_mgx_scatter,
+       height = 5, width = 8)
+
+M_res_DNF11_2196_vs_M_res_mgx_scatter
+
+```
+
+Scatterplot of clr abundances of M. restricta against C. acnes. (
+
+```{r}
+
+M_res_mtx_vs_C_acnes_mgx_Sc <- readRDS("../data/M_res_mtx_vs_C_acnes_mgx_Sc.RDS")
+
+M_res_vs_C_acnes_mgx_to_plot <- mtx_mgx_stats_chosen %>% dplyr::filter(mtx_LIBID %in% colnames(M_res_mtx_vs_C_acnes_mgx_Sc$count_matrix_vst_secretory)) %>% pull(mgx_LIBID)
+
+M_res_abun_vs_C_acnes_abun_scatter <- ggscatter(aldex_clr_values_fmt$Sc_bracken_clr %>% dplyr::filter(mtx_LIBID %in% colnames(M_res_mtx_vs_C_acnes_mgx_Sc$count_matrix_vst_secretory)), x = "Cutibacterium_acnes", 
+          y = "Malassezia_restricta", add = "reg.line") + stat_cor(method="spearman")
+
+
+
+ggsave(filename="../plots/M_res_abun_vs_C_acnes_abun_scatter.pdf",
+       plot=M_res_abun_vs_C_acnes_abun_scatter,
+       height = 5, width = 8)
+
+
+M_res_abun_vs_C_acnes_abun_scatter
+
+```
+
+Volcano plot showing correlation and adjusted p-values of transcripts of C. acnes proteins in the secretory pathway against clr
+abundances of Cutibacterium granulosum. Statistically significant correlations are highlighted in red.
+
+```{r}
+
+C_acnes_mtx_vs_C_gran_mgx_Ch <- readRDS("../data/C_acnes_mtx_vs_C_gran_mgx_Ch.RDS")
+
+
+C_acnes_mtx_vs_C_gran_mgx_Ch_corr_df <- C_acnes_mtx_vs_C_gran_mgx_Ch$corr_df
+
+C_acnes_mtx_vs_C_gran_mgx_Ch_corr_df$significant <- ifelse(C_acnes_mtx_vs_C_gran_mgx_Ch_corr_df$p_adj < 0.05, 
+                                                               TRUE, FALSE)
+
+C_acnes_mtx_vs_C_gran_mgx_Ch_corr_volcano <- ggplot(data=C_acnes_mtx_vs_C_gran_mgx_Ch_corr_df, aes(y=-log10(p_adj),x=corr_coeff)) + 
+  geom_point(aes(colour = factor(significant))) + theme_classic() + scale_color_manual(values=c("black","red")) + geom_hline(yintercept=-log10(0.05), linetype = "dashed") + geom_vline(xintercept=c(-0.7,0.7), linetype="dashed") +
+  geom_label_repel(data=C_acnes_mtx_vs_C_gran_mgx_Ch_corr_df %>% filter(p_adj < 0.05), 
+                   aes(label=pangene),
+                   size = 3)
+
+
+ggsave(filename="../plots/C_acnes_mtx_vs_C_gran_mgx_Ch_corr_volcano.pdf",
+       plot=C_acnes_mtx_vs_C_gran_mgx_Ch_corr_volcano,
+       height = 5, width = 8)
+
+
+C_acnes_mtx_vs_C_gran_mgx_Ch_corr_volcano
+
+```
+
+Scatterplot showing negative correlation between levels of a transcript (AAT83849.1) expressed in C. acnes and clr abundances of C. granulosum.
+
+```{r}
+
+C_acnes_AAT83849_vs_C_granulosum_mgx_scatter <- transcript_vs_clr_scatterplot(vst_mat = C_acnes_mtx_vs_C_gran_mgx_Ch$count_matrix_vst_secretory,
+                              mean_clr = aldex_clr_values_fmt[["Ch_bracken_clr"]],
+                              transcript="Cutibacterium_acnes_cluster_2293_AAT83849.1",
+                              species="Cutibacterium_granulosum") + 
+  xlab("Mean clr (Cutibacterium_granulosum)") + ylab("vst (Cutibacterium_acnes_AAT83849.1)")
+
+
+
+ggsave(filename="../plots/C_acnes_AAT83849_vs_C_granulosum_mgx_scatter.pdf",
+       plot=C_acnes_AAT83849_vs_C_granulosum_mgx_scatter,
+       height = 5, width = 8)
+
+
+
+C_acnes_AAT83849_vs_C_granulosum_mgx_scatter
+
+```
+
+
+Scatterplot showing the relationship between the transcript (AAT83849.1) and clr abundances of C. acnes.
+
+```{r}
+
+
+C_acnes_mtx_vs_C_acnes_mgx_Ch <- readRDS("../data/C_acnes_mtx_vs_C_acnes_mgx_Ch.RDS")
+
+C_acnes_AAT83849_vs_C_acnes_mgx_scatter <- transcript_vs_clr_scatterplot(vst_mat = C_acnes_mtx_vs_C_acnes_mgx_Ch$count_matrix_vst_secretory,
+                              mean_clr = aldex_clr_values_fmt[["Ch_bracken_clr"]],
+                              transcript="Cutibacterium_acnes_cluster_2293_AAT83849.1",
+                              species="Cutibacterium_acnes") + 
+  xlab("Mean clr (Cutibacterium_acnes)") + ylab("vst (Cutibacterium_acnes_AAT83849.1)")
+
+
+
+ggsave(filename="../plots/C_acnes_AAT83849_vs_C_acnes_mgx_scatter.pdf",
+       plot=C_acnes_AAT83849_vs_C_acnes_mgx_scatter,
+       height = 5, width = 8)
+
+
+C_acnes_AAT83849_vs_C_acnes_mgx_scatter
+
+
+```
+
 
 

@@ -58,6 +58,10 @@ run_DESeq_with_inputs <- function(mtx_count_list, mgx_count_list, cond, ref_cond
   selected_metadata$region <- as.factor(selected_metadata$region)
   selected_metadata$mol_type <- as.factor(selected_metadata$mol_type)
   
+  #reorder rows of the metadata
+  idx <- match(colnames(count_matrix), rownames(selected_metadata))
+  selected_metadata <- selected_metadata[idx,]
+  
   #a vector of LIBIDs
   RNA_libs <- selected_metadata %>% dplyr::filter(mol_type=="RNA") %>% row.names()
   DNA_libs <- selected_metadata %>% dplyr::filter(mol_type=="DNA") %>% row.names()
@@ -1075,4 +1079,33 @@ run_clusterprofiler <- function(changing_df, background_df, term2gene, term2name
   
 }
 
+#input_lists can be a list of dfs like tibble::lst(S_epi_Seb_vs_all_log_phase_GSEA,
+#S_epi_Seb_vs_all_OS_GSEA, S_epi_Seb_vs_all_stat_phase_GSEA)
+plot_facetted_NES <- function(input_list,
+                              shared_gene_sets,
+                              plot_title){
+  
+  #subset for shared gene sets between all the comparisons
+  
+  combined_df_subset <- lapply(input_list, function(input_df){
+    
+    df_subset <- input_df %>% dplyr::filter(ID %in% shared_gene_sets)
+    
+    df_subset$ID_and_Desc <- paste0(df_subset$ID," ", df_subset$Description)
+    
+    return(df_subset)
+    
+  }) %>% do.call("rbind",.)
+  
+  
+  ggplot(combined_df_subset, aes(x=ID_and_Desc, y= NES, fill = comparison)) +
+    geom_col(colour="black",position="dodge") +
+    facet_wrap(~set_annotation, nrow=2, ncol=2, scales='free') +
+    scale_fill_manual(values = c23) +
+    theme(axis.text.x = element_text(vjust = 0.5, hjust=1)) +
+    coord_flip() +
+    labs(x="gene sets/pathways", y="Normalized Enrichment Score") + ggtitle(plot_title) + theme_classic()
+  
+  
+}
 

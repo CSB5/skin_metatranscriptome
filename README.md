@@ -1,4 +1,4 @@
-Files and scripts to generate figures for the manuscript titled "Skin metatranscriptomics reveals landscape of variation in microbial activity and gene expression across the human body"
+Files and scripts to generate figures for the manuscript titled "Skin metatranscriptomics reveals landscape of variation in microbial activity and gene expression across the human body"\
 
 To run the scripts,clone this repository, download the large datasets from figshare and specify working directory to the scripts/ subfolder or open the project using the .Rproj file
 
@@ -11,7 +11,7 @@ To run the scripts,clone this repository, download the large datasets from figsh
 
 ## Raw data availability
 
-Raw sequencing data has been uploaded to the European Nucleotide Archive (ENA), under project accession number PRJEB82796.
+Raw sequencing data has been uploaded to the European Nucleotide Archive (ENA), under project accession number PRJEB82796.\
 Large datasets and annotations have been uploaded to figshare [here](https://figshare.com/projects/Skin_metatranscriptomics_manuscript_2024/202683).
 
 ## Contact
@@ -19,7 +19,7 @@ Large datasets and annotations have been uploaded to figshare [here](https://fig
 Please direct any questions or feedback to [Minghao Chia](mailto:chia_minghao@gis.a-star.edu.sg) and [Niranjan Nagarajan](mailto:nagarajann@gis.a-star.edu.sg).
 
 ## Navigating the figures, scripts and plots 
-
-Please refer to [repo_map](./repository_map.txt) for the relationship between figure panels, scripts and plots in this repository.
+The metadata (skin sites and read counts) for the full cohort is [here](./metadata/mtx_mgx_stats_chosen.tsv)
+Please refer to [repository map](./repository_map.txt) for the relationship between figure panels, scripts and plots in this repository.
 
 

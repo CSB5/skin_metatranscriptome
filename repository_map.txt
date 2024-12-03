@@ -1,4 +1,4 @@
-Panel	Github script	Plot
+Panel	github_script	plot
 1A	MGX_and_MTX_QC.Rmd	ribo_deplete_versus_non_deplete.pdf
 1B	MGX_and_MTX_QC.Rmd	RNA_kraken_sorensen_boxplot.pdf
 1C	MGX_and_MTX_QC.Rmd	RNA_OG_pearson_boxplot.pdf
@@ -11,17 +11,64 @@ Panel	Github script	Plot
 2B	niche_specific_signatures.Rmd	mgx_taxa_balloon_plot.pdf; mtx_taxa_balloon_plot.pdf
 2C	niche_specific_signatures.Rmd	contributional_diversity.pdf
 2D	niche_specific_signatures.Rmd	staphyloferrin_Tw_pathway_vs_mtx_plot
-S22A	niche_specific_signatures.Rmd	mtx_pathway_dominated_boxplot_padj.pdf
 3A	species_level_DE.Rmd	M_restricta_Sc_Ch_DE_volcano.pdf
 3B	species_level_DE.Rmd	M_restricta_Sc_Ch_DE_NES_KEGG.pdf
 3C	species_level_DE.Rmd	microbial_Sc_vs_Ch_DE_tally_barplot.pdf
 3E left	species_level_DE.Rmd	invivo_invitro_PCA_batch_corrected.pdf
 3E right	species_level_DE.Rmd	S_epi_DE_tally_barplot.pdf
-4A	Figure4_SuppFig14_15.qmd	Figure4A
-4B	Figure4_SuppFig14_15.qmd	Figure4B
-4C	Figure4_SuppFig14_15.qmd	Figure4C
-4D	Figure4_SuppFig14_15.qmd	Figure4D
+4A	Figure4_SuppFig14_15.qmd	Figure4A.pdf
+4B	Figure4_SuppFig14_15.qmd	Figure4B.pdf
+4C	Figure4_SuppFig14_15.qmd	Figure4C.pdf
+4D	Figure4_SuppFig14_15.qmd	Figure4D.pdf
 5A	microbe-microbe_interactions.Rmd	hmm_AM_heatmap.pdf
 5B	microbe-microbe_interactions.Rmd	hmm_AM_species_heatmap.pdf
 5C	https://figshare.com/articles/dataset/Foldseek_and_DALI_results_for_the_Malassezia_restricta_protein_DNF11_2196/27860994?file=50645928	
 5D	HIBIT_ELISA_analysis.Rmd	IL1B_HIBIT_plot.pdf; IL1B_ELISA_plot.pdf
+S1A	Supp_sequencing_stats_QC.Rmd	pilot_cohort_mtx_vs_humann3_boxplot.pdf
+S1B	Supp_sequencing_stats_QC.Rmd	main_cohort_dv200_boxplot.pdf
+S1C	Supp_sequencing_stats_QC.Rmd	mgx_read_stats_boxplot.pdf
+S1D	Supp_sequencing_stats_QC.Rmd	mtx_mgx_non_human_percent_boxplot.pdf
+S1E	Supp_sequencing_stats_QC.Rmd	mtx_mgx_proportion_microbial_annotated.pdf
+S2B	controlling_artefacts.Rmd	mgx_corr_contam_heatmap.pdf
+S2C	controlling_artefacts.Rmd	mtx_minimizer_microbe_ratio_plot.pdf
+S3	rarefaction.Rmd	mtx_microbe_*_rarefaction.pdf
+S4	mtx_vs_mgx_counts_species_level.Rmd	core_common_taxa_RNA_v_DNA.pdf
+S5	transcriptional_activity_species.Rmd	bacteria_species_transcriptional_activity .pdf
+S6	transcriptional_activity_species.Rmd	fungal_species_transcriptional_activity.pdf
+S7	species_abundance_barplots.Rmd	Ac_species_abundance_boxplot.pdf
+S8	OG_level_DE.Rmd	Supp_between_site_GSEA_NES_plots.pdf
+S9A	OG_level_DE.Rmd	OG_Ch_vs_Vf_DE_volcano.pdf
+S9B	OG_level_DE.Rmd	OG_Tw_vs_Vf_DE_volcano.pdf
+S10A	niche_specific_signatures.Rmd	mtx_pathway_dominated_boxplot_padj.pdf
+S10B	niche_specific_signatures.Rmd	beta_ox_pathway_plots.pdf
+S10C	niche_specific_signatures.Rmd	galactose_deg_pathway_plots.pdf
+S10D	niche_specific_signatures.Rmd	Arg_biosyn_pathway_plots.pdf
+S11A	species_level_DE.Rmd	invivo_invitro_in_house_PCA.pdf
+S11B	species_level_DE.Rmd	invivo_invitro_PCA_batch_corrected_zoomed.pdf
+S12	species_level_DE.Rmd	S_epi_Seb_vs_invitro_NES_plot.pdf
+S13A top	species_level_DE.Rmd	S_epi_Tw_vs_all_log_phase_GSEA_slim_NES_barplot.pdf
+S13A bottom	species_level_DE.Rmd	S_epi_Tw_vs_all_OS_GSEA_slim_NES_barplot.pdf
+S13B top	species_level_DE.Rmd	Tw_vs_all_log_phase_l2fc_metal_ion_clust_barplot.pdf
+S13B bottom	species_level_DE.Rmd	Tw_vs_all_OS_l2fc_Cu_ion_binding_barplot.pdf
+S14A	Figure4_SuppFig14_15.qmd	SuppFig14A
+S14B	Figure4_SuppFig14_15.qmd	SuppFig14B
+S14C	Figure4_SuppFig14_15.qmd	SuppFig14C
+S15	Figure4_SuppFig14_15.qmd	SuppFig15
+S16A	microbe-microbe_interactions.Rmd	lacticin481_presence_clr_boxplot.pdf
+S16B	microbe-microbe_interactions.Rmd	lacticin481_presence_rna_k2_counts_boxplot.pdf
+S16C	microbe-microbe_interactions.Rmd	thiopeptide_presence_C_acnes_clr.pdf
+S16D	microbe-microbe_interactions.Rmd	thiopeptide_presence_rna_k2_counts.pdf
+S17	microbe-microbe_interactions.Rmd	thiopeptide_AA_heatmaps.pdf
+S18	microbe-microbe_interactions.Rmd	lactococcin972_AA_heatmaps.pdf
+S19	microbe-microbe_interactions.Rmd	halocin_AA_heatmaps.pdf
+S20A	human_reads_analysis.Rmd	main_cohort_hg38_read_pairs_boxplot.pdf
+S20B	human_reads_analysis.Rmd	all_studies_hg38_prop_boxplot.pdf
+S21	gsva_pathway_analysis.Rmd	immune_S_cap_clr_Ch_corr.pdf
+S22A	microbe-microbe_interactions.Rmd	M_res_mtx_vs_C_acnes_mgx_Sc_corr_volcano.pdf
+S22B	microbe-microbe_interactions.Rmd	M_res_DNF11_2196_vs_C_acnes_mgx_scatter.pdf
+S22C	microbe-microbe_interactions.Rmd	M_res_DNF11_2196_vs_M_res_mgx_scatter.pdf
+S22D	microbe-microbe_interactions.Rmd	M_res_abun_vs_C_acnes_abun_scatter.pdf
+S22E	microbe-microbe_interactions.Rmd	C_acnes_mtx_vs_C_gran_mgx_Ch_corr_volcano.pdf
+S22F	microbe-microbe_interactions.Rmd	C_acnes_AAT83849_vs_C_granulosum_mgx_scatter.pdf
+S22G	microbe-microbe_interactions.Rmd	C_acnes_AAT83849_vs_C_acnes_mgx_scatter.pdf
+S23	mock_comm_DNA_analysis.Rmd	trizol_vs_EZ1_species_DNA_corr.pdf

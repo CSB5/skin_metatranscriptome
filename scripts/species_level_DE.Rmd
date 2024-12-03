@@ -925,6 +925,45 @@ Tw_vs_all_stat_phase_DE_res <- merge(Tw_vs_all_stat_phase_DE_res,
 write_tsv(Tw_vs_all_stat_phase_DE_res,"../data/DESeq2_out/S_epidermidis/S_epi_Tw_vs_all_stat_phase_DE_res.tsv")
 
 
+##############################
+#GENE SET ENRICHMENT ANALYSIS#
+##############################
+
+#GSEA MF
+#No GO terms enriched for MF under specific p value cut off
+S_epi_Tw_vs_all_stat_phase_DE_GSEA_GO_MF <- GSEA_from_DESeq(genelist = Tw_vs_all_stat_phase$DE_results_shrunken_df$log2FoldChange,
+                                         gene_names = Tw_vs_all_stat_phase$DE_results_shrunken_df$pangene,
+                                         term2gene = S_epi_GO_term2gene %>% dplyr::filter(from %in% GO_MF_term2name$from ),
+                                         term2name = GO_MF_term2name)
+
+
+#GSEA BP
+S_epi_Tw_vs_all_stat_phase_DE_GSEA_GO_BP <- GSEA_from_DESeq(genelist = Tw_vs_all_stat_phase$DE_results_shrunken_df$log2FoldChange,
+                                         gene_names = Tw_vs_all_stat_phase$DE_results_shrunken_df$pangene,
+                                         term2gene = S_epi_GO_term2gene %>% dplyr::filter(from %in% GO_BP_term2name$from ),
+                                         term2name = GO_BP_term2name)
+
+#How about KEGG pathways
+Tw_vs_all_stat_phase_GSEA_KEGG <- GSEA_from_DESeq(genelist = Tw_vs_all_stat_phase$DE_results_shrunken_df$log2FoldChange,
+                                         gene_names = Tw_vs_all_stat_phase$DE_results_shrunken_df$pangene,
+                                         term2gene = S_epi_KEGG_term2gene,
+                                         term2name = KEGG_term2name)
+
+clusterProfiler::dotplot(Tw_vs_all_stat_phase_GSEA_KEGG, showCategory=10, split=".sign") + facet_grid(.~.sign)
+
+
+
+S_epi_Tw_vs_all_stat_phase_DE_GSEA_GO_BP_df <- S_epi_Tw_vs_all_stat_phase_DE_GSEA_GO_BP@result
+S_epi_Tw_vs_all_stat_phase_DE_GSEA_GO_BP_df$set_annotation <- "GO_BP" 
+
+S_epi_Tw_vs_all_stat_phase_DE_GSEA_KEGG_df <- Tw_vs_all_stat_phase_GSEA_KEGG@result
+S_epi_Tw_vs_all_stat_phase_DE_GSEA_KEGG_df$set_annotation <- "KEGG"
+
+write_tsv(rbind(S_epi_Tw_vs_all_stat_phase_DE_GSEA_GO_BP_df,
+                S_epi_Tw_vs_all_stat_phase_DE_GSEA_KEGG_df),
+          "../data/DESeq2_out/S_epi_Tw_vs_all_stat_phase_GSEA.tsv")
+
+S_epi_Tw_vs_all_stat_phase_GSEA <- read_tsv("../data/DESeq2_out/S_epi_Tw_vs_all_stat_phase_GSEA.tsv", show_col_types = FALSE)
 
 ```
 
@@ -953,6 +992,73 @@ Tw_vs_all_OS_DE_res <- merge(Tw_vs_all_OS_DE_res,
                              S_epidermidis_anno %>% dplyr::rename(pangene=propan_clusterID))
 
 write_tsv(Tw_vs_all_OS_DE_res,"../data/DESeq2_out/S_epidermidis/S_epi_Tw_vs_all_OS_DE_res.tsv")
+
+##############################
+#GENE SET ENRICHMENT ANALYSIS#
+##############################
+
+#GSEA MF
+S_epi_Tw_vs_all_OS_DE_GSEA_GO_MF <- GSEA_from_DESeq(genelist = Tw_vs_all_OS$DE_results_shrunken_df$log2FoldChange,
+                                         gene_names = Tw_vs_all_OS$DE_results_shrunken_df$pangene,
+                                         term2gene = S_epi_GO_term2gene %>% dplyr::filter(from %in% GO_MF_term2name$from ),
+                                         term2name = GO_MF_term2name)
+
+
+clusterProfiler::dotplot(S_epi_Tw_vs_all_OS_DE_GSEA_GO_MF, showCategory=10, split=".sign") + facet_grid(.~.sign)
+
+#associate with parent GO slim (metagenomes)
+S_epi_Tw_vs_all_OS_DE_GSEA_GO_MF_slim <- associate_GO_to_slim(S_epi_Tw_vs_all_OS_DE_GSEA_GO_MF@result$ID, mode="MF")
+
+S_epi_Tw_vs_all_OS_DE_GSEA_GO_MF_fmt <- prepare_NES_plot_input(df=S_epi_Tw_vs_all_OS_DE_GSEA_GO_MF@result,
+                                                               slimdf=S_epi_Tw_vs_all_OS_DE_GSEA_GO_MF_slim,
+                                                               chosen_parent_ids = "transporter activity")
+
+
+S_epi_Tw_vs_all_OS_GSEA_slim_NES_barplot <- make_NES_barplot_with_slim(S_epi_Tw_vs_all_OS_DE_GSEA_GO_MF_fmt, title= "S. epidermidis transcripts, TW vs Osmotic Stress, MF")
+
+ggsave(filename="../plots/S_epi_Tw_vs_all_OS_GSEA_slim_NES_barplot.pdf",
+       plot=S_epi_Tw_vs_all_OS_GSEA_slim_NES_barplot)
+
+S_epi_Tw_vs_all_OS_GSEA_slim_NES_barplot
+
+
+S_epi_Tw_vs_all_OS_DE_GSEA_GO_MF_df <- S_epi_Tw_vs_all_OS_DE_GSEA_GO_MF@result
+S_epi_Tw_vs_all_OS_DE_GSEA_GO_MF_df$set_annotation <- "GO_MF" 
+
+write_tsv(S_epi_Tw_vs_all_OS_DE_GSEA_GO_MF_df,
+          "../data/DESeq2_out/S_epi_Tw_vs_all_OS_GSEA.tsv")
+
+
+S_epi_Tw_vs_all_OS_GSEA <- read_tsv("../data/DESeq2_out/S_epi_Tw_vs_all_OS_GSEA.tsv", show_col_types = FALSE)
+
+
+
+#BP, no hits
+S_epi_Tw_vs_all_OS_DE_GSEA_GO_BP <- GSEA_from_DESeq(genelist = Tw_vs_all_OS$DE_results_shrunken_df$log2FoldChange,
+                                         gene_names = Tw_vs_all_OS$DE_results_shrunken_df$pangene,
+                                         term2gene = S_epi_GO_term2gene %>% dplyr::filter(from %in% GO_BP_term2name$from ),
+                                         term2name = GO_BP_term2name)
+
+
+#clusterProfiler::dotplot(S_epi_Tw_vs_all_OS_DE_GSEA_GO_BP, showCategory=10, split=".sign") + facet_grid(.~.sign)
+
+#associate with parent GO slim (metagenomes)
+#S_epi_Tw_vs_all_OS_DE_GSEA_GO_BP_slim <- associate_GO_to_slim(S_epi_Tw_vs_all_OS_DE_GSEA_GO_BP@result$ID, mode="BP")
+
+#S_epi_Tw_vs_all_OS_DE_GSEA_GO_BP_fmt <- prepare_NES_plot_input(df=S_epi_Tw_vs_all_OS_DE_GSEA_GO_BP@result,
+#                                                               slimdf=S_epi_Tw_vs_all_OS_DE_GSEA_GO_BP_slim,
+#                                                               chosen_parent_ids = "transport")
+
+#make_NES_barplot_with_slim(S_epi_Tw_vs_all_OS_DE_GSEA_GO_BP_fmt, title= "S. epidermidis transcripts, TW vs Osmotic Stress, BP")
+
+
+#No KEGG GSEA enrichments
+Tw_vs_all_OS_GSEA_KEGG <- GSEA_from_DESeq(genelist = Tw_vs_all_OS$DE_results_shrunken_df$log2FoldChange,
+                                         gene_names = Tw_vs_all_OS$DE_results_shrunken_df$pangene,
+                                         term2gene = S_epi_KEGG_term2gene,
+                                         term2name = KEGG_term2name)
+
+
 ```
 ##Comparison 3: Tw vs log phase in vitro
 
@@ -982,6 +1088,86 @@ Tw_vs_all_log_phase_DE_res <- merge(Tw_vs_all_log_phase_DE_res,
                              S_epidermidis_anno %>% dplyr::rename(pangene=propan_clusterID))
 
 write_tsv(Tw_vs_all_log_phase_DE_res,"../data/DESeq2_out/S_epidermidis/S_epi_Tw_vs_all_log_phase_DE_res.tsv")
+
+
+##############################
+#GENE SET ENRICHMENT ANALYSIS#
+##############################
+
+#GSEA MF
+
+#MF no hits
+S_epi_Tw_vs_all_log_phase_DE_GSEA_GO_MF <- GSEA_from_DESeq(genelist = Tw_vs_all_log_phase$DE_results_shrunken_df$log2FoldChange,
+                                         gene_names = Tw_vs_all_log_phase$DE_results_shrunken_df$pangene,
+                                         term2gene = S_epi_GO_term2gene %>% dplyr::filter(from %in% GO_MF_term2name$from ),
+                                         term2name = GO_MF_term2name)
+
+
+#clusterProfiler::dotplot(S_epi_Tw_vs_all_log_phase_DE_GSEA_GO_MF, showCategory=10, split=".sign") + facet_grid(.~.sign)
+
+#associate with parent GO slim (metagenomes)
+#S_epi_Tw_vs_all_log_phase_DE_GSEA_GO_MF_slim <- associate_GO_to_slim(S_epi_Tw_vs_all_log_phase_DE_GSEA_GO_MF@result$ID, mode="MF")
+
+#S_epi_Tw_vs_all_log_phase_DE_GSEA_GO_MF_fmt <- prepare_NES_plot_input(df=S_epi_Tw_vs_all_log_phase_DE_GSEA_GO_MF@result,
+#                       slimdf=S_epi_Tw_vs_all_log_phase_DE_GSEA_GO_MF_slim,
+#                       chosen_parent_ids = "transporter activity")
+
+
+#Note: the annotation of GO:0042626 was missed out from the *obo file. Manually fix the pdf file to reflect the correct category
+#make_NES_barplot_with_slim(S_epi_Tw_vs_all_log_phase_DE_GSEA_GO_MF_fmt, title= "S. epidermidis transcripts, TW vs log phase, MF")
+
+#ggsave(filename="../plots/DESeq_S_epi/S_epi_Tw_vs_all_log_phase_DE_GSEA_GO_MF.pdf",
+#       plot=last_plot(),
+#       height = 8, width = 10)
+
+
+#GSEA BP
+
+S_epi_Tw_vs_all_log_phase_DE_GSEA_GO_BP <- GSEA_from_DESeq(genelist = Tw_vs_all_log_phase$DE_results_shrunken_df$log2FoldChange,
+                                         gene_names = Tw_vs_all_log_phase$DE_results_shrunken_df$pangene,
+                                         term2gene = S_epi_GO_term2gene %>% dplyr::filter(from %in% GO_BP_term2name$from ),
+                                         term2name = GO_BP_term2name)
+
+
+clusterProfiler::dotplot(S_epi_Tw_vs_all_log_phase_DE_GSEA_GO_BP, showCategory=10, split=".sign") + facet_grid(.~.sign)
+
+S_epi_Tw_vs_all_log_phase_DE_GSEA_GO_BP_df <- S_epi_Tw_vs_all_log_phase_DE_GSEA_GO_BP@result
+S_epi_Tw_vs_all_log_phase_DE_GSEA_GO_BP_df$set_annotation <- "GO_BP" 
+
+write_tsv(S_epi_Tw_vs_all_log_phase_DE_GSEA_GO_BP_df,
+          "../data/DESeq2_out/S_epi_Tw_vs_all_log_phase_GSEA.tsv")
+
+
+S_epi_Tw_vs_all_log_phase_GSEA <- read_tsv("../data/DESeq2_out/S_epi_Tw_vs_all_log_phase_GSEA.tsv", show_col_types = FALSE)
+
+
+#No KEGG GSEA enrichments
+
+Tw_vs_all_log_phase_GSEA_KEGG <- GSEA_from_DESeq(genelist = Tw_vs_all_log_phase$DE_results_shrunken_df$log2FoldChange,
+                                         gene_names = Tw_vs_all_log_phase$DE_results_shrunken_df$pangene,
+                                         term2gene = S_epi_KEGG_term2gene,
+                                         term2name = KEGG_term2name)
+
+
+#Associate GO terms with slimmed parental GO (metagenomes)
+S_epi_Tw_vs_all_log_phase_DE_GSEA_GO_BP_slim <- associate_GO_to_slim(S_epi_Tw_vs_all_log_phase_DE_GSEA_GO_BP@result$ID, mode="BP")
+
+
+S_epi_Tw_vs_all_log_phase_DE_GSEA_GO_BP_fmt <- prepare_NES_plot_input(df=S_epi_Tw_vs_all_log_phase_DE_GSEA_GO_BP@result,
+                       slimdf=S_epi_Tw_vs_all_log_phase_DE_GSEA_GO_BP_slim,
+                       chosen_parent_ids = c("carbohydrate metabolic process", 
+                       "small molecule metabolic process", 
+                       "transport"))
+
+S_epi_Tw_vs_all_log_phase_GSEA_slim_NES_barplot <- make_NES_barplot_with_slim(S_epi_Tw_vs_all_log_phase_DE_GSEA_GO_BP_fmt, title= "S. epidermidis transcripts, TW vs log phase")
+
+ggsave(filename="../plots/S_epi_Tw_vs_all_log_phase_GSEA_slim_NES_barplot.pdf",
+       plot=S_epi_Tw_vs_all_log_phase_GSEA_slim_NES_barplot,
+       height = 8, width = 10)
+
+
+S_epi_Tw_vs_all_log_phase_GSEA_slim_NES_barplot
+
 ```
 ## Comparison 4: Seb vs OS in vitro
 
@@ -1009,6 +1195,99 @@ Seb_vs_all_OS_DE_res <- merge(Seb_vs_all_OS_DE_res,
 
 
 write_tsv(Seb_vs_all_OS_DE_res,"../data/DESeq2_out/S_epi_Seb_vs_all_OS_DE_res.tsv")
+
+
+##############################
+#GENE SET ENRICHMENT ANALYSIS#
+##############################
+
+#GSEA MF
+S_epi_Seb_vs_all_OS_DE_GSEA_GO_MF <- GSEA_from_DESeq(genelist = Seb_vs_all_OS$DE_results_shrunken_df$log2FoldChange,
+                                         gene_names = Seb_vs_all_OS$DE_results_shrunken_df$pangene,
+                                         term2gene = S_epi_GO_term2gene %>% dplyr::filter(from %in% GO_MF_term2name$from ),
+                                         term2name = GO_MF_term2name)
+
+
+clusterProfiler::dotplot(S_epi_Seb_vs_all_OS_DE_GSEA_GO_MF, showCategory=10, split=".sign") + facet_grid(.~.sign)
+
+#Associate GO terms with slimmed parental GO (metagenomes)
+
+
+S_epi_Seb_vs_all_OS_DE_GSEA_GO_MF_slim <- associate_GO_to_slim(S_epi_Seb_vs_all_OS_DE_GSEA_GO_MF@result$ID, mode="MF")
+
+
+S_epi_Seb_vs_all_OS_DE_GSEA_GO_MF_fmt <- prepare_NES_plot_input(df=S_epi_Seb_vs_all_OS_DE_GSEA_GO_MF@result,
+                       slimdf=S_epi_Seb_vs_all_OS_DE_GSEA_GO_MF_slim,
+                       chosen_parent_ids = c("transporter activity",
+											"hydrolase activity", 
+											"ion binding", 
+											"nucleotide binding",
+											"nucleic acid binding",
+											"oxidoreductase activity",
+											"transferase activity",
+											"structural constituent of ribosome"))
+
+
+make_NES_barplot_with_slim(S_epi_Seb_vs_all_OS_DE_GSEA_GO_MF_fmt, title= "S. epidermidis transcripts, Sebaceous vs osmotic stress, MF")
+
+
+#GSEA BP
+
+S_epi_Seb_vs_all_OS_DE_GSEA_GO_BP <- GSEA_from_DESeq(genelist = Seb_vs_all_OS$DE_results_shrunken_df$log2FoldChange,
+                                         gene_names = Seb_vs_all_OS$DE_results_shrunken_df$pangene,
+                                         term2gene = S_epi_GO_term2gene %>% dplyr::filter(from %in% GO_BP_term2name$from ),
+                                         term2name = GO_BP_term2name)
+
+
+clusterProfiler::dotplot(S_epi_Seb_vs_all_OS_DE_GSEA_GO_BP, showCategory=10, split=".sign") + facet_grid(.~.sign)
+
+#Associate GO terms with slimmed parental GO (metagenomes)
+
+S_epi_Seb_vs_all_OS_DE_GSEA_GO_BP_slim <- associate_GO_to_slim(S_epi_Seb_vs_all_OS_DE_GSEA_GO_BP@result$ID, mode="BP")
+
+S_epi_Seb_vs_all_OS_DE_GSEA_GO_BP_fmt <- prepare_NES_plot_input(df=S_epi_Seb_vs_all_OS_DE_GSEA_GO_BP@result,
+                       slimdf=S_epi_Seb_vs_all_OS_DE_GSEA_GO_BP_slim,
+                       chosen_parent_ids = c("small molecule metabolic process",
+											"transport", 
+											"carbohydrate metabolic process", 
+											"translation", 
+											"phosphorylation"))
+
+
+make_NES_barplot_with_slim(S_epi_Seb_vs_all_OS_DE_GSEA_GO_BP_fmt, title= "S. epidermidis transcripts, Sebaceous vs osmotic stress, BP")
+
+
+
+#GSEA KEGG
+
+Seb_vs_all_OS_GSEA_KEGG <- GSEA_from_DESeq(genelist = Seb_vs_all_OS$DE_results_shrunken_df$log2FoldChange,
+                                         gene_names = Seb_vs_all_OS$DE_results_shrunken_df$pangene,
+                                         term2gene = S_epi_KEGG_term2gene,
+                                         term2name = KEGG_term2name)
+
+clusterProfiler::dotplot(Seb_vs_all_OS_GSEA_KEGG, showCategory=10, split=".sign") + facet_grid(.~.sign)
+
+
+S_epi_Seb_vs_all_OS_DE_GSEA_GO_MF_df <- S_epi_Seb_vs_all_OS_DE_GSEA_GO_MF@result
+S_epi_Seb_vs_all_OS_DE_GSEA_GO_MF_df$set_annotation <- "GO_MF" 
+
+
+S_epi_Seb_vs_all_OS_DE_GSEA_GO_BP_df <- S_epi_Seb_vs_all_OS_DE_GSEA_GO_BP@result
+S_epi_Seb_vs_all_OS_DE_GSEA_GO_BP_df$set_annotation <- "GO_BP" 
+
+S_epi_Seb_vs_all_OS_DE_GSEA_KEGG_df <- Seb_vs_all_OS_GSEA_KEGG@result
+S_epi_Seb_vs_all_OS_DE_GSEA_KEGG_df$set_annotation <- "KEGG"
+
+write_tsv(rbind(S_epi_Seb_vs_all_OS_DE_GSEA_GO_MF_df,
+                S_epi_Seb_vs_all_OS_DE_GSEA_GO_BP_df,
+                S_epi_Seb_vs_all_OS_DE_GSEA_KEGG_df), "../data/DESeq2_out/S_epi_Seb_vs_all_OS_GSEA.tsv")
+
+
+S_epi_Seb_vs_all_OS_GSEA <- read_tsv("../data/DESeq2_out/S_epi_Seb_vs_all_OS_GSEA.tsv", show_col_types = FALSE)
+
+
+
+
 ```
 
 ## Comparison 5: Seb vs log phase in vitro
@@ -1034,6 +1313,90 @@ Seb_vs_all_log_phase_DE_res <- merge(Seb_vs_all_log_phase_DE_res,
                              S_epidermidis_anno %>% dplyr::rename(pangene=propan_clusterID))
 
 write_tsv(Seb_vs_all_log_phase_DE_res,"../data/DESeq2_out/S_epi_Seb_vs_all_log_phase_DE_res.tsv")
+
+##############################
+#GENE SET ENRICHMENT ANALYSIS#
+##############################
+
+#GSEA MF
+S_epi_Seb_vs_all_log_phase_DE_GSEA_GO_MF <- GSEA_from_DESeq(genelist = Seb_vs_all_log_phase$DE_results_shrunken_df$log2FoldChange,
+                                         gene_names = Seb_vs_all_log_phase$DE_results_shrunken_df$pangene,
+                                         term2gene = S_epi_GO_term2gene %>% dplyr::filter(from %in% GO_MF_term2name$from ),
+                                         term2name = GO_MF_term2name)
+
+
+clusterProfiler::dotplot(S_epi_Seb_vs_all_log_phase_DE_GSEA_GO_MF, showCategory=10, split=".sign") + facet_grid(.~.sign)
+
+
+#Associate GO terms with slimmed parental GO (metagenomes)
+
+S_epi_Seb_vs_all_log_phase_DE_GSEA_GO_MF_slim <- associate_GO_to_slim(S_epi_Seb_vs_all_log_phase_DE_GSEA_GO_MF@result$ID, mode="MF")
+
+S_epi_Seb_vs_all_log_phase_DE_GSEA_GO_MF_fmt <- prepare_NES_plot_input(df=S_epi_Seb_vs_all_log_phase_DE_GSEA_GO_MF@result,
+                       slimdf=S_epi_Seb_vs_all_log_phase_DE_GSEA_GO_MF_slim,
+                       chosen_parent_ids = c("catalytic activity",
+                      "nucleic acid binding",
+											"transporter activity", 
+											"transferase activity", 
+											"structural constituent of ribosome", 
+											"metal ion binding"))
+
+
+make_NES_barplot_with_slim(S_epi_Seb_vs_all_log_phase_DE_GSEA_GO_MF_fmt, title= "S. epidermidis transcripts, Sebaceous vs log phase, MF")
+
+
+#GSEA BP
+S_epi_Seb_vs_all_log_phase_DE_GSEA_GO_BP <- GSEA_from_DESeq(genelist = Seb_vs_all_log_phase$DE_results_shrunken_df$log2FoldChange,
+                                         gene_names = Seb_vs_all_log_phase$DE_results_shrunken_df$pangene,
+                                         term2gene = S_epi_GO_term2gene %>% dplyr::filter(from %in% GO_BP_term2name$from ),
+                                         term2name = GO_BP_term2name)
+
+
+clusterProfiler::dotplot(S_epi_Seb_vs_all_log_phase_DE_GSEA_GO_BP, showCategory=10, split=".sign") + facet_grid(.~.sign)
+
+#Associate GO terms with slimmed parental GO (metagenomes)
+
+S_epi_Seb_vs_all_log_phase_DE_GSEA_GO_BP_slim <- associate_GO_to_slim(S_epi_Seb_vs_all_log_phase_DE_GSEA_GO_BP@result$ID, mode="BP")
+
+S_epi_Seb_vs_all_log_phase_DE_GSEA_GO_BP_fmt <- prepare_NES_plot_input(df=S_epi_Seb_vs_all_log_phase_DE_GSEA_GO_BP@result,
+                                                                       slimdf=S_epi_Seb_vs_all_log_phase_DE_GSEA_GO_BP_slim,
+  chosen_parent_ids = c("nitrogen compound metabolic process",
+											"small molecule metabolic process", 
+											"carbohydrate metabolic process", 
+											"RNA metabolic process", 
+											"transport",
+											"phosphorylation"))
+
+make_NES_barplot_with_slim(S_epi_Seb_vs_all_log_phase_DE_GSEA_GO_BP_fmt, title= "S. epidermidis transcripts, Sebaceous vs log phase, BP")
+
+
+
+#GSEA KEGG
+Seb_vs_all_log_phase_GSEA_KEGG <- GSEA_from_DESeq(genelist = Seb_vs_all_log_phase$DE_results_shrunken_df$log2FoldChange,
+                                         gene_names = Seb_vs_all_log_phase$DE_results_shrunken_df$pangene,
+                                         term2gene = S_epi_KEGG_term2gene,
+                                         term2name = KEGG_term2name)
+
+clusterProfiler::dotplot(Seb_vs_all_log_phase_GSEA_KEGG, showCategory=10, split=".sign") + facet_grid(.~.sign)
+
+
+S_epi_Seb_vs_all_log_phase_DE_GSEA_GO_MF_df <- S_epi_Seb_vs_all_log_phase_DE_GSEA_GO_MF@result
+S_epi_Seb_vs_all_log_phase_DE_GSEA_GO_MF_df$set_annotation <- "GO_MF" 
+
+
+S_epi_Seb_vs_all_log_phase_DE_GSEA_GO_BP_df <- S_epi_Seb_vs_all_log_phase_DE_GSEA_GO_BP@result
+S_epi_Seb_vs_all_log_phase_DE_GSEA_GO_BP_df$set_annotation <- "GO_BP" 
+
+S_epi_Seb_vs_all_log_phase_DE_GSEA_KEGG_df <- Seb_vs_all_log_phase_GSEA_KEGG@result
+S_epi_Seb_vs_all_log_phase_DE_GSEA_KEGG_df$set_annotation <- "KEGG"
+
+write_tsv(rbind(S_epi_Seb_vs_all_log_phase_DE_GSEA_GO_MF_df,
+  S_epi_Seb_vs_all_log_phase_DE_GSEA_GO_BP_df,
+                S_epi_Seb_vs_all_log_phase_DE_GSEA_KEGG_df), "../data/DESeq2_out/S_epi_Seb_vs_all_log_phase_GSEA.tsv")
+
+
+S_epi_Seb_vs_all_log_phase_GSEA <- read_tsv("../data/DESeq2_out/S_epi_Seb_vs_all_log_phase_GSEA.tsv", show_col_types = FALSE)
+
 ```
 
 ## Comparison 6: Seb vs stat phase in vitro
@@ -1068,7 +1431,61 @@ Seb_vs_all_stat_phase_DE_res <- merge(Seb_vs_all_stat_phase_DE_res,
 
 
 write_tsv(Seb_vs_all_stat_phase_DE_res,"../data/DESeq2_out/S_epi_Seb_vs_all_stat_phase_DE_res.tsv")
+
+##############################
+#GENE SET ENRICHMENT ANALYSIS#
+##############################
+
+#GSEA MF
+S_epi_Seb_vs_all_stat_phase_DE_GSEA_GO_MF <- GSEA_from_DESeq(genelist = Seb_vs_all_stat_phase$DE_results_shrunken_df$log2FoldChange,
+                                         gene_names = Seb_vs_all_stat_phase$DE_results_shrunken_df$pangene,
+                                         term2gene = S_epi_GO_term2gene %>% dplyr::filter(from %in% GO_MF_term2name$from ),
+                                         term2name = GO_MF_term2name)
+
+
+clusterProfiler::dotplot(S_epi_Seb_vs_all_stat_phase_DE_GSEA_GO_MF, showCategory=10, split=".sign") + facet_grid(.~.sign)
+
+
+#GSEA BP
+S_epi_Seb_vs_all_stat_phase_DE_GSEA_GO_BP <- GSEA_from_DESeq(genelist = Seb_vs_all_stat_phase$DE_results_shrunken_df$log2FoldChange,
+                                         gene_names = Seb_vs_all_stat_phase$DE_results_shrunken_df$pangene,
+                                         term2gene = S_epi_GO_term2gene %>% dplyr::filter(from %in% GO_BP_term2name$from ),
+                                         term2name = GO_BP_term2name)
+
+
+clusterProfiler::dotplot(S_epi_Seb_vs_all_stat_phase_DE_GSEA_GO_BP, showCategory=10, split=".sign") + facet_grid(.~.sign)
+
+
+#GSEA KEGG
+Seb_vs_all_stat_phase_GSEA_KEGG <- GSEA_from_DESeq(genelist = Seb_vs_all_stat_phase$DE_results_shrunken_df$log2FoldChange,
+                                         gene_names = Seb_vs_all_stat_phase$DE_results_shrunken_df$pangene,
+                                         term2gene = S_epi_KEGG_term2gene,
+                                         term2name = KEGG_term2name)
+
+clusterProfiler::dotplot(Seb_vs_all_stat_phase_GSEA_KEGG, showCategory=10, split=".sign") + facet_grid(.~.sign)
+
+
+
+S_epi_Seb_vs_all_stat_phase_DE_GSEA_GO_MF_df <- S_epi_Seb_vs_all_stat_phase_DE_GSEA_GO_MF@result
+S_epi_Seb_vs_all_stat_phase_DE_GSEA_GO_MF_df$set_annotation <- "GO_MF" 
+
+
+S_epi_Seb_vs_all_stat_phase_DE_GSEA_GO_BP_df <- S_epi_Seb_vs_all_stat_phase_DE_GSEA_GO_BP@result
+S_epi_Seb_vs_all_stat_phase_DE_GSEA_GO_BP_df$set_annotation <- "GO_BP" 
+
+S_epi_Seb_vs_all_stat_phase_DE_GSEA_KEGG_df <- Seb_vs_all_stat_phase_GSEA_KEGG@result
+S_epi_Seb_vs_all_stat_phase_DE_GSEA_KEGG_df$set_annotation <- "KEGG"
+
+write_tsv(rbind(S_epi_Seb_vs_all_stat_phase_DE_GSEA_GO_MF_df,
+  S_epi_Seb_vs_all_stat_phase_DE_GSEA_GO_BP_df,
+                S_epi_Seb_vs_all_stat_phase_DE_GSEA_KEGG_df),
+          "../data/DESeq2_out/S_epi_Seb_vs_all_stat_phase_GSEA.tsv")
+
+
+S_epi_Seb_vs_all_stat_phase_GSEA <- read_tsv("../data/DESeq2_out/S_epi_Seb_vs_all_stat_phase_GSEA.tsv", show_col_types = FALSE)
+
 ```
+
 
 ## Panel E (Left)
 
@@ -1208,7 +1625,119 @@ ggsave(plot=S_epi_DE_tally_barplot,
 S_epi_DE_tally_barplot 
 ```
 
-## Other Supplementary figure PCA plots
+# Supplementary figure NES plots
+
+
+Enriched gene sets in Staphylococcus epidermidis transcriptomes for sebaceous sites versus in vitro conditions. 
+
+Barplots of normalized enrichment scores derived from gene set enrichment analysis of differentially expressed genes between sebaceous (scalp and cheek) sites (n=6) and various in vitro conditions (n=9, 6, 9 for log phase, osmotic stress & stationary phase respectively). 
+
+Only gene sets or pathways which were significantly enriched in all 3 comparisons are displayed here. Libraries representing sebaceous sites had ≥200,000 S. epidermidis reads each.
+
+Y axis are pathways/gene sets. X axis are normalized enrichment score, faceted by GO_MF, GO_BP and KEGG
+
+```{r}
+
+
+S_epi_Seb_vs_all_log_phase_GSEA$comparison <- "Seb_vs_log_phase"
+
+S_epi_Seb_vs_all_OS_GSEA$comparison <- "Seb_vs_osmotic_stress"
+
+S_epi_Seb_vs_all_stat_phase_GSEA$comparison <- "Seb_vs_stationary_phase"
+
+
+
+Seb_vs_in_vitro_shared_gene_sets <- Reduce(intersect, list(S_epi_Seb_vs_all_log_phase_GSEA$ID,
+                       S_epi_Seb_vs_all_OS_GSEA$ID,
+                       S_epi_Seb_vs_all_stat_phase_GSEA$ID))
+
+
+S_epi_seb_vs_in_vitro_NESplot <- plot_facetted_NES(input_list=tibble::lst(S_epi_Seb_vs_all_log_phase_GSEA,
+                                         S_epi_Seb_vs_all_OS_GSEA, 
+                                         S_epi_Seb_vs_all_stat_phase_GSEA),
+                  shared_gene_sets = Seb_vs_in_vitro_shared_gene_sets,
+                  plot_title="S. epidermidis transcripts, Sebaceous vs in vitro conditions")
+
+
+
+ggsave(plot=S_epi_seb_vs_in_vitro_NESplot, filename = "../plots/S_epi_Seb_vs_invitro_NES_plot.pdf", height = 10, width=20)
+
+
+S_epi_seb_vs_in_vitro_NESplot
+
+```
+
+
+Enriched gene sets in Staphylococcus epidermidis transcriptomes for toe webs versus in vitro conditions.
+
+Barplots of normalized enrichment scores from gene set enrichment analysis between toe web sites (n=12) and various in vitro conditions (n=9, 6, 9
+for log phase, osmotic stress & stationary phase respectively).
+
+
+```{r}
+
+#no shared gene sets
+Tw_vs_in_vitro_shared_gene_sets <- Reduce(intersect, list(S_epi_Tw_vs_all_log_phase_GSEA$ID,
+                       S_epi_Tw_vs_all_OS_GSEA$ID,
+                       S_epi_Tw_vs_all_stat_phase_GSEA$ID))
+
+
+
+#metal ion transport clusters to plot (based on Tw vs log phase DESeq results)
+
+metal_ion_clusters_to_plot <- c("cluster_2534","cluster_2202","cluster_2868","cluster_2072","cluster_13153","cluster_1949","cluster_4306","cluster_21984","cluster_505","cluster_993","cluster_3367","cluster_10128","cluster_2714","cluster_11964","cluster_4685","cluster_14606","cluster_763")
+
+
+Tw_vs_all_log_phase_l2fc_metal_ion_clust <- Tw_vs_all_log_phase_DE_res  %>% 
+  dplyr::filter(pangene %in% metal_ion_clusters_to_plot)
+
+Tw_vs_all_log_phase_l2fc_metal_ion_clust$pangene <- factor(Tw_vs_all_log_phase_l2fc_metal_ion_clust$pangene)
+
+Tw_vs_all_log_phase_l2fc_metal_ion_clust <- Tw_vs_all_log_phase_l2fc_metal_ion_clust %>%
+  dplyr::mutate(pangene=fct_reorder(pangene,Description,.fun=identity))
+
+
+Tw_vs_all_log_phase_l2fc_metal_ion_clust_barplot <- ggplot(Tw_vs_all_log_phase_l2fc_metal_ion_clust, aes(x=pangene,y=log2FoldChange,
+                                                     fill=Description)) + 
+  geom_col() + 
+  scale_fill_manual(values = c23) +
+  theme_classic() + theme(axis.text.x = element_text(angle = 90, vjust = 0.2, hjust=1))
+
+ggsave(plot=Tw_vs_all_log_phase_l2fc_metal_ion_clust_barplot, 
+       filename = "../plots/Tw_vs_all_log_phase_l2fc_metal_ion_clust_barplot.pdf")
+
+Tw_vs_all_log_phase_l2fc_metal_ion_clust_barplot
+
+
+# copper ion binding clusters to plot (based on Tw_vs_osmotic_stress DESeq results)
+copper_ion_binding_clusters_to_plot <- c("cluster_2534","cluster_2072","cluster_13153")
+
+Tw_vs_all_OS_l2fc_Cu_ion_binding <- Tw_vs_all_OS_DE_res  %>% 
+  dplyr::filter(pangene %in% copper_ion_binding_clusters_to_plot)
+
+Tw_vs_all_OS_l2fc_Cu_ion_binding <- Tw_vs_all_OS_l2fc_Cu_ion_binding %>%
+  dplyr::mutate(pangene=fct_reorder(pangene,Description,.fun=identity))
+
+Tw_vs_all_OS_l2fc_Cu_ion_binding_barplot <- ggplot(Tw_vs_all_OS_l2fc_Cu_ion_binding, 
+                                                    aes(x=pangene,y=log2FoldChange,
+                                                     fill=Description)) + 
+  geom_col() + 
+  scale_fill_manual(values = c23) +
+  theme_classic() + theme(axis.text.x = element_text(angle = 90, vjust = 0.2, hjust=1))
+
+
+ggsave(plot=Tw_vs_all_OS_l2fc_Cu_ion_binding_barplot, 
+       filename = "../plots/Tw_vs_all_OS_l2fc_Cu_ion_binding_barplot.pdf")
+
+
+Tw_vs_all_OS_l2fc_Cu_ion_binding_barplot
+
+```
+
+Barplots showing log2 fold change of genes related to metal ion transport (top) or
+copper ion binding (bottom), relative to in vitro conditions. Libraries representing toe webs had ≥200,000 S. epidermidis reads each.
+
+# Supplementary figure PCA plots
 
 PCA plot of in vivo vs in vitro samples (in-house samples only)
 

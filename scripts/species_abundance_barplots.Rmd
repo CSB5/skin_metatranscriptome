@@ -1,0 +1,388 @@
+---
+title: "species abundance barplots"
+author: "Chiamh"
+date: '2024-04-30'
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Load libraries
+
+```{r}
+
+library(tidyverse)
+
+source("custom_functions.R")
+
+```
+
+Load metadata and supporting files.
+
+```{r}
+
+
+metadata <- read_tsv("../metadata/skin_mtx_metadata_fmt.txt", show_col_types = FALSE) 
+
+mtx_to_pull <- read_tsv("../metadata/mtx_to_pull", col_names = FALSE, show_col_types = FALSE) %>% pull(X1)
+
+mgx_to_pull <- read_tsv("../metadata/mgx_to_pull", col_names = FALSE, show_col_types = FALSE) %>% pull(X1)
+
+
+mtx_mgx_stats_chosen <- read_tsv("../metadata/mtx_mgx_stats_chosen.tsv",show_col_types = FALSE)
+
+##########
+#MTX Library IDs per site
+
+mtx_Sc_ids <- mtx_mgx_stats_chosen %>% dplyr::filter(region=="Sc") %>% pull(mtx_LIBID)
+mtx_Ch_ids <- mtx_mgx_stats_chosen %>% dplyr::filter(region=="Ch") %>% pull(mtx_LIBID)
+mtx_Ac_ids <- mtx_mgx_stats_chosen %>% dplyr::filter(region=="Ac") %>% pull(mtx_LIBID)
+mtx_Vf_ids <- mtx_mgx_stats_chosen %>% dplyr::filter(region=="Vf") %>% pull(mtx_LIBID)
+mtx_Tw_ids <- mtx_mgx_stats_chosen %>% dplyr::filter(region=="Tw") %>% pull(mtx_LIBID)
+
+#MGX Library IDs per site
+
+mgx_Sc_ids <- mtx_mgx_stats_chosen %>% dplyr::filter(region=="Sc") %>% pull(mgx_LIBID)
+mgx_Ch_ids <- mtx_mgx_stats_chosen %>% dplyr::filter(region=="Ch") %>% pull(mgx_LIBID)
+mgx_Ac_ids <- mtx_mgx_stats_chosen %>% dplyr::filter(region=="Ac") %>% pull(mgx_LIBID)
+mgx_Vf_ids <- mtx_mgx_stats_chosen %>% dplyr::filter(region=="Vf") %>% pull(mgx_LIBID)
+mgx_Tw_ids <- mtx_mgx_stats_chosen %>% dplyr::filter(region=="Tw") %>% pull(mgx_LIBID)
+
+
+#Filtered and renormalized kraken2 profiles
+
+MTX_species_k2_filtered <- lapply(mtx_to_pull, function(x){
+  
+  output <- read_tsv(file=paste0("../data/k2_species_renorm/RNA/",x,"_k2_renorm.s.tsv"),show_col_types = FALSE)
+  
+  return(output)
+})
+
+names(MTX_species_k2_filtered) <- mtx_to_pull
+
+
+MGX_species_k2_filtered <- lapply(mgx_to_pull, function(x){
+  
+  output <- read_tsv(file=paste0("../data/k2_species_renorm/DNA/",x,"_k2_renorm.s.tsv"),show_col_types = FALSE)
+  
+  return(output)
+})
+
+names(MGX_species_k2_filtered) <- mgx_to_pull
+
+
+rna_k2_minimizer_renorm_df <- do.call("rbind", MTX_species_k2_filtered ) %>% dplyr::rename(LIBID=mtx_LIBID)
+
+
+mtx_species_site_prevalence <- get_species_prevalence_all_sites(rna_k2_minimizer_renorm_df, mol_type = "RNA")
+
+
+mtx_species_site_prevalence$region <- factor(mtx_species_site_prevalence$region, 
+                                             levels=c("Sc","Ch","Ac","Vf","Tw"))
+
+
+```
+
+
+Wrappers for plotting function and palettes
+
+
+```{r}
+
+
+#colorblind friendly palette
+c24 <- c(
+  "dodgerblue2", "#E31A1C", # red
+  "green4",
+  "#6A3D9A", # purple
+  "#FF7F00", # orange
+  "black", "gold1",
+  "skyblue2",
+  "palegreen2",
+  "#CAB2D6", # lt purple
+  "#FDBF6F", # lt orange
+  "gray70", "khaki2",
+  "maroon", "orchid1", "deeppink1", "blue1", "steelblue4",
+  "darkturquoise", "green1", "yellow4", "yellow3",
+  "darkorange4", "brown"
+)
+
+
+
+facet_abundance_plot_fn <- function(mtx_list=MTX_species_k2_filtered, 
+                                    mgx_list=MGX_species_k2_filtered, 
+                                    metadata = mtx_mgx_stats_chosen,
+                                    chosen_species,
+                                    chosen_region,
+                                    manual_sample_order=FALSE,
+                                    subj_region_order #a vector
+                                    ){
+  
+  options(dplyr.summarise.inform = FALSE)
+  
+  mtx_libs_to_choose <- mtx_mgx_stats_chosen %>% dplyr::filter(region==chosen_region) %>% pull(mtx_LIBID)
+  mgx_libs_to_choose <- mtx_mgx_stats_chosen %>% dplyr::filter(region==chosen_region) %>% pull(mgx_LIBID)
+  
+  
+  mtx_df <- lapply(mtx_list[mtx_libs_to_choose], function(df){
+    
+    df <- merge(df %>% dplyr::rename(LIBID=mtx_LIBID), 
+                metadata %>% dplyr::rename(LIBID=mtx_LIBID) %>% dplyr::select(LIBID, subj_region), by="LIBID")
+    
+    df$species_relabelled <- ifelse(df$k2_taxon %in% chosen_species, df$k2_taxon, "others")
+    
+    df_summarized <- df %>% group_by(LIBID, subj_region, species_relabelled) %>% summarise(rel_abun_sum=sum(rel_abun))
+    
+    df_summarized$type <- "MTX"
+    
+    return(df_summarized)
+    
+  }) %>% do.call("rbind",.)
+  
+  mgx_df <- lapply(mgx_list[mgx_libs_to_choose], function(df){
+    
+    df <- merge(df %>% dplyr::rename(LIBID=mgx_LIBID), 
+                metadata %>% dplyr::rename(LIBID=mgx_LIBID) %>% dplyr::select(LIBID, subj_region), by="LIBID")
+    
+    df$species_relabelled <- ifelse(df$k2_taxon %in% chosen_species, df$k2_taxon, "others")
+    
+    df_summarized <- df %>% group_by(LIBID, subj_region, species_relabelled) %>% summarise(rel_abun_sum=sum(rel_abun))
+    
+    df_summarized$type <- "MGX"
+    
+    return(df_summarized)
+    
+  }) %>% do.call("rbind",.)
+  
+  combined_df <- rbind(mtx_df, mgx_df)  
+  
+  #Re-order factor levels to put unclassified and others first. 
+  taxa_to_add <- chosen_species[!chosen_species %in% c("unclassified" )]
+  combined_df$species_relabelled <- factor(combined_df$species_relabelled)
+  
+  combined_df$species_relabelled <- relevel(combined_df$species_relabelled, "others")
+  
+   if (manual_sample_order==TRUE){
+    combined_df$subj_region <- factor(combined_df$subj_region, levels=subj_region_order)
+  }
+  
+  
+  ggplot(combined_df, 
+       aes(x=subj_region, y=rel_abun_sum, fill=species_relabelled)) + geom_col() + #coord_flip() #+ 
+    facet_wrap(~type, ncol=1, nrow=2)+
+  theme_classic() + 
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1), axis.title.x=element_blank()) + 
+  ggtitle(paste0("Taxa on ",chosen_region)) + scale_fill_manual(values = c24)
+  
+  
+}
+
+
+###"others" as last. Should fix this to be consistent..
+
+facet_abundance_plot_fn_b <- function(mtx_list=MTX_species_k2_filtered, 
+                                    mgx_list=MGX_species_k2_filtered, 
+                                    metadata = mtx_mgx_stats_chosen,
+                                    chosen_species,
+                                    chosen_region,
+                                    manual_sample_order=FALSE,
+                                    subj_region_order #a vector
+                                    ){
+  
+  options(dplyr.summarise.inform = FALSE)
+  
+  mtx_libs_to_choose <- mtx_mgx_stats_chosen %>% dplyr::filter(region==chosen_region) %>% pull(mtx_LIBID)
+  mgx_libs_to_choose <- mtx_mgx_stats_chosen %>% dplyr::filter(region==chosen_region) %>% pull(mgx_LIBID)
+  
+  
+  mtx_df <- lapply(mtx_list[mtx_libs_to_choose], function(df){
+    
+    df <- merge(df %>% dplyr::rename(LIBID=mtx_LIBID), 
+                metadata %>% dplyr::rename(LIBID=mtx_LIBID) %>% dplyr::select(LIBID, subj_region), by="LIBID")
+    
+    df$species_relabelled <- ifelse(df$k2_taxon %in% chosen_species, df$k2_taxon, "others")
+    
+    df_summarized <- df %>% group_by(LIBID, subj_region, species_relabelled) %>% summarise(rel_abun_sum=sum(rel_abun))
+    
+    df_summarized$type <- "MTX"
+    
+    return(df_summarized)
+    
+  }) %>% do.call("rbind",.)
+  
+  mgx_df <- lapply(mgx_list[mgx_libs_to_choose], function(df){
+    
+    df <- merge(df %>% dplyr::rename(LIBID=mgx_LIBID), 
+                metadata %>% dplyr::rename(LIBID=mgx_LIBID) %>% dplyr::select(LIBID, subj_region), by="LIBID")
+    
+    df$species_relabelled <- ifelse(df$k2_taxon %in% chosen_species, df$k2_taxon, "others")
+    
+    df_summarized <- df %>% group_by(LIBID, subj_region, species_relabelled) %>% summarise(rel_abun_sum=sum(rel_abun))
+    
+    df_summarized$type <- "MGX"
+    
+    return(df_summarized)
+    
+  }) %>% do.call("rbind",.)
+  
+  combined_df <- rbind(mtx_df, mgx_df)  
+  
+  #Re-order factor levels to put unclassified and others first. 
+  taxa_to_add <- chosen_species[!chosen_species %in% c("unclassified" )]
+  #combined_df$species_relabelled <- factor(combined_df$species_relabelled)
+  
+  combined_df<- combined_df %>% mutate(species_relabelled = factor(species_relabelled, 
+                                                                   levels = c(taxa_to_add,"others")))
+  
+   if (manual_sample_order==TRUE){
+    combined_df$subj_region <- factor(combined_df$subj_region, levels=subj_region_order)
+  }
+  
+  
+  ggplot(combined_df, 
+       aes(x=subj_region, y=rel_abun_sum, fill=species_relabelled)) + geom_col() + #coord_flip() #+ 
+    facet_wrap(~type, ncol=1, nrow=2)+
+  theme_classic() + 
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1), axis.title.x=element_blank()) + 
+  ggtitle(paste0("Taxa on ",chosen_region)) + scale_fill_manual(values = c24)
+  
+  
+}
+
+
+
+```
+
+
+# Stacked species level barplots across different skin sites
+
+
+"Unclassified" reads are excluded. All reads normalized to the sum (total sum scaling) of all species level classified reads.
+
+## Scalp
+```{r}
+
+#SCALP
+
+
+scalp_species_to_plot <- c("Cutibacterium_acnes", "Cutibacterium_avidum", "Cutibacterium_modestum", 
+                           "Staphylococcus_epidermidis", "Staphylococcus_capitis", "Staphylococcus_pettenkoferi", 
+                           "Dermacoccus_nishinomiyaensis",
+                           "Malassezia_restricta", "Malassezia_globosa", "Malassezia_arunalokei",
+                           "Malassezia_furfur", "Malassezia_obtusa")
+
+
+
+combined_Sc_k2_plot <- facet_abundance_plot_fn(chosen_species = scalp_species_to_plot, chosen_region = "Sc")
+
+
+combined_Sc_k2_plot
+
+
+
+
+```
+
+
+## Cheeks
+
+```{r}
+
+
+cheek_species_to_plot <- c("Cutibacterium_acnes", "Cutibacterium_modestum", "Corynebacterium_kefirresidentii",
+                           "Staphylococcus_epidermidis", "Staphylococcus_capitis", 
+                           "Staphylococcus_hominis", "Micrococcus_luteus",
+                           "Malassezia_restricta","Malassezia_sympodialis", "Malassezia_globosa", 
+                          "Malassezia_dermatis", "Malassezia_arunalokei")
+
+
+combined_Ch_k2_plot <- facet_abundance_plot_fn(chosen_species = cheek_species_to_plot, chosen_region = "Ch")
+
+
+combined_Ch_k2_plot
+
+
+```
+
+## Antecubital fossae
+
+
+
+```{r}
+
+
+Ac_species_to_plot <- c( "Cutibacterium_acnes", "Cutibacterium_modestum", 
+                           "Staphylococcus_epidermidis", "Staphylococcus_capitis",
+                           "Staphylococcus_hominis", 
+                        "Micrococcus_luteus", "Moraxella_osloensis",
+                           "Malassezia_restricta","Malassezia_sympodialis", 
+                        "Malassezia_globosa","Malassezia_obtusa","Malassezia_furfur")
+
+
+combined_Ac_k2_plot <- facet_abundance_plot_fn(chosen_species = Ac_species_to_plot, chosen_region = "Ac")
+
+ggsave(plot=combined_Ac_k2_plot, filename = "../plots/Ac_species_abundance_boxplot.pdf", width=12, height=8)
+
+combined_Ac_k2_plot
+
+
+
+```
+
+## Volar forearms
+
+
+```{r}
+
+Vf_species_to_plot <- c("Acinetobacter_schindleri", "Cutibacterium_acnes", "Cutibacterium_modestum", 
+                        "Corynebacterium_ureicelerivorans", "Corynebacterium_tuberculostearicum",
+                        "Dermacoccus_nishinomyiensis", "Dermacoccus_sp._PAMC28757",
+                           "Staphylococcus_epidermidis", "Staphylococcus_capitis", 
+                           "Staphylococcus_hominis", 
+                        "Micrococcus_luteus", "Moraxella_osloensis",
+                           "Malassezia_restricta","Malassezia_sympodialis", 
+                        "Malassezia_obtusa",
+                        "Malassezia_globosa", "Malassezia_furfur")
+
+
+combined_Vf_k2_plot <- facet_abundance_plot_fn(chosen_species = Vf_species_to_plot, chosen_region = "Vf")
+
+
+combined_Vf_k2_plot
+
+
+```
+
+## Toe Webs
+
+```{r}
+
+Tw_species_to_plot <- c("Corynebacterium_tuberculostearicum",
+                           "Cutibacterium_acnes", 
+                        "Dermacoccus_sp._PAMC28757",
+                        "Deinococcus_wulumuqiensis",
+                        "Finegoldia_magna", "Gardnerella_vaginalis",
+                        "Staphylococcus_cohnii",
+                           "Staphylococcus_epidermidis", 
+                           "Staphylococcus_hominis", 
+                        "Staphylococcus_capitis",
+                        "Staphylococcus_caprae",
+                        "Staphylococcus_warneri",
+                        "Staphylococcus_haemolyticus",
+                        "Kocuria_rhizophila",
+                        "Micrococcus_luteus", "Moraxella_osloensis",
+                           "Malassezia_furfur", "Malassezia_globosa", "Malassezia_restricta")
+
+combined_Tw_k2_plot <- facet_abundance_plot_fn(chosen_species = Tw_species_to_plot, chosen_region = "Tw")
+
+
+combined_Tw_k2_plot
+
+```
+
+
+
+
+

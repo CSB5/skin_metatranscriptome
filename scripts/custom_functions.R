@@ -489,4 +489,77 @@ calculate_species_TPM <- function(df, species){
   
 }
 
+multi_facet_pathway_vs_community_abundance_plot_fn <- function(mtx_list=rna_k2_minimizer_renorm,
+                                                               pathway_df=mtx_pathabun_stratified_TSS,
+                                                               reaction_module, #e.g. "M00861"
+                                                               metadata = mtx_mgx_stats_chosen,
+                                                               chosen_species,
+                                                               chosen_region, #can take multiple regions
+                                                               manual_sample_order=FALSE,
+                                                               subj_region_order #a vector
+){
+  
+  options(dplyr.summarise.inform = FALSE)
+  
+  mtx_libs_to_choose <- metadata %>% dplyr::filter(region %in% chosen_region) %>% pull(mtx_LIBID)
+  
+  
+  mtx_df <- lapply(mtx_list[mtx_libs_to_choose], function(df){
+    
+    df <- merge(df %>% dplyr::rename(LIBID=mtx_LIBID), 
+                metadata %>% dplyr::rename(LIBID=mtx_LIBID) %>% dplyr::select(LIBID, region, subj_region), by="LIBID")
+    
+    df$species_fmt<- ifelse(df$k2_taxon %in% chosen_species, df$k2_taxon, "others")
+    
+    df_summarized <- df %>% group_by(LIBID, region, subj_region, species_fmt) %>% summarise(rel_abun_sum=sum(rel_abun))
+    
+    df_summarized$type <- "community"
+    
+    return(df_summarized)
+    
+  }) %>% do.call("rbind",.) %>% dplyr::select(species_fmt, region, subj_region, rel_abun_sum, type)
+  
+  
+  pathway_df_subset <- mtx_pathabun_stratified_TSS %>% dplyr::filter(module == reaction_module & 
+                                                                       region %in% chosen_region) %>% 
+    dplyr::rename(rel_abun_sum=rel_abun_CoPM) %>% 
+    dplyr::select(species_fmt, region, subj_region, rel_abun_sum)
+  
+  
+  pathway_df_subset$type <- reaction_module
+  
+  #Genus level and above classifications were abstracted to "unclassified", which means "unclassified at species level"
+  pathway_df_subset$species_fmt <- gsub(pattern="unclassified", replacement="unclassified at species level", x=pathway_df_subset$species_fmt)
+  
+  pathway_df_subset$species_fmt <- ifelse(pathway_df_subset$species_fmt %in% c(chosen_species,"unclassified at species level"), 
+                                          pathway_df_subset$species_fmt, "others")
+  
+  
+  combined_df <- rbind(pathway_df_subset, mtx_df)  
+  
+  #Re-order factor levels to put "others" first.
+  #renormalized RNA K2 abundances do not have "unclassified" any more
+  taxa_to_add <- chosen_species[!chosen_species %in% c("unclassified" )]
+  #combined_df$species_relabelled <- factor(combined_df$species_relabelled)
+  
+  combined_df<- combined_df %>% mutate(species_fmt= factor(species_fmt, 
+                                                           levels = c(taxa_to_add,"others", "unclassified at species level")))
+  
+  if (manual_sample_order==TRUE){
+    combined_df$subj_region <- factor(combined_df$subj_region, levels=subj_region_order)
+  }
+  
+  combined_df$type <- factor(combined_df$type, levels=c( reaction_module,"community"))
+  combined_df$region<- factor(combined_df$region, levels=chosen_region)
+  
+  
+  ggplot(combined_df, 
+         aes(x=subj_region, y=rel_abun_sum, fill=species_fmt)) + geom_col() + #coord_flip() #+ 
+    facet_wrap(type~region, nrow=2, scales = "free")+
+    theme_classic() + 
+    theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1), axis.title.x=element_blank()) + 
+    ggtitle(paste0("Metatranscriptomes")) + scale_fill_manual(values = c24)
+  
+  
+}
 

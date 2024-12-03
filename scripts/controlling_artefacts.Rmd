@@ -1,0 +1,505 @@
+---
+title: "Controlling for experimental and computational artifacts in skin metatranscriptomes"
+author: "Chiamh"
+date: '2024-04-26'
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+Kitome contamination removal and filtering of kraken2 classification artifacts
+
+Load libraries. 
+
+```{r}
+
+library(tidyverse)
+library(reshape2)
+
+```
+
+Helper functions
+
+```{r}
+
+#############################################################
+#functions to load and process fastspar correlation matrices#
+#############################################################
+load_mat <- function(path_string){
+  result_df <- read_tsv(path_string, col_names = TRUE, show_col_types = FALSE) %>% as.data.frame() #setting rownames on tibble is depreciated
+  row.names(result_df) <- result_df$`#OTU ID`
+  result_df <- result_df[,-1]
+  output <- data.matrix(result_df)
+  return(output)
+}
+
+
+#Removes duplicates by taking lower triangle of corr and p value matrix from fastspar results, get corr coeff and p vals. Inputs are two matrices
+get_edges_fn <- function(corr_mat, corr_pval){
+  df_corr <- melt(replace(corr_mat, lower.tri(corr_mat, TRUE), NA), na.rm = TRUE) %>% dplyr::rename(corr_coeff=value)
+  df_pval <- melt(replace(corr_pval, lower.tri(corr_pval, TRUE), NA), na.rm = TRUE)%>% dplyr::rename(pval=value)
+  output <- merge(df_corr, df_pval, by = c("Var1", "Var2") )
+  return(output)
+}
+
+
+find_contam_corr <- function(df, contam_genera=initial_contam_mask){
+  
+  df_filtered <- df %>% dplyr::filter(str_detect(df$Var1, contam_genera) | str_detect(df$Var2, contam_genera) )
+  return(df_filtered)
+}
+
+
+```
+
+
+Annotate contaminants, remove any species belonging to those genera which were not described on skin for disbiome and microphenoDB and manual NCBI search e.g. ("ACIDOVORAX" AND "Skin" AND "microbiome" AND "human" -> manually survey reports for this genera on healthy human skin). Also remove reads belong to human + the 3 bact spike in.
+
+Last pubmed search date: 24th Nov 2022
+
+load disbiome and microphenoDB results for genera reported on skin, both for mgx and mtx data
+
+```{r}
+disbiome_skin_res <- read_tsv("../metadata/mtx_contam_genera.tsv", show_col_types = FALSE)
+
+
+
+initial_contam <- c(disbiome_skin_res %>% 
+                        filter(reported_for_skin_disease_in_disbiome == FALSE & 
+                                 reported_on_skin_in_microphenoDB ==FALSE &
+                                 pubmed_skin_microbiome == FALSE) %>% 
+                        pull(name))
+
+
+genera_to_remove <- c(disbiome_skin_res %>% 
+                        filter(reported_for_skin_disease_in_disbiome == FALSE & 
+                                 reported_on_skin_in_microphenoDB ==FALSE &
+                                 pubmed_skin_microbiome == FALSE) %>% 
+                        pull(name), "Homo", "Listeria", "Plesiomonas", "Vibrio") #34 candidates to remove
+
+```
+
+Use correlation analysis to remove more species.
+Load data outputs from sparCC (fastspar)
+
+The result files are quite large and must be downloaded from figshare
+https://figshare.com/articles/dataset/sparCC_fastspar_results_for_kitome_identification/25699677?file=45875358
+
+```{r eval=FALSE}
+
+MTX_corr <- load_mat("../data/fastspar/subj_MTX_median_correlation.tsv")
+MGX_corr <- load_mat("../data/fastspar/subj_MGX_median_correlation.tsv")
+
+#derived from permuation test and bootstrapping
+MTX_pvalue <- load_mat("../data/fastspar/subj_MTX_fastspar_pvalues.tsv")
+MGX_pvalue <- load_mat("../data/fastspar/subj_MGX_fastspar_pvalues.tsv")
+
+MTX_corr_edge <- get_edges_fn(corr_mat=MTX_corr, corr_pval=MTX_pvalue) 
+MGX_corr_edge <- get_edges_fn(corr_mat=MGX_corr, corr_pval=MGX_pvalue)
+
+MTX_corr_edge$padj <- p.adjust(MTX_corr_edge$pval, method="fdr")
+
+MGX_corr_edge$padj <- p.adjust(MGX_corr_edge$pval, method="fdr")
+
+#Get strong correlations
+MTX_corr_edge_signif <- MTX_corr_edge %>% dplyr::filter(abs(corr_coeff)>=0.8 & padj < 0.05)
+MGX_corr_edge_signif <- MGX_corr_edge %>% dplyr::filter(abs(corr_coeff)>=0.8 & padj < 0.05)
+
+
+```
+
+Find all edges that are strongly correlated with contaminant genera (corr_coeff >= + 0.8 and padj 0.05)
+
+N.B: contaminant genera here excludes spike ins and the genus "Homo". 
+
+Edges are species.
+
+```{r eval=FALSE}
+
+initial_contam_mask <- stringi::stri_paste("^",initial_contam, collapse="|")
+
+
+MGX_corr_with_contam <- find_contam_corr(df=MGX_corr_edge_signif)
+  
+MTX_corr_with_contam <- find_contam_corr(df=MTX_corr_edge_signif)
+
+#Store contaminants to remove in a vector
+#Does not include Homo sapiens or unclassified yet
+
+genera_mask <- stringi::stri_paste("^",genera_to_remove, collapse="|")
+
+species_to_remove <- c(MGX_corr_with_contam$Var1, MGX_corr_with_contam$Var2, 
+                       MTX_corr_with_contam$Var1, MTX_corr_with_contam$Var2) %>% unique(.)
+
+
+```
+
+## Contaminant removal using dual filters.
+
+We now have two decontamination filters: 1) Genera to remove and 2) Species to remove based on strong linear correlation with members of the genera in 1).
+
+Both mtx and mgx species level counts should be filtered using the same set of contaminants in "genera_to_remove" and "species to remove"
+
+This also removes the 3 spike ins : Listeria Plesiomonas, Vibrio
+ 
+These are environmental microbes that are not typically associated with human microbiome (regardless of site). 
+
+## Panel B
+
+Generate correlation heatmaps between contaminants and non-contaminants
+
+Heatmap for MGX data
+
+The heatmap will have the comparisons in MGX_corr_with_contam + comparisons between the skin microbes and contaminants
+The heatmap will not include the spike in genera: Listeria, Plesiomonas and Vibrio
+
+
+```{r eval=FALSE}
+
+#For MGX data...
+#Get contaminant comparisons without spike ins
+
+
+remove_spikes <- function(df, spike_genera=c("^Listeria|^Plesiomonas|^Vibrio")){
+  
+  df_filtered <- df %>% dplyr::filter(str_detect(df$Var1, spike_genera, negate=TRUE) & str_detect(df$Var2, spike_genera, negate=TRUE) )
+  return(df_filtered)
+}
+
+
+MGX_corr_with_contam_no_spikes <- remove_spikes(MGX_corr_with_contam)
+
+MGX_contam_for_plotting <- c(MGX_corr_with_contam_no_spikes$Var1, 
+                                 MGX_corr_with_contam_no_spikes$Var2) %>% unique(.) %>% as.character(.)
+
+
+#Get a vector of candidate contaminant species AND skin species from the filtered kraken2 MGX data
+#k2_list can be MGX_species_k2_filtered
+#contam_vec can be MGX_contam_for_plotting
+get_skin_species_and_contams <- function(k2_list, contam_vec){
+  
+  skin_vec <- do.call("rbind",k2_list) %>% pull(name) %>% unique(.)
+  
+  output_vec <- c(skin_vec, contam_vec) %>% unique(.)
+  
+  return(output_vec)
+  
+}
+
+MGX_skin_species_and_contams <- get_skin_species_and_contams(k2_list=MGX_species_k2_filtered, 
+                                                         contam_vec = MGX_contam_for_plotting)
+
+MGX_skin_species_and_contams_perm <- gtools::permutations(n=length(MGX_skin_species_and_contams), 
+                                                          r = 2, MGX_skin_species_and_contams) %>% as.data.frame()
+
+MGX_skin_species_and_contams_perm$pattern <- paste0(MGX_skin_species_and_contams_perm$V1,
+                                                    "_",
+                                                    MGX_skin_species_and_contams_perm$V2)
+
+#df can be MGX_corr_edge, permutations_df can be MGX_skin_species_and_contams_perm
+#returns a list of two elements. The first element is a "melted" lower triangular df with the corr_coeffs and padj
+#the second element is a correlation matrix for hclust purposes
+
+#https://stackoverflow.com/questions/25935706/how-to-unmelt-data-with-reshape-r
+get_corr_for_heatmap <- function(df, permutations_df){
+  
+  df$pattern <- paste0(df$Var1,"_",df$Var2)
+  
+  melted_output <- df %>% dplyr::filter(pattern %in% permutations_df$pattern) %>% dplyr::select(-pattern)
+  
+  #need to add the same comparisons back to the matrix with correlation == 1, since they are the same feature
+  #need to add back the lower triangular for a symmetric matrix
+  
+  species <- melted_output$Var1 %>% unique(.)
+  same_comparisons <- data.frame(Var1=species, Var2=species, corr_coeff=1, pval=NA, padj=NA)
+  melted_output_symm <- melted_output %>% dplyr::rename("Var2"="Var1", "Var1"="Var2")
+
+  corr_mat <- dcast(data=do.call("rbind",list(melted_output,melted_output_symm, same_comparisons)), formula=Var1~Var2, value.var="corr_coeff")
+  
+  row.names(corr_mat) <- corr_mat$Var1
+  
+  corr_mat <- corr_mat %>% dplyr::select(-Var1) %>% as.matrix()
+  
+  output <- tibble::lst(melted_output, corr_mat)
+  return(output)
+  
+}
+
+#output is a list
+MGX_corr_edge_for_heatmap <- get_corr_for_heatmap(df=MGX_corr_edge, permutations_df = MGX_skin_species_and_contams_perm)
+
+#Plot heatmap with hclust
+#http://www.sthda.com/english/wiki/ggplot2-quick-correlation-matrix-heatmap-r-software-and-data-visualization
+#the input is a correlation matrix e.g. the second element of the output of get_corr_for_heatmap()
+
+plot_ggheatmap <-  function(corr_mat){
+  
+  # Use correlation between variables as distance
+  dd <- as.dist((1-corr_mat)/2)
+  hc <- hclust(dd)
+  
+  corr_mat_clustered <- corr_mat[hc$order, hc$order]
+  
+  df <- melt(corr_mat_clustered, value.name="corr_coeff")
+  
+  ggplot(data = df, aes(Var2, Var1, fill = corr_coeff))+
+    geom_tile()+
+    scale_fill_gradientn(colours=c("blue","white", "red"), 
+                         values=scales::rescale(c(-0.8, 0.3, 0.8)), space = "Lab",  
+                         name="sparCC Pearson \nCorrelation") +
+    theme_minimal()+ 
+    theme(axis.text.x = element_text(angle = 90, vjust = 0.2, hjust=1),
+           axis.title.x=element_blank(),
+          axis.title.y=element_blank())+
+    coord_fixed()
+}
+
+
+mgx_corr_contam_heatmap <- plot_ggheatmap(MGX_corr_edge_for_heatmap[["corr_mat"]])
+
+ggsave(plot=mgx_corr_contam_heatmap, filename = "../plots/mgx_corr_contam_heatmap.pdf", width=40, height=40)
+
+```
+
+
+### Computational artefact (kraken2 misclassification) removal
+
+For computational artefact (kraken2 misclassification) removal, we will adopt a kmer:read count threshold.
+
+For taxon DNA (NOT RNA) measurements, use minimizer information from kraken2 to distinguish true from false positives.
+The criterion is inspired from the krakenuniq paper https://genomebiology.biomedcentral.com/articles/10.1186/s13059-018-1568-0:
+
+i.e. at least 2000 unique k-mers per 1 million microbial read pairs
+
+For RNA, this is more complicated because highly expressed genes like rRNA (if no rRNA depletion) or housekeeping genes (after rRNA depletion) can dominate the reads, resulting in lower minimizer:read pair ratios than WGS inputs.
+
+To empirically determine a distinct minimizer:read pair ratio, perform rarefaction followed by kraken2 on a non-depleted (total RNA) vs rRNA depleted, defined community. A true positive species should have a different minimizer:read pair relationship to false positives. See k2_minimizer_analysis.Rmd
+
+We will mix true positive spike ins with skin metatranscriptomes for determining this threshold.
+
+Load kraken2 results for the spike ins. Objective is to see what are the "abundant" false positives in those libraries.
+
+The true positives for the spike ins are Plesiomonas shigelloides, Vibrio vulnificus and Listeria monocytogenes
+
+
+```{r}
+#Not rarefied
+depleted_spikes_libs <- list.files(path="../data/kraken2/mock_community_RNA/", pattern="^MHS445_k|^MHS589_k|^MHS590_k")
+
+depleted_spikes_k2 <- lapply(depleted_spikes_libs, function(x) {
+  
+  df <- read_tsv(paste0("../data/kraken2/mock_community_RNA/",x),
+                    col_names = c("rel_abun","paired_counts","minimizer_count","distinct_minimizer_count","k2_taxon"),
+                 show_col_types = FALSE) %>% 
+    dplyr::select(-c("rel_abun","minimizer_count")) %>% 
+    dplyr::filter(!k2_taxon %in% c("unclassified","Homo sapiens"))
+  
+  df$k2_taxon <- gsub(pattern=" ", replacement="_", df$k2_taxon)
+  
+  #species level relative abundance  (For clarity, convert to percentage abundance, so *100)
+  df$rel_abun <- (df$paired_counts / sum(df$paired_counts))*100
+  
+  #distinct minimizer to species read pair (not per million) ratio 
+  df$minimizer_species_ratio <- df$distinct_minimizer_count / df$paired_counts
+  
+  #Microbial reads at species level
+  microbial_reads <- sum(df$paired_counts) 
+  microbial_reads_per_million <- microbial_reads/1E6
+  
+  df$species_microbial_read_pair_total <- microbial_reads
+  
+  
+  #distinct minimizer to PER MILLION microbial read pair (species level) ratio
+  df$minimizer_microbe_ratio <- df$distinct_minimizer_count / microbial_reads_per_million
+  
+  
+  df$Library_ID <- x
+  
+  
+  return(df)
+  
+})
+
+
+names(depleted_spikes_k2) <- depleted_spikes_libs
+
+depleted_spikes_k2_df <- depleted_spikes_k2 %>% do.call("rbind",.)
+
+#Note some of the "major" false positives in the spike-ins that have >= 10 reads, excluding cross contamination from skin or the true positives
+
+#False positve species could belong to the genera Gammaproteobacteria (Enterobacteriaceae, Vibrio vulnificus and P shigelloides falls under this)
+
+depleted_spikes_k2_maj_fp <- depleted_spikes_k2_df %>% 
+  dplyr::filter(paired_counts >= 10) %>% 
+  dplyr::filter(!k2_taxon %in% c("Listeria_monocytogenes",
+                                 "Plesiomonas_shigelloides",
+                                 "Vibrio_vulnificus")) %>%
+  dplyr::filter(str_detect(string=.$k2_taxon, 
+                           pattern="Listeria|Plesiomonas|Vibrio|Pseudomonas|Salmonella|Klebsiella"))
+
+depleted_spikes_true_pos <- c("Listeria_monocytogenes",
+                                 "Plesiomonas_shigelloides",
+                                 "Vibrio_vulnificus")
+
+depleted_spikes_k2_maj_fp_vec <- unique(depleted_spikes_k2_maj_fp$k2_taxon)
+
+
+#https://genomebiology.biomedcentral.com/articles/10.1186/s13059-018-1568-0
+#Mimic the Kraken uniq paper figure 3
+
+#helper function for unique minimizer against log 10 read count dot plot
+
+make_minimizer_read_plot <- function(df, library, true_pos_species_vec=depleted_spikes_true_pos, 
+                                     false_pos_species_vec=depleted_spikes_k2_maj_fp_vec){
+  
+  df_subset <- df %>% dplyr::filter(Library_ID==library) %>% 
+    dplyr::filter(k2_taxon %in% c(true_pos_species_vec,false_pos_species_vec))
+  
+  df_subset$species_type <- ifelse(df_subset$k2_taxon %in% true_pos_species_vec, "true_positive", "false_positive")
+  
+  ggplot(data=df_subset, aes(x=log10(paired_counts), y=log10(distinct_minimizer_count), color = species_type))+
+    geom_point(size =4) + 
+    theme_classic() +
+    ggtitle(library)
+  
+}
+
+make_minimizer_read_plot(df=depleted_spikes_k2_df, library="MHS590_k2.s.tsv")
+
+
+
+
+```
+We cannot just use a single distinct minimizer cut off due to varying library sizes
+
+How do true positives look like when spiked in as a minor fraction in a real skin metatranscriptome?
+
+MHS413-MHSXXXA has 10K total reads
+
+MHS413-MHSXXXA has 1M total reads
+
+## Panel C
+
+```{r}
+
+depleted_pool_libs <- list.files(path="../data/kraken2/mock_community_RNA/", pattern="^MHS413-")
+
+depleted_pool_libs_k2 <- lapply(depleted_pool_libs, function(x) {
+  
+  df <- read_tsv(paste0("../data/kraken2/mock_community_RNA/",x),
+                    col_names = c("rel_abun","paired_counts","minimizer_count","distinct_minimizer_count","k2_taxon"),
+                 show_col_types = FALSE) %>% 
+    dplyr::select(-c("rel_abun","minimizer_count")) %>% 
+    dplyr::filter(!k2_taxon %in% c("unclassified","Homo sapiens"))
+  
+  df$k2_taxon <- gsub(pattern=" ", replacement="_", df$k2_taxon)
+  
+  #species level relative abundance  (actually percentage abundance, so *100)
+  df$rel_abun <- (df$paired_counts / sum(df$paired_counts))*100
+  
+  #distinct minimizer to species read pair (not per million) ratio 
+  df$minimizer_species_ratio <- df$distinct_minimizer_count / df$paired_counts
+  
+  #Microbial reads at species level
+  microbial_reads <- sum(df$paired_counts) 
+  microbial_reads_per_million <- microbial_reads/1E6
+  
+  df$species_microbial_read_pair_total <- microbial_reads
+  
+  
+  #distinct minimizer to PER MILLION microbial read pair (species level) ratio
+  df$minimizer_microbe_ratio <- df$distinct_minimizer_count / microbial_reads_per_million
+
+  
+  df$Library_ID <- x
+  
+  
+  return(df)
+  
+})
+
+names(depleted_pool_libs_k2) <- depleted_pool_libs
+
+depleted_pool_libs_k2_df <- depleted_pool_libs_k2 %>% do.call("rbind",.)
+
+depleted_pool_libs_k2_df$lib_size <- ifelse(depleted_pool_libs_k2_df$species_microbial_read_pair_total <= 10000, 
+                                            "10K read pairs", "1M read pairs")
+
+#threshold number of reads for 0.1% rel abundance (in log 10)
+depleted_pool_libs_k2_df$log10_rel_abun_threshold <- ifelse(depleted_pool_libs_k2_df$species_microbial_read_pair_total <= 10000, 
+                                            1, 3)
+
+#Plot log 10 distinct minimizer counts against log10 paired counts for 
+#Listeria_monocytogenes, P shigelloides and V vulnificans, vs false positives
+
+#FACET BY LIBRARY SIZE
+
+
+#Helper function to make 
+make_inter_library_minimizer_read_plot <- function(df, true_pos_species_vec=depleted_spikes_true_pos, 
+                                     false_pos_species_vec=depleted_spikes_k2_maj_fp_vec,
+                                     title="Minimizer - read count relationship from mock communities, rRNA depleted libraries"){
+  
+  df_subset <- df %>% 
+    dplyr::filter(k2_taxon %in% c(true_pos_species_vec,false_pos_species_vec))
+  
+  df_subset$species_type <- ifelse(df_subset$k2_taxon %in% true_pos_species_vec, "true_positive", "false_positive")
+  
+  ggplot(data=df_subset %>% dplyr::filter(paired_counts > 0), 
+         aes(x=log10(paired_counts), y=log10(distinct_minimizer_count), color = species_type))+
+    geom_point(size =2) + facet_wrap(~lib_size, ncol=2, nrow=1) +
+    theme_classic() +
+    ggtitle(title)
+  
+}
+
+make_inter_library_minimizer_read_plot(df=depleted_pool_libs_k2_df)
+
+
+#The true metric is minimizer:microbe read (per million) ratio. Either boxplot or dot plot  
+
+make_minimizer_microbe_ratio_plot <- function(df, true_pos_species_vec=depleted_spikes_true_pos, 
+                                     false_pos_species_vec=depleted_spikes_k2_maj_fp_vec,
+                                     title="Ratio of distinct minimzers to total microbial counts, mock communities, rRNA depleted libraries"){
+  
+  df_subset <- df %>% 
+    dplyr::filter(k2_taxon %in% c(true_pos_species_vec,false_pos_species_vec))
+  
+  df_subset$species_type <- ifelse(df_subset$k2_taxon %in% true_pos_species_vec, "true_positive", "false_positive")
+  
+  ggplot(data=df_subset %>% dplyr::filter(paired_counts > 0), 
+         aes(x=log10(paired_counts), y=log10(minimizer_microbe_ratio), color = species_type))+
+    geom_point(size =2) + facet_wrap(~lib_size, ncol=2, nrow=1) +
+    theme_classic() + 
+    ggtitle(title)
+  
+}
+
+
+mtx_minimizer_microbe_ratio_plot <- make_minimizer_microbe_ratio_plot(df=depleted_pool_libs_k2_df) + 
+  geom_hline(yintercept=4,linetype="dashed", color = "red") +
+  geom_vline(aes(xintercept=log10_rel_abun_threshold), 
+                                 linetype="dashed" )
+
+
+ggsave(filename="../plots/mtx_minimizer_microbe_ratio_plot.pdf", plot=mtx_minimizer_microbe_ratio_plot,
+       height=5, width=8)
+
+mtx_minimizer_microbe_ratio_plot
+```
+
+
+To summarize:
+
+For MTX, use the criteria:  >= 10^4 distinct minimizers per million at species level, and >= 0.1% relative abundance.
+
+For MGX, use the following criteria:  (>= 2000 distinct minimizers per million at species level, and >= 0.1% relative abundance) 
+OR true positive detected in paired MTX data.
+
+Note: Species level reads are non-contaminant, non-spike in, microbial reads!
+
+Reads are renormalized to 100% after filtering.
+

@@ -761,9 +761,351 @@ staphyloferrin_Tw_pathway_vs_mtx_plot
 
 
 ```
+# Supplemental panels
+
+## Pathway contributions for specific pathways
+
+Stacked bar plots for species level pathway contributions at RNA level were estimated with HUMAnN3
+
+### Beta-oxidation (M00861)
+
+```{r}
 
 
-## Supplemental panel
+mtx_beta_ox_Ac_barplot <- mtx_pathabun_stratified_TSS %>% dplyr::filter(module %in% c("M00861") & 
+                                                region %in% c("Ac")) %>%
+  ggplot(aes(fill=species_fmt, y=rel_abun_CoPM, x=subj_region)) +
+  geom_col()+
+  theme_classic() +
+  scale_fill_manual(values = c24 ) +
+  scale_y_continuous(expand = c(0, 0)) +
+  facet_grid(cols=vars(region),rows=vars(module), scales="free_x") +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.2, hjust=1)) +
+  theme(legend.text=element_text(size=8), axis.title.x=element_blank()) +
+  guides(fill=guide_legend(ncol =1)) +
+    ylab("relative contribution of species to pathway")
+
+mtx_beta_ox_Ac_barplot
+
+
+#libraries to match for community level bar plot (mtx)
+
+Ac_libs_side_fig <- mtx_beta_ox_Ac_barplot$data$LIBID %>% unique()
+
+Malassezia_species_side_fig <- c("Cutibacterium_acnes",
+                                 "Malassezia_furfur","Malassezia_globosa","Malassezia_obtusa",
+                                 "Malassezia_restricta", "Malassezia_sympodialis" )
+
+#plot for the beta oxidation pathway on Ac M00861
+
+beta_ox_Ac_pathway_vs_mtx_plot <- facet_pathway_vs_community_abundance_plot_fn(chosen_species = Malassezia_species_side_fig, 
+                                                      metadata = mtx_mgx_stats_chosen %>% dplyr::filter(mtx_LIBID %in% Ac_libs_side_fig),
+                                                      reaction_module = "M00861",
+                                                      chosen_region = "Ac")
+
+
+
+
+beta_ox_Ac_pathway_vs_mtx_plot
+
+
+####
+
+mtx_beta_ox_Sc_barplot <- mtx_pathabun_stratified_TSS %>% dplyr::filter(module %in% c("M00861") & 
+                                                region %in% c("Sc")) %>%
+  ggplot(aes(fill=species_fmt, y=rel_abun_CoPM, x=subj_region)) +
+  geom_col()+
+  theme_classic() +
+  scale_fill_manual(values = c24 ) +
+  scale_y_continuous(expand = c(0, 0)) +
+  facet_grid(cols=vars(region),rows=vars(module), scales="free_x") +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.2, hjust=1)) +
+  theme(legend.text=element_text(size=8), axis.title.x=element_blank()) +
+  guides(fill=guide_legend(ncol =1)) +
+    ylab("relative contribution of species to pathway")
+
+mtx_beta_ox_Sc_barplot
+
+
+#plot for the beta oxidation pathway on Sc M00861
+
+beta_ox_Sc_pathway_vs_mtx_plot <- facet_pathway_vs_community_abundance_plot_fn(chosen_species = Malassezia_species_side_fig, 
+                                                      metadata = mtx_mgx_stats_chosen %>% 
+                                                        dplyr::filter(mtx_LIBID %in% (mtx_beta_ox_Sc_barplot$data$LIBID %>% unique())),
+                                                      reaction_module = "M00861",
+                                                      chosen_region = "Sc")
+
+
+
+
+beta_ox_Sc_pathway_vs_mtx_plot
+
+
+#Assemble the panels
+
+beta_ox_pathway_plots <- ggarrange(beta_ox_Sc_pathway_vs_mtx_plot, beta_ox_Ac_pathway_vs_mtx_plot, common.legend = TRUE)
+
+ggsave(plot=beta_ox_pathway_plots, filename = "../plots/beta_ox_pathway_plots.pdf", width=12, height=8)
+
+beta_ox_pathway_plots
+
+```
+
+
+### Galactose degradation, Leloir pathway, galactose => alpha-D-glucose-1P. (M00632)
+
+```{r}
+multi_species_side_fig <- c(
+                         "Cutibacterium_acnes", "Staphylococcus_capitis", "Staphylococcus_caprae",
+                           "Staphylococcus_epidermidis", "Staphylococcus_haemolyticus", 
+                           "Staphylococcus_hominis", "Staphylococcus_warneri", "Staphylococcus_pettenkoferi", "Staphylococcus_saprophyticus",
+                         "Malassezia_furfur","Malassezia_globosa","Malassezia_obtusa","Malassezia_restricta", "Malassezia_sympodialis")
+
+
+
+mtx_galactose_deg_Ac_barplot <- mtx_pathabun_stratified_TSS %>% dplyr::filter(module %in% c("M00632") & 
+                                                region %in% c("Ac")) %>%
+  ggplot(aes(fill=species_fmt, y=rel_abun_CoPM, x=subj_region)) +
+  geom_col()+
+  theme_classic() +
+  scale_fill_manual(values = c24 ) +
+  scale_y_continuous(expand = c(0, 0)) +
+  facet_grid(cols=vars(region),rows=vars(module), scales="free_x") +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.2, hjust=1)) +
+  theme(legend.text=element_text(size=8), axis.title.x=element_blank()) +
+  guides(fill=guide_legend(ncol =1)) +
+    ylab("relative contribution of species to pathway")
+
+mtx_galactose_deg_Ac_barplot
+
+
+galactose_deg_Ac_pathway_vs_mtx_plot <- facet_pathway_vs_community_abundance_plot_fn(chosen_species = multi_species_side_fig, 
+                                                      metadata = mtx_mgx_stats_chosen %>% 
+                                                        dplyr::filter(mtx_LIBID %in% (mtx_galactose_deg_Ac_barplot$data$LIBID %>% unique())),
+                                                      reaction_module = "M00632",
+                                                      chosen_region = "Ac")
+
+
+
+galactose_deg_Ac_pathway_vs_mtx_plot
+
+
+#for scalp
+
+mtx_galactose_deg_Sc_barplot <- mtx_pathabun_stratified_TSS %>% dplyr::filter(module %in% c("M00632") & 
+                                                region %in% c("Sc")) %>%
+  ggplot(aes(fill=species_fmt, y=rel_abun_CoPM, x=subj_region)) +
+  geom_col()+
+  theme_classic() +
+  scale_fill_manual(values = c24 ) +
+  scale_y_continuous(expand = c(0, 0)) +
+  facet_grid(cols=vars(region),rows=vars(module), scales="free_x") +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.2, hjust=1)) +
+  theme(legend.text=element_text(size=8), axis.title.x=element_blank()) +
+  guides(fill=guide_legend(ncol =1)) +
+    ylab("relative contribution of species to pathway")
+
+mtx_galactose_deg_Sc_barplot
+
+
+
+
+galactose_deg_Sc_pathway_vs_mtx_plot <- facet_pathway_vs_community_abundance_plot_fn(chosen_species = multi_species_side_fig, 
+                                                      metadata = mtx_mgx_stats_chosen %>% 
+                                                        dplyr::filter(mtx_LIBID %in% (mtx_galactose_deg_Sc_barplot$data$LIBID %>% unique())),
+                                                      reaction_module = "M00632",
+                                                      chosen_region = "Sc")
+
+
+galactose_deg_Sc_pathway_vs_mtx_plot
+
+#########
+#Do the same but plot Sc and Ac side by side
+
+mtx_galactose_deg_Sc_Ac_barplot <- mtx_pathabun_stratified_TSS %>% dplyr::filter(module %in% c("M00632") & 
+                                                region %in% c("Sc", "Ac")) %>%
+  ggplot(aes(fill=species_fmt, y=rel_abun_CoPM, x=subj_region)) +
+  geom_col()+
+  theme_classic() +
+  scale_fill_manual(values = c24 ) +
+  scale_y_continuous(expand = c(0, 0)) +
+  facet_grid(cols=vars(region),rows=vars(module), scales="free_x") +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.2, hjust=1)) +
+  theme(legend.text=element_text(size=8), axis.title.x=element_blank()) +
+  guides(fill=guide_legend(ncol =1)) +
+    ylab("relative contribution of species to pathway")
+
+mtx_galactose_deg_Sc_Ac_barplot
+
+
+galactose_deg_pathway_plots <- multi_facet_pathway_vs_community_abundance_plot_fn(chosen_species = multi_species_side_fig, 
+                                                      metadata = mtx_mgx_stats_chosen %>% 
+                                                        dplyr::filter(mtx_LIBID %in% (mtx_galactose_deg_Sc_Ac_barplot$data$LIBID %>% unique())),
+                                                      reaction_module = "M00632",
+                                                      chosen_region = c("Sc", "Ac"))
+
+
+ggsave(plot=galactose_deg_pathway_plots, filename = "../plots/galactose_deg_pathway_plots.pdf", width=12, height=8)
+
+
+galactose_deg_pathway_plots
+
+```
+
+
+### Arginine biosynthesis (M00844)
+
+
+FLG codes for profilaggrin, a large protein precursor comprised of 10–12 filaggrin repeats. The most abundant amino acid residues in filaggrin repeats are basic amino acids histidine (HIS) (413/4061 residues; 10.17%) and arginine (440/4061; 10.83%) and the polar residue glutamine (367/4061; 9.04%) (Fig. S1). The protein is also significantly rich in glycine (12.76%) and serine (24.06%), consistent with the structural similarity of filaggrin and related proteins
+
+
+
+```{r}
+mtx_Arg_biosyn_Vf_barplot <- mtx_pathabun_stratified_TSS %>% dplyr::filter(module %in% c("M00844") & 
+                                                region %in% c("Vf")) %>%
+  ggplot(aes(fill=species_fmt, y=rel_abun_CoPM, x=subj_region)) +
+  geom_col()+
+  theme_classic() +
+  scale_fill_manual(values = c24 ) +
+  scale_y_continuous(expand = c(0, 0)) +
+  facet_grid(cols=vars(region),rows=vars(module), scales="free_x") +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.2, hjust=1)) +
+  theme(legend.text=element_text(size=8), axis.title.x=element_blank()) +
+  guides(fill=guide_legend(ncol =1)) +
+    ylab("relative contribution of species to pathway")
+
+
+
+mtx_Arg_biosyn_Vf_barplot
+
+#libraries to match for community level bar plot (mtx)
+
+Vf_libs_side_fig <- mtx_Arg_biosyn_Vf_barplot$data$LIBID %>% unique()
+
+
+Arg_biosyn_species_side_fig <- c(
+                         "Cutibacterium_acnes", "Staphylococcus_capitis", "Staphylococcus_caprae",
+                           "Staphylococcus_epidermidis", "Staphylococcus_haemolyticus", 
+                           "Staphylococcus_hominis", "Staphylococcus_warneri", "Staphylococcus_pettenkoferi",
+                         "Malassezia_furfur","Malassezia_globosa","Malassezia_obtusa","Malassezia_restricta", "Malassezia_sympodialis")
+
+
+Arg_biosyn_Vf_pathway_vs_mtx_plot <- facet_pathway_vs_community_abundance_plot_fn(chosen_species = Arg_biosyn_species_side_fig, 
+                                                      metadata = mtx_mgx_stats_chosen %>% dplyr::filter(mtx_LIBID %in% Vf_libs_side_fig),
+                                                      reaction_module = "M00844",
+                                                      chosen_region = "Vf")
+
+
+
+
+
+Arg_biosyn_Vf_pathway_vs_mtx_plot
+
+
+#For Sc
+
+mtx_Arg_biosyn_Sc_barplot <- mtx_pathabun_stratified_TSS %>% dplyr::filter(module %in% c("M00844") & 
+                                                region %in% c("Sc")) %>%
+  ggplot(aes(fill=species_fmt, y=rel_abun_CoPM, x=subj_region)) +
+  geom_col()+
+  theme_classic() +
+  scale_fill_manual(values = c24 ) +
+  scale_y_continuous(expand = c(0, 0)) +
+  facet_grid(cols=vars(region),rows=vars(module), scales="free_x") +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.2, hjust=1)) +
+  theme(legend.text=element_text(size=8), axis.title.x=element_blank()) +
+  guides(fill=guide_legend(ncol =1)) +
+    ylab("relative contribution of species to pathway")
+
+
+
+
+mtx_Arg_biosyn_Sc_barplot
+
+
+Arg_biosyn_Sc_pathway_vs_mtx_plot <- facet_pathway_vs_community_abundance_plot_fn(chosen_species = Arg_biosyn_species_side_fig, 
+                                                      metadata = mtx_mgx_stats_chosen %>% 
+                                                        dplyr::filter(mtx_LIBID %in% (mtx_Arg_biosyn_Sc_barplot$data$LIBID %>% unique())),
+                                                      reaction_module = "M00844",
+                                                      chosen_region = "Sc")
+
+
+
+Arg_biosyn_Sc_pathway_vs_mtx_plot
+
+
+
+#For Ch
+
+mtx_Arg_biosyn_Ch_barplot <- mtx_pathabun_stratified_TSS %>% dplyr::filter(module %in% c("M00844") & 
+                                                region %in% c("Ch")) %>%
+  ggplot(aes(fill=species_fmt, y=rel_abun_CoPM, x=subj_region)) +
+  geom_col()+
+  theme_classic() +
+  scale_fill_manual(values = c24 ) +
+  scale_y_continuous(expand = c(0, 0)) +
+  facet_grid(cols=vars(region),rows=vars(module), scales="free_x") +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.2, hjust=1)) +
+  theme(legend.text=element_text(size=8), axis.title.x=element_blank()) +
+  guides(fill=guide_legend(ncol =1)) +
+    ylab("relative contribution of species to pathway")
+
+
+
+
+mtx_Arg_biosyn_Ch_barplot
+
+
+Arg_biosyn_Ch_pathway_vs_mtx_plot <- facet_pathway_vs_community_abundance_plot_fn(chosen_species = Arg_biosyn_species_side_fig, 
+                                                      metadata = mtx_mgx_stats_chosen %>% 
+                                                        dplyr::filter(mtx_LIBID %in% (mtx_Arg_biosyn_Ch_barplot$data$LIBID %>% unique())),
+                                                      reaction_module = "M00844",
+                                                      chosen_region = "Ch")
+
+
+
+Arg_biosyn_Ch_pathway_vs_mtx_plot
+
+ 
+
+
+#########
+#Do the same but plot Ch and Vf side by side
+
+mtx_Arg_biosyn_Ch_Vf_barplot  <- mtx_pathabun_stratified_TSS %>% dplyr::filter(module %in% c("M00844") & 
+                                                region %in% c("Ch", "Vf")) %>%
+  ggplot(aes(fill=species_fmt, y=rel_abun_CoPM, x=subj_region)) +
+  geom_col()+
+  theme_classic() +
+  scale_fill_manual(values = c24 ) +
+  scale_y_continuous(expand = c(0, 0)) +
+  facet_grid(cols=vars(region),rows=vars(module), scales="free_x") +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.2, hjust=1)) +
+  theme(legend.text=element_text(size=8), axis.title.x=element_blank()) +
+  guides(fill=guide_legend(ncol =1)) +
+    ylab("relative contribution of species to pathway")
+
+mtx_Arg_biosyn_Ch_Vf_barplot
+
+
+Arg_biosyn_pathway_plots <- multi_facet_pathway_vs_community_abundance_plot_fn(chosen_species = Arg_biosyn_species_side_fig, 
+                                                      metadata = mtx_mgx_stats_chosen %>% 
+                                                        dplyr::filter(mtx_LIBID %in% (mtx_Arg_biosyn_Ch_Vf_barplot$data$LIBID %>% unique())),
+                                                      reaction_module = "M00844",
+                                                      chosen_region = c("Ch", "Vf"))
+
+
+
+ggsave(plot=Arg_biosyn_pathway_plots, filename = "../plots/Arg_biosyn_pathway_plots.pdf", width=12, height=8)
+
+Arg_biosyn_pathway_plots
+
+```
+
+
+
+## Pathway contributions by Malassezia, Staphylococcus and Cutibacterium
+
 Boxplots of core microbial pathways which are dominated (> 50% contribution) by species belonging to the genus Malassezia, Staphylococcus or Cutibacterium. Adjusted p-values for pairwise Wilcoxon ranked sum tests are shown. Sc, Ch, Ac, Vf and Tw are skin sites representing the scalp, cheek, antecubital fossa, volar forearm and toe web respectively.
 
 ```{r}

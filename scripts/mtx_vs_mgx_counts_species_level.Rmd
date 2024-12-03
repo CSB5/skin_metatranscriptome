@@ -1,0 +1,104 @@
+---
+title: "mtx_vs_mgx_counts_species_level"
+author: "Chiamh"
+date: '2024-04-30'
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+## Comparison of metatranscriptomic and metagenomic counts for various species across skin sites. 
+
+
+ 
+Load libraries
+
+```{r}
+
+library(tidyverse)
+
+source("custom_functions.R")
+
+```
+
+Load metadata and supporting files.
+
+
+```{r}
+
+
+combined_taxa_count_activity_df <- read_tsv("../data/combined_taxa_count_activity_df.tsv",
+                                            show_col_types = FALSE)
+
+mgx_species_site_prevalence_labelled <- read_tsv("../data/mgx_species_site_prevalence_labelled.tsv",
+                                                 show_col_types = FALSE)
+
+
+#For plotting the species that are at least 50% prevalent (by DNA) per site.
+mgx_species_site_prevalence_labelled_threshold <- mgx_species_site_prevalence_labelled %>%
+                                                  dplyr::filter(category_within_site!="variable")
+
+
+```
+
+## Scatter plot
+
+Scatter plots of species level metatranscriptomic (RNA) counts expressed as transcripts per million (TPM)
+against species level metagenomic (DNA) counts expressed as counts per million (CPM). Points on the solid line represent
+equal proportions of RNA to DNA for a species. The areas beyond the dotted lines represents ≥4-fold differences between
+RNA and DNA counts. Plots represent data from all 102 paired metagenomes and metatranscriptomes in this study. Note that
+Staphylococcus (dark blue) and Malassezia (lilac) species have an outsized contribution to metatranscriptomes at most sites despite their lower representation in metagenomes.
+
+Data is from the full cohort (n=24, 23, 19, 18, 18 for scalp, cheek, antecubital fossa, volar forearm and toe web respectively).
+
+
+```{r}
+core_prevalent_combined_taxa_count_activity_df <- lapply(c("Sc","Ch","Ac","Vf","Tw"), function(x){
+  
+  #This will only retain species which are prevalent or core to a site.
+  mgx_species_specific_site <- mgx_species_site_prevalence_labelled_threshold %>% 
+    dplyr::filter(region==x)
+  
+  #dataframe with transcriptional activities of prevalent or core species at each site
+  specific_site_species_activity_df <- combined_taxa_count_activity_df %>% 
+    dplyr::filter(region==x & k2_taxon %in% mgx_species_specific_site$species)
+  
+  return(specific_site_species_activity_df)
+  
+}) %>% do.call("rbind",.)
+
+
+
+
+core_prevalent_combined_taxa_count_activity_df$region <- factor(core_prevalent_combined_taxa_count_activity_df$region, 
+                                           levels=c("Sc","Ch","Ac","Vf","Tw"))
+
+
+
+core_prevalent_combined_taxa_count_activity_df$genus <- word(string=core_prevalent_combined_taxa_count_activity_df$k2_taxon, 
+                                                             start=1, sep="_")
+
+
+core_prevalent_combined_taxa_TPM_scatter <- ggplot(core_prevalent_combined_taxa_count_activity_df, 
+       aes(y=mtx_TPM, x=mgx_CPM, color=genus)) + geom_point(size=2) + 
+  theme_classic() + scale_color_manual(values=c24) +
+  facet_wrap(~region, ncol=3, nrow=2, scales='free') +
+  scale_y_continuous(labels = function(x) format(x, scientific = TRUE)) +
+  scale_x_continuous(labels = function(x) format(x, scientific = TRUE)) +
+  theme(axis.line=element_line())  +
+  geom_abline(intercept=0, slope=1) + 
+  geom_abline(intercept=0, slope=4,linetype=3) +
+  geom_abline(intercept=0, slope=0.25,linetype=3)  
+  
+
+ggsave(plot = core_prevalent_combined_taxa_TPM_scatter, 
+       filename = "../plots/core_common_taxa_RNA_v_DNA.pdf", width = 10, height = 7)
+
+
+core_prevalent_combined_taxa_TPM_scatter
+
+
+```

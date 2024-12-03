@@ -1,0 +1,303 @@
+---
+title: "human reads analysis"
+author: "Chiamh"
+date: "2024-12-02"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r}
+library(tidyverse)
+```
+
+Define custom functions
+
+```{r}
+#x: A data frame.
+
+#rn:	 Character vector (optional). If not NULL, the data frame's rownames will be added as (first) column to the output, with rn being the name of this column.
+
+#cn:	Logical (optional), if TRUE, the values of the first column in x will be used as column names in the rotated data frame.
+
+
+rotate_df <- function(x, rn = NULL, cn = FALSE){
+    if (cn) {
+        cnames <- x[[1]]
+        x <- dplyr::select(x, -1)
+    }
+    else cnames <- NULL
+    a <- attributes(x)
+    x <- x %>% as.data.frame() %>% t() %>% as.data.frame()
+    if (!is.null(cnames)) {
+        if (length(cnames) != ncol(x)) 
+            warning("Length of provided column names does not match number of columns. No column names changed.", 
+                call. = FALSE)
+        else colnames(x) <- cnames
+    }
+    if (!is.null(rn)) 
+        x <- rownames_as_column(x, var = rn)
+    a[names(a) %in% names(attributes(x))] <- NULL
+    attributes(x) <- c(attributes(x), a)
+    x
+}
+
+
+```
+
+
+Load in metadata
+
+```{r}
+
+metadata <- read_tsv("../metadata/skin_mtx_metadata_fmt.txt", show_col_types = FALSE) 
+
+mgx_stats <- read_tsv("../metadata/MGX_QC_stats.txt", show_col_types = FALSE) 
+
+mtx_stats <- read_tsv("../metadata/MTX_QC_stats.txt", show_col_types = FALSE) 
+
+mgx_stats <- merge(mgx_stats, metadata, by = "LIBID", all.x=TRUE)
+
+mtx_stats <- merge(mtx_stats, metadata, by ="LIBID", all.x=TRUE)
+
+
+mtx_to_pull <- read_tsv("../metadata/mtx_to_pull", col_names = FALSE, show_col_types = FALSE) %>% pull(X1)
+
+mgx_to_pull <- read_tsv("../metadata/mgx_to_pull", col_names = FALSE, show_col_types = FALSE) %>% pull(X1)
+
+mtx_stats_chosen <- mtx_stats %>% dplyr::filter(LIBID %in% mtx_to_pull)
+
+mgx_stats_chosen <- mgx_stats %>% dplyr::filter(LIBID %in% mgx_to_pull)
+
+mtx_mgx_stats_chosen <- read_tsv(file="../metadata/mtx_mgx_stats_chosen.tsv", show_col_types = FALSE)
+
+
+#Load QC for hg38 mapping for main cohort, more deeply sequenced mtx samples, and skin rna seq from other studies
+
+other_studies_RNAseq_metadata <- read_tsv("../metadata/human_rnaseq_other_studies_public.txt", show_col_types = FALSE) %>%
+  dplyr::rename(LIBID=run_ID)
+
+#QC derived from qualimap outputs
+#Note that solberg and amorim are single end 75 bp reads while main_cohort is PE
+solberg_hg38_QC <- read_tsv("../data/hg38_mtx_mapping/solberg_skin_tape/solberg_skin_tape_mtx_hg38_qualimap_QC.tsv", show_col_types = FALSE)
+
+solberg_hg38_QC <- merge(solberg_hg38_QC, other_studies_RNAseq_metadata, by = "LIBID")
+
+solberg_hg38_QC$study <- "solberg_et_al"
+
+#approximate Giga nucleotides
+solberg_hg38_QC$approx_giga_nt <- (solberg_hg38_QC$READS_ALIGNED * 75)/10^9
+
+
+amorim_hg38_QC <- read_tsv("../data/hg38_mtx_mapping/amorim_leishmania/amorim_leishmania_mtx_hg38_qualimap_QC.tsv", show_col_types = FALSE)
+
+amorim_hg38_QC <- merge(amorim_hg38_QC, other_studies_RNAseq_metadata, by = "LIBID")
+
+amorim_hg38_QC$study <- "amorim_et_al"
+
+amorim_hg38_QC$approx_giga_nt <- (amorim_hg38_QC$READS_ALIGNED * 75)/10^9
+
+other_studies_hg38_QC <- rbind(solberg_hg38_QC, amorim_hg38_QC)
+
+
+#The 102 in the main cohort
+main_cohort_hg38_QC <- read_tsv("../data/hg38_mtx_mapping/main_cohort_mtx_hg38_qualimap_QC.tsv", show_col_types = FALSE)
+
+main_cohort_hg38_QC <- merge(main_cohort_hg38_QC, mtx_stats_chosen %>% dplyr::select(LIBID,region))
+
+main_cohort_hg38_QC$study <- "main_cohort_in_house" 
+
+main_cohort_hg38_QC$skin_layer <- "stratum_corneum"
+
+#PE150
+main_cohort_hg38_QC$approx_giga_nt <- (main_cohort_hg38_QC$READ_PAIRS_ALIGNED * 2 * 150)/10^9
+
+
+
+#Some additionally deeply sequenced libraries (this cohort)
+#Deeper sequencing for scalp and cheek might be more successful
+
+deeper_seq_RNAseq_metadata <- read_tsv("../metadata/deeper_sequencing_skin_mtx.txt", show_col_types = FALSE) %>% dplyr::rename(region=Site)
+
+deeper_seq_hg38_QC <- read_tsv("../data/hg38_mtx_mapping/deeper_seq/deeper_seq_cohort_mtx_hg38_qualimap_QC.tsv", 
+                               show_col_types = FALSE)
+
+deeper_seq_hg38_QC <- merge(deeper_seq_hg38_QC, deeper_seq_RNAseq_metadata %>% dplyr::select(LIBID,region))
+
+
+deeper_seq_hg38_QC$study <- "deeper_seq_in_house"
+
+
+deeper_seq_hg38_QC$skin_layer <- "stratum_corneum"
+
+#PE150
+deeper_seq_hg38_QC$approx_giga_nt <- (deeper_seq_hg38_QC$READ_PAIRS_ALIGNED * 2 * 150)/10^9
+
+#Skin biopsies from A*SRL
+
+SRIS_biopsy_hg38_QC <- read_tsv("../data/hg38_mtx_mapping/SRIS_skin_biopsy/SRIS_skin_biopsy_mtx_hg38_qualimap_QC.tsv", 
+                               show_col_types = FALSE)
+
+SRIS_biopsy_hg38_QC <- merge(SRIS_biopsy_hg38_QC, other_studies_RNAseq_metadata, by = "LIBID")
+
+
+SRIS_biopsy_hg38_QC$study <- "SRIS"
+
+
+SRIS_biopsy_hg38_QC$skin_layer <- "Biopsy"
+
+#PE150
+SRIS_biopsy_hg38_QC$approx_giga_nt <- (SRIS_biopsy_hg38_QC$READ_PAIRS_ALIGNED * 2 * 150)/10^9
+
+other_studies_hg38_QC_fmt <- rbind(other_studies_hg38_QC %>% dplyr::select(-READS_ALIGNED), 
+                                   SRIS_biopsy_hg38_QC %>% dplyr::select(-READ_PAIRS_ALIGNED))
+
+
+paste0(SRIS_biopsy_hg38_QC$study,"_",SRIS_biopsy_hg38_QC$region,"_",SRIS_biopsy_hg38_QC$skin_layer)
+```
+
+
+# How many human reads in our full cohort?
+
+```{r}
+
+main_cohort_hg38_QC$plotting_category <- paste0(main_cohort_hg38_QC$study,"_",main_cohort_hg38_QC$region,"_",main_cohort_hg38_QC$skin_layer)
+
+main_cohort_hg38_QC$plotting_category <- factor(main_cohort_hg38_QC$plotting_category,
+                                                levels=c("main_cohort_in_house_Sc_stratum_corneum",
+                                                         "main_cohort_in_house_Ch_stratum_corneum",
+                                                         "main_cohort_in_house_Ac_stratum_corneum",
+                                                         "main_cohort_in_house_Vf_stratum_corneum",
+                                                         "main_cohort_in_house_Tw_stratum_corneum"))
+
+main_cohort_hg38_read_pairs_boxplot <- ggplot(main_cohort_hg38_QC, aes(x=plotting_category, y=log10(READ_PAIRS_ALIGNED))) + geom_boxplot() + theme_classic() +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+
+
+ggsave(main_cohort_hg38_read_pairs_boxplot, 
+       filename = "../plots/main_cohort_hg38_read_pairs_boxplot.pdf",
+       height=7, width=10)
+
+
+main_cohort_hg38_read_pairs_boxplot
+
+#median human read pairs, this study
+
+main_cohort_hg38_QC %>% pull(READ_PAIRS_ALIGNED) %>% median(.)
+
+```
+
+
+# Plot proportion of reads mapping to exons, introns and intergenic regions for main cohort and other studies
+
+```{r}
+
+#approx giga_nt here are for human reads
+cols_to_select <- c("LIBID","EXONIC_ALIGNMENTS","INTRONIC_ALIGNMENTS",
+                    "INTERGENIC_ALIGNMENTS","OVERLAPPING_EXON_ALIGNMENTS","region","study","skin_layer","approx_giga_nt")
+
+
+all_studies_hg38_QC <- rbind(main_cohort_hg38_QC %>% dplyr::select(all_of(cols_to_select)),
+                             other_studies_hg38_QC_fmt %>% dplyr::select(all_of(cols_to_select)))
+
+all_studies_hg38_QC$skin_layer <- gsub(pattern=" ",replacement="_", x=all_studies_hg38_QC$skin_layer)
+
+
+all_studies_hg38_QC$plotting_category <- paste0(all_studies_hg38_QC$study,"_",all_studies_hg38_QC$region,"_",all_studies_hg38_QC$skin_layer)
+
+
+deeper_seq_hg38_QC_fmt <- deeper_seq_hg38_QC %>% dplyr::select(all_of(cols_to_select))
+
+deeper_seq_hg38_QC_fmt$plotting_category <- "deeper_seq_in_house_stratum_corneum"
+
+all_studies_hg38_QC <- rbind(all_studies_hg38_QC, deeper_seq_hg38_QC_fmt)
+
+all_studies_hg38_QC$plotting_category <- ifelse(all_studies_hg38_QC$study=="SRIS", "SRIS___biopsy", all_studies_hg38_QC$plotting_category)
+
+all_studies_hg38_QC$plotting_category <- factor(all_studies_hg38_QC$plotting_category,
+                                                levels=c("main_cohort_in_house_Sc_stratum_corneum",
+                                                         "main_cohort_in_house_Ch_stratum_corneum",
+                                                         "main_cohort_in_house_Ac_stratum_corneum",
+                                                         "main_cohort_in_house_Vf_stratum_corneum",
+                                                         "main_cohort_in_house_Tw_stratum_corneum",
+                                                         "deeper_seq_in_house_stratum_corneum",
+                                                         "solberg_et_al_Vf_stratum_corneum",
+                                                         "solberg_et_al_Vf_epidermis",
+                                                         "solberg_et_al_Vf_dermis",
+                                                         "amorim_et_al_upper arm_biopsy",
+                                                         "SRIS___biopsy"))
+
+
+all_studies_hg38_QC$proportion_mapped_exon <- all_studies_hg38_QC$EXONIC_ALIGNMENTS / (all_studies_hg38_QC$EXONIC_ALIGNMENTS + all_studies_hg38_QC$INTRONIC_ALIGNMENTS + all_studies_hg38_QC$INTERGENIC_ALIGNMENTS)
+
+
+all_studies_hg38_QC$proportion_mapped_intron <- all_studies_hg38_QC$INTRONIC_ALIGNMENTS / (all_studies_hg38_QC$EXONIC_ALIGNMENTS + all_studies_hg38_QC$INTRONIC_ALIGNMENTS + all_studies_hg38_QC$INTERGENIC_ALIGNMENTS)
+
+
+all_studies_hg38_QC$proportion_mapped_intergenic <- all_studies_hg38_QC$INTERGENIC_ALIGNMENTS / (all_studies_hg38_QC$EXONIC_ALIGNMENTS + all_studies_hg38_QC$INTRONIC_ALIGNMENTS + all_studies_hg38_QC$INTERGENIC_ALIGNMENTS)
+
+
+all_studies_hg38_exon <- ggplot(all_studies_hg38_QC, aes(x=plotting_category, y=proportion_mapped_exon)) + geom_boxplot() + theme_classic() +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+
+
+all_studies_hg38_exon
+
+
+all_studies_hg38_intron <- ggplot(all_studies_hg38_QC, aes(x=plotting_category, y=proportion_mapped_intron)) + geom_boxplot() + theme_classic() +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+
+
+all_studies_hg38_intron
+
+
+all_studies_hg38_intergenic <- ggplot(all_studies_hg38_QC, aes(x=plotting_category, y=proportion_mapped_intergenic)) + geom_boxplot() + theme_classic() +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+
+
+all_studies_hg38_intergenic
+
+###Combine exonic, intergenic and intronic proportions in the same panel
+
+all_studies_hg38_QC_long <- all_studies_hg38_QC %>% dplyr::select(plotting_category, proportion_mapped_exon, 
+                                                                        proportion_mapped_intron, 
+                                                                        proportion_mapped_intergenic) %>%
+  pivot_longer(!plotting_category, names_to = "genomic_feature", values_to ="proportion_mapped")
+
+all_studies_hg38_QC_long$genomic_feature <- gsub(pattern="proportion_mapped_",
+                                                   replacement="", x= all_studies_hg38_QC_long$genomic_feature)
+
+
+
+all_studies_hg38_QC_long$plotting_category <- factor(all_studies_hg38_QC_long$plotting_category,
+                                                levels=c("main_cohort_in_house_Sc_stratum_corneum",
+                                                         "main_cohort_in_house_Ch_stratum_corneum",
+                                                         "main_cohort_in_house_Ac_stratum_corneum",
+                                                         "main_cohort_in_house_Vf_stratum_corneum",
+                                                         "main_cohort_in_house_Tw_stratum_corneum",
+                                                         "deeper_seq_in_house_stratum_corneum",
+                                                         "solberg_et_al_Vf_stratum_corneum",
+                                                         "solberg_et_al_Vf_epidermis",
+                                                         "solberg_et_al_Vf_dermis",
+                                                         "amorim_et_al_upper arm_biopsy",
+                                                         "SRIS___biopsy"))
+
+
+all_studies_hg38_prop_boxplot <- ggplot(all_studies_hg38_QC_long, 
+                                        aes(x=plotting_category, 
+                                            y=proportion_mapped,
+                                            fill=genomic_feature)) + geom_boxplot() + theme_classic() +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+
+
+
+ggsave(all_studies_hg38_prop_boxplot, filename="../plots/all_studies_hg38_prop_boxplot.pdf", height=7, width=12)
+
+all_studies_hg38_prop_boxplot
+
+
+```
+

@@ -1,0 +1,134 @@
+  7.09	2098	2098	0	0	U	0	unclassified
+ 92.91	27480	206	601624	228409	R	1	root
+ 92.21	27274	17	596252	226307	R1	131567	  cellular organisms
+ 92.09	27237	140	594779	226109	D	2	    Bacteria
+ 90.31	26713	18	578362	219461	D1	1783272	      Terrabacteria group
+ 90.24	26692	18	576975	219093	P	1239	        Firmicutes
+ 90.18	26674	278	575507	218799	C	91061	          Bacilli
+ 89.20	26385	92	565250	215962	O	1385	            Bacillales
+ 87.91	26002	0	553182	211441	F	186820	              Listeriaceae
+ 87.91	26002	3899	553093	211441	G	1637	                Listeria
+ 74.64	22076	22034	396339	157073	S	1639	                  Listeria monocytogenes
+  0.06	17	17	50	17	S1	930781	                    Listeria monocytogenes J1816
+  0.02	7	7	10	7	S1	393119	                    Listeria monocytogenes FSL J1-208
+  0.02	7	6	26	10	S1	2065118	                    Listeria monocytogenes serotype 4b
+  0.00	1	1	4	2	S2	1196161	                      Listeria monocytogenes serotype 4b str. 81-0861
+  0.01	3	3	11	8	S1	393126	                    Listeria monocytogenes FSL R2-561
+  0.01	3	1	6	5	S1	1906951	                    Listeria monocytogenes serotype 1/2a
+  0.00	1	1	2	1	S2	1196187	                      Listeria monocytogenes serotype 1/2a str. 10-0814
+  0.00	1	1	1	1	S2	1385998	                      Listeria monocytogenes serotype 1/2a str. 01-5252
+  0.01	2	2	4	2	S1	1457187	                    Listeria monocytogenes WSLC1001
+  0.00	1	1	3	3	S1	393127	                    Listeria monocytogenes Finland 1998
+  0.00	1	1	2	1	S1	882094	                    Listeria monocytogenes L312
+  0.00	1	1	2	1	S1	882020	                    Listeria monocytogenes SLCC2479
+  0.03	10	1	85	32	S	1638	                  Listeria ivanovii
+  0.03	9	9	69	22	S1	202752	                    Listeria ivanovii subsp. londoniensis
+  0.02	5	4	33	15	S	1640	                  Listeria seeligeri
+  0.00	1	1	2	1	S1	683837	                    Listeria seeligeri serovar 1/2b str. SLCC3954
+  0.02	5	4	98	56	S	1642	                  Listeria innocua
+  0.00	1	1	33	26	S1	702455	                    Listeria innocua FSL J1-023
+  0.01	4	4	37	21	S	1643	                  Listeria welshimeri
+  0.01	2	0	2	2	G1	2642072	                  unclassified Listeria
+  0.01	2	2	2	2	S	1844999	                    Listeria sp. PSOL-1
+  0.00	1	1	1	1	S	1006155	                  Listeria weihenstephanensis
+  0.98	290	14	5843	3121	F	186817	              Bacillaceae
+  0.93	275	270	4722	2511	G	1386	                Bacillus
+  0.02	5	4	15	9	G1	653685	                  Bacillus subtilis group
+  0.00	1	1	1	1	S	1423	                    Bacillus subtilis
+  0.00	1	0	4	3	G	2675234	                Alkalihalobacillus
+  0.00	1	1	2	1	S	2598861	                  Alkalihalobacillus miscanthi
+  0.00	1	0	16	9	F	90964	              Staphylococcaceae
+  0.00	1	0	5	3	G	1279	                Staphylococcus
+  0.00	1	1	4	2	S	1282	                  Staphylococcus epidermidis
+  0.04	11	0	206	132	O	186826	            Lactobacillales
+  0.03	8	0	188	116	F	33958	              Lactobacillaceae
+  0.03	8	0	179	109	G	2742598	                Limosilactobacillus
+  0.02	7	7	177	108	S	1613	                  Limosilactobacillus fermentum
+  0.00	1	1	2	1	S	1598	                  Limosilactobacillus reuteri
+  0.01	2	0	8	6	F	1300	              Streptococcaceae
+  0.01	2	2	6	4	G	1357	                Lactococcus
+  0.00	1	0	7	7	F	81852	              Enterococcaceae
+  0.00	1	1	5	5	G	1350	                Enterococcus
+  0.01	3	0	44	23	P	201174	        Actinobacteria
+  0.01	3	0	44	23	C	1760	          Actinomycetia
+  0.01	2	0	22	11	O	85007	            Corynebacteriales
+  0.00	1	0	6	3	F	1653	              Corynebacteriaceae
+  0.00	1	1	6	3	G	1716	                Corynebacterium
+  0.00	1	0	16	8	F	85026	              Gordoniaceae
+  0.00	1	0	16	8	G	2053	                Gordonia
+  0.00	1	1	16	8	S	2054	                  Gordonia bronchialis
+  0.00	1	0	20	10	O	85004	            Bifidobacteriales
+  0.00	1	0	20	10	F	31953	              Bifidobacteriaceae
+  0.00	1	0	20	10	G	1678	                Bifidobacterium
+  0.00	1	1	16	8	S	1685	                  Bifidobacterium breve
+  1.29	382	5	9052	5066	P	1224	      Proteobacteria
+  1.26	372	2	8697	4872	C	1236	        Gammaproteobacteria
+  0.81	239	1	4899	2590	O	72274	          Pseudomonadales
+  0.79	234	1	4873	2573	F	135621	            Pseudomonadaceae
+  0.79	233	174	4807	2539	G	286	              Pseudomonas
+  0.19	55	0	550	298	G1	136841	                Pseudomonas aeruginosa group
+  0.18	52	52	528	288	S	287	                  Pseudomonas aeruginosa
+  0.01	3	3	22	10	S	43263	                  Pseudomonas alcaligenes
+  0.01	2	0	4	2	G1	136845	                Pseudomonas putida group
+  0.00	1	1	2	1	S	303	                  Pseudomonas putida
+  0.00	1	1	2	1	S	47885	                  Pseudomonas oryzihabitans
+  0.00	1	0	4	2	G1	136843	                Pseudomonas fluorescens group
+  0.00	1	1	1	1	S	294	                  Pseudomonas fluorescens
+  0.00	1	0	8	4	G1	136846	                Pseudomonas stutzeri group
+  0.00	1	0	8	4	G2	578833	                  Pseudomonas stutzeri subgroup
+  0.00	1	1	8	4	S	316	                    Pseudomonas stutzeri
+  0.01	4	0	24	16	F	468	            Moraxellaceae
+  0.01	3	2	22	15	G	469	              Acinetobacter
+  0.00	1	0	3	2	G1	196816	                unclassified Acinetobacter
+  0.00	1	1	2	1	S	2079596	                  Acinetobacter sp. SWBY1
+  0.00	1	0	2	1	G	497	              Psychrobacter
+  0.00	1	1	2	1	G1	196806	                unclassified Psychrobacter
+  0.44	131	5	3597	2153	O	91347	          Enterobacterales
+  0.43	126	79	3357	1980	F	543	            Enterobacteriaceae
+  0.13	39	3	578	342	G	561	              Escherichia
+  0.12	36	36	435	257	S	562	                Escherichia coli
+  0.02	6	4	83	32	G	570	              Klebsiella
+  0.01	2	2	16	4	S	1463165	                Klebsiella quasipneumoniae
+  0.01	2	0	4	1	G	544	              Citrobacter
+  0.01	2	0	4	1	G1	1344959	                Citrobacter freundii complex
+  0.01	2	2	4	1	S	546	                  Citrobacter freundii
+  0.01	3	1	48	24	C	28211	        Alphaproteobacteria
+  0.01	2	0	40	20	O	356	          Hyphomicrobiales
+  0.01	2	0	40	20	F	119045	            Methylobacteriaceae
+  0.00	1	0	20	10	G	407	              Methylobacterium
+  0.00	1	0	20	10	S	31998	                Methylobacterium radiotolerans
+  0.00	1	1	20	10	S1	426355	                  Methylobacterium radiotolerans JCM 2831
+  0.00	1	0	12	6	G	2282523	              Methylorubrum
+  0.00	1	1	8	4	S	223967	                Methylorubrum populi
+  0.01	2	0	56	31	C	28216	        Betaproteobacteria
+  0.00	1	0	2	1	O	32003	          Nitrosomonadales
+  0.00	1	0	2	1	F	32011	            Methylophilaceae
+  0.00	1	0	2	1	G	16	              Methylophilus
+  0.00	1	0	2	1	G1	2630143	                unclassified Methylophilus
+  0.00	1	1	2	1	S	1662285	                  Methylophilus sp. TWE2
+  0.00	1	0	50	28	O	80840	          Burkholderiales
+  0.00	1	0	45	25	F	119060	            Burkholderiaceae
+  0.00	1	0	44	24	G	48736	              Ralstonia
+  0.00	1	1	6	3	S	305	                Ralstonia solanacearum
+  0.01	2	0	13	9	D1	1783270	      FCB group
+  0.01	2	0	13	9	D2	68336	        Bacteroidetes/Chlorobi group
+  0.01	2	0	11	8	P	976	          Bacteroidetes
+  0.01	2	0	11	8	C	117743	            Flavobacteriia
+  0.01	2	0	11	8	O	200644	              Flavobacteriales
+  0.01	2	1	11	8	F	49546	                Flavobacteriaceae
+  0.00	1	0	8	5	G	237	                  Flavobacterium
+  0.00	1	0	6	3	S	312277	                    Flavobacterium indicum
+  0.00	1	1	6	3	S1	1094466	                      Flavobacterium indicum GPTSA100-9 = DSM 17447
+  0.07	20	0	374	190	D	2759	    Eukaryota
+  0.07	20	0	374	190	D1	33154	      Opisthokonta
+  0.07	20	0	371	188	K	4751	        Fungi
+  0.07	20	0	371	188	K1	451864	          Dikarya
+  0.07	20	0	371	188	P	4890	            Ascomycota
+  0.07	20	0	371	188	P1	716545	              saccharomyceta
+  0.07	20	0	369	187	P2	147537	                Saccharomycotina
+  0.07	20	0	369	187	C	4891	                  Saccharomycetes
+  0.07	20	0	369	187	O	4892	                    Saccharomycetales
+  0.07	20	1	353	179	F	4893	                      Saccharomycetaceae
+  0.06	19	0	335	169	G	4930	                        Saccharomyces
+  0.06	19	0	302	152	S	4932	                          Saccharomyces cerevisiae
+  0.06	19	19	302	152	S1	559292	                            Saccharomyces cerevisiae S288C

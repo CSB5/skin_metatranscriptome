@@ -1,0 +1,270 @@
+---
+title: "Sequencing stats and quality control metrics."
+author: "Chiamh"
+date: "2024-11-27"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Load libraries
+
+```{r}
+library(tidyverse)
+library(reshape2)
+library(vegan)
+library(ggpubr)
+
+```
+
+Load metadata
+
+```{r}
+#all samples
+metadata <- read_tsv("../metadata/skin_mtx_metadata_fmt.txt", show_col_types = FALSE)
+
+#For pilot cohort
+pilot_QC_wetlab_metadata <- read_tsv("../metadata/pilot_cohort_RNA_wetlab_QC.txt", show_col_types = FALSE)
+
+#distribution of libraries per site in the pilot QC, apart from the single sample with a tapestation error
+
+plyr::count(pilot_QC_wetlab_metadata %>% dplyr::filter(!is.na(RIN)), vars="region")
+
+
+tech_reps_a <- metadata %>% dplyr::filter(subj_region %in% c("SMT001_Tw","SMT023_Ch","SMT023_Ac") & mol_type=="RNA")
+tech_reps_b <- metadata %>% dplyr::filter(comments == "technical replicate analysis" & subj_region != "3 Bac (VV:LM:PS)")
+
+tech_reps <- c(tech_reps_a$LIBID, tech_reps_b$LIBID)
+
+tech_reps_metadata <- metadata %>% dplyr::filter(LIBID %in% tech_reps) 
+	
+
+#metadata for the longitudinal cohort
+longitudinal_metadata <- read_tsv("../metadata/skin_mtx_longitudinal_metadata.txt", show_col_types = FALSE) %>% 
+  dplyr::filter(!subject %in% c("Neg012","Neg013","Neg014"))
+longitudinal_metadata$LIBID <- longitudinal_metadata$subj_region
+longitudinal_metadata$sequenced <- ifelse(longitudinal_metadata$low_conc == "fail", FALSE, TRUE)
+longitudinal_metadata <- longitudinal_metadata %>% mutate_at('sequenced', ~replace_na(.,TRUE))
+
+#Only "passed" samples were sent for sequencing
+longitudinal_metadata_passed <- longitudinal_metadata %>% dplyr::filter(sequenced == TRUE)
+
+
+###For full cohort
+
+mtx_to_pull <- read_tsv("../metadata/mtx_to_pull", col_names = FALSE, show_col_types = FALSE) %>% pull(X1)
+
+mgx_to_pull <- read_tsv("../metadata/mgx_to_pull", col_names = FALSE, show_col_types = FALSE) %>% pull(X1)
+
+main_cohort_QC <- read_tsv("../metadata/MTX_QC_stats.txt", show_col_types = FALSE) %>%
+  dplyr::filter(LIBID %in% mtx_to_pull)
+
+mgx_stats <- read_tsv("../metadata/MGX_QC_stats.txt", show_col_types = FALSE) 
+
+mgx_stats <- merge(mgx_stats, metadata, by = "LIBID", all.x=TRUE)
+
+mgx_stats_chosen <- mgx_stats %>% dplyr::filter(LIBID %in% mgx_to_pull)
+
+#
+
+mtx_stats <- read_tsv("../metadata/MTX_QC_stats.txt", show_col_types = FALSE) 
+
+mtx_stats <- merge(mtx_stats, metadata, by = "LIBID", all.x=TRUE)
+
+mtx_stats_chosen <- mtx_stats %>% dplyr::filter(LIBID %in% mtx_to_pull)
+
+```
+
+## Panel A
+
+Box plot of % of reads functionally annotated by the workflow in this paper vs HUMAnN3 default databases.
+
+Paired wilcoxon signed rank test to show differences in % annotations between "pilot cohort" samples annotated using Humann3 with default Chocophlan databases vs the same samples annotated with IHSMGC and UniRef90
+
+```{r}
+
+#THESE ARE UNALIGNED READS AT EACH STAGE
+pilot_cohort_humann3 <- read_tsv("../metadata/pilot_cohort_humann3.tsv", show_col_types = FALSE)
+pilot_cohort_humann3 <- pilot_cohort_humann3 %>% dplyr::rename(humann3_unaligned_aft_nuc_search=aft_nuc_search,
+                                                               humann3_unaligned_aft_transl_search=aft_transl_search)
+
+pilot_cohort_humann3$humann3_aligned_aft_nuc_search <- 100 - pilot_cohort_humann3$humann3_unaligned_aft_nuc_search
+
+pilot_cohort_humann3$humann3_aligned_aft_transl_search <- 100 - pilot_cohort_humann3$humann3_unaligned_aft_transl_search
+
+pilot_cohort_humann3$annotation_method <- "HUMAnN3 default"
+
+pilot_cohort_humann3$MICROBIAL_PERCENT_ANNOTATED <- pilot_cohort_humann3$humann3_aligned_aft_transl_search
+
+
+#annotation stats from our in house mtx pipeline
+mtx_proportion_microbial_annotated <- read_tsv("../metadata/mtx_proportion_microbial_annotated.tsv",
+                                               show_col_types = FALSE)
+
+#for direct comparison with humann3 for the pilot cohort
+pilot_cohort_microbial_annotated <- mtx_proportion_microbial_annotated %>% dplyr::filter(LIBID %in% pilot_cohort_humann3$LIBID)
+
+pilot_cohort_microbial_annotated$MICROBIAL_PERCENT_ANNOTATED <- pilot_cohort_microbial_annotated$MICROBE_COUNT_PROPORTION_ANNOTATED * 100
+
+pilot_cohort_microbial_annotated$annotation_method <- "Custom workflow (this paper)"
+
+pilot_cohort_mtx_vs_humann3 <- rbind(pilot_cohort_microbial_annotated %>% 
+                                       dplyr::select(LIBID, MICROBIAL_PERCENT_ANNOTATED, annotation_method),
+      pilot_cohort_humann3 %>% dplyr::select(LIBID, MICROBIAL_PERCENT_ANNOTATED, annotation_method))
+
+
+
+ggplot(pilot_cohort_mtx_vs_humann3,
+       aes(x=annotation_method, y=MICROBIAL_PERCENT_ANNOTATED)) + 
+  geom_boxplot() + theme_classic() + stat_compare_means(paired = TRUE,method = "wilcox.test") +ylab("% of reads functionally annotated")
+
+
+pilot_cohort_mtx_vs_humann3_boxplot <- ggpaired(pilot_cohort_mtx_vs_humann3, x = "annotation_method", y = "MICROBIAL_PERCENT_ANNOTATED",
+         line.color = "gray", line.size = 0.4,
+         palette = "jco")+ ylab("% of reads functionally annotated") +
+  stat_compare_means(paired = TRUE, method="wilcox.test")
+
+
+ggsave(plot=pilot_cohort_mtx_vs_humann3_boxplot , 
+       filename = "../plots/pilot_cohort_mtx_vs_humann3_boxplot.pdf", width =7, height=5 )
+
+pilot_cohort_mtx_vs_humann3_boxplot
+
+```
+## Panel B
+
+Boxplot of RNA quality measurements for extracted RNAs across body sites for the full cohort 
+(n=24, 23, 19, 18, 18 for scalp [Sc], cheek [Ch], antecubital fossa [Ac], volar forearm [Vf] and toe web [Tw] respectively).
+
+```{r}
+
+main_cohort_QC <- merge(main_cohort_QC, metadata %>% dplyr::select(LIBID, subj_region, region))
+
+main_cohort_QC$DV200 <- as.numeric(main_cohort_QC$DV200)
+
+#median(main_cohort_QC$DV200, na.rm = TRUE) 76.93
+
+main_cohort_QC$region <- factor(main_cohort_QC$region, levels=c("Sc","Ch","Ac","Vf","Tw"))
+
+main_cohort_dv200_boxplot <- ggplot(main_cohort_QC %>% dplyr::filter(!is.na(DV200)), aes(y= DV200, x = (region))) + 
+  geom_boxplot() +
+  theme_classic() + ggtitle("Full cohort, RNA")
+
+
+ggsave(plot=main_cohort_dv200_boxplot, filename = "../plots/main_cohort_dv200_boxplot.pdf", width =7, height=5)
+
+
+main_cohort_dv200_boxplot
+
+```
+
+
+## Panel C
+
+Boxplot of total number and the number of microbial read pairs for metagenomes across body sites for the full cohort.
+
+```{r}
+
+mgx_stats_for_plot <- rbind(data.frame(read_pairs=mgx_stats_chosen$AFTER_FASTP, region=mgx_stats_chosen$region, cat="before_rm"),
+data.frame(read_pairs=mgx_stats_chosen$MICROBE_COUNT, region=mgx_stats_chosen$region,
+           cat="after_rm"))
+
+
+mgx_read_stats_boxplot <- ggplot(mgx_stats_for_plot %>% mutate(region= fct_relevel(region, "Sc", "Ch", "Ac", "Vf", "Tw"),
+                                     cat=fct_relevel(cat, "before_rm", "after_rm")) %>% 
+         mutate(cat = recode(cat, "before_rm" = "All reads", 
+                            "after_rm" = "microbial reads")), 
+       aes(x=region, y=read_pairs, fill=cat)) + theme_classic() + geom_boxplot() + ggtitle("Metagenomes (n = 102)") 
+
+ggsave(plot=mgx_read_stats_boxplot, filename = "../plots/mgx_read_stats_boxplot.pdf")
+
+
+mgx_read_stats_boxplot
+
+
+```
+
+## Panel D
+
+Boxplot of the percentage of reads that do not map to the human genome (hg38) for skin metatranscriptomes (before deduplication) and metagenomes for the full cohort. The p-value for the paired Wilcoxon signed rank test is shown.
+
+```{r}
+
+mtx_non_human_proportion <- mtx_stats_chosen %>% 
+  dplyr::select(subj_region, AFTER_FASTP, AFT_HUMAN_RM)
+
+mtx_non_human_proportion$assay <- "metatranscriptome"
+
+mtx_non_human_proportion$percent_non_human <- (mtx_non_human_proportion$AFT_HUMAN_RM / mtx_non_human_proportion$AFTER_FASTP)*100
+
+#BT2 READS START for mgx is the same state as AFT_HUMAN_RM for mtx
+
+mgx_non_human_proportion <- mtx_stats_chosen %>% 
+  dplyr::select(subj_region, AFTER_FASTP, BT2_READS_START)
+
+mgx_non_human_proportion$assay <- "metagenome"
+
+mgx_non_human_proportion$percent_non_human <- (mgx_non_human_proportion$BT2_READS_START / mgx_non_human_proportion$AFTER_FASTP)*100
+
+
+mtx_mgx_non_human_percent <- rbind(mtx_non_human_proportion %>% 
+                                     dplyr::select(subj_region, percent_non_human, assay),
+                                   mgx_non_human_proportion %>% 
+                                     dplyr::select(subj_region, percent_non_human, assay))
+
+
+#
+# Interestingly, the proportion of non-human reads was found to be significantly higher in metatranscriptomes versus metagenomes (XX% vs YY%, Wilcoxon signed rank p-value <0.05; Supplementary Figure 1D), underscoring the feasibility of skin metatranscriptomic sequencing."
+median(mtx_non_human_proportion$percent_non_human) #97.9
+#
+median(mgx_non_human_proportion$percent_non_human) #10.2
+
+mtx_mgx_non_human_percent_boxplot <- ggpaired(mtx_mgx_non_human_percent, x = "assay", y = "percent_non_human",
+         line.color = "gray", line.size = 0.4,
+         palette = "jco")+ ylab("% of reads not mapped to hg38") +
+  stat_compare_means(paired = TRUE, method="wilcox.test")
+
+
+ggsave(plot=mtx_mgx_non_human_percent_boxplot, 
+       filename = "../plots/mtx_mgx_non_human_percent.pdf", width =7, height=5 )
+
+
+
+mtx_mgx_non_human_percent_boxplot
+
+
+```
+
+
+## Panel E
+
+Boxplot showing the proportion of microbial reads functionally annotated by our custom workflow across different skin metatranscriptomes and metagenomes for the full cohort.
+
+```{r}
+
+
+mtx_proportion_microbial_annotated <- read_tsv("../metadata/mtx_proportion_microbial_annotated.tsv",
+                                               show_col_types = FALSE)
+
+mgx_proportion_microbial_annotated <- read_tsv("../metadata/mgx_proportion_microbial_annotated.tsv",
+                                               show_col_types = FALSE)
+
+
+mtx_mgx_proportion_microbial_annotated <- rbind(mtx_proportion_microbial_annotated,
+                                                mgx_proportion_microbial_annotated)
+
+
+mtx_mgx_proportion_microbial_annotated_boxplot <- ggplot(mtx_mgx_proportion_microbial_annotated %>% mutate(region= fct_relevel(region, "Sc", "Ch", "Ac", "Vf", "Tw")), 
+       aes(x=region, fill=mol_type ,y=MICROBE_COUNT_PROPORTION_ANNOTATED)) + scale_fill_manual(values=c("#4682B4","#B47846"))+
+  theme_classic() + geom_boxplot() + ylab("Proportion of annotated microbial reads")
+
+ggsave(filename="../plots/mtx_mgx_proportion_microbial_annotated.pdf", 
+       plot=mtx_mgx_proportion_microbial_annotated_boxplot)
+
+mtx_mgx_proportion_microbial_annotated_boxplot
+
+```
+
+

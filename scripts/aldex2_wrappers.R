@@ -142,8 +142,3 @@ transcript_vs_clr_scatterplot <- function(vst_mat, mean_clr, transcript, species
   
   
 }
-
-
-
-
-```  

@@ -1,0 +1,162 @@
+---
+title: "mock_comm_DNA_analysis"
+author: "Chiamh"
+date: '2024-04-16'
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Correlation analysis of mock community DNA (not RNA) extracted with trizol (T) or ASMP EZ1 protocol (E)
+
+```{r}
+library(tidyverse)
+```
+
+Load metadata
+
+```{r}
+
+mock_comm_DNA_metadata <- read_tsv("../metadata/mock_comm_DNA_metadata.txt", show_col_types = FALSE)
+
+mock_comm_DNA_composition <- read_tsv("../metadata/mock_comm_DNA_composition.txt", show_col_types = FALSE)
+
+#mock_comm_DNA_composition$species <- gsub(pattern=" ", replacement="_",x=mock_comm_DNA_composition$species)
+
+mock_comm_DNA_composition$species <- gsub(pattern="_MRSA|_VRE", replacement="",x=mock_comm_DNA_composition$species)
+
+#S enterica is S typhi
+mock_comm_DNA_composition$species <- gsub(pattern="typimurium", replacement="enterica",x=mock_comm_DNA_composition$species)
+
+```
+
+
+Load color palette
+```{r}
+
+#colorblind friendly palette
+c24 <- c(
+  "dodgerblue2", "#E31A1C", # red
+  "green4",
+  "#6A3D9A", # purple
+  "#FF7F00", # orange
+  "black", "gold1",
+  "skyblue2",
+  "palegreen2",
+  "#CAB2D6", # lt purple
+  "#FDBF6F", # lt orange
+  "gray70", "khaki2",
+  "maroon", "orchid1", "deeppink1", "blue1", "steelblue4",
+  "darkturquoise", "green1", "yellow4", "yellow3",
+  "darkorange4", "brown"
+)
+
+
+
+```
+
+
+Load kraken2 species results.
+
+```{r}
+
+k2_files_to_load <- list.files(path="../data/mock_comm_DNA_out",pattern="_k2.s.tsv",full.names=T)
+
+k2_file_ids <- word(string=k2_files_to_load,1,sep="_FKDL")
+k2_file_ids <- word(string=k2_file_ids,4,sep="/")
+
+mock_comm_mgx_k2 <- lapply(k2_files_to_load, function(x){
+  
+  output <- read_tsv(file=x,show_col_types = FALSE, 
+                     col_names = c("rel_abun", "paired_reads", "minimizers","distinct_minimizers","species"))
+  
+  return(output)
+})
+
+names(mock_comm_mgx_k2) <- k2_file_ids
+
+
+#Keep only the species present in the mock communities (roughly)
+
+mock_comm_mgx_k2_species_filt <- lapply(k2_file_ids, function(x){
+  
+  k2_df <- mock_comm_mgx_k2[[x]]
+  
+  mock_comm_ident <- mock_comm_DNA_metadata %>% dplyr::filter(LIBID==x) %>% pull(mock_comm_id)
+  
+  ground_truth_species <- mock_comm_DNA_composition %>% 
+    dplyr::filter(mock_comm_id == mock_comm_ident) %>% pull(species)
+  
+  #S enterica is S typhi
+  k2_df_filt <- k2_df %>% dplyr::filter(species %in% c(ground_truth_species))
+  
+  k2_df_filt$LIBID <- x
+  
+  return(k2_df_filt)
+  
+  
+})
+
+names(mock_comm_mgx_k2_species_filt) <- k2_file_ids
+
+
+mock_comm_mgx_k2_species_filt_df <- do.call("rbind",mock_comm_mgx_k2_species_filt)
+
+mock_comm_mgx_k2_species_filt_df <- merge(mock_comm_mgx_k2_species_filt_df, 
+                                          mock_comm_DNA_metadata)
+
+
+
+#cor df for plotting. Correlate rel abun from trizol vs rel abun from EZ1
+
+mock_communities_chosen <- unique(mock_comm_mgx_k2_species_filt_df$mock_comm_id)
+
+
+mock_comm_mgx_k2_species_filt_cor_df <- lapply(mock_communities_chosen, function(x){
+  
+  #relative abundance for EZ1 extraction
+  EZ1_df <- mock_comm_mgx_k2_species_filt_df %>% 
+    dplyr::filter(mock_comm_id==x & DNA_extraction_method == "EZ1") %>% 
+    dplyr::select(rel_abun, species) %>% 
+    dplyr::rename(EZ1_DNA_rel_abun=rel_abun)
+  
+  
+  #relative abundance for trizol extraction
+  trizol_df <- mock_comm_mgx_k2_species_filt_df %>% 
+    dplyr::filter(mock_comm_id==x & DNA_extraction_method == "trizol") %>%
+        dplyr::select(rel_abun, species) %>% 
+    dplyr::rename(trizol_DNA_rel_abun=rel_abun)
+  
+  output_df <- merge(EZ1_df, trizol_df, by = "species")
+  output_df$mock_comm_id <- x
+  
+  return(output_df)
+}) %>% do.call("rbind",.)
+
+
+
+mock_comm_mgx_k2_species_filt_cor_df$genus <- word(string=mock_comm_mgx_k2_species_filt_cor_df$species,
+                                                   start=1)
+
+
+
+
+#Color code by genus
+
+ggplot(data=mock_comm_mgx_k2_species_filt_cor_df, aes(x=log(EZ1_DNA_rel_abun+0.01),
+                                                      y=log(trizol_DNA_rel_abun+0.01),
+                                                      )) + 
+  geom_point(aes(color=genus, size=5)) + theme_classic() + stat_cor(method = "pearson") + 
+  stat_smooth( method = "lm") + scale_color_manual(values=c24)
+
+
+ggsave("../plots/trizol_vs_EZ1_species_DNA_corr.pdf", plot=last_plot())
+
+
+
+```
+
+
+

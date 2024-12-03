@@ -1,0 +1,2 @@
+ID	Description	setSize	enrichmentScore	NES	pvalue	p.adjust	qvalue	rank	leading_edge	core_enrichment	set_annotation
+GO:0005507	copper ion binding	15	0.8715768081428472	1.5778985519068052	9.146382757664135e-5	0.019939114411707815	0.01925554264771397	61	tags=20%, list=2%, signal=20%	cluster_2534/cluster_2072/cluster_13153	GO_MF

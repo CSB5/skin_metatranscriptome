@@ -1,0 +1,513 @@
+---
+title: "gsva_pathway_analysis"
+author: "Chiamh"
+date: "2024-12-02"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Load libraries
+
+```{r}
+
+library(tidyverse)
+
+library(GSVA)
+
+# Human annotation packages we'll use for gene identifier conversion
+library(org.Hs.eg.db)
+library(msigdbr)
+
+
+```
+
+Define custom functions
+
+```{r}
+#x: A data frame.
+
+#rn:	 Character vector (optional). If not NULL, the data frame's rownames will be added as (first) column to the output, with rn being the name of this column.
+
+#cn:	Logical (optional), if TRUE, the values of the first column in x will be used as column names in the rotated data frame.
+
+
+rotate_df <- function(x, rn = NULL, cn = FALSE){
+    if (cn) {
+        cnames <- x[[1]]
+        x <- dplyr::select(x, -1)
+    }
+    else cnames <- NULL
+    a <- attributes(x)
+    x <- x %>% as.data.frame() %>% t() %>% as.data.frame()
+    if (!is.null(cnames)) {
+        if (length(cnames) != ncol(x)) 
+            warning("Length of provided column names does not match number of columns. No column names changed.", 
+                call. = FALSE)
+        else colnames(x) <- cnames
+    }
+    if (!is.null(rn)) 
+        x <- rownames_as_column(x, var = rn)
+    a[names(a) %in% names(attributes(x))] <- NULL
+    attributes(x) <- c(attributes(x), a)
+    x
+}
+
+
+get_vst_data <- function(count_matrix=main_cohort_hg38_count_matrix, QC_metadata=main_cohort_hg38_QC, skin_site){
+  
+  #Convert to matrix of integers from salmon count outputs
+  hg38_count_matrix <- round(count_matrix)
+  mode(hg38_count_matrix) <- "integer"
+  
+  hg38_DESeq_metadata <- QC_metadata %>% 
+    dplyr::select(LIBID, subject, region, approx_giga_nt, DV200) %>% 
+    as.data.frame() %>% dplyr::filter(region %in% skin_site)
+  
+  rownames(hg38_DESeq_metadata) <- hg38_DESeq_metadata$LIBID
+  
+  hg38_DESeq_metadata <- hg38_DESeq_metadata %>% dplyr::select(-LIBID)
+  
+  hg38_DESeq_metadata$subject <- as.factor(hg38_DESeq_metadata$subject)
+  
+  hg38_DESeq_metadata$region <- as.factor(hg38_DESeq_metadata$region)
+  
+  #subset the count matrix
+  
+  hg38_count_matrix <- hg38_count_matrix[,rownames(hg38_DESeq_metadata)]
+  
+  #the row names of metadata should automatically be ordered in a way that matches the input matrix
+  #reorder rows of the metadata
+  
+  hg38_idx <- match(colnames(hg38_count_matrix), rownames(hg38_DESeq_metadata))
+  hg38_DESeq_metadata <- hg38_DESeq_metadata[hg38_idx,]
+  
+  #https://support.bioconductor.org/p/79209/
+  #The design of ~1 is to allow for the functions to run for technical reasons (this design is used under some settings for estimating the transformations for example). This is not testing for any differential expression
+  hg38_dds <- DESeqDataSetFromMatrix(countData = hg38_count_matrix, 
+                                colData = hg38_DESeq_metadata, 
+                                design = ~1)
+  
+  hg38_mat <- counts(hg38_dds)
+  
+  hg38_keep <- (rowMedians(hg38_mat) >= 10)
+  
+  hg38_dds <- hg38_dds[hg38_keep,]
+  
+  #####Estimate size factors#
+  #If in normal RNA-seq there is at least one zero per gene that means that (I guess) either samples are notably under-sequenced or there are any other kinds of dropout events that I'd investigate. it is in any case not normal and should probably not be ignored by just adding a pseudocount. 
+  #One way to handle it is to use poscounts
+  
+  #The "poscounts" estimator deals with a gene with some zeros, by calculating a modified geometric mean by taking the n-th root of the
+  #product of the non-zero counts. This evolved out of use cases with Paul McMurdie's phyloseq package for metagenomic samples
+  
+  hg38_dds <- estimateSizeFactors(hg38_dds, type = "poscounts")
+  
+  hg38_normalized_counts <- counts(hg38_dds, normalized=TRUE)
+  
+  #Note:https://support.bioconductor.org/p/98634/
+  #See DESeq2 vignette about blind dispersion estimation
+  
+  #blind=TRUE should be used for comparing samples in a manner unbiased by prior information on samples, for example to perform sample QA (quality assurance). blind=FALSE should be used for transforming data for downstream analysis, where the full use of the design information should be made.
+  
+  
+  #May have to manually define nsub here because there are fewer than the default 1000 features for vst
+  #hg38_vsd <- vst(hg38_dds, blind=TRUE, nsub=sum( rowMedians( counts(hg38_dds, normalized=TRUE)) >= 10 ) ) 
+  
+  hg38_vsd <- vst(hg38_dds, blind=TRUE) 
+  hg38_vsd_mat <- assay(hg38_vsd)
+  hg38_vst_df <- assay(hg38_vsd ) %>% as.data.frame() %>% tibble::rownames_to_column("gene_symbol") # Make Gene IDs into their own column
+  hg38_vsd_cor <- cor(hg38_vsd_mat)
+
+  output <- tibble::lst(hg38_count_matrix, hg38_DESeq_metadata,
+                        hg38_vsd,
+                        hg38_vsd_mat,
+                        hg38_vst_df,
+                        hg38_vsd_cor)
+  
+  return(output)
+  
+}
+
+
+```
+
+
+Load in metadata
+
+```{r}
+
+metadata <- read_tsv("../metadata/skin_mtx_metadata_fmt.txt", show_col_types = FALSE) 
+
+mgx_stats <- read_tsv("../metadata/MGX_QC_stats.txt", show_col_types = FALSE) 
+
+mtx_stats <- read_tsv("../metadata/MTX_QC_stats.txt", show_col_types = FALSE) 
+
+mgx_stats <- merge(mgx_stats, metadata, by = "LIBID", all.x=TRUE)
+
+mtx_stats <- merge(mtx_stats, metadata, by ="LIBID", all.x=TRUE)
+
+
+mtx_to_pull <- read_tsv("../metadata/mtx_to_pull", col_names = FALSE, show_col_types = FALSE) %>% pull(X1)
+
+mgx_to_pull <- read_tsv("../metadata/mgx_to_pull", col_names = FALSE, show_col_types = FALSE) %>% pull(X1)
+
+mtx_stats_chosen <- mtx_stats %>% dplyr::filter(LIBID %in% mtx_to_pull)
+
+mgx_stats_chosen <- mgx_stats %>% dplyr::filter(LIBID %in% mgx_to_pull)
+
+mtx_mgx_stats_chosen <- read_tsv(file="../metadata/mtx_mgx_stats_chosen.tsv", show_col_types = FALSE)
+
+
+#Load QC for hg38 mapping for main cohort, more deeply sequenced mtx samples, and skin rna seq from other studies
+
+other_studies_RNAseq_metadata <- read_tsv("../metadata/human_rnaseq_other_studies_public.txt", show_col_types = FALSE) %>%
+  dplyr::rename(LIBID=run_ID)
+
+#QC derived from qualimap outputs
+#Note that solberg and amorim are single end 75 bp reads while main_cohort is PE
+solberg_hg38_QC <- read_tsv("../data/hg38_mtx_mapping/solberg_skin_tape/solberg_skin_tape_mtx_hg38_qualimap_QC.tsv", show_col_types = FALSE)
+
+solberg_hg38_QC <- merge(solberg_hg38_QC, other_studies_RNAseq_metadata, by = "LIBID")
+
+solberg_hg38_QC$study <- "solberg_et_al"
+
+#approximate Giga nucleotides
+solberg_hg38_QC$approx_giga_nt <- (solberg_hg38_QC$READS_ALIGNED * 75)/10^9
+
+
+amorim_hg38_QC <- read_tsv("../data/hg38_mtx_mapping/amorim_leishmania/amorim_leishmania_mtx_hg38_qualimap_QC.tsv", show_col_types = FALSE)
+
+amorim_hg38_QC <- merge(amorim_hg38_QC, other_studies_RNAseq_metadata, by = "LIBID")
+
+amorim_hg38_QC$study <- "amorim_et_al"
+
+amorim_hg38_QC$approx_giga_nt <- (amorim_hg38_QC$READS_ALIGNED * 75)/10^9
+
+other_studies_hg38_QC <- rbind(solberg_hg38_QC, amorim_hg38_QC)
+
+
+#The 102 in the main cohort
+main_cohort_hg38_QC <- read_tsv("../data/hg38_mtx_mapping/main_cohort_mtx_hg38_qualimap_QC.tsv", show_col_types = FALSE)
+
+main_cohort_hg38_QC <- merge(main_cohort_hg38_QC, mtx_stats_chosen %>% dplyr::select(LIBID,region))
+
+main_cohort_hg38_QC$study <- "main_cohort_in_house" 
+
+main_cohort_hg38_QC$skin_layer <- "stratum_corneum"
+
+#PE150
+main_cohort_hg38_QC$approx_giga_nt <- (main_cohort_hg38_QC$READ_PAIRS_ALIGNED * 2 * 150)/10^9
+
+
+
+#Some additionally deeply sequenced libraries (this cohort)
+#Deeper sequencing for scalp and cheek might be more successful
+
+deeper_seq_RNAseq_metadata <- read_tsv("../metadata/deeper_sequencing_skin_mtx.txt", show_col_types = FALSE) %>% dplyr::rename(region=Site)
+
+deeper_seq_hg38_QC <- read_tsv("../data/hg38_mtx_mapping/deeper_seq/deeper_seq_cohort_mtx_hg38_qualimap_QC.tsv", 
+                               show_col_types = FALSE)
+
+deeper_seq_hg38_QC <- merge(deeper_seq_hg38_QC, deeper_seq_RNAseq_metadata %>% dplyr::select(LIBID,region))
+
+
+deeper_seq_hg38_QC$study <- "deeper_seq_in_house"
+
+
+deeper_seq_hg38_QC$skin_layer <- "stratum_corneum"
+
+#PE150
+deeper_seq_hg38_QC$approx_giga_nt <- (deeper_seq_hg38_QC$READ_PAIRS_ALIGNED * 2 * 150)/10^9
+
+#Skin biopsies from A*SRL
+
+SRIS_biopsy_hg38_QC <- read_tsv("../data/hg38_mtx_mapping/SRIS_skin_biopsy/SRIS_skin_biopsy_mtx_hg38_qualimap_QC.tsv", 
+                               show_col_types = FALSE)
+
+SRIS_biopsy_hg38_QC <- merge(SRIS_biopsy_hg38_QC, other_studies_RNAseq_metadata, by = "LIBID")
+
+
+SRIS_biopsy_hg38_QC$study <- "SRIS"
+
+
+SRIS_biopsy_hg38_QC$skin_layer <- "Biopsy"
+
+#PE150
+SRIS_biopsy_hg38_QC$approx_giga_nt <- (SRIS_biopsy_hg38_QC$READ_PAIRS_ALIGNED * 2 * 150)/10^9
+
+other_studies_hg38_QC_fmt <- rbind(other_studies_hg38_QC %>% dplyr::select(-READS_ALIGNED), 
+                                   SRIS_biopsy_hg38_QC %>% dplyr::select(-READ_PAIRS_ALIGNED))
+
+
+paste0(SRIS_biopsy_hg38_QC$study,"_",SRIS_biopsy_hg38_QC$region,"_",SRIS_biopsy_hg38_QC$skin_layer)
+```
+# Load aldex2 clr metagenomic abundances
+
+Note: aldex_raw_clr_values is a large file and can be downloaded from figshare. 
+See https://figshare.com/articles/dataset/R_objects_storing_aldex2_centered_log_ratio_transformed_values_metagenomes_/25699095
+
+
+```{r}
+
+#Load aldex2 clr abundances for Sc and Ch
+
+aldex_clr_values <- readRDS("../data/aldex_clr_values.RDS")
+
+aldex_clr_values_fmt <- lapply(names(aldex_clr_values), function(x){
+  
+  df_fmt <- aldex_clr_values[[x]]
+  df_fmt$mgx_LIBID <- rownames(df_fmt)
+  
+  df_fmt <- merge(df_fmt, mtx_mgx_stats_chosen %>% dplyr::select(mgx_LIBID, mtx_LIBID), by="mgx_LIBID")
+  
+  return(df_fmt)
+  
+})
+
+names(aldex_clr_values_fmt) <- names(aldex_clr_values)
+```
+
+# Load human read counts
+
+Load in mtx data that was pseudo-aligned with salmon to hg38 transcriptome (decoy aware).
+
+The decoy aware transcriptome and the tx2gene file were downloaded from http://refgenomes.databio.org/v3/
+
+```{r}
+
+hg38_tx2gene <- read_tsv("../metadata/hg38_txp2gene.tsv", col_names = FALSE, show_col_types = FALSE)
+
+main_cohort_hg38_salmon_files <- file.path("../data/hg38_mtx_mapping/", paste0(mtx_to_pull, "_quant.sf"))
+
+names(main_cohort_hg38_salmon_files) <- mtx_to_pull
+
+main_cohort_hg38_txi.salmon <- tximport(main_cohort_hg38_salmon_files, type="salmon", tx2gene=hg38_tx2gene)
+
+main_cohort_hg38_count_matrix <- main_cohort_hg38_txi.salmon$counts
+
+#https://support.bioconductor.org/p/91218/
+#This TPM matrix is not for DESeq2, but for QC purposes
+main_cohort_hg38_TPM_matrix <- main_cohort_hg38_txi.salmon$abundance 
+  
+
+```
+
+
+# Run GSVA to estimate pathway activity for human reads
+
+Gene set variation analysis (GSVA) provides an estimate of pathway activity by transforming an input gene-by-sample expression data matrix into a corresponding gene-set-by-sample expression data matrix. This resulting expression data matrix can be then used with classical analytical methods such as differential expression, classification, survival analysis, clustering or correlation analysis in a pathway-centric manner.
+
+GSVA: https://bioconductor.org/packages/devel/bioc/vignettes/GSVA/inst/doc/GSVA.html#fig:gbmSignature
+
+
+https://alexslemonade.github.io/refinebio-examples/03-rnaseq/pathway-analysis_rnaseq_03_gsva.html
+GSVA advantages: pathway level scores on a per sample basis
+In addition, many relatively small changes in the expression values of genes in the same pathway could lead to a phenotypic outcome and these small changes may go undetected in differential gene expression analysis.
+
+
+GSVA disadvantages: 
+a) Scores are not a good fit for gene sets that contain genes that go up AND down
+b) Method does not assign statistical significance itself
+c) Recommended sample size n > 10
+
+
+GSVA requires that data is in a matrix with the gene identifiers as row names. In order to successfully turn our data frame into a matrix, we will need to ensure that we do not have any duplicate gene identifiers.
+
+GSVA fits a model and ranks genes based on their expression level relative to the sample distribution (Hänzelmann et al. 2013a). The pathway-level score calculated is a way of asking how genes within a gene set vary as compared to genes that are outside of that gene set (Malhotra 2018).
+
+The idea here is that we will get pathway-level scores for each sample that indicate if genes in a pathway vary concordantly in one direction (over-expressed or under-expressed relative to the overall population) (Hänzelmann et al. 2013a). This means that GSVA scores will depend on the samples included in the dataset when you run GSVA; if you added more samples and ran GSVA again, you would expect the scores to change (Hänzelmann et al. 2013a).
+
+The output is a gene set by sample matrix of GSVA scores
+
+Note that the gsva() function documentation says we can use kcdf = "Gaussian" if we have expression values that are continuous such as log-CPMs, log-RPKMs or log-TPMs, but we would use kcdf = "Poisson" on integer counts. Our vst() transformed data is on a log2-like scale, so Gaussian works for us.
+
+## Define the gene sets.
+
+hallmark_gene_sets is in a tabular format; each row corresponds to a gene and gene set pair. A row exists if that gene (entrez_gene, gene_symbol) belongs to a gene set (gs_name).
+
+The function that we will use to run GSVA wants the gene sets to be in a list, where each entry in the list is a vector of genes that comprise the pathway the element is named for.
+
+gene_symbol contains the gene ID and gs_name contains the name of the pathway that the gene is a part of.
+
+To see the full set of collections,  msigdbr_collections()
+and https://www.gsea-msigdb.org/gsea/msigdb/collections.jsp
+
+```{r}
+
+hallmark_gene_sets <- msigdbr::msigdbr(
+  species = "Homo sapiens", # Can change this to what species you need
+  category = "H" # Only hallmark gene sets
+)
+
+
+#KEGG gene sets
+kegg_gene_sets <- msigdbr::msigdbr(
+  species = "Homo sapiens", # Can change this to what species you need
+  category = "C2",
+  subcategory = "CP:KEGG"
+)
+
+
+combined_gene_sets <- rbind(hallmark_gene_sets, kegg_gene_sets)
+
+
+hallmarks_kegg_list <- split(
+  combined_gene_sets$gene_symbol, # The genes we want split into pathways
+  combined_gene_sets$gs_name # The pathways made as the higher levels of the list
+)
+
+#remove duplicate gene ids
+
+hallmarks_kegg_list_uniq <- lapply(names(hallmarks_kegg_list), function(x){
+  
+  gene_vec <- hallmarks_kegg_list[[x]] %>% unique(.)
+  
+  return(gene_vec)
+  
+  
+})
+
+names(hallmarks_kegg_list_uniq) <- names(hallmarks_kegg_list)
+
+
+#hallmarks_list <- split(
+#  hallmark_gene_sets$gene_symbol, # The genes we want split into pathways
+#  hallmark_gene_sets$gs_name # The pathways made as the higher levels of the list
+#)
+
+
+```
+
+## Obtaining variance stabilized transformed counts
+
+Based on DESeq2 analysis of scalp and cheeks, since the other sites have lower counts for human reads
+
+
+```{r}
+
+#add dv200
+
+main_cohort_hg38_QC <- merge(main_cohort_hg38_QC, mtx_stats_chosen %>% dplyr::select(LIBID, subject, DV200))
+
+main_cohort_hg38_QC$DV200 <- as.numeric(main_cohort_hg38_QC$DV200)
+
+
+
+Sc_main_cohort_hg38_vst <- get_vst_data(skin_site = "Sc")
+
+Ch_main_cohort_hg38_vst <- get_vst_data(skin_site = "Ch")
+```
+
+## Run the GSVA
+
+```{r eval=FALSE}
+#Not run repeatedly to save time.
+## build GSVA parameter object
+Ch_main_cohort_gsvapar <- gsvaParam(exprData=Ch_main_cohort_hg38_vst$hg38_vsd_mat,
+                                    geneSets=hallmarks_kegg_list_uniq,
+                                    # Appropriate for our vst transformed data
+                                    kcdf = "Gaussian",
+                                    # Minimum gene set size
+                                    minSize = 15,
+                                    # Maximum gene set size
+                                    maxSize = 500,
+                                    # Compute Gaussian-distributed scores
+                                    maxDiff = TRUE
+                                    )
+
+
+## estimate GSVA enrichment scores for cheeks
+Ch_main_cohort_gsva_es <- gsva(Ch_main_cohort_gsvapar) %>%  
+  as.data.frame() %>%
+  tibble::rownames_to_column("pathway")
+
+
+## build GSVA parameter object
+Sc_main_cohort_gsvapar <- gsvaParam(exprData=Sc_main_cohort_hg38_vst$hg38_vsd_mat,
+                                    geneSets=hallmarks_kegg_list_uniq,
+                                    # Appropriate for our vst transformed data
+                                    kcdf = "Gaussian",
+                                    # Minimum gene set size
+                                    minSize = 15,
+                                    # Maximum gene set size
+                                    maxSize = 500,
+                                    # Compute Gaussian-distributed scores
+                                    maxDiff = TRUE
+                                    )
+
+
+## estimate GSVA enrichment scores for scalp 
+Sc_main_cohort_gsva_es <- gsva(Sc_main_cohort_gsvapar) %>%
+   as.data.frame() %>%
+  tibble::rownames_to_column("pathway")
+
+
+
+Ch_main_cohort_gsva_es %>%
+  write_tsv("../data/gsva_out/Ch_main_cohort_gsva_results.tsv")
+
+Sc_main_cohort_gsva_es %>%
+  write_tsv("../data/gsva_out/Sc_main_cohort_gsva_results.tsv")
+
+```
+
+Load the results from the previous code chunk.
+
+```{r}
+
+Ch_main_cohort_gsva_es <- read_tsv("../data/gsva_out/Ch_main_cohort_gsva_results.tsv", show_col_types = FALSE)
+
+Sc_main_cohort_gsva_es <- read_tsv("../data/gsva_out/Sc_main_cohort_gsva_results.tsv", show_col_types = FALSE)
+
+
+```
+
+
+#Associations with centered log ratio transformed abundances
+
+```{r}
+Ch_main_cohort_gsva_es_transpose <- Ch_main_cohort_gsva_es %>% rotate_df(cn=TRUE)
+
+Ch_main_cohort_gsva_es_transpose$LIBID <- rownames(Ch_main_cohort_gsva_es_transpose)
+
+
+STAT3_S_cap_clr_Ch_main_df <- merge(Ch_main_cohort_gsva_es_transpose %>% dplyr::select(LIBID,HALLMARK_IL6_JAK_STAT3_SIGNALING),
+                                aldex_clr_values_fmt[["Ch_bracken_clr"]] %>% 
+                                  dplyr::select(mtx_LIBID, Staphylococcus_capitis) %>% 
+                                  dplyr::rename(LIBID=mtx_LIBID)
+                                )
+
+TLR_S_cap_clr_Ch_main_df <- merge(Ch_main_cohort_gsva_es_transpose %>% dplyr::select(LIBID, KEGG_TOLL_LIKE_RECEPTOR_SIGNALING_PATHWAY),
+                                aldex_clr_values_fmt[["Ch_bracken_clr"]] %>% 
+                                  dplyr::select(mtx_LIBID, Staphylococcus_capitis) %>% 
+                                  dplyr::rename(LIBID=mtx_LIBID)
+                                )
+
+
+
+STAT3_S_cap_clr_Ch_corr <- ggplot(STAT3_S_cap_clr_Ch_main_df, aes(x=Staphylococcus_capitis,y=HALLMARK_IL6_JAK_STAT3_SIGNALING)) + geom_point() + theme_classic() +
+  stat_cor(method = "pearson") + stat_smooth( method = "lm")
+
+
+
+
+TLR_S_cap_clr_Ch_corr <- ggplot(TLR_S_cap_clr_Ch_main_df, aes(x=Staphylococcus_capitis,y=KEGG_TOLL_LIKE_RECEPTOR_SIGNALING_PATHWAY)) + geom_point() + theme_classic() +
+  stat_cor(method = "pearson") + stat_smooth( method = "lm")
+
+#assemble the plots
+
+immune_S_cap_clr_Ch_corr <- ggarrange(STAT3_S_cap_clr_Ch_corr, TLR_S_cap_clr_Ch_corr, ncol = 2 )
+
+
+ggsave(TLR_S_cap_clr_Ch_corr, 
+       filename = "../plots/immune_S_cap_clr_Ch_corr.pdf",
+       height=7, width=10)
+
+
+immune_S_cap_clr_Ch_corr
+
+```
+

@@ -1,0 +1,265 @@
+---
+title: "rarefaction_analysis"
+author: "Chiamh"
+date: '2024-06-12'
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Load libraries.
+
+
+```{r}
+
+library(tidyverse)
+library(reshape2)
+library(vegan)
+
+
+```
+
+Load metadata
+```{r}
+
+#For main cohort
+metadata <- read_tsv("../metadata/skin_mtx_metadata_fmt.txt", show_col_types = FALSE) 
+
+
+mtx_to_pull <- read_tsv("../metadata/mtx_to_pull", col_names = FALSE, show_col_types = FALSE) %>% pull(X1)
+
+mgx_stats <- read_tsv("../metadata/MGX_QC_stats.txt", show_col_types = FALSE) 
+
+mtx_stats <- read_tsv("../metadata/MTX_QC_stats.txt", show_col_types = FALSE) 
+
+mgx_stats <- merge(mgx_stats, metadata, by = "LIBID", all.x=TRUE)
+
+mtx_stats <- merge(mtx_stats, metadata, by ="LIBID", all.x=TRUE)
+
+main_cohort_QC <- mtx_stats %>%
+  dplyr::filter(LIBID %in% mtx_to_pull)
+
+
+```
+
+
+Load read count information for bacterial and fungal OGs.
+
+```{r}
+
+mtx_bact_counts <- lapply(mtx_to_pull, function(x){
+  df <- read_tsv(paste0("../data/MTX_feature_summary/",x,"_bact_OG_counts.tsv"),show_col_types = FALSE) %>% 
+    dplyr::rename(feature=bacteria_OG)
+  
+  df$feature <- gsub(pattern="\\|Bacteria", replacement="", x=df$feature)
+  
+  return(df)
+})
+
+names(mtx_bact_counts) <- mtx_to_pull
+
+
+mtx_fungi_counts <- lapply(mtx_to_pull, function(x){
+  df <- read_tsv(paste0("../data/MTX_feature_summary/",x,"_fungi_OG_counts.tsv"),show_col_types = FALSE) %>% 
+    dplyr::rename(feature=fungi_OG)
+  
+  df$feature <- gsub(pattern="\\|Fungi", replacement="", x=df$feature)
+  
+  return(df)
+  
+})
+
+names(mtx_fungi_counts) <- mtx_to_pull
+
+```
+
+
+
+Write a function to process read count inputs by skin site, into a suitable form for rarefaction analysis and generate plots
+
+
+Plot the rarefaction curves using vegan::rarecurve function 
+https://blogs.iu.edu/ncgas/2019/09/04/rarefaction-curves-for-metagenomic-datasets/
+https://www.r-bloggers.com/2015/04/drawing-rarefaction-curves-with-custom-colours/
+
+```{r}
+
+
+#colorblind friendly palette
+c24 <- c(
+  "dodgerblue2", "#E31A1C", # red
+  "green4",
+  "#6A3D9A", # purple
+  "#FF7F00", # orange
+  "black", "gold1",
+  "skyblue2",
+  "palegreen2",
+  "#CAB2D6", # lt purple
+  "#FDBF6F", # lt orange
+  "gray70", "khaki2",
+  "maroon", "orchid1", "deeppink1", "blue1", "steelblue4",
+  "darkturquoise", "green1", "yellow4", "yellow3",
+  "darkorange4", "brown"
+)
+
+
+#a function to process read count inputs by skin site, into a suitable form for rarefaction analysis and generate plots
+
+rarefy_and_plot <- function(bact_count_list=mtx_bact_counts, fungal_count_list=mtx_fungi_counts, body_site){
+  
+  library_ids <- main_cohort_QC %>% dplyr::filter(region == body_site) %>% pull(LIBID)
+  
+  mtx_df_filt <- lapply(library_ids, function(library_name){
+    
+	  df_bact <- bact_count_list[[library_name]]
+	  df_fungi <- fungal_count_list[[library_name]]
+	
+    df_bact_filt <- df_bact  %>% dplyr::select(feature, read_count_sum) %>% dplyr::rename(unpaired_counts = read_count_sum)
+	  df_fungi_filt <- df_fungi  %>% dplyr::select(feature, read_count_sum) %>% dplyr::rename(unpaired_counts = read_count_sum)
+	  
+	  df_filt <- rbind(df_bact_filt, df_fungi_filt)
+    
+	#Add a row representing microbial counts ("OTHERS") that do not belong to OGs e.g. bacterial + fungal OGs
+	
+	  subject_region <- mtx_stats %>% dplyr::filter(LIBID==library_name) %>% pull(subj_region)
+	  
+	  microbial_paired_counts <- mtx_stats %>% dplyr::filter(LIBID==library_name) %>% pull(MICROBE_COUNT)
+	
+	  microbial_unpaired_counts <- microbial_paired_counts * 2 #Need unpaired because pangene mapping was done in unpaired mode
+	
+	  microbial_unpaired_counts_others <- microbial_unpaired_counts - sum(df_filt$unpaired_counts)
+
+	  df_others <- data.frame(feature="others",unpaired_counts=microbial_unpaired_counts_others)
+	
+	  output <- rbind(df_filt,df_others)
+	
+	  output$subj_region <- subject_region
+	
+    return(output)
+  })
+  
+  mtx_df_filt <- do.call("rbind", mtx_df_filt)
+  
+  mtx_df_wide <- mtx_df_filt  %>% 
+    pivot_wider(., id_cols=subj_region, names_from=feature, values_from=unpaired_counts) %>% as.data.frame()
+  
+  rownames(mtx_df_wide) <- mtx_df_wide$subj_region
+  
+  mtx_df_wide <- mtx_df_wide %>% dplyr::select(-subj_region) %>% as.matrix()
+  
+  mtx_df_wide[is.na(mtx_df_wide)] <- 0
+  
+ 
+  
+  #plots 
+  #https://stat.ethz.ch/pipermail/r-sig-ecology/2018-December/005867.html
+  
+  mtx_raremax <- min(rowSums(mtx_df_wide))
+ 
+  mtx_rarefy_out <- rarecurve(mtx_df_wide, step = 50000, sample = mtx_raremax, col = "black", cex = 0.6)
+  
+  names(mtx_rarefy_out) <- rownames(mtx_df_wide)
+  
+  mtx_protox <- mapply(FUN = function(x, y) {
+  mydf <- as.data.frame(x)
+  colnames(mydf) <- "value"
+  mydf$subject <- y
+  mydf$subsample <- attr(x, "Subsample")
+  mydf
+  }, x = mtx_rarefy_out, y = as.list(names(mtx_rarefy_out)), SIMPLIFY = FALSE)
+  
+  mtx_xy <- do.call("rbind", mtx_protox)
+  
+  mtx_plot <- ggplot(mtx_xy, aes(x = subsample, y = value, color=subject)) +
+  theme_classic()  + scale_color_manual(values=c24) + 
+  geom_line(size=1.5) + geom_vline(xintercept = 2e6, linetype="dotted") + #2e6 unpaired reads corresponds to 1M read pairs (microbial)
+  ggtitle(paste0("mtx",body_site,";raremax= ",mtx_raremax)) +
+  xlab("Number of microbial reads (unpaired)") + ylab("# of features detected")
+  
+  
+  return(mtx_plot)
+  
+}
+
+
+
+
+```
+
+
+## Cheek
+
+```{r}
+
+
+mtx_microbe_Ch_rarefaction <- rarefy_and_plot( body_site="Ch")
+
+
+ggsave(plot = mtx_microbe_Ch_rarefaction , filename = "../plots/mtx_microbe_Ch_rarefaction.pdf", width = 14, height = 7)
+
+mtx_microbe_Ch_rarefaction
+
+```
+
+## Antecubital fossa (Ac)
+
+```{r}
+
+mtx_microbe_Ac_rarefaction <- rarefy_and_plot( body_site="Ac")
+
+
+ggsave(plot = mtx_microbe_Ac_rarefaction , filename = "../plots/mtx_microbe_Ac_rarefaction.pdf", width = 14, height = 7)
+
+mtx_microbe_Ac_rarefaction
+
+
+
+
+```
+
+## Volar forearm (Vf)
+
+```{r}
+
+mtx_microbe_Vf_rarefaction <- rarefy_and_plot( body_site="Vf")
+
+
+ggsave(plot = mtx_microbe_Vf_rarefaction , filename = "../plots/mtx_microbe_Vf_rarefaction.pdf", width = 14, height = 7)
+
+mtx_microbe_Vf_rarefaction
+
+
+
+```
+## Scalp (Sc)
+
+```{r}
+
+mtx_microbe_Sc_rarefaction <- rarefy_and_plot( body_site="Sc")
+
+
+ggsave(plot = mtx_microbe_Sc_rarefaction , filename = "../plots/mtx_microbe_Sc_rarefaction.pdf", width = 14, height = 7)
+
+mtx_microbe_Sc_rarefaction
+
+
+```
+
+
+## Toe web (Tw)
+
+```{r}
+
+mtx_microbe_Tw_rarefaction <- rarefy_and_plot( body_site="Tw")
+
+
+ggsave(plot = mtx_microbe_Tw_rarefaction , filename = "../plots/mtx_microbe_Tw_rarefaction.pdf", width = 14, height = 7)
+
+mtx_microbe_Tw_rarefaction
+
+
+```
+
+
