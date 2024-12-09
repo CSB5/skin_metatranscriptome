@@ -20,7 +20,7 @@ library(ggpubr)
 library(DESeq2)
 library(ALDEx2) #v1.28.1
 library(propr) #version 2.1.2
-
+library(tximport)
 ```
 
 
@@ -1168,7 +1168,7 @@ b) Compositionality aware (centered log ratio) transformed counts of another org
 
 
 
-```{r eval=FALSE}
+```{r}
 
 #Load  bacterial mtx reads
 eight_skin_bact_mtx_counts <- lapply(mtx_to_pull, function(x){
