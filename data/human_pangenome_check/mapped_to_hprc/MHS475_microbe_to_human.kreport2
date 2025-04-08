@@ -1,0 +1,127 @@
+ 28.09	740	740	U	0	unclassified
+ 71.91	1894	3	R	1	root
+ 71.79	1891	2	R1	131567	  cellular organisms
+ 53.19	1401	0	D	2759	    Eukaryota
+ 53.19	1401	0	D1	33154	      Opisthokonta
+ 53.19	1401	0	D2	4751	        Fungi
+ 53.19	1401	0	D3	451864	          Dikarya
+ 53.19	1401	0	P	5204	            Basidiomycota
+ 53.19	1401	0	P1	452284	              Ustilaginomycotina
+ 53.19	1401	0	C	1538075	                Malasseziomycetes
+ 53.19	1401	0	O	162474	                  Malasseziales
+ 53.19	1401	0	F	742845	                    Malasseziaceae
+ 53.19	1401	2	G	55193	                      Malassezia
+ 51.71	1362	1359	S	76773	                        Malassezia globosa
+  0.11	3	3	S1	425265	                          Malassezia globosa CBS 7966
+  0.84	22	12	S	76775	                        Malassezia restricta
+  0.38	10	10	S1	425264	                          Malassezia restricta CBS 7877
+  0.38	10	10	S	55194	                        Malassezia furfur
+  0.19	5	5	S	77020	                        Malassezia pachydermatis
+ 18.53	488	0	D	2	    Bacteria
+ 15.57	410	0	P	1224	      Proteobacteria
+ 14.88	392	0	C	1236	        Gammaproteobacteria
+  8.54	225	0	O	135623	          Vibrionales
+  8.54	225	1	F	641	            Vibrionaceae
+  8.50	224	0	G	662	              Vibrio
+  8.50	224	118	S	672	                Vibrio vulnificus
+  2.47	65	65	S1	914127	                  Vibrio vulnificus MO6-24/O
+  0.87	23	23	S1	748003	                  Vibrio vulnificus VVyb1(BT3)
+  0.68	18	18	S1	1246305	                  Vibrio vulnificus Env1
+  6.26	165	0	O	91347	          Enterobacterales
+  4.14	109	0	O1	451511	            Enterobacterales incertae sedis
+  4.14	109	0	G	702	              Plesiomonas
+  4.14	109	109	S	703	                Plesiomonas shigelloides
+  2.13	56	0	F	543	            Enterobacteriaceae
+  2.13	56	2	G	570	              Klebsiella
+  2.05	54	54	S	573	                Klebsiella pneumoniae
+  0.08	2	0	O	72274	          Pseudomonadales
+  0.08	2	0	F	468	            Moraxellaceae
+  0.08	2	0	G	475	              Moraxella
+  0.08	2	2	S	34062	                Moraxella osloensis
+  0.42	11	0	C	28211	        Alphaproteobacteria
+  0.27	7	0	O	204441	          Rhodospirillales
+  0.27	7	0	F	433	            Acetobacteraceae
+  0.27	7	3	G	125216	              Roseomonas
+  0.15	4	4	S	207340	                Roseomonas mucosa
+  0.08	2	0	O	356	          Hyphomicrobiales
+  0.08	2	0	F	41294	            Bradyrhizobiaceae
+  0.08	2	0	G	374	              Bradyrhizobium
+  0.08	2	2	S	722472	                Bradyrhizobium lablabi
+  0.04	1	0	O	204457	          Sphingomonadales
+  0.04	1	0	F	41297	            Sphingomonadaceae
+  0.04	1	0	G	165697	              Sphingopyxis
+  0.04	1	0	G1	2614943	                unclassified Sphingopyxis
+  0.04	1	1	S	2486273	                  Sphingopyxis sp. OPL5
+  0.04	1	0	O	204455	          Rhodobacterales
+  0.04	1	0	F	31989	            Rhodobacteraceae
+  0.04	1	0	G	265	              Paracoccus
+  0.04	1	1	S	1545044	                Paracoccus sanguinis
+  0.23	6	0	P1	68525	        delta/epsilon subdivisions
+  0.23	6	0	C	29547	          Epsilonproteobacteria
+  0.23	6	0	O	213849	            Campylobacterales
+  0.23	6	0	F	2771472	              Sulfurovaceae
+  0.23	6	6	G	265570	                Sulfurovum
+  0.04	1	0	C	28216	        Betaproteobacteria
+  0.04	1	0	O	80840	          Burkholderiales
+  0.04	1	0	F	506	            Alcaligenaceae
+  0.04	1	0	G	222	              Achromobacter
+  0.04	1	1	S	85698	                Achromobacter xylosoxidans
+  2.92	77	0	D1	1783272	      Terrabacteria group
+  2.32	61	0	P	201174	        Actinobacteria
+  2.32	61	0	C	1760	          Actinomycetia
+  1.82	48	0	O	85009	            Propionibacteriales
+  1.78	47	0	F	31957	              Propionibacteriaceae
+  1.78	47	10	G	1912216	                Cutibacterium
+  1.40	37	31	S	1747	                  Cutibacterium acnes
+  0.19	5	0	S1	1734925	                    Cutibacterium acnes subsp. acnes
+  0.19	5	5	S2	1114967	                      Cutibacterium acnes TypeIA2 P.acn17
+  0.04	1	1	S1	553199	                    Cutibacterium acnes SK137
+  0.04	1	0	F	85015	              Nocardioidaceae
+  0.04	1	0	G	1839	                Nocardioides
+  0.04	1	1	S	1774216	                  Nocardioides rotundus
+  0.30	8	0	O	85007	            Corynebacteriales
+  0.30	8	0	F	1653	              Corynebacteriaceae
+  0.30	8	0	G	1716	                Corynebacterium
+  0.15	4	4	S	36808	                  Corynebacterium bovis
+  0.11	3	3	S	1979527	                  Corynebacterium kefirresidentii
+  0.04	1	1	S	43768	                  Corynebacterium matruchotii
+  0.08	2	0	O	85011	            Streptomycetales
+  0.08	2	0	F	2062	              Streptomycetaceae
+  0.08	2	0	G	1883	                Streptomyces
+  0.08	2	2	S	249567	                  Streptomyces decoyicus
+  0.04	1	0	O	85008	            Micromonosporales
+  0.04	1	0	F	28056	              Micromonosporaceae
+  0.04	1	0	G	1873	                Micromonospora
+  0.04	1	1	S	1881	                  Micromonospora viridifaciens
+  0.04	1	0	O	85006	            Micrococcales
+  0.04	1	0	F	1268	              Micrococcaceae
+  0.04	1	0	G	1269	                Micrococcus
+  0.04	1	1	S	1270	                  Micrococcus luteus
+  0.04	1	0	O	2037	            Actinomycetales
+  0.04	1	0	F	2049	              Actinomycetaceae
+  0.04	1	0	G	1654	                Actinomyces
+  0.04	1	0	G1	2609248	                  unclassified Actinomyces
+  0.04	1	1	S	712122	                    Actinomyces sp. oral taxon 414
+  0.57	15	0	P	1239	        Firmicutes
+  0.57	15	0	C	91061	          Bacilli
+  0.57	15	0	O	1385	            Bacillales
+  0.57	15	0	F	90964	              Staphylococcaceae
+  0.57	15	0	G	1279	                Staphylococcus
+  0.57	15	0	S	1282	                  Staphylococcus epidermidis
+  0.57	15	15	S1	176280	                    Staphylococcus epidermidis ATCC 12228
+  0.04	1	0	D2	1798711	        Cyanobacteria/Melainabacteria group
+  0.04	1	0	P	1117	          Cyanobacteria
+  0.04	1	0	O	1890424	            Synechococcales
+  0.04	1	0	F	1890426	              Synechococcaceae
+  0.04	1	0	G	1129	                Synechococcus
+  0.04	1	0	G1	2626047	                  unclassified Synechococcus
+  0.04	1	1	S	221352	                    Synechococcus sp. RS9909
+  0.04	1	0	D1	1783270	      FCB group
+  0.04	1	0	D2	68336	        Bacteroidetes/Chlorobi group
+  0.04	1	0	P	976	          Bacteroidetes
+  0.04	1	0	C	117743	            Flavobacteriia
+  0.04	1	0	O	200644	              Flavobacteriales
+  0.04	1	0	F	49546	                Flavobacteriaceae
+  0.04	1	0	G	1016	                  Capnocytophaga
+  0.04	1	0	G1	2640652	                    unclassified Capnocytophaga
+  0.04	1	1	S	2748316	                      Capnocytophaga sp. oral taxon 902

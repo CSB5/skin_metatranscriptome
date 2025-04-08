@@ -1,0 +1,77 @@
+ 53.54	363	363	U	0	unclassified
+ 46.46	315	0	R	1	root
+ 46.46	315	1	R1	131567	  cellular organisms
+ 44.54	302	26	D	2	    Bacteria
+ 37.46	254	0	D1	1783272	      Terrabacteria group
+ 30.38	206	0	P	201174	        Actinobacteria
+ 30.38	206	0	C	1760	          Actinomycetia
+ 30.09	204	0	O	85009	            Propionibacteriales
+ 30.09	204	0	F	31957	              Propionibacteriaceae
+ 30.09	204	24	G	1912216	                Cutibacterium
+ 26.55	180	175	S	1747	                  Cutibacterium acnes
+  0.29	2	0	S1	1734925	                    Cutibacterium acnes subsp. acnes
+  0.29	2	2	S2	1114967	                      Cutibacterium acnes TypeIA2 P.acn17
+  0.15	1	0	S1	1905725	                    Cutibacterium acnes subsp. defendens
+  0.15	1	1	S2	1091045	                      Cutibacterium acnes subsp. defendens ATCC 11828
+  0.15	1	1	S1	1234380	                    Cutibacterium acnes C1
+  0.15	1	1	S1	909952	                    Cutibacterium acnes 266
+  0.15	1	0	O	85011	            Streptomycetales
+  0.15	1	0	F	2062	              Streptomycetaceae
+  0.15	1	0	G	1883	                Streptomyces
+  0.15	1	0	G1	2593676	                  unclassified Streptomyces
+  0.15	1	1	S	2059884	                    Streptomyces sp. CMB-StM0423
+  0.15	1	0	O	85007	            Corynebacteriales
+  0.15	1	0	F	1653	              Corynebacteriaceae
+  0.15	1	0	G	1716	                Corynebacterium
+  0.15	1	1	S	1979527	                  Corynebacterium kefirresidentii
+  7.08	48	0	P	1239	        Firmicutes
+  7.08	48	0	C	91061	          Bacilli
+  6.93	47	0	O	1385	            Bacillales
+  6.93	47	0	F	90964	              Staphylococcaceae
+  6.93	47	0	G	1279	                Staphylococcus
+  6.78	46	46	S	29382	                  Staphylococcus cohnii
+  0.15	1	1	S	1286	                  Staphylococcus simulans
+  0.15	1	0	O	186826	            Lactobacillales
+  0.15	1	0	F	33958	              Lactobacillaceae
+  0.15	1	1	G	2767887	                Ligilactobacillus
+  3.24	22	0	P	1224	      Proteobacteria
+  2.95	20	0	C	1236	        Gammaproteobacteria
+  2.06	14	0	O	91347	          Enterobacterales
+  1.62	11	0	F	543	            Enterobacteriaceae
+  1.62	11	0	G	570	              Klebsiella
+  0.88	6	6	S	573	                Klebsiella pneumoniae
+  0.74	5	5	S	2058152	                Klebsiella grimontii
+  0.44	3	0	O1	451511	            Enterobacterales incertae sedis
+  0.44	3	0	G	702	              Plesiomonas
+  0.44	3	3	S	703	                Plesiomonas shigelloides
+  0.59	4	0	O	135623	          Vibrionales
+  0.59	4	0	F	641	            Vibrionaceae
+  0.59	4	0	G	662	              Vibrio
+  0.59	4	3	S	672	                Vibrio vulnificus
+  0.15	1	1	S1	914127	                  Vibrio vulnificus MO6-24/O
+  0.29	2	0	O	72274	          Pseudomonadales
+  0.29	2	0	F	135621	            Pseudomonadaceae
+  0.29	2	0	G	286	              Pseudomonas
+  0.29	2	0	G1	136843	                Pseudomonas fluorescens group
+  0.29	2	2	S	29442	                  Pseudomonas tolaasii
+  0.29	2	0	C	28216	        Betaproteobacteria
+  0.29	2	0	O	80840	          Burkholderiales
+  0.15	1	0	F	119060	            Burkholderiaceae
+  0.15	1	0	G	106589	              Cupriavidus
+  0.15	1	1	S	164546	                Cupriavidus taiwanensis
+  0.15	1	0	F	80864	            Comamonadaceae
+  0.15	1	0	G	364316	              Verminephrobacter
+  0.15	1	0	S	364317	                Verminephrobacter eiseniae
+  0.15	1	1	S1	391735	                  Verminephrobacter eiseniae EF01-2
+  1.77	12	0	D	2759	    Eukaryota
+  1.77	12	0	D1	33154	      Opisthokonta
+  1.77	12	0	D2	4751	        Fungi
+  1.77	12	0	D3	451864	          Dikarya
+  1.77	12	0	P	5204	            Basidiomycota
+  1.77	12	0	P1	452284	              Ustilaginomycotina
+  1.77	12	0	C	1538075	                Malasseziomycetes
+  1.77	12	0	O	162474	                  Malasseziales
+  1.77	12	0	F	742845	                    Malasseziaceae
+  1.77	12	0	G	55193	                      Malassezia
+  1.77	12	10	S	76775	                        Malassezia restricta
+  0.29	2	2	S1	425264	                          Malassezia restricta CBS 7877

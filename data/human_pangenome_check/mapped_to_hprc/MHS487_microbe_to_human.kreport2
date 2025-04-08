@@ -1,0 +1,81 @@
+ 87.26	877	877	U	0	unclassified
+ 12.74	128	0	R	1	root
+ 12.74	128	2	R1	131567	  cellular organisms
+ 11.74	118	32	D	2	    Bacteria
+  7.66	77	0	P	1224	      Proteobacteria
+  7.46	75	0	C	1236	        Gammaproteobacteria
+  5.17	52	0	O	91347	          Enterobacterales
+  4.28	43	0	F	543	            Enterobacteriaceae
+  4.28	43	0	G	570	              Klebsiella
+  4.28	43	38	S	573	                Klebsiella pneumoniae
+  0.50	5	5	S1	72407	                  Klebsiella pneumoniae subsp. pneumoniae
+  0.90	9	0	O1	451511	            Enterobacterales incertae sedis
+  0.90	9	0	G	702	              Plesiomonas
+  0.90	9	9	S	703	                Plesiomonas shigelloides
+  2.29	23	0	O	135623	          Vibrionales
+  2.29	23	0	F	641	            Vibrionaceae
+  2.29	23	0	G	662	              Vibrio
+  2.29	23	12	S	672	                Vibrio vulnificus
+  0.40	4	4	S1	1246305	                  Vibrio vulnificus Env1
+  0.40	4	4	S1	914127	                  Vibrio vulnificus MO6-24/O
+  0.30	3	3	S1	748003	                  Vibrio vulnificus VVyb1(BT3)
+  0.10	1	0	C	28216	        Betaproteobacteria
+  0.10	1	0	O	80840	          Burkholderiales
+  0.10	1	0	F	506	            Alcaligenaceae
+  0.10	1	0	G	222	              Achromobacter
+  0.10	1	1	S	85698	                Achromobacter xylosoxidans
+  0.10	1	0	C	28211	        Alphaproteobacteria
+  0.10	1	0	O	204457	          Sphingomonadales
+  0.10	1	0	F	41297	            Sphingomonadaceae
+  0.10	1	0	G	13687	              Sphingomonas
+  0.10	1	0	G1	196159	                unclassified Sphingomonas
+  0.10	1	1	S	1517551	                  Sphingomonas sp. HMP6
+  0.60	6	0	D1	1783272	      Terrabacteria group
+  0.60	6	0	P	201174	        Actinobacteria
+  0.60	6	0	C	1760	          Actinomycetia
+  0.60	6	0	O	85009	            Propionibacteriales
+  0.60	6	0	F	31957	              Propionibacteriaceae
+  0.60	6	0	G	1912216	                Cutibacterium
+  0.60	6	6	S	1747	                  Cutibacterium acnes
+  0.20	2	0	D1	1783270	      FCB group
+  0.20	2	0	D2	68336	        Bacteroidetes/Chlorobi group
+  0.20	2	0	P	976	          Bacteroidetes
+  0.20	2	0	C	117747	            Sphingobacteriia
+  0.20	2	0	O	200666	              Sphingobacteriales
+  0.20	2	0	F	84566	                Sphingobacteriaceae
+  0.20	2	0	G	84567	                  Pedobacter
+  0.20	2	0	G1	2628915	                    unclassified Pedobacter
+  0.20	2	2	S	2856523	                      Pedobacter sp. D749
+  0.10	1	0	D1	1783257	      PVC group
+  0.10	1	0	P	203682	        Planctomycetes
+  0.10	1	0	C	203683	          Planctomycetia
+  0.10	1	0	O	2691356	            Isosphaerales
+  0.10	1	0	F	1763524	              Isosphaeraceae
+  0.10	1	0	G	127	                Isosphaera
+  0.10	1	0	S	128	                  Isosphaera pallida
+  0.10	1	1	S1	575540	                    Isosphaera pallida ATCC 43644
+  0.80	8	0	D	2759	    Eukaryota
+  0.80	8	0	D1	33154	      Opisthokonta
+  0.80	8	0	D2	4751	        Fungi
+  0.80	8	0	D3	451864	          Dikarya
+  0.70	7	0	P	5204	            Basidiomycota
+  0.70	7	0	P1	452284	              Ustilaginomycotina
+  0.70	7	0	C	1538075	                Malasseziomycetes
+  0.70	7	0	O	162474	                  Malasseziales
+  0.70	7	0	F	742845	                    Malasseziaceae
+  0.70	7	0	G	55193	                      Malassezia
+  0.40	4	4	S	76773	                        Malassezia globosa
+  0.20	2	2	S	223818	                        Malassezia japonica
+  0.10	1	1	S	76775	                        Malassezia restricta
+  0.10	1	0	P	4890	            Ascomycota
+  0.10	1	0	P1	716545	              saccharomyceta
+  0.10	1	0	P2	147538	                Pezizomycotina
+  0.10	1	0	P3	716546	                  leotiomyceta
+  0.10	1	0	P4	715989	                    sordariomyceta
+  0.10	1	0	C	147550	                      Sordariomycetes
+  0.10	1	0	C1	222544	                        Sordariomycetidae
+  0.10	1	0	O	5139	                          Sordariales
+  0.10	1	0	F	35718	                            Chaetomiaceae
+  0.10	1	0	G	1920207	                              Thermothelomyces
+  0.10	1	0	S	78579	                                Thermothelomyces thermophilus
+  0.10	1	1	S1	573729	                                  Thermothelomyces thermophilus ATCC 42464

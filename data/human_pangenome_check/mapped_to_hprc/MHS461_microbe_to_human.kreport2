@@ -1,0 +1,73 @@
+ 62.33	493	493	U	0	unclassified
+ 37.67	298	0	R	1	root
+ 37.55	297	0	R1	131567	  cellular organisms
+ 21.87	173	0	D	2	    Bacteria
+ 15.68	124	0	D1	1783272	      Terrabacteria group
+ 15.68	124	0	P	201174	        Actinobacteria
+ 15.68	124	0	C	1760	          Actinomycetia
+ 14.79	117	0	O	85009	            Propionibacteriales
+ 14.79	117	0	F	31957	              Propionibacteriaceae
+ 14.79	117	3	G	1912216	                Cutibacterium
+ 14.41	114	78	S	1747	                  Cutibacterium acnes
+  4.55	36	0	S1	1734925	                    Cutibacterium acnes subsp. acnes
+  4.55	36	36	S2	1114967	                      Cutibacterium acnes TypeIA2 P.acn17
+  0.63	5	0	O	85007	            Corynebacteriales
+  0.63	5	0	F	1653	              Corynebacteriaceae
+  0.63	5	0	G	1716	                Corynebacterium
+  0.63	5	5	S	1979527	                  Corynebacterium kefirresidentii
+  0.13	1	0	O	85011	            Streptomycetales
+  0.13	1	0	F	2062	              Streptomycetaceae
+  0.13	1	0	G	1883	                Streptomyces
+  0.13	1	1	S	285578	                  Streptomyces angustmyceticus
+  0.13	1	0	O	85008	            Micromonosporales
+  0.13	1	0	F	28056	              Micromonosporaceae
+  0.13	1	0	G	53365	                Catellatospora
+  0.13	1	0	G1	2645785	                  unclassified Catellatospora
+  0.13	1	1	S	2728827	                    Catellatospora sp. IY07-71
+  6.07	48	0	P	1224	      Proteobacteria
+  6.07	48	1	C	1236	        Gammaproteobacteria
+  5.82	46	0	O	91347	          Enterobacterales
+  5.56	44	0	F	543	            Enterobacteriaceae
+  5.56	44	23	G	570	              Klebsiella
+  2.53	20	20	S	573	                Klebsiella pneumoniae
+  0.13	1	1	S	2058152	                Klebsiella grimontii
+  0.25	2	0	O1	451511	            Enterobacterales incertae sedis
+  0.25	2	0	G	702	              Plesiomonas
+  0.25	2	2	S	703	                Plesiomonas shigelloides
+  0.13	1	0	O	135623	          Vibrionales
+  0.13	1	0	F	641	            Vibrionaceae
+  0.13	1	0	G	662	              Vibrio
+  0.13	1	0	S	672	                Vibrio vulnificus
+  0.13	1	1	S1	1246305	                  Vibrio vulnificus Env1
+  0.13	1	0	D1	1783270	      FCB group
+  0.13	1	0	D2	68336	        Bacteroidetes/Chlorobi group
+  0.13	1	0	P	976	          Bacteroidetes
+  0.13	1	0	C	768503	            Cytophagia
+  0.13	1	0	O	768507	              Cytophagales
+  0.13	1	0	F	1853232	                Hymenobacteraceae
+  0.13	1	0	G	89966	                  Hymenobacter
+  0.13	1	0	G1	2615202	                    unclassified Hymenobacter
+  0.13	1	1	S	1484116	                      Hymenobacter sp. PAMC 26554
+ 15.68	124	0	D	2759	    Eukaryota
+ 15.68	124	0	D1	33154	      Opisthokonta
+ 15.68	124	0	D2	4751	        Fungi
+ 15.68	124	0	D3	451864	          Dikarya
+ 15.68	124	0	P	5204	            Basidiomycota
+ 15.68	124	0	P1	452284	              Ustilaginomycotina
+ 15.68	124	0	C	1538075	                Malasseziomycetes
+ 15.68	124	0	O	162474	                  Malasseziales
+ 15.68	124	0	F	742845	                    Malasseziaceae
+ 15.68	124	1	G	55193	                      Malassezia
+ 15.42	122	103	S	76775	                        Malassezia restricta
+  2.40	19	19	S1	425264	                          Malassezia restricta CBS 7877
+  0.13	1	1	S	55194	                        Malassezia furfur
+  0.13	1	0	D	10239	  Viruses
+  0.13	1	0	D1	2731341	    Duplodnaviria
+  0.13	1	0	D2	2731360	      Heunggongvirae
+  0.13	1	0	P	2731618	        Uroviricota
+  0.13	1	0	C	2731619	          Caudoviricetes
+  0.13	1	0	O	28883	            Caudovirales
+  0.13	1	0	F	10699	              Siphoviridae
+  0.13	1	0	G	1623283	                Chivirus
+  0.13	1	0	G1	1909389	                  unclassified Chivirus
+  0.13	1	1	S	2500149	                    Salmonella phage TS13

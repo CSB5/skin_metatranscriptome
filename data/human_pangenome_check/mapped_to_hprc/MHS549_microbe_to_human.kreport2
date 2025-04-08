@@ -1,0 +1,195 @@
+ 64.24	857	857	U	0	unclassified
+ 35.76	477	0	R	1	root
+ 35.76	477	1	R1	131567	  cellular organisms
+ 35.46	473	19	D	2	    Bacteria
+ 26.09	348	0	P	1224	      Proteobacteria
+ 24.36	325	1	C	1236	        Gammaproteobacteria
+ 14.84	198	0	O	135623	          Vibrionales
+ 14.84	198	0	F	641	            Vibrionaceae
+ 14.77	197	0	G	662	              Vibrio
+ 14.77	197	115	S	672	                Vibrio vulnificus
+  3.67	49	49	S1	914127	                  Vibrio vulnificus MO6-24/O
+  1.27	17	17	S1	748003	                  Vibrio vulnificus VVyb1(BT3)
+  1.20	16	16	S1	1246305	                  Vibrio vulnificus Env1
+  0.07	1	1	G	511678	              Aliivibrio
+  9.07	121	0	O	91347	          Enterobacterales
+  7.35	98	0	O1	451511	            Enterobacterales incertae sedis
+  7.35	98	0	G	702	              Plesiomonas
+  7.35	98	98	S	703	                Plesiomonas shigelloides
+  1.72	23	0	F	543	            Enterobacteriaceae
+  1.72	23	0	G	570	              Klebsiella
+  1.65	22	21	S	573	                Klebsiella pneumoniae
+  0.07	1	1	S1	72407	                  Klebsiella pneumoniae subsp. pneumoniae
+  0.07	1	1	S	2058152	                Klebsiella grimontii
+  0.22	3	0	O	135625	          Pasteurellales
+  0.22	3	0	F	712	            Pasteurellaceae
+  0.22	3	0	G	724	              Haemophilus
+  0.22	3	3	S	729	                Haemophilus parainfluenzae
+  0.15	2	0	O	72274	          Pseudomonadales
+  0.15	2	0	F	135621	            Pseudomonadaceae
+  0.15	2	0	G	286	              Pseudomonas
+  0.07	1	0	G1	196821	                unclassified Pseudomonas
+  0.07	1	1	S	1415630	                  Pseudomonas sp. TKP
+  0.07	1	0	G1	136846	                Pseudomonas stutzeri group
+  0.07	1	0	G2	578833	                  Pseudomonas stutzeri subgroup
+  0.07	1	0	S	316	                    Pseudomonas stutzeri
+  0.07	1	1	S1	1196835	                      Pseudomonas stutzeri CCUG 29243
+  1.42	19	0	C	28211	        Alphaproteobacteria
+  0.60	8	0	O	204455	          Rhodobacterales
+  0.52	7	0	F	31989	            Rhodobacteraceae
+  0.52	7	0	G	265	              Paracoccus
+  0.15	2	2	S	1945662	                Paracoccus contaminans
+  0.15	2	0	G1	246570	                unclassified Paracoccus
+  0.07	1	1	S	2760307	                  Paracoccus sp. MC1862
+  0.07	1	1	S	2589076	                  Paracoccus sp. AK26
+  0.15	2	2	S	147645	                Paracoccus yeei
+  0.07	1	1	S	1545044	                Paracoccus sanguinis
+  0.07	1	0	F	2854170	            Roseobacteraceae
+  0.07	1	0	G	74030	              Roseovarius
+  0.07	1	1	S	540747	                Roseovarius indicus
+  0.52	7	0	O	204458	          Caulobacterales
+  0.52	7	0	F	76892	            Caulobacteraceae
+  0.52	7	0	G	41275	              Brevundimonas
+  0.52	7	0	G1	2622653	                unclassified Brevundimonas
+  0.52	7	7	S	2861285	                  Brevundimonas sp. PAMC22021
+  0.22	3	0	O	356	          Hyphomicrobiales
+  0.22	3	1	F	119045	            Methylobacteriaceae
+  0.15	2	1	G	407	              Methylobacterium
+  0.07	1	1	G1	2615210	                unclassified Methylobacterium
+  0.07	1	0	O	204457	          Sphingomonadales
+  0.07	1	0	F	41297	            Sphingomonadaceae
+  0.07	1	0	G	13687	              Sphingomonas
+  0.07	1	0	G1	196159	                unclassified Sphingomonas
+  0.07	1	1	S	2599297	                  Sphingomonas sp. XS-10
+  0.30	4	0	C	28216	        Betaproteobacteria
+  0.30	4	0	O	80840	          Burkholderiales
+  0.15	2	0	F	80864	            Comamonadaceae
+  0.15	2	0	G	28065	              Rhodoferax
+  0.15	2	2	S	2509614	                Rhodoferax sediminis
+  0.07	1	0	F	75682	            Oxalobacteraceae
+  0.07	1	0	G	149698	              Massilia
+  0.07	1	0	G1	2609279	                unclassified Massilia
+  0.07	1	1	S	2861282	                  Massilia sp. NP310
+  0.07	1	0	F	506	            Alcaligenaceae
+  0.07	1	0	G	152267	              Pigmentiphaga
+  0.07	1	0	G1	2626614	                unclassified Pigmentiphaga
+  0.07	1	1	S	2488560	                  Pigmentiphaga sp. H8
+  7.87	105	1	D1	1783272	      Terrabacteria group
+  7.42	99	0	P	201174	        Actinobacteria
+  7.42	99	3	C	1760	          Actinomycetia
+  4.42	59	1	O	85006	            Micrococcales
+  3.30	44	0	F	1268	              Micrococcaceae
+  3.15	42	5	G	1269	                Micrococcus
+  2.77	37	37	S	1270	                  Micrococcus luteus
+  0.15	2	0	G	57493	                Kocuria
+  0.15	2	2	S	72000	                  Kocuria rhizophila
+  0.37	5	0	F	85023	              Microbacteriaceae
+  0.30	4	1	G	33882	                Microbacterium
+  0.15	2	0	G1	2609290	                  unclassified Microbacterium
+  0.15	2	2	S	2782167	                    Microbacterium sp. A18JL200
+  0.07	1	1	S	36805	                  Microbacterium aurum
+  0.07	1	0	G	33886	                Rathayibacter
+  0.07	1	1	S	110937	                  Rathayibacter festucae
+  0.30	4	0	F	2805426	              Kytococcaceae
+  0.30	4	0	G	57499	                Kytococcus
+  0.30	4	4	S	1276	                  Kytococcus sedentarius
+  0.07	1	0	F	145358	              Bogoriellaceae
+  0.07	1	0	G	154116	                Georgenia
+  0.07	1	0	G1	2626815	                  unclassified Georgenia
+  0.07	1	1	S	2585135	                    Georgenia sp. Z294
+  0.07	1	0	F	145357	              Dermacoccaceae
+  0.07	1	0	G	57495	                Dermacoccus
+  0.07	1	0	G1	2643059	                  unclassified Dermacoccus
+  0.07	1	1	S	2762331	                    Dermacoccus sp. PAMC28757
+  0.07	1	0	F	85021	              Intrasporangiaceae
+  0.07	1	1	G	53457	                Janibacter
+  0.07	1	0	F	85020	              Dermabacteraceae
+  0.07	1	0	G	43668	                Brachybacterium
+  0.07	1	1	S	556288	                  Brachybacterium saurashtrense
+  0.07	1	0	F	85019	              Brevibacteriaceae
+  0.07	1	0	G	1696	                Brevibacterium
+  0.07	1	0	G1	2614124	                  unclassified Brevibacterium
+  0.07	1	1	S	2575923	                    Brevibacterium sp. CS2
+  1.57	21	0	O	85007	            Corynebacteriales
+  0.97	13	0	F	85026	              Gordoniaceae
+  0.97	13	0	G	2053	                Gordonia
+  0.67	9	9	S	2055	                  Gordonia terrae
+  0.30	4	0	G1	2657482	                  unclassified Gordonia
+  0.30	4	4	S	2698900	                    Gordonia sp. JH63
+  0.30	4	0	F	1653	              Corynebacteriaceae
+  0.30	4	0	G	1716	                Corynebacterium
+  0.15	2	2	S	1979527	                  Corynebacterium kefirresidentii
+  0.07	1	1	S	2594913	                  Corynebacterium sanguinis
+  0.07	1	1	S	36808	                  Corynebacterium bovis
+  0.30	4	0	F	85029	              Dietziaceae
+  0.30	4	0	G	37914	                Dietzia
+  0.22	3	0	G1	2617939	                  unclassified Dietzia
+  0.22	3	3	S	712270	                    Dietzia sp. oral taxon 368
+  0.07	1	1	S	546160	                  Dietzia lutea
+  0.60	8	0	O	85010	            Pseudonocardiales
+  0.60	8	0	F	2070	              Pseudonocardiaceae
+  0.52	7	0	G	1847	                Pseudonocardia
+  0.52	7	0	G1	2619320	                  unclassified Pseudonocardia
+  0.37	5	5	S	445576	                    Pseudonocardia sp. AL041005-10
+  0.15	2	2	S	2865833	                    Pseudonocardia sp. DSM 110487
+  0.07	1	0	G	1835	                Saccharopolyspora
+  0.07	1	1	S	60894	                  Saccharopolyspora spinosa
+  0.30	4	0	O	85009	            Propionibacteriales
+  0.30	4	0	F	31957	              Propionibacteriaceae
+  0.30	4	1	G	1912216	                Cutibacterium
+  0.22	3	3	S	1747	                  Cutibacterium acnes
+  0.15	2	0	O	85011	            Streptomycetales
+  0.15	2	0	F	2062	              Streptomycetaceae
+  0.15	2	2	G	1883	                Streptomyces
+  0.07	1	0	O	1643682	            Geodermatophilales
+  0.07	1	0	F	85030	              Geodermatophilaceae
+  0.07	1	0	G	38501	                Blastococcus
+  0.07	1	0	S	138336	                  Blastococcus saxobsidens
+  0.07	1	1	S1	1146883	                    Blastococcus saxobsidens DD2
+  0.07	1	0	O	85008	            Micromonosporales
+  0.07	1	0	F	28056	              Micromonosporaceae
+  0.07	1	0	G	1873	                Micromonospora
+  0.07	1	1	S	479978	                  Micromonospora tulbaghiae
+  0.30	4	0	P	1239	        Firmicutes
+  0.30	4	0	C	91061	          Bacilli
+  0.30	4	0	O	1385	            Bacillales
+  0.30	4	0	F	90964	              Staphylococcaceae
+  0.30	4	0	G	1279	                Staphylococcus
+  0.15	2	2	S	1290	                  Staphylococcus hominis
+  0.07	1	1	S	1286	                  Staphylococcus simulans
+  0.07	1	1	S	1282	                  Staphylococcus epidermidis
+  0.07	1	0	P	1297	        Deinococcus-Thermus
+  0.07	1	0	C	188787	          Deinococci
+  0.07	1	0	O	118964	            Deinococcales
+  0.07	1	0	F	183710	              Deinococcaceae
+  0.07	1	0	G	1298	                Deinococcus
+  0.07	1	1	S	1211322	                  Deinococcus metallilatus
+  0.07	1	0	D1	1783270	      FCB group
+  0.07	1	0	D2	68336	        Bacteroidetes/Chlorobi group
+  0.07	1	0	P	976	          Bacteroidetes
+  0.07	1	0	C	200643	            Bacteroidia
+  0.07	1	0	O	171549	              Bacteroidales
+  0.07	1	0	F	815	                Bacteroidaceae
+  0.07	1	0	G	816	                  Bacteroides
+  0.07	1	1	S	817	                    Bacteroides fragilis
+  0.22	3	0	D	2759	    Eukaryota
+  0.22	3	0	D1	33154	      Opisthokonta
+  0.22	3	0	D2	4751	        Fungi
+  0.22	3	0	D3	451864	          Dikarya
+  0.15	2	0	P	5204	            Basidiomycota
+  0.15	2	0	P1	452284	              Ustilaginomycotina
+  0.15	2	0	C	1538075	                Malasseziomycetes
+  0.15	2	0	O	162474	                  Malasseziales
+  0.15	2	0	F	742845	                    Malasseziaceae
+  0.15	2	0	G	55193	                      Malassezia
+  0.07	1	1	S	76775	                        Malassezia restricta
+  0.07	1	1	S	76773	                        Malassezia globosa
+  0.07	1	0	P	4890	            Ascomycota
+  0.07	1	0	P1	716545	              saccharomyceta
+  0.07	1	0	P2	147537	                Saccharomycotina
+  0.07	1	0	C	4891	                  Saccharomycetes
+  0.07	1	0	O	4892	                    Saccharomycetales
+  0.07	1	0	F	34353	                      Dipodascaceae
+  0.07	1	0	G	4951	                        Yarrowia
+  0.07	1	0	S	4952	                          Yarrowia lipolytica
+  0.07	1	1	S1	284591	                            Yarrowia lipolytica CLIB122

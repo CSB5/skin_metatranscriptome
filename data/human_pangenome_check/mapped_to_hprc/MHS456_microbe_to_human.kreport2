@@ -1,0 +1,67 @@
+ 94.80	857	857	U	0	unclassified
+  5.20	47	0	R	1	root
+  5.20	47	2	R1	131567	  cellular organisms
+  4.76	43	9	D	2	    Bacteria
+  3.10	28	0	P	1224	      Proteobacteria
+  2.99	27	0	C	1236	        Gammaproteobacteria
+  1.77	16	0	O	91347	          Enterobacterales
+  1.00	9	0	F	543	            Enterobacteriaceae
+  1.00	9	0	G	570	              Klebsiella
+  0.88	8	6	S	573	                Klebsiella pneumoniae
+  0.22	2	2	S1	72407	                  Klebsiella pneumoniae subsp. pneumoniae
+  0.11	1	1	S	2058152	                Klebsiella grimontii
+  0.77	7	0	O1	451511	            Enterobacterales incertae sedis
+  0.77	7	0	G	702	              Plesiomonas
+  0.77	7	7	S	703	                Plesiomonas shigelloides
+  1.00	9	0	O	135623	          Vibrionales
+  1.00	9	0	F	641	            Vibrionaceae
+  1.00	9	0	G	662	              Vibrio
+  1.00	9	6	S	672	                Vibrio vulnificus
+  0.22	2	2	S1	914127	                  Vibrio vulnificus MO6-24/O
+  0.11	1	1	S1	748003	                  Vibrio vulnificus VVyb1(BT3)
+  0.11	1	0	O	135614	          Xanthomonadales
+  0.11	1	0	F	32033	            Xanthomonadaceae
+  0.11	1	0	G	68	              Lysobacter
+  0.11	1	1	S	69	                Lysobacter enzymogenes
+  0.11	1	0	O	72274	          Pseudomonadales
+  0.11	1	0	F	135621	            Pseudomonadaceae
+  0.11	1	0	G	286	              Pseudomonas
+  0.11	1	0	G1	136843	                Pseudomonas fluorescens group
+  0.11	1	1	S	29442	                  Pseudomonas tolaasii
+  0.11	1	0	C	28216	        Betaproteobacteria
+  0.11	1	0	O	80840	          Burkholderiales
+  0.11	1	0	F	75682	            Oxalobacteraceae
+  0.11	1	0	G	149698	              Massilia
+  0.11	1	1	S	2045208	                Massilia violaceinigra
+  0.66	6	0	D1	1783272	      Terrabacteria group
+  0.66	6	0	P	201174	        Actinobacteria
+  0.66	6	1	C	1760	          Actinomycetia
+  0.44	4	0	O	85009	            Propionibacteriales
+  0.44	4	0	F	31957	              Propionibacteriaceae
+  0.44	4	0	G	1912216	                Cutibacterium
+  0.44	4	3	S	1747	                  Cutibacterium acnes
+  0.11	1	0	S1	1734925	                    Cutibacterium acnes subsp. acnes
+  0.11	1	1	S2	1114967	                      Cutibacterium acnes TypeIA2 P.acn17
+  0.11	1	0	O	85011	            Streptomycetales
+  0.11	1	1	F	2062	              Streptomycetaceae
+  0.22	2	0	D	2759	    Eukaryota
+  0.22	2	0	D1	33154	      Opisthokonta
+  0.22	2	0	D2	4751	        Fungi
+  0.22	2	0	D3	451864	          Dikarya
+  0.11	1	0	P	5204	            Basidiomycota
+  0.11	1	0	P1	452284	              Ustilaginomycotina
+  0.11	1	0	C	5257	                Ustilaginomycetes
+  0.11	1	0	O	5267	                  Ustilaginales
+  0.11	1	0	F	5268	                    Ustilaginaceae
+  0.11	1	0	G	63265	                      Sporisorium
+  0.11	1	1	S	280036	                        Sporisorium graminicola
+  0.11	1	0	P	4890	            Ascomycota
+  0.11	1	0	P1	716545	              saccharomyceta
+  0.11	1	0	P2	147538	                Pezizomycotina
+  0.11	1	0	P3	716546	                  leotiomyceta
+  0.11	1	0	C	147545	                    Eurotiomycetes
+  0.11	1	0	C1	451871	                      Eurotiomycetidae
+  0.11	1	0	O	5042	                        Eurotiales
+  0.11	1	0	F	1131492	                          Aspergillaceae
+  0.11	1	0	G	5052	                            Aspergillus
+  0.11	1	1	S	182096	                              Aspergillus chevalieri

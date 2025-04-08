@@ -1,0 +1,115 @@
+ 44.12	255	255	U	0	unclassified
+ 55.88	323	0	R	1	root
+ 55.88	323	11	R1	131567	  cellular organisms
+ 53.11	307	1	D	2	    Bacteria
+ 38.06	220	0	D1	1783272	      Terrabacteria group
+ 32.35	187	0	P	201174	        Actinobacteria
+ 32.35	187	1	C	1760	          Actinomycetia
+ 31.49	182	0	O	85007	            Corynebacteriales
+ 31.49	182	0	F	1653	              Corynebacteriaceae
+ 31.49	182	2	G	1716	                Corynebacterium
+ 30.97	179	179	S	38304	                  Corynebacterium tuberculostearicum
+  0.17	1	1	S	1979527	                  Corynebacterium kefirresidentii
+  0.35	2	0	O	85006	            Micrococcales
+  0.17	1	0	F	1268	              Micrococcaceae
+  0.17	1	1	G	1269	                Micrococcus
+  0.17	1	0	F	85023	              Microbacteriaceae
+  0.17	1	0	G	2034	                Curtobacterium
+  0.17	1	0	G1	257496	                  unclassified Curtobacterium
+  0.17	1	1	S	2495430	                    Curtobacterium sp. Csp2
+  0.17	1	0	O	1643684	            Nakamurellales
+  0.17	1	0	F	85031	              Nakamurellaceae
+  0.17	1	0	G	53460	                Nakamurella
+  0.17	1	0	G1	2618968	                  unclassified Nakamurella
+  0.17	1	1	S	2762325	                    Nakamurella sp. PAMC28650
+  0.17	1	0	O	85014	            Glycomycetales
+  0.17	1	0	F	85034	              Glycomycetaceae
+  0.17	1	0	G	283810	                Stackebrandtia
+  0.17	1	0	S	283811	                  Stackebrandtia nassauensis
+  0.17	1	1	S1	446470	                    Stackebrandtia nassauensis DSM 44728
+  5.54	32	0	P	1239	        Firmicutes
+  5.54	32	0	C	91061	          Bacilli
+  5.54	32	0	O	1385	            Bacillales
+  5.36	31	0	F	90964	              Staphylococcaceae
+  5.36	31	7	G	1279	                Staphylococcus
+  2.08	12	12	S	1282	                  Staphylococcus epidermidis
+  1.73	10	7	S	1290	                  Staphylococcus hominis
+  0.52	3	3	S1	145391	                    Staphylococcus hominis subsp. hominis
+  0.17	1	0	G1	2815305	                  Staphylococcus intermedius group
+  0.17	1	1	S	283734	                    Staphylococcus pseudintermedius
+  0.17	1	1	S	29382	                  Staphylococcus cohnii
+  0.17	1	0	F	186817	              Bacillaceae
+  0.17	1	0	G	1386	                Bacillus
+  0.17	1	0	G1	86661	                  Bacillus cereus group
+  0.17	1	1	S	1428	                    Bacillus thuringiensis
+  0.17	1	0	D2	1798711	        Cyanobacteria/Melainabacteria group
+  0.17	1	0	P	1117	          Cyanobacteria
+  0.17	1	0	O	1890424	            Synechococcales
+  0.17	1	0	F	2881426	              Prochlorococcaceae
+  0.17	1	0	G	1218	                Prochlorococcus
+  0.17	1	0	S	1219	                  Prochlorococcus marinus
+  0.17	1	1	S1	93060	                    Prochlorococcus marinus str. MIT 9215
+ 14.36	83	0	P	1224	      Proteobacteria
+ 14.19	82	1	C	1236	        Gammaproteobacteria
+  6.75	39	0	O	91347	          Enterobacterales
+  3.81	22	0	O1	451511	            Enterobacterales incertae sedis
+  3.81	22	0	G	702	              Plesiomonas
+  3.81	22	22	S	703	                Plesiomonas shigelloides
+  2.94	17	0	F	543	            Enterobacteriaceae
+  2.94	17	11	G	570	              Klebsiella
+  1.04	6	6	S	573	                Klebsiella pneumoniae
+  6.40	37	0	O	135623	          Vibrionales
+  6.40	37	0	F	641	            Vibrionaceae
+  6.40	37	0	G	662	              Vibrio
+  6.40	37	23	S	672	                Vibrio vulnificus
+  1.56	9	9	S1	914127	                  Vibrio vulnificus MO6-24/O
+  0.52	3	3	S1	748003	                  Vibrio vulnificus VVyb1(BT3)
+  0.35	2	2	S1	1246305	                  Vibrio vulnificus Env1
+  0.87	5	0	O	72274	          Pseudomonadales
+  0.69	4	0	F	468	            Moraxellaceae
+  0.69	4	0	G	475	              Moraxella
+  0.69	4	4	S	34062	                Moraxella osloensis
+  0.17	1	0	F	135621	            Pseudomonadaceae
+  0.17	1	0	G	286	              Pseudomonas
+  0.17	1	0	G1	136843	                Pseudomonas fluorescens group
+  0.17	1	1	S	29442	                  Pseudomonas tolaasii
+  0.17	1	0	C	28211	        Alphaproteobacteria
+  0.17	1	0	O	356	          Hyphomicrobiales
+  0.17	1	0	F	119045	            Methylobacteriaceae
+  0.17	1	0	G	407	              Methylobacterium
+  0.17	1	1	S	2202825	                Methylobacterium durans
+  0.52	3	0	P	32066	      Fusobacteria
+  0.52	3	0	C	203490	        Fusobacteriia
+  0.52	3	0	O	203491	          Fusobacteriales
+  0.52	3	0	F	203492	            Fusobacteriaceae
+  0.52	3	0	G	848	              Fusobacterium
+  0.52	3	0	S	851	                Fusobacterium nucleatum
+  0.52	3	0	S1	155615	                  Fusobacterium nucleatum subsp. vincentii
+  0.52	3	3	S2	1307427	                    Fusobacterium nucleatum subsp. vincentii ChDC F8
+  0.87	5	0	D	2759	    Eukaryota
+  0.87	5	0	D1	33154	      Opisthokonta
+  0.87	5	0	D2	4751	        Fungi
+  0.87	5	1	D3	451864	          Dikarya
+  0.52	3	0	P	4890	            Ascomycota
+  0.52	3	0	P1	716545	              saccharomyceta
+  0.52	3	0	P2	147537	                Saccharomycotina
+  0.52	3	0	C	4891	                  Saccharomycetes
+  0.52	3	0	O	4892	                    Saccharomycetales
+  0.52	3	0	F	4893	                      Saccharomycetaceae
+  0.17	1	0	G	1196389	                        Zygotorulaspora
+  0.17	1	1	S	42260	                          Zygotorulaspora mrakii
+  0.17	1	0	G	113604	                        Tetrapisispora
+  0.17	1	0	S	1071379	                          Tetrapisispora blattae
+  0.17	1	1	S1	1071380	                            Tetrapisispora blattae CBS 6284
+  0.17	1	0	G	33170	                        Eremothecium
+  0.17	1	0	S	45285	                          Eremothecium cymbalariae
+  0.17	1	1	S1	931890	                            Eremothecium cymbalariae DBVPG#7215
+  0.17	1	0	P	5204	            Basidiomycota
+  0.17	1	0	P1	5302	              Agaricomycotina
+  0.17	1	0	C	155616	                Tremellomycetes
+  0.17	1	0	O	5234	                  Tremellales
+  0.17	1	0	F	1884633	                    Cryptococcaceae
+  0.17	1	0	G	5206	                      Cryptococcus
+  0.17	1	0	G1	1897064	                        Cryptococcus neoformans species complex
+  0.17	1	0	S	5207	                          Cryptococcus neoformans
+  0.17	1	1	S1	40410	                            Cryptococcus neoformans var. neoformans

@@ -1,0 +1,87 @@
+ 71.00	754	754	U	0	unclassified
+ 29.00	308	0	R	1	root
+ 29.00	308	1	R1	131567	  cellular organisms
+ 17.23	183	2	D	2	    Bacteria
+ 16.01	170	0	P	1224	      Proteobacteria
+ 15.63	166	0	C	1236	        Gammaproteobacteria
+ 13.84	147	0	O	91347	          Enterobacterales
+ 12.90	137	0	F	543	            Enterobacteriaceae
+ 12.90	137	63	G	570	              Klebsiella
+  6.50	69	69	S	573	                Klebsiella pneumoniae
+  0.47	5	5	S	2058152	                Klebsiella grimontii
+  0.94	10	0	O1	451511	            Enterobacterales incertae sedis
+  0.94	10	0	G	702	              Plesiomonas
+  0.94	10	10	S	703	                Plesiomonas shigelloides
+  1.69	18	0	O	135623	          Vibrionales
+  1.69	18	0	F	641	            Vibrionaceae
+  1.69	18	0	G	662	              Vibrio
+  1.69	18	13	S	672	                Vibrio vulnificus
+  0.47	5	5	S1	914127	                  Vibrio vulnificus MO6-24/O
+  0.09	1	0	O	135614	          Xanthomonadales
+  0.09	1	0	F	32033	            Xanthomonadaceae
+  0.09	1	0	G	40323	              Stenotrophomonas
+  0.09	1	1	S	216778	                Stenotrophomonas rhizophila
+  0.38	4	0	C	28211	        Alphaproteobacteria
+  0.19	2	0	O	204441	          Rhodospirillales
+  0.19	2	0	F	433	            Acetobacteraceae
+  0.19	2	1	G	125216	              Roseomonas
+  0.09	1	1	S	257708	                Roseomonas gilardii
+  0.09	1	0	O	356	          Hyphomicrobiales
+  0.09	1	0	F	2036754	            Chelatococcaceae
+  0.09	1	0	G	28209	              Chelatococcus
+  0.09	1	1	S	444444	                Chelatococcus daeguensis
+  0.09	1	0	O	204457	          Sphingomonadales
+  0.09	1	0	F	41297	            Sphingomonadaceae
+  0.09	1	0	G	165697	              Sphingopyxis
+  0.09	1	1	S	33050	                Sphingopyxis macrogoltabida
+  1.04	11	0	D1	1783272	      Terrabacteria group
+  1.04	11	0	P	201174	        Actinobacteria
+  1.04	11	0	C	1760	          Actinomycetia
+  0.85	9	0	O	85006	            Micrococcales
+  0.66	7	0	F	145357	              Dermacoccaceae
+  0.66	7	0	G	57495	                Dermacoccus
+  0.66	7	7	S	1274	                  Dermacoccus nishinomiyaensis
+  0.19	2	0	F	1268	              Micrococcaceae
+  0.19	2	2	G	1269	                Micrococcus
+  0.09	1	0	O	85009	            Propionibacteriales
+  0.09	1	0	F	31957	              Propionibacteriaceae
+  0.09	1	0	G	1912216	                Cutibacterium
+  0.09	1	1	S	1747	                  Cutibacterium acnes
+  0.09	1	0	O	85007	            Corynebacteriales
+  0.09	1	0	F	1653	              Corynebacteriaceae
+  0.09	1	0	G	1716	                Corynebacterium
+  0.09	1	1	S	39791	                  Corynebacterium glucuronolyticum
+ 11.68	124	0	D	2759	    Eukaryota
+ 11.68	124	0	D1	33154	      Opisthokonta
+ 11.68	124	0	D2	4751	        Fungi
+ 11.68	124	0	D3	451864	          Dikarya
+ 11.49	122	0	P	5204	            Basidiomycota
+ 11.49	122	0	P1	452284	              Ustilaginomycotina
+ 11.49	122	0	C	1538075	                Malasseziomycetes
+ 11.49	122	0	O	162474	                  Malasseziales
+ 11.49	122	0	F	742845	                    Malasseziaceae
+ 11.49	122	4	G	55193	                      Malassezia
+  7.91	84	55	S	76775	                        Malassezia restricta
+  2.73	29	29	S1	425264	                          Malassezia restricta CBS 7877
+  2.45	26	26	S	76773	                        Malassezia globosa
+  0.47	5	5	S	1514897	                        Malassezia arunalokei
+  0.19	2	2	S	77020	                        Malassezia pachydermatis
+  0.09	1	1	S	55194	                        Malassezia furfur
+  0.19	2	0	P	4890	            Ascomycota
+  0.19	2	0	P1	716545	              saccharomyceta
+  0.09	1	0	P2	147538	                Pezizomycotina
+  0.09	1	0	P3	716546	                  leotiomyceta
+  0.09	1	0	P4	715989	                    sordariomyceta
+  0.09	1	0	C	147550	                      Sordariomycetes
+  0.09	1	0	C1	222543	                        Hypocreomycetidae
+  0.09	1	0	O	5125	                          Hypocreales
+  0.09	1	0	F	34397	                            Clavicipitaceae
+  0.09	1	0	G	124426	                              Ustilaginoidea
+  0.09	1	1	S	1159556	                                Ustilaginoidea virens
+  0.09	1	0	P2	147537	                Saccharomycotina
+  0.09	1	0	C	4891	                  Saccharomycetes
+  0.09	1	0	O	4892	                    Saccharomycetales
+  0.09	1	0	F	27319	                      Metschnikowiaceae
+  0.09	1	0	G	36910	                        Clavispora
+  0.09	1	0	G1	1540022	                          Clavispora/Candida clade
+  0.09	1	1	S	498019	                            [Candida] auris

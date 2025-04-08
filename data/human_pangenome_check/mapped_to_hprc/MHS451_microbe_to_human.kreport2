@@ -1,0 +1,46 @@
+ 68.63	477	477	U	0	unclassified
+ 31.37	218	0	R	1	root
+ 31.37	218	0	R1	131567	  cellular organisms
+ 21.87	152	0	D	2759	    Eukaryota
+ 21.87	152	0	D1	33154	      Opisthokonta
+ 21.87	152	0	D2	4751	        Fungi
+ 21.87	152	0	D3	451864	          Dikarya
+ 21.87	152	0	P	5204	            Basidiomycota
+ 21.87	152	0	P1	452284	              Ustilaginomycotina
+ 21.87	152	0	C	1538075	                Malasseziomycetes
+ 21.87	152	0	O	162474	                  Malasseziales
+ 21.87	152	0	F	742845	                    Malasseziaceae
+ 21.87	152	0	G	55193	                      Malassezia
+ 11.08	77	77	S	76773	                        Malassezia globosa
+ 10.50	73	50	S	76775	                        Malassezia restricta
+  3.31	23	23	S1	425264	                          Malassezia restricta CBS 7877
+  0.14	1	1	S	1514897	                        Malassezia arunalokei
+  0.14	1	1	S	77020	                        Malassezia pachydermatis
+  9.50	66	5	D	2	    Bacteria
+  5.47	38	0	P	1224	      Proteobacteria
+  5.47	38	0	C	1236	        Gammaproteobacteria
+  2.88	20	0	O	135623	          Vibrionales
+  2.88	20	0	F	641	            Vibrionaceae
+  2.88	20	0	G	662	              Vibrio
+  2.88	20	13	S	672	                Vibrio vulnificus
+  0.86	6	6	S1	914127	                  Vibrio vulnificus MO6-24/O
+  0.14	1	1	S1	748003	                  Vibrio vulnificus VVyb1(BT3)
+  2.59	18	0	O	91347	          Enterobacterales
+  1.73	12	0	O1	451511	            Enterobacterales incertae sedis
+  1.73	12	0	G	702	              Plesiomonas
+  1.73	12	12	S	703	                Plesiomonas shigelloides
+  0.86	6	0	F	543	            Enterobacteriaceae
+  0.86	6	0	G	570	              Klebsiella
+  0.86	6	6	S	573	                Klebsiella pneumoniae
+  3.31	23	0	D1	1783272	      Terrabacteria group
+  3.31	23	0	P	201174	        Actinobacteria
+  3.31	23	0	C	1760	          Actinomycetia
+  3.02	21	0	O	85009	            Propionibacteriales
+  3.02	21	0	F	31957	              Propionibacteriaceae
+  3.02	21	0	G	1912216	                Cutibacterium
+  3.02	21	21	S	1747	                  Cutibacterium acnes
+  0.29	2	0	O	85010	            Pseudonocardiales
+  0.29	2	0	F	2070	              Pseudonocardiaceae
+  0.29	2	0	G	1813	                Amycolatopsis
+  0.29	2	0	G1	2618356	                  unclassified Amycolatopsis
+  0.29	2	2	S	1896961	                    Amycolatopsis sp. AA4

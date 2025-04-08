@@ -1,0 +1,52 @@
+ 75.33	461	461	U	0	unclassified
+ 24.67	151	1	R	1	root
+ 24.51	150	0	R1	131567	  cellular organisms
+ 12.42	76	1	D	2	    Bacteria
+  8.66	53	1	P	1224	      Proteobacteria
+  8.50	52	0	C	1236	        Gammaproteobacteria
+  5.88	36	0	O	91347	          Enterobacterales
+  3.10	19	0	F	543	            Enterobacteriaceae
+  3.10	19	11	G	570	              Klebsiella
+  1.14	7	7	S	573	                Klebsiella pneumoniae
+  0.16	1	1	S	2058152	                Klebsiella grimontii
+  2.78	17	0	O1	451511	            Enterobacterales incertae sedis
+  2.78	17	0	G	702	              Plesiomonas
+  2.78	17	17	S	703	                Plesiomonas shigelloides
+  2.61	16	0	O	135623	          Vibrionales
+  2.61	16	0	F	641	            Vibrionaceae
+  2.61	16	0	G	662	              Vibrio
+  2.61	16	6	S	672	                Vibrio vulnificus
+  1.47	9	9	S1	914127	                  Vibrio vulnificus MO6-24/O
+  0.16	1	1	S1	748003	                  Vibrio vulnificus VVyb1(BT3)
+  3.59	22	0	D1	1783272	      Terrabacteria group
+  3.10	19	0	P	201174	        Actinobacteria
+  3.10	19	1	C	1760	          Actinomycetia
+  2.94	18	0	O	85009	            Propionibacteriales
+  2.94	18	0	F	31957	              Propionibacteriaceae
+  2.94	18	6	G	1912216	                Cutibacterium
+  1.96	12	12	S	1747	                  Cutibacterium acnes
+  0.33	2	0	P	1239	        Firmicutes
+  0.33	2	1	C	91061	          Bacilli
+  0.16	1	0	O	186826	            Lactobacillales
+  0.16	1	0	F	33958	              Lactobacillaceae
+  0.16	1	1	G	2767887	                Ligilactobacillus
+  0.16	1	0	D2	1798711	        Cyanobacteria/Melainabacteria group
+  0.16	1	0	P	1117	          Cyanobacteria
+  0.16	1	0	O	1161	            Nostocales
+  0.16	1	1	F	1162	              Nostocaceae
+ 12.09	74	0	D	2759	    Eukaryota
+ 12.09	74	0	D1	33154	      Opisthokonta
+ 12.09	74	0	D2	4751	        Fungi
+ 12.09	74	0	D3	451864	          Dikarya
+ 12.09	74	0	P	5204	            Basidiomycota
+ 12.09	74	0	P1	452284	              Ustilaginomycotina
+ 12.09	74	0	C	1538075	                Malasseziomycetes
+ 12.09	74	0	O	162474	                  Malasseziales
+ 12.09	74	0	F	742845	                    Malasseziaceae
+ 12.09	74	0	G	55193	                      Malassezia
+ 10.95	67	55	S	76775	                        Malassezia restricta
+  1.96	12	12	S1	425264	                          Malassezia restricta CBS 7877
+  0.33	2	2	S	1514897	                        Malassezia arunalokei
+  0.33	2	2	S	76777	                        Malassezia sympodialis
+  0.33	2	2	S	55194	                        Malassezia furfur
+  0.16	1	1	S	76773	                        Malassezia globosa

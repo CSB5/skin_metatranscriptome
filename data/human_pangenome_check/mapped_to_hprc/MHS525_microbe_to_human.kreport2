@@ -1,0 +1,80 @@
+ 40.91	466	466	U	0	unclassified
+ 59.09	673	0	R	1	root
+ 59.09	673	2	R1	131567	  cellular organisms
+ 31.52	359	2	D	2	    Bacteria
+ 22.83	260	4	P	1224	      Proteobacteria
+ 22.30	254	0	C	1236	        Gammaproteobacteria
+ 12.12	138	0	O	135623	          Vibrionales
+ 12.12	138	0	F	641	            Vibrionaceae
+ 12.12	138	0	G	662	              Vibrio
+ 12.12	138	86	S	672	                Vibrio vulnificus
+  3.16	36	36	S1	914127	                  Vibrio vulnificus MO6-24/O
+  0.97	11	11	S1	1246305	                  Vibrio vulnificus Env1
+  0.44	5	5	S1	748003	                  Vibrio vulnificus VVyb1(BT3)
+ 10.18	116	0	O	91347	          Enterobacterales
+  6.23	71	0	O1	451511	            Enterobacterales incertae sedis
+  6.23	71	0	G	702	              Plesiomonas
+  6.23	71	71	S	703	                Plesiomonas shigelloides
+  3.86	44	0	F	543	            Enterobacteriaceae
+  3.86	44	15	G	570	              Klebsiella
+  2.19	25	25	S	573	                Klebsiella pneumoniae
+  0.35	4	4	S	2058152	                Klebsiella grimontii
+  0.09	1	0	F	1903411	            Yersiniaceae
+  0.09	1	0	G	1565532	              Rouxiella
+  0.09	1	1	S	1646377	                Rouxiella badensis
+  0.18	2	0	C	28211	        Alphaproteobacteria
+  0.09	1	0	O	204458	          Caulobacterales
+  0.09	1	0	F	76892	            Caulobacteraceae
+  0.09	1	0	G	41275	              Brevundimonas
+  0.09	1	0	G1	2622653	                unclassified Brevundimonas
+  0.09	1	1	S	2562582	                  Brevundimonas sp. 'scallop'
+  0.09	1	0	O	204457	          Sphingomonadales
+  0.09	1	0	F	335929	            Erythrobacteraceae
+  0.09	1	0	G	1855416	              Qipengyuania
+  0.09	1	1	S	1532023	                Qipengyuania sediminis
+  8.43	96	0	D1	1783272	      Terrabacteria group
+  7.99	91	0	P	201174	        Actinobacteria
+  7.99	91	0	C	1760	          Actinomycetia
+  7.81	89	0	O	85009	            Propionibacteriales
+  7.81	89	0	F	31957	              Propionibacteriaceae
+  7.81	89	9	G	1912216	                Cutibacterium
+  6.85	78	76	S	1747	                  Cutibacterium acnes
+  0.09	1	1	S1	1734925	                    Cutibacterium acnes subsp. acnes
+  0.09	1	1	S1	1234380	                    Cutibacterium acnes C1
+  0.09	1	1	S	33010	                  Cutibacterium avidum
+  0.09	1	1	S	2559073	                  Cutibacterium modestum
+  0.18	2	0	O	85007	            Corynebacteriales
+  0.18	2	0	F	1653	              Corynebacteriaceae
+  0.18	2	0	G	1716	                Corynebacterium
+  0.09	1	1	S	1979527	                  Corynebacterium kefirresidentii
+  0.09	1	1	S	38304	                  Corynebacterium tuberculostearicum
+  0.44	5	0	P	1239	        Firmicutes
+  0.44	5	0	C	91061	          Bacilli
+  0.44	5	0	O	1385	            Bacillales
+  0.44	5	0	F	90964	              Staphylococcaceae
+  0.44	5	0	G	1279	                Staphylococcus
+  0.44	5	5	S	29382	                  Staphylococcus cohnii
+  0.09	1	0	D1	1783270	      FCB group
+  0.09	1	0	D2	68336	        Bacteroidetes/Chlorobi group
+  0.09	1	0	P	976	          Bacteroidetes
+  0.09	1	0	C	200643	            Bacteroidia
+  0.09	1	0	O	171549	              Bacteroidales
+  0.09	1	0	F	815	                Bacteroidaceae
+  0.09	1	0	G	816	                  Bacteroides
+  0.09	1	1	S	817	                    Bacteroides fragilis
+ 27.39	312	0	D	2759	    Eukaryota
+ 27.39	312	0	D1	33154	      Opisthokonta
+ 27.39	312	0	D2	4751	        Fungi
+ 27.39	312	0	D3	451864	          Dikarya
+ 27.39	312	0	P	5204	            Basidiomycota
+ 27.39	312	0	P1	452284	              Ustilaginomycotina
+ 27.39	312	0	C	1538075	                Malasseziomycetes
+ 27.39	312	0	O	162474	                  Malasseziales
+ 27.39	312	0	F	742845	                    Malasseziaceae
+ 27.39	312	1	G	55193	                      Malassezia
+ 26.69	304	304	S	76773	                        Malassezia globosa
+  0.26	3	2	S	76775	                        Malassezia restricta
+  0.09	1	1	S1	425264	                          Malassezia restricta CBS 7877
+  0.18	2	2	S	76777	                        Malassezia sympodialis
+  0.09	1	1	S	223818	                        Malassezia japonica
+  0.09	1	1	S	169489	                        Malassezia dermatis

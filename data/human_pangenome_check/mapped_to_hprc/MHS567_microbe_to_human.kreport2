@@ -1,0 +1,124 @@
+ 68.02	787	787	U	0	unclassified
+ 31.98	370	1	R	1	root
+ 31.72	367	0	R1	131567	  cellular organisms
+ 23.25	269	0	D	2	    Bacteria
+ 17.11	198	0	D1	1783272	      Terrabacteria group
+ 17.11	198	0	P	201174	        Actinobacteria
+ 17.11	198	1	C	1760	          Actinomycetia
+ 16.34	189	0	O	85009	            Propionibacteriales
+ 16.34	189	4	F	31957	              Propionibacteriaceae
+ 15.99	185	3	G	1912216	                Cutibacterium
+ 15.21	176	156	S	1747	                  Cutibacterium acnes
+  1.38	16	16	S1	1234380	                    Cutibacterium acnes C1
+  0.26	3	0	S1	1734925	                    Cutibacterium acnes subsp. acnes
+  0.26	3	3	S2	1114967	                      Cutibacterium acnes TypeIA2 P.acn17
+  0.09	1	0	S1	1905725	                    Cutibacterium acnes subsp. defendens
+  0.09	1	1	S2	1091045	                      Cutibacterium acnes subsp. defendens ATCC 11828
+  0.43	5	5	S	33011	                  Cutibacterium granulosum
+  0.09	1	1	S	33010	                  Cutibacterium avidum
+  0.35	4	1	O	85007	            Corynebacteriales
+  0.17	2	0	F	1653	              Corynebacteriaceae
+  0.17	2	0	G	1716	                Corynebacterium
+  0.09	1	1	S	43768	                  Corynebacterium matruchotii
+  0.09	1	1	S	38304	                  Corynebacterium tuberculostearicum
+  0.09	1	0	F	1762	              Mycobacteriaceae
+  0.09	1	0	G	1763	                Mycobacterium
+  0.09	1	1	S	1389713	                  Mycobacterium paragordonae
+  0.17	2	0	O	85008	            Micromonosporales
+  0.17	2	0	F	28056	              Micromonosporaceae
+  0.17	2	0	G	53365	                Catellatospora
+  0.17	2	0	G1	2645785	                  unclassified Catellatospora
+  0.17	2	2	S	2728827	                    Catellatospora sp. IY07-71
+  0.17	2	0	O	2037	            Actinomycetales
+  0.17	2	0	F	2049	              Actinomycetaceae
+  0.17	2	0	G	1654	                Actinomyces
+  0.17	2	0	G1	2609248	                  unclassified Actinomyces
+  0.09	1	1	S	712116	                    Actinomyces sp. oral taxon 169
+  0.09	1	1	S	2789425	                    Actinomyces sp. HMT 175
+  6.14	71	3	P	1224	      Proteobacteria
+  5.45	63	16	C	1236	        Gammaproteobacteria
+  3.03	35	0	O	91347	          Enterobacterales
+  2.33	27	0	F	543	            Enterobacteriaceae
+  2.33	27	1	G	570	              Klebsiella
+  1.90	22	22	S	573	                Klebsiella pneumoniae
+  0.35	4	4	S	2058152	                Klebsiella grimontii
+  0.69	8	0	O1	451511	            Enterobacterales incertae sedis
+  0.69	8	0	G	702	              Plesiomonas
+  0.69	8	8	S	703	                Plesiomonas shigelloides
+  0.61	7	0	O	135623	          Vibrionales
+  0.61	7	0	F	641	            Vibrionaceae
+  0.61	7	0	G	662	              Vibrio
+  0.61	7	4	S	672	                Vibrio vulnificus
+  0.26	3	3	S1	914127	                  Vibrio vulnificus MO6-24/O
+  0.43	5	0	O	72274	          Pseudomonadales
+  0.43	5	0	F	135621	            Pseudomonadaceae
+  0.43	5	0	G	286	              Pseudomonas
+  0.35	4	0	G1	136843	                Pseudomonas fluorescens group
+  0.35	4	4	S	29442	                  Pseudomonas tolaasii
+  0.09	1	0	G1	136845	                Pseudomonas putida group
+  0.09	1	1	S	303	                  Pseudomonas putida
+  0.43	5	0	C	28211	        Alphaproteobacteria
+  0.17	2	0	O	204458	          Caulobacterales
+  0.17	2	0	F	76892	            Caulobacteraceae
+  0.17	2	0	G	75	              Caulobacter
+  0.17	2	0	G1	2648921	                unclassified Caulobacter
+  0.17	2	2	S	69665	                  Caulobacter sp. FWC26
+  0.17	2	0	O	204457	          Sphingomonadales
+  0.17	2	0	F	41297	            Sphingomonadaceae
+  0.17	2	0	G	13687	              Sphingomonas
+  0.17	2	2	G1	196159	                unclassified Sphingomonas
+  0.09	1	0	O	204455	          Rhodobacterales
+  0.09	1	0	F	31989	            Rhodobacteraceae
+  0.09	1	0	G	366614	              Haematobacter
+  0.09	1	1	S	195105	                Haematobacter massiliensis
+  8.47	98	0	D	2759	    Eukaryota
+  8.47	98	0	D1	33154	      Opisthokonta
+  8.47	98	0	D2	4751	        Fungi
+  8.47	98	0	D3	451864	          Dikarya
+  8.21	95	0	P	5204	            Basidiomycota
+  8.21	95	0	P1	452284	              Ustilaginomycotina
+  8.12	94	0	C	1538075	                Malasseziomycetes
+  8.12	94	0	O	162474	                  Malasseziales
+  8.12	94	0	F	742845	                    Malasseziaceae
+  8.12	94	1	G	55193	                      Malassezia
+  5.19	60	60	S	76773	                        Malassezia globosa
+  2.85	33	21	S	76775	                        Malassezia restricta
+  1.04	12	12	S1	425264	                          Malassezia restricta CBS 7877
+  0.09	1	0	C	5257	                Ustilaginomycetes
+  0.09	1	0	O	5267	                  Ustilaginales
+  0.09	1	0	F	5268	                    Ustilaginaceae
+  0.09	1	0	G	5269	                      Ustilago
+  0.09	1	0	S	5270	                        Ustilago maydis
+  0.09	1	1	S1	237631	                          Ustilago maydis 521
+  0.26	3	0	P	4890	            Ascomycota
+  0.26	3	0	P1	716545	              saccharomyceta
+  0.17	2	0	P2	147537	                Saccharomycotina
+  0.17	2	0	C	4891	                  Saccharomycetes
+  0.17	2	0	O	4892	                    Saccharomycetales
+  0.17	2	0	F	27319	                      Metschnikowiaceae
+  0.17	2	0	G	36910	                        Clavispora
+  0.17	2	0	G1	1540022	                          Clavispora/Candida clade
+  0.17	2	2	S	498019	                            [Candida] auris
+  0.09	1	0	P2	147538	                Pezizomycotina
+  0.09	1	0	P3	716546	                  leotiomyceta
+  0.09	1	0	P4	715989	                    sordariomyceta
+  0.09	1	0	C	147550	                      Sordariomycetes
+  0.09	1	0	C1	222544	                        Sordariomycetidae
+  0.09	1	0	O	5139	                          Sordariales
+  0.09	1	0	F	35718	                            Chaetomiaceae
+  0.09	1	0	G	2609811	                              Thermothielavioides
+  0.09	1	0	S	2587410	                                Thermothielavioides terrestris
+  0.09	1	1	S1	578455	                                  Thermothielavioides terrestris NRRL 8126
+  0.17	2	0	D	10239	  Viruses
+  0.17	2	0	D1	2731341	    Duplodnaviria
+  0.17	2	0	D2	2731360	      Heunggongvirae
+  0.17	2	0	P	2731618	        Uroviricota
+  0.17	2	0	C	2731619	          Caudoviricetes
+  0.17	2	0	O	28883	            Caudovirales
+  0.17	2	0	F	10699	              Siphoviridae
+  0.09	1	0	F1	2842522	                Azeredovirinae
+  0.09	1	0	F2	2852964	                  unclassified Azeredovirinae
+  0.09	1	1	S	1147042	                    Staphylococcus phage StB12
+  0.09	1	0	G	1623283	                Chivirus
+  0.09	1	0	G1	1909389	                  unclassified Chivirus
+  0.09	1	1	S	2500149	                    Salmonella phage TS13

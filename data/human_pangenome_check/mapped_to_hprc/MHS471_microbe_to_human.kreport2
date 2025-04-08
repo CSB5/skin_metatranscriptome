@@ -1,0 +1,60 @@
+  8.63	24	24	U	0	unclassified
+ 91.37	254	0	R	1	root
+ 91.01	253	0	R1	131567	  cellular organisms
+ 87.05	242	0	D	2	    Bacteria
+ 75.54	210	0	D1	1783272	      Terrabacteria group
+ 75.54	210	0	P	201174	        Actinobacteria
+ 75.54	210	0	C	1760	          Actinomycetia
+ 75.18	209	0	O	85009	            Propionibacteriales
+ 75.18	209	1	F	31957	              Propionibacteriaceae
+ 74.82	208	0	G	1912216	                Cutibacterium
+ 74.10	206	170	S	1747	                  Cutibacterium acnes
+  5.76	16	0	S1	1734925	                    Cutibacterium acnes subsp. acnes
+  5.76	16	16	S2	1114967	                      Cutibacterium acnes TypeIA2 P.acn17
+  5.76	16	16	S1	1234380	                    Cutibacterium acnes C1
+  1.08	3	3	S1	553199	                    Cutibacterium acnes SK137
+  0.36	1	1	S1	909952	                    Cutibacterium acnes 266
+  0.36	1	1	S	33011	                  Cutibacterium granulosum
+  0.36	1	1	S	2559073	                  Cutibacterium modestum
+  0.36	1	0	O	85011	            Streptomycetales
+  0.36	1	0	F	2062	              Streptomycetaceae
+  0.36	1	0	G	1883	                Streptomyces
+  0.36	1	1	S	67351	                  Streptomyces californicus
+ 11.51	32	0	P	1224	      Proteobacteria
+ 11.51	32	2	C	1236	        Gammaproteobacteria
+ 10.07	28	0	O	91347	          Enterobacterales
+  8.99	25	0	F	543	            Enterobacteriaceae
+  8.99	25	14	G	570	              Klebsiella
+  3.60	10	10	S	573	                Klebsiella pneumoniae
+  0.36	1	1	S	2058152	                Klebsiella grimontii
+  1.08	3	0	O1	451511	            Enterobacterales incertae sedis
+  1.08	3	0	G	702	              Plesiomonas
+  1.08	3	3	S	703	                Plesiomonas shigelloides
+  0.72	2	0	O	135623	          Vibrionales
+  0.72	2	0	F	641	            Vibrionaceae
+  0.72	2	0	G	662	              Vibrio
+  0.72	2	0	S	672	                Vibrio vulnificus
+  0.72	2	2	S1	914127	                  Vibrio vulnificus MO6-24/O
+  3.96	11	0	D	2759	    Eukaryota
+  3.96	11	0	D1	33154	      Opisthokonta
+  3.96	11	0	D2	4751	        Fungi
+  3.96	11	0	D3	451864	          Dikarya
+  3.96	11	0	P	5204	            Basidiomycota
+  3.96	11	0	P1	452284	              Ustilaginomycotina
+  3.96	11	0	C	1538075	                Malasseziomycetes
+  3.96	11	0	O	162474	                  Malasseziales
+  3.96	11	0	F	742845	                    Malasseziaceae
+  3.96	11	0	G	55193	                      Malassezia
+  3.60	10	5	S	76775	                        Malassezia restricta
+  1.80	5	5	S1	425264	                          Malassezia restricta CBS 7877
+  0.36	1	1	S	76773	                        Malassezia globosa
+  0.36	1	0	D	10239	  Viruses
+  0.36	1	0	D1	2731341	    Duplodnaviria
+  0.36	1	0	D2	2731360	      Heunggongvirae
+  0.36	1	0	P	2731618	        Uroviricota
+  0.36	1	0	C	2731619	          Caudoviricetes
+  0.36	1	0	O	28883	            Caudovirales
+  0.36	1	0	F	10699	              Siphoviridae
+  0.36	1	0	G	1982251	                Pahexavirus
+  0.36	1	0	S	1982280	                  Propionibacterium virus PHL071N05
+  0.36	1	1	S1	1235650	                    Propionibacterium phage PHL071N05

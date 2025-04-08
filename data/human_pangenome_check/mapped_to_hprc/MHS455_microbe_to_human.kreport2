@@ -1,0 +1,74 @@
+ 89.82	935	935	U	0	unclassified
+ 10.18	106	0	R	1	root
+ 10.09	105	0	R1	131567	  cellular organisms
+  6.72	70	0	D	2	    Bacteria
+  4.80	50	0	P	1224	      Proteobacteria
+  4.80	50	0	C	1236	        Gammaproteobacteria
+  3.94	41	0	O	91347	          Enterobacterales
+  3.55	37	0	F	543	            Enterobacteriaceae
+  3.55	37	23	G	570	              Klebsiella
+  1.25	13	13	S	573	                Klebsiella pneumoniae
+  0.10	1	1	S	2058152	                Klebsiella grimontii
+  0.38	4	0	O1	451511	            Enterobacterales incertae sedis
+  0.38	4	0	G	702	              Plesiomonas
+  0.38	4	4	S	703	                Plesiomonas shigelloides
+  0.86	9	0	O	135623	          Vibrionales
+  0.86	9	0	F	641	            Vibrionaceae
+  0.86	9	0	G	662	              Vibrio
+  0.86	9	5	S	672	                Vibrio vulnificus
+  0.38	4	4	S1	914127	                  Vibrio vulnificus MO6-24/O
+  1.54	16	0	D1	1783272	      Terrabacteria group
+  1.34	14	0	P	201174	        Actinobacteria
+  1.34	14	0	C	1760	          Actinomycetia
+  1.25	13	0	O	85009	            Propionibacteriales
+  1.25	13	0	F	31957	              Propionibacteriaceae
+  1.25	13	6	G	1912216	                Cutibacterium
+  0.67	7	7	S	1747	                  Cutibacterium acnes
+  0.10	1	0	O	85011	            Streptomycetales
+  0.10	1	0	F	2062	              Streptomycetaceae
+  0.10	1	0	G	1883	                Streptomyces
+  0.10	1	0	S	1916	                  Streptomyces lividans
+  0.10	1	1	S1	1200984	                    Streptomyces lividans 1326
+  0.19	2	0	P	1239	        Firmicutes
+  0.19	2	0	C	91061	          Bacilli
+  0.19	2	0	O	186826	            Lactobacillales
+  0.19	2	0	F	33958	              Lactobacillaceae
+  0.19	2	2	G	2767887	                Ligilactobacillus
+  0.29	3	0	D1	1783257	      PVC group
+  0.29	3	0	P	203682	        Planctomycetes
+  0.29	3	0	C	203683	          Planctomycetia
+  0.29	3	0	O	2691356	            Isosphaerales
+  0.29	3	0	F	1763524	              Isosphaeraceae
+  0.29	3	0	G	127	                Isosphaera
+  0.29	3	0	S	128	                  Isosphaera pallida
+  0.29	3	3	S1	575540	                    Isosphaera pallida ATCC 43644
+  0.10	1	0	D1	1783270	      FCB group
+  0.10	1	0	D2	68336	        Bacteroidetes/Chlorobi group
+  0.10	1	0	P	976	          Bacteroidetes
+  0.10	1	0	C	200643	            Bacteroidia
+  0.10	1	0	O	171549	              Bacteroidales
+  0.10	1	0	F	815	                Bacteroidaceae
+  0.10	1	0	G	816	                  Bacteroides
+  0.10	1	1	S	817	                    Bacteroides fragilis
+  3.36	35	0	D	2759	    Eukaryota
+  3.36	35	0	D1	33154	      Opisthokonta
+  3.36	35	0	D2	4751	        Fungi
+  3.36	35	0	D3	451864	          Dikarya
+  3.36	35	0	P	5204	            Basidiomycota
+  3.36	35	0	P1	452284	              Ustilaginomycotina
+  3.36	35	0	C	1538075	                Malasseziomycetes
+  3.36	35	0	O	162474	                  Malasseziales
+  3.36	35	0	F	742845	                    Malasseziaceae
+  3.36	35	0	G	55193	                      Malassezia
+  2.40	25	25	S	76773	                        Malassezia globosa
+  0.96	10	8	S	76775	                        Malassezia restricta
+  0.19	2	2	S1	425264	                          Malassezia restricta CBS 7877
+  0.10	1	0	D	10239	  Viruses
+  0.10	1	0	D1	2559587	    Riboviria
+  0.10	1	0	D2	2732396	      Orthornavirae
+  0.10	1	0	P	2732406	        Kitrinoviricota
+  0.10	1	0	C	2732461	          Alsuviricetes
+  0.10	1	0	O	2732544	            Martellivirales
+  0.10	1	0	F	564644	              Endornaviridae
+  0.10	1	0	G	2003394	                Alphaendornavirus
+  0.10	1	1	S	362692	                  Oryza rufipogon alphaendornavirus

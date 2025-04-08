@@ -1,0 +1,88 @@
+ 86.16	741	741	U	0	unclassified
+ 13.84	119	0	R	1	root
+ 13.84	119	1	R1	131567	  cellular organisms
+  8.72	75	3	D	2	    Bacteria
+  5.00	43	1	P	1224	      Proteobacteria
+  4.65	40	0	C	1236	        Gammaproteobacteria
+  3.37	29	0	O	91347	          Enterobacterales
+  2.33	20	0	F	543	            Enterobacteriaceae
+  2.33	20	0	G	570	              Klebsiella
+  2.33	20	19	S	573	                Klebsiella pneumoniae
+  0.12	1	1	S1	72407	                  Klebsiella pneumoniae subsp. pneumoniae
+  1.05	9	0	O1	451511	            Enterobacterales incertae sedis
+  1.05	9	0	G	702	              Plesiomonas
+  1.05	9	9	S	703	                Plesiomonas shigelloides
+  1.16	10	0	O	135623	          Vibrionales
+  1.16	10	0	F	641	            Vibrionaceae
+  1.16	10	0	G	662	              Vibrio
+  1.16	10	6	S	672	                Vibrio vulnificus
+  0.47	4	4	S1	914127	                  Vibrio vulnificus MO6-24/O
+  0.12	1	0	O	135625	          Pasteurellales
+  0.12	1	0	F	712	            Pasteurellaceae
+  0.12	1	0	G	724	              Haemophilus
+  0.12	1	1	S	729	                Haemophilus parainfluenzae
+  0.23	2	0	C	28211	        Alphaproteobacteria
+  0.23	2	0	O	356	          Hyphomicrobiales
+  0.23	2	0	F	41294	            Bradyrhizobiaceae
+  0.23	2	0	G	374	              Bradyrhizobium
+  0.23	2	2	S	1437360	                Bradyrhizobium erythrophlei
+  3.37	29	0	D1	1783272	      Terrabacteria group
+  3.26	28	0	P	201174	        Actinobacteria
+  3.26	28	0	C	1760	          Actinomycetia
+  2.21	19	0	O	85009	            Propionibacteriales
+  2.09	18	0	F	31957	              Propionibacteriaceae
+  2.09	18	2	G	1912216	                Cutibacterium
+  1.74	15	15	S	1747	                  Cutibacterium acnes
+  0.12	1	1	S	33011	                  Cutibacterium granulosum
+  0.12	1	0	F	85015	              Nocardioidaceae
+  0.12	1	0	G	2040	                Aeromicrobium
+  0.12	1	1	S	2041	                  Aeromicrobium erythreum
+  0.47	4	0	O	85007	            Corynebacteriales
+  0.47	4	0	F	1653	              Corynebacteriaceae
+  0.47	4	0	G	1716	                Corynebacterium
+  0.47	4	4	S	38304	                  Corynebacterium tuberculostearicum
+  0.35	3	0	O	85006	            Micrococcales
+  0.23	2	0	F	1268	              Micrococcaceae
+  0.23	2	0	G	1269	                Micrococcus
+  0.23	2	2	S	1270	                  Micrococcus luteus
+  0.12	1	0	F	2805590	              Ornithinimicrobiaceae
+  0.12	1	0	G	125287	                Ornithinimicrobium
+  0.12	1	1	S	1288636	                  Ornithinimicrobium flavum
+  0.23	2	0	O	85010	            Pseudonocardiales
+  0.23	2	0	F	2070	              Pseudonocardiaceae
+  0.23	2	0	G	1813	                Amycolatopsis
+  0.23	2	0	G1	2618356	                  unclassified Amycolatopsis
+  0.23	2	2	S	2653857	                    Amycolatopsis sp. YIM 10
+  0.12	1	0	P	1239	        Firmicutes
+  0.12	1	0	C	91061	          Bacilli
+  0.12	1	0	O	1385	            Bacillales
+  0.12	1	0	F	90964	              Staphylococcaceae
+  0.12	1	0	G	1279	                Staphylococcus
+  0.12	1	1	S	29388	                  Staphylococcus capitis
+  5.00	43	0	D	2759	    Eukaryota
+  5.00	43	0	D1	33154	      Opisthokonta
+  5.00	43	0	D2	4751	        Fungi
+  5.00	43	0	D3	451864	          Dikarya
+  4.65	40	0	P	5204	            Basidiomycota
+  4.65	40	0	P1	452284	              Ustilaginomycotina
+  4.65	40	0	C	1538075	                Malasseziomycetes
+  4.65	40	0	O	162474	                  Malasseziales
+  4.65	40	0	F	742845	                    Malasseziaceae
+  4.65	40	0	G	55193	                      Malassezia
+  3.02	26	26	S	76773	                        Malassezia globosa
+  1.28	11	11	S	76775	                        Malassezia restricta
+  0.23	2	2	S	1514897	                        Malassezia arunalokei
+  0.12	1	1	S	77020	                        Malassezia pachydermatis
+  0.35	3	0	P	4890	            Ascomycota
+  0.35	3	0	P1	716545	              saccharomyceta
+  0.35	3	0	P2	147538	                Pezizomycotina
+  0.35	3	0	P3	716546	                  leotiomyceta
+  0.35	3	0	C	147545	                    Eurotiomycetes
+  0.35	3	0	C1	451871	                      Eurotiomycetidae
+  0.35	3	1	O	5042	                        Eurotiales
+  0.23	2	0	F	1131492	                          Aspergillaceae
+  0.23	2	0	G	5052	                            Aspergillus
+  0.12	1	0	G1	2720871	                              Aspergillus subgen. Circumdati
+  0.12	1	0	S	5062	                                Aspergillus oryzae
+  0.12	1	1	S1	510516	                                  Aspergillus oryzae RIB40
+  0.12	1	1	S	1069201	                              Aspergillus luchuensis

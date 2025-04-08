@@ -1,0 +1,123 @@
+ 66.88	957	957	U	0	unclassified
+ 33.12	474	1	R	1	root
+ 32.98	472	4	R1	131567	  cellular organisms
+ 24.18	346	0	D	2759	    Eukaryota
+ 24.18	346	0	D1	33154	      Opisthokonta
+ 24.18	346	0	D2	4751	        Fungi
+ 24.18	346	0	D3	451864	          Dikarya
+ 24.18	346	0	P	5204	            Basidiomycota
+ 24.18	346	0	P1	452284	              Ustilaginomycotina
+ 24.18	346	0	C	1538075	                Malasseziomycetes
+ 24.18	346	0	O	162474	                  Malasseziales
+ 24.18	346	0	F	742845	                    Malasseziaceae
+ 24.18	346	2	G	55193	                      Malassezia
+ 17.40	249	248	S	76773	                        Malassezia globosa
+  0.07	1	1	S1	425265	                          Malassezia globosa CBS 7966
+  6.57	94	77	S	76775	                        Malassezia restricta
+  1.19	17	17	S1	425264	                          Malassezia restricta CBS 7877
+  0.07	1	1	S	55194	                        Malassezia furfur
+  8.46	121	28	D	2	    Bacteria
+  4.19	60	0	D1	1783272	      Terrabacteria group
+  2.10	30	0	P	201174	        Actinobacteria
+  2.10	30	0	C	1760	          Actinomycetia
+  1.61	23	0	O	85009	            Propionibacteriales
+  1.61	23	0	F	31957	              Propionibacteriaceae
+  1.61	23	1	G	1912216	                Cutibacterium
+  1.47	21	21	S	1747	                  Cutibacterium acnes
+  0.07	1	1	S	2559073	                  Cutibacterium modestum
+  0.28	4	0	O	85006	            Micrococcales
+  0.21	3	0	F	145357	              Dermacoccaceae
+  0.21	3	0	G	57495	                Dermacoccus
+  0.14	2	0	G1	2643059	                  unclassified Dermacoccus
+  0.14	2	2	S	2762331	                    Dermacoccus sp. PAMC28757
+  0.07	1	1	S	1274	                  Dermacoccus nishinomiyaensis
+  0.07	1	0	F	85023	              Microbacteriaceae
+  0.07	1	0	F1	1655488	                Luna cluster
+  0.07	1	0	F2	1655489	                  Luna-1 subcluster
+  0.07	1	0	G	529883	                    Rhodoluna
+  0.07	1	1	S	535712	                      Candidatus Rhodoluna planktonica
+  0.14	2	0	O	85007	            Corynebacteriales
+  0.14	2	0	F	2805586	              Lawsonellaceae
+  0.14	2	0	G	1847725	                Lawsonella
+  0.14	2	2	S	1528099	                  Lawsonella clevelandensis
+  0.07	1	0	O	85011	            Streptomycetales
+  0.07	1	0	F	2062	              Streptomycetaceae
+  0.07	1	0	G	1883	                Streptomyces
+  0.07	1	0	S	1916	                  Streptomyces lividans
+  0.07	1	1	S1	1200984	                    Streptomyces lividans 1326
+  2.10	30	0	P	1239	        Firmicutes
+  2.10	30	0	C	91061	          Bacilli
+  2.10	30	0	O	1385	            Bacillales
+  2.10	30	0	F	90964	              Staphylococcaceae
+  2.10	30	0	G	1279	                Staphylococcus
+  2.03	29	29	S	29382	                  Staphylococcus cohnii
+  0.07	1	1	S	1286	                  Staphylococcus simulans
+  2.10	30	1	P	1224	      Proteobacteria
+  1.75	25	0	C	1236	        Gammaproteobacteria
+  1.05	15	0	O	91347	          Enterobacterales
+  0.70	10	0	F	543	            Enterobacteriaceae
+  0.70	10	0	G	570	              Klebsiella
+  0.49	7	7	S	573	                Klebsiella pneumoniae
+  0.21	3	3	S	2058152	                Klebsiella grimontii
+  0.35	5	0	O1	451511	            Enterobacterales incertae sedis
+  0.35	5	0	G	702	              Plesiomonas
+  0.35	5	5	S	703	                Plesiomonas shigelloides
+  0.56	8	0	O	72274	          Pseudomonadales
+  0.56	8	0	F	135621	            Pseudomonadaceae
+  0.56	8	0	G	286	              Pseudomonas
+  0.49	7	0	G1	136843	                Pseudomonas fluorescens group
+  0.49	7	7	S	29442	                  Pseudomonas tolaasii
+  0.07	1	1	S	2745511	                Pseudomonas tensinigenes
+  0.07	1	0	O	135623	          Vibrionales
+  0.07	1	0	F	641	            Vibrionaceae
+  0.07	1	0	G	662	              Vibrio
+  0.07	1	0	S	672	                Vibrio vulnificus
+  0.07	1	1	S1	1246305	                  Vibrio vulnificus Env1
+  0.07	1	0	O	135622	          Alteromonadales
+  0.07	1	0	F	267890	            Shewanellaceae
+  0.07	1	0	G	2547964	              Parashewanella
+  0.07	1	1	S	342950	                Parashewanella spongiae
+  0.14	2	0	C	28216	        Betaproteobacteria
+  0.14	2	0	O	80840	          Burkholderiales
+  0.07	1	0	O1	224471	            Burkholderiales genera incertae sedis
+  0.07	1	0	G	65047	              Mitsuaria
+  0.07	1	0	G1	2648776	                unclassified Mitsuaria
+  0.07	1	1	S	1658665	                  Mitsuaria sp. 7
+  0.07	1	0	F	80864	            Comamonadaceae
+  0.07	1	0	G	281915	              Curvibacter
+  0.07	1	0	G1	2685271	                unclassified Curvibacter
+  0.07	1	1	S	1844971	                  Curvibacter sp. AEP1-3
+  0.14	2	0	C	28211	        Alphaproteobacteria
+  0.07	1	0	O	356	          Hyphomicrobiales
+  0.07	1	0	F	69277	            Phyllobacteriaceae
+  0.07	1	0	G	2712688	              Salaquimonas
+  0.07	1	1	S	2712698	                Salaquimonas pukyongi
+  0.07	1	0	O	204457	          Sphingomonadales
+  0.07	1	0	F	41297	            Sphingomonadaceae
+  0.07	1	1	G	165695	              Sphingobium
+  0.21	3	0	D1	1783270	      FCB group
+  0.21	3	0	D2	68336	        Bacteroidetes/Chlorobi group
+  0.21	3	0	P	976	          Bacteroidetes
+  0.21	3	0	C	768503	            Cytophagia
+  0.21	3	0	O	768507	              Cytophagales
+  0.21	3	0	F	89373	                Cytophagaceae
+  0.21	3	0	G	107	                  Spirosoma
+  0.21	3	0	G1	2621999	                    unclassified Spirosoma
+  0.21	3	3	S	2745947	                      Spirosoma sp. KUDC1026
+  0.07	1	0	D	2157	    Archaea
+  0.07	1	0	P	28890	      Euryarchaeota
+  0.07	1	0	P1	2290931	        Stenosarchaea group
+  0.07	1	0	C	183963	          Halobacteria
+  0.07	1	0	O	1644055	            Haloferacales
+  0.07	1	0	F	1963271	              Halorubraceae
+  0.07	1	1	G	56688	                Halorubrum
+  0.07	1	0	D	10239	  Viruses
+  0.07	1	0	D1	2732004	    Varidnaviria
+  0.07	1	0	D2	2732005	      Bamfordvirae
+  0.07	1	0	P	2732007	        Nucleocytoviricota
+  0.07	1	0	C	2732523	          Megaviricetes
+  0.07	1	0	O	2732554	            Imitervirales
+  0.07	1	0	F	549779	              Mimiviridae
+  0.07	1	0	G	1513234	                Cafeteriavirus
+  0.07	1	0	S	1513235	                  Cafeteria roenbergensis virus
+  0.07	1	1	S1	693272	                    Cafeteria roenbergensis virus BV-PW1

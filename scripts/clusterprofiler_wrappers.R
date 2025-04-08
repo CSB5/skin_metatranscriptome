@@ -260,3 +260,34 @@ prepare_NES_plot_input <- function(df, slimdf, chosen_parent_ids){
 }
 
 
+extract_NES_stats <- function(df, GO_description){
+  
+  df_for_plot_padj <- df %>% dplyr::filter(Description %in% GO_description) %>% 
+    dplyr::select(c("ID", "Description",
+                    "DESeq_GSEA_padj", 
+                    "aldex_GSEA_padj", 
+                    "ancombc_GSEA_padj")) %>% pivot_longer(!c("ID","Description"), 
+                                                           names_to = "method", 
+                                                           values_to = "GSEA_padj")
+  
+  df_for_plot_padj$method <- gsub(pattern="_padj", replacement="", x=df_for_plot_padj$method)
+  
+  df_for_plot_NES <- df %>% dplyr::filter(Description %in% GO_description) %>% 
+    dplyr::select(c("ID",
+                    "DESeq_GSEA_NES", 
+                    "aldex_GSEA_NES", 
+                    "ancombc_GSEA_NES")) %>% pivot_longer(!ID, 
+                                                          names_to = "method", 
+                                                          values_to = "GSEA_NES")
+  
+  df_for_plot_NES$method <- gsub(pattern="_NES", replacement="", x=df_for_plot_NES$method)
+  
+  
+  df_for_plot <- merge(df_for_plot_padj, df_for_plot_NES, 
+                       by = c("ID","method")) 
+  
+  return(df_for_plot)
+  
+}
+  
+

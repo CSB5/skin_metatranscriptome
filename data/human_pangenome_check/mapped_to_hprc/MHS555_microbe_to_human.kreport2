@@ -1,0 +1,77 @@
+ 43.95	443	443	U	0	unclassified
+ 56.05	565	0	R	1	root
+ 56.05	565	3	R1	131567	  cellular organisms
+ 43.15	435	0	D	2759	    Eukaryota
+ 43.15	435	0	D1	33154	      Opisthokonta
+ 43.15	435	0	D2	4751	        Fungi
+ 43.15	435	0	D3	451864	          Dikarya
+ 43.15	435	0	P	5204	            Basidiomycota
+ 43.15	435	0	P1	452284	              Ustilaginomycotina
+ 43.15	435	0	C	1538075	                Malasseziomycetes
+ 43.15	435	0	O	162474	                  Malasseziales
+ 43.15	435	0	F	742845	                    Malasseziaceae
+ 43.15	435	3	G	55193	                      Malassezia
+ 33.63	339	270	S	76775	                        Malassezia restricta
+  6.85	69	69	S1	425264	                          Malassezia restricta CBS 7877
+  5.85	59	59	S	1514897	                        Malassezia arunalokei
+  2.58	26	26	S	76773	                        Malassezia globosa
+  0.60	6	5	S	76777	                        Malassezia sympodialis
+  0.10	1	1	S1	1230383	                          Malassezia sympodialis ATCC 42132
+  0.20	2	2	S	55194	                        Malassezia furfur
+ 12.60	127	8	D	2	    Bacteria
+  7.84	79	0	D1	1783272	      Terrabacteria group
+  7.54	76	0	P	201174	        Actinobacteria
+  7.54	76	0	C	1760	          Actinomycetia
+  7.44	75	0	O	85009	            Propionibacteriales
+  7.44	75	0	F	31957	              Propionibacteriaceae
+  7.44	75	3	G	1912216	                Cutibacterium
+  5.65	57	50	S	1747	                  Cutibacterium acnes
+  0.60	6	0	S1	1734925	                    Cutibacterium acnes subsp. acnes
+  0.60	6	6	S2	1114967	                      Cutibacterium acnes TypeIA2 P.acn17
+  0.10	1	1	S1	1234380	                    Cutibacterium acnes C1
+  1.39	14	14	S	2559073	                  Cutibacterium modestum
+  0.10	1	1	S	33010	                  Cutibacterium avidum
+  0.10	1	0	O	85007	            Corynebacteriales
+  0.10	1	0	F	1653	              Corynebacteriaceae
+  0.10	1	0	G	1716	                Corynebacterium
+  0.10	1	1	S	38304	                  Corynebacterium tuberculostearicum
+  0.20	2	0	P	1239	        Firmicutes
+  0.20	2	0	C	91061	          Bacilli
+  0.20	2	0	O	1385	            Bacillales
+  0.20	2	1	F	90964	              Staphylococcaceae
+  0.10	1	0	G	1279	                Staphylococcus
+  0.10	1	1	S	1286	                  Staphylococcus simulans
+  0.10	1	0	P	1297	        Deinococcus-Thermus
+  0.10	1	0	C	188787	          Deinococci
+  0.10	1	0	O	118964	            Deinococcales
+  0.10	1	0	F	183710	              Deinococcaceae
+  0.10	1	0	G	1298	                Deinococcus
+  0.10	1	1	S	1299	                  Deinococcus radiodurans
+  3.87	39	2	P	1224	      Proteobacteria
+  3.57	36	0	C	1236	        Gammaproteobacteria
+  2.08	21	0	O	91347	          Enterobacterales
+  2.08	21	2	F	543	            Enterobacteriaceae
+  1.88	19	0	G	570	              Klebsiella
+  1.79	18	16	S	573	                Klebsiella pneumoniae
+  0.20	2	2	S1	72407	                  Klebsiella pneumoniae subsp. pneumoniae
+  0.10	1	1	S	2058152	                Klebsiella grimontii
+  1.49	15	0	O	135623	          Vibrionales
+  1.49	15	0	F	641	            Vibrionaceae
+  1.49	15	0	G	662	              Vibrio
+  1.49	15	7	S	672	                Vibrio vulnificus
+  0.60	6	6	S1	914127	                  Vibrio vulnificus MO6-24/O
+  0.20	2	2	S1	748003	                  Vibrio vulnificus VVyb1(BT3)
+  0.10	1	0	C	28211	        Alphaproteobacteria
+  0.10	1	0	O	204458	          Caulobacterales
+  0.10	1	0	F	76892	            Caulobacteraceae
+  0.10	1	0	G	41275	              Brevundimonas
+  0.10	1	1	G1	2622653	                unclassified Brevundimonas
+  0.10	1	0	D1	1783270	      FCB group
+  0.10	1	0	D2	68336	        Bacteroidetes/Chlorobi group
+  0.10	1	0	P	976	          Bacteroidetes
+  0.10	1	0	C	117747	            Sphingobacteriia
+  0.10	1	0	O	200666	              Sphingobacteriales
+  0.10	1	0	F	84566	                Sphingobacteriaceae
+  0.10	1	0	G	84567	                  Pedobacter
+  0.10	1	0	G1	2628915	                    unclassified Pedobacter
+  0.10	1	1	S	2856523	                      Pedobacter sp. D749

@@ -1,0 +1,98 @@
+ 60.67	935	935	U	0	unclassified
+ 39.33	606	0	R	1	root
+ 39.33	606	0	R1	131567	  cellular organisms
+ 29.66	457	0	D	2759	    Eukaryota
+ 29.66	457	0	D1	33154	      Opisthokonta
+ 29.66	457	0	D2	4751	        Fungi
+ 29.66	457	0	D3	451864	          Dikarya
+ 29.66	457	0	P	5204	            Basidiomycota
+ 29.66	457	0	P1	452284	              Ustilaginomycotina
+ 29.66	457	0	C	1538075	                Malasseziomycetes
+ 29.66	457	0	O	162474	                  Malasseziales
+ 29.66	457	0	F	742845	                    Malasseziaceae
+ 29.66	457	0	G	55193	                      Malassezia
+ 29.46	454	454	S	76773	                        Malassezia globosa
+  0.19	3	3	S	76775	                        Malassezia restricta
+  9.67	149	9	D	2	    Bacteria
+  5.32	82	0	D1	1783272	      Terrabacteria group
+  5.13	79	0	P	201174	        Actinobacteria
+  5.13	79	1	C	1760	          Actinomycetia
+  4.74	73	0	O	85009	            Propionibacteriales
+  4.74	73	0	F	31957	              Propionibacteriaceae
+  4.74	73	14	G	1912216	                Cutibacterium
+  3.83	59	59	S	1747	                  Cutibacterium acnes
+  0.13	2	0	O	2037	            Actinomycetales
+  0.13	2	0	F	2049	              Actinomycetaceae
+  0.13	2	1	G	1654	                Actinomyces
+  0.06	1	1	S	1655	                  Actinomyces naeslundii
+  0.06	1	0	O	85011	            Streptomycetales
+  0.06	1	0	F	2062	              Streptomycetaceae
+  0.06	1	0	G	1883	                Streptomyces
+  0.06	1	1	S	116188	                  Streptomyces coeruleorubidus
+  0.06	1	0	O	85007	            Corynebacteriales
+  0.06	1	0	F	1653	              Corynebacteriaceae
+  0.06	1	0	G	1716	                Corynebacterium
+  0.06	1	1	S	43768	                  Corynebacterium matruchotii
+  0.06	1	0	O	85006	            Micrococcales
+  0.06	1	0	F	1268	              Micrococcaceae
+  0.06	1	0	G	1663	                Arthrobacter
+  0.06	1	1	S	1670	                  Arthrobacter citreus
+  0.13	2	0	P	1239	        Firmicutes
+  0.06	1	0	C	1737404	          Tissierellia
+  0.06	1	0	O	1737405	            Tissierellales
+  0.06	1	0	F	1570339	              Peptoniphilaceae
+  0.06	1	1	G	165779	                Anaerococcus
+  0.06	1	0	C	91061	          Bacilli
+  0.06	1	0	O	186826	            Lactobacillales
+  0.06	1	0	F	33958	              Lactobacillaceae
+  0.06	1	1	G	2767887	                Ligilactobacillus
+  0.06	1	0	D2	1798711	        Cyanobacteria/Melainabacteria group
+  0.06	1	0	P	1117	          Cyanobacteria
+  0.06	1	0	O	1890505	            Chroococcidiopsidales
+  0.06	1	0	F	1890528	              Chroococcidiopsidaceae
+  0.06	1	0	G	54298	                Chroococcidiopsis
+  0.06	1	0	S	54299	                  Chroococcidiopsis thermalis
+  0.06	1	1	S1	251229	                    Chroococcidiopsis thermalis PCC 7203
+  3.11	48	0	P	1224	      Proteobacteria
+  3.05	47	0	C	1236	        Gammaproteobacteria
+  1.56	24	0	O	91347	          Enterobacterales
+  0.78	12	0	F	543	            Enterobacteriaceae
+  0.78	12	0	G	570	              Klebsiella
+  0.65	10	10	S	573	                Klebsiella pneumoniae
+  0.13	2	2	S	2058152	                Klebsiella grimontii
+  0.78	12	0	O1	451511	            Enterobacterales incertae sedis
+  0.78	12	0	G	702	              Plesiomonas
+  0.78	12	12	S	703	                Plesiomonas shigelloides
+  1.43	22	0	O	135623	          Vibrionales
+  1.43	22	0	F	641	            Vibrionaceae
+  1.43	22	0	G	662	              Vibrio
+  1.43	22	14	S	672	                Vibrio vulnificus
+  0.39	6	6	S1	914127	                  Vibrio vulnificus MO6-24/O
+  0.13	2	2	S1	748003	                  Vibrio vulnificus VVyb1(BT3)
+  0.06	1	0	O	135622	          Alteromonadales
+  0.06	1	0	F	267891	            Moritellaceae
+  0.06	1	0	G	58050	              Moritella
+  0.06	1	0	G1	2637987	                unclassified Moritella
+  0.06	1	1	S	2746232	                  Moritella sp. 28
+  0.06	1	1	C	28216	        Betaproteobacteria
+  0.58	9	0	D1	1783270	      FCB group
+  0.58	9	0	D2	68336	        Bacteroidetes/Chlorobi group
+  0.58	9	0	P	976	          Bacteroidetes
+  0.45	7	0	C	768503	            Cytophagia
+  0.45	7	0	O	768507	              Cytophagales
+  0.45	7	0	F	89373	                Cytophagaceae
+  0.45	7	0	G	107	                  Spirosoma
+  0.45	7	0	G1	2621999	                    unclassified Spirosoma
+  0.45	7	7	S	2745947	                      Spirosoma sp. KUDC1026
+  0.13	2	0	C	117743	            Flavobacteriia
+  0.13	2	0	O	200644	              Flavobacteriales
+  0.13	2	0	F	49546	                Flavobacteriaceae
+  0.13	2	0	G	1016	                  Capnocytophaga
+  0.13	2	0	G1	2640652	                    unclassified Capnocytophaga
+  0.13	2	2	S	1705617	                      Capnocytophaga sp. oral taxon 323
+  0.06	1	0	P	32066	      Fusobacteria
+  0.06	1	0	C	203490	        Fusobacteriia
+  0.06	1	0	O	203491	          Fusobacteriales
+  0.06	1	0	F	1129771	            Leptotrichiaceae
+  0.06	1	0	G	32067	              Leptotrichia
+  0.06	1	1	S	157688	                Leptotrichia hofstadii

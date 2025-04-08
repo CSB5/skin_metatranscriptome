@@ -1,0 +1,44 @@
+2025-02-17 18:12:09.156982 INFO::Writing function arguments to log file
+2025-02-17 18:12:09.159667 DEBUG::Function arguments
+2025-02-17 18:12:09.160765 DEBUG::Output folder: ../processed/aldex2_glmm_out
+2025-02-17 18:12:09.161791 DEBUG::Min Abundance: -10000.000000
+2025-02-17 18:12:09.162606 DEBUG::Min Prevalence: 0.000000
+2025-02-17 18:12:09.163417 DEBUG::Normalization: NONE
+2025-02-17 18:12:09.164282 DEBUG::Transform: NONE
+2025-02-17 18:12:09.16503 DEBUG::Analysis method: LM
+2025-02-17 18:12:09.165775 DEBUG::Max significance: 0.250000
+2025-02-17 18:12:09.166517 DEBUG::Random effects: subject
+2025-02-17 18:12:09.16844 DEBUG::Fixed effects: region,mol_type,Ch_RNA
+2025-02-17 18:12:09.169276 DEBUG::Correction method: BH
+2025-02-17 18:12:09.170058 DEBUG::Standardize: TRUE
+2025-02-17 18:12:09.170804 DEBUG::Cores: 2
+2025-02-17 18:12:09.17152 INFO::Verifying options selected are valid
+2025-02-17 18:12:09.227764 INFO::Determining format of input files
+2025-02-17 18:12:09.230503 INFO::Input format is data samples as rows and metadata samples as rows
+2025-02-17 18:12:09.247264 DEBUG::A total of 82 samples were found in both the data and metadata
+2025-02-17 18:12:09.290296 DEBUG::Reordering data/metadata to use same sample ordering
+2025-02-17 18:12:09.315242 INFO::Formula for random effects: expr ~ (1 | subject)
+2025-02-17 18:12:09.317793 INFO::Formula for fixed effects: expr ~  region + mol_type + Ch_RNA
+2025-02-17 18:12:09.320204 INFO::Factor detected for categorial metadata 'region'. Provide a reference argument or manually set factor ordering to change reference level.
+2025-02-17 18:12:09.322256 INFO::Factor detected for categorial metadata 'mol_type'. Provide a reference argument or manually set factor ordering to change reference level.
+2025-02-17 18:12:09.324106 INFO::Filter data based on min abundance and min prevalence
+2025-02-17 18:12:09.325801 INFO::Total samples in data: 82
+2025-02-17 18:12:09.327458 INFO::Min samples required with min abundance for a feature not to be filtered: 0.000000
+2025-02-17 18:12:09.37113 INFO::Total filtered features: 0
+2025-02-17 18:12:09.374075 INFO::Filtered feature names from abundance and prevalence filtering:
+2025-02-17 18:12:09.488845 INFO::Total filtered features with variance filtering: 0
+2025-02-17 18:12:09.491331 INFO::Filtered feature names from variance filtering:
+2025-02-17 18:12:09.493347 INFO::Running selected normalization method: NONE
+2025-02-17 18:12:09.495238 INFO::Applying z-score to standardize continuous metadata
+2025-02-17 18:12:09.517252 INFO::Running selected transform method: NONE
+2025-02-17 18:12:09.51993 INFO::Running selected analysis method: LM
+2025-02-17 18:12:09.79451 INFO::Creating cluster of 2 R processes
+2025-02-17 18:14:57.61749 INFO::Counting total values for each feature
+2025-02-17 18:15:00.864718 INFO::Writing filtered data to file ../processed/aldex2_glmm_out/features/filtered_data.tsv
+2025-02-17 18:15:01.909451 INFO::Writing filtered, normalized data to file ../processed/aldex2_glmm_out/features/filtered_data_norm.tsv
+2025-02-17 18:15:02.947442 INFO::Writing filtered, normalized, transformed data to file ../processed/aldex2_glmm_out/features/filtered_data_norm_transformed.tsv
+2025-02-17 18:15:04.013329 INFO::Writing residuals to file ../processed/aldex2_glmm_out/fits/residuals.rds
+2025-02-17 18:15:04.197063 INFO::Writing fitted values to file ../processed/aldex2_glmm_out/fits/fitted.rds
+2025-02-17 18:15:04.329829 INFO::Writing extracted random effects to file ../processed/aldex2_glmm_out/fits/ranef.rds
+2025-02-17 18:15:04.373932 INFO::Writing all results to file (ordered by increasing q-values): ../processed/aldex2_glmm_out/all_results.tsv
+2025-02-17 18:15:04.723584 INFO::Writing the significant results (those which are less than or equal to the threshold of 0.250000 ) to file (ordered by increasing q-values): ../processed/aldex2_glmm_out/significant_results.tsv

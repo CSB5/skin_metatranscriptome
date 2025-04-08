@@ -1,0 +1,735 @@
+---
+title: "process_taxa_abundances"
+author: "Chiamh"
+date: "2025-04-04"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Load libraries
+
+```{r}
+library(tidyverse)
+```
+
+Load metadata and supporting information
+
+```{r}
+
+metadata <- read_tsv("../metadata/skin_mtx_metadata_fmt.txt", show_col_types = FALSE) 
+
+mgx_stats <- read_tsv("../metadata/MGX_QC_stats.txt", show_col_types = FALSE) 
+
+mtx_stats <- read_tsv("../metadata/MTX_QC_stats.txt", show_col_types = FALSE) 
+
+mgx_stats <- merge(mgx_stats, metadata, by = "LIBID", all.x=TRUE)
+
+mtx_stats <- merge(mtx_stats, metadata, by ="LIBID", all.x=TRUE)
+
+#mtx_to_pull and mgx_to_pull refer to the 102 Libraries with paired MTX and MGX data:
+
+mtx_to_pull <- read_tsv("../metadata/mtx_to_pull", col_names = FALSE, show_col_types = FALSE) %>% pull(X1)
+
+mgx_to_pull <- read_tsv("../metadata/mgx_to_pull", col_names = FALSE, show_col_types = FALSE) %>% pull(X1)
+
+mtx_stats_chosen <- mtx_stats %>% dplyr::filter(LIBID %in% mtx_to_pull)
+
+mgx_stats_chosen <- mgx_stats %>% dplyr::filter(LIBID %in% mgx_to_pull)
+
+mtx_mgx_stats_chosen <- read_tsv(file="../metadata/mtx_mgx_stats_chosen.tsv", show_col_types = FALSE)
+
+#see taxa_subsp_calc.Rmd
+mtx_taxa_count_summary_subsp_collapse <- readRDS(file="../data/mtx_taxa_count_summary_subsp_collapse.RDS")
+#see taxa_subsp_calc.Rmd
+mgx_taxa_count_summary_subsp_collapse <- readRDS(file="../data/mgx_taxa_count_summary_subsp_collapse.RDS")
+
+
+#load disbiome and microphenoDB results for genera reported on skin, both for mgx and mtx data
+
+disbiome_skin_res <- read_tsv("../metadata/mtx_contam_genera.tsv", show_col_types = FALSE)
+
+
+
+genera_to_remove <- c(disbiome_skin_res %>% 
+                        filter(reported_for_skin_disease_in_disbiome == FALSE & 
+                                 reported_on_skin_in_microphenoDB ==FALSE &
+                                 pubmed_skin_microbiome == FALSE) %>% 
+                        pull(name), "Homo", "Listeria", "Plesiomonas", "Vibrio") #34 candidates to remove
+
+genera_mask <- stringi::stri_paste("^",genera_to_remove, collapse="|")
+
+#Derived from sparCC correlation analysis
+#In some applications, should add Homo_sapiens and unclassified to this
+species_to_remove <- read_tsv("../metadata/species_to_remove", col_names = FALSE, show_col_types = FALSE) %>% pull(X1) #111
+
+
+```
+
+## Calculate taxonomic abundances after removing contaminants and false positive calls
+
+For simplicity, filter away very weakly abundant MTX signals within libraries (< 0.1% relative abundance). This is now preferred because transcription ratios could be skewed if the denominator is very small.
+
+Microbial reads in mtx_mgx_stats_chosen are the sum of microbial reads (bacterial, fungal, viral and archaeal) at species level and above. This also includes contributions from spike ins and contaminants
+
+However, we want to do taxa level TPM calculations, it should be over SPECIES level reads that are not contaminants nor spike ins.
+
+We also distinguish this from DOMINANT TAXA analysis because we do not filter away rare taxa by relative abundance here.
+
+There will be features that are absent at RNA level but present at DNA level. These are considered transcriptionally inactive.
+
+For taxon DNA (NOT RNA) measurements, use minimizer information from kraken2 to distinguish true from false positives.
+The criteria are inspired from the krakenuniq paper https://genomebiology.biomedcentral.com/articles/10.1186/s13059-018-1568-0:
+a) at least 2000 unique k-mers per 1 million non-human reads OR
+b) If a) is not satisfied, then minimum paired read count of 10 and at least 10x more distinct minimizers than read pairs.
+
+N.B: unclassified k2 reads are given a pass by default, but we will NOT use kraken2 unclassified reads in transcription ratio calculations
+
+See controlling_artefacts.Rmd, where we demonstrate that >= 10^4 distinct minimizers per million species level reads is a good cut off for rRNA DEPLETED mtx libraries
+So for MTX, use the criteria:  >= 10^4 distinct minimizers per million at species level, and >= 0.1% relative abundance.
+
+Species level reads are non-contaminant, non-spike in, microbial reads!
+
+For MGX, use the following criteria:  (>= 2000 distinct minimizers per million, and >= 0.1% relative abundance) 
+OR true positive detected in paired MTX data.
+
+After filtering false positive reads and contamimants, do a total sum scaled re-normalization
+
+```{r eval=FALSE}
+#Load in kraken2 species level minimizer information for DNA and RNA
+#Do not count "unclassified" reads since they are not species level.
+#Non-fungal, non human eukaryotic reads are not counted at species level since the kraken2 database used does not represent them
+#
+
+##Start with RNA k2 minimizers.
+
+rna_k2_minimizer <- lapply(mtx_to_pull, function(x) {
+  
+  df <- read_tsv(paste0("../data/kraken2/RNA/",x,"_merged_decont_k2.s.tsv"),
+                    col_names = c("rel_abun","paired_counts","minimizer_count","distinct_minimizer_count","k2_taxon"), show_col_types = FALSE) %>% 
+    dplyr::select(-c("rel_abun","minimizer_count")) %>% 
+    dplyr::filter(!k2_taxon %in% c("unclassified","Homo sapiens"))
+  
+  df$k2_taxon <- gsub(pattern=" ", replacement="_", df$k2_taxon)
+  
+  #label the non-contaminant, non spike in, non human reads at species level
+  
+  #label source as "non-contaminant", "contaminant", "spike". Note that "Listeria, Plesiomonas and Vibrio" are the spikes
+  df_bio  <- df %>% dplyr::filter(str_detect(df$k2_taxon, genera_mask, negate=TRUE)) %>% 
+    dplyr::filter(! k2_taxon %in% species_to_remove)
+  
+  df_bio$source <- "non_contaminant"
+  
+  df_contam <- df %>% 
+    dplyr::filter(str_detect(df$k2_taxon, genera_mask) | k2_taxon %in% species_to_remove)
+  
+  df_contam$source <- ifelse(str_detect(df_contam$k2_taxon, "^Listeria|^Plesiomonas|^Vibrio"), "spike", "contaminant")
+  
+  #Set relative abundance of contaminants and spike ins to zero
+  df_contam$rel_abun <- 0
+  
+  #Compute relative abundance at species level for for non-contaminants and non-spikes
+  #expressed as percentage abundance
+  df_bio$rel_abun <- (df_bio$paired_counts / sum(df_bio$paired_counts))*100
+
+  df_labelled <- rbind(df_bio, df_contam)
+  
+  #rel abundance >= 0.1% for a non contaminant, non spike in.
+  df_labelled$abun_filter <- ifelse(df_labelled$rel_abun >= 0.1, TRUE, FALSE)  
+ 
+  #library specific minimizer threshold    
+  #Count the number of non-contaminant, non_spike in microbial read pairs at SPECIES LEVEL
+  microbial_reads <- sum(df_bio$paired_counts) 
+  microbial_reads_per_million <- microbial_reads/1E6
+  
+  minimizer_threshold <- 10000*microbial_reads_per_million
+  
+  df_labelled$species_microbial_read_pair_total <- microbial_reads  
+  df_labelled$minimizer_threshold <- minimizer_threshold
+  
+  #distinct minimizer to PER MILLION microbial read pair (non contaminant, non spike in, microbe reads at species level) ratio
+  df_labelled$minimizer_microbe_ratio <- df_labelled$distinct_minimizer_count / microbial_reads_per_million
+  
+  #for clarity purposes, set contaminant and spike in values to 0
+  df_labelled$minimizer_microbe_ratio <- ifelse(df_labelled$source == "non_contaminant",
+                                                df_labelled$minimizer_microbe_ratio, 0)
+  
+  
+  df_labelled$minimizer_filter <- ifelse(df_labelled$distinct_minimizer_count >= minimizer_threshold,TRUE, FALSE)
+  
+  #taxa_pass_filter based on the two criteria stated:
+  
+  #a) at least 10000 unique k-mers per 1 million microbial reads AND
+  #b) at least >= 0.1% relative abundance amongst non contaminant, non spike in, microbe reads at species level
+  
+  df_labelled$taxa_pass_filter <- ifelse(df_labelled$minimizer_filter ==TRUE &
+                                           df_labelled$abun_filter ==TRUE, TRUE,FALSE)
+  df_labelled$mtx_LIBID <- x
+  
+  return(df_labelled)
+  
+})
+
+
+names(rna_k2_minimizer) <- mtx_to_pull
+
+
+
+##Next, extend the logic to DNA k2 minimizers, with the added use of RNA true positives to "validate" DNA true positives
+
+k2_minimizer <- lapply(mgx_to_pull, function(x) {
+  
+  df <- read_tsv(paste0("../data/kraken2/DNA/",x,"_merged_decont_k2.s.tsv"),
+                    col_names = c("rel_abun","paired_counts","minimizer_count","distinct_minimizer_count","k2_taxon"), show_col_types = FALSE) %>% 
+    dplyr::select(-c("rel_abun","minimizer_count")) %>% 
+    dplyr::filter(!k2_taxon %in% c("unclassified","Homo sapiens"))
+  
+  df$k2_taxon <- gsub(pattern=" ", replacement="_", df$k2_taxon)
+  
+  #label the non-contaminant, non spike in, non human reads at species level
+  
+  #label source as "non-contaminant", "contaminant", "spike". Note that "Listeria, Plesiomonas and Vibrio" are the spikes
+  df_bio  <- df %>% dplyr::filter(str_detect(df$k2_taxon, genera_mask, negate=TRUE)) %>% 
+    dplyr::filter(! k2_taxon %in% species_to_remove)
+  
+  df_bio$source <- "non_contaminant"
+  
+  df_contam <- df %>% 
+    dplyr::filter(str_detect(df$k2_taxon, genera_mask) | k2_taxon %in% species_to_remove)
+  
+  df_contam$source <- ifelse(str_detect(df_contam$k2_taxon, "^Listeria|^Plesiomonas|^Vibrio"), "spike", "contaminant")
+  
+  
+    
+  #Set relative abundance of contaminants and spike ins to zero
+  df_contam$rel_abun <- 0
+  
+  #Compute relative abundance at species level for for non-contaminants and non-spikes
+  #expressed as percentage abundance
+  df_bio$rel_abun <- (df_bio$paired_counts / sum(df_bio$paired_counts))*100
+  
+  df_labelled <- rbind(df_bio, df_contam)
+  
+  #rel abundance >= 0.1% for a non contaminant, non spike in.
+  df_labelled$abun_filter <- ifelse(df_labelled$rel_abun >= 0.1, TRUE, FALSE)
+  
+  #library specific minimizer threshold    
+  #Count the number of non-contaminant, non_spike in microbial read pairs at SPECIES LEVEL
+  microbial_reads <- sum(df_bio$paired_counts) 
+  microbial_reads_per_million <- microbial_reads/1E6
+  
+  minimizer_threshold <- 2000*microbial_reads_per_million
+  
+  df_labelled$species_microbial_read_pair_total <- microbial_reads  
+  df_labelled$minimizer_threshold <- minimizer_threshold
+  
+  #distinct minimizer to PER MILLION microbial read pair (non contaminant, non spike in, microbe reads at species level) ratio
+  df_labelled$minimizer_microbe_ratio <- df_labelled$distinct_minimizer_count / microbial_reads_per_million
+  
+  #for clarity purposes, set contaminant and spike in values to 0
+  df_labelled$minimizer_microbe_ratio <- ifelse(df_labelled$source == "non_contaminant",
+                                                df_labelled$minimizer_microbe_ratio, 0)
+  
+  df_labelled$minimizer_filter <- ifelse(df_labelled$distinct_minimizer_count >= minimizer_threshold,TRUE, FALSE)
+  
+  #taxa_pass_filter for MGX data if 
+  #a) at least 2000 unique k-mers per 1 million microbial reads AND
+  #b) at least >= 0.1% relative abundance amongst non contaminant, non spike in, microbe reads at species level
+  
+  #OR
+  
+  #c) There was a true positive RNA signal in the paired library
+  
+  matched_mtx_id <- mtx_mgx_stats_chosen %>% dplyr::filter(mgx_LIBID==x) %>% pull(mtx_LIBID) %>% unique(.)
+  
+  #true positive (TP) taxa in matching mtx data
+  matched_mtx_TP <- rna_k2_minimizer[[matched_mtx_id]] %>% dplyr::filter(taxa_pass_filter==TRUE) %>% pull(k2_taxon)
+  
+  df_labelled$mtx_filter <- ifelse(df_labelled$k2_taxon %in% matched_mtx_TP, TRUE, FALSE)
+  
+  #####
+  df_labelled$taxa_pass_filter <- ifelse((df_labelled$minimizer_filter ==TRUE &
+                                           df_labelled$abun_filter ==TRUE)|df_labelled$mtx_filter==TRUE, TRUE,FALSE)
+  df_labelled$mgx_LIBID <- x
+  
+  df_labelled$matched_mtx_LIBID <- matched_mtx_id
+  
+  return(df_labelled)
+  
+}) 
+
+names(k2_minimizer) <- mgx_to_pull
+
+
+```
+
+```{r eval=FALSE}
+##Perform total sum scaling renormalization on taxa that passed filters.
+
+#METAGENOMIC ABUNDANCES
+k2_minimizer_renorm <- lapply(names(k2_minimizer), function(x){
+  
+  #True positive
+  df_TP <- k2_minimizer[[x]] %>% 
+    dplyr::filter(taxa_pass_filter==TRUE)
+  
+  #Compute relative abundance at species level expressed as percentage abundance
+  df_TP$rel_abun <- (df_TP$paired_counts / sum(df_TP$paired_counts))*100
+  
+  return(df_TP)
+  
+})
+
+names(k2_minimizer_renorm ) <- mgx_to_pull
+
+#METATRANSCRIPTOMIC ABUNDANCES
+rna_k2_minimizer_renorm <- lapply(names(rna_k2_minimizer), function(x){
+  
+  #True positive
+  df_TP <- rna_k2_minimizer[[x]] %>% 
+    dplyr::filter(taxa_pass_filter==TRUE)
+  
+  #Compute relative abundance at species level expressed as percentage abundance
+  df_TP$rel_abun <- (df_TP$paired_counts / sum(df_TP$paired_counts))*100
+  
+  return(df_TP)
+  
+})
+
+names(rna_k2_minimizer_renorm ) <- mtx_to_pull
+
+```
+
+
+Save the renormalized dataframes. These would be suitable for various downstream analyses
+
+```{r eval=FALSE}
+lapply(names(rna_k2_minimizer_renorm), function(x){
+  
+  write_tsv(rna_k2_minimizer_renorm[[x]], 
+            file=paste0("../data/k2_species_renorm/RNA/",x,"_k2_renorm.s.tsv"))
+  
+})
+
+
+lapply(names(k2_minimizer_renorm), function(x){
+  
+  write_tsv(k2_minimizer_renorm[[x]], 
+            file=paste0("../data/k2_species_renorm/DNA/",x,"_k2_renorm.s.tsv"))
+  
+})
+
+```
+
+
+Load results from the previous code chunk to save time
+
+
+```{r}
+rna_k2_minimizer_renorm <- lapply(mtx_to_pull, function(x){
+  
+  df_out <- read_tsv(file=paste0("../data/k2_species_renorm/RNA/",x,"_k2_renorm.s.tsv"),
+           show_col_types = FALSE)
+  
+  return(df_out)
+  
+})
+
+names(rna_k2_minimizer_renorm) <- mtx_to_pull
+
+#MGX data
+k2_minimizer_renorm <- lapply(mgx_to_pull, function(x){
+  
+  df_out <- read_tsv(file=paste0("../data/k2_species_renorm/DNA/",x,"_k2_renorm.s.tsv"),
+           show_col_types = FALSE)
+  
+  return(df_out)
+  
+})
+
+names(k2_minimizer_renorm) <- mgx_to_pull
+```
+
+
+## Compute transcriptional activity
+
+Taxa transcription ratios can be affected by differences in lysis efficiency for DNA and RNA extraction. This is why the high correlation between the two extraction methods in mock_comm_DNA_DNA_analysis.Rmd is helpful.
+
+
+Calculate normalized transcriptional activity as RNA/DNA ratio  (TPM (RNA)/CPM (DNA))
+
+references for transcriptional activity: Abu-Ali and Huttenhower + Humann2 paper (https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6235447/)
+
+
+```{r eval=FALSE}
+
+#Merge mtx and mgx data by taxonomic features, taking into account some features present in one dataset but not the other
+#mtx_to_pull
+combined_taxa_count_list <- lapply(mtx_to_pull, function(x){
+  
+  mtx_id <- x
+  mgx_id <- mtx_mgx_stats_chosen %>% dplyr::filter(mtx_LIBID==x) %>% pull(mgx_LIBID)
+  
+  subject_region <- mtx_mgx_stats_chosen %>% dplyr::filter(mtx_LIBID==x) %>% pull(subj_region)
+  body_site <- mtx_mgx_stats_chosen %>% dplyr::filter(mtx_LIBID==x) %>% pull(region)
+  
+  ###df with minimizers for mgx data, non-contaminant species that passed filters. No unclassified or human reads
+  minimizer_df <- k2_minimizer_renorm[[mgx_id]] %>% 
+    dplyr::select(k2_taxon, mgx_LIBID, paired_counts,rel_abun) %>%
+    dplyr::rename(mgx_paired_counts=paired_counts, 
+                  mgx_rel_abun = rel_abun)
+  
+  ###df with minimizers for mtx data, non-contaminant species that passed filters. No unclassified or human reads
+  mtx_minimizer_df <- rna_k2_minimizer_renorm[[mtx_id]] %>% 
+    dplyr::select(k2_taxon, mtx_LIBID, paired_counts, rel_abun) %>%
+    dplyr::rename(mtx_paired_counts=paired_counts, 
+                  mtx_rel_abun = rel_abun)
+  
+  
+  
+  #Species level analysis: Add unpaired counts and RPK at mtx level
+  #For unpaired counts, subspecies will be collapsed into the parent species
+  mtx_taxa_df <- mtx_taxa_count_summary_subsp_collapse[[mtx_id]] %>% 
+    dplyr::rename(mtx_counts=read_count_sum,mtx_RPK=RPK_sum) %>% ungroup() %>% 
+    dplyr::filter(k2_taxon %in% mtx_minimizer_df$k2_taxon) %>% dplyr::select(-LIBID)
+  
+  
+  mtx_minimizer_df <- merge(mtx_minimizer_df, mtx_taxa_df, by = "k2_taxon", all.x=TRUE)
+  
+  #Species level analysis: Add unpaired counts and RPK at mgx level
+  mgx_taxa_df <- mgx_taxa_count_summary_subsp_collapse[[mgx_id]] %>% 
+    dplyr::rename(mgx_counts=read_count_sum,mgx_RPK=RPK_sum) %>% ungroup() %>%
+    dplyr::filter(k2_taxon %in% minimizer_df$k2_taxon) %>% dplyr::select(-LIBID)
+  
+  minimizer_df <- merge(minimizer_df, mgx_taxa_df, by = "k2_taxon", all.x=TRUE)
+  
+  
+  combined_df <- merge(minimizer_df,mtx_minimizer_df, all=TRUE, by = "k2_taxon")
+  
+ 
+  combined_df[is.na(combined_df)] <- 0
+  
+  combined_df$mtx_LIBID <- x
+  
+  
+  ###Also calculate the TPM (for mtx) and CPM (for mgx)
+  ##Important result
+  #No zero smoothing or imputation used
+  #The scaling factor should be based on per million FILTERED AND CLASSIFIED reads at species level. (So no K2 unclassified etc)
+  #It would not make sense to do TPM calculations with false positives and contaminants still included.
+  
+  mtx_RPK_sum <- combined_df %>% pull(mtx_RPK) %>% sum(.)
+  
+  mtx_scaling_factor <- mtx_RPK_sum / 1000000
+    
+  mgx_RPK_sum <- combined_df %>% pull(mgx_RPK) %>% sum(.)
+  
+  mgx_scaling_factor <- mgx_RPK_sum / 1000000
+  
+  
+  combined_df$mtx_TPM <- combined_df$mtx_RPK/mtx_scaling_factor
+  combined_df$mgx_CPM <- combined_df$mgx_RPK/mgx_scaling_factor
+  
+  
+  combined_df$transcriptional_activity <- combined_df$mtx_TPM/combined_df$mgx_CPM
+  
+  
+  #Compute a separate set of TPMs and transcriptional activity without Malassezia.
+  #This would be a rough proxy for "prokaryotic transcriptional activity"
+  
+  
+  mtx_RPK_prok_sum <- combined_df %>% 
+    dplyr::filter(str_detect(string=.$k2_taxon,
+                             pattern="Malassezia",
+                             negate=TRUE)) %>% pull(mtx_RPK) %>% sum(.)
+  
+  mtx_prok_scaling_factor <- mtx_RPK_prok_sum / 1000000
+    
+  mgx_RPK_prok_sum <- combined_df %>% 
+    dplyr::filter(str_detect(string=.$k2_taxon,
+                             pattern="Malassezia",
+                             negate=TRUE)) %>% pull(mgx_RPK) %>% sum(.)
+  
+  mgx_prok_scaling_factor <- mgx_RPK_prok_sum / 1000000
+  
+  
+  combined_df$mtx_TPM_prok <- ifelse(str_detect(string=combined_df$k2_taxon,
+                             pattern="Malassezia",
+                             negate=TRUE), combined_df$mtx_RPK/mtx_prok_scaling_factor,0)
+  
+  combined_df$mgx_CPM_prok <- ifelse(str_detect(string=combined_df$k2_taxon,
+                             pattern="Malassezia",
+                             negate=TRUE), combined_df$mgx_RPK/mgx_prok_scaling_factor,0)
+  
+  
+  combined_df$prok_transcriptional_activity <- ifelse(str_detect(string=combined_df$k2_taxon,
+                             pattern="Malassezia",
+                             negate=TRUE),combined_df$mtx_TPM_prok/combined_df$mgx_CPM_prok, 0)
+  
+  
+
+  return(combined_df)
+  
+})
+
+names(combined_taxa_count_list) <- mtx_to_pull
+
+#3096
+combined_taxa_count_activity_df <- do.call("rbind",combined_taxa_count_list) 
+
+combined_taxa_count_activity_df <- merge(combined_taxa_count_activity_df,
+                                         mtx_mgx_stats_chosen %>% 
+                                           dplyr::select(mtx_LIBID,subj_region,region))
+
+```
+
+Save the results of the previous code chunk
+```{r eval=FALSE}
+
+
+write_tsv(combined_taxa_count_activity_df, "../data/combined_taxa_count_activity_df.tsv")
+
+```
+
+
+## Remove contaminants and re-calculate abundances for MGX processed with MTX steps
+
+Repeated the same procedure to generate XXX, except this time the MGX abundances were derived from running metagenomes through the MTX workflow https://github.com/Chiamh/meta-omics-nf/
+
+This means both MTX and MGX would be decontaminated by STAR, subject to computational rRNA filtering, de-duplication before kraken2 classification.
+
+The purpose of doing this is to show that our findings are not dependent on differences in computational processing of MGX vs MTX reads.
+
+The steps are:
+
+i) Calculate taxonomic abundances after removing contaminants and false positive calls.
+
+```{r}
+
+
+mgx_alt_process_k2_minimizer <- lapply(mgx_to_pull, function(x) {
+  
+  df <- read_tsv(paste0("../data/kraken2/MGX_processed_with_MTX_steps/",x,"_k2.s.tsv"),
+                    col_names = c("rel_abun","paired_counts","minimizer_count","distinct_minimizer_count","k2_taxon"), show_col_types = FALSE) %>% 
+    dplyr::select(-c("rel_abun","minimizer_count")) %>% 
+    dplyr::filter(!k2_taxon %in% c("unclassified","Homo sapiens"))
+  
+  df$k2_taxon <- gsub(pattern=" ", replacement="_", df$k2_taxon)
+  
+  #label the non-contaminant, non spike in, non human reads at species level
+  
+  #label source as "non-contaminant", "contaminant", "spike". Note that "Listeria, Plesiomonas and Vibrio" are the spikes
+  df_bio  <- df %>% dplyr::filter(str_detect(df$k2_taxon, genera_mask, negate=TRUE)) %>% 
+    dplyr::filter(! k2_taxon %in% species_to_remove)
+  
+  df_bio$source <- "non_contaminant"
+  
+  df_contam <- df %>% 
+    dplyr::filter(str_detect(df$k2_taxon, genera_mask) | k2_taxon %in% species_to_remove)
+  
+  df_contam$source <- ifelse(str_detect(df_contam$k2_taxon, "^Listeria|^Plesiomonas|^Vibrio"), "spike", "contaminant")
+  
+  
+    
+  #Set relative abundance of contaminants and spike ins to zero
+  df_contam$rel_abun <- 0
+  
+  #Compute relative abundance at species level for for non-contaminants and non-spikes
+  #expressed as percentage abundance
+  df_bio$rel_abun <- (df_bio$paired_counts / sum(df_bio$paired_counts))*100
+  
+  df_labelled <- rbind(df_bio, df_contam)
+  
+  #rel abundance >= 0.1% for a non contaminant, non spike in.
+  df_labelled$abun_filter <- ifelse(df_labelled$rel_abun >= 0.1, TRUE, FALSE)
+  
+  #library specific minimizer threshold    
+  #Count the number of non-contaminant, non_spike in microbial read pairs at SPECIES LEVEL
+  microbial_reads <- sum(df_bio$paired_counts) 
+  microbial_reads_per_million <- microbial_reads/1E6
+  
+  minimizer_threshold <- 2000*microbial_reads_per_million
+  
+  df_labelled$species_microbial_read_pair_total <- microbial_reads  
+  df_labelled$minimizer_threshold <- minimizer_threshold
+  
+  #distinct minimizer to PER MILLION microbial read pair (non contaminant, non spike in, microbe reads at species level) ratio
+  df_labelled$minimizer_microbe_ratio <- df_labelled$distinct_minimizer_count / microbial_reads_per_million
+  
+  #for clarity purposes, set contaminant and spike in values to 0
+  df_labelled$minimizer_microbe_ratio <- ifelse(df_labelled$source == "non_contaminant",
+                                                df_labelled$minimizer_microbe_ratio, 0)
+  
+  df_labelled$minimizer_filter <- ifelse(df_labelled$distinct_minimizer_count >= minimizer_threshold,TRUE, FALSE)
+  
+  #taxa_pass_filter for MGX data if 
+  #a) at least 2000 unique k-mers per 1 million microbial reads AND
+  #b) at least >= 0.1% relative abundance amongst non contaminant, non spike in, microbe reads at species level
+  
+  #OR
+  
+  #c) There was a true positive RNA signal in the paired library
+  
+  matched_mtx_id <- mtx_mgx_stats_chosen %>% dplyr::filter(mgx_LIBID==x) %>% pull(mtx_LIBID) %>% unique(.)
+  
+  #true positive (TP) taxa in matching mtx data
+  matched_mtx_TP <- rna_k2_minimizer[[matched_mtx_id]] %>% dplyr::filter(taxa_pass_filter==TRUE) %>% pull(k2_taxon)
+  
+  df_labelled$mtx_filter <- ifelse(df_labelled$k2_taxon %in% matched_mtx_TP, TRUE, FALSE)
+  
+  #####
+  df_labelled$taxa_pass_filter <- ifelse((df_labelled$minimizer_filter ==TRUE &
+                                           df_labelled$abun_filter ==TRUE)|df_labelled$mtx_filter==TRUE, TRUE,FALSE)
+  df_labelled$mgx_LIBID <- x
+  
+  df_labelled$matched_mtx_LIBID <- matched_mtx_id
+  
+  return(df_labelled)
+  
+}) 
+
+names(mgx_alt_process_k2_minimizer) <- mgx_to_pull
+
+
+
+
+```
+
+ii) Perform total sum scaling renormalization on taxa that passed filters.
+
+```{r}
+#METAGENOMIC ABUNDANCES
+mgx_alt_process_k2_minimizer_renorm <- lapply(names(mgx_alt_process_k2_minimizer), function(x){
+  
+  #True positive
+  df_TP <- mgx_alt_process_k2_minimizer[[x]] %>% 
+    dplyr::filter(taxa_pass_filter==TRUE)
+  
+  #Compute relative abundance at species level expressed as percentage abundance
+  df_TP$rel_abun <- (df_TP$paired_counts / sum(df_TP$paired_counts))*100
+  
+  return(df_TP)
+  
+})
+
+names(mgx_alt_process_k2_minimizer_renorm) <- mgx_to_pull
+```
+
+Save the renormalized dataframes. These would be suitable for various downstream analyses
+
+```{r eval=FALSE}
+
+
+lapply(names(mgx_alt_process_k2_minimizer_renorm), function(x){
+  
+  write_tsv(mgx_alt_process_k2_minimizer_renorm[[x]], 
+            file=paste0("../data/k2_species_renorm/MGX_processed_with_MTX_steps/",x,"_alt_k2_renorm.s.tsv"))
+  
+})
+
+```
+
+iii) Calculate taxon CPM for MGX data processed with the alternative workflow.
+
+```{r}
+
+mgx_alt_process_taxa_count_list <- lapply(mgx_to_pull, function(x){
+  
+  mgx_id <- x
+  
+  ###df with minimizers for mgx data, non-contaminant species that passed filters. No unclassified or human reads
+  mgx_alt_process_minimizer_df <- mgx_alt_process_k2_minimizer_renorm[[mgx_id]] %>% 
+    dplyr::select(k2_taxon, mgx_LIBID, paired_counts,rel_abun) %>%
+    dplyr::rename(mgx_alt_paired_counts=paired_counts, 
+                  mgx_alt_rel_abun = rel_abun)
+  
+  
+  #need to tweak this again..
+  #Species level analysis: Add unpaired counts and RPK at mgx level
+  mgx_taxa_df <- mgx_taxa_count_summary_subsp_collapse[[mgx_id]] %>% 
+    dplyr::rename(mgx_counts=read_count_sum,mgx_RPK=RPK_sum) %>% ungroup() %>%
+    dplyr::filter(k2_taxon %in% minimizer_df$k2_taxon) %>% dplyr::select(-LIBID)
+  
+  minimizer_df <- merge(minimizer_df, mgx_taxa_df, by = "k2_taxon", all.x=TRUE)
+  
+  
+  mgx_alt_process_df <- merge(minimizer_df,mtx_minimizer_df, all=TRUE, by = "k2_taxon")
+  
+ 
+  mgx_alt_process_df[is.na(mgx_alt_process_df)] <- 0
+  
+  mgx_alt_process_df$mtx_LIBID <- x
+  
+  
+  ###Also calculate the TPM (for mtx) and CPM (for mgx)
+  ##Important result
+  #No zero smoothing or imputation used
+  #The scaling factor should be based on per million FILTERED AND CLASSIFIED reads at species level. (So no K2 unclassified etc)
+  #It would not make sense to do TPM calculations with false positives and contaminants still included.
+  
+  mtx_RPK_sum <- mgx_alt_process_df %>% pull(mtx_RPK) %>% sum(.)
+  
+  mtx_scaling_factor <- mtx_RPK_sum / 1000000
+    
+  mgx_RPK_sum <- mgx_alt_process_df %>% pull(mgx_RPK) %>% sum(.)
+  
+  mgx_scaling_factor <- mgx_RPK_sum / 1000000
+  
+  
+  mgx_alt_process_df$mtx_TPM <- mgx_alt_process_df$mtx_RPK/mtx_scaling_factor
+  mgx_alt_process_df$mgx_CPM <- mgx_alt_process_df$mgx_RPK/mgx_scaling_factor
+  
+  
+  mgx_alt_process_df$transcriptional_activity <- mgx_alt_process_df$mtx_TPM/mgx_alt_process_df$mgx_CPM
+  
+  
+  #Compute a separate set of TPMs and transcriptional activity without Malassezia.
+  #This would be a rough proxy for "prokaryotic transcriptional activity"
+  
+  
+  mtx_RPK_prok_sum <- mgx_alt_process_df %>% 
+    dplyr::filter(str_detect(string=.$k2_taxon,
+                             pattern="Malassezia",
+                             negate=TRUE)) %>% pull(mtx_RPK) %>% sum(.)
+  
+  mtx_prok_scaling_factor <- mtx_RPK_prok_sum / 1000000
+    
+  mgx_RPK_prok_sum <- mgx_alt_process_df %>% 
+    dplyr::filter(str_detect(string=.$k2_taxon,
+                             pattern="Malassezia",
+                             negate=TRUE)) %>% pull(mgx_RPK) %>% sum(.)
+  
+  mgx_prok_scaling_factor <- mgx_RPK_prok_sum / 1000000
+  
+  
+  mgx_alt_process_df$mtx_TPM_prok <- ifelse(str_detect(string=mgx_alt_process_df$k2_taxon,
+                             pattern="Malassezia",
+                             negate=TRUE), mgx_alt_process_df$mtx_RPK/mtx_prok_scaling_factor,0)
+  
+  mgx_alt_process_df$mgx_CPM_prok <- ifelse(str_detect(string=mgx_alt_process_df$k2_taxon,
+                             pattern="Malassezia",
+                             negate=TRUE), mgx_alt_process_df$mgx_RPK/mgx_prok_scaling_factor,0)
+  
+  
+  mgx_alt_process_df$prok_transcriptional_activity <- ifelse(str_detect(string=mgx_alt_process_df$k2_taxon,
+                             pattern="Malassezia",
+                             negate=TRUE),mgx_alt_process_df$mtx_TPM_prok/mgx_alt_process_df$mgx_CPM_prok, 0)
+  
+  
+
+  return(mgx_alt_process_df)
+  
+})
+
+names(mgx_alt_process_taxa_count_list) <- mtx_to_pull
+
+
+mgx_alt_process_taxa_count_activity_df <- do.call("rbind",mgx_alt_process_taxa_count_list) 
+
+
+```
+
+
+

@@ -1,0 +1,70 @@
+ 79.35	711	711	U	0	unclassified
+ 20.65	185	0	R	1	root
+ 20.65	185	0	R1	131567	  cellular organisms
+ 11.05	99	0	D	2759	    Eukaryota
+ 11.05	99	0	D1	33154	      Opisthokonta
+ 11.05	99	0	D2	4751	        Fungi
+ 11.05	99	0	D3	451864	          Dikarya
+ 11.05	99	0	P	5204	            Basidiomycota
+ 11.05	99	0	P1	452284	              Ustilaginomycotina
+ 11.05	99	0	C	1538075	                Malasseziomycetes
+ 11.05	99	0	O	162474	                  Malasseziales
+ 11.05	99	0	F	742845	                    Malasseziaceae
+ 11.05	99	0	G	55193	                      Malassezia
+  8.04	72	72	S	76773	                        Malassezia globosa
+  2.12	19	19	S	1514897	                        Malassezia arunalokei
+  0.89	8	5	S	76775	                        Malassezia restricta
+  0.33	3	3	S1	425264	                          Malassezia restricta CBS 7877
+  9.60	86	13	D	2	    Bacteria
+  6.36	57	0	P	1224	      Proteobacteria
+  6.36	57	0	C	1236	        Gammaproteobacteria
+  3.57	32	0	O	91347	          Enterobacterales
+  2.01	18	0	F	543	            Enterobacteriaceae
+  2.01	18	1	G	570	              Klebsiella
+  1.90	17	16	S	573	                Klebsiella pneumoniae
+  0.11	1	1	S1	72407	                  Klebsiella pneumoniae subsp. pneumoniae
+  1.56	14	0	O1	451511	            Enterobacterales incertae sedis
+  1.56	14	0	G	702	              Plesiomonas
+  1.56	14	14	S	703	                Plesiomonas shigelloides
+  2.79	25	0	O	135623	          Vibrionales
+  2.79	25	0	F	641	            Vibrionaceae
+  2.79	25	0	G	662	              Vibrio
+  2.79	25	15	S	672	                Vibrio vulnificus
+  0.78	7	7	S1	914127	                  Vibrio vulnificus MO6-24/O
+  0.22	2	2	S1	1246305	                  Vibrio vulnificus Env1
+  0.11	1	1	S1	748003	                  Vibrio vulnificus VVyb1(BT3)
+  1.67	15	0	D1	1783272	      Terrabacteria group
+  1.00	9	0	P	201174	        Actinobacteria
+  1.00	9	0	C	1760	          Actinomycetia
+  0.78	7	0	O	85009	            Propionibacteriales
+  0.78	7	0	F	31957	              Propionibacteriaceae
+  0.78	7	0	G	1912216	                Cutibacterium
+  0.78	7	7	S	1747	                  Cutibacterium acnes
+  0.22	2	0	O	85008	            Micromonosporales
+  0.22	2	0	F	28056	              Micromonosporaceae
+  0.22	2	0	G	53365	                Catellatospora
+  0.22	2	0	G1	2645785	                  unclassified Catellatospora
+  0.22	2	2	S	2728827	                    Catellatospora sp. IY07-71
+  0.67	6	0	P	1239	        Firmicutes
+  0.56	5	0	C	91061	          Bacilli
+  0.33	3	0	O	1385	            Bacillales
+  0.33	3	0	F	90964	              Staphylococcaceae
+  0.33	3	0	G	1279	                Staphylococcus
+  0.22	2	2	S	1286	                  Staphylococcus simulans
+  0.11	1	1	S	29388	                  Staphylococcus capitis
+  0.22	2	0	O	186826	            Lactobacillales
+  0.22	2	0	F	33958	              Lactobacillaceae
+  0.22	2	2	G	2767887	                Ligilactobacillus
+  0.11	1	0	C	186801	          Clostridia
+  0.11	1	0	O	186802	            Eubacteriales
+  0.11	1	0	F	31979	              Clostridiaceae
+  0.11	1	0	G	1485	                Clostridium
+  0.11	1	1	S	332101	                  Clostridium drakei
+  0.11	1	0	D1	1783270	      FCB group
+  0.11	1	0	D2	68336	        Bacteroidetes/Chlorobi group
+  0.11	1	0	P	976	          Bacteroidetes
+  0.11	1	0	C	200643	            Bacteroidia
+  0.11	1	0	O	171549	              Bacteroidales
+  0.11	1	0	F	815	                Bacteroidaceae
+  0.11	1	0	G	816	                  Bacteroides
+  0.11	1	1	S	817	                    Bacteroides fragilis

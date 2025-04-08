@@ -746,9 +746,9 @@ Load kraken 2 counts for RNA
 ```{r}
 
 invivo_RNA_k2 <- lapply(mtx_to_pull, function(x){
-  read_tsv(paste0("../data/kraken2/RNA/",x,"_merged_k2.s.tsv"), 
-           col_names = c("rel_abun", "paired_reads", "name"),
-           show_col_types = FALSE)
+  read_tsv(paste0("../data/kraken2/RNA/",x,"_merged_decont_k2.s.tsv"), 
+           col_names = c("rel_abun","paired_reads","minimizer_count","distinct_minimizer_count","name"),
+           show_col_types = FALSE) %>% dplyr::select(c("rel_abun", "paired_reads", "name"))
 })
 
 names(invivo_RNA_k2) <- mtx_to_pull

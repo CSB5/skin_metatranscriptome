@@ -1,0 +1,181 @@
+---
+title: "human_pangenome_decont"
+author: "Chiamh"
+date: "2025-04-03"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r}
+
+library(tidyverse)
+
+```
+
+Load metadata
+
+```{r}
+
+mgx_to_pull <- read_tsv("../metadata/mgx_to_pull", show_col_types = FALSE, col_names = "LIBID")
+
+mgx_stats_chosen <- read_tsv("../metadata/mtx_mgx_stats_chosen.tsv", show_col_types = FALSE) %>% 
+  dplyr::select(mgx_LIBID, region, subj_region) %>% dplyr::rename(LIBID=mgx_LIBID)
+
+```
+
+
+# Motivation
+
+The starting point are WGS reads (from n = 102 samples, full dataset) pre-filtered by bwa mapping to hg38.
+
+All unmapped reads were classified with Kraken2 (containing the human genome in the database) and reads not classified as metazoan (or descendants of) were extracted.
+
+These extracted reads were then mapped again to a human pangenome graph *.gbz (hprc-v1.1-mc-chm13) using giraffe from vg 1.63.1
+
+# Analysis
+
+We can then ask the question: of all reads classified as "non-metazoan" by Kraken2, what percentage mapped to the human pangenome?
+
+```{r}
+#This analysis also includes unclassified reads
+
+MGX_hupan_QC <- read_tsv("../data/human_pangenome_check/MGX_microbial_hprc-v1.1-mc-chm13_QC.txt", 
+                         col_names = c("LIBID", "non_metazoan_kraken2_read_pairs", "mapped_to_human_pangenome_read_pairs"),
+                         show_col_types = FALSE)
+
+
+MGX_hupan_QC$percentage_mapped <- (MGX_hupan_QC$mapped_to_human_pangenome_read_pairs / MGX_hupan_QC$non_metazoan_kraken2_read_pairs) *100
+
+
+range(MGX_hupan_QC$percentage_mapped) #0.0007050937 0.3081946092
+#median percentage mapped
+median(MGX_hupan_QC$percentage_mapped) #0.0137 %
+
+
+
+```
+median 0.01% is well under the threshold of 0.1% for which species were removed from each metagenome. 
+
+We can further refine this question and ask how many classified, non-metazoan reads were mapped to the human pangenome
+
+```{r}
+
+#all unclassified read pairs in the 102 MGX samples, regardless of mapping to human pangenome 
+
+MGX_all_unclassified <- read_tsv("../data/human_pangenome_check/MGX_unclassified.k2report",
+                                 show_col_types = FALSE,
+                                 col_names = c("LIBID","unclassified_kraken2_read_pairs","X3")) %>%
+  dplyr::select(-X3) %>% dplyr::filter(LIBID %in% MGX_hupan_QC$LIBID)
+
+
+#This is the # of kraken2 unclassified read pairs from the subset of non-metazoan reads that mapped to the human pangenome
+
+MGX_k2_unclassified_hupan_mapped <- read_tsv("../data/human_pangenome_check/mapped_to_hprc/MGX_k2-unclassified_hupan-mapped.tsv",
+                                             show_col_types = FALSE,
+                                             col_names = c("LIBID", "unclassified_kraken2_hupan_mapped_read_pairs")) %>%
+  dplyr::select(-X3)
+
+#can also use purrr::reduce
+MGX_unclassified_df <- merge(MGX_all_unclassified, MGX_k2_unclassified_hupan_mapped, by = "LIBID")
+
+MGX_hupan_QC_fmt <- merge(MGX_hupan_QC, MGX_unclassified_df, by = "LIBID" )
+
+MGX_hupan_QC_fmt$classified_kraken2_read_pairs <- MGX_hupan_QC_fmt$non_metazoan_kraken2_read_pairs - 
+  MGX_hupan_QC_fmt$unclassified_kraken2_read_pairs
+
+MGX_hupan_QC_fmt$classified_kraken2_hupan_mapped_read_pairs <- MGX_hupan_QC_fmt$mapped_to_human_pangenome_read_pairs -
+  MGX_hupan_QC_fmt$unclassified_kraken2_hupan_mapped_read_pairs
+
+MGX_hupan_QC_fmt$k2_classified_percentage_mapped <- (MGX_hupan_QC_fmt$classified_kraken2_hupan_mapped_read_pairs / MGX_hupan_QC_fmt$classified_kraken2_read_pairs ) *100
+
+range(MGX_hupan_QC_fmt$k2_classified_percentage_mapped) # 0.0006510942 0.1712844554
+
+median(MGX_hupan_QC_fmt$k2_classified_percentage_mapped) #0.008317539
+
+
+```
+We can ask another question: across all 5 body sites, what % of different microbial genus level reads (sans contaminants) are mapped to human pangenome?
+
+The genera to check are: Cutibacterium, Staphylococcus and Malassezia
+
+```{r}
+
+#Load genus level kraken2 results for read pairs that were mapped to the human pangenome (hupan)
+
+mgx_k2_genus_hupan_mapped <- lapply(mgx_to_pull$LIBID, function(ID){
+  
+  df <- read_tsv(paste0("../data/human_pangenome_check/mapped_to_hprc/",ID,"_microbe_to_human_genus.kreport2"),
+                 show_col_types = FALSE,
+                 col_names = c("read_pairs_mapped_to_hupan", "genus")) %>%
+    dplyr::filter(genus %in% c("Cutibacterium","Staphylococcus","Malassezia"))
+  
+  df$LIBID <- ID
+  
+  return(df)
+  
+}) %>% do.call("rbind",.)
+
+
+#Load genus level kraken2 results for all MGX read pairs, including those not mapped to human pangenome
+
+mgx_k2_genus <- lapply(mgx_to_pull$LIBID, function(ID){
+  
+  df <- read_tsv(paste0("../data/kraken2/DNA/",ID,"_merged_k2.g.tsv"),
+                 show_col_types = FALSE,
+                 col_names = c("read_pairs_rooted_at_genus", "genus")) %>%
+    dplyr::filter(genus %in% c("Cutibacterium","Staphylococcus","Malassezia"))
+  
+  df$LIBID <- ID
+  
+  return(df)
+  
+}) %>% do.call("rbind",.)
+
+#merge the dataframes
+
+mgx_k2_genus_fmt <- merge(mgx_k2_genus, mgx_k2_genus_hupan_mapped, by = c("LIBID","genus"), all.x=TRUE) %>%
+  mutate(across(everything(), ~ replace_na(.x, FALSE)))
+
+
+
+mgx_k2_genus_fmt$percentage_mapped_to_hupan <- (mgx_k2_genus_fmt$read_pairs_mapped_to_hupan / mgx_k2_genus_fmt$read_pairs_rooted_at_genus) *100
+
+#median %s
+mgx_k2_genus_median <- mgx_k2_genus_fmt %>% group_by(genus) %>% summarize(median=median(percentage_mapped_to_hupan))
+
+# Cutibacterium  0.00108
+# Malassezia     0.0258 
+# Staphylococcus 0.00304
+
+
+#Plot these percentages as barplots
+
+mgx_k2_genus_hupan_barplots <- ggplot(mgx_k2_genus_fmt, 
+       aes(x=genus, y=percentage_mapped_to_hupan, fill=genus)) + geom_boxplot() +
+  theme_classic() + 
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1), axis.title.x=element_blank()) + 
+  theme(axis.text.x = element_text(face = "italic")) + labs(y = "% mapped to human pangenome")
+
+
+ggsave(filename="../plots/mgx_k2_genus_hupan_barplots.pdf",
+       plot=mgx_k2_genus_hupan_barplots ,
+       height = 8, width = 8)
+
+
+mgx_k2_genus_hupan_barplots 
+
+
+
+```
+
+
+
+
+
+
+
+

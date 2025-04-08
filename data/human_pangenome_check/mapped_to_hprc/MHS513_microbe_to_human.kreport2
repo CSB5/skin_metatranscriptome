@@ -1,0 +1,37 @@
+ 95.05	538	538	U	0	unclassified
+  4.95	28	0	R	1	root
+  4.95	28	1	R1	131567	  cellular organisms
+  2.65	15	5	D	2	    Bacteria
+  1.41	8	0	P	1224	      Proteobacteria
+  1.41	8	0	C	1236	        Gammaproteobacteria
+  1.06	6	0	O	91347	          Enterobacterales
+  0.71	4	0	O1	451511	            Enterobacterales incertae sedis
+  0.71	4	0	G	702	              Plesiomonas
+  0.71	4	4	S	703	                Plesiomonas shigelloides
+  0.35	2	0	F	543	            Enterobacteriaceae
+  0.35	2	0	G	570	              Klebsiella
+  0.35	2	2	S	573	                Klebsiella pneumoniae
+  0.35	2	0	O	135623	          Vibrionales
+  0.35	2	0	F	641	            Vibrionaceae
+  0.35	2	0	G	662	              Vibrio
+  0.35	2	1	S	672	                Vibrio vulnificus
+  0.18	1	1	S1	914127	                  Vibrio vulnificus MO6-24/O
+  0.35	2	0	D1	1783272	      Terrabacteria group
+  0.35	2	0	P	1239	        Firmicutes
+  0.35	2	0	C	91061	          Bacilli
+  0.35	2	0	O	1385	            Bacillales
+  0.35	2	0	F	186817	              Bacillaceae
+  0.35	2	2	G	400634	                Lysinibacillus
+  2.12	12	0	D	2759	    Eukaryota
+  2.12	12	0	D1	33154	      Opisthokonta
+  2.12	12	0	D2	4751	        Fungi
+  2.12	12	0	D3	451864	          Dikarya
+  2.12	12	0	P	5204	            Basidiomycota
+  2.12	12	0	P1	452284	              Ustilaginomycotina
+  2.12	12	0	C	1538075	                Malasseziomycetes
+  2.12	12	0	O	162474	                  Malasseziales
+  2.12	12	0	F	742845	                    Malasseziaceae
+  2.12	12	0	G	55193	                      Malassezia
+  1.41	8	8	S	76773	                        Malassezia globosa
+  0.71	4	3	S	76775	                        Malassezia restricta
+  0.18	1	1	S1	425264	                          Malassezia restricta CBS 7877

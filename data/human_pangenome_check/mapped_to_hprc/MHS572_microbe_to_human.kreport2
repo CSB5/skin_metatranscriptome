@@ -1,0 +1,110 @@
+ 60.43	510	510	U	0	unclassified
+ 39.57	334	0	R	1	root
+ 39.34	332	1	R1	131567	  cellular organisms
+ 21.33	180	0	D	2759	    Eukaryota
+ 21.33	180	0	D1	33154	      Opisthokonta
+ 21.33	180	0	D2	4751	        Fungi
+ 21.33	180	0	D3	451864	          Dikarya
+ 21.21	179	0	P	5204	            Basidiomycota
+ 21.21	179	0	P1	452284	              Ustilaginomycotina
+ 21.21	179	0	C	1538075	                Malasseziomycetes
+ 21.21	179	0	O	162474	                  Malasseziales
+ 21.21	179	0	F	742845	                    Malasseziaceae
+ 21.21	179	1	G	55193	                      Malassezia
+ 16.11	136	102	S	76775	                        Malassezia restricta
+  4.03	34	34	S1	425264	                          Malassezia restricta CBS 7877
+  4.15	35	35	S	76773	                        Malassezia globosa
+  0.47	4	4	S	77020	                        Malassezia pachydermatis
+  0.24	2	2	S	55194	                        Malassezia furfur
+  0.12	1	1	S	1514897	                        Malassezia arunalokei
+  0.12	1	0	P	4890	            Ascomycota
+  0.12	1	0	P1	716545	              saccharomyceta
+  0.12	1	0	P2	147537	                Saccharomycotina
+  0.12	1	0	C	4891	                  Saccharomycetes
+  0.12	1	0	O	4892	                    Saccharomycetales
+  0.12	1	0	F	4893	                      Saccharomycetaceae
+  0.12	1	0	G	278028	                        Naumovozyma
+  0.12	1	0	S	27289	                          Naumovozyma dairenensis
+  0.12	1	1	S1	1071378	                            Naumovozyma dairenensis CBS 421
+ 17.89	151	2	D	2	    Bacteria
+ 12.09	102	0	D1	1783272	      Terrabacteria group
+ 11.49	97	0	P	201174	        Actinobacteria
+ 11.49	97	0	C	1760	          Actinomycetia
+ 11.02	93	0	O	85009	            Propionibacteriales
+ 11.02	93	0	F	31957	              Propionibacteriaceae
+ 11.02	93	14	G	1912216	                Cutibacterium
+  8.89	75	69	S	1747	                  Cutibacterium acnes
+  0.59	5	1	S1	1734925	                    Cutibacterium acnes subsp. acnes
+  0.47	4	4	S2	1114967	                      Cutibacterium acnes TypeIA2 P.acn17
+  0.12	1	1	S1	909952	                    Cutibacterium acnes 266
+  0.24	2	2	S	33011	                  Cutibacterium granulosum
+  0.12	1	0	S	33010	                  Cutibacterium avidum
+  0.12	1	1	S1	1170318	                    Cutibacterium avidum 44067
+  0.12	1	1	S	2559073	                  Cutibacterium modestum
+  0.24	2	0	O	2037	            Actinomycetales
+  0.24	2	0	F	2049	              Actinomycetaceae
+  0.24	2	0	G	1654	                Actinomyces
+  0.24	2	2	S	544580	                  Actinomyces oris
+  0.12	1	0	O	85008	            Micromonosporales
+  0.12	1	0	F	28056	              Micromonosporaceae
+  0.12	1	0	G	1873	                Micromonospora
+  0.12	1	1	S	47857	                  Micromonospora echinaurantiaca
+  0.12	1	0	O	85006	            Micrococcales
+  0.12	1	0	F	85018	              Dermatophilaceae
+  0.12	1	0	G	984996	                Mobilicoccus
+  0.12	1	0	G1	2649508	                  unclassified Mobilicoccus
+  0.12	1	1	S	2716227	                    Mobilicoccus sp. NJES-13
+  0.47	4	0	P	1239	        Firmicutes
+  0.24	2	0	C	909932	          Negativicutes
+  0.24	2	0	O	1843489	            Veillonellales
+  0.24	2	0	F	31977	              Veillonellaceae
+  0.24	2	0	G	29465	                Veillonella
+  0.24	2	1	S	29466	                  Veillonella parvula
+  0.12	1	1	S1	1316254	                    Veillonella parvula HSIVP1
+  0.24	2	0	C	91061	          Bacilli
+  0.12	1	0	O	1385	            Bacillales
+  0.12	1	0	F	90964	              Staphylococcaceae
+  0.12	1	0	G	1279	                Staphylococcus
+  0.12	1	1	S	29382	                  Staphylococcus cohnii
+  0.12	1	0	O	186826	            Lactobacillales
+  0.12	1	0	F	33958	              Lactobacillaceae
+  0.12	1	0	G	2742598	                Limosilactobacillus
+  0.12	1	1	S	1613	                  Limosilactobacillus fermentum
+  0.12	1	0	P	1297	        Deinococcus-Thermus
+  0.12	1	0	C	188787	          Deinococci
+  0.12	1	0	O	68933	            Thermales
+  0.12	1	0	F	188786	              Thermaceae
+  0.12	1	0	G	65551	                Meiothermus
+  0.12	1	0	S	172827	                  Meiothermus taiwanensis
+  0.12	1	1	S1	1339250	                    Meiothermus taiwanensis WR-220
+  5.57	47	0	P	1224	      Proteobacteria
+  5.45	46	0	C	1236	        Gammaproteobacteria
+  4.86	41	0	O	91347	          Enterobacterales
+  4.38	37	0	F	543	            Enterobacteriaceae
+  4.38	37	19	G	570	              Klebsiella
+  1.54	13	12	S	573	                Klebsiella pneumoniae
+  0.12	1	1	S1	72407	                  Klebsiella pneumoniae subsp. pneumoniae
+  0.59	5	5	S	2058152	                Klebsiella grimontii
+  0.47	4	0	O1	451511	            Enterobacterales incertae sedis
+  0.47	4	0	G	702	              Plesiomonas
+  0.47	4	4	S	703	                Plesiomonas shigelloides
+  0.59	5	0	O	135623	          Vibrionales
+  0.59	5	0	F	641	            Vibrionaceae
+  0.59	5	0	G	662	              Vibrio
+  0.59	5	4	S	672	                Vibrio vulnificus
+  0.12	1	1	S1	914127	                  Vibrio vulnificus MO6-24/O
+  0.12	1	0	P1	68525	        delta/epsilon subdivisions
+  0.12	1	0	C	28221	          Deltaproteobacteria
+  0.12	1	0	O	69541	            Desulfuromonadales
+  0.12	1	0	F	213422	              Geobacteraceae
+  0.12	1	0	G	2651583	                Geomonas
+  0.12	1	0	G1	2860296	                  unclassified Geomonas
+  0.12	1	1	S	2847991	                    Geomonas sp. RF4
+  0.24	2	0	D	10239	  Viruses
+  0.24	2	0	D1	2731341	    Duplodnaviria
+  0.24	2	0	D2	2731360	      Heunggongvirae
+  0.24	2	0	P	2731618	        Uroviricota
+  0.24	2	0	C	2731619	          Caudoviricetes
+  0.24	2	0	O	28883	            Caudovirales
+  0.24	2	0	F	10699	              Siphoviridae
+  0.24	2	2	G	1982251	                Pahexavirus
