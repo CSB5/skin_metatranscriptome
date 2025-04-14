@@ -19,6 +19,7 @@ Load libraries
 ```{r}
 
 library(tidyverse)
+library(ggpubr)
 
 source("custom_functions.R")
 
@@ -29,9 +30,18 @@ Load metadata and supporting files.
 
 ```{r}
 
-
+#for mgx and mtx data processed using the regular steps of the pipeline described in https://github.com/Chiamh/meta-omics-nf/tree/main
 combined_taxa_count_activity_df <- read_tsv("../data/combined_taxa_count_activity_df.tsv",
                                             show_col_types = FALSE)
+
+#for mgx data processed using fastp, STAR, rRNA removal and de-duplication just like mtx reads
+mgx_alt_process_taxa_count_activity_df <- read_tsv("../data/mgx_alt_process_taxa_count_activity_df.tsv",
+                                                   show_col_types = FALSE) %>%
+                                          dplyr::rename(mgx_alt_counts=mgx_counts,
+                                                        mgx_alt_RPK=mgx_RPK,
+                                                        mgx_alt_CPM=mgx_CPM,
+                                                        mgx_alt_CPM_prok=mgx_CPM_prok)
+
 
 mgx_species_site_prevalence_labelled <- read_tsv("../data/mgx_species_site_prevalence_labelled.tsv",
                                                  show_col_types = FALSE)
@@ -102,3 +112,84 @@ core_prevalent_combined_taxa_TPM_scatter
 
 
 ```
+
+Repeat the same analysis with mgx CPM values derived from the same mgx input but processed using fastp, STAR, rRNA removal and de-duplication just like mtx reads
+
+
+```{r}
+
+ALT_combined_taxa_count_activity_df <- merge(combined_taxa_count_activity_df, mgx_alt_process_taxa_count_activity_df,
+                                             by=c("mgx_LIBID","k2_taxon"), all.x=TRUE)
+
+ALT_combined_taxa_count_activity_df[is.na(ALT_combined_taxa_count_activity_df)] <- 0
+
+
+ALT_core_prevalent_combined_taxa_count_activity_df <- lapply(c("Sc","Ch","Ac","Vf","Tw"), function(x){
+  
+  #This will only retain species which are prevalent or core to a site.
+  mgx_species_specific_site <- mgx_species_site_prevalence_labelled_threshold %>% 
+    dplyr::filter(region==x)
+  
+  #dataframe with transcriptional activities of prevalent or core species at each site
+  ALT_specific_site_species_activity_df <- ALT_combined_taxa_count_activity_df %>% 
+    dplyr::filter(region==x & k2_taxon %in% mgx_species_specific_site$species)
+  
+  return(ALT_specific_site_species_activity_df)
+  
+}) %>% do.call("rbind",.)
+
+
+ALT_core_prevalent_combined_taxa_count_activity_df$region <- factor(ALT_core_prevalent_combined_taxa_count_activity_df$region, 
+                                           levels=c("Sc","Ch","Ac","Vf","Tw"))
+
+
+
+ALT_core_prevalent_combined_taxa_count_activity_df$genus <- word(string=ALT_core_prevalent_combined_taxa_count_activity_df$k2_taxon, 
+                                                             start=1, sep="_")
+
+ALT_core_prevalent_combined_taxa_TPM_scatter <- ggplot(ALT_core_prevalent_combined_taxa_count_activity_df, 
+       aes(y=mtx_TPM, x=mgx_alt_CPM, color=genus)) + geom_point(size=2) + 
+  theme_classic() + scale_color_manual(values=c24) +
+  facet_wrap(~region, ncol=3, nrow=2, scales='free') +
+  scale_y_continuous(labels = function(x) format(x, scientific = TRUE)) +
+  scale_x_continuous(labels = function(x) format(x, scientific = TRUE)) +
+  theme(axis.line=element_line())  +
+  geom_abline(intercept=0, slope=1) + 
+  geom_abline(intercept=0, slope=4,linetype=3) +
+  geom_abline(intercept=0, slope=0.25,linetype=3)  
+  
+
+ggsave(plot = ALT_core_prevalent_combined_taxa_TPM_scatter, 
+       filename = "../plots/ALT_core_common_taxa_RNA_v_DNA.pdf", width = 10, height = 7)
+
+
+ALT_core_prevalent_combined_taxa_TPM_scatter
+
+
+```
+
+Correlate mgx rel abun and mgx rel abun at genus level.
+
+```{r}
+
+#Color code by genus
+
+mgx_alt_vs_mgx_rel_abun_corr <- ggplot(data=ALT_core_prevalent_combined_taxa_count_activity_df, aes(x=mgx_rel_abun,
+                                                      y=mgx_alt_rel_abun,
+                                                      )) + 
+  geom_point(aes(color=genus, size=5)) + theme_classic() + stat_cor(method = "pearson") + 
+  stat_smooth( method = "lm") + scale_color_manual(values=c24)
+
+
+ggsave("../plots/mgx_alt_vs_mgx_rel_abun_corr.pdf", plot=mgx_alt_vs_mgx_rel_abun_corr)
+
+mgx_alt_vs_mgx_rel_abun_corr
+
+
+```
+
+
+
+
+
+

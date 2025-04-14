@@ -45,6 +45,8 @@ mtx_mgx_stats_chosen <- read_tsv(file="../metadata/mtx_mgx_stats_chosen.tsv", sh
 mtx_taxa_count_summary_subsp_collapse <- readRDS(file="../data/mtx_taxa_count_summary_subsp_collapse.RDS")
 #see taxa_subsp_calc.Rmd
 mgx_taxa_count_summary_subsp_collapse <- readRDS(file="../data/mgx_taxa_count_summary_subsp_collapse.RDS")
+#see taxa_subsp_calc.Rmd
+mgx_alt_taxa_count_summary_subsp_collapse <- readRDS(file="../data/mgx_alt_taxa_count_summary_subsp_collapse.RDS")
 
 
 #load disbiome and microphenoDB results for genera reported on skin, both for mgx and mtx data
@@ -631,6 +633,22 @@ lapply(names(mgx_alt_process_k2_minimizer_renorm), function(x){
 
 ```
 
+Load intermediate files from previous code chunks to save time:
+```{r}
+
+mgx_alt_process_k2_minimizer_renorm <- lapply(mgx_to_pull, function(x){
+  
+  df <- read_tsv(file=paste0("../data/k2_species_renorm/MGX_processed_with_MTX_steps/",x,"_alt_k2_renorm.s.tsv"),
+                 show_col_types = FALSE)
+  return(df)
+  
+})
+
+names(mgx_alt_process_k2_minimizer_renorm) <- mgx_to_pull
+
+```
+
+
 iii) Calculate taxon CPM for MGX data processed with the alternative workflow.
 
 ```{r}
@@ -640,63 +658,41 @@ mgx_alt_process_taxa_count_list <- lapply(mgx_to_pull, function(x){
   mgx_id <- x
   
   ###df with minimizers for mgx data, non-contaminant species that passed filters. No unclassified or human reads
-  mgx_alt_process_minimizer_df <- mgx_alt_process_k2_minimizer_renorm[[mgx_id]] %>% 
+  mgx_alt_minimizer_df <- mgx_alt_process_k2_minimizer_renorm[[mgx_id]] %>% 
     dplyr::select(k2_taxon, mgx_LIBID, paired_counts,rel_abun) %>%
     dplyr::rename(mgx_alt_paired_counts=paired_counts, 
                   mgx_alt_rel_abun = rel_abun)
   
   
-  #need to tweak this again..
   #Species level analysis: Add unpaired counts and RPK at mgx level
-  mgx_taxa_df <- mgx_taxa_count_summary_subsp_collapse[[mgx_id]] %>% 
+  mgx_taxa_df <- mgx_alt_taxa_count_summary_subsp_collapse[[mgx_id]] %>% 
     dplyr::rename(mgx_counts=read_count_sum,mgx_RPK=RPK_sum) %>% ungroup() %>%
-    dplyr::filter(k2_taxon %in% minimizer_df$k2_taxon) %>% dplyr::select(-LIBID)
+    dplyr::filter(k2_taxon %in% mgx_alt_minimizer_df$k2_taxon) %>% dplyr::select(-LIBID)
   
-  minimizer_df <- merge(minimizer_df, mgx_taxa_df, by = "k2_taxon", all.x=TRUE)
-  
-  
-  mgx_alt_process_df <- merge(minimizer_df,mtx_minimizer_df, all=TRUE, by = "k2_taxon")
+  minimizer_df <- merge(mgx_alt_minimizer_df, mgx_taxa_df, by = "k2_taxon", all.x=TRUE)
   
  
-  mgx_alt_process_df[is.na(mgx_alt_process_df)] <- 0
+  minimizer_df[is.na(minimizer_df)] <- 0
   
-  mgx_alt_process_df$mtx_LIBID <- x
+  minimizer_df$mgx_LIBID <- x
   
   
-  ###Also calculate the TPM (for mtx) and CPM (for mgx)
+  ###Calculate the TPM (for mtx) and CPM (for mgx)
   ##Important result
   #No zero smoothing or imputation used
   #The scaling factor should be based on per million FILTERED AND CLASSIFIED reads at species level. (So no K2 unclassified etc)
   #It would not make sense to do TPM calculations with false positives and contaminants still included.
   
-  mtx_RPK_sum <- mgx_alt_process_df %>% pull(mtx_RPK) %>% sum(.)
-  
-  mtx_scaling_factor <- mtx_RPK_sum / 1000000
-    
-  mgx_RPK_sum <- mgx_alt_process_df %>% pull(mgx_RPK) %>% sum(.)
+  mgx_RPK_sum <- minimizer_df %>% pull(mgx_RPK) %>% sum(.)
   
   mgx_scaling_factor <- mgx_RPK_sum / 1000000
   
-  
-  mgx_alt_process_df$mtx_TPM <- mgx_alt_process_df$mtx_RPK/mtx_scaling_factor
-  mgx_alt_process_df$mgx_CPM <- mgx_alt_process_df$mgx_RPK/mgx_scaling_factor
+  minimizer_df$mgx_CPM <- (minimizer_df$mgx_RPK)/mgx_scaling_factor
   
   
-  mgx_alt_process_df$transcriptional_activity <- mgx_alt_process_df$mtx_TPM/mgx_alt_process_df$mgx_CPM
+  #Compute a separate set of CPMs without Malassezia.
   
-  
-  #Compute a separate set of TPMs and transcriptional activity without Malassezia.
-  #This would be a rough proxy for "prokaryotic transcriptional activity"
-  
-  
-  mtx_RPK_prok_sum <- mgx_alt_process_df %>% 
-    dplyr::filter(str_detect(string=.$k2_taxon,
-                             pattern="Malassezia",
-                             negate=TRUE)) %>% pull(mtx_RPK) %>% sum(.)
-  
-  mtx_prok_scaling_factor <- mtx_RPK_prok_sum / 1000000
-    
-  mgx_RPK_prok_sum <- mgx_alt_process_df %>% 
+  mgx_RPK_prok_sum <- minimizer_df %>% 
     dplyr::filter(str_detect(string=.$k2_taxon,
                              pattern="Malassezia",
                              negate=TRUE)) %>% pull(mgx_RPK) %>% sum(.)
@@ -704,29 +700,28 @@ mgx_alt_process_taxa_count_list <- lapply(mgx_to_pull, function(x){
   mgx_prok_scaling_factor <- mgx_RPK_prok_sum / 1000000
   
   
-  mgx_alt_process_df$mtx_TPM_prok <- ifelse(str_detect(string=mgx_alt_process_df$k2_taxon,
+  minimizer_df$mgx_CPM_prok <- ifelse(str_detect(string=minimizer_df$k2_taxon,
                              pattern="Malassezia",
-                             negate=TRUE), mgx_alt_process_df$mtx_RPK/mtx_prok_scaling_factor,0)
-  
-  mgx_alt_process_df$mgx_CPM_prok <- ifelse(str_detect(string=mgx_alt_process_df$k2_taxon,
-                             pattern="Malassezia",
-                             negate=TRUE), mgx_alt_process_df$mgx_RPK/mgx_prok_scaling_factor,0)
-  
-  
-  mgx_alt_process_df$prok_transcriptional_activity <- ifelse(str_detect(string=mgx_alt_process_df$k2_taxon,
-                             pattern="Malassezia",
-                             negate=TRUE),mgx_alt_process_df$mtx_TPM_prok/mgx_alt_process_df$mgx_CPM_prok, 0)
-  
+                             negate=TRUE), minimizer_df$mgx_RPK/mgx_prok_scaling_factor,0)
   
 
-  return(mgx_alt_process_df)
+  return(minimizer_df)
   
 })
 
-names(mgx_alt_process_taxa_count_list) <- mtx_to_pull
+names(mgx_alt_process_taxa_count_list) <- mgx_to_pull
 
 
 mgx_alt_process_taxa_count_activity_df <- do.call("rbind",mgx_alt_process_taxa_count_list) 
+
+
+```
+
+Save results
+```{r}
+
+write_tsv(mgx_alt_process_taxa_count_activity_df,
+          file="../data/mgx_alt_process_taxa_count_activity_df.tsv")
 
 
 ```

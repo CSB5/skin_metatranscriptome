@@ -1,0 +1,448 @@
+---
+title: "virus_analysis"
+author: "Chiamh"
+date: "2025-04-11"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Visualizing summary statistics for kraken2 classified virus reads 
+
+```{r}
+
+library(tidyverse)
+library(ggpubr)
+
+```
+
+Load metadata
+
+```{r}
+
+metadata <- read_tsv("../metadata/skin_mtx_metadata_fmt.txt", show_col_types = FALSE) 
+
+mgx_stats <- read_tsv("../metadata/MGX_QC_stats.txt", show_col_types = FALSE) 
+
+mtx_stats <- read_tsv("../metadata/MTX_QC_stats.txt", show_col_types = FALSE) 
+
+mgx_stats <- merge(mgx_stats, metadata, by = "LIBID", all.x=TRUE)
+
+mtx_stats <- merge(mtx_stats, metadata, by ="LIBID", all.x=TRUE)
+
+#mtx_to_pull and mgx_to_pull refer to the 102 Libraries with paired MTX and MGX data:
+
+mtx_to_pull <- read_tsv("../metadata/mtx_to_pull", col_names = FALSE, show_col_types = FALSE) %>% pull(X1)
+
+mgx_to_pull <- read_tsv("../metadata/mgx_to_pull", col_names = FALSE, show_col_types = FALSE) %>% pull(X1)
+
+mtx_stats_chosen <- mtx_stats %>% dplyr::filter(LIBID %in% mtx_to_pull)
+
+mgx_stats_chosen <- mgx_stats %>% dplyr::filter(LIBID %in% mgx_to_pull)
+
+mtx_mgx_stats_chosen <- read_tsv(file="../metadata/mtx_mgx_stats_chosen.tsv", show_col_types = FALSE)
+
+
+#MTX Library IDs per site
+
+mtx_Sc_ids <- mtx_mgx_stats_chosen %>% dplyr::filter(region=="Sc") %>% pull(mtx_LIBID)
+mtx_Ch_ids <- mtx_mgx_stats_chosen %>% dplyr::filter(region=="Ch") %>% pull(mtx_LIBID)
+mtx_Ac_ids <- mtx_mgx_stats_chosen %>% dplyr::filter(region=="Ac") %>% pull(mtx_LIBID)
+mtx_Vf_ids <- mtx_mgx_stats_chosen %>% dplyr::filter(region=="Vf") %>% pull(mtx_LIBID)
+mtx_Tw_ids <- mtx_mgx_stats_chosen %>% dplyr::filter(region=="Tw") %>% pull(mtx_LIBID)
+
+#MGX Library IDs per site
+
+mgx_Sc_ids <- mtx_mgx_stats_chosen %>% dplyr::filter(region=="Sc") %>% pull(mgx_LIBID)
+mgx_Ch_ids <- mtx_mgx_stats_chosen %>% dplyr::filter(region=="Ch") %>% pull(mgx_LIBID)
+mgx_Ac_ids <- mtx_mgx_stats_chosen %>% dplyr::filter(region=="Ac") %>% pull(mgx_LIBID)
+mgx_Vf_ids <- mtx_mgx_stats_chosen %>% dplyr::filter(region=="Vf") %>% pull(mgx_LIBID)
+mgx_Tw_ids <- mtx_mgx_stats_chosen %>% dplyr::filter(region=="Tw") %>% pull(mgx_LIBID)
+
+```
+
+Load Domain (Eukaryota, Archaea, Bacteria, Viruses) and Fungi Kingdom counts for mgx and mtx samples
+
+Caution: relative abundances in these files have not been re-normalized to domain level. They were the raw values extracted from the kraken2.tax files
+
+```{r}
+
+all_mgx_k2_domain <- read_tsv("../data/kraken2/DNA/all_mgx_decont_k2.d.tsv",
+                              show_col_types = FALSE,
+                              col_names = c(col_names = c("rel_abun","paired_counts_rooted_at_taxon",
+                                                          "paired_counts_assigned_directly",
+                                                          "minimizer_count","distinct_minimizer_count",
+                                                          "rank_code",
+                                                          "taxid",
+                                                          "k2_taxon",
+                                                          "mgx_LIBID")))
+
+all_mgx_virus <- all_mgx_k2_domain %>% dplyr::filter(k2_taxon=="Viruses") %>% 
+  dplyr::select(mgx_LIBID, paired_counts_rooted_at_taxon) %>% 
+  dplyr::rename(mgx_virus_paired_counts = paired_counts_rooted_at_taxon)
+
+
+all_mtx_k2_domain <- read_tsv("../data/kraken2/RNA/all_mtx_decont_k2.d.tsv",
+                              show_col_types = FALSE,
+                              col_names = c(col_names = c("rel_abun","paired_counts_rooted_at_taxon",
+                                                          "paired_counts_assigned_directly",
+                                                          "minimizer_count","distinct_minimizer_count",
+                                                          "rank_code",
+                                                          "taxid",
+                                                          "k2_taxon",
+                                                          "mtx_LIBID")))
+
+all_mtx_virus <- all_mtx_k2_domain %>% dplyr::filter(k2_taxon=="Viruses") %>% 
+  dplyr::select(mtx_LIBID, paired_counts_rooted_at_taxon) %>% 
+  dplyr::rename(mtx_virus_paired_counts = paired_counts_rooted_at_taxon)
+
+```
+
+
+Relative abundances of reads rooted at Viruses, over microbial (bacteria, archaea, fungi, virus) reads
+
+```{r}
+
+mtx_mgx_stats_chosen_fmt <- merge(mtx_mgx_stats_chosen, all_mgx_virus, by = "mgx_LIBID")
+
+mtx_mgx_stats_chosen_fmt <- merge(mtx_mgx_stats_chosen_fmt, all_mtx_virus, by = "mtx_LIBID")
+
+mtx_mgx_stats_chosen_fmt$virus_mgx_rel_abun <- (mtx_mgx_stats_chosen_fmt$mgx_virus_paired_counts / mtx_mgx_stats_chosen_fmt$mgx_MICROBE_COUNT ) *100
+
+mtx_mgx_stats_chosen_fmt$virus_mtx_rel_abun <- (mtx_mgx_stats_chosen_fmt$mtx_virus_paired_counts / mtx_mgx_stats_chosen_fmt$mtx_MICROBE_COUNT ) *100
+
+
+mtx_mgx_stats_chosen_fmt$region <- factor(mtx_mgx_stats_chosen_fmt$region,
+                                          levels=c("Sc","Ch","Ac","Vf","Tw"))
+
+
+mgx_all_virus_rel_abun_boxplot <- ggplot(mtx_mgx_stats_chosen_fmt, 
+       aes(x=region, y=log10(virus_mgx_rel_abun))) + geom_boxplot() +
+  theme_classic() + 
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1), axis.title.x=element_blank()) + 
+  ggtitle("Metagenomes")
+
+
+ggsave(plot=mgx_all_virus_rel_abun_boxplot,
+       filename = "../plots/mgx_all_virus_rel_abun_boxplot.pdf",
+       height = 8, width =10)
+
+mgx_all_virus_rel_abun_boxplot
+
+mtx_all_virus_rel_abun_boxplot <- ggplot(mtx_mgx_stats_chosen_fmt, 
+       aes(x=region, y=log10(virus_mtx_rel_abun))) + geom_boxplot() +
+  theme_classic() + 
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1), axis.title.x=element_blank()) + 
+  ggtitle("Metatranscriptomes")
+
+
+ggsave(plot=mtx_all_virus_rel_abun_boxplot,
+       filename = "../plots/mtx_all_virus_rel_abun_boxplot.pdf",
+       height = 8, width =10)
+
+mtx_all_virus_rel_abun_boxplot
+
+```
+Calculate the median viral abundances for mgx and mtx by site.The relative abundances here are already scaled to 100%
+
+```{r}
+
+#for mgx
+mtx_mgx_stats_chosen_fmt %>% dplyr::select(region, virus_mgx_rel_abun) %>% 
+  group_by(region) %>% summarise(median=median(virus_mgx_rel_abun))
+
+
+#for mtx
+mtx_mgx_stats_chosen_fmt %>% dplyr::select(region, virus_mtx_rel_abun) %>% 
+  group_by(region) %>% summarise(median=median(virus_mtx_rel_abun))
+
+```
+MGX virus relative abundances (median)
+Sc	0.01948074			
+Ch	0.06016680			
+Ac	0.07735226			
+Vf	0.06823058			
+Tw	0.05389967	
+
+MTX virus relative abundances (median)
+Sc	0.01331351			
+Ch	0.02907275			
+Ac	0.01512092			
+Vf	0.04850916			
+Tw	0.01499150
+
+
+# What are the most abundant viruses by body site?
+
+
+```{r}
+# Genus level
+mgx_virus_g_counts <- lapply(mgx_to_pull, function(x){
+  df <- read_tsv(paste0("../data/kraken2/DNA/",x,"_merged_k2.g.tsv"),
+                 show_col_types = FALSE,
+                 col_names = c("read_pairs", "k2_taxon")) %>% 
+    dplyr::filter(str_detect(string=.$k2_taxon, pattern="virus"))
+    
+  
+  df$mgx_LIBID <- x
+  
+  #Normalize counts to total virus read pairs for each library
+  df_virus_summary <- mtx_mgx_stats_chosen_fmt %>% 
+    dplyr::filter(mgx_LIBID==x) %>% 
+    dplyr::select(mgx_LIBID, mgx_virus_paired_counts, region)
+  
+  df <- merge(df, df_virus_summary, by = "mgx_LIBID")
+  
+  df$virus_rel_abun <- (df$read_pairs/df$mgx_virus_paired_counts) * 100
+
+  
+  return(df)
+  
+}) %>% do.call("rbind",.)
+
+
+#present only if 50 reads or more (to be even more conservative)
+
+mgx_virus_genus_presence <- lapply(c("Sc","Ch","Ac","Vf","Tw" ), function(body_site){
+  
+  df_site_specific <- mgx_virus_g_counts %>% 
+    dplyr::filter(region==body_site & read_pairs >= 50) %>% 
+    plyr::count(., vars="k2_taxon")
+  
+  #number of samples at a body site, regardless of presence or absence of specific viruses
+  df_site_specific$n_samples_in_site <-  mtx_mgx_stats_chosen %>% 
+    dplyr::filter(region==body_site) %>% nrow(.)
+  
+  
+  df_site_specific$virus_prevalence <- (df_site_specific$freq/df_site_specific$n_samples_in_site)*100
+  
+  df_site_specific$region <- body_site
+  
+  return(df_site_specific)
+  
+})
+
+names(mgx_virus_genus_presence) <- c("Sc","Ch","Ac","Vf","Tw" )
+
+##plot only if present in at least 3 libraries of a specific site?
+mgx_virus_genus_presence_filt <- lapply(c("Sc","Ch","Ac","Vf","Tw" ), function(body_site){
+  
+  df_filt <- mgx_virus_genus_presence[[body_site]] %>% dplyr::filter(freq >= 3)
+  
+  return(df_filt)
+  
+})
+
+names(mgx_virus_genus_presence_filt) <- c("Sc","Ch","Ac","Vf","Tw" )
+
+#Heatmap, faceted per site. Color proportional to relative abundance over all virus reads
+#List of heatmaps
+mgx_virus_heatmaps_input <- lapply(c("Sc","Ch","Ac","Vf","Tw" ), function(body_site){
+  
+  viruses_to_plot <- mgx_virus_genus_presence_filt[[body_site]] %>% pull(k2_taxon)
+  
+  #subsetted by body site
+  input_subsetted <- mgx_virus_g_counts %>% dplyr::filter(region==body_site) %>% 
+    dplyr::filter(k2_taxon %in% viruses_to_plot) %>% 
+    complete(k2_taxon, mgx_LIBID, fill = list(virus_rel_abun = NA))
+  
+  input_subsetted$region <- body_site
+  
+  return(input_subsetted)
+  
+}) %>% do.call("rbind",.)
+
+mgx_virus_heatmaps_input$region <- factor(mgx_virus_heatmaps_input$region,
+                                          levels=c("Sc","Ch","Ac","Vf","Tw"))
+
+
+mgx_virus_heatmaps_combined <- ggplot(data=mgx_virus_heatmaps_input, 
+                            aes(x=mgx_LIBID, y = k2_taxon, fill=virus_rel_abun)) + 
+    geom_tile(colour ="white") + 
+  scale_fill_gradient(low="white", high="red", na.value = "white") + 
+  scale_x_discrete(expand = c(0, 0)) + 
+  scale_y_discrete(expand = c(0, 0)) + 
+  theme(axis.ticks = element_blank()) +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.4, hjust=1)) +
+  theme(axis.title = element_blank())  +
+  facet_wrap(~region, ncol=3, nrow=2, scales='free')
+
+
+ggsave(plot=mgx_virus_heatmaps_combined,
+       filename = "../plots/mgx_virus_heatmaps_combined.pdf",
+       height = 9, width =16)
+
+
+mgx_virus_heatmaps_combined
+
+
+```
+Repeat the same for MTX data
+
+```{r}
+mtx_virus_g_counts <- lapply(mtx_to_pull, function(x){
+  df <- read_tsv(paste0("../data/kraken2/RNA/",x,"_merged_decont_k2.g.tsv"),
+                 show_col_types = FALSE,
+                 col_names = c("rel_abun","paired_counts","minimizer_count","distinct_minimizer_count","k2_taxon")) %>% 
+    dplyr::filter(str_detect(string=.$k2_taxon, pattern="virus")) %>% 
+    dplyr::select(paired_counts, k2_taxon) %>% dplyr::rename(read_pairs=paired_counts)
+    
+  
+  df$mtx_LIBID <- x
+  
+  #Normalize counts to total virus read pairs for each library
+  df_virus_summary <- mtx_mgx_stats_chosen_fmt %>% 
+    dplyr::filter(mtx_LIBID==x) %>% 
+    dplyr::select(mtx_LIBID, mtx_virus_paired_counts, region)
+  
+  df <- merge(df, df_virus_summary, by = "mtx_LIBID")
+  
+  df$virus_rel_abun <- (df$read_pairs/df$mtx_virus_paired_counts) * 100
+
+  
+  return(df)
+  
+}) %>% do.call("rbind",.)
+
+
+#present only if 50 reads or more (to be even more conservative)
+
+mtx_virus_genus_presence <- lapply(c("Sc","Ch","Ac","Vf","Tw" ), function(body_site){
+  
+  df_site_specific <- mtx_virus_g_counts %>% 
+    dplyr::filter(region==body_site & read_pairs >= 50) %>% 
+    plyr::count(., vars="k2_taxon")
+  
+  #number of samples at a body site, regardless of presence or absence of specific viruses
+  df_site_specific$n_samples_in_site <-  mtx_mgx_stats_chosen %>% 
+    dplyr::filter(region==body_site) %>% nrow(.)
+  
+  
+  df_site_specific$virus_prevalence <- (df_site_specific$freq/df_site_specific$n_samples_in_site)*100
+  
+  df_site_specific$region <- body_site
+  
+  return(df_site_specific)
+  
+})
+
+names(mtx_virus_genus_presence) <- c("Sc","Ch","Ac","Vf","Tw" )
+
+##plot only if present in at least 3 libraries of a specific site?
+mtx_virus_genus_presence_filt <- lapply(c("Sc","Ch","Ac","Vf","Tw" ), function(body_site){
+  
+  df_filt <- mtx_virus_genus_presence[[body_site]] %>% dplyr::filter(freq >= 3)
+  
+  return(df_filt)
+  
+})
+
+names(mtx_virus_genus_presence_filt) <- c("Sc","Ch","Ac","Vf","Tw" )
+
+#Heatmap, faceted per site. Color proportional to relative abundance over all virus reads
+#List of heatmaps
+mtx_virus_heatmaps_input <- lapply(c("Sc","Ch","Ac","Vf","Tw" ), function(body_site){
+  
+  viruses_to_plot <- mtx_virus_genus_presence_filt[[body_site]] %>% pull(k2_taxon)
+  
+  #subsetted by body site
+  input_subsetted <- mtx_virus_g_counts %>% dplyr::filter(region==body_site) %>% 
+    dplyr::filter(k2_taxon %in% viruses_to_plot) %>% 
+    complete(k2_taxon, mtx_LIBID, fill = list(virus_rel_abun = NA))
+  
+  input_subsetted$region <- body_site
+  
+  return(input_subsetted)
+  
+}) %>% do.call("rbind",.)
+
+mtx_virus_heatmaps_input$region <- factor(mtx_virus_heatmaps_input$region,
+                                          levels=c("Sc","Ch","Ac","Vf","Tw"))
+
+
+mtx_virus_heatmaps_combined <- ggplot(data=mtx_virus_heatmaps_input, 
+                            aes(x=mtx_LIBID, y = k2_taxon, fill=virus_rel_abun)) + 
+    geom_tile(colour ="white") + 
+  scale_fill_gradient(low="white", high="red", na.value = "white") + 
+  scale_x_discrete(expand = c(0, 0)) + 
+  scale_y_discrete(expand = c(0, 0)) + 
+  theme(axis.ticks = element_blank()) +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.4, hjust=1)) +
+  theme(axis.title = element_blank())  +
+  facet_wrap(~region, ncol=3, nrow=2, scales='free')
+
+
+ggsave(plot=mtx_virus_heatmaps_combined,
+       filename = "../plots/mtx_virus_heatmaps_combined.pdf",
+       height = 9, width =16)
+
+
+mtx_virus_heatmaps_combined
+
+
+```
+
+
+
+
+#Unused analysis
+
+Species level analysis of viruses per body site is trickier because kraken2 considers different Propionibacterium viruses as "different species", but the robustness of this taxonomic distinction is unclear to me
+
+```{r eval=FALSE}
+
+mgx_virus_s_counts <- lapply(mgx_to_pull, function(x){
+  df <- read_tsv(paste0("../data/kraken2/DNA/",x,"_merged_decont_k2.s.tsv"),
+                 show_col_types = FALSE,
+                 col_names = c("rel_abun","paired_counts","minimizer_count","distinct_minimizer_count","k2_taxon")) %>% 
+    dplyr::filter(str_detect(string=.$k2_taxon, pattern="virus")) %>% dplyr::select(paired_counts, k2_taxon)
+    
+  
+  df$mgx_LIBID <- x
+  
+  #Normalize counts to total virus read pairs for each library
+  df_virus_summary <- mtx_mgx_stats_chosen_fmt %>% 
+    dplyr::filter(mgx_LIBID==x) %>% 
+    dplyr::select(mgx_LIBID, mgx_virus_paired_counts, region)
+  
+  df <- merge(df, df_virus_summary, by = "mgx_LIBID")
+  
+  df$virus_rel_abun <- (df$paired_counts/df$mgx_virus_paired_counts) * 100
+
+  
+  return(df)
+  
+}) %>% do.call("rbind",.)
+
+
+
+#
+mgx_virus_species_presence <- lapply(c("Sc","Ch","Ac","Vf","Tw" ), function(body_site){
+  
+  df_site_specific <- mgx_virus_s_counts %>% 
+    dplyr::filter(region==body_site & read_pairs >= 10) %>% 
+    plyr::count(., vars="k2_taxon")
+  
+  #number of samples at a body site, regardless of presence or absence of specific viruses
+  df_site_specific$n_samples_in_site <-  mtx_mgx_stats_chosen %>% 
+    dplyr::filter(region==body_site) %>% nrow(.)
+  
+  
+  df_site_specific$virus_prevalence <- (df_site_specific$freq/df_site_specific$n_samples_in_site)*100
+  
+  df_site_specific$region <- body_site
+  
+  return(df_site_specific)
+  
+})
+
+
+
+
+```
+
+
+
+

@@ -9,11 +9,7 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## R Markdown
-
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
-
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+Load libraries
 
 ```{r}
 
@@ -21,4 +17,548 @@ library(tidyverse)
 
 ```
 
+Load metadata.
+
+```{r}
+
+metadata <- read_tsv("../metadata/skin_mtx_metadata_fmt.txt", show_col_types = FALSE) 
+
+#mtx_to_pull and mgx_to_pull refer to the 102 Libraries with paired MTX and MGX data:
+
+mtx_to_pull <- read_tsv("../metadata/mtx_to_pull", col_names = FALSE, show_col_types = FALSE) %>% pull(X1)
+
+mgx_to_pull <- read_tsv("../metadata/mgx_to_pull", col_names = FALSE, show_col_types = FALSE) %>% pull(X1)
+```
+
+Script to calculate CPM and TPM for each microbial gene, followed by summing them up at species level.
+
+Note: 
+
+Counts from subspecies are condensed into the same species. 
+
+Genus level and above counts here are not representative because it does not factor reads that are same genus but shared between species. Therefore, species level counts for each feature are necessarily an underestimate.
+
+Homo sapiens and unclassified reads were not included in this analysis or in the RPK formula
+
+This should only take into account features with >= 50% read coverage
+
+
+IMPORTANT: Before running this chunk, 
+- download the MTX_tax_summary & MGX_tax_summary from
+https://figshare.com/articles/dataset/MTX_and_MGX_taxonomy_summaries/28748255
+
+- download the MGX_annotations and MTX_annotations from https://figshare.com/articles/dataset/MGX_annotations_MTX_annotations_and_pairwise_DESeq2_comparisons_at_the_orthologous_group_level/25688505
+
+
+```{r eval=FALSE}
+
+mtx_taxa_count_summary <- lapply(mtx_to_pull, function(x){
+  
+  library <- x
+  
+  taxa_count_df <- read_tsv(paste0("../data/MTX_tax_summary/",x,"_merged_all_aligned_taxonomy_summary.tsv"), 
+                            show_col_types = FALSE,
+                            col_names = c("unpaired_read_count", "pangene",
+                                          "k2_taxon", "uniref90_ID")) %>% 
+    dplyr::filter(! k2_taxon %in% c("unclassified","Homo sapiens"))
+  
+  #from bowtie2 nt alignment, to get pangene lengths
+  pangene_df <- read_tsv(paste0("../data/MTX_annotations/",x,"_merged_panalign_annot.tsv"), show_col_types = FALSE) %>%
+            dplyr::select(pangene, length)
+ 
+  #From translated search (reads that did not align using bowtie2), to get uniref90 cluster AA lengths
+  
+  uniref90_df <- read_tsv(paste0("../data/MTX_annotations/",x,"_merged_transl-search_annot.tsv"), show_col_types = FALSE) %>%
+            dplyr::select(uniref90_ID,AA_length)
+  
+  #If a read aligned to a pangene, calculate RPK with the length of the pangene feature in nt on a per taxon level
+  taxa_pangene_count_df <- taxa_count_df %>% dplyr::filter(pangene!="-") %>% merge(., pangene_df, by ="pangene")
+  
+  #convert nt length to kilobase scale
+  taxa_pangene_count_df$length <- (taxa_pangene_count_df$length)/1000
+  taxa_pangene_count_df$annotated_RPK <- taxa_pangene_count_df$unpaired_read_count/taxa_pangene_count_df$length
+  
+  taxa_pangene_count_df <- taxa_pangene_count_df %>% dplyr::select(-length)
+  
+  #If a read aligned to a uniref90 entry via translated search, 
+  #calculate RPK with the length of the uniref90 rep feature in nt (not AA) on a per taxon level
+  
+  taxa_uniref90_count_df <- taxa_count_df %>% dplyr::filter(pangene=="-") %>% merge(., uniref90_df, 
+                                                                                    by ="uniref90_ID")
+  
+  ##converting AA length to equivalent length in nt, then convert length to kilobase scale
+  taxa_uniref90_count_df$length <- (taxa_uniref90_count_df$AA_length * 3)/1000
+
+  taxa_uniref90_count_df$annotated_RPK <- taxa_uniref90_count_df$unpaired_read_count/taxa_uniref90_count_df$length
+  
+  taxa_uniref90_count_df <- taxa_uniref90_count_df %>% dplyr::select(-c("length","AA_length"))
+  
+  #
+  output <- rbind(taxa_pangene_count_df, taxa_uniref90_count_df)
+  output$LIBID=library
+    
+  return(output)
+  
+})
+
+#Repeat for MGX reads
+
+
+mgx_taxa_count_summary <- lapply(mgx_to_pull, function(x){
+  
+  library <- x
+  
+  taxa_count_df <- read_tsv(paste0("../data/MGX_tax_summary/",x,"_merged_all_aligned_taxonomy_summary.tsv"), 
+                            show_col_types = FALSE,
+                            col_names = c("unpaired_read_count", "pangene",
+                                          "k2_taxon", "uniref90_ID")) %>% 
+    dplyr::filter(! k2_taxon %in% c("unclassified","Homo sapiens"))
+  
+  #from bowtie2 nt alignment
+  pangene_df <- read_tsv(paste0("../data/MGX_annotations/",x,"_merged_panalign_annot.tsv"), show_col_types = FALSE) %>%
+            dplyr::select(pangene, length)
+ 
+  #From translated search (reads that did not align using bowtie2)
+  
+  uniref90_df <- read_tsv(paste0("../data/MGX_annotations/",x,"_merged_transl-search_annot.tsv"), show_col_types = FALSE) %>%
+            dplyr::select(uniref90_ID,AA_length)
+  
+  #If a read aligned to a pangene, calculate RPK with the length of the pangene feature in nt on a per taxon level
+  taxa_pangene_count_df <- taxa_count_df %>% dplyr::filter(pangene!="-") %>% merge(., pangene_df, by ="pangene")
+  
+  #convert nt length to kilobase scale
+  taxa_pangene_count_df$length <- (taxa_pangene_count_df$length)/1000
+  taxa_pangene_count_df$annotated_RPK <- taxa_pangene_count_df$unpaired_read_count/taxa_pangene_count_df$length
+  
+  taxa_pangene_count_df <- taxa_pangene_count_df %>% dplyr::select(-length)
+  
+  #If a read aligned to a uniref90 entry via translated search, 
+  #calculate RPK with the length of the uniref90 rep feature in nt (not AA) on a per taxon level
+  
+  taxa_uniref90_count_df <- taxa_count_df %>% dplyr::filter(pangene=="-") %>% merge(., uniref90_df, 
+                                                                                    by ="uniref90_ID")
+  
+  ##converting AA length to equivalent length in nt, then convert length to kilobase scale
+  taxa_uniref90_count_df$length <- (taxa_uniref90_count_df$AA_length * 3)/1000
+
+  taxa_uniref90_count_df$annotated_RPK <- taxa_uniref90_count_df$unpaired_read_count/taxa_uniref90_count_df$length
+  
+  taxa_uniref90_count_df <- taxa_uniref90_count_df %>% dplyr::select(-c("length","AA_length"))
+  
+  #
+  output <- rbind(taxa_pangene_count_df, taxa_uniref90_count_df)
+  output$LIBID=library
+    
+  return(output)
+  
+})
+
+## Now sum up the counts and RPKs per organism.
+
+mtx_taxa_count_summary_fmt <- lapply(mtx_taxa_count_summary, function(df){
+  
+  #per taxa summary
+  df_summary <- df %>% dplyr::select(c("k2_taxon","unpaired_read_count","annotated_RPK","LIBID")) %>%
+    group_by(k2_taxon, LIBID) %>% summarise(read_count_sum=sum(unpaired_read_count), RPK_sum = sum(annotated_RPK))
+
+  return(df_summary)
+  
+})
+
+names(mtx_taxa_count_summary_fmt) <- mtx_to_pull
+
+mgx_taxa_count_summary_fmt <- lapply(mgx_taxa_count_summary, function(df){
+  
+  #per taxa summary
+  df_summary <- df %>% dplyr::select(c("k2_taxon","unpaired_read_count","annotated_RPK","LIBID")) %>%
+    group_by(k2_taxon, LIBID) %>% summarise(read_count_sum=sum(unpaired_read_count), RPK_sum = sum(annotated_RPK))
+
+  return(df_summary)
+  
+})
+
+names(mgx_taxa_count_summary_fmt) <- mgx_to_pull
+
+
+
+#Now we need only include the features at species level, and aggregate sub-species reads at species level
+#Then search for subsp and extract the two terms before it to get species e.g. 	Cutibacterium_acnes_subsp._acnes
+
+#However in the formula, let the denominator be the RPK sum across species level reads only (excluding Human and unclassified) 
+
+#We also need an estimate of #unpaired, unannotated (no pangene or uniref match) reads at species and subsp. level from kraken2 results.
+
+#Thankfully, the k2.s.tsv already contains: awk -F "\t" -v OFS="\t" '($4=="S" || $4 =="U"){print $1,$2,$6}' "${sample_id}"_kraken2.tax | tr -s ' ' | sed 's/^ //g' > "${sample_id}"_k2.s.tsv, where column 2 is the Number of fragments covered by the clade rooted at this taxon = sum of all lower ranks under the species.
+
+mtx_taxa_count_summary_subsp_collapse <- lapply(names(mtx_taxa_count_summary_fmt), function(x){
+  taxa_df <- mtx_taxa_count_summary_fmt[[x]]
+  #In this temporary column, obtain species level classifications of "subsp" labels or any label with more than one "_" 
+  #to catch annotations like Streptococcus_oralis_Uo5
+  #Do not include species level classifications like "Actinomyces_sp._oral_taxon_414" as subsp
+
+  taxa_df$subsp_temp <- ifelse(str_detect(taxa_df$k2_taxon, pattern="_sp._", negate=TRUE) & (str_detect(taxa_df$k2_taxon, pattern="_subsp._")|
+                                  str_count(taxa_df$k2_taxon,"_")>1), taxa_df$k2_taxon, NA)
+  
+  taxa_df$k2_taxon <- ifelse(!is.na(taxa_df$subsp_temp), word(taxa_df$subsp_temp,1,2,sep="_"), taxa_df$k2_taxon)
+  
+  taxa_df <- taxa_df %>% dplyr::rename(tmp_count=read_count_sum, tmp_RPK=RPK_sum)
+  
+
+  #Subsp count and RPK information condensed into species features
+  #Features higher than species level will not have a "_" in the k2_taxon and should be excluded 
+  
+  #side note: filter does not work on grouped_df classes. The ungroup() function is necessary should you wish to do this
+  taxa_df_summary <- taxa_df  %>%
+    dplyr::select(-subsp_temp) %>% group_by(k2_taxon, LIBID) %>% 
+    summarise(read_count_sum=sum(tmp_count), RPK_sum = sum(tmp_RPK))
+  
+  #Integrate library specific kraken2 taxa count information to calculate species level reads mapped to unknown functions
+  #These numbers will differ from the "unannotated" output table from the pipeline because they account for reads mapped to features but with < 50% coverage across the feature
+  
+  k2_df <- read_tsv(paste0("../data/kraken2/RNA/",x,"_merged_decont_k2.s.tsv"),
+                    col_names = c("rel_abun","paired_counts","minimizer_count","distinct_minimizer_count","k2_taxon"), 
+                    show_col_types = FALSE) %>% 
+    dplyr::select(-c("rel_abun", "minimizer_count", "distinct_minimizer_count")) %>% 
+    dplyr::filter(! k2_taxon %in% c("unclassified","Homo sapiens"))
+  #Convert to unpaired read count numbers for compatibility with the pangene and diamond alignment results
+  k2_df$k2_unpaired <- k2_df$paired_counts *2
+  
+  k2_df <- k2_df %>% dplyr::select(-paired_counts)
+  
+  k2_df$k2_taxon <- gsub(pattern=" ",replacement="_", k2_df$k2_taxon)
+  
+  taxa_df_summary <- merge(taxa_df_summary, k2_df, by = "k2_taxon", all.y=TRUE)
+  
+  taxa_df_summary$LIBID <- x
+  
+  taxa_df_summary[is.na(taxa_df_summary)] <- 0
+  
+  #Condense read and RPK information for known and unknown functions, at species level
+  taxa_df_summary$unknown_fun_counts <- taxa_df_summary$k2_unpaired - taxa_df_summary$read_count_sum
+  
+  #Assume unknown gene(s) of length 1 kilobase recruiting all reads that failed to map to known sequences.
+  #https://github.com/biobakery/humann 
+  
+  taxa_df_summary$unknown_fun_RPK <- taxa_df_summary$unknown_fun_counts  #assume 1 Kb, so denominator is 1
+
+  #stack the halves of the dfs
+  known_frac_df <- taxa_df_summary %>% dplyr::select(k2_taxon,LIBID,read_count_sum,RPK_sum) %>%
+    dplyr::rename(read_counts=read_count_sum,RPK=RPK_sum)
+  unknown_frac_df <- taxa_df_summary %>% 
+    dplyr::select(k2_taxon,LIBID,unknown_fun_counts,unknown_fun_RPK) %>%
+    dplyr::rename(read_counts=unknown_fun_counts,RPK=unknown_fun_RPK)
+  
+  combined_df <- rbind(known_frac_df, unknown_frac_df)
+  
+  output <- combined_df %>% group_by(k2_taxon, LIBID) %>% 
+    summarise(read_count_sum=sum(read_counts), RPK_sum = sum(RPK))
+  
+  return(output)
+})
+
+names(mtx_taxa_count_summary_subsp_collapse) <- names(mtx_taxa_count_summary_fmt)
+
+mgx_taxa_count_summary_subsp_collapse <- lapply(names(mgx_taxa_count_summary_fmt), function(x){
+  taxa_df <- mgx_taxa_count_summary_fmt[[x]]
+  #In this temporary column, obtain species level classifications of "subsp" labels or any label with more than one "_" 
+  #to catch annotations like Streptococcus_oralis_Uo5
+  #Must exclude species level classifications like "Actinomyces_sp._oral_taxon_414"
+
+  taxa_df$subsp_temp <- ifelse(str_detect(taxa_df$k2_taxon, pattern="_sp._", negate=TRUE) & (str_detect(taxa_df$k2_taxon, pattern="_subsp._")|
+                                  str_count(taxa_df$k2_taxon,"_")>1), taxa_df$k2_taxon, NA)
+  
+  taxa_df$k2_taxon <- ifelse(!is.na(taxa_df$subsp_temp), word(taxa_df$subsp_temp,1,2,sep="_"), taxa_df$k2_taxon)
+  
+  taxa_df <- taxa_df %>% dplyr::rename(tmp_count=read_count_sum, tmp_RPK=RPK_sum)
+  
+
+  #Subsp count and RPK information condensed into species features
+  #Features higher than species level will not have a "_" in the k2_taxon and should be excluded (apart from "unclassified")
+  
+  #side note: filter does not work on grouped_df classes. The ungroup() function is necessary should you wish to do this
+  taxa_df_summary <- taxa_df  %>%
+    dplyr::select(-subsp_temp) %>% group_by(k2_taxon, LIBID) %>% 
+    summarise(read_count_sum=sum(tmp_count), RPK_sum = sum(tmp_RPK))
+  
+  #Integrate library specific kraken2 taxa count information to calculate species level reads mapped to unknown functions
+  #These numbers will differ from the "unannotated" output table from the pipeline because they account for reads mapped to features but with < 50% coverage across the feature
+  
+  k2_df <- read_tsv(paste0("../data/kraken2/DNA/",x,"_merged_decont_k2.s.tsv"),
+                    col_names = c("rel_abun","paired_counts","minimizer_count","distinct_minimizer_count","k2_taxon"), 
+                    show_col_types = FALSE) %>% 
+    dplyr::select(-c("rel_abun", "minimizer_count", "distinct_minimizer_count")) %>% 
+    dplyr::filter(! k2_taxon %in% c("unclassified","Homo sapiens"))
+  #Convert to unpaired read count numbers for compatibility with the pangene and diamond alignment results
+  k2_df$k2_unpaired <- k2_df$paired_counts *2
+  
+  k2_df <- k2_df %>% dplyr::select(-paired_counts)
+  
+  k2_df$k2_taxon <- gsub(pattern=" ",replacement="_", k2_df$k2_taxon)
+  
+  taxa_df_summary <- merge(taxa_df_summary, k2_df, by = "k2_taxon", all.y=TRUE)
+  
+  taxa_df_summary$LIBID <- x
+  
+  taxa_df_summary[is.na(taxa_df_summary)] <- 0
+  
+  #Condense read and RPK information for known and unknown functions, at species level
+  taxa_df_summary$unknown_fun_counts <- taxa_df_summary$k2_unpaired - taxa_df_summary$read_count_sum
+  
+  #Assume unknown gene(s) of length 1 kilobase recruiting all reads that failed to map to known sequences.
+  #https://github.com/biobakery/humann 
+  
+  taxa_df_summary$unknown_fun_RPK <- taxa_df_summary$unknown_fun_counts  #assume 1 Kb, so denominator is 1
+
+  #stack the halves of the dfs
+  known_frac_df <- taxa_df_summary %>% dplyr::select(k2_taxon,LIBID,read_count_sum,RPK_sum) %>%
+    dplyr::rename(read_counts=read_count_sum,RPK=RPK_sum)
+  unknown_frac_df <- taxa_df_summary %>% 
+    dplyr::select(k2_taxon,LIBID,unknown_fun_counts,unknown_fun_RPK) %>%
+    dplyr::rename(read_counts=unknown_fun_counts,RPK=unknown_fun_RPK)
+  
+  combined_df <- rbind(known_frac_df, unknown_frac_df)
+  
+  output <- combined_df %>% group_by(k2_taxon, LIBID) %>% 
+    summarise(read_count_sum=sum(read_counts), RPK_sum = sum(RPK))
+  
+  
+  return(output)
+})
+
+names(mgx_taxa_count_summary_subsp_collapse) <- names(mgx_taxa_count_summary_fmt)
+
+
+
+saveRDS(mtx_taxa_count_summary_subsp_collapse, file="../data/mtx_taxa_count_summary_subsp_collapse.RDS")
+saveRDS(mgx_taxa_count_summary_subsp_collapse, file="../data/mgx_taxa_count_summary_subsp_collapse.RDS")
+
+```
+
+
+Repeat this for MGX processed with MTX steps
+
+This means that the MGX samples would be decontaminated by STAR, subject to computational rRNA filtering, de-duplication before kraken2 classification.
+
+The purpose of doing this is to show that our findings are not dependent on differences in computational processing of MGX vs MTX reads.
+
+Download the MGX_processed_with_MTX_steps_annots.tar.gz from figshare (https://figshare.com/articles/dataset/MGX_processed_with_MTX_steps_annots/28777787?file=53606561) 
+and de-compress it in the data subfolder.
+
+```{r}
+
+mgx_alt_taxa_count_summary <- lapply(mgx_to_pull, function(x){
+  
+  library <- x
+  
+  taxa_count_df <- read_tsv(paste0("../data/MGX_processed_with_MTX_steps_annots/",x,"_decont_all_aligned_taxonomy_summary.tsv"), 
+                            show_col_types = FALSE,
+                            col_names = c("unpaired_read_count", "pangene",
+                                          "k2_taxon", "uniref90_ID")) %>% 
+    dplyr::filter(! k2_taxon %in% c("unclassified","Homo sapiens"))
+  
+  #from bowtie2 nt alignment
+  pangene_df <- read_tsv(paste0("../data/MGX_processed_with_MTX_steps_annots/",x,"_decont_panalign_annot.tsv"), show_col_types = FALSE) %>%
+            dplyr::select(pangene, length)
+ 
+  #From translated search (reads that did not align using bowtie2)
+  
+  uniref90_df <- read_tsv(paste0("../data/MGX_processed_with_MTX_steps_annots/",x,"_decont_transl-search_annot.tsv"), show_col_types = FALSE) %>%
+            dplyr::select(uniref90_ID,AA_length)
+  
+  #If a read aligned to a pangene, calculate RPK with the length of the pangene feature in nt on a per taxon level
+  taxa_pangene_count_df <- taxa_count_df %>% dplyr::filter(pangene!="-") %>% merge(., pangene_df, by ="pangene")
+  
+  #convert nt length to kilobase scale
+  taxa_pangene_count_df$length <- (taxa_pangene_count_df$length)/1000
+  taxa_pangene_count_df$annotated_RPK <- taxa_pangene_count_df$unpaired_read_count/taxa_pangene_count_df$length
+  
+  taxa_pangene_count_df <- taxa_pangene_count_df %>% dplyr::select(-length)
+  
+  #If a read aligned to a uniref90 entry via translated search, 
+  #calculate RPK with the length of the uniref90 rep feature in nt (not AA) on a per taxon level
+  
+  taxa_uniref90_count_df <- taxa_count_df %>% dplyr::filter(pangene=="-") %>% merge(., uniref90_df, 
+                                                                                    by ="uniref90_ID")
+  
+  ##converting AA length to equivalent length in nt, then convert length to kilobase scale
+  taxa_uniref90_count_df$length <- (taxa_uniref90_count_df$AA_length * 3)/1000
+
+  taxa_uniref90_count_df$annotated_RPK <- taxa_uniref90_count_df$unpaired_read_count/taxa_uniref90_count_df$length
+  
+  taxa_uniref90_count_df <- taxa_uniref90_count_df %>% dplyr::select(-c("length","AA_length"))
+  
+  #
+  output <- rbind(taxa_pangene_count_df, taxa_uniref90_count_df)
+  output$LIBID=library
+    
+  return(output)
+  
+})
+
+
+mgx_alt_taxa_count_summary_fmt <- lapply(mgx_alt_taxa_count_summary, function(df){
+  
+  #per taxa summary
+  df_summary <- df %>% dplyr::select(c("k2_taxon","unpaired_read_count","annotated_RPK","LIBID")) %>%
+    group_by(k2_taxon, LIBID) %>% summarise(read_count_sum=sum(unpaired_read_count), RPK_sum = sum(annotated_RPK))
+
+  return(df_summary)
+  
+})
+
+names(mgx_alt_taxa_count_summary_fmt) <- mgx_to_pull
+
+
+
+mgx_alt_taxa_count_summary_subsp_collapse <- lapply(names(mgx_alt_taxa_count_summary_fmt), function(x){
+  taxa_df <- mgx_alt_taxa_count_summary_fmt[[x]]
+  #In this temporary column, obtain species level classifications of "subsp" labels or any label with more than one "_" 
+  #to catch annotations like Streptococcus_oralis_Uo5
+  #Must exclude species level classifications like "Actinomyces_sp._oral_taxon_414"
+
+  taxa_df$subsp_temp <- ifelse(str_detect(taxa_df$k2_taxon, pattern="_sp._", negate=TRUE) & (str_detect(taxa_df$k2_taxon, pattern="_subsp._")|
+                                  str_count(taxa_df$k2_taxon,"_")>1), taxa_df$k2_taxon, NA)
+  
+  taxa_df$k2_taxon <- ifelse(!is.na(taxa_df$subsp_temp), word(taxa_df$subsp_temp,1,2,sep="_"), taxa_df$k2_taxon)
+  
+  taxa_df <- taxa_df %>% dplyr::rename(tmp_count=read_count_sum, tmp_RPK=RPK_sum)
+  
+
+  #Subsp count and RPK information condensed into species features
+  #Features higher than species level will not have a "_" in the k2_taxon and should be excluded (apart from "unclassified")
+  
+  #side note: filter does not work on grouped_df classes. The ungroup() function is necessary should you wish to do this
+  taxa_df_summary <- taxa_df  %>%
+    dplyr::select(-subsp_temp) %>% group_by(k2_taxon, LIBID) %>% 
+    summarise(read_count_sum=sum(tmp_count), RPK_sum = sum(tmp_RPK))
+  
+  #Integrate library specific kraken2 taxa count information to calculate species level reads mapped to unknown functions
+  #These numbers will differ from the "unannotated" output table from the pipeline because they account for reads mapped to features but with < 50% coverage across the feature
+  
+  k2_df <- read_tsv(paste0("../data/kraken2/MGX_processed_with_MTX_steps/",x,"_k2.s.tsv"),
+                    col_names = c("rel_abun","paired_counts","minimizer_count","distinct_minimizer_count","k2_taxon"), 
+                    show_col_types = FALSE) %>% 
+    dplyr::select(-c("rel_abun", "minimizer_count", "distinct_minimizer_count")) %>% 
+    dplyr::filter(! k2_taxon %in% c("unclassified","Homo sapiens"))
+  #Convert to unpaired read count numbers for compatibility with the pangene and diamond alignment results
+  k2_df$k2_unpaired <- k2_df$paired_counts *2
+  
+  k2_df <- k2_df %>% dplyr::select(-paired_counts)
+  
+  k2_df$k2_taxon <- gsub(pattern=" ",replacement="_", k2_df$k2_taxon)
+  
+  taxa_df_summary <- merge(taxa_df_summary, k2_df, by = "k2_taxon", all.y=TRUE)
+  
+  taxa_df_summary$LIBID <- x
+  
+  taxa_df_summary[is.na(taxa_df_summary)] <- 0
+  
+  #Condense read and RPK information for known and unknown functions, at species level
+  taxa_df_summary$unknown_fun_counts <- taxa_df_summary$k2_unpaired - taxa_df_summary$read_count_sum
+  
+  #Assume unknown gene(s) of length 1 kilobase recruiting all reads that failed to map to known sequences.
+  #https://github.com/biobakery/humann 
+  
+  taxa_df_summary$unknown_fun_RPK <- taxa_df_summary$unknown_fun_counts  #assume 1 Kb, so denominator is 1
+
+  #stack the halves of the dfs
+  known_frac_df <- taxa_df_summary %>% dplyr::select(k2_taxon,LIBID,read_count_sum,RPK_sum) %>%
+    dplyr::rename(read_counts=read_count_sum,RPK=RPK_sum)
+  unknown_frac_df <- taxa_df_summary %>% 
+    dplyr::select(k2_taxon,LIBID,unknown_fun_counts,unknown_fun_RPK) %>%
+    dplyr::rename(read_counts=unknown_fun_counts,RPK=unknown_fun_RPK)
+  
+  combined_df <- rbind(known_frac_df, unknown_frac_df)
+  
+  output <- combined_df %>% group_by(k2_taxon, LIBID) %>% 
+    summarise(read_count_sum=sum(read_counts), RPK_sum = sum(RPK))
+  
+  
+  return(output)
+})
+
+names(mgx_alt_taxa_count_summary_subsp_collapse) <- names(mgx_alt_taxa_count_summary_fmt)
+```
+
+
+```{r eval=FALSE}
+saveRDS(mgx_alt_taxa_count_summary_subsp_collapse, file="../data/mgx_alt_taxa_count_summary_subsp_collapse.RDS")
+
+
+```
+
+```{r}
+
+
+mgx_alt_taxa_count_summary <- lapply(mgx_to_pull, function(x){
+  
+  library <- x
+  
+  taxa_count_df <- read_tsv(paste0("../data/MGX_processed_with_MTX_steps_annots/",x,"_decont_all_aligned_taxonomy_summary.tsv"), 
+                            show_col_types = FALSE,
+                            col_names = c("unpaired_read_count", "pangene",
+                                          "k2_taxon", "uniref90_ID")) %>% 
+    dplyr::filter(! k2_taxon %in% c("unclassified","Homo sapiens"))
+  
+  #from bowtie2 nt alignment
+  pangene_df <- read_tsv(paste0("../data/MGX_processed_with_MTX_steps_annots/",x,"_decont_panalign_annot.tsv"), show_col_types = FALSE) %>%
+            dplyr::select(pangene, length)
+ 
+  #From translated search (reads that did not align using bowtie2)
+  
+  uniref90_df <- read_tsv(paste0("../data/MGX_processed_with_MTX_steps_annots/",x,"_decont_transl-search_annot.tsv"), show_col_types = FALSE) %>%
+            dplyr::select(uniref90_ID,AA_length)
+  
+  #If a read aligned to a pangene, calculate RPK with the length of the pangene feature in nt on a per taxon level
+  taxa_pangene_count_df <- taxa_count_df %>% dplyr::filter(pangene!="-") %>% merge(., pangene_df, by ="pangene")
+  
+  #convert nt length to kilobase scale
+  taxa_pangene_count_df$length <- (taxa_pangene_count_df$length)/1000
+  taxa_pangene_count_df$annotated_RPK <- taxa_pangene_count_df$unpaired_read_count/taxa_pangene_count_df$length
+  
+  taxa_pangene_count_df <- taxa_pangene_count_df %>% dplyr::select(-length)
+  
+  #If a read aligned to a uniref90 entry via translated search, 
+  #calculate RPK with the length of the uniref90 rep feature in nt (not AA) on a per taxon level
+  
+  taxa_uniref90_count_df <- taxa_count_df %>% dplyr::filter(pangene=="-") %>% merge(., uniref90_df, 
+                                                                                    by ="uniref90_ID")
+  
+  ##converting AA length to equivalent length in nt, then convert length to kilobase scale
+  taxa_uniref90_count_df$length <- (taxa_uniref90_count_df$AA_length * 3)/1000
+
+  taxa_uniref90_count_df$annotated_RPK <- taxa_uniref90_count_df$unpaired_read_count/taxa_uniref90_count_df$length
+  
+  taxa_uniref90_count_df <- taxa_uniref90_count_df %>% dplyr::select(-c("length","AA_length"))
+  
+  #
+  output <- rbind(taxa_pangene_count_df, taxa_uniref90_count_df)
+  output$LIBID=library
+    
+  return(output)
+  
+})
+
+mgx_alt_taxa_count_summary_fmt <- lapply(mgx_alt_taxa_count_summary, function(df){
+  
+  #per taxa summary
+  df_summary <- df %>% dplyr::select(c("k2_taxon","unpaired_read_count","annotated_RPK","LIBID")) %>%
+    group_by(k2_taxon, LIBID) %>% summarise(read_count_sum=sum(unpaired_read_count), RPK_sum = sum(annotated_RPK))
+
+  return(df_summary)
+  
+})
+
+names(mgx_alt_taxa_count_summary_fmt) <- mgx_to_pull
+
+
+
+```
+
+
+```{r eval=FALSE}
+saveRDS(mgx_alt_taxa_count_summary_fmt, file="../data/mgx_alt_taxa_count_summary_fmt.RDS")
+
+
+```
 

@@ -13,6 +13,7 @@ Correlation analysis of mock community DNA (not RNA) extracted with trizol (T) o
 
 ```{r}
 library(tidyverse)
+library(ggpubr)
 ```
 
 Load metadata

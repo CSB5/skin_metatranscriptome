@@ -216,6 +216,16 @@ rna_k2_minimizer_renorm <- lapply(mtx_to_pull, function(x){
 
 names(rna_k2_minimizer_renorm) <- mtx_to_pull
 
+
+dna_k2_minimizer_renorm <- lapply(mgx_to_pull, function(x){
+  df_out <- read_tsv(file=paste0("../data/k2_species_renorm/DNA/",x,"_k2_renorm.s.tsv"),
+                     show_col_types = FALSE)
+  
+  return(df_out)
+})
+
+names(dna_k2_minimizer_renorm) <- mgx_to_pull
+
 ```
 
 Load signal P v6 results for Malassezia proteins
@@ -394,7 +404,7 @@ hmm_AM_df_summary <- hmm_AM_df %>% group_by(LIBID,description_of_target) %>% sum
 
 
 #https://academic.oup.com/jac/article/71/9/2484/2238319
-#Among the noise in the raw reads, the possibility of contamination has to be taken into consideration, such as sequence carryover.6 SRST2 deals with this by setting an extra threshold of a minimum depth of 5, dealing with the worst part of contamination.
+#Among the noise in the raw reads, the possibility of contamination has to be taken into consideration, such as sequence carryover. SRST2 deals with this by setting an extra threshold of a minimum depth of 5, dealing with the worst part of contamination.
 hmm_AM_df_summary$presence <- ifelse(hmm_AM_df_summary$unpaired_read_count_sum >= 5, 1, 0)
 
 hmm_AM_df_wide <- pivot_wider(hmm_AM_df_summary, id_cols=description_of_target,
@@ -1495,6 +1505,249 @@ ggsave(filename="../plots/C_acnes_AAT83849_vs_C_acnes_mgx_scatter.pdf",
 
 
 C_acnes_AAT83849_vs_C_acnes_mgx_scatter
+
+
+```
+
+
+Associate bacteriocin presence with organismal abundance ratios (to account for compositionality).
+
+Claesen et al 2020 (STM) showed that follicles that contained C. acnes strains that were cutimycin BGC-positive had, on average, a greater than an order of magnitude higher C. acnes/S. epidermidis ratio than those that were cutimycin BGC negative.
+
+https://pmc.ncbi.nlm.nih.gov/articles/PMC8478231/
+
+Note that they claim: "There were, however, no significant correlations between the absence/presence of the cutimycin BGC, or any other predicted C. acnes BGC, and the abundance of specific skin commensals in these 12 volunteers. At first these results seemed incongruous with cutimycin’s anti-staphylococcal activity. However, we reasoned that the spatial scale of a skin swab is much larger than the scale at which C. acnes interacts with neighboring bacterial species."
+
+
+```{r}
+
+#start with the bacteriocin presence/absence information (based on MTX data)
+
+mtx_mgx_stats_chosen_fmt <- mtx_mgx_stats_chosen %>% 
+  dplyr::select(subj_region, mtx_LIBID, mgx_LIBID, region)
+  
+
+hmm_AM_presence <- merge(hmm_AM_df_heatmap_input %>% dplyr::rename(mtx_LIBID=LIBID), 
+                         mtx_mgx_stats_chosen_fmt, by = "mtx_LIBID")
+
+#compute the ratios of a) C acnes/S epidemidis and b) C acnes/S capitis ratios for mgx abundances
+
+targeted_mgx_ratios <- lapply(mgx_to_pull, function(metagenomic_LIBID){
+  
+  df <- dna_k2_minimizer_renorm[[metagenomic_LIBID]]
+  
+  if("Staphylococcus_capitis" %in% df$k2_taxon == TRUE){
+    
+    S_cap_abun <- df %>% dplyr::filter(k2_taxon == "Staphylococcus_capitis") %>% pull(rel_abun)
+    
+  }else{ 
+    S_cap_abun <- 0.01 #zero smoothing by adding 0.01% rel abun for missing taxa
+  }
+  
+  if("Staphylococcus_epidermidis" %in% df$k2_taxon == TRUE){
+    
+    S_epi_abun <- df %>% dplyr::filter(k2_taxon == "Staphylococcus_epidermidis") %>% pull(rel_abun)
+    
+  }else{ 
+    S_epi_abun <- 0.01 #zero smoothing by adding 0.01% rel abun for missing taxa
+  }
+  
+   if("Cutibacterium_acnes" %in% df$k2_taxon == TRUE){
+    
+    C_acnes_abun <- df %>% dplyr::filter(k2_taxon == "Cutibacterium_acnes") %>% pull(rel_abun)
+    
+  }else{ 
+    C_acnes_abun <- 0.01 #zero smoothing by adding 0.01% rel abun for missing taxa
+  }
+  
+  #Calculate C. acnes/S. epidermidis ratio
+  C_acnes_over_S_epi <- C_acnes_abun/S_epi_abun
+  #Calculate C. acnes/S. capitis ratio
+  C_acnes_over_S_cap <- C_acnes_abun/S_cap_abun
+  
+  
+  output <- data.frame("mgx_LIBID"=metagenomic_LIBID,
+    "C_acnes_to_S_epi_ratio"=C_acnes_over_S_epi,
+    "C_acnes_to_S_cap_ratio"=C_acnes_over_S_cap
+  )
+  
+  return(output)
+  
+}) %>% do.call("rbind",.)
+
+```
+
+Only the thiazolylpeptide−type bacteriocin and the cyclic lactone autoinducer peptide had sufficient representation of positive and negative samples on skin
+
+
+# Analysis for the thiopeptide
+```{r}
+
+thiopeptide_presence_fmt <- hmm_AM_presence %>% 
+  dplyr::filter(description_of_target=="thiazolylpeptide-type bacteriocin")
+
+thiopeptide_presence_fmt$mtx_presence <- ifelse(thiopeptide_presence_fmt$presence==0, "absent","present")
+
+thiopeptide_presence_fmt$plotting_cat <- paste0(thiopeptide_presence_fmt$region,"_",thiopeptide_presence_fmt$mtx_presence)
+
+thiopeptide_presence_fmt$plotting_cat <- factor(thiopeptide_presence_fmt$plotting_cat,
+                                            levels=c("Sc_present","Sc_absent",
+                                                     "Ch_present","Ch_absent",
+                                                     "Ac_present", "Ac_absent",
+                                                     "Vf_present", "Vf_absent",
+                                                     "Tw_present", "Tw_absent"))
+
+
+thiopeptide_presence_fmt$plotting_cat_fmt <- gsub(pattern="Sc|Ch", replacement="sebaceous",x = thiopeptide_presence_fmt$plotting_cat)
+
+thiopeptide_presence_fmt$plotting_cat_fmt <- gsub(pattern="Ac|Vf|Tw", replacement="non_sebaceous",x = thiopeptide_presence_fmt$plotting_cat_fmt)
+
+
+thiopeptide_presence_fmt$plotting_cat_fmt <- factor(thiopeptide_presence_fmt$plotting_cat_fmt,
+                                            levels=c("sebaceous_present","sebaceous_absent",
+                                                     "non_sebaceous_present","non_sebaceous_absent"))
+
+site_comparisons <- list(c("sebaceous_present", "sebaceous_absent"),
+                                c("non_sebaceous_present","non_sebaceous_absent"))
+
+
+thiopeptide_presence_fmt <- merge(thiopeptide_presence_fmt, targeted_mgx_ratios, by = "mgx_LIBID")
+
+
+#For the C acne to S epi ratio
+thiopeptide_presence_ratio_boxplot_a <- ggplot(thiopeptide_presence_fmt, 
+                                             aes(x=plotting_cat_fmt, y=log10(C_acnes_to_S_epi_ratio))) + 
+  geom_boxplot() + theme_classic() + stat_compare_means(method="wilcox.test", 
+                                                        comparisons=site_comparisons) + 
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.2, hjust=1))
+
+
+thiopeptide_presence_ratio_boxplot_a
+
+#For the C acne to S cap ratio
+thiopeptide_presence_ratio_boxplot_b <- ggplot(thiopeptide_presence_fmt, 
+                                             aes(x=plotting_cat_fmt, y=log10(C_acnes_to_S_cap_ratio))) + 
+  geom_boxplot() + theme_classic() + stat_compare_means(method="wilcox.test", 
+                                                        comparisons=site_comparisons) +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.2, hjust=1))
+
+
+thiopeptide_presence_ratio_boxplot_b
+
+#
+
+thiopeptide_presence_ratio_boxplots <- ggarrange(thiopeptide_presence_ratio_boxplot_a, 
+                                                 thiopeptide_presence_ratio_boxplot_b, 
+                                                 ncol = 2 )
+
+
+
+ggsave(plot=thiopeptide_presence_ratio_boxplots,
+       filename = "../plots/thiopeptide_presence_ratio_boxplots.pdf",
+       height = 5, width =7)
+
+
+#count of samples in each category
+thiopeptide_presence_fmt %>% plyr::count(., vars="plotting_cat_fmt")
+
+
+
+thiopeptide_presence_ratio_boxplots
+
+```
+Sample counts:
+sebaceous_present	37			
+sebaceous_absent	10			
+non_sebaceous_present	9			
+non_sebaceous_absent	46
+
+
+# AIP analysis
+
+O'Neill et al 2020 (JID) showed that some CONS strains are known to inhibit C acnes possibly through phenol soluble modulins
+
+Known antagonistic relationships: C acnes/S capitis
+https://www.sciencedirect.com/science/article/pii/S0022202X20300415
+
+While we could detect few samples with expression of phenol soluble modulins (perhaps very unstable transcripts?), we could use auto-inducing peptide expression as a proxy, since many of them are known to induce the expression of PSMs.
+
+Effects are also likely strain specific..
+
+From the JID paper: "DNA extracted from the CoNS isolates with antimicrobial activity was subjected to 16S sequencing and several different species were identified, including S. epidermidis and S. hominus, which are considered frequent colonizers of human skin. The most potent isolate was identified as S. capitis strain E12"
+
+
+```{r}
+
+AIP_presence_fmt <- hmm_AM_presence %>% 
+  dplyr::filter(description_of_target=="cyclic lactone autoinducer peptide")
+
+AIP_presence_fmt$mtx_presence <- ifelse(AIP_presence_fmt$presence==0, "absent","present")
+
+AIP_presence_fmt$plotting_cat <- paste0(AIP_presence_fmt$region,"_",AIP_presence_fmt$mtx_presence)
+
+AIP_presence_fmt$plotting_cat <- factor(AIP_presence_fmt$plotting_cat,
+                                            levels=c("Sc_present","Sc_absent",
+                                                     "Ch_present","Ch_absent",
+                                                     "Ac_present", "Ac_absent",
+                                                     "Vf_present", "Vf_absent",
+                                                     "Tw_present", "Tw_absent"))
+
+
+AIP_presence_fmt$plotting_cat_fmt <- gsub(pattern="Sc|Ch", replacement="sebaceous",x = AIP_presence_fmt$plotting_cat)
+
+AIP_presence_fmt$plotting_cat_fmt <- gsub(pattern="Ac|Vf|Tw", replacement="non_sebaceous",x = AIP_presence_fmt$plotting_cat_fmt)
+
+
+AIP_presence_fmt$plotting_cat_fmt <- factor(AIP_presence_fmt$plotting_cat_fmt,
+                                            levels=c("sebaceous_present","sebaceous_absent",
+                                                     "non_sebaceous_present","non_sebaceous_absent"))
+
+site_comparisons <- list(c("sebaceous_present", "sebaceous_absent"),
+                                c("non_sebaceous_present","non_sebaceous_absent"))
+
+
+AIP_presence_fmt <- merge(AIP_presence_fmt, targeted_mgx_ratios, by = "mgx_LIBID")
+
+
+#For the C acne to S epi ratio
+AIP_presence_ratio_boxplot_a <- ggplot(AIP_presence_fmt, 
+                                             aes(x=plotting_cat_fmt, y=log10(C_acnes_to_S_epi_ratio))) + 
+  geom_boxplot() + theme_classic() + stat_compare_means(method="wilcox.test", 
+                                                        comparisons=site_comparisons) + 
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.2, hjust=1))
+
+
+AIP_presence_ratio_boxplot_a
+
+#For the C acne to S cap ratio
+AIP_presence_ratio_boxplot_b <- ggplot(AIP_presence_fmt, 
+                                             aes(x=plotting_cat_fmt, y=log10(C_acnes_to_S_cap_ratio))) + 
+  geom_boxplot() + theme_classic() + stat_compare_means(method="wilcox.test", 
+                                                        comparisons=site_comparisons) +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.2, hjust=1))
+
+
+AIP_presence_ratio_boxplot_b
+
+#
+
+AIP_presence_ratio_boxplots <- ggarrange(AIP_presence_ratio_boxplot_a, 
+                                                 AIP_presence_ratio_boxplot_b, 
+                                                 ncol = 2 )
+
+
+
+ggsave(plot=AIP_presence_ratio_boxplots,
+       filename = "../plots/AIP_presence_ratio_boxplots.pdf",
+       height = 5, width =7)
+
+
+#count of samples in each category
+AIP_presence_fmt %>% plyr::count(., vars="plotting_cat_fmt")
+
+
+AIP_presence_ratio_boxplots
+
 
 
 ```
