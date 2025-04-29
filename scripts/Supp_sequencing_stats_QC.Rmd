@@ -61,12 +61,19 @@ mgx_to_pull <- read_tsv("../metadata/mgx_to_pull", col_names = FALSE, show_col_t
 main_cohort_QC <- read_tsv("../metadata/MTX_QC_stats.txt", show_col_types = FALSE) %>%
   dplyr::filter(LIBID %in% mtx_to_pull)
 
+#
+
 mgx_stats <- read_tsv("../metadata/MGX_QC_stats.txt", show_col_types = FALSE) 
 
 mgx_stats <- merge(mgx_stats, metadata, by = "LIBID", all.x=TRUE)
 
 mgx_stats_chosen <- mgx_stats %>% dplyr::filter(LIBID %in% mgx_to_pull)
+#see process_taxa_abundances.Rmd
+mgx_k2_contam_read_pairs <- read_tsv("../data/mgx_k2_contaminant_read_pairs.tsv", show_col_types = FALSE) %>% 
+  dplyr::rename(LIBID=mgx_LIBID)
 
+mgx_stats_chosen <- merge(mgx_stats_chosen, mgx_k2_contam_read_pairs, by = "LIBID")
+mgx_stats_chosen$MICROBE_COUNT_MINUS_CONTAM <- mgx_stats_chosen$MICROBE_COUNT - mgx_stats_chosen$estimated_contaminant_read_pairs
 #
 
 mtx_stats <- read_tsv("../metadata/MTX_QC_stats.txt", show_col_types = FALSE) 
@@ -74,6 +81,13 @@ mtx_stats <- read_tsv("../metadata/MTX_QC_stats.txt", show_col_types = FALSE)
 mtx_stats <- merge(mtx_stats, metadata, by = "LIBID", all.x=TRUE)
 
 mtx_stats_chosen <- mtx_stats %>% dplyr::filter(LIBID %in% mtx_to_pull)
+#see process_taxa_abundances.Rmd
+mtx_k2_contam_read_pairs <- read_tsv("../data/mtx_k2_contaminant_read_pairs.tsv", show_col_types = FALSE) %>%
+  dplyr::rename(LIBID=mtx_LIBID)
+
+mtx_stats_chosen <- merge(mtx_stats_chosen, mtx_k2_contam_read_pairs, by = "LIBID")
+mtx_stats_chosen$MICROBE_COUNT_MINUS_CONTAM <- mtx_stats_chosen$MICROBE_COUNT - mtx_stats_chosen$estimated_contaminant_read_pairs
+
 
 ```
 
@@ -165,20 +179,41 @@ main_cohort_dv200_boxplot
 
 Boxplot of total number and the number of microbial read pairs for metagenomes across body sites for the full cohort.
 
+Update: add another category "microbial reads minus contaminants"
+
 ```{r}
+
 
 mgx_stats_for_plot <- rbind(data.frame(read_pairs=mgx_stats_chosen$AFTER_FASTP, region=mgx_stats_chosen$region, cat="before_rm"),
 data.frame(read_pairs=mgx_stats_chosen$MICROBE_COUNT, region=mgx_stats_chosen$region,
            cat="after_rm"))
 
+mgx_stats_for_plot_fmt <- rbind(mgx_stats_for_plot, 
+                                data.frame(read_pairs=mgx_stats_chosen$MICROBE_COUNT_MINUS_CONTAM, 
+                                           region=mgx_stats_chosen$region,
+                                           cat="after_rm_minus_contam"))
 
-mgx_read_stats_boxplot <- ggplot(mgx_stats_for_plot %>% mutate(region= fct_relevel(region, "Sc", "Ch", "Ac", "Vf", "Tw"),
+
+mgx_read_stats_boxplot <- ggplot(mgx_stats_for_plot_fmt %>% mutate(region= fct_relevel(region, "Sc", "Ch", "Ac", "Vf", "Tw"),
                                      cat=fct_relevel(cat, "before_rm", "after_rm")) %>% 
          mutate(cat = recode(cat, "before_rm" = "All reads", 
-                            "after_rm" = "microbial reads")), 
+                            "after_rm" = "microbial reads",
+                            "after_rm_minus_contam"= "skin microbial reads")), 
        aes(x=region, y=read_pairs, fill=cat)) + theme_classic() + geom_boxplot() + ggtitle("Metagenomes (n = 102)") 
 
 ggsave(plot=mgx_read_stats_boxplot, filename = "../plots/mgx_read_stats_boxplot.pdf")
+
+
+#What percent of sequences were identified as contamimant microbes (estimated)?
+mgx_stats_chosen$est_percent_microbial_contam <- (mgx_stats_chosen$estimated_contaminant_read_pairs / mgx_stats_chosen$MICROBE_COUNT)*100
+
+median(mgx_stats_chosen$est_percent_microbial_contam) #8.29%
+max(mgx_stats_chosen$est_percent_microbial_contam) #71.9%
+min(mgx_stats_chosen$est_percent_microbial_contam) #0.09%
+
+#Paired metagenomes were sequenced to sufficient depth to obtain a median of > 5.5 million microbial read pairs after filtering for human reads and contaminants
+median(mgx_stats_chosen$MICROBE_COUNT_MINUS_CONTAM)
+
 
 
 mgx_read_stats_boxplot
@@ -186,9 +221,24 @@ mgx_read_stats_boxplot
 
 ```
 
+The same as above,but for metatranscriptomes.
+
+```{r}
+
+#What percent of sequences were identified as contamimant microbes (estimated)?
+mtx_stats_chosen$est_percent_microbial_contam <- (mtx_stats_chosen$estimated_contaminant_read_pairs / mtx_stats_chosen$MICROBE_COUNT)*100
+
+median(mtx_stats_chosen$est_percent_microbial_contam) #0.6
+max(mtx_stats_chosen$est_percent_microbial_contam) #26.06
+min(mtx_stats_chosen$est_percent_microbial_contam) #0.02%
+
+
+```
+
+
 ## Panel D
 
-Boxplot of the percentage of reads that do not map to the human genome (hg38) for skin metatranscriptomes (before deduplication) and metagenomes for the full cohort. The p-value for the paired Wilcoxon signed rank test is shown.
+Boxplot of the percentage of microbial reads that do not map to the human genome (hg38) for skin metatranscriptomes (before deduplication) and metagenomes for the full cohort. The p-value for the paired Wilcoxon signed rank test is shown.
 
 ```{r}
 
@@ -245,19 +295,78 @@ Boxplot showing the proportion of microbial reads functionally annotated by our 
 ```{r}
 
 
-mtx_proportion_microbial_annotated <- read_tsv("../metadata/mtx_proportion_microbial_annotated.tsv",
+mtx_proportion_microbial_annotated_init <- read_tsv("../metadata/mtx_proportion_microbial_annotated.tsv",
                                                show_col_types = FALSE)
 
-mgx_proportion_microbial_annotated <- read_tsv("../metadata/mgx_proportion_microbial_annotated.tsv",
+mgx_proportion_microbial_annotated_init <- read_tsv("../metadata/mgx_proportion_microbial_annotated.tsv",
                                                show_col_types = FALSE)
 
+#Load annotated unpaired read counts associated with contamimant genera and species
 
-mtx_mgx_proportion_microbial_annotated <- rbind(mtx_proportion_microbial_annotated,
-                                                mgx_proportion_microbial_annotated)
+mtx_annotated_contaminant_unpaired_read_count <- read_tsv("../data/mtx_annotated_contaminant_unpaired_read_count.tsv", 
+                                                          show_col_types = FALSE) %>% dplyr::rename(LIBID=mtx_LIBID)
+
+mgx_annotated_contaminant_unpaired_read_count <- read_tsv("../data/mgx_annotated_contaminant_unpaired_read_count.tsv", 
+                                                          show_col_types = FALSE) %>% dplyr::rename(LIBID=mgx_LIBID)
+
+mtx_proportion_microbial_annotated <- merge(mtx_proportion_microbial_annotated_init, 
+                                            mtx_annotated_contaminant_unpaired_read_count, by = "LIBID")
+mgx_proportion_microbial_annotated <- merge(mgx_proportion_microbial_annotated_init, 
+                                            mgx_annotated_contaminant_unpaired_read_count, by = "LIBID")
+
+#Compute proportion annotated after accounting for contaminant genera and species for mgx
+mgx_proportion_microbial_annotated$MICROBE_COUNT_UNPAIRED_ANNOTATED_NON_CONTAM <- mgx_proportion_microbial_annotated$MICROBE_COUNT_UNPAIRED_ANNOTATED -
+  mgx_proportion_microbial_annotated$annotated_contaminant_reads_unpaired
+
+mgx_proportion_microbial_annotated$MICROBE_COUNT_PROPORTION_ANNOTATED_NON_CONTAM <- (mgx_proportion_microbial_annotated$MICROBE_COUNT_UNPAIRED_ANNOTATED_NON_CONTAM/mgx_proportion_microbial_annotated$MICROBE_COUNT_UNPAIRED)
 
 
-mtx_mgx_proportion_microbial_annotated_boxplot <- ggplot(mtx_mgx_proportion_microbial_annotated %>% mutate(region= fct_relevel(region, "Sc", "Ch", "Ac", "Vf", "Tw")), 
-       aes(x=region, fill=mol_type ,y=MICROBE_COUNT_PROPORTION_ANNOTATED)) + scale_fill_manual(values=c("#4682B4","#B47846"))+
+#Compute proportion annotated after accounting for contaminant genera and species for mtx
+mtx_proportion_microbial_annotated$MICROBE_COUNT_UNPAIRED_ANNOTATED_NON_CONTAM <- mtx_proportion_microbial_annotated$MICROBE_COUNT_UNPAIRED_ANNOTATED -
+  mtx_proportion_microbial_annotated$annotated_contaminant_reads_unpaired
+
+mtx_proportion_microbial_annotated$MICROBE_COUNT_PROPORTION_ANNOTATED_NON_CONTAM <- (mtx_proportion_microbial_annotated$MICROBE_COUNT_UNPAIRED_ANNOTATED_NON_CONTAM/mtx_proportion_microbial_annotated$MICROBE_COUNT_UNPAIRED)
+
+
+#subset and bind the dataframes for plotting
+#all microbial reads
+mtx_proportion_microbial_annotated_for_plot <- mtx_proportion_microbial_annotated_init %>% 
+  dplyr::select(region, mol_type , MICROBE_COUNT_PROPORTION_ANNOTATED) %>% 
+  dplyr::rename(sample_type=mol_type)
+
+mgx_proportion_microbial_annotated_for_plot <- mgx_proportion_microbial_annotated_init %>% 
+  dplyr::select(region, mol_type , MICROBE_COUNT_PROPORTION_ANNOTATED) %>% 
+  dplyr::rename(sample_type=mol_type)
+
+#non-contaminant microbial reads
+mtx_proportion_non_contam_annotated_for_plot <- mtx_proportion_microbial_annotated %>% 
+  dplyr::select(region, MICROBE_COUNT_PROPORTION_ANNOTATED_NON_CONTAM) %>% 
+  dplyr::rename(MICROBE_COUNT_PROPORTION_ANNOTATED=MICROBE_COUNT_PROPORTION_ANNOTATED_NON_CONTAM)
+
+mtx_proportion_non_contam_annotated_for_plot$sample_type <- "RNA_non_contam"
+
+mgx_proportion_non_contam_annotated_for_plot <- mgx_proportion_microbial_annotated %>% 
+  dplyr::select(region, MICROBE_COUNT_PROPORTION_ANNOTATED_NON_CONTAM) %>% 
+  dplyr::rename(MICROBE_COUNT_PROPORTION_ANNOTATED=MICROBE_COUNT_PROPORTION_ANNOTATED_NON_CONTAM)
+
+mgx_proportion_non_contam_annotated_for_plot$sample_type <- "DNA_non_contam"
+
+
+mtx_mgx_proportion_microbial_annotated <- do.call("rbind", tibble::lst(mtx_proportion_microbial_annotated_for_plot,
+                                                mgx_proportion_microbial_annotated_for_plot,
+                                                mtx_proportion_non_contam_annotated_for_plot,
+                                                mgx_proportion_non_contam_annotated_for_plot))
+
+mtx_mgx_proportion_microbial_annotated$region <- factor(mtx_mgx_proportion_microbial_annotated$region,
+                                                        levels=c("Sc", "Ch", "Ac", "Vf", "Tw"))
+
+mtx_mgx_proportion_microbial_annotated$sample_type <- factor(mtx_mgx_proportion_microbial_annotated$sample_type,
+                                                        levels=c("DNA", "DNA_non_contam", "RNA", "RNA_non_contam"))
+
+
+mtx_mgx_proportion_microbial_annotated_boxplot <- ggplot(mtx_mgx_proportion_microbial_annotated,
+       aes(x=region, fill=sample_type ,y=MICROBE_COUNT_PROPORTION_ANNOTATED)) + scale_fill_manual(values=c("#648FFF","#785EF0",
+                                                                                                           "#FE6100","#FFB000"))+
   theme_classic() + geom_boxplot() + ylab("Proportion of annotated microbial reads")
 
 ggsave(filename="../plots/mtx_mgx_proportion_microbial_annotated.pdf", 
@@ -266,5 +375,20 @@ ggsave(filename="../plots/mtx_mgx_proportion_microbial_annotated.pdf",
 mtx_mgx_proportion_microbial_annotated_boxplot
 
 ```
+What are the median annotation rates after accounting for microbial contaminants for RNA?
 
+```{r}
 
+#these are proportions which scale to 1
+mtx_proportion_non_contam_annotated_for_plot %>% group_by(region) %>% dplyr::summarise(median=median(MICROBE_COUNT_PROPORTION_ANNOTATED))
+
+```
+
+What are the median annotation rates after accounting for microbial contaminants for DNA?
+
+```{r}
+
+#these are proportions which scale to 1
+mgx_proportion_non_contam_annotated_for_plot %>% group_by(region) %>% dplyr::summarise(median=median(MICROBE_COUNT_PROPORTION_ANNOTATED))
+
+```

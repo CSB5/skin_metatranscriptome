@@ -1,0 +1,456 @@
+---
+title: "ERCC_analysis"
+author: "Minghao Chia"
+date: "22/4/2025"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Load libraries
+
+```{r}
+# Load library for DESeq2
+library(DESeq2)
+# Load library for tidyverse
+library(tidyverse)
+library(tximport)
+library(ggpubr)
+```
+
+Reads were processed with fastp and aligned to ERCC92.fa using Salmon
+
+```{r message=FALSE}
+
+ERCC_library_metadata <- read_tsv("../metadata/ERCC_and_mock_comm_mtx_metadata.txt", show_col_types = FALSE,
+                                  skip = 1, col_names = c("sample","ERCC_mix",
+                                                          "input_RNA_conc",
+                                                          "dilution_factor",
+                                                          "RNA_input_ng",
+                                                          "vol_input",
+                                                          "UMI",
+                                                          "PCR_cycles",
+                                                          "library_conc_pg_per_ul",
+                                                          "library_conc_ng_per_ul",
+                                                          "library_volume_ul",
+                                                          "dilution_fraction",
+                                                          "LIBID"))
+
+ERCC_LIBID <- ERCC_library_metadata %>% dplyr::filter(ERCC_mix %in% c(1,2)) %>% pull(LIBID)
+
+#composition of ERCC pool (92 transcripts)
+ERCC_composition <- read_tsv("../metadata/ERCC92_metadata.tsv", show_col_types = FALSE, skip =1,
+                             col_names = c("Re_sort_ID","ERCC_ID", "subgroup",
+                                           "Mix_1_attomoles_per_ul", "Mix_2_attomoles_per_ul",
+                                           "expected_fold_change_ratio", "log2_Mix_1_over_Mix_2")) 
+
+
+eight_skin_bact_with_ERCC_gene_names <- read_tsv("../data/ERCC_analysis/eight_skin_bact_with_ERCC_gene_names.tsv", show_col_types = FALSE)
+
+ERCC_tx2gene <- data.frame(X1=eight_skin_bact_with_ERCC_gene_names$Name, X2=eight_skin_bact_with_ERCC_gene_names$Name)
+
+
+
+```
+
+Load salmon quant results for ERCCs
+
+```{r}
+
+ERCC_salmon_files <- file.path("../data/ERCC_analysis/", paste0(ERCC_LIBID, "_quant.sf"))
+
+names(ERCC_salmon_files) <- ERCC_LIBID
+
+ERCC_txi.salmon <- tximport(ERCC_salmon_files, type="salmon", tx2gene=ERCC_tx2gene)
+
+ERCC_count_matrix <- ERCC_txi.salmon$counts
+
+#Convert to matrix of integers
+  
+ERCC_integer_count_matrix <- round(ERCC_count_matrix)
+mode(ERCC_integer_count_matrix) <- "integer"
+ERCC_TPM_matrix <- ERCC_txi.salmon$abundance
+
+#which samples to use for the analysis? Use an aligned read count threshold
+
+ERCC_count_summary <- colSums(ERCC_integer_count_matrix)
+
+ERCC_LIBID_pass <- ERCC_count_summary %>% names()
+
+ERCC_DE_metadata <- ERCC_library_metadata %>% dplyr::filter(ERCC_mix %in% c(1,2)) %>% dplyr::select(LIBID, ERCC_mix)
+
+ERCC_DE_metadata$ERCC_mix_fmt <- ifelse(ERCC_DE_metadata$ERCC_mix == 1, "mix_1", "mix_2")
+
+ERCC_DE_metadata$ERCC_mix_fmt <- factor(ERCC_DE_metadata$ERCC_mix_fmt, levels = c("mix_2","mix_1"))
+
+
+```
+
+
+Define function for DESeq2
+
+```{r}
+
+#This function selects for mtx libraries corresponding to sites of choice.
+#Assumes input is already a count matrix from Salmon quant
+run_DESeq_with_salmon_for_ERCC <- function(input_matrix=ERCC_count_matrix, 
+                                         input_metadata=ERCC_DE_metadata %>% dplyr::select(LIBID, ERCC_mix_fmt),
+                                         lib_vec = ERCC_LIBID_pass,
+                                         cond="mix_1",
+                                         ref_cond="mix_2",
+                                         run_test=FALSE){
+  
+  libs_to_pull <- input_metadata %>% dplyr::filter(LIBID %in% lib_vec) %>% pull(LIBID)
+  
+  ##############################################
+  ## prepare input read count matrix for DESeq2#
+  ##############################################
+  
+  #Subset read count matrix with the selected libraries AND species.
+  
+  chosen_matrix <- input_matrix[,libs_to_pull]
+  
+  #Convert to matrix of integers
+  
+  chosen_matrix <- round(chosen_matrix)
+  mode(chosen_matrix) <- "integer"
+  
+  ##############################################
+  ## prepare metadata for DESeq2               #
+  ##############################################
+  
+  
+  selected_metadata <- input_metadata %>% dplyr::filter(LIBID %in% libs_to_pull) %>% as.data.frame()
+  
+  rownames(selected_metadata) <- selected_metadata$LIBID
+  
+  #the row names of metadata should automatically be ordered in a way that matches the input matrix
+  #reorder rows of the metadata
+  idx <- match(colnames(chosen_matrix), rownames(selected_metadata))
+  selected_metadata <- selected_metadata[idx,]
+  
+
+  ##############################################
+  ## Run DESeq2                                #
+  ##############################################
+  #https://www.biostars.org/p/412320/ DESeqDataSetFromTximport rounds salmon matrix to integers, unlike DESeqDataSetFromMatrix
+  #Here I am using the salmon read matrix straight off, so I have manually done the rounding
+  
+  #https://support.bioconductor.org/p/9137115/
+  #If your design is not confounded (e.g. you have balanced your conditions of interest within batches or other nuisance variables) then you can do, e.g. ~batch + condition or       #~batch + nuisance1 + nuisance2 + condition.
+  
+ 
+  dds <- DESeqDataSetFromMatrix(countData = chosen_matrix, 
+                                  colData = selected_metadata, 
+                                  design = ~ERCC_mix_fmt)
+  
+  #Pre-filtering to keep rows with a minimum median read count <= 10 for genes
+  
+  mat <- counts(dds)
+  
+  keep <- (rowMedians(mat) >= 10)
+  dds <- dds[keep,]
+  
+  #####Estimate size factors
+  dds <- estimateSizeFactors(dds)
+  
+  dds$ERCC_mix_fmt <- relevel(dds$ERCC_mix_fmt, ref_cond)
+  
+  normalized_counts <- counts(dds, normalized=TRUE)
+  
+  #See DESeq2 vignette about blind dispersion estimation
+  #https://www.biostars.org/p/428369/
+  
+  #vsd <- vst(dds, blind=FALSE, nsub=nrow(dds))  
+  
+  vsd <- varianceStabilizingTransformation(dds, blind=FALSE)
+  
+  vsd_mat <- assay(vsd)
+  
+  vsd_cor <- cor(vsd_mat)
+  
+  
+  if (run_test==FALSE){
+    outputs <- tibble::lst(chosen_matrix, selected_metadata,
+                           dds,
+                           normalized_counts,
+                           vsd, vsd_mat, vsd_cor)
+  } else if (run_test==TRUE){
+    
+    dds <- DESeq(dds)   #wald test
+    
+    DE_results <- results(dds,contrast=c("ERCC_mix_fmt",cond,ref_cond),
+                          alpha=0.05)
+    
+    DE_results_shrunken <- lfcShrink(dds,
+                                     type="ashr",
+                                     res=DE_results)
+    
+    DE_results_shrunken_df <- data.frame(DE_results_shrunken)
+    
+    DE_results_shrunken_df$gene <- rownames(DE_results_shrunken_df)
+    
+    outputs <- tibble::lst(lib_vec, chosen_matrix, selected_metadata,
+                           condition=cond,
+                           reference_condition=ref_cond,
+                           dds,
+                           normalized_counts,
+                           vsd, vsd_mat, vsd_cor,
+                           DE_results, DE_results_shrunken,
+                           DE_results_shrunken_df)
+  }
+  return(outputs)
+}
+
+
+
+
+```
+
+
+
+
+Create the DESeq2 object and estimate size factors.
+
+```{r}
+
+#Run DESeq2 on samples 
+ERCC_DESeq_results <- run_DESeq_with_salmon_for_ERCC(ref_cond="mix_2",
+                                                           run_test = TRUE)
+
+plotDispEsts(ERCC_DESeq_results[["dds"]])
+
+DESeq2::plotMA(ERCC_DESeq_results[["DE_results_shrunken"]])
+
+
+#ERCC_DESeq_results_df <- data.frame(ERCC_DESeq_results$DE_results)
+
+ERCC_DESeq_results_shrunken_df <- ERCC_DESeq_results$DE_results_shrunken_df
+
+
+#vst counts 
+
+#features corresponding to ERCC transcripts
+
+ERCC_vst <- ERCC_DESeq_results$vsd %>% 
+  assay(.)  %>% as.data.frame()
+
+
+ERCC_vst$ERCC_ID <- rownames(ERCC_vst)
+
+#add ground truth information
+
+
+
+ERCC_vst <- merge(ERCC_vst, ERCC_composition, by = "ERCC_ID" )
+
+
+ERCC_metadata_subset <- ERCC_DESeq_results$selected_metadata
+```
+
+Get correlations of ERCC transcripts for each library (log2 TPM), against log2 concentration (ground truth)
+
+```{r eval=FALSE}
+
+#filter rows for median 1 TPM
+ERCC_TPM_matrix_filt <- ERCC_TPM_matrix[,ERCC_LIBID_pass]
+ERCC_TPM_matrix_filt <- ERCC_TPM_matrix_filt[rowMedians(ERCC_TPM_matrix) >= 1,]
+
+ERCC_TPM_df_filt <- ERCC_TPM_matrix_filt %>% as.data.frame()
+ERCC_TPM_df_filt$ERCC_ID <- rownames(ERCC_TPM_df_filt)
+
+ERCC_TPM_df_filt <- merge(ERCC_TPM_df_filt, ERCC_composition, by = "ERCC_ID" )
+
+ERCC_TPM_corr_df <- lapply(ERCC_LIBID_pass, function(library_id){
+  
+  mix_status <- ERCC_metadata_subset %>% dplyr::filter(LIBID==library_id) %>% pull(ERCC_mix_fmt)
+  
+  if (mix_status=="mix_1"){
+    input_df <- ERCC_TPM_df_filt[,c(library_id,"Mix_1_attomoles_per_ul")]
+    colnames(input_df)[2] <- "ground_truth_attomoles_per_ul"
+    
+  } else if (mix_status=="mix_2"){
+    input_df <- ERCC_TPM_df_filt[,c(library_id,"Mix_2_attomoles_per_ul")]
+    colnames(input_df)[2] <- "ground_truth_attomoles_per_ul"
+  }
+  colnames(input_df)[1] <- "TPM"
+  #run the correlation test
+  
+  #add pseudo count of 0.01 and log2
+  input_df$TPM_pseudocount <- input_df$TPM + 0.01
+  input_df$log2_TPM <- log2(input_df$TPM_pseudocount)
+  
+  
+  corr_results <- cor.test(y=input_df$log2_TPM, x=log2(input_df$ground_truth_attomoles_per_ul) ,method="pearson")
+  
+  
+  corr_coeff <- corr_results[["estimate"]][["cor"]]
+  p_val <- corr_results[["p.value"]]
+  
+  output <- data.frame(LIBID=library_id, pearson_corr=corr_coeff, p_value=p_val, comparison="against ground truth")
+  
+  return(output)
+  
+})  %>% do.call("rbind", .)
+
+
+
+```
+
+
+
+Get correlations of ERCC transcripts for each library (log2 vst counts), against log2 concentration (ground truth)
+
+
+```{r}
+#Get correlations of ERCC transcripts for each library (log2 vst counts), against log2 concentration (ground truth)
+
+ERCC_vst_corr_df <- lapply(ERCC_LIBID_pass, function(library_id){
+  
+  mix_status <- ERCC_metadata_subset %>% dplyr::filter(LIBID==library_id) %>% pull(ERCC_mix_fmt)
+  
+  if (mix_status=="mix_1"){
+    input_df <- ERCC_vst[,c(library_id,"Mix_1_attomoles_per_ul")]
+    colnames(input_df)[2] <- "ground_truth_attomoles_per_ul"
+    
+  } else if (mix_status=="mix_2"){
+    input_df <- ERCC_vst[,c(library_id,"Mix_2_attomoles_per_ul")]
+    colnames(input_df)[2] <- "ground_truth_attomoles_per_ul"
+  }
+  
+
+  colnames(input_df)[1] <- "vst_counts" #already in log2 scale
+  #run the correlation test
+  
+  
+  corr_results <- cor.test(y=input_df$vst_counts, x=log10(input_df$ground_truth_attomoles_per_ul) ,method="pearson")
+  
+  
+  corr_coeff <- corr_results[["estimate"]][["cor"]]
+  p_val <- corr_results[["p.value"]]
+  
+  output <- data.frame(LIBID=library_id, pearson_corr=corr_coeff, p_value=p_val, comparison="against ground truth")
+  
+  return(output)
+  
+})  %>% do.call("rbind", .)
+
+
+median(ERCC_vst_corr_df$pearson_corr) #0.787
+
+```
+Box plot for pearson correlations for ERCC spikes. 
+
+```{r}
+
+
+ERCC_vst_corr_boxplot <- ggplot(ERCC_vst_corr_df, aes(x=comparison, y=pearson_corr)) + 
+  geom_boxplot() + 
+  theme_classic() + ylab("Pearson correlation") + xlab("comparison")
+
+
+
+ggsave(plot=ERCC_vst_corr_boxplot, filename="../plots/ERCC_vst_corr_boxplot.pdf")
+
+
+ERCC_vst_corr_boxplot
+
+```
+
+
+Scatter plot linear regression for the libraries with the highest and lowest pearson correlations, fitted and plotted separately
+
+```{r}
+
+#highest correlation 
+highest_corr_ID <- ERCC_vst_corr_df %>% dplyr::filter(pearson_corr == max(pearson_corr)) %>% pull(LIBID)
+lowest_corr_ID <- ERCC_vst_corr_df %>% dplyr::filter(pearson_corr == min(pearson_corr)) %>% pull(LIBID)
+
+ERCC_vst_for_scatter_df <- lapply(ERCC_LIBID_pass, function(library_id){
+  
+  mix_status <- ERCC_metadata_subset %>% dplyr::filter(LIBID==library_id) %>% pull(ERCC_mix_fmt)
+  
+  if (mix_status=="mix_1"){
+    output <- ERCC_vst[,c(library_id,"Mix_1_attomoles_per_ul")]
+    colnames(output)[2] <- "ground_truth_attomoles_per_ul"
+    
+  } else if (mix_status=="mix_2"){
+    output <- ERCC_vst[,c(library_id,"Mix_2_attomoles_per_ul")]
+    colnames(output)[2] <- "ground_truth_attomoles_per_ul"
+  }
+  
+  colnames(output)[1] <- "vst_counts" #already in log2 scale
+  #run the correlation test
+  
+  output$LIBID <- library_id
+  
+  return(output)
+  
+})  %>% do.call("rbind", .)
+
+
+
+#for highest correlation libraru
+highest_corr_scatter <- ggplot(ERCC_vst_for_scatter_df %>% dplyr::filter(LIBID == highest_corr_ID) , aes(x=log10(ground_truth_attomoles_per_ul), y = vst_counts)) + 
+  geom_point(size=2) + theme_classic() + stat_cor(method = "pearson") + geom_smooth(method='lm', se=FALSE) + 
+  theme(axis.text.y=element_text(size=14), axis.text.x=element_text(size=14), axis.title.x=element_text(size=14), axis.title.y=element_text(size=14)) +
+  ylab("VST counts") + xlab("log10(concentration)")
+
+
+#for lowest corr library
+
+lowest_corr_scatter <- ggplot(ERCC_vst_for_scatter_df %>% dplyr::filter(LIBID == lowest_corr_ID) , aes(x=log10(ground_truth_attomoles_per_ul), y = vst_counts)) + 
+  geom_point(size=2) + theme_classic() + stat_cor(method = "pearson") + geom_smooth(method='lm', se=FALSE) + 
+  theme(axis.text.y=element_text(size=14), axis.text.x=element_text(size=14), axis.title.x=element_text(size=14), axis.title.y=element_text(size=14)) +
+  ylab("VST counts") + xlab("log10(concentration)")
+
+
+highest_corr_scatter
+
+lowest_corr_scatter 
+
+
+combined_corr_scatter <- ggarrange(highest_corr_scatter, lowest_corr_scatter, ncol = 2)
+
+combined_corr_scatter
+
+ggsave(filename="../plots/combined_corr_scatter.pdf", width = 10, height = 7)
+
+```
+
+
+What % of all reads map to ERCC transcripts (normalize to library size)?
+
+No need to plot this, just calculate
+
+```{r}
+#counts of non-human reads, regardless of mapping
+ERCC_total_read_counts <- read_tsv("../data/ERCC_analysis/ERCC_experiments_total_read_counts.tsv", 
+                                   show_col_types = FALSE, col_names = c("LIBID", "non_human_read_counts"))
+
+
+
+#filtered only for reads mapping to ERCC transcript sequences
+ERCC_count_matrix_filt <- ERCC_count_matrix[rownames(ERCC_count_matrix) %in% ERCC_composition$ERCC_ID,]
+
+ERCC_mapped_counts <- data.frame(LIBID=names(colSums(ERCC_count_matrix_filt)),
+                                 ERCC_spike_read_counts=colSums(ERCC_count_matrix_filt) )
+
+
+
+ERCC_total_read_counts <- merge(ERCC_total_read_counts, ERCC_mapped_counts)
+
+ERCC_total_read_counts$ERCC_mapping_percentage <- (ERCC_total_read_counts$ERCC_spike_read_counts / ERCC_total_read_counts$non_human_read_counts)* 100
+
+median(ERCC_total_read_counts$ERCC_mapping_percentage) #0.3927411
+
+```
+
+You can ignore transcripts that are not expected to be detected given the depth of sequencing while computing correlation values. Also, plotting the x-axis on a log-10 scale could help in interpretation.
+
+
+
+
+

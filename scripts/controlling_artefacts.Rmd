@@ -88,6 +88,7 @@ Load data outputs from sparCC (fastspar)
 The result files are quite large and must be downloaded from figshare
 https://figshare.com/articles/dataset/sparCC_fastspar_results_for_kitome_identification/25699677?file=45875358
 
+
 ```{r eval=FALSE}
 
 MTX_corr <- load_mat("../data/fastspar/subj_MTX_median_correlation.tsv")
@@ -110,6 +111,7 @@ MGX_corr_edge_signif <- MGX_corr_edge %>% dplyr::filter(abs(corr_coeff)>=0.8 & p
 
 
 ```
+
 
 Find all edges that are strongly correlated with contaminant genera (corr_coeff >= + 0.8 and padj 0.05)
 
@@ -181,13 +183,30 @@ MGX_contam_for_plotting <- c(MGX_corr_with_contam_no_spikes$Var1,
 #contam_vec can be MGX_contam_for_plotting
 get_skin_species_and_contams <- function(k2_list, contam_vec){
   
-  skin_vec <- do.call("rbind",k2_list) %>% pull(name) %>% unique(.)
+  skin_vec <- do.call("rbind",k2_list) %>% pull(k2_taxon) %>% unique(.)
   
   output_vec <- c(skin_vec, contam_vec) %>% unique(.)
   
   return(output_vec)
   
 }
+
+
+#load mgx kraken2 results
+
+mgx_to_pull <- read_tsv("../metadata/mgx_to_pull", show_col_types = FALSE, col_names = "LIBID") %>% pull(LIBID)
+
+MGX_species_k2_filtered <- lapply(mgx_to_pull, function(x){
+  
+  output <- read_tsv(file=paste0("../data/k2_species_renorm/DNA/",x,"_k2_renorm.s.tsv"),show_col_types = FALSE)
+  
+  return(output)
+})
+
+names(MGX_species_k2_filtered) <- mgx_to_pull
+
+
+
 
 MGX_skin_species_and_contams <- get_skin_species_and_contams(k2_list=MGX_species_k2_filtered, 
                                                          contam_vec = MGX_contam_for_plotting)
@@ -258,11 +277,98 @@ plot_ggheatmap <-  function(corr_mat){
 }
 
 
+MGX_corr_contam_heatmap_corr_mat <- MGX_corr_edge_for_heatmap[["corr_mat"]]
+
+write.table(MGX_corr_contam_heatmap_corr_mat, file = "../data/MGX_corr_contam_heatmap_corr_mat.tsv", sep = "\t", row.names = TRUE)
+
 mgx_corr_contam_heatmap <- plot_ggheatmap(MGX_corr_edge_for_heatmap[["corr_mat"]])
 
 ggsave(plot=mgx_corr_contam_heatmap, filename = "../plots/mgx_corr_contam_heatmap.pdf", width=40, height=40)
 
+
+mgx_corr_contam_heatmap
+
 ```
+
+Create a zoomed in heatmap of species belonging to the genera: Corynebacterium, Malassezia, Cutibacterium, Paracoccus, Brevundimonas, Mycolibacterium, Mycobacterium, Deinococcus, Staphylococcus, Streptococcus, Prevotella, Veillonella, Achromobacter, Bradyrhizobium
+
+
+```{r}
+
+plot_ggheatmap_2 <-  function(corr_mat, font_size){
+  
+  # Use correlation between variables as distance
+  dd <- as.dist((1-corr_mat)/2)
+  hc <- hclust(dd)
+  
+  corr_mat_clustered <- corr_mat[hc$order, hc$order]
+  
+  df <- melt(corr_mat_clustered, value.name="corr_coeff")
+  
+  ggplot(data = df, aes(Var2, Var1, fill = corr_coeff))+
+    geom_tile()+
+    scale_fill_gradientn(colours=c("blue","white", "red"), 
+                         values=scales::rescale(c(-0.8, 0.3, 0.8)), space = "Lab",  
+                         name="sparCC Pearson \nCorrelation") +
+    theme_minimal()+ 
+    theme(axis.text.x = element_text(size= font_size, angle = 90, vjust = 0.2, hjust=1),
+          axis.text.y = element_text(size = font_size),
+           axis.title.x=element_blank(),
+          axis.title.y=element_blank())+
+    coord_fixed()
+}
+
+
+
+
+
+contam_genera_to_plot <- c( "Paracoccus", 
+                    "Brevundimonas", 
+                    "Mycolibacterium", 
+                    "Mycobacterium", 
+                    "Deinococcus",
+                    "Achromobacter", 
+                    "Bradyrhizobium")
+
+
+mgx_species_vector <- MGX_species_k2_filtered %>% do.call("rbind",.) %>% pull(k2_taxon) %>% unique(.)
+
+skin_genera_to_plot <- c("Staphylococcus",
+                         "Streptococcus", 
+                         "Prevotella", 
+                         "Veillonella", 
+                         "Corynebacterium", 
+                         "Malassezia", 
+                         "Cutibacterium")
+
+skin_genera_to_plot_mask <- stringi::stri_paste("^",skin_genera_to_plot, collapse="|")
+
+skin_species_selection_filter <- str_detect(mgx_species_vector, skin_genera_to_plot_mask)
+
+skin_species_to_plot <- mgx_species_vector[skin_species_selection_filter]
+
+taxa_to_plot <- c(contam_genera_to_plot, skin_species_to_plot)
+
+taxa_mask_for_heatmap <- stringi::stri_paste("^",taxa_to_plot, collapse="|")
+
+species_zoom_rank_numbers <- grep(genera_mask_for_heatmap, rownames(MGX_corr_edge_for_heatmap[["corr_mat"]]), value=TRUE)
+
+MGX_corr_edge_for_heatmap_zoomed <- MGX_corr_edge_for_heatmap[["corr_mat"]][species_zoom_rank_numbers,species_zoom_rank_numbers]
+
+#Remove "_" from species labels..
+
+colnames(MGX_corr_edge_for_heatmap_zoomed) <- gsub(pattern="_", replacement=" ", colnames(MGX_corr_edge_for_heatmap_zoomed))
+rownames(MGX_corr_edge_for_heatmap_zoomed) <- gsub(pattern="_", replacement=" ", rownames(MGX_corr_edge_for_heatmap_zoomed))
+
+mgx_corr_contam_heatmap_zoomed <- plot_ggheatmap_2(MGX_corr_edge_for_heatmap_zoomed, font_size = 10)
+
+ggsave(plot=mgx_corr_contam_heatmap_zoomed, filename = "../plots/mgx_corr_contam_heatmap_zoomed.pdf", width=40, height=40)
+
+
+mgx_corr_contam_heatmap_zoomed
+
+```
+
 
 
 ### Computational artefact (kraken2 misclassification) removal

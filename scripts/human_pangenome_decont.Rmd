@@ -16,6 +16,32 @@ library(tidyverse)
 
 ```
 
+
+Load color palette
+```{r}
+
+#colorblind friendly palette
+c24 <- c(
+  "dodgerblue2", "#E31A1C", # red
+  "green4",
+  "#6A3D9A", # purple
+  "#FF7F00", # orange
+  "black", "gold1",
+  "skyblue2",
+  "palegreen2",
+  "#CAB2D6", # lt purple
+  "#FDBF6F", # lt orange
+  "gray70", "khaki2",
+  "maroon", "orchid1", "deeppink1", "blue1", "steelblue4",
+  "darkturquoise", "green1", "yellow4", "yellow3",
+  "darkorange4", "brown"
+)
+
+
+```
+
+
+
 Load metadata
 
 ```{r}
@@ -98,7 +124,7 @@ median(MGX_hupan_QC_fmt$k2_classified_percentage_mapped) #0.008317539
 
 
 ```
-We can ask another question: across all 5 body sites, what % of different microbial genus level reads (sans contaminants) are mapped to human pangenome?
+Across all 5 body sites, what % of different microbial genus level reads (sans contaminants) are mapped to human pangenome?
 
 The genera to check are: Cutibacterium, Staphylococcus and Malassezia
 
@@ -126,7 +152,8 @@ mgx_k2_genus <- lapply(mgx_to_pull$LIBID, function(ID){
   
   df <- read_tsv(paste0("../data/kraken2/DNA/",ID,"_merged_k2.g.tsv"),
                  show_col_types = FALSE,
-                 col_names = c("read_pairs_rooted_at_genus", "genus")) %>%
+                 col_names = c("read_pairs_rooted_at_genus", "read_pairs_directly_assigned", "genus")) %>%
+                 dplyr::select(read_pairs_rooted_at_genus, genus) %>% 
     dplyr::filter(genus %in% c("Cutibacterium","Staphylococcus","Malassezia"))
   
   df$LIBID <- ID
@@ -171,6 +198,105 @@ mgx_k2_genus_hupan_barplots
 
 
 ```
+
+
+
+Across all 5 body sites, what % of different microbial species level reads (sans contaminants) are mapped to human pangenome?
+
+
+```{r}
+
+#load contaminant list
+
+genera_to_remove <- read_tsv("../metadata/genera_to_remove", col_names = FALSE) %>% pull(X1)
+
+genera_mask <- stringi::stri_paste("^",genera_to_remove, collapse="|")
+
+#Derived from sparCC correlation analysis
+#In some applications, should add Homo_sapiens and unclassified to this
+species_to_remove <- read_tsv("../metadata/species_to_remove", col_names = FALSE, show_col_types = FALSE) %>% pull(X1) #111
+
+species_to_remove <- c(species_to_remove, "Homo_sapiens", "unclassified") %>% 
+  gsub(pattern="_", replacement=" ", .)
+
+#Load species level kraken2 results for read pairs that were mapped to the human pangenome (hupan) and remove contaminant taxa
+
+mgx_k2_species_hupan_mapped <- lapply(mgx_to_pull$LIBID, function(ID){
+  
+  df <- read_tsv(paste0("../data/human_pangenome_check/mapped_to_hprc/",ID,"_microbe_to_human_species.kreport2"),
+                 show_col_types = FALSE,
+                 col_names = c("read_pairs_mapped_to_hupan", "species")) %>% 
+    dplyr::filter(str_detect(.$species, genera_mask, negate=TRUE)) %>% 
+    dplyr::filter(! species %in% species_to_remove)
+  
+  df$LIBID <- ID
+  
+  return(df)
+  
+}) %>% do.call("rbind",.)
+
+mgx_k2_species_hupan_mapped$species <- gsub(pattern=" ", replacement="_", x=mgx_k2_species_hupan_mapped$species)
+
+
+#Load species level kraken2 results for all MGX read pairs, contaminants removed.
+
+mgx_k2_species <- lapply(mgx_to_pull$LIBID, function(ID){
+  
+  df <- read_tsv(paste0("../data/k2_species_renorm/DNA/",ID,"_k2_renorm.s.tsv"),
+                 show_col_types = FALSE) %>%
+                 dplyr::select(paired_counts, k2_taxon) %>% 
+    dplyr::rename(species=k2_taxon)
+  
+  df$LIBID <- ID
+  
+  return(df)
+  
+}) %>% do.call("rbind",.)
+
+
+#What % of reads for k2 taxa are observed to be mapped to the human pangenome
+
+mgx_k2_species_QC <- merge(mgx_k2_species, mgx_k2_species_hupan_mapped, by = c("LIBID", "species"), all.x=TRUE )
+
+mgx_k2_species_QC[is.na(mgx_k2_species_QC)] <- 0
+
+mgx_k2_species_QC$read_pairs_not_mapped_to_hupan <- mgx_k2_species_QC$paired_counts - mgx_k2_species_QC$read_pairs_mapped_to_hupan 
+
+mgx_k2_species_QC$percent_not_mapped_to_hupan <- (mgx_k2_species_QC$read_pairs_not_mapped_to_hupan / mgx_k2_species_QC$paired_counts) *100
+
+
+mgx_k2_species_QC <- merge(mgx_k2_species_QC, mgx_stats_chosen, by = "LIBID")
+
+
+mgx_k2_species_QC$region <- factor(mgx_k2_species_QC$region, levels= c("Sc", "Ch", "Ac", "Vf", "Tw"))
+
+```
+
+boxplot of % of non-contaminant species reads for k2 taxa NOT mapped to the human pangenome, by body site
+
+```{r}
+
+mgx_k2_non_hupan_boxplot <- ggplot(mgx_k2_species_QC, 
+                                   aes(x=region, 
+                                       y=percent_not_mapped_to_hupan, 
+                                       fill=region)) + geom_boxplot() +
+  theme_classic() + 
+  scale_color_manual(values=c24)
+
+
+
+
+
+ggsave(filename="../plots/mgx_k2_species_non_hupan_barplots.pdf",
+       plot=mgx_k2_non_hupan_boxplot ,
+       height = 8, width = 8)
+
+
+mgx_k2_non_hupan_boxplot
+
+```
+
+
 
 
 

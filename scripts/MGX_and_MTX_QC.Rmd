@@ -16,6 +16,7 @@ library(tidyverse)
 library(reshape2)
 library(ggpubr)
 library(vegan)
+library(gtools)
 #functions
 source("custom_functions.R")
 
@@ -880,23 +881,35 @@ RNA_OG_TPM_pearson_boxplot
 
 This is for the full (not-pilot) cohort, n = 102 libraries.
 
-Boxplot showing the number of metatranscriptomic reads before computational removal of host and rRNA signals (red), number of non-human, non-rRNA reads after computational filtering (green) and number of microbial reads (comprising bacteria, viruses, fungi and archaea) after de-duplication (blue). 
+Boxplot showing the number of metatranscriptomic reads before computational removal of host and rRNA signals (red), number of non-human, non-rRNA reads after computational filtering (green) and number of microbial reads (comprising bacteria, viruses, fungi and archaea) after de-duplication and accounting for contaminant genera and species (blue). 
 
 ```{r}
+
+#contaminant read pairs information from kraken2. This is all downstream of de-duplication
+
+#see process_taxa_abundances.Rmd
+mtx_k2_contam_read_pairs <- read_tsv("../data/mtx_k2_contaminant_read_pairs.tsv", show_col_types = FALSE) %>% dplyr::rename(LIBID=mtx_LIBID)
+mtx_k2_contam_read_pairs$cat <- "non_contam_microbe_count"
+mtx_k2_contam_read_pairs <- merge(mtx_k2_contam_read_pairs, mtx_stats_chosen %>% dplyr::select(LIBID, region, MICROBE_COUNT), by = "LIBID")
+mtx_k2_contam_read_pairs$non_contaminant_microbial_read_pairs <- mtx_k2_contam_read_pairs$MICROBE_COUNT - mtx_k2_contam_read_pairs$estimated_contaminant_read_pairs
+
+#Typically, >1Gbp of de-duplicated non-rRNA sequencing data (median of 3.7 million read pairs) was generated per library similar to other metatranscriptomic studies
+median(mtx_k2_contam_read_pairs$non_contaminant_microbial_read_pairs)
+
 
 #after removal of both human reads by mapping to hg38 and removal of human, fungal and microbial rRNAs
 mtx_stats_for_plot <- do.call("rbind",
                               list(data.frame(read_pairs=mtx_stats_chosen$AFTER_FASTP, region=mtx_stats_chosen$region, cat="before_rm"),
                                    data.frame(read_pairs=mtx_stats_chosen$AFT_RIBO_RM, region=mtx_stats_chosen$region,
            cat="after_rm"),
-           data.frame(read_pairs=mtx_stats_chosen$MICROBE_COUNT, region=mtx_stats_chosen$region,
-           cat="microbe_count_after_dedup")
+           data.frame(read_pairs=mtx_k2_contam_read_pairs$non_contaminant_microbial_read_pairs, region=mtx_k2_contam_read_pairs$region,
+           cat=mtx_k2_contam_read_pairs$cat)
                                    ))
 
 
 
 mtx_read_count_stats <- ggplot(mtx_stats_for_plot %>% mutate(region= fct_relevel(region, "Sc", "Ch", "Ac", "Vf", "Tw"),
-                                     cat=fct_relevel(cat, "before_rm", "after_rm", "microbe_count_after_dedup")), 
+                                     cat=fct_relevel(cat, "before_rm", "after_rm", "non_contam_microbe_count")), 
        aes(x=region, y=log10(read_pairs), fill=cat)) + theme_classic() + geom_boxplot() + ggtitle("Metatranscriptomic read counts") 
 
 ggsave(plot=mtx_read_count_stats, filename = "../plots/mtx_read_count_stats.pdf")
@@ -1276,3 +1289,333 @@ ggsave(picard_region_fraction_M_glo_plot,
 picard_region_fraction_M_glo_plot
 
 ```
+
+What percent reads mapped to human transcriptomes and were thus removed?
+
+```{r}
+
+mtx_stats_chosen$percent_reads_map_to_human <- (1- (mtx_stats_chosen$AFT_HUMAN_RM / mtx_stats_chosen$AFTER_FASTP))*100
+
+median(mtx_stats_chosen$percent_reads_map_to_human)
+
+```
+
+#Additional analysis
+
+Reproducibility analysis for microbial mock communities (MC).
+
+```{r}
+
+MC_library_metadata <- read_tsv("../metadata/ERCC_and_mock_comm_mtx_metadata.txt", show_col_types = FALSE,
+                                  skip = 1, col_names = c("sample","ERCC_mix",
+                                                          "input_RNA_conc",
+                                                          "dilution_factor",
+                                                          "RNA_input_ng",
+                                                          "vol_input",
+                                                          "UMI",
+                                                          "PCR_cycles",
+                                                          "library_conc_pg_per_ul",
+                                                          "library_conc_ng_per_ul",
+                                                          "library_volume_ul",
+                                                          "dilution_fraction",
+                                                          "LIBID")) %>% 
+  dplyr::filter(str_detect(pattern = "MC", string=.$sample))
+
+
+```
+
+
+
+Important to remove self comparisons
+
+
+```{r}
+#For mock community A (MC5)
+MC5_perms <- MC_library_metadata %>% 
+  dplyr::filter(str_detect(pattern = "MC5", string=.$sample))
+
+MC5_perms <- permutations(n=length(MC5_perms$LIBID), r=2, v = MC5_perms$LIBID)
+
+MC5_perms <- apply(MC5_perms, 1, paste0, collapse = "-")
+
+#For mock community B  (MC19)
+MC19_perms <- MC_library_metadata %>% 
+  dplyr::filter(str_detect(pattern = "MC19", string=.$sample))
+
+MC19_perms <- permutations(n=length(MC19_perms$LIBID), r=2, v = MC19_perms$LIBID)
+
+MC19_perms <- apply(MC19_perms, 1, paste0, collapse = "-")
+
+```
+
+What are the species (true-positives) in the different mock comms?
+
+```{r}
+
+MC_species <- read_tsv("../metadata/mock_comm_DNA_composition.txt")
+
+#filter for MC5 and MC19, since these were the ones sequenced.
+MC_species_filt <- MC_species %>% dplyr::filter(mock_comm_id %in% c("MC5-log10", "MC19-uniform")) %>%
+   mutate(species = gsub(pattern = "_VRE|_MRSA", replacement = "", x = species)) %>% pull(species) %>% unique(.)
+
+```
+
+
+Calculate Bray-Curtis distances on total sum scaled (TSS) relative abundances at species level for the mock communities 
+
+Data needs to be in the form of a matrix.
+
+```{r}
+
+
+#load kraken data
+#TSS based on known ground truth species only
+MC_rna_kraken_renorm_df <- lapply(MC_library_metadata$LIBID, function(x){
+  
+  df <- read_tsv(file=paste0("../data/mock_comm_RNA_out/",x,"_k2.s.tsv"),
+            show_col_types = FALSE, 
+            col_names = c("rel_abun","paired_counts",
+                          "minimizer_count","distinct_minimizer_count",
+                          "k2_taxon"))
+  
+  df_filt <- df %>% 
+    dplyr::filter(k2_taxon %in% MC_species_filt) %>% 
+    dplyr::select(-rel_abun)
+  
+  total_sum <- sum(df_filt$paired_counts)
+  
+  #re-scaled relative abundance
+  df_filt$rel_abun <- (df_filt$paired_counts / total_sum) *100
+  
+  df_filt$LIBID <- x
+  
+  return(df_filt)
+  
+}) %>% do.call("rbind",.)
+
+
+
+#Shape the data to appropriate form
+
+MC_rna_kraken_renorm_df <- MC_rna_kraken_renorm_df %>% dplyr::select(LIBID,k2_taxon,rel_abun)
+
+MC_rna_kraken_renorm_abun_table <- pivot_wider(MC_rna_kraken_renorm_df, 
+                                               id_cols=k2_taxon, names_from=LIBID, 
+                                          values_from=rel_abun) %>% as.data.frame()
+
+
+MC_rna_kraken_renorm_abun_table[is.na(MC_rna_kraken_renorm_abun_table)] <- 0 
+
+rownames(MC_rna_kraken_renorm_abun_table) <- MC_rna_kraken_renorm_abun_table$k2_taxon
+
+#for bcdist, rows must be samples and columns must be species, so we need to transpose
+MC_rna_kraken_BC_dist <- ecodist::bcdist(t(MC_rna_kraken_renorm_abun_table %>% dplyr::select(-k2_taxon))) %>% as.matrix()
+
+#both upper and lower triangles represented here
+MC_rna_kraken_BC_dist <- reshape2::melt(MC_rna_kraken_BC_dist, varnames = c("row", "col"))
+      
+MC_rna_kraken_BC_dist <- MC_rna_kraken_BC_dist %>% dplyr::filter(col!=row)
+
+##############################
+#within same mock community 
+##############################
+#comparison for selection purposes
+MC_rna_kraken_BC_dist$comparison <- paste0(MC_rna_kraken_BC_dist$row,"-",MC_rna_kraken_BC_dist$col)
+
+MC_rna_kraken_BC_dist_filt <- MC_rna_kraken_BC_dist %>% dplyr::filter(comparison %in% c(MC5_perms, MC19_perms))
+
+MC_rna_kraken_BC_dist_filt$sorensen_similarity_species_level <- 1 - MC_rna_kraken_BC_dist_filt$value
+
+median(MC_rna_kraken_BC_dist_filt$sorensen_similarity_species_level) #0.9894
+
+```
+
+
+Calculate Pearson correlation of gene expression values (TPM) for mock community (filtered for MC5 and MC19 species)
+
+
+```{r}
+#load pangene and unref90 lengths for mock comms after mapping 
+MC_pangene_len <- read_tsv("../data/mock_comm_RNA_out/all_mock_comm_pangene_nt_lengths_sorted.tsv",
+                          show_col_types = FALSE,
+                          col_names = c("pangene", "nt_length"))
+
+MC_uniref90_len <- read_tsv("../data/mock_comm_RNA_out/all_mock_comm_uniref90_AA_lengths_sorted.tsv",
+                          show_col_types = FALSE,
+                          col_names = c("uniref90_ID", "AA_length"))
+
+#collect bacteria OG annotations (eggnog) for the set of genes in the mock comms
+
+MC_bact_og_annots <- lapply(MC_library_metadata$LIBID, function(x){
+  
+  pangene_features <- read_tsv(paste0("../data/mock_comm_RNA_out/",x, "_panalign_annot.tsv"), 
+                               show_col_types = FALSE) %>%
+    dplyr::select(pangene,  emapper_OG) %>% dplyr::filter(emapper_OG != "-") %>% 
+  dplyr::filter(str_detect(string=.$emapper_OG, pattern="Bacteria"))
+  
+  #If there are multiple OGs belonging to bacteria, then this function just takes the more specific/narrower (right-most) term that is still "Bacteria".
+  pangene_features$bacteria_OG <- gsub(pattern = "(.*,)(.*)(@2\\|Bacteria.*)", replacement = "\\2",pangene_features$emapper_OG)
+  
+  
+  uniref90_features <- read_tsv(paste0("../data/mock_comm_RNA_out/",x, "_transl-search_annot.tsv"),
+                         show_col_types = FALSE) %>% dplyr::select(uniref90_ID,  emapper_OG) %>% dplyr::filter(emapper_OG != "-") %>% 
+  dplyr::filter(str_detect(string=.$emapper_OG, pattern="Bacteria"))
+  
+  uniref90_features$bacteria_OG <- gsub(pattern = "(.*,)(.*)(@2\\|Bacteria.*)", replacement = "\\2",uniref90_features$emapper_OG)
+  
+  output <- tibble::lst(pangene_features, uniref90_features)
+  
+  return(output)
+  
+})
+
+names(MC_bact_og_annots) <- MC_library_metadata$LIBID
+
+                             
+```
+
+
+TPM calculations for mock communities
+
+```{r}
+MC_TPM_norm_dataset <- lapply(MC_library_metadata$LIBID, function(x){
+  
+  summary_df <- read_tsv(paste0("../data/mock_comm_RNA_out/",x, "_all_aligned_taxonomy_summary_MC_species.tsv"),
+                         show_col_types = FALSE, col_names = c("read_counts",
+                                                               "pangene",
+                                                               "k2_taxon",
+                                                               "uniref90_ID"))
+  #For pangenes with >= 50% read coverage
+  pangenes_passed <- read_tsv(paste0("../data/mock_comm_RNA_out/",x, "_panalign_annot.tsv"),
+                         show_col_types = FALSE) %>% pull(pangene) %>% unique(.)
+    
+  pangene_df <- summary_df %>% dplyr::filter(pangene %in% pangenes_passed) %>% merge(.,MC_pangene_len, by = "pangene")
+  
+ 
+  #Calculate TPM for pangenes
+  #convert nt length to kilobase scale
+  pangene_df$nt_length_kb <- (pangene_df$nt_length)/1000
+  
+  pangene_df$RPK <- pangene_df$read_counts / pangene_df$nt_length_kb
+  
+  #Sum RPKs by bacteria OGs
+  pangene_OG_annots <-  MC_bact_og_annots[[x]]$pangene_features
+  
+  pangene_RPKs <- pangene_df %>% dplyr::select(pangene, read_counts, RPK) %>% 
+    merge(.,pangene_OG_annots, by = "pangene") %>% dplyr::rename(feature=pangene)
+  
+
+  #For Uniref90 features with >= 50% read coverage
+  uniref90_passed <- read_tsv(paste0("../data/mock_comm_RNA_out/",x, "_transl-search_annot.tsv"),
+                         show_col_types = FALSE) %>% pull(uniref90_ID) %>% unique(.)
+  
+  
+  uniref90_df <- summary_df %>% dplyr::filter(pangene == "-") %>% 
+    dplyr::filter(uniref90_ID %in% uniref90_passed) %>% merge(., MC_uniref90_len, by = "uniref90_ID")
+  
+  ##converting AA length to equivalent length in nt, then convert length to kilobase scale
+  uniref90_df$nt_length_kb <- (uniref90_df$AA_length * 3)/1000
+  
+  uniref90_df$RPK <- uniref90_df$read_counts / uniref90_df$AA_length
+  
+  #Sum RPKs by bacteria OGs associated with Uniref90 IDs
+  uniref90_OG_annots <-  MC_bact_og_annots[[x]]$uniref90_features
+  
+  uniref90_RPKs <- uniref90_df %>% dplyr::select(uniref90_ID, read_counts, RPK) %>% 
+    merge(.,uniref90_OG_annots, by = "uniref90_ID") %>% dplyr::rename(feature=uniref90_ID)
+  
+  ##################
+  #TPM calculations#
+  ##################
+  
+  feature_RPKs_combined <- rbind(pangene_RPKs, uniref90_RPKs) %>% group_by(bacteria_OG) %>% 
+    summarise(read_count_sum=sum(read_counts), RPK_sum = sum(RPK)) %>% ungroup(.)
+
+  scaling_factor <- (sum(feature_RPKs_combined$RPK_sum))/1000000  #scaling factor per million
+  
+  feature_RPKs_combined$TPM <- (feature_RPKs_combined$RPK_sum)/scaling_factor
+  
+  feature_RPKs_combined$LIBID <- x
+  
+  return(feature_RPKs_combined)
+  
+  }) %>% do.call("rbind",.)
+
+
+write_tsv(MC_TPM_norm_dataset, file="../data/mock_comm_RNA_out/MC_TPM_norm_dataset.tsv")
+
+```
+
+
+
+Compute Pearson correlations
+
+```{r}
+MC_TPM_mat <- pivot_wider(MC_TPM_norm_dataset, id_cols=bacteria_OG, names_from=LIBID, 
+                                          values_from=TPM) %>% as.data.frame()
+
+
+MC_TPM_mat[is.na(MC_TPM_mat)] <- 0 
+
+rownames(MC_TPM_mat) <- MC_TPM_mat$bacteria_OG
+
+MC_TPM_mat <- MC_TPM_mat %>% dplyr::select(-bacteria_OG) %>% as.matrix()
+
+MC_TPM_pearson_mat <- cor(MC_TPM_mat, method="pearson")
+
+
+#both upper and lower triangles represented here
+MC_TPM_pearson_df  <- reshape2::melt(MC_TPM_pearson_mat, varnames = c("row", "col"))
+      
+MC_TPM_pearson_df <- MC_TPM_pearson_df  %>% dplyr::filter(col!=row)
+
+#comparison for selection purposes
+MC_TPM_pearson_df$comparison <- paste0(MC_TPM_pearson_df$row,"-", MC_TPM_pearson_df$col)
+
+MC_TPM_pearson_df_filt <- MC_TPM_pearson_df %>% dplyr::filter(comparison %in% c(MC5_perms, MC19_perms))
+
+median(MC_TPM_pearson_df_filt$value) #0.9133064
+
+
+
+
+```
+Three biological replicates per mock community.
+
+Boxplot of Sorensen Similarity Indices (1 – Bray Curtis dissimilarity) computed from species level relative abundances for the cultured mock communities. 
+Boxplot of Pearson correlation coefficient for gene-level TPMs from species of the cultured mock communities
+
+```{r}
+
+MC_BC_dist_fmt <- MC_rna_kraken_BC_dist_filt %>% dplyr::select(comparison, sorensen_similarity_species_level) %>%
+  dplyr::rename(value = sorensen_similarity_species_level)
+
+MC_BC_dist_fmt$metric <- "sorensen_similarity"
+
+MC_TPM_pearson_fmt <- MC_TPM_pearson_df_filt %>% dplyr::select(comparison, value)
+
+MC_TPM_pearson_fmt$metric <- "Pearson_correlation_gene_expression"
+
+MC_combined_metrics <- rbind(MC_BC_dist_fmt, MC_TPM_pearson_fmt)
+
+
+MC_combined_metrics$metric <- factor(MC_combined_metrics$metric, levels = c("sorensen_similarity",
+                                                                     "Pearson_correlation_gene_expression"))
+
+
+
+MC_metrics_boxplot <- ggplot(MC_combined_metrics,
+       aes(x=metric, y=value)) + 
+  geom_boxplot() + theme_classic() +
+  ylab("Index or Coefficient")
+
+
+
+ggsave(plot=MC_metrics_boxplot, filename="../plots/MC_metrics_boxplot.pdf")
+
+
+MC_metrics_boxplot
+
+```
+
+

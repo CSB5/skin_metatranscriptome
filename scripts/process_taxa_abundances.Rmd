@@ -61,6 +61,9 @@ genera_to_remove <- c(disbiome_skin_res %>%
                                  pubmed_skin_microbiome == FALSE) %>% 
                         pull(name), "Homo", "Listeria", "Plesiomonas", "Vibrio") #34 candidates to remove
 
+write_tsv(data.frame("genera"=genera_to_remove), "../metadata/genera_to_remove", col_names = FALSE)
+
+
 genera_mask <- stringi::stri_paste("^",genera_to_remove, collapse="|")
 
 #Derived from sparCC correlation analysis
@@ -722,6 +725,164 @@ Save results
 
 write_tsv(mgx_alt_process_taxa_count_activity_df,
           file="../data/mgx_alt_process_taxa_count_activity_df.tsv")
+
+
+```
+
+
+As a separate analysis, count the total number of kraken2 read pairs attributed to MICROBIAL contaminants apart from unclassified reads, and Homo sapien reads
+
+MICROBIAL contaminants excludes unclassified reads, and Homo sapien reads
+
+This would include reads from species under contaminant genera (directly assigned to) + specific contaminant species (rooted at), to avoid double counting.
+
+```{r}
+
+#species and genera
+taxa_to_remove <- c(species_to_remove, genera_to_remove)
+#microbial only
+microbial_taxa_to_remove <- taxa_to_remove[!taxa_to_remove %in% c("Homo", "Homo_sapiens", "unclassified")]
+microbial_genera_to_remove <- genera_to_remove[!genera_to_remove %in% c("Homo")]
+```
+
+```{r}
+mgx_k2_contaminant_read_pairs <- lapply(mgx_to_pull, function(DNA_LIBID){
+  
+  #GENUS LEVEL
+  genus_k2_df <- read_tsv(paste0("../data/kraken2/DNA/",DNA_LIBID,"_merged_k2.g.tsv"),
+                             show_col_types = FALSE, 
+                       col_names = c("read_pairs_rooted_at_genus", "read_pairs_directly_assigned", "k2_taxon")) %>% 
+    dplyr::select(read_pairs_directly_assigned, k2_taxon)
+  
+  genus_k2_contam_df <- genus_k2_df %>% dplyr::filter(k2_taxon %in% microbial_genera_to_remove)
+  
+  #read pairs directly assigned to genus_level_contaminants
+  genus_contam_k2_read_pairs <- sum(genus_k2_contam_df$read_pairs_directly_assigned)
+  
+  #SPECIES LEVEL
+  species_k2_df <- read_tsv(paste0("../data/kraken2/DNA/",DNA_LIBID,"_merged_decont_k2.s.tsv"),
+                             show_col_types = FALSE, 
+                       col_names = c("rel_abun","paired_counts","minimizer_count","distinct_minimizer_count","k2_taxon")) %>% 
+    dplyr::select(paired_counts, k2_taxon)
+  
+  #add "_" for formatting
+  species_k2_df$k2_taxon <- gsub(pattern=" ",replacement="_", x=species_k2_df$k2_taxon)
+  
+  species_k2_contam_df <- species_k2_df %>% dplyr::filter(k2_taxon %in% species_to_remove)
+  
+  #read pairs rooted at species level contaminants
+  species_contam_k2_read_pairs <- sum(species_k2_contam_df$paired_counts)
+  
+  #sum of contaminant reads at G and S
+  sum_contam_k2_read_pairs <- genus_contam_k2_read_pairs + species_contam_k2_read_pairs
+  
+  #output
+  output <- data.frame("mgx_LIBID"=DNA_LIBID, "estimated_contaminant_read_pairs"=sum_contam_k2_read_pairs)
+  
+  return(output)
+  
+}) %>% do.call("rbind",.)
+
+
+mtx_k2_contaminant_read_pairs <- lapply(mtx_to_pull, function(RNA_LIBID){
+  
+  #GENUS LEVEL
+  genus_k2_df <- read_tsv(paste0("../data/kraken2/RNA/",RNA_LIBID,"_merged_k2.g.tsv"),
+                             show_col_types = FALSE, 
+                       col_names = c("read_pairs_rooted_at_genus", "read_pairs_directly_assigned", "k2_taxon")) %>% 
+    dplyr::select(read_pairs_directly_assigned, k2_taxon)
+  
+  genus_k2_contam_df <- genus_k2_df %>% dplyr::filter(k2_taxon %in% microbial_genera_to_remove)
+  
+  #read pairs directly assigned to genus_level_contaminants
+  genus_contam_k2_read_pairs <- sum(genus_k2_contam_df$read_pairs_directly_assigned)
+  
+  #SPECIES LEVEL
+  species_k2_df <- read_tsv(paste0("../data/kraken2/RNA/",RNA_LIBID,"_merged_decont_k2.s.tsv"),
+                             show_col_types = FALSE, 
+                       col_names = c("rel_abun","paired_counts","minimizer_count","distinct_minimizer_count","k2_taxon")) %>% 
+    dplyr::select(paired_counts, k2_taxon)
+  
+  #add "_" for formatting
+  species_k2_df$k2_taxon <- gsub(pattern=" ",replacement="_", x=species_k2_df$k2_taxon)
+  
+  species_k2_contam_df <- species_k2_df %>% dplyr::filter(k2_taxon %in% species_to_remove)
+  
+  #read pairs rooted at species level contaminants
+  species_contam_k2_read_pairs <- sum(species_k2_contam_df$paired_counts)
+  
+  #sum of contaminant reads at G and S
+  sum_contam_k2_read_pairs <- genus_contam_k2_read_pairs + species_contam_k2_read_pairs
+  
+  #output
+  output <- data.frame("mtx_LIBID"=RNA_LIBID, "estimated_contaminant_read_pairs"=sum_contam_k2_read_pairs)
+  
+  return(output)
+  
+}) %>% do.call("rbind",.)
+
+
+write_tsv(mgx_k2_contaminant_read_pairs, "../data/mgx_k2_contaminant_read_pairs.tsv")
+
+write_tsv(mtx_k2_contaminant_read_pairs, "../data/mtx_k2_contaminant_read_pairs.tsv")
+
+```
+
+
+As a separate analysis, count the total number of unpaired reads (due to how pangene mapping was done) attributed to MICROBIAL contaminants, apart from unclassified reads, and Homo sapien reads, that can be mapped to pangenes or uniref90 clusters
+
+To run this locally, first download and unzip the MTX_tax_summary and MGX_tax_summary folders from https://figshare.com/articles/dataset/MTX_and_MGX_taxonomy_summaries/28748255
+
+```{r eval=FALSE}
+
+
+#files summarize all reads annotated to pangene and uniref90 clusters
+#for mgx data
+mgx_annotated_contaminant_unpaired_read_count <- lapply(mgx_to_pull, function(DNA_LIBID){
+  
+  taxa_summary_df <- read_tsv(paste0("../data/MGX_tax_summary/",DNA_LIBID,"_merged_all_aligned_taxonomy_summary.tsv"),
+                             show_col_types = FALSE, col_names = c("unpaired_reads","pangene","k2_taxon","uniref90_ID")) %>% 
+    dplyr::select(unpaired_reads, k2_taxon)
+  
+  taxa_summary_contam_df <- taxa_summary_df %>% dplyr::filter(k2_taxon %in% microbial_taxa_to_remove)
+  
+  #sum of unpaired contaminant reads which were functionally annotated
+  sum_annotated_contam_df <- sum(taxa_summary_contam_df$unpaired_reads)
+  
+  #output
+  output <- data.frame("mgx_LIBID"=DNA_LIBID,
+                       "annotated_contaminant_reads_unpaired" = sum_annotated_contam_df)
+  
+  return(output)
+  
+}) %>% do.call("rbind",.)
+
+
+#for mtx data
+mtx_annotated_contaminant_unpaired_read_count <- lapply(mtx_to_pull, function(RNA_LIBID){
+  
+  taxa_summary_df <- read_tsv(paste0("../data/MTX_tax_summary/",RNA_LIBID,"_merged_all_aligned_taxonomy_summary.tsv"),
+                             show_col_types = FALSE, col_names = c("unpaired_reads","pangene","k2_taxon","uniref90_ID")) %>% 
+    dplyr::select(unpaired_reads, k2_taxon)
+  
+  taxa_summary_contam_df <- taxa_summary_df %>% dplyr::filter(k2_taxon %in% microbial_taxa_to_remove)
+  
+  #sum of unpaired contaminant reads which were functionally annotated
+  sum_annotated_contam_df <- sum(taxa_summary_contam_df$unpaired_reads)
+  
+  #output
+  output <- data.frame("mtx_LIBID"=RNA_LIBID,
+                       "annotated_contaminant_reads_unpaired" = sum_annotated_contam_df)
+  
+  return(output)
+  
+}) %>% do.call("rbind",.)
+
+
+write_tsv(mgx_annotated_contaminant_unpaired_read_count, "../data/mgx_annotated_contaminant_unpaired_read_count.tsv")
+
+write_tsv(mtx_annotated_contaminant_unpaired_read_count, "../data/mtx_annotated_contaminant_unpaired_read_count.tsv")
+
 
 
 ```
