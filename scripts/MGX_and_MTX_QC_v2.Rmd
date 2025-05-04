@@ -1,0 +1,1592 @@
+---
+title: "MGX and MTX QC"
+author: "Chiamh"
+date: '2024-04-23'
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Load libraries and custom functions
+
+```{r}
+library(tidyverse)
+library(reshape2)
+library(ggpubr)
+library(vegan)
+library(gtools)
+#functions
+source("custom_functions.R")
+
+```
+
+Load metadata and supporting information
+
+```{r}
+
+metadata <- read_tsv("../metadata/skin_mtx_metadata_fmt.txt", show_col_types = FALSE) 
+
+mgx_stats <- read_tsv("../metadata/MGX_QC_stats.txt", show_col_types = FALSE) 
+
+mtx_stats <- read_tsv("../metadata/MTX_QC_stats.txt", show_col_types = FALSE) 
+
+mgx_stats <- merge(mgx_stats, metadata, by = "LIBID", all.x=TRUE)
+
+mtx_stats <- merge(mtx_stats, metadata, by ="LIBID", all.x=TRUE)
+
+#mtx_to_pull and mgx_to_pull refer to the 102 Libraries with paired MTX and MGX data:
+
+mtx_to_pull <- read_tsv("../metadata/mtx_to_pull", col_names = FALSE, show_col_types = FALSE) %>% pull(X1)
+
+mgx_to_pull <- read_tsv("../metadata/mgx_to_pull", col_names = FALSE, show_col_types = FALSE) %>% pull(X1)
+
+mtx_stats_chosen <- mtx_stats %>% dplyr::filter(LIBID %in% mtx_to_pull)
+
+mgx_stats_chosen <- mgx_stats %>% dplyr::filter(LIBID %in% mgx_to_pull)
+
+mtx_mgx_stats_chosen <- read_tsv(file="../metadata/mtx_mgx_stats_chosen.tsv", show_col_types = FALSE)
+
+
+#
+mtx_to_M_globosa_QC <- read_csv("../metadata/mtx_for_M_globosa_mapping.csv")
+
+mtx_to_M_globosa_QC$mapped_to_species <- "Malassezia_globosa"
+
+mtx_to_M_restricta_QC <- read_csv("../metadata/mtx_for_M_restricta_mapping.csv")
+
+mtx_to_M_restricta_QC$mapped_to_species <- "Malassezia_restricta"
+
+
+########################################################
+##metadata and read count information for pilot cohort##
+########################################################
+
+non_ribodepleted_mtx <- read_tsv("../metadata/no_ribodepletion_MTX_QC_stats.txt", show_col_types = FALSE)
+
+pilot_cohort_read_count_QC <- read_tsv("../metadata/pilot_MTX_QC_stats.txt", show_col_types = FALSE)
+
+#excluding pilot negative controls
+pilot_cohort_samples_read_count_QC <- pilot_cohort_read_count_QC %>% dplyr::filter(!LIBID %in% c("Neg012",
+                                                                                                 "Neg013", "Neg014"))
+
+
+pilot_QC_wetlab_metadata <- read_tsv("../metadata/pilot_cohort_RNA_wetlab_QC.txt", show_col_types = FALSE)
+
+
+tech_reps_a <- metadata %>% dplyr::filter(subj_region %in% c("SMT001_Tw","SMT023_Ch","SMT023_Ac") & mol_type=="RNA")
+tech_reps_b <- metadata %>% dplyr::filter(comments == "technical replicate analysis" & subj_region != "3 Bac (VV:LM:PS)")
+
+tech_reps <- c(tech_reps_a$LIBID, tech_reps_b$LIBID)
+
+tech_reps_metadata <- metadata %>% dplyr::filter(LIBID %in% tech_reps) 
+	
+
+#metadata for the longitudinal cohort
+longitudinal_metadata <- read_tsv("../metadata/skin_mtx_longitudinal_metadata.txt", show_col_types = FALSE) %>% 
+  dplyr::filter(!subject %in% c("Neg012","Neg013","Neg014"))
+longitudinal_metadata$LIBID <- longitudinal_metadata$subj_region
+longitudinal_metadata$sequenced <- ifelse(longitudinal_metadata$low_conc == "fail", FALSE, TRUE)
+longitudinal_metadata <- longitudinal_metadata %>% mutate_at('sequenced', ~replace_na(.,TRUE))
+
+#Only "passed" samples were sent for sequencing
+longitudinal_metadata_passed <- longitudinal_metadata %>% dplyr::filter(sequenced == TRUE)
+
+```
+
+
+
+QC metrics for the pilot cohort
+
+
+```{r}
+median(pilot_cohort_samples_read_count_QC$MICROBE_COUNT) # 2207917
+
+mean(pilot_cohort_samples_read_count_QC$MICROBE_COUNT) #2827611
+
+length(which(pilot_cohort_samples_read_count_QC$MICROBE_COUNT >= 1e6)) #53
+
+
+#distribution of libraries per site in the pilot QC, apart from the single sample with a tapestation error
+
+plyr::count(pilot_QC_wetlab_metadata %>% dplyr::filter(!is.na(RIN)), vars="region")
+
+
+```
+
+## Panel A
+
+Boxplot showing the fraction of non-ribosomal RNA (non rRNA) reads with and without experimental rRNA depletion during library preparation for the pilot cohort.
+
+```{r}
+
+non_ribodepleted_mtx$category <- "no microbial rRNA depletion"
+
+
+pilot_cohort_samples_read_count_QC$category <- "with microbial rRNA depletion"
+
+pilot_cohort_samples_read_count_QC$COMMENTS <- NA
+
+ribo_deplete_versus_non_deplete <- rbind(pilot_cohort_samples_read_count_QC %>% dplyr::select(colnames(non_ribodepleted_mtx)),
+                                         non_ribodepleted_mtx)
+
+
+ribo_deplete_versus_non_deplete$proportion_rRNA_detected_computationally <- (ribo_deplete_versus_non_deplete$AFT_HUMAN_RM - ribo_deplete_versus_non_deplete$AFT_RIBO_RM)/ribo_deplete_versus_non_deplete$AFT_HUMAN_RM
+
+
+ribo_deplete_versus_non_deplete$percentage_rRNA_detected_computationally <- ribo_deplete_versus_non_deplete$proportion_rRNA_detected_computationally * 100
+
+ribo_deplete_versus_non_deplete$percentage_non_rRNA <- 100 - ribo_deplete_versus_non_deplete$percentage_rRNA_detected_computationally
+
+ggplot(ribo_deplete_versus_non_deplete,
+       aes(x=category, y=percentage_non_rRNA)) + 
+  geom_boxplot() + theme_classic() + stat_compare_means(method = "wilcox.test") +
+  ylab("% of non rRNA reads")
+
+
+ggsave(plot=last_plot(), 
+       filename = "../plots/ribo_deplete_versus_non_deplete.pdf", width =7, height=5 )
+
+
+ribo_deplete_versus_non_deplete %>% dplyr::filter(category=="no microbial rRNA depletion") %>% pull(percentage_rRNA_detected_computationally) %>% median(.)
+
+ribo_deplete_versus_non_deplete %>% dplyr::filter(category=="with microbial rRNA depletion") %>% pull(percentage_rRNA_detected_computationally) %>% median(.)
+
+#(67.25663/20.42567) is more than 3 fold.
+
+#median percentage non rRNA reads, 79.5%
+ribo_deplete_versus_non_deplete %>% dplyr::filter(category=="with microbial rRNA depletion") %>% 
+  pull(percentage_non_rRNA) %>% median(.)
+
+
+```
+
+
+## Panel B
+
+Boxplot of Sorensen Similarity Indices (1 – Bray Curtis dissimilarity) computed from species level relative abundances for the pilot cohort. Pair-wise similarities were computed between samples in three different categories. “Technical replicates” refer to different RNAseq library preparation and sequencing performed on the same samples. “Within individuals” refer to data from re-sampling the same individuals across three consecutive days, while “between individuals” represents inter-individual variability in our cohort.
+
+
+Generate vector of desired comparisons (either for spearman or Bray Curtis dissimilarity):
+
+Important to remove self comparisons
+
+i) Comparisons within technical replicates
+ii) Intra-individual comparisons, split by body site
+iii) Inter-individual comparisons, split by body site
+
+```{r}
+tech_reps_combinations <- list()
+
+
+for (site in c("Tw", "Ch", "Ac")){
+  
+  df <- tech_reps_metadata %>% dplyr::filter(region==site)
+  
+  combinations <- combn(df$LIBID, 2, simplify = FALSE)
+  
+  tech_reps_combinations <- append(tech_reps_combinations, combinations)
+  
+}
+
+tech_reps_combinations <- lapply(tech_reps_combinations, function(x){ output <- stringi::stri_flatten(x, collapse="-")})
+
+tech_reps_combinations <- unlist(tech_reps_combinations)
+
+
+#Within-individual comparisons across three consecutive days (T1-T3)
+
+longitudinal_subjects <- unique(longitudinal_metadata_passed$subject)#vector of unique subject IDs
+
+skin_sites <- c("Sc", "Ch", "Ac", "Vf", "Tw")
+
+#All possible comparisons beside self to self
+longitudinal_subjects_comparison_list <- combn(longitudinal_metadata_passed$LIBID, 2, simplify = FALSE)
+
+#always sticking with the same skin sites, whether between or within individuals
+within_individuals_sel_vector <- vector(mode="logical", length= length(longitudinal_subjects_comparison_list))
+betw_individuals_sel_vector <- vector(mode="logical", length= length(longitudinal_subjects_comparison_list))
+
+
+for (i in c(1:length(longitudinal_subjects_comparison_list))){
+  
+  individual_ids_compared <- str_extract(longitudinal_subjects_comparison_list[[i]],pattern="SMT[0-9]*")
+  skin_sites_compared <- str_extract(longitudinal_subjects_comparison_list[[i]], pattern="Sc|Ch|Ac|Vf|Tw")
+  
+  if((individual_ids_compared[1]==individual_ids_compared[2]) & (skin_sites_compared[1]==skin_sites_compared[2])){
+    within_individuals_sel_vector[i] <- TRUE
+  } else if((individual_ids_compared[1]!=individual_ids_compared[2]) & (skin_sites_compared[1]==skin_sites_compared[2])){
+    betw_individuals_sel_vector[i] <- TRUE
+  }
+  
+}
+
+longitudinal_within_individuals_comparisons <- longitudinal_subjects_comparison_list[within_individuals_sel_vector]
+
+longitudinal_within_individuals_comparisons <- lapply(longitudinal_within_individuals_comparisons, function(x){ output <- stringi::stri_flatten(x, collapse="-")})
+
+longitudinal_within_individuals_comparisons <- unlist(longitudinal_within_individuals_comparisons)
+#
+
+longitudinal_betw_individuals_comparisons <- longitudinal_subjects_comparison_list[betw_individuals_sel_vector]
+
+longitudinal_betw_individuals_comparisons <- lapply(longitudinal_betw_individuals_comparisons, function(x){ output <- stringi::stri_flatten(x, collapse="-")})
+
+longitudinal_betw_individuals_comparisons <- unlist(longitudinal_betw_individuals_comparisons)
+
+
+```
+
+Calculate Bray-Curtis distances on total sum scaled (TSS) relative abundances. Data needs to be in the form of a matrix.
+
+```{r}
+
+rna_kraken_longitudinal_renorm_LIBIDs <- longitudinal_metadata_passed$LIBID
+
+#load kraken data
+
+rna_kraken_longitudinal_renorm <- lapply(rna_kraken_longitudinal_renorm_LIBIDs, function(x){
+  
+  read_tsv( file=paste0("../data/k2_species_renorm/RNA/tech_rep_and_longitudinal/",x,"_k2_renorm.s.tsv"),
+            show_col_types = FALSE)
+  
+})
+
+
+
+#Shape the data to appropriate form
+
+rna_kraken_longitudinal_renorm_df <- do.call("rbind",rna_kraken_longitudinal_renorm) 
+
+rna_kraken_longitudinal_renorm_df <- rna_kraken_longitudinal_renorm_df %>% dplyr::select(mtx_LIBID,k2_taxon,rel_abun)
+
+rna_kraken_longitudinal_abun_table <- pivot_wider(rna_kraken_longitudinal_renorm_df, id_cols=k2_taxon, names_from=mtx_LIBID, 
+                                          values_from=rel_abun) %>% as.data.frame()
+
+
+rna_kraken_longitudinal_abun_table[is.na(rna_kraken_longitudinal_abun_table )] <- 0 
+
+rownames(rna_kraken_longitudinal_abun_table) <- rna_kraken_longitudinal_abun_table$k2_taxon
+
+#for bcdist, rows must be samples and columns must be species, so we need to transpose
+rna_kraken_longitudinal_BC_dist <- ecodist::bcdist(t(rna_kraken_longitudinal_abun_table %>% dplyr::select(-k2_taxon))) %>% as.matrix()
+
+#both upper and lower triangles represented here
+rna_kraken_longitudinal_BC_dist  <- reshape2::melt(rna_kraken_longitudinal_BC_dist, varnames = c("row", "col"))
+      
+rna_kraken_longitudinal_BC_dist <- rna_kraken_longitudinal_BC_dist %>% dplyr::filter(col!=row)
+
+#comparison for selection purposes
+rna_kraken_longitudinal_BC_dist$comparison <- paste0(rna_kraken_longitudinal_BC_dist$row,"-",rna_kraken_longitudinal_BC_dist$col)
+
+##############################
+#within individuals, same site
+##############################
+
+within_individuals_RNA_longitudinal_BC_dist <- rna_kraken_longitudinal_BC_dist %>% dplyr::filter(comparison %in% longitudinal_within_individuals_comparisons)
+
+median(within_individuals_RNA_longitudinal_BC_dist$value) #0.23
+
+##############################
+#between individuals, same site
+##############################
+
+betw_individuals_RNA_longitudinal_BC_dist <- rna_kraken_longitudinal_BC_dist %>% dplyr::filter(comparison %in% longitudinal_betw_individuals_comparisons)
+
+median(betw_individuals_RNA_longitudinal_BC_dist$value) #0.622
+
+```
+
+For technical replicates.
+
+```{r}
+
+
+#load kraken data for technical replicates.
+
+rna_kraken_tech_rep_renorm <- lapply(tech_reps, function(x){
+  
+  read_tsv( file=paste0("../data/k2_species_renorm/RNA/tech_rep_and_longitudinal/",x,"_k2_renorm.s.tsv"),
+            show_col_types = FALSE)
+  
+})
+
+
+rna_kraken_tech_rep_renorm_df <- do.call("rbind",rna_kraken_tech_rep_renorm) 
+
+rna_kraken_tech_rep_renorm_df <- rna_kraken_tech_rep_renorm_df %>% dplyr::select(mtx_LIBID,k2_taxon,rel_abun)
+
+rna_kraken_tech_rep_abun_table <- pivot_wider(rna_kraken_tech_rep_renorm_df, id_cols=k2_taxon, names_from=mtx_LIBID, 
+                                          values_from=rel_abun) %>% as.data.frame()
+
+
+rna_kraken_tech_rep_abun_table[is.na(rna_kraken_tech_rep_abun_table )] <- 0 
+
+rownames(rna_kraken_tech_rep_abun_table) <- rna_kraken_tech_rep_abun_table$k2_taxon
+
+#for bcdist, rows must be samples and columns must be species, so we need to transpose
+rna_kraken_tech_rep_BC_dist <- ecodist::bcdist(t(rna_kraken_tech_rep_abun_table %>% dplyr::select(-k2_taxon))) %>% as.matrix()
+
+#both upper and lower triangles represented here
+rna_kraken_tech_rep_BC_dist  <- reshape2::melt(rna_kraken_tech_rep_BC_dist, varnames = c("row", "col"))
+      
+rna_kraken_tech_rep_BC_dist <- rna_kraken_tech_rep_BC_dist %>% dplyr::filter(col!=row)
+
+#comparison for selection purposes
+rna_kraken_tech_rep_BC_dist$comparison <- paste0(rna_kraken_tech_rep_BC_dist$row,"-",rna_kraken_tech_rep_BC_dist$col) 
+
+
+tech_reps_RNA_BC_dist <- rna_kraken_tech_rep_BC_dist %>% dplyr::filter(comparison %in% tech_reps_combinations)
+
+median(tech_reps_RNA_BC_dist$value) #0.013
+
+
+```
+
+Box plots of these comparisons
+
+```{r}
+
+within_individuals_RNA_longitudinal_BC_dist$comparison_type <- "within_individuals"
+
+betw_individuals_RNA_longitudinal_BC_dist$comparison_type <- "between_individuals"
+
+tech_reps_RNA_BC_dist$comparison_type <- "technical_replicates"
+
+RNA_kraken_BC_to_plot <- do.call("rbind", list(within_individuals_RNA_longitudinal_BC_dist,
+                                               betw_individuals_RNA_longitudinal_BC_dist,
+                                               tech_reps_RNA_BC_dist))
+
+RNA_kraken_BC_to_plot <-  RNA_kraken_BC_to_plot %>% mutate(comparison_type = 
+                                                             fct_relevel(comparison_type, 
+                                                                         "technical_replicates", 
+                                                                         "within_individuals", 
+                                                                         "between_individuals")) 
+
+#The outliers for within_individual comparisons are SMT029_T1_Ac-SMT029_T3_Ac, SMT028_T1_Tw-SMT028_T3_Tw and SMT029_T2_Ac-SMT029_T3_Ac
+
+BC_plot_comparisons <- list( c("technical_replicates", "within_individuals"), 
+                             c("within_individuals", "between_individuals"))
+
+RNA_kraken_BC_to_plot$sorensen_similarity <- 1 - RNA_kraken_BC_to_plot$value
+
+
+RNA_kraken_sorensen_boxplot <- ggplot(RNA_kraken_BC_to_plot, aes(x=comparison_type, y=sorensen_similarity)) + geom_boxplot() + 
+  theme_classic() + ylab("Sorensen Similarity Index") + stat_compare_means(method = "wilcox.test",
+                                                                      comparisons=BC_plot_comparisons)
+
+ggsave(plot = RNA_kraken_sorensen_boxplot, filename="../plots/RNA_kraken_sorensen_boxplot.pdf", 
+       width = 5, height = 5)
+
+RNA_kraken_sorensen_boxplot
+```
+
+
+## Panel C
+
+Similar to panel B, but pearson correlations at gene level (Orthologous Groups [OG]) instead.
+
+To run the following code chunk, download the relevant input files from figshare.
+
+
+```{r eval=FALSE}
+#For the mini longitudinal time course
+
+longitudinal_mtx_pangene_features <- lapply(longitudinal_metadata_passed$LIBID, function(x){
+  output <- read_tsv(paste0("../data/longitudinal_cohort/MTX_annotations/",x,"_panalign_annot.tsv"), show_col_types = FALSE) %>%
+            dplyr::select(pangene, length, uniref90_ID, unpaired_read_count, 
+                          emapper_max_annot_OG, emapper_OG, eggnog_cat, pangene_desc, eggnog_desc, uniref90_desc)
+  
+  output$LIBID <- x
+  
+  #convert nt length to kilobase scale
+  output$length <- (output$length)/1000
+  
+  
+  #Load pangenes associated with contaminants from genera_to_remove and species_to_remove
+  pangene_contams <- read_tsv(paste0("../data/longitudinal_cohort/MTX_annotations/",x,"_all_aligned_contam_summary.tsv"), 
+                              show_col_types = FALSE, col_names=c("unpaired_read_count", "pangene", "k2_taxon", "uniref90_ID")) %>%
+    dplyr::select(unpaired_read_count, pangene) %>% dplyr::filter(pangene != "-")
+  
+  pangene_contams_summed <- pangene_contams %>% group_by(pangene) %>% summarise(contam_read_count_sum=sum(unpaired_read_count))
+  
+  output <- merge(output, pangene_contams_summed, by = "pangene", all.x=TRUE)
+  
+  output[is.na(output)] <- 0
+  
+  #minus contaminants
+  output$unpaired_read_count <- output$unpaired_read_count - output$contam_read_count_sum
+  
+  output$RPK <- output$unpaired_read_count / output$length
+  
+  return(output %>% dplyr::select(-contam_read_count_sum))
+  })
+
+names(longitudinal_mtx_pangene_features) <- longitudinal_metadata_passed$LIBID
+
+#features mapping to uniref90
+# 
+longitudinal_mtx_uniref90_features <- lapply(longitudinal_metadata_passed$LIBID, function(x){
+  output <- read_tsv(paste0("../data/longitudinal_cohort/MTX_annotations/",x,"_transl-search_annot.tsv"), show_col_types = FALSE) %>%
+            dplyr::select(uniref90_ID,AA_length,unpaired_read_count, emapper_max_annot_OG, 
+                          emapper_OG, eggnog_cat, uniref90_desc,eggnog_desc)
+  
+  output$LIBID <- x
+  
+  ##converting AA length to equivalent length in nt, then convert length to kilobase scale
+  output$length <- (output$AA_length * 3)/1000
+  
+  #Load uniref90 IDs associated with contaminants from genera_to_remove and species_to_remove
+  uniref_contams <- read_tsv(paste0("../data/longitudinal_cohort/MTX_annotations/",x,"_all_aligned_contam_summary.tsv"), 
+                              show_col_types = FALSE, col_names=c("unpaired_read_count", "pangene", "k2_taxon", "uniref90_ID")) %>% 
+    dplyr::filter(pangene == "-") %>%
+    dplyr::select(unpaired_read_count, uniref90_ID)
+  
+  uniref_contams_summed <- uniref_contams %>% group_by(uniref90_ID) %>% summarise(contam_read_count_sum=sum(unpaired_read_count))
+  
+  output <- merge(output, uniref_contams_summed, by = "uniref90_ID", all.x=TRUE)
+  
+  output[is.na(output)] <- 0
+  
+  #minus contaminants
+  output$unpaired_read_count <- output$unpaired_read_count - output$contam_read_count_sum
+  
+  output$RPK <- output$unpaired_read_count/output$length
+  
+  return(output %>% dplyr::select(-contam_read_count_sum))
+ 
+  })
+
+names(longitudinal_mtx_uniref90_features) <- longitudinal_metadata_passed$LIBID
+
+########################
+#For the technical repeats
+
+
+tech_reps_mtx_pangene_features <- lapply(tech_reps_metadata$LIBID, function(x){
+  output <- read_tsv(paste0("../data/technical_repeats/MTX_annotations/",x,"_merged_panalign_annot.tsv"), show_col_types = FALSE) %>%
+            dplyr::select(pangene, length, uniref90_ID, unpaired_read_count, 
+                          emapper_max_annot_OG, emapper_OG, eggnog_cat, pangene_desc, eggnog_desc, uniref90_desc)
+  
+  output$LIBID <- x
+  
+  #convert nt length to kilobase scale
+  output$length <- (output$length)/1000
+  
+  #Load pangenes associated with contaminants from genera_to_remove and species_to_remove
+  pangene_contams <- read_tsv(paste0("../data/technical_repeats/MTX_annotations/",x,"_all_aligned_contam_summary.tsv"), 
+                              show_col_types = FALSE, col_names=c("unpaired_read_count", "pangene", "k2_taxon", "uniref90_ID")) %>%
+    dplyr::select(unpaired_read_count, pangene) %>% dplyr::filter(pangene != "-")
+  
+  pangene_contams_summed <- pangene_contams %>% group_by(pangene) %>% summarise(contam_read_count_sum=sum(unpaired_read_count))
+  
+  output <- merge(output, pangene_contams_summed, by = "pangene", all.x=TRUE)
+  
+  output[is.na(output)] <- 0
+  
+  #minus contaminants
+  output$unpaired_read_count <- output$unpaired_read_count - output$contam_read_count_sum
+  
+  output$RPK <- output$unpaired_read_count / output$length
+  
+  return(output %>% dplyr::select(-contam_read_count_sum))
+  })
+
+names(tech_reps_mtx_pangene_features) <- tech_reps_metadata$LIBID
+
+
+tech_reps_mtx_uniref90_features <- lapply(tech_reps_metadata$LIBID, function(x){
+  output <- read_tsv(paste0("../data/technical_repeats/MTX_annotations/",x,"_merged_transl-search_annot.tsv"), show_col_types = FALSE) %>%
+            dplyr::select(uniref90_ID,AA_length,unpaired_read_count, emapper_max_annot_OG, 
+                          emapper_OG, eggnog_cat, uniref90_desc,eggnog_desc)
+  
+  output$LIBID <- x
+  
+  ##converting AA length to equivalent length in nt, then convert length to kilobase scale
+  output$length <- (output$AA_length * 3)/1000
+  
+  #Load uniref90 IDs associated with contaminants from genera_to_remove and species_to_remove
+  uniref_contams <- read_tsv(paste0("../data/technical_repeats/MTX_annotations/",x,"_all_aligned_contam_summary.tsv"), 
+                              show_col_types = FALSE, col_names=c("unpaired_read_count", "pangene", "k2_taxon", "uniref90_ID")) %>% 
+    dplyr::filter(pangene == "-") %>%
+    dplyr::select(unpaired_read_count, uniref90_ID)
+  
+  uniref_contams_summed <- uniref_contams %>% group_by(uniref90_ID) %>% summarise(contam_read_count_sum=sum(unpaired_read_count))
+  
+  output <- merge(output, uniref_contams_summed, by = "uniref90_ID", all.x=TRUE)
+  
+  output[is.na(output)] <- 0
+  
+  #minus contaminants
+  output$unpaired_read_count <- output$unpaired_read_count - output$contam_read_count_sum
+  
+  output$RPK <- output$unpaired_read_count/output$length
+  
+  return(output %>% dplyr::select(-contam_read_count_sum))
+ 
+  })
+
+names(tech_reps_mtx_uniref90_features) <- tech_reps_metadata$LIBID
+
+
+#Sum up read counts for OGs for "bacteria", "fungi" and "virus" taxonomic labels.
+
+longitudinal_OG_counts <- lapply(longitudinal_metadata_passed$LIBID, function(x){
+  
+  ################
+  ##For bacteria##
+  ################
+    bact_ogs <- longitudinal_mtx_pangene_features[[x]] %>% dplyr::filter(emapper_OG != "-") %>% 
+  dplyr::filter(str_detect(string=.$emapper_OG, pattern="Bacteria"))
+#If there are multiple OGs belonging to bacteria, then this function just takes the more specific/narrower (right-most) term that is still "Bacteria".
+  bact_ogs$bacteria_OG <- gsub(pattern = "(.*,)(.*)(@2\\|Bacteria.*)", replacement = "\\2",bact_ogs$emapper_OG)
+
+#Extract bacteria OGs from translated search (ts) results
+  bact_ts_ogs <- longitudinal_mtx_uniref90_features[[x]] %>% dplyr::filter(emapper_max_annot_OG != "-") %>% 
+  dplyr::filter(str_detect(string=.$emapper_OG, pattern="Bacteria"))
+
+  bact_ts_ogs$bacteria_OG <- gsub(pattern = "(.*,)(.*)(@2\\|Bacteria.*)", replacement = "\\2",bact_ts_ogs$emapper_OG)
+
+#combine them
+
+  bact_ogs_combined <- rbind(bact_ogs %>% dplyr::select(bacteria_OG , unpaired_read_count, RPK), 
+                           bact_ts_ogs %>% dplyr::select(bacteria_OG , unpaired_read_count, RPK))
+
+#summarize counts and RPK
+
+  bact_ogs_counts <- bact_ogs_combined %>%
+  group_by(bacteria_OG) %>% summarise(read_count_sum=sum(unpaired_read_count), RPK_sum = sum(RPK))
+  
+  bact_ogs_counts$LIBID <- x
+  
+  bact_ogs_counts$feature_class <- "bacteria_OG"
+  
+  bact_ogs_counts$bacteria_OG <- paste0(bact_ogs_counts$bacteria_OG,"|Bacteria")
+  
+  bact_ogs_counts <- bact_ogs_counts %>% dplyr::rename(OG=bacteria_OG)
+  
+  ################
+  ##  For Fungi ##
+  ################
+  
+    fungi_ogs <- longitudinal_mtx_pangene_features[[x]] %>% dplyr::filter(emapper_OG != "-") %>% 
+  dplyr::filter(str_detect(string=.$emapper_OG, pattern="Fungi"))
+
+  #If there are multiple OGs belonging to Fungi, then this function just takes the more specific/narrower (right-most) term that is still "Fungi".
+  fungi_ogs$fungi_OG <- gsub(pattern = "(.*,)(.*)(@4751\\|Fungi.*)", replacement = "\\2",fungi_ogs$emapper_OG)
+
+  #Extract fungi OGs from translated search (ts) results
+  fungi_ts_ogs <- longitudinal_mtx_uniref90_features[[x]] %>% dplyr::filter(emapper_max_annot_OG != "-") %>% 
+  dplyr::filter(str_detect(string=.$emapper_OG, pattern="Fungi"))
+
+  fungi_ts_ogs$fungi_OG <- gsub(pattern = "(.*,)(.*)(@4751\\|Fungi.*)", replacement = "\\2",fungi_ts_ogs$emapper_OG)
+
+  #combine them
+
+  fungi_ogs_combined <- rbind(fungi_ogs %>% dplyr::select(fungi_OG , unpaired_read_count, RPK), 
+                           fungi_ts_ogs %>% dplyr::select(fungi_OG , unpaired_read_count, RPK))
+
+  #summarize counts
+
+  fungi_ogs_counts <- fungi_ogs_combined %>%
+  group_by(fungi_OG) %>% summarise(read_count_sum=sum(unpaired_read_count), RPK_sum = sum(RPK))
+
+  fungi_ogs_counts$LIBID <- x
+  
+  fungi_ogs_counts$feature_class <- "fungi_OG"
+  
+  fungi_ogs_counts$fungi_OG <- paste0(fungi_ogs_counts$fungi_OG,"|Fungi")
+  
+  fungi_ogs_counts <- fungi_ogs_counts %>% dplyr::rename(OG=fungi_OG)
+  
+  ##################
+  ##  For Viruses ##
+  ##################
+  
+  
+   virus_ogs <- longitudinal_mtx_pangene_features[[x]] %>% dplyr::filter(emapper_OG != "-") %>% 
+  dplyr::filter(str_detect(string=.$emapper_OG, pattern="Virus"))
+
+   #If there are multiple OGs belonging to virus, then this function just takes the more specific/narrower (right-most) term that is still "virus".
+  
+  if (nrow(virus_ogs)>=1){
+    virus_ogs$virus_OG <- gsub(pattern = "(.*)(@10239\\|Viruses.*)", replacement = "\\1",virus_ogs$emapper_OG)
+  }
+  
+
+  #Extract virus OGs from translated search (ts) results
+  virus_ts_ogs <- longitudinal_mtx_uniref90_features[[x]] %>% dplyr::filter(emapper_max_annot_OG != "-") %>% 
+  dplyr::filter(str_detect(string=.$emapper_OG, pattern="Virus"))
+  
+   if (nrow(virus_ts_ogs)>=1){
+    virus_ts_ogs$virus_OG <- gsub(pattern = "(.*)(@10239\\|Viruses.*)", replacement = "\\1",virus_ts_ogs$emapper_OG)
+  }
+
+  #combine them
+  
+  if (nrow(virus_ogs)>=1 & nrow(virus_ts_ogs)>=1){
+    virus_ogs_combined <- rbind(virus_ogs %>% dplyr::select(virus_OG , unpaired_read_count, RPK), 
+                           virus_ts_ogs %>% dplyr::select(virus_OG , unpaired_read_count, RPK))
+  } else if (nrow(virus_ogs) >= 1 & nrow(virus_ts_ogs)==0){
+    virus_ogs_combined <- virus_ogs %>% dplyr::select(virus_OG , unpaired_read_count, RPK)
+  } else if (nrow(virus_ogs) == 0 & nrow(virus_ts_ogs) >=1){
+    virus_ogs_combined <- virus_ts_ogs %>% dplyr::select(virus_OG , unpaired_read_count, RPK)
+  } else {
+    virus_ogs_combined <- data.frame(virus_OG="placeholder_feature",
+                                     unpaired_read_count=0, RPK=0)
+  }
+  
+
+  #summarize counts
+
+  virus_ogs_counts <- virus_ogs_combined %>%
+  group_by(virus_OG) %>% summarise(read_count_sum=sum(unpaired_read_count), RPK_sum = sum(RPK))
+
+  virus_ogs_counts$LIBID <- x
+  
+  virus_ogs_counts$feature_class <- "virus_OG"
+  
+  virus_ogs_counts$virus_OG <- paste0(virus_ogs_counts$virus_OG,"|Virus")
+  
+  virus_ogs_counts <- virus_ogs_counts %>% dplyr::rename(OG=virus_OG)
+  
+  #combining bacteria, fungi and virus OG count information
+  all_OGs_counts_out <- do.call("rbind", list(bact_ogs_counts, fungi_ogs_counts, virus_ogs_counts))
+  
+  #The TPM calculation here only takes into account features with OG annotation
+  #This is a fair QC because downstream analyses like DESeq2 were only at the OG level 
+  scaling_factor <- (sum(all_OGs_counts_out$RPK_sum))/1000000  #scaling factor per million
+  
+  all_OGs_counts_out$TPM <- all_OGs_counts_out$RPK_sum/scaling_factor
+  
+  return(all_OGs_counts_out)
+  
+  
+})
+
+
+longitudinal_OG_counts <- do.call("rbind", longitudinal_OG_counts)
+
+###Do the same for the technical replicates
+
+tech_reps_OG_counts <- lapply(tech_reps_metadata$LIBID, function(x){
+  
+  ################
+  ##For bacteria##
+  ################
+    bact_ogs <- tech_reps_mtx_pangene_features[[x]] %>% dplyr::filter(emapper_OG != "-") %>% 
+  dplyr::filter(str_detect(string=.$emapper_OG, pattern="Bacteria"))
+#If there are multiple OGs belonging to bacteria, then this function just takes the more specific/narrower (right-most) term that is still "Bacteria".
+  bact_ogs$bacteria_OG <- gsub(pattern = "(.*,)(.*)(@2\\|Bacteria.*)", replacement = "\\2",bact_ogs$emapper_OG)
+
+#Extract bacteria OGs from translated search (ts) results
+  bact_ts_ogs <- tech_reps_mtx_uniref90_features[[x]] %>% dplyr::filter(emapper_max_annot_OG != "-") %>% 
+  dplyr::filter(str_detect(string=.$emapper_OG, pattern="Bacteria"))
+
+  bact_ts_ogs$bacteria_OG <- gsub(pattern = "(.*,)(.*)(@2\\|Bacteria.*)", replacement = "\\2",bact_ts_ogs$emapper_OG)
+
+#combine them
+
+  bact_ogs_combined <- rbind(bact_ogs %>% dplyr::select(bacteria_OG , unpaired_read_count, RPK), 
+                           bact_ts_ogs %>% dplyr::select(bacteria_OG , unpaired_read_count, RPK))
+
+#summarize counts and RPK
+
+  bact_ogs_counts <- bact_ogs_combined %>%
+  group_by(bacteria_OG) %>% summarise(read_count_sum=sum(unpaired_read_count), RPK_sum = sum(RPK))
+  
+  bact_ogs_counts$LIBID <- x
+  
+  bact_ogs_counts$feature_class <- "bacteria_OG"
+  
+  bact_ogs_counts$bacteria_OG <- paste0(bact_ogs_counts$bacteria_OG,"|Bacteria")
+  
+  bact_ogs_counts <- bact_ogs_counts %>% dplyr::rename(OG=bacteria_OG)
+  
+  ################
+  ##  For Fungi ##
+  ################
+  
+    fungi_ogs <- tech_reps_mtx_pangene_features[[x]] %>% dplyr::filter(emapper_OG != "-") %>% 
+  dplyr::filter(str_detect(string=.$emapper_OG, pattern="Fungi"))
+
+  #If there are multiple OGs belonging to Fungi, then this function just takes the more specific/narrower (right-most) term that is still "Fungi".
+  fungi_ogs$fungi_OG <- gsub(pattern = "(.*,)(.*)(@4751\\|Fungi.*)", replacement = "\\2",fungi_ogs$emapper_OG)
+
+  #Extract fungi OGs from translated search (ts) results
+  fungi_ts_ogs <- tech_reps_mtx_uniref90_features[[x]] %>% dplyr::filter(emapper_max_annot_OG != "-") %>% 
+  dplyr::filter(str_detect(string=.$emapper_OG, pattern="Fungi"))
+
+  fungi_ts_ogs$fungi_OG <- gsub(pattern = "(.*,)(.*)(@4751\\|Fungi.*)", replacement = "\\2",fungi_ts_ogs$emapper_OG)
+
+  #combine them
+
+  fungi_ogs_combined <- rbind(fungi_ogs %>% dplyr::select(fungi_OG , unpaired_read_count, RPK), 
+                           fungi_ts_ogs %>% dplyr::select(fungi_OG , unpaired_read_count, RPK))
+
+  #summarize counts
+
+  fungi_ogs_counts <- fungi_ogs_combined %>%
+  group_by(fungi_OG) %>% summarise(read_count_sum=sum(unpaired_read_count), RPK_sum = sum(RPK))
+
+  fungi_ogs_counts$LIBID <- x
+  
+  fungi_ogs_counts$feature_class <- "fungi_OG"
+  
+  fungi_ogs_counts$fungi_OG <- paste0(fungi_ogs_counts$fungi_OG,"|Fungi")
+  
+  fungi_ogs_counts <- fungi_ogs_counts %>% dplyr::rename(OG=fungi_OG)
+  
+  ##################
+  ##  For Viruses ##
+  ##################
+  
+  
+   virus_ogs <- tech_reps_mtx_pangene_features[[x]] %>% dplyr::filter(emapper_OG != "-") %>% 
+  dplyr::filter(str_detect(string=.$emapper_OG, pattern="Virus"))
+
+   #If there are multiple OGs belonging to virus, then this function just takes the more specific/narrower (right-most) term that is still "virus".
+  
+  if (nrow(virus_ogs)>=1){
+    virus_ogs$virus_OG <- gsub(pattern = "(.*)(@10239\\|Viruses.*)", replacement = "\\1",virus_ogs$emapper_OG)
+  }
+  
+
+  #Extract virus OGs from translated search (ts) results
+  virus_ts_ogs <- tech_reps_mtx_uniref90_features[[x]] %>% dplyr::filter(emapper_max_annot_OG != "-") %>% 
+  dplyr::filter(str_detect(string=.$emapper_OG, pattern="Virus"))
+  
+   if (nrow(virus_ts_ogs)>=1){
+    virus_ts_ogs$virus_OG <- gsub(pattern = "(.*)(@10239\\|Viruses.*)", replacement = "\\1",virus_ts_ogs$emapper_OG)
+  }
+
+  #combine them
+  
+  if (nrow(virus_ogs)>=1 & nrow(virus_ts_ogs)>=1){
+    virus_ogs_combined <- rbind(virus_ogs %>% dplyr::select(virus_OG , unpaired_read_count, RPK), 
+                           virus_ts_ogs %>% dplyr::select(virus_OG , unpaired_read_count, RPK))
+  } else if (nrow(virus_ogs) >= 1 & nrow(virus_ts_ogs)==0){
+    virus_ogs_combined <- virus_ogs %>% dplyr::select(virus_OG , unpaired_read_count, RPK)
+  } else if (nrow(virus_ogs) == 0 & nrow(virus_ts_ogs) >=1){
+    virus_ogs_combined <- virus_ts_ogs %>% dplyr::select(virus_OG , unpaired_read_count, RPK)
+  } else {
+    virus_ogs_combined <- data.frame(virus_OG="placeholder_feature",
+                                     unpaired_read_count=0, RPK=0)
+  }
+  
+
+  #summarize counts
+
+  virus_ogs_counts <- virus_ogs_combined %>%
+  group_by(virus_OG) %>% summarise(read_count_sum=sum(unpaired_read_count), RPK_sum = sum(RPK))
+
+  virus_ogs_counts$LIBID <- x
+  
+  virus_ogs_counts$feature_class <- "virus_OG"
+  
+  virus_ogs_counts$virus_OG <- paste0(virus_ogs_counts$virus_OG,"|Virus")
+  
+  virus_ogs_counts <- virus_ogs_counts %>% dplyr::rename(OG=virus_OG)
+  
+  #combining bacteria, fungi and virus OG count information
+  all_OGs_counts_out <- do.call("rbind", list(bact_ogs_counts, fungi_ogs_counts, virus_ogs_counts))
+  
+  #The TPM calculation here only takes into account features with OG annotation
+  #This is a fair QC because downstream analyses like DESeq2 were only at the OG level 
+  scaling_factor <- (sum(all_OGs_counts_out$RPK_sum))/1000000  #scaling factor per million
+  
+  all_OGs_counts_out$TPM <- all_OGs_counts_out$RPK_sum/scaling_factor
+  
+  return(all_OGs_counts_out)
+  
+  
+})
+
+
+tech_reps_OG_counts <- do.call("rbind", tech_reps_OG_counts)
+
+
+write_tsv(longitudinal_OG_counts, "../data/longitudinal_OG_counts.tsv")
+
+write_tsv(tech_reps_OG_counts, "../data/tech_reps_OG_counts.tsv")
+
+
+```
+
+
+Load output dataframes generated by the previous code chunk.
+
+```{r}
+#OG stands for Orthologous Groups
+
+longitudinal_OG_counts <- read_tsv("../data/longitudinal_OG_counts.tsv", show_col_types = FALSE)
+
+tech_reps_OG_counts <- read_tsv("../data/tech_reps_OG_counts.tsv", show_col_types = FALSE)
+
+```
+
+Calculate correlations at the OG level
+
+```{r}
+
+#This is a matrix of TPMs
+
+longitudinal_OG_TPM_mat <- pivot_wider(longitudinal_OG_counts, id_cols=OG, names_from=LIBID, 
+                                          values_from=TPM) %>% as.data.frame()
+
+longitudinal_OG_TPM_mat[is.na(longitudinal_OG_TPM_mat)] <- 0 
+
+rownames(longitudinal_OG_TPM_mat) <- longitudinal_OG_TPM_mat$OG
+
+longitudinal_OG_TPM_mat <- longitudinal_OG_TPM_mat %>% dplyr::select(-OG) %>% as.matrix()
+
+longitudinal_OG_TPM_pearson_mat <- cor(longitudinal_OG_TPM_mat, method="pearson")
+
+
+#both upper and lower triangles represented here
+longitudinal_OG_TPM_pearson_df  <- reshape2::melt(longitudinal_OG_TPM_pearson_mat, varnames = c("row", "col"))
+      
+longitudinal_OG_TPM_pearson_df <- longitudinal_OG_TPM_pearson_df %>% dplyr::filter(col!=row)
+
+#comparison for selection purposes
+longitudinal_OG_TPM_pearson_df$comparison <- paste0(longitudinal_OG_TPM_pearson_df$row,"-",longitudinal_OG_TPM_pearson_df$col)
+
+##############################
+#within individuals, same site
+##############################
+
+within_individuals_longitudinal_OG_TPM_pearson_df <- longitudinal_OG_TPM_pearson_df %>% dplyr::filter(comparison %in% longitudinal_within_individuals_comparisons)
+
+median(within_individuals_longitudinal_OG_TPM_pearson_df$value) #0.8977749
+
+##############################
+#between individuals, same site
+##############################
+
+betw_individuals_longitudinal_OG_TPM_pearson_df  <- longitudinal_OG_TPM_pearson_df  %>% dplyr::filter(comparison %in% longitudinal_betw_individuals_comparisons)
+
+median(betw_individuals_longitudinal_OG_TPM_pearson_df$value) #0.5229123
+
+
+
+
+
+```
+TPM correlations for technical repeats
+
+```{r}
+
+tech_reps_OG_TPM_mat <- pivot_wider(tech_reps_OG_counts, id_cols=OG, names_from=LIBID, 
+                                          values_from=TPM) %>% as.data.frame()
+
+tech_reps_OG_TPM_mat[is.na(tech_reps_OG_TPM_mat)] <- 0 
+
+rownames(tech_reps_OG_TPM_mat) <- tech_reps_OG_TPM_mat$OG
+
+tech_reps_OG_TPM_mat <- tech_reps_OG_TPM_mat %>% dplyr::select(-OG) %>% as.matrix()
+
+tech_reps_OG_TPM_pearson_mat <- cor(tech_reps_OG_TPM_mat, method="pearson")
+
+
+#both upper and lower triangles represented here
+tech_reps_OG_TPM_pearson_df  <- reshape2::melt(tech_reps_OG_TPM_pearson_mat, varnames = c("row", "col"))
+      
+tech_reps_OG_TPM_pearson_df <- tech_reps_OG_TPM_pearson_df %>% dplyr::filter(col!=row)
+
+#comparison for selection purposes
+tech_reps_OG_TPM_pearson_df$comparison <- paste0(tech_reps_OG_TPM_pearson_df$row,"-",tech_reps_OG_TPM_pearson_df$col)
+
+tech_reps_OG_TPM_pearson_df <- tech_reps_OG_TPM_pearson_df %>% dplyr::filter(comparison %in% tech_reps_combinations)
+
+median(tech_reps_OG_TPM_pearson_df$value) #0.9902457
+
+```
+Box plot of Pearson correlations for bact and fungal OGs
+
+```{r}
+
+within_individuals_longitudinal_OG_TPM_pearson_df$comparison_type <- "within_individuals"
+
+betw_individuals_longitudinal_OG_TPM_pearson_df$comparison_type <- "between_individuals"
+
+tech_reps_OG_TPM_pearson_df$comparison_type <- "technical_replicates"
+
+RNA_OG_TPM_pearson_to_plot <- do.call("rbind", list(within_individuals_longitudinal_OG_TPM_pearson_df,
+                                               betw_individuals_longitudinal_OG_TPM_pearson_df,
+                                               tech_reps_OG_TPM_pearson_df))
+
+RNA_OG_TPM_pearson_to_plot <-  RNA_OG_TPM_pearson_to_plot %>% mutate(comparison_type = 
+                                                             fct_relevel(comparison_type, 
+                                                                         "technical_replicates", 
+                                                                         "within_individuals", 
+                                                                         "between_individuals")) 
+
+
+pearson_plot_comparisons <- list( c("technical_replicates", "within_individuals"), 
+                             c("within_individuals", "between_individuals"))
+
+RNA_OG_TPM_pearson_boxplot <- ggplot(RNA_OG_TPM_pearson_to_plot, aes(x=comparison_type, y=value)) + geom_boxplot() + 
+  theme_classic() + ylab("Pearson correlation") + stat_compare_means(method = "wilcox.test",
+                                                                      comparisons=pearson_plot_comparisons) +
+  scale_y_continuous(breaks=c(0,0.25,0.50,0.75,1))
+
+ggsave(plot = RNA_OG_TPM_pearson_boxplot, filename="../plots/RNA_OG_pearson_boxplot.pdf", 
+       width = 5, height = 5)
+
+
+RNA_OG_TPM_pearson_boxplot
+
+
+
+```
+
+## Panel D
+
+This is for the full (not-pilot) cohort, n = 102 libraries.
+
+Boxplot showing the number of metatranscriptomic reads before computational removal of host and rRNA signals (red), number of non-human, non-rRNA reads after computational filtering (green) and number of microbial reads (comprising bacteria, viruses, fungi and archaea) after de-duplication and accounting for contaminant genera and species (blue). 
+
+```{r}
+
+#contaminant read pairs information from kraken2. This is all downstream of de-duplication
+
+#see process_taxa_abundances.Rmd
+mtx_k2_contam_read_pairs <- read_tsv("../data/mtx_k2_contaminant_read_pairs.tsv", show_col_types = FALSE) %>% dplyr::rename(LIBID=mtx_LIBID)
+mtx_k2_contam_read_pairs$cat <- "non_contam_microbe_count"
+mtx_k2_contam_read_pairs <- merge(mtx_k2_contam_read_pairs, mtx_stats_chosen %>% dplyr::select(LIBID, region, MICROBE_COUNT), by = "LIBID")
+mtx_k2_contam_read_pairs$non_contaminant_microbial_read_pairs <- mtx_k2_contam_read_pairs$MICROBE_COUNT - mtx_k2_contam_read_pairs$estimated_contaminant_read_pairs
+
+#Typically, >1Gbp of de-duplicated non-rRNA sequencing data (median of 3.7 million read pairs) was generated per library similar to other metatranscriptomic studies
+median(mtx_k2_contam_read_pairs$non_contaminant_microbial_read_pairs)
+
+
+#after removal of both human reads by mapping to hg38 and removal of human, fungal and microbial rRNAs
+mtx_stats_for_plot <- do.call("rbind",
+                              list(data.frame(read_pairs=mtx_stats_chosen$AFTER_FASTP, region=mtx_stats_chosen$region, cat="before_rm"),
+                                   data.frame(read_pairs=mtx_stats_chosen$AFT_RIBO_RM, region=mtx_stats_chosen$region,
+           cat="after_rm"),
+           data.frame(read_pairs=mtx_k2_contam_read_pairs$non_contaminant_microbial_read_pairs, region=mtx_k2_contam_read_pairs$region,
+           cat=mtx_k2_contam_read_pairs$cat)
+                                   ))
+
+
+
+mtx_read_count_stats <- ggplot(mtx_stats_for_plot %>% mutate(region= fct_relevel(region, "Sc", "Ch", "Ac", "Vf", "Tw"),
+                                     cat=fct_relevel(cat, "before_rm", "after_rm", "non_contam_microbe_count")), 
+       aes(x=region, y=log10(read_pairs), fill=cat)) + theme_classic() + geom_boxplot() + ggtitle("Metatranscriptomic read counts") 
+
+ggsave(plot=mtx_read_count_stats, filename = "../plots/mtx_read_count_stats.pdf")
+
+mtx_read_count_stats
+
+```
+## Panel E
+
+Boxplot showing the fraction of non-ribosomal RNA (non rRNA) reads with and without experimental rRNA depletion during library preparation for the full cohort.
+
+```{r}
+
+
+mtx_stats_chosen$rRNA_percent <- (1 - (mtx_stats_chosen$AFT_RIBO_RM/mtx_stats_chosen$AFT_HUMAN_RM))*100
+
+full_cohort_mtx_rRNA_stats <- ggplot(mtx_stats_chosen %>% mutate(region= fct_relevel(region, "Sc", "Ch", "Ac", "Vf", "Tw")),
+       aes(x=region, y=100-rRNA_percent)) + theme_classic() + geom_boxplot() + ggtitle("% non-rRNAs after experimental depletion") +
+  ylab("% non rRNA reads")
+
+ggsave(plot=full_cohort_mtx_rRNA_stats, filename = "../plots/full_cohort_mtx_rRNA_stats.pdf")
+
+full_cohort_mtx_rRNA_stats
+
+```
+## Panel F
+
+Coverage plots showing the distribution of reads over bacterial gene bodies in samples belonging to the full cohort. Reads were mapped to bacterial pangenomes and samples with either >50,000 or ≤50,000 mapped bacteria reads are coloured differently. 
+
+Load picard metrics and gene body coverage information from picard CollectRnaSeqMetrics for the eight bacteria species pangenome mapping outcomes. This is the preferred QC metric to use.
+
+Use a spline interpolation to fit a smooth curve over each point to get the coverage plot in R
+
+```{r}
+
+picard_pangenome_metrics_filenames <- list.files(path="../data/picard_RNA_metrics/eight_species_pangenome_mapping/", pattern="*_picard_RNA_metrics")
+
+picard_pangenome_histovalues_filenames <-  list.files(path="../data/picard_RNA_metrics/eight_species_pangenome_mapping/", pattern="*_picard_gene_cov_hist")
+
+
+picard_pangenome_metrics <- lapply(picard_pangenome_metrics_filenames, function(name){
+  
+  metric_df <- read_tsv(paste0("../data/picard_RNA_metrics/eight_species_pangenome_mapping/",name), show_col_types = FALSE)
+  
+  metric_df$LIBID <- name %>% gsub(pattern="_picard_RNA_metrics.tsv", replacement="",.)
+  
+  return(metric_df)
+  
+}) %>% do.call("rbind",.)
+
+###Add a factor "binning" each library to # of correct strand reads: 
+
+picard_pangenome_metrics$sample_bin <- cut(picard_pangenome_metrics$CORRECT_STRAND_READS, breaks = c(1000, 50000, 5e7), include.lowest = TRUE, labels = c("<= 50000 mapped reads","> 50000 mapped reads"))
+
+picard_pangenome_metrics <- merge(picard_pangenome_metrics, metadata %>% dplyr::select(LIBID,region),by="LIBID",all.x = TRUE)
+
+#cut(picard_pangenome_metrics$CORRECT_STRAND_READS, breaks = c(1000, 50000, 100000, 250000, 500000, 5e7), include.lowest = TRUE)
+
+
+
+picard_pangenome_histogram <- lapply(picard_pangenome_histovalues_filenames, function(name){
+  
+  histo_df <- read_tsv(paste0("../data/picard_RNA_metrics/eight_species_pangenome_mapping/",name), show_col_types = FALSE)
+  
+  histo_df$LIBID <- name %>% gsub(pattern="_picard_gene_cov_hist.tsv", replacement="",.)
+  
+  return(histo_df)
+  
+}) %>% do.call("rbind",.)
+
+
+colnames(picard_pangenome_histogram)[2] <- "normalized_coverage"
+
+picard_pangenome_histogram <- merge(picard_pangenome_histogram,metadata %>% dplyr::select(LIBID,region),by="LIBID",all.x = TRUE)
+
+
+picard_pangenome_cov_spline <- lapply(picard_pangenome_histovalues_filenames, function(name){
+  
+  histo_df <- read_tsv(paste0("../data/picard_RNA_metrics/eight_species_pangenome_mapping/",name), show_col_types = FALSE)
+  
+  histo_df$LIBID <- name %>% gsub(pattern="_picard_gene_cov_hist.tsv", replacement="",.)
+  
+  colnames(histo_df)[2] <- "normalized_coverage"
+  
+  #spline interpolation of points
+  spline_df <- as.data.frame(spline(histo_df$normalized_position,histo_df$normalized_coverage))
+  
+  spline_df$LIBID <- name %>% gsub(pattern="_picard_gene_cov_hist.tsv", replacement="",.)
+  
+  return(spline_df)
+  
+}) %>% do.call("rbind",.)
+
+colnames(picard_pangenome_cov_spline)[1] <- "normalized_position"
+colnames(picard_pangenome_cov_spline)[2] <- "normalized_coverage"
+
+#merge additional metadata info for plotting convenience
+picard_pangenome_cov_spline <- merge(picard_pangenome_cov_spline,metadata %>% dplyr::select(LIBID,region),by="LIBID",all.x = TRUE)
+picard_pangenome_cov_spline_with_metrics <- merge(picard_pangenome_cov_spline, 
+                                                  picard_pangenome_metrics %>% dplyr::select(LIBID,sample_bin))
+
+
+
+```
+
+Bacterial pangene coverage plots for scalp metatranscriptomes
+
+```{r}
+picard_bact_cov_Sc_plot <- ggplot(picard_pangenome_cov_spline_with_metrics %>% dplyr::filter(region == "Sc"),
+       aes(x = normalized_position, y = normalized_coverage, color=sample_bin)) +
+  geom_line() + theme_classic() + scale_colour_manual(values = c("cyan3", "coral" ), drop=FALSE) + ggtitle("Scalp")
+
+
+ggsave(picard_bact_cov_Sc_plot, 
+       filename = "../plots/Sc_bact_cov_plot.pdf", width =7, height=5 )
+
+picard_bact_cov_Sc_plot
+
+
+```
+
+Bacterial pangene coverage plots for cheek metatranscriptomes.
+
+```{r}
+picard_bact_cov_Ch_plot <- ggplot(picard_pangenome_cov_spline_with_metrics %>% dplyr::filter(region == "Ch"),
+       aes(x = normalized_position, y = normalized_coverage, color=sample_bin)) +
+  geom_line() + theme_classic() + scale_colour_manual(values = c("cyan3", "coral" ), drop=FALSE) + ggtitle("Cheeks")
+
+ggsave(picard_bact_cov_Ch_plot, 
+       filename = "../plots/Ch_bact_cov_plot.pdf", width =7, height=5 )
+
+picard_bact_cov_Ch_plot
+```
+Bacterial pangene coverage plots for antecubital fossae metatranscriptomes
+
+```{r}
+
+picard_bact_cov_Ac_plot <- ggplot(picard_pangenome_cov_spline_with_metrics %>% dplyr::filter(region == "Ac"),
+       aes(x = normalized_position, y = normalized_coverage, color=sample_bin)) +
+  geom_line() + theme_classic() + scale_colour_manual(values = c("cyan3", "coral" ), drop=FALSE) + ggtitle("Ac")
+
+ggsave(picard_bact_cov_Ac_plot, 
+       filename = "../plots/Ac_bact_cov_plot.pdf", width =7, height=5 )
+
+picard_bact_cov_Ac_plot 
+
+```
+Bacterial pangene coverage plots for volar forearm metatranscriptomes
+
+```{r}
+
+picard_bact_cov_Vf_plot <- picard_bact_cov_Vf_plot <- ggplot(picard_pangenome_cov_spline_with_metrics %>% dplyr::filter(region == "Vf"),
+       aes(x = normalized_position, y = normalized_coverage, color=sample_bin)) +
+  geom_line() + theme_classic() + scale_colour_manual(values = c("cyan3", "coral" ), drop=FALSE) + ggtitle("Vf")
+
+ggsave(picard_bact_cov_Vf_plot, 
+       filename = "../plots/Vf_bact_cov_plot.pdf", width =7, height=5 )
+
+picard_bact_cov_Vf_plot 
+
+```
+
+Bacterial pangene coverage plots for toe web metatranscriptomes
+
+```{r}
+
+picard_bact_cov_Tw_plot <- ggplot(picard_pangenome_cov_spline_with_metrics %>% dplyr::filter(region == "Tw"),
+       aes(x = normalized_position, y = normalized_coverage, color=sample_bin)) +
+  geom_line() + theme_classic() + scale_colour_manual(values = c("cyan3", "coral" ), drop=FALSE) + ggtitle("Tw")
+
+ggsave(picard_bact_cov_Tw_plot, 
+       filename = "../plots/Tw_bact_cov_plot.pdf", width =7, height=5 )
+
+picard_bact_cov_Tw_plot
+
+```
+
+## Panel G
+
+Coverage plots showing the distribution of reads over fungal gene bodies for libraries (full cohort) with ≥500,000 fungal reads.
+
+Load picard metrics for fungal mapping
+
+```{r}
+
+picard_fungal_metrics_filenames <- list.files(path="../data/picard_RNA_metrics/fungal_mapping/", pattern="*_picard_RNA_metrics")
+
+picard_fungal_histovalues_filenames <-  list.files(path="../data/picard_RNA_metrics/fungal_mapping/", pattern="*_picard_gene_cov_hist")
+
+#Some metrics are 0, presumably because there are fewer than 1000 highly expressed genes?
+picard_fungal_metrics <- lapply(picard_fungal_metrics_filenames, function(name){
+  
+  metric_df <- read_tsv(paste0("../data/picard_RNA_metrics/fungal_mapping/",name), show_col_types = FALSE)
+  
+  metric_df$LIBID <- name %>% gsub(pattern="_picard_RNA_metrics.tsv", replacement="",.)
+  
+  return(metric_df)
+  
+}) %>% do.call("rbind",.)
+
+
+#What are the LIBIDs with > 500000 mapped reads to the fungal genome
+picard_fungal_chosen_IDs <- picard_fungal_metrics %>% dplyr::filter(CORRECT_STRAND_READS >= 500000) %>% pull(LIBID)
+
+
+picard_fungal_histogram <- lapply(picard_fungal_histovalues_filenames, function(name){
+  
+  histo_df <- read_tsv(paste0("../data/picard_RNA_metrics/fungal_mapping/",name), show_col_types = FALSE)
+  
+  histo_df$LIBID <- name %>% gsub(pattern="_picard_gene_cov_hist.tsv", replacement="",.)
+  
+  return(histo_df)
+  
+}) %>% do.call("rbind",.)
+
+
+colnames(picard_fungal_histogram)[2] <- "normalized_coverage"
+
+picard_fungal_histogram <- merge(picard_fungal_histogram,metadata %>% dplyr::select(LIBID,region),by="LIBID",all.x = TRUE)
+
+picard_fungal_histogram$region <- ifelse(is.na(picard_fungal_histogram$region),"Wu_et_al_2015",picard_fungal_histogram$region)
+
+
+##Spline dfs for gene coverage plotting
+picard_fungal_cov_spline <- lapply(picard_fungal_histovalues_filenames, function(name){
+  
+  histo_df <- read_tsv(paste0("../data/picard_RNA_metrics/fungal_mapping/",name), show_col_types = FALSE)
+  
+  histo_df$LIBID <- name %>% gsub(pattern="_picard_gene_cov_hist.tsv", replacement="",.)
+  
+  colnames(histo_df)[2] <- "normalized_coverage"
+  
+  #spline interpolation of points
+  spline_df <- as.data.frame(spline(histo_df$normalized_position,histo_df$normalized_coverage))
+  
+  spline_df$LIBID <- name %>% gsub(pattern="_picard_gene_cov_hist.tsv", replacement="",.)
+  
+  return(spline_df)
+  
+}) %>% do.call("rbind",.)
+
+colnames(picard_fungal_cov_spline)[1] <- "normalized_position"
+colnames(picard_fungal_cov_spline)[2] <- "normalized_coverage"
+
+
+picard_fungal_cov_spline <- merge(picard_fungal_cov_spline,metadata %>% dplyr::select(LIBID,region),by="LIBID",all.x = TRUE)
+
+picard_fungal_cov_spline$region <- ifelse(is.na(picard_fungal_cov_spline$region),"Wu_et_al_2015",picard_fungal_cov_spline$region)
+
+
+```
+
+Plot read coverage over fungal genes (top 1000 most highly expressed per lib). Only plotted for samples with >= 500K reads mapping to fungal genomes.
+
+
+Malassezia gene coverage plots for scalp metatranscriptomes.
+
+```{r}
+
+picard_fungal_cov_Sc_plot <- ggplot(picard_fungal_cov_spline %>% dplyr::filter(region == "Sc" & LIBID %in% picard_fungal_chosen_IDs),
+       aes(x = normalized_position, y = normalized_coverage)) +
+  geom_line() + theme_classic() + ggtitle("Scalp")
+
+ggsave(picard_fungal_cov_Sc_plot, 
+       filename = "../plots/Sc_fungi_cov_plot.pdf", width =7, height=5 )
+
+picard_fungal_cov_Sc_plot
+```
+
+
+Malassezia gene coverage plots for cheek metatranscriptomes.
+
+```{r}
+picard_fungal_cov_Ch_plot <- ggplot(picard_fungal_cov_spline %>% dplyr::filter(region == "Ch" & LIBID %in% picard_fungal_chosen_IDs),
+       aes(x = normalized_position, y = normalized_coverage)) +
+  geom_line() + theme_classic() + ggtitle("Cheeks")
+
+ggsave(picard_fungal_cov_Ch_plot, 
+       filename = "../plots/Ch_fungi_cov_plot.pdf", width =7, height=5 )
+
+picard_fungal_cov_Ch_plot
+
+```
+
+Malassezia gene coverage plots for antecubital fossae metatranscriptomes.
+
+```{r}
+
+picard_fungal_cov_Ac_plot <- ggplot(picard_fungal_cov_spline %>% dplyr::filter(region == "Ac" & LIBID %in% picard_fungal_chosen_IDs),
+       aes(x = normalized_position, y = normalized_coverage)) +
+  geom_line() + theme_classic() + ggtitle("Ac")
+
+ggsave(picard_fungal_cov_Ac_plot, 
+       filename = "../plots/Ac_fungi_cov_plot.pdf", width =7, height=5 )
+
+picard_fungal_cov_Ac_plot
+
+
+```
+
+Malassezia gene coverage plots for volar forearm metatranscriptomes.
+
+
+```{r}
+picard_fungal_cov_Vf_plot <- ggplot(picard_fungal_cov_spline %>% dplyr::filter(region == "Vf" & LIBID %in% picard_fungal_chosen_IDs),
+       aes(x = normalized_position, y = normalized_coverage)) +
+  geom_line() + theme_classic() + ggtitle("Vf")
+
+ggsave(picard_fungal_cov_Vf_plot, 
+       filename = "../plots/Vf_fungi_cov_plot.pdf", width =7, height=5 )
+
+
+picard_fungal_cov_Vf_plot
+
+```
+
+Malassezia gene coverage plots for toe web metatranscriptomes.
+
+```{r}
+picard_fungal_cov_Tw_plot <- ggplot(picard_fungal_cov_spline %>% dplyr::filter(region == "Tw" & LIBID %in% picard_fungal_chosen_IDs),
+       aes(x = normalized_position, y = normalized_coverage)) +
+  geom_line() + theme_classic() + ggtitle("Tw")
+
+ggsave(picard_fungal_cov_Tw_plot, 
+       filename = "../plots/Tw_fungi_cov_plot.pdf", width =7, height=5 )
+
+picard_fungal_cov_Tw_plot
+```
+
+## Panel H
+
+Percentage of reads mapped to different regions (intergenic, intronic and exons) of the Malassezia globosa genome. “This study” refers to samples from the full cohort. “Wu et al 2015” refers to an external dataset of RNA sequencing data from cultured Malassezia globosa isolates.
+
+Comparing in vivo data (this manuscript) with a high quality Malassezia culture RNAseq experiment (Wu et al 2015)
+
+```{r}
+
+picard_region_fraction_df <- picard_fungal_metrics %>% 
+  dplyr::filter(LIBID %in% picard_fungal_chosen_IDs) %>% dplyr::select(LIBID, PCT_INTRONIC_BASES,
+                                                                       PCT_INTERGENIC_BASES,
+                                                                       PCT_MRNA_BASES)
+
+picard_region_fraction_df$PCT_INTRONIC_BASES <- picard_region_fraction_df$PCT_INTRONIC_BASES * 100
+picard_region_fraction_df$PCT_INTERGENIC_BASES <- picard_region_fraction_df$PCT_INTERGENIC_BASES * 100
+picard_region_fraction_df$PCT_MRNA_BASES <- picard_region_fraction_df$PCT_MRNA_BASES*100
+
+picard_region_fraction_df$sample_desc <- ifelse(str_detect(picard_region_fraction_df$LIBID, pattern="MHS"),
+                                                "this_study", "Wu_et_al_2015")
+
+#Only select those libraries which were mapped to M_globosa (including Wu_et_al_2015)
+
+picard_region_fraction_M_glo_df <- picard_region_fraction_df %>% dplyr::filter(sample_desc== "Wu_et_al_2015" |
+                                                                                 LIBID %in% mtx_to_M_globosa_QC$id)
+
+
+#Box plot of the different regional fractions
+
+picard_region_fraction_M_glo_long_df <- pivot_longer(picard_region_fraction_M_glo_df,
+                                                     cols=c("PCT_INTRONIC_BASES",
+                                                            "PCT_INTERGENIC_BASES",
+                                                            "PCT_MRNA_BASES"),
+                                                     names_to = "genomic_region",
+                                                     values_to = "percentage") 
+
+
+
+  
+picard_region_fraction_M_glo_plot <- ggplot(picard_region_fraction_M_glo_long_df, 
+       aes(x=sample_desc, y=percentage)) + facet_wrap(~genomic_region, ncol=3, nrow=1)+
+  theme_classic() + 
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1), axis.title.x=element_blank()) + geom_boxplot() + ggtitle("% reads mapping to genomic regions of M globosa") #+stat_compare_means(method = "wilcox.test")
+
+
+ggsave(picard_region_fraction_M_glo_plot, 
+       filename = "../plots/genomic_region_RNA_mapping_M_globosa_plot.pdf", width =7, height=5 )
+
+picard_region_fraction_M_glo_plot
+
+```
+
+What percent reads mapped to human transcriptomes and were thus removed?
+
+```{r}
+
+mtx_stats_chosen$percent_reads_map_to_human <- (1- (mtx_stats_chosen$AFT_HUMAN_RM / mtx_stats_chosen$AFTER_FASTP))*100
+
+median(mtx_stats_chosen$percent_reads_map_to_human)
+
+```
+
+#Additional analysis
+
+Reproducibility analysis for microbial mock communities (MC).
+
+```{r}
+
+MC_library_metadata <- read_tsv("../metadata/ERCC_and_mock_comm_mtx_metadata.txt", show_col_types = FALSE,
+                                  skip = 1, col_names = c("sample","ERCC_mix",
+                                                          "input_RNA_conc",
+                                                          "dilution_factor",
+                                                          "RNA_input_ng",
+                                                          "vol_input",
+                                                          "UMI",
+                                                          "PCR_cycles",
+                                                          "library_conc_pg_per_ul",
+                                                          "library_conc_ng_per_ul",
+                                                          "library_volume_ul",
+                                                          "dilution_fraction",
+                                                          "LIBID")) %>% 
+  dplyr::filter(str_detect(pattern = "MC", string=.$sample))
+
+
+```
+
+
+
+Important to remove self comparisons
+
+
+```{r}
+#For mock community A (MC5)
+MC5_combs <- MC_library_metadata %>% 
+  dplyr::filter(str_detect(pattern = "MC5", string=.$sample))
+
+MC5_combs <- combn(MC5_combs$LIBID, 2, simplify = FALSE) 
+MC5_combs <- lapply(MC5_combs, function(x){ output <- stringi::stri_flatten(x, collapse="-")}) %>% unlist(.)
+
+
+#For mock community B  (MC19)
+MC19_combs <- MC_library_metadata %>% 
+  dplyr::filter(str_detect(pattern = "MC19", string=.$sample))
+
+MC19_combs <- combn(MC19_combs$LIBID, 2, simplify = FALSE) 
+MC19_combs <- lapply(MC19_combs, function(x){ output <- stringi::stri_flatten(x, collapse="-")}) %>% unlist(.)
+
+```
+
+What are the species (true-positives) in the different mock comms?
+
+```{r}
+
+MC_species <- read_tsv("../metadata/mock_comm_DNA_composition.txt")
+
+#filter for MC5 and MC19, since these were the ones sequenced.
+MC_species_filt <- MC_species %>% dplyr::filter(mock_comm_id %in% c("MC5-log10", "MC19-uniform")) %>%
+   mutate(species = gsub(pattern = "_VRE|_MRSA", replacement = "", x = species)) %>% pull(species) %>% unique(.)
+
+```
+
+
+Calculate Bray-Curtis distances on total sum scaled (TSS) relative abundances at species level for the mock communities 
+
+Data needs to be in the form of a matrix.
+
+```{r}
+
+
+#load kraken data
+#TSS based on known ground truth species only
+MC_rna_kraken_renorm_df <- lapply(MC_library_metadata$LIBID, function(x){
+  
+  df <- read_tsv(file=paste0("../data/mock_comm_RNA_out/",x,"_k2.s.tsv"),
+            show_col_types = FALSE, 
+            col_names = c("rel_abun","paired_counts",
+                          "minimizer_count","distinct_minimizer_count",
+                          "k2_taxon"))
+  
+  df_filt <- df %>% 
+    dplyr::filter(k2_taxon %in% MC_species_filt) %>% 
+    dplyr::select(-rel_abun)
+  
+  total_sum <- sum(df_filt$paired_counts)
+  
+  #re-scaled relative abundance
+  df_filt$rel_abun <- (df_filt$paired_counts / total_sum) *100
+  
+  df_filt$LIBID <- x
+  
+  return(df_filt)
+  
+}) %>% do.call("rbind",.)
+
+
+
+#Shape the data to appropriate form
+
+MC_rna_kraken_renorm_df <- MC_rna_kraken_renorm_df %>% dplyr::select(LIBID,k2_taxon,rel_abun)
+
+MC_rna_kraken_renorm_abun_table <- pivot_wider(MC_rna_kraken_renorm_df, 
+                                               id_cols=k2_taxon, names_from=LIBID, 
+                                          values_from=rel_abun) %>% as.data.frame()
+
+
+MC_rna_kraken_renorm_abun_table[is.na(MC_rna_kraken_renorm_abun_table)] <- 0 
+
+rownames(MC_rna_kraken_renorm_abun_table) <- MC_rna_kraken_renorm_abun_table$k2_taxon
+
+#for bcdist, rows must be samples and columns must be species, so we need to transpose
+MC_rna_kraken_BC_dist <- ecodist::bcdist(t(MC_rna_kraken_renorm_abun_table %>% dplyr::select(-k2_taxon))) %>% as.matrix()
+
+#both upper and lower triangles represented here
+MC_rna_kraken_BC_dist <- reshape2::melt(MC_rna_kraken_BC_dist, varnames = c("row", "col"))
+      
+MC_rna_kraken_BC_dist <- MC_rna_kraken_BC_dist %>% dplyr::filter(col!=row)
+
+##############################
+#within same mock community 
+##############################
+#comparison for selection purposes
+MC_rna_kraken_BC_dist$comparison <- paste0(MC_rna_kraken_BC_dist$row,"-",MC_rna_kraken_BC_dist$col)
+
+#The distance matrix contains the permutations. We will subset for the unique and relevant combinations 
+MC_rna_kraken_BC_dist_filt <- MC_rna_kraken_BC_dist %>% dplyr::filter(comparison %in% c(MC5_combs, MC19_combs))
+
+MC_rna_kraken_BC_dist_filt$sorensen_similarity_species_level <- 1 - MC_rna_kraken_BC_dist_filt$value
+
+median(MC_rna_kraken_BC_dist_filt$sorensen_similarity_species_level) #0.9894
+
+```
+
+Ran Humann3 on the mock communities to get gene family abundances because MC5 contains gut bacteria which will not be annotated by the skin gene catalog.
+
+Pathway activity calculations for mock communities
+
+```{r}
+MC_activity_norm_dataset <- lapply(MC_library_metadata$LIBID, function(x){
+  
+  summary_df <- read_tsv(paste0("../data/mock_comm_RNA_out/",x, "_merged_decont_pathabundance.tsv"),
+                         show_col_types = FALSE, skip =1, col_names = c("pathway",
+                                                               "abundance")) %>% 
+    dplyr::filter(!pathway %in% c("UNMAPPED", "UNINTEGRATED"))
+  
+  summary_df$LIBID <- x
+  
+  return(summary_df)
+  
+  }) %>% do.call("rbind",.)
+
+
+write_tsv(MC_activity_norm_dataset, file="../data/mock_comm_RNA_out/MC_humann_pathway_norm_dataset.tsv")
+
+```
+
+
+
+Compute Pearson correlations
+
+```{r}
+MC_activity_mat <- pivot_wider(MC_activity_norm_dataset, id_cols=pathway, names_from=LIBID, 
+                                          values_from=abundance) %>% as.data.frame()
+
+
+
+MC_activity_mat[is.na(MC_activity_mat)] <- 0
+
+rownames(MC_activity_mat) <- MC_activity_mat$pathway
+
+MC_activity_mat <- MC_activity_mat %>% dplyr::select(-pathway) %>% as.matrix()
+
+MC_activity_pearson_mat <- cor(MC_activity_mat, method="pearson")
+
+
+#both upper and lower triangles represented here
+MC_activity_pearson_df  <- reshape2::melt(MC_activity_pearson_mat, varnames = c("row", "col"))
+      
+MC_activity_pearson_df <- MC_activity_pearson_df  %>% dplyr::filter(col!=row)
+
+#comparison for selection purposes
+MC_activity_pearson_df$comparison <- paste0(MC_activity_pearson_df$row,"-", MC_activity_pearson_df$col)
+
+MC_activity_pearson_df_filt <- MC_activity_pearson_df %>% dplyr::filter(comparison %in% c(MC5_combs, MC19_combs))
+
+median(MC_activity_pearson_df_filt$value) #0.998
+
+
+
+```
+Three biological replicates per mock community.
+
+Boxplot of Sorensen Similarity Indices (1 – Bray Curtis dissimilarity) computed from species level relative abundances for the cultured mock communities. 
+Boxplot of Pearson correlation coefficient for gene-level TPMs from species of the cultured mock communities
+
+```{r}
+
+MC_BC_dist_fmt <- MC_rna_kraken_BC_dist_filt %>% dplyr::select(comparison, sorensen_similarity_species_level) %>%
+  dplyr::rename(value = sorensen_similarity_species_level)
+
+MC_BC_dist_fmt$metric <- "sorensen_similarity"
+
+MC_activity_pearson_fmt <- MC_activity_pearson_df_filt %>% dplyr::select(comparison, value)
+
+MC_activity_pearson_fmt$metric <- "Pearson_correlation_expressed_pathways"
+
+MC_combined_metrics <- rbind(MC_BC_dist_fmt, MC_activity_pearson_fmt)
+
+
+MC_combined_metrics$metric <- factor(MC_combined_metrics$metric, levels = c("sorensen_similarity",
+                                                                     "Pearson_correlation_expressed_pathways"))
+
+
+
+MC_metrics_boxplot <- ggplot(MC_combined_metrics,
+       aes(x=metric, y=value)) + 
+  geom_boxplot() + theme_classic() +
+  ylab("Index or Coefficient")
+
+
+
+ggsave(plot=MC_metrics_boxplot, filename="../plots/MC_metrics_boxplot.pdf")
+
+
+MC_metrics_boxplot
+
+```
+
+

@@ -53,6 +53,24 @@ find_contam_corr <- function(df, contam_genera=initial_contam_mask){
 }
 
 
+
+df_to_matrix <- function(input_df){
+   
+  output_matrix <- pivot_wider(input_df %>% 
+                                 dplyr::select(k2_taxon, paired_counts, LIBID),
+                               names_from = LIBID, values_from = paired_counts) %>%
+                                dplyr::rename(species=k2_taxon) %>% as.matrix()
+  
+  
+  output_matrix <- output_matrix %>% as.matrix()
+  
+  #This matrix operation is much faster than mutate_all(~replace(.,is.na(.),0)) for tibbles/df
+  output_matrix[is.na(output_matrix)] <- 0 
+  
+  return(output_matrix)
+}
+ 
+
 ```
 
 
@@ -608,4 +626,93 @@ OR true positive detected in paired MTX data.
 Note: Species level reads are non-contaminant, non-spike in, microbial reads!
 
 Reads are renormalized to 100% after filtering.
+
+#Create matrix of species read counts
+a) For filtered metagenomes (minus contam and false positives)
+b) For filtered metatranscriptomes
+c) For negative controls (Handling controls)
+```{r}
+
+neg_ctrl_MTX_LIBID <- c("MHS340", 
+                        "MHS348",	
+                        "MHS420",
+                        "MHS431",	
+                        "MHS602")
+
+MTX_neg_ctrl_species_k2_df <- lapply(neg_ctrl_MTX_LIBID, function(x){
+  
+  output <- read_tsv(file=paste0("../data/kraken2/RNA/",x,"_merged_decont_k2.s.tsv"),
+                     show_col_types = FALSE, col_names = c("rel_abun","paired_counts",
+                                                           "minimizers","distinct_minimzers",
+                                                           "k2_taxon"))
+  output$LIBID <- x
+  
+  return(output)
+}) %>% do.call("rbind",.)
+
+
+MTX_neg_ctrl_species_k2_mat <- df_to_matrix(MTX_neg_ctrl_species_k2_df) %>% as.data.frame()
+
+###
+
+neg_ctrl_MGX_LIBID <- c("MHS470",
+                        "MHS524",	
+                        "MHS552",	
+                        "MHS566",
+                        "MHS581")
+
+
+MGX_neg_ctrl_species_k2_df <- lapply(neg_ctrl_MGX_LIBID, function(x){
+  
+  output <- read_tsv(file=paste0("../data/kraken2/DNA/",x,"_merged_decont_k2.s.tsv"),
+                     show_col_types = FALSE, col_names = c("rel_abun","paired_counts",
+                                                           "minimizers","distinct_minimzers",
+                                                           "k2_taxon"))
+  output$LIBID <- x
+  
+  return(output)
+}) %>% do.call("rbind",.)
+
+MGX_neg_ctrl_species_k2_mat <- df_to_matrix(MGX_neg_ctrl_species_k2_df) %>% as.data.frame()
+
+
+# MGX full cohort
+MGX_species_k2_filtered_df <- lapply(mgx_to_pull, function(x){
+  
+  output <- read_tsv(file=paste0("../data/k2_species_renorm/DNA/",x,"_k2_renorm.s.tsv"),show_col_types = FALSE)
+  
+  output$LIBID <- x
+  
+  return(output)
+}) %>% do.call("rbind",.)
+
+
+MGX_species_k2_filtered_mat <- df_to_matrix(MGX_species_k2_filtered_df) %>% as.data.frame()
+
+
+# MTX full cohort
+mtx_to_pull <- read_tsv("../metadata/mtx_to_pull", col_names = FALSE, show_col_types = FALSE) %>% pull(X1)
+
+MTX_species_k2_filtered_df <- lapply(mtx_to_pull, function(x){
+  
+  output <- read_tsv(file=paste0("../data/k2_species_renorm/RNA/",x,"_k2_renorm.s.tsv"),show_col_types = FALSE)
+  
+  output$LIBID <- x
+  
+  return(output)
+}) %>% do.call("rbind",.)
+
+MTX_species_k2_filtered_mat <- df_to_matrix(MTX_species_k2_filtered_df) %>% as.data.frame()
+
+write_tsv(MTX_neg_ctrl_species_k2_mat, "../data/MTX_neg_ctrl_species_k2_mat.tsv")
+write_tsv(MGX_neg_ctrl_species_k2_mat, "../data/MGX_neg_ctrl_species_k2_mat.tsv")
+write_tsv(MTX_species_k2_filtered_mat, "../data/MTX_species_k2_filtered_mat.tsv")
+write_tsv(MGX_species_k2_filtered_mat, "../data/MGX_species_k2_filtered_mat.tsv")
+
+```
+
+
+
+
+
 

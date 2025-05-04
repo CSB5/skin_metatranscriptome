@@ -1,0 +1,590 @@
+---
+title: "edgeR for mtx"
+author: "Chiamh"
+date: "2025-05-01"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r}
+library(edgeR) #edgeR_4.2.2 limma_3.60.6 via sessionInfo()
+
+library(tidyverse)
+
+library("clusterProfiler") #v4.12.6
+library("GSEABase") # v1.66.0
+```
+
+Load metadata and supporting information
+
+```{r}
+
+metadata <- read_tsv("../metadata/skin_mtx_metadata_fmt.txt", show_col_types = FALSE) 
+
+mgx_stats <- read_tsv("../metadata/MGX_QC_stats.txt", show_col_types = FALSE) 
+
+mtx_stats <- read_tsv("../metadata/MTX_QC_stats.txt", show_col_types = FALSE) 
+
+mgx_stats <- merge(mgx_stats, metadata, by = "LIBID", all.x=TRUE)
+
+mtx_stats <- merge(mtx_stats, metadata, by ="LIBID", all.x=TRUE)
+
+#mtx_to_pull and mgx_to_pull refer to the 102 Libraries with paired MTX and MGX data:
+
+mtx_to_pull <- read_tsv("../metadata/mtx_to_pull", col_names = FALSE, show_col_types = FALSE) %>% pull(X1)
+
+mgx_to_pull <- read_tsv("../metadata/mgx_to_pull", col_names = FALSE, show_col_types = FALSE) %>% pull(X1)
+
+mtx_stats_chosen <- mtx_stats %>% dplyr::filter(LIBID %in% mtx_to_pull)
+
+mgx_stats_chosen <- mgx_stats %>% dplyr::filter(LIBID %in% mgx_to_pull)
+
+mtx_mgx_stats_chosen <- read_tsv(file="../metadata/mtx_mgx_stats_chosen.tsv", show_col_types = FALSE)
+
+
+# Load GO annotations
+GO_annot_all <- read_tsv("../metadata/all_GO_annotations.tsv", show_col_types = FALSE)
+
+#WARNING: This file is large and needs to be copied from figshare into the metadata folder of this repo.
+#figshare link: https://figshare.com/articles/dataset/EggNOG_to_Gene_Ontology_annotations/25688532?file=45848136
+eggnog_to_GO_all_annot  <- read_tsv("../metadata/eggnog_to_GO_all_annot.tsv", show_col_types = FALSE)
+
+## Load eggnog to all GO annotations in eggnog db 5
+eggnog_to_go_all_term2gene <- read_tsv("../metadata/eggnog_with_GO_all_term2gene.txt",
+                                       col_names = c("OG", "GO_ID"),
+                                       show_col_types=FALSE) %>%
+  dplyr::rename(from=GO_ID, to=OG) %>% dplyr::select(from,to)
+
+#Load annotations for Gene Ontology biological processes and molecular functions
+
+#GOs for biological process (BP)
+GO_BP_term2name <- GO_annot_all %>% 
+  dplyr::filter(ontology=="BP") %>% 
+  dplyr::select(GO_ID, GO_desc) %>%
+  dplyr::rename(from=GO_ID, to=GO_desc)
+
+
+eggnog_to_GO_BP_annot <- eggnog_to_GO_all_annot %>% dplyr::filter(ontology == "BP") 
+  
+eggnog_to_GO_BP_term2gene <- eggnog_to_go_all_term2gene %>% dplyr::filter(from %in% eggnog_to_GO_BP_annot$GO_ID)
+
+#GOs for Molecular Function (MF)
+GO_MF_term2name <- GO_annot_all %>% 
+  dplyr::filter(ontology=="MF") %>% 
+  dplyr::select(GO_ID, GO_desc) %>%
+  dplyr::rename(from=GO_ID, to=GO_desc)
+
+eggnog_to_GO_MF_annot <- eggnog_to_GO_all_annot %>% dplyr::filter(ontology == "MF")
+  
+eggnog_to_GO_MF_term2gene <- eggnog_to_go_all_term2gene %>% dplyr::filter(from %in% eggnog_to_GO_MF_annot$GO_ID)
+
+
+```
+
+
+Custom functions
+
+```{r}
+
+## Wrapper for clusterprofiler
+tally_features_and_enrichments_edgeR <- function(site_comparison, 
+                                           term2gene_arg, term2name_arg, analysis_mode="GSEA"){
+  
+  bact_DE_l2fc <- read_tsv(file=paste0("../data/edgeR_out/edgeR_bact_",site_comparison,"_l2fc.tsv"), show_col_types = FALSE) %>%
+        dplyr::rename("log2FoldChange"="logFC")
+		
+  bact_DE_l2fc$padj <- p.adjust(bact_DE_l2fc$PValue, method = "fdr")
+  
+  fungi_DE_l2fc <- read_tsv(file=paste0("../data/edgeR_out/edgeR_fungi_",site_comparison,"_l2fc.tsv"), show_col_types = FALSE) %>%
+        dplyr::rename("log2FoldChange"="logFC") 
+  
+  fungi_DE_l2fc$padj <- p.adjust(fungi_DE_l2fc$PValue, method = "fdr")
+  
+  
+  bact_n_upreg <- bact_DE_l2fc %>% 
+    dplyr::filter(padj < 0.05 & log2FoldChange > 0) %>% 
+    nrow()
+  
+  bact_n_downreg <- bact_DE_l2fc %>% 
+    dplyr::filter(padj < 0.05 & log2FoldChange < 0) %>% 
+    nrow()
+  
+  fungi_n_upreg <- fungi_DE_l2fc %>% 
+    dplyr::filter(padj < 0.05 & log2FoldChange > 0) %>% 
+    nrow()
+  
+  fungi_n_downreg <- fungi_DE_l2fc %>% 
+    dplyr::filter(padj < 0.05 & log2FoldChange < 0) %>% 
+    nrow()
+  
+  DE_tally_df <- data.frame(DE_comparison=site_comparison,
+                            bact_n_upreg = bact_n_upreg,
+                            bact_n_downreg = bact_n_downreg,
+                            fungi_n_upreg = fungi_n_upreg,
+                            fungi_n_downreg = fungi_n_downreg)
+  
+  DE_tally_df$total_n_upreg <- DE_tally_df$bact_n_upreg + DE_tally_df$fungi_n_upreg
+  
+  DE_tally_df$total_n_downreg <- DE_tally_df$bact_n_downreg + DE_tally_df$fungi_n_downreg
+  
+  ###
+  bact_DE_l2fc$feature_from <- "bacteria"
+  
+  fungi_DE_l2fc$feature_from <- "fungi"
+  
+  ###
+  #combine fungal and bacterial DE results
+  combined_DE_res <- rbind(bact_DE_l2fc, 
+                           fungi_DE_l2fc)
+  
+  combined_DE_res$DE_comparison <- site_comparison
+  
+  
+  
+  ###Clusterprofiler for upregulated genes
+  
+  #To do over-representation analysis 
+  if (analysis_mode=="ORA"){
+    bacteria_upreg_clusterprofiler_out <- run_clusterprofiler(changing_df = bact_DE_l2fc %>% dplyr::filter(padj < 0.05 & log2FoldChange > 0),
+                                                              background_df=bact_DE_l2fc,
+                                                              term2gene = term2gene_arg,
+                                                              term2name = term2name_arg)
+    
+    bacteria_upreg_clusterprofiler_df <- as.data.frame(bacteria_upreg_clusterprofiler_out)
+    
+    if(nrow(bacteria_upreg_clusterprofiler_df >0)){
+      bacteria_upreg_clusterprofiler_df <- bacteria_upreg_clusterprofiler_df %>% dplyr::filter(Description != "No_annotation")
+    }
+    
+    
+    
+    fungi_upreg_clusterprofiler_out <- run_clusterprofiler(changing_df = fungi_DE_l2fc %>% 
+                                                             dplyr::filter(padj < 0.05 & log2FoldChange > 0),
+                                                           background_df=fungi_DE_l2fc, 
+                                                           term2gene = term2gene_arg, term2name = term2name_arg)
+    
+    fungi_upreg_clusterprofiler_df <- as.data.frame(fungi_upreg_clusterprofiler_out)
+    
+    if(nrow(fungi_upreg_clusterprofiler_df >0)){
+      fungi_upreg_clusterprofiler_df <- fungi_upreg_clusterprofiler_df %>% dplyr::filter(Description != "No_annotation")
+      
+    }
+    
+    
+    ###Clusterprofiler for downregulated genes
+    
+    
+    bacteria_downreg_clusterprofiler_out <- run_clusterprofiler(changing_df = bact_DE_l2fc %>% dplyr::filter(padj < 0.05 & log2FoldChange < 0),
+                                                                background_df=bact_DE_l2fc,
+                                                                term2gene = term2gene_arg,
+                                                                term2name = term2name_arg)
+    
+    bacteria_downreg_clusterprofiler_df <- as.data.frame(bacteria_downreg_clusterprofiler_out)
+    
+    if(nrow(bacteria_downreg_clusterprofiler_df >0)){
+      bacteria_downreg_clusterprofiler_df <- bacteria_downreg_clusterprofiler_df %>%  dplyr::filter(Description != "No_annotation")
+    }
+    
+    
+    
+    fungi_downreg_clusterprofiler_out <- run_clusterprofiler(changing_df = fungi_DE_l2fc %>% dplyr::filter(padj < 0.05 & log2FoldChange < 0),
+                                                             background_df=fungi_DE_l2fc,
+                                                             term2gene = term2gene_arg,
+                                                             term2name = term2name_arg)
+    
+    fungi_downreg_clusterprofiler_df <- as.data.frame(fungi_downreg_clusterprofiler_out)
+    
+    if(nrow(fungi_downreg_clusterprofiler_df >0)){
+      fungi_downreg_clusterprofiler_df <- fungi_downreg_clusterprofiler_df %>%  dplyr::filter(Description != "No_annotation")
+    }
+    
+    
+    #For GO enrichment summary
+    enrichment_tally_df <- data.frame(bact_upreg_n_enriched=nrow(bacteria_upreg_clusterprofiler_df),
+                                      fungi_upreg_n_enriched=nrow(fungi_upreg_clusterprofiler_df),
+                                      bact_downreg_n_enriched=nrow(bacteria_downreg_clusterprofiler_df),
+                                      fungi_downreg_n_enriched=nrow(fungi_downreg_clusterprofiler_df),
+                                      DE_comparison=site_comparison)
+    
+    
+    output <- tibble::lst(DE_tally_df, combined_DE_res,
+                          bacteria_upreg_clusterprofiler_out,
+                          bacteria_upreg_clusterprofiler_df,
+                          fungi_upreg_clusterprofiler_out,
+                          fungi_upreg_clusterprofiler_df,
+                          bacteria_downreg_clusterprofiler_out,
+                          bacteria_downreg_clusterprofiler_df,
+                          fungi_downreg_clusterprofiler_out,
+                          fungi_downreg_clusterprofiler_df,
+                          enrichment_tally_df)
+  } else if (analysis_mode=="GSEA") {
+    
+    bact_GSEA_results <- GSEA_run(genelist=bact_DE_l2fc$log2FoldChange, 
+                                               gene_names=bact_DE_l2fc$feature, term2gene = term2gene_arg, term2name = term2name_arg)
+    
+    fungi_GSEA_results <- GSEA_run(genelist=fungi_DE_l2fc$log2FoldChange, 
+                                                gene_names=fungi_DE_l2fc$feature, term2gene = term2gene_arg, term2name = term2name_arg)
+    
+    output <- tibble::lst(DE_tally_df, 
+                          combined_DE_res,
+                          bact_GSEA_results,
+                          fungi_GSEA_results)
+  }
+  
+  
+  return(output)
+  
+}
+
+
+
+GSEA_run <- function(genelist, gene_names, term2gene, term2name = KEGG_term2name){
+  
+  names(genelist) <- as.character(gene_names)
+  # omit any NA values 
+  genelist<-na.omit(genelist)
+  #sort the genelist in decreasing order.
+  genelist <- sort(genelist, decreasing = TRUE)
+  
+  set.seed(123)
+  GSEA_out <- GSEA(geneList = genelist, TERM2GENE = term2gene, 
+                   TERM2NAME = term2name, eps= 0, nPermSimple=10000, seed=TRUE)
+  
+  return(GSEA_out)
+  
+}
+
+
+
+```
+
+
+
+Load read counts for bacteria and fungi OGs
+
+```{r}
+
+mtx_bact_counts <- lapply(mtx_to_pull, function(x){
+  df <- read_tsv(paste0("../data/MTX_feature_summary/",x,"_bact_OG_counts.tsv"),show_col_types = FALSE) %>% 
+    dplyr::rename(feature=bacteria_OG)
+  
+  df$feature <- gsub(pattern="\\|Bacteria", replacement="", x=df$feature)
+  
+  return(df)
+})
+
+names(mtx_bact_counts) <- mtx_to_pull
+
+mgx_bact_counts <- lapply(mgx_to_pull, function(x){
+  df <- read_tsv(paste0("../data/MGX_feature_summary/",x,"_bact_OG_counts.tsv"),show_col_types = FALSE) %>%
+    dplyr::rename(feature=bacteria_OG)
+  
+  df$feature <- gsub(pattern="\\|Bacteria", replacement="", x=df$feature)
+  
+  return(df)
+})
+
+names(mgx_bact_counts) <- mgx_to_pull
+
+#################
+mtx_fungi_counts <- lapply(mtx_to_pull, function(x){
+  df <- read_tsv(paste0("../data/MTX_feature_summary/",x,"_fungi_OG_counts.tsv"),show_col_types = FALSE) %>% 
+    dplyr::rename(feature=fungi_OG)
+  
+  df$feature <- gsub(pattern="\\|Fungi", replacement="", x=df$feature)
+  
+  return(df)
+  
+})
+
+names(mtx_fungi_counts) <- mtx_to_pull
+
+
+mgx_fungi_counts <- lapply(mgx_to_pull, function(x){
+  df <- read_tsv(paste0("../data/MGX_feature_summary/",x,"_fungi_OG_counts.tsv"),show_col_types = FALSE) %>%
+    dplyr::rename(feature=fungi_OG)
+  
+  df$feature <- gsub(pattern="\\|Fungi", replacement="", x=df$feature)
+  
+  return(df)
+  
+})
+
+names(mgx_fungi_counts) <- mgx_to_pull
+
+
+```
+
+## Step 1: Prepare count tables
+
+edgeR works on a table of read counts, with rows corresponding to genes and columns to independent libraries. 
+The counts represent the total number of reads aligning to each gene (or other genomic locus).
+
+edgeR stores data in a simple list-based data object called a DGEList.  If the table of counts is already available as a matrix or a data.frame then a DGEList object can be made.
+
+```{r}
+
+eligible_mtx_metadata <- metadata %>% dplyr::filter(LIBID %in% c(mtx_to_pull, mgx_to_pull))
+
+site_comparisons_edgeR <- c( "Ch_vs_Vf", "Tw_vs_Vf")
+
+
+#build DGE for bacteria AND fungi counts
+
+build_DGElist <- function(mtx_bact_count_list, 
+                               mgx_bact_count_list, 
+                               mtx_fungi_count_list,
+                               mgx_fungi_count_list,
+                               input_metadata, 
+                               cond, ref_cond){
+  
+  libs_to_pull <- input_metadata %>% dplyr::filter(region %in% c(cond, ref_cond)) %>% pull(LIBID)
+  
+  
+  ####################################
+  ## prepare input read count matrix #
+  ####################################
+  
+  ##########
+  #Bacteria#
+  ##########
+  
+  #Obtain count data for eligible mtx and mgx
+  bact_rawcounts <- c(mtx_bact_count_list[libs_to_pull], mgx_bact_count_list[libs_to_pull] )%>% 
+    do.call("rbind",.) %>% dplyr::select(-c("bacteria_eggnog_cat","bacteria_eggnog_desc"))
+  
+  
+  
+  bact_count_matrix <- pivot_wider(bact_rawcounts %>% 
+                                dplyr::select(feature, read_count_sum, LIBID), 
+                              names_from = LIBID, values_from = read_count_sum) %>%
+    as.data.frame()
+  
+  rownames(bact_count_matrix) <- bact_count_matrix$feature
+  
+  bact_count_matrix <- bact_count_matrix %>% dplyr::select(-feature) %>% as.matrix()
+  
+  #This matrix operation is much faster than mutate_all(~replace(.,is.na(.),0)) for tibbles/df
+  bact_count_matrix[is.na(bact_count_matrix)] <- 0 
+  
+  #######
+  #fungi#
+  #######
+  
+  fungi_rawcounts <- c(mtx_fungi_count_list[libs_to_pull], mgx_fungi_count_list[libs_to_pull] )%>% 
+    do.call("rbind",.) %>% dplyr::select(-c("fungi_eggnog_cat","fungi_eggnog_desc"))
+  
+  fungi_count_matrix <- pivot_wider(fungi_rawcounts %>% 
+                                dplyr::select(feature, read_count_sum, LIBID), 
+                              names_from = LIBID, values_from = read_count_sum) %>%
+    as.data.frame()
+  
+  rownames(fungi_count_matrix) <- fungi_count_matrix$feature
+  
+  fungi_count_matrix <- fungi_count_matrix %>% dplyr::select(-feature) %>% as.matrix()
+  
+  #This matrix operation is much faster than mutate_all(~replace(.,is.na(.),0)) for tibbles/df
+  fungi_count_matrix[is.na(fungi_count_matrix)] <- 0
+  
+  ###define grouping based on skin site
+  #Re-arrange the metadata to match the input matrices
+  metadata_filt <- input_metadata %>% dplyr::filter(region %in% c(cond, ref_cond))
+  metadata_filt$LIBID <- factor(metadata_filt$LIBID, levels = colnames(bact_count_matrix))
+  metadata_filt <- arrange(metadata_filt, LIBID)
+  
+  
+  #set levels for comparisons
+  #The reference level should be the first level in the factor.
+  metadata_filt$region <- factor(metadata_filt$region, levels = c(ref_cond, cond))
+  metadata_filt$mol_type <- factor(metadata_filt$mol_type, levels = c("DNA", "RNA"))
+  
+  group <- factor(metadata_filt$region)
+  
+  #Create DGELists
+  bact_DGEList <- DGEList(counts=bact_count_matrix,group=group)
+  bact_keep <- filterByExpr(bact_DGEList)
+  bact_DGEList <- bact_DGEList[bact_keep,,keep.lib.sizes=FALSE]
+  
+  fungi_DGEList <- DGEList(counts=fungi_count_matrix,group=group)
+  fungi_keep <- filterByExpr(fungi_DGEList)
+  fungi_DGEList <- fungi_DGEList[fungi_keep,,keep.lib.sizes=FALSE]
+  
+  #return outputs
+  output <- tibble::lst(bact_count_matrix, 
+                        fungi_count_matrix, 
+                        metadata_filt,
+                        bact_DGEList,
+                        fungi_DGEList)
+  
+  return(output)
+  
+}
+
+
+
+```
+
+
+Build DGElists
+
+```{r}
+DGElist_Ch_vs_Vf <- build_DGElist(mtx_bact_count_list = mtx_bact_counts, 
+                            mgx_bact_count_list = mgx_bact_counts,
+                            mtx_fungi_count_list = mtx_fungi_counts,
+                            mgx_fungi_count_list = mgx_fungi_counts,
+                            input_metadata = eligible_mtx_metadata,
+                            cond="Ch", ref_cond ="Vf" )
+
+#colnames(DGElist_Ch_vs_Vf$fungi_count_matrix) == DGElist_Ch_vs_Vf$metadata_filt$LIBID #sanity check
+
+
+DGElist_Tw_vs_Vf <- build_DGElist(mtx_bact_count_list = mtx_bact_counts, 
+                            mgx_bact_count_list = mgx_bact_counts,
+                            mtx_fungi_count_list = mtx_fungi_counts,
+                            mgx_fungi_count_list = mgx_fungi_counts,
+                            input_metadata = eligible_mtx_metadata,
+                            cond="Tw", ref_cond ="Vf" )
+
+```
+
+Set up model matrices for GLM with edgeR
+```{r}
+
+Ch_vs_Vf_design <- model.matrix(~subject+region+mol_type+region:mol_type, DGElist_Ch_vs_Vf$metadata_filt)
+
+Tw_vs_Vf_design <- model.matrix(~subject+region+mol_type+region:mol_type, DGElist_Tw_vs_Vf$metadata_filt)
+
+```
+
+Run edgeR comparisons. Each test takes about 10 mins to run
+
+The QL pipeline of edgeR v4 is now the default and recommended approach in edgeR due to
+its robustness and highly reliable false discovery rate (FDR) control
+
+```{r eval=FALSE}
+
+#Ch vs Vf
+bact_Ch_vs_Vf_glmQLFit <- glmQLFit(DGElist_Ch_vs_Vf$bact_count_matrix,Ch_vs_Vf_design)
+bact_Ch_vs_Vf_glmQLFTest_results <- glmQLFTest(bact_Ch_vs_Vf_glmQLFit, coef = ncol(Ch_vs_Vf_design))
+
+fungi_Ch_vs_Vf_glmQLFit <- glmQLFit(DGElist_Ch_vs_Vf$fungi_count_matrix,Ch_vs_Vf_design)
+fungi_Ch_vs_Vf_glmQLFTest_results <- glmQLFTest(fungi_Ch_vs_Vf_glmQLFit, coef = ncol(Ch_vs_Vf_design))
+
+#Tw vs Vf
+
+bact_Tw_vs_Vf_glmQLFit <- glmQLFit(DGElist_Tw_vs_Vf$bact_count_matrix,Tw_vs_Vf_design)
+bact_Tw_vs_Vf_glmQLFTest_results <- glmQLFTest(bact_Tw_vs_Vf_glmQLFit, coef = ncol(Tw_vs_Vf_design))
+
+fungi_Tw_vs_Vf_glmQLFit <- glmQLFit(DGElist_Tw_vs_Vf$fungi_count_matrix,Tw_vs_Vf_design)
+fungi_Tw_vs_Vf_glmQLFTest_results <- glmQLFTest(fungi_Tw_vs_Vf_glmQLFit, coef = ncol(Tw_vs_Vf_design))
+
+
+mtx_edgeR_results <- tibble::lst(bact_Ch_vs_Vf_glmQLFit,
+                                 bact_Ch_vs_Vf_glmQLFTest_results,
+                                 fungi_Ch_vs_Vf_glmQLFit,
+                                 fungi_Ch_vs_Vf_glmQLFTest_results,
+                                 bact_Tw_vs_Vf_glmQLFit,
+                                 bact_Tw_vs_Vf_glmQLFTest_results,
+                                 fungi_Tw_vs_Vf_glmQLFit,
+                                 fungi_Tw_vs_Vf_glmQLFTest_results
+                                 )
+#Pre-computed edgeR results can be downloaded from figshare at: 
+saveRDS(mtx_edgeR_results, file="../data/edgeR_out/mtx_edgeR_results.RDS") 
+
+#save result dataframes
+
+save_and_add_feature_col <- function(input_result, comparison, filename){
+  
+  df_to_save <- input_result
+  df_to_save$feature <- rownames(df_to_save)
+  df_to_save$contrast <- comparison
+  
+  write_tsv(df_to_save, file = paste0("../data/edgeR_out/",filename))
+  
+}
+
+
+save_and_add_feature_col(mtx_edgeR_results$bact_Ch_vs_Vf_glmQLFTest_results$table,
+                         comparison="Ch_vs_Vf",
+                         filename="edgeR_bact_Ch_vs_Vf_l2fc.tsv")
+
+save_and_add_feature_col(mtx_edgeR_results$fungi_Ch_vs_Vf_glmQLFTest_results$table,
+                         comparison="Ch_vs_Vf",
+                         filename="edgeR_fungi_Ch_vs_Vf_l2fc.tsv")
+
+save_and_add_feature_col(mtx_edgeR_results$bact_Tw_vs_Vf_glmQLFTest_results$table,
+                         comparison="Tw_vs_Vf",
+                         filename="edgeR_bact_Tw_vs_Vf_l2fc.tsv")
+
+save_and_add_feature_col(mtx_edgeR_results$fungi_Tw_vs_Vf_glmQLFTest_results$table,
+                         comparison="Tw_vs_Vf",
+                         filename="edgeR_fungi_Tw_vs_Vf_l2fc.tsv")
+
+
+```
+
+Load results from the previous code chunk to save time.
+
+
+
+```{r}
+bact_Ch_vs_Vf_edgeR_l2fc <- read_tsv("../data/edgeR_out/edgeR_bact_Ch_vs_Vf_l2fc.tsv", show_col_types = FALSE)
+fungi_Ch_vs_Vf_edgeR_l2fc <- read_tsv("../data/edgeR_out/edgeR_fungi_Ch_vs_Vf_l2fc.tsv", show_col_types = FALSE)
+
+bact_Tw_vs_Vf_edgeR_l2fc <- read_tsv("../data/edgeR_out/edgeR_bact_Tw_vs_Vf_l2fc.tsv", show_col_types = FALSE)
+fungi_Tw_vs_Vf_edgeR_l2fc <- read_tsv("../data/edgeR_out/edgeR_fungi_Tw_vs_Vf_l2fc.tsv", show_col_types = FALSE)
+
+
+
+```
+
+Run GSEA on edgeR results, based on the log2FC of the interaction term
+
+```{r}
+#Molecular function
+
+site_edgeR_res_enrichments_GO_MF_GSEA <- lapply(site_comparisons_edgeR, function(x){
+  
+  list_out <- tally_features_and_enrichments_edgeR(x, 
+                                             term2gene_arg = eggnog_to_GO_MF_term2gene,
+                                             term2name_arg = GO_MF_term2name,
+                                            analysis_mode = "GSEA")
+  
+  return(list_out)
+  
+})
+
+names(site_edgeR_res_enrichments_GO_MF_GSEA) <- site_comparisons_edgeR
+
+saveRDS(site_edgeR_res_enrichments_GO_MF_GSEA, file="../data/edgeR_out/site_edgeR_res_enrichments_GO_MF_GSEA.RDS")
+
+
+#Biological process
+
+site_edgeR_res_enrichments_GO_BP_GSEA <- lapply(site_comparisons_edgeR, function(x){
+  
+  list_out <- tally_features_and_enrichments_edgeR(x, 
+                                             term2gene_arg = eggnog_to_GO_BP_term2gene,
+                                             term2name_arg = GO_BP_term2name,
+                                            analysis_mode = "GSEA")
+  
+  return(list_out)
+  
+})
+
+names(site_edgeR_res_enrichments_GO_BP_GSEA) <- site_comparisons_edgeR
+
+saveRDS(site_edgeR_res_enrichments_GO_BP_GSEA, file="../data/edgeR_out/site_edgeR_res_enrichments_GO_BP_GSEA.RDS")
+
+
+```
+
+
+
+
+
+

@@ -1331,20 +1331,19 @@ Important to remove self comparisons
 
 ```{r}
 #For mock community A (MC5)
-MC5_perms <- MC_library_metadata %>% 
+MC5_combs <- MC_library_metadata %>% 
   dplyr::filter(str_detect(pattern = "MC5", string=.$sample))
 
-MC5_perms <- permutations(n=length(MC5_perms$LIBID), r=2, v = MC5_perms$LIBID)
+MC5_combs <- combn(MC5_combs$LIBID, 2, simplify = FALSE) 
+MC5_combs <- lapply(MC5_combs, function(x){ output <- stringi::stri_flatten(x, collapse="-")}) %>% unlist(.)
 
-MC5_perms <- apply(MC5_perms, 1, paste0, collapse = "-")
 
 #For mock community B  (MC19)
-MC19_perms <- MC_library_metadata %>% 
+MC19_combs <- MC_library_metadata %>% 
   dplyr::filter(str_detect(pattern = "MC19", string=.$sample))
 
-MC19_perms <- permutations(n=length(MC19_perms$LIBID), r=2, v = MC19_perms$LIBID)
-
-MC19_perms <- apply(MC19_perms, 1, paste0, collapse = "-")
+MC19_combs <- combn(MC19_combs$LIBID, 2, simplify = FALSE) 
+MC19_combs <- lapply(MC19_combs, function(x){ output <- stringi::stri_flatten(x, collapse="-")}) %>% unlist(.)
 
 ```
 
@@ -1422,7 +1421,8 @@ MC_rna_kraken_BC_dist <- MC_rna_kraken_BC_dist %>% dplyr::filter(col!=row)
 #comparison for selection purposes
 MC_rna_kraken_BC_dist$comparison <- paste0(MC_rna_kraken_BC_dist$row,"-",MC_rna_kraken_BC_dist$col)
 
-MC_rna_kraken_BC_dist_filt <- MC_rna_kraken_BC_dist %>% dplyr::filter(comparison %in% c(MC5_perms, MC19_perms))
+#The distance matrix contains the permutations. We will subset for the unique and relevant combinations 
+MC_rna_kraken_BC_dist_filt <- MC_rna_kraken_BC_dist %>% dplyr::filter(comparison %in% c(MC5_combs, MC19_combs))
 
 MC_rna_kraken_BC_dist_filt$sorensen_similarity_species_level <- 1 - MC_rna_kraken_BC_dist_filt$value
 

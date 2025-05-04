@@ -272,14 +272,13 @@ mgx_k2_species_QC$region <- factor(mgx_k2_species_QC$region, levels= c("Sc", "Ch
 
 ```
 
-boxplot of % of non-contaminant species reads for k2 taxa NOT mapped to the human pangenome, by body site
+boxplot of % of non-contaminant species reads for k2 taxa NOT mapped to the human pangenome, by body site, for taxa with at least 100 read pairs
 
 ```{r}
 
-mgx_k2_non_hupan_boxplot <- ggplot(mgx_k2_species_QC, 
+mgx_k2_non_hupan_boxplot <- ggplot(mgx_k2_species_QC %>% dplyr::filter(paired_counts>=100), 
                                    aes(x=region, 
-                                       y=percent_not_mapped_to_hupan, 
-                                       fill=region)) + geom_boxplot() +
+                                       y=percent_not_mapped_to_hupan)) + geom_boxplot() +
   theme_classic() + 
   scale_color_manual(values=c24)
 

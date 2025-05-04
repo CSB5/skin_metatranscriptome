@@ -1,0 +1,1183 @@
+# Pathway	MBM171_merged_decont_Abundance
+UNMAPPED	773617.3273518040
+UNINTEGRATED	4191955.5318328235
+UNINTEGRATED|g__Streptococcus.s__Streptococcus_pneumoniae	591738.4904476732
+UNINTEGRATED|g__Cutibacterium.s__Cutibacterium_acnes	521654.9911129586
+UNINTEGRATED|g__Staphylococcus.s__Staphylococcus_capitis	310009.0308314941
+UNINTEGRATED|g__Staphylococcus.s__Staphylococcus_aureus	278631.7733830424
+UNINTEGRATED|g__Staphylococcus.s__Staphylococcus_lugdunensis	237654.0399410922
+UNINTEGRATED|g__Corynebacterium.s__Corynebacterium_resistens	196402.0853549644
+UNINTEGRATED|g__Staphylococcus.s__Staphylococcus_epidermidis	176952.2818594142
+UNINTEGRATED|unclassified	158365.7000716660
+UNINTEGRATED|g__Streptococcus.s__Streptococcus_salivarius	111772.5820277936
+UNINTEGRATED|g__Streptococcus.s__Streptococcus_mitis	34847.4403427369
+UNINTEGRATED|g__Micrococcus.s__Micrococcus_aloeverae	29329.8165040536
+UNINTEGRATED|g__Micrococcus.s__Micrococcus_luteus	24104.5545169306
+UNINTEGRATED|g__Streptococcus.s__Streptococcus_pseudopneumoniae	13958.5976698562
+UNINTEGRATED|g__Streptococcus.s__Streptococcus_oralis	12230.2031548635
+UNINTEGRATED|g__Streptococcus.s__Streptococcus_milleri	2110.0910353701
+UNINTEGRATED|g__Streptococcus.s__Streptococcus_constellatus	486.9067285677
+GLYCOGENSYNTH-PWY: glycogen biosynthesis I (from ADP-D-Glucose)	24412.7995260665
+GLYCOGENSYNTH-PWY: glycogen biosynthesis I (from ADP-D-Glucose)|g__Streptococcus.s__Streptococcus_pneumoniae	7684.7402199155
+GLYCOGENSYNTH-PWY: glycogen biosynthesis I (from ADP-D-Glucose)|g__Streptococcus.s__Streptococcus_salivarius	6194.7897353509
+GLYCOGENSYNTH-PWY: glycogen biosynthesis I (from ADP-D-Glucose)|g__Micrococcus.s__Micrococcus_aloeverae	256.7736710189
+GLYCOGENSYNTH-PWY: glycogen biosynthesis I (from ADP-D-Glucose)|g__Corynebacterium.s__Corynebacterium_resistens	77.5870761512
+GLYCOGENSYNTH-PWY: glycogen biosynthesis I (from ADP-D-Glucose)|g__Micrococcus.s__Micrococcus_luteus	63.2876944743
+GLYCOGENSYNTH-PWY: glycogen biosynthesis I (from ADP-D-Glucose)|g__Streptococcus.s__Streptococcus_mitis	48.6986858523
+GLYCOGENSYNTH-PWY: glycogen biosynthesis I (from ADP-D-Glucose)|g__Streptococcus.s__Streptococcus_pseudopneumoniae	31.4749784794
+GLYCOGENSYNTH-PWY: glycogen biosynthesis I (from ADP-D-Glucose)|unclassified	24.6333364794
+PWY-1042: glycolysis IV	16910.6114705367
+PWY-1042: glycolysis IV|g__Streptococcus.s__Streptococcus_salivarius	7487.9702925150
+PWY-1042: glycolysis IV|g__Streptococcus.s__Streptococcus_pneumoniae	2342.1074558715
+PWY-1042: glycolysis IV|g__Staphylococcus.s__Staphylococcus_capitis	1292.6952541822
+PWY-1042: glycolysis IV|g__Staphylococcus.s__Staphylococcus_lugdunensis	583.9296100426
+PWY-1042: glycolysis IV|g__Staphylococcus.s__Staphylococcus_aureus	526.9606580377
+PWY-1042: glycolysis IV|g__Streptococcus.s__Streptococcus_pseudopneumoniae	501.8726879691
+PWY-1042: glycolysis IV|g__Staphylococcus.s__Staphylococcus_epidermidis	479.9425869844
+PWY-1042: glycolysis IV|g__Corynebacterium.s__Corynebacterium_resistens	230.5889649335
+PWY-1042: glycolysis IV|g__Streptococcus.s__Streptococcus_mitis	24.0737829285
+PWY-1042: glycolysis IV|g__Streptococcus.s__Streptococcus_milleri	16.3371777806
+PWY-1042: glycolysis IV|unclassified	10.8303787399
+PWY0-1296: purine ribonucleosides degradation	13190.1445969539
+PWY0-1296: purine ribonucleosides degradation|g__Streptococcus.s__Streptococcus_pneumoniae	4737.4936180716
+PWY0-1296: purine ribonucleosides degradation|g__Streptococcus.s__Streptococcus_salivarius	2509.7131208311
+PWY0-1296: purine ribonucleosides degradation|g__Streptococcus.s__Streptococcus_mitis	538.0480312215
+PWY0-1296: purine ribonucleosides degradation|g__Staphylococcus.s__Staphylococcus_lugdunensis	351.9354815986
+PWY0-1296: purine ribonucleosides degradation|g__Streptococcus.s__Streptococcus_pseudopneumoniae	320.4558016270
+PWY0-1296: purine ribonucleosides degradation|g__Corynebacterium.s__Corynebacterium_resistens	219.5356866416
+PWY0-1296: purine ribonucleosides degradation|g__Staphylococcus.s__Staphylococcus_epidermidis	207.8352392394
+PWY0-1296: purine ribonucleosides degradation|g__Staphylococcus.s__Staphylococcus_aureus	134.1694090076
+PWY0-1296: purine ribonucleosides degradation|g__Streptococcus.s__Streptococcus_oralis	98.5319587034
+PWY0-1296: purine ribonucleosides degradation|g__Staphylococcus.s__Staphylococcus_capitis	93.5836104300
+PWY0-1296: purine ribonucleosides degradation|unclassified	69.5785072977
+PWY0-1296: purine ribonucleosides degradation|g__Cutibacterium.s__Cutibacterium_acnes	10.9542605443
+PWY0-1296: purine ribonucleosides degradation|g__Micrococcus.s__Micrococcus_aloeverae	8.1631090585
+ANAGLYCOLYSIS-PWY: glycolysis III (from glucose)	11421.3636171345
+ANAGLYCOLYSIS-PWY: glycolysis III (from glucose)|g__Streptococcus.s__Streptococcus_pneumoniae	2178.3687677235
+ANAGLYCOLYSIS-PWY: glycolysis III (from glucose)|g__Staphylococcus.s__Staphylococcus_capitis	1219.5546653178
+ANAGLYCOLYSIS-PWY: glycolysis III (from glucose)|g__Streptococcus.s__Streptococcus_salivarius	692.9032567313
+ANAGLYCOLYSIS-PWY: glycolysis III (from glucose)|g__Staphylococcus.s__Staphylococcus_epidermidis	579.5911681484
+ANAGLYCOLYSIS-PWY: glycolysis III (from glucose)|g__Staphylococcus.s__Staphylococcus_lugdunensis	477.4133888343
+ANAGLYCOLYSIS-PWY: glycolysis III (from glucose)|g__Staphylococcus.s__Staphylococcus_aureus	181.7379688182
+ANAGLYCOLYSIS-PWY: glycolysis III (from glucose)|g__Streptococcus.s__Streptococcus_mitis	49.7608526751
+ANAGLYCOLYSIS-PWY: glycolysis III (from glucose)|g__Streptococcus.s__Streptococcus_pseudopneumoniae	37.3459598282
+ANAGLYCOLYSIS-PWY: glycolysis III (from glucose)|unclassified	14.8876096742
+FERMENTATION-PWY: mixed acid fermentation	10416.9727327833
+FERMENTATION-PWY: mixed acid fermentation|g__Staphylococcus.s__Staphylococcus_aureus	1502.6132250418
+FERMENTATION-PWY: mixed acid fermentation|g__Staphylococcus.s__Staphylococcus_epidermidis	275.2143524594
+FERMENTATION-PWY: mixed acid fermentation|unclassified	110.3432797126
+PWY-1861: formaldehyde assimilation II (assimilatory RuMP Cycle)	9275.0585431287
+PWY-1861: formaldehyde assimilation II (assimilatory RuMP Cycle)|g__Streptococcus.s__Streptococcus_pneumoniae	1000.4920986840
+PWY-1861: formaldehyde assimilation II (assimilatory RuMP Cycle)|g__Staphylococcus.s__Staphylococcus_aureus	627.0771137394
+PWY-1861: formaldehyde assimilation II (assimilatory RuMP Cycle)|g__Staphylococcus.s__Staphylococcus_capitis	437.9153758982
+NONOXIPENT-PWY: pentose phosphate pathway (non-oxidative branch) I	7052.9650934852
+NONOXIPENT-PWY: pentose phosphate pathway (non-oxidative branch) I|g__Streptococcus.s__Streptococcus_salivarius	2087.3198638626
+NONOXIPENT-PWY: pentose phosphate pathway (non-oxidative branch) I|g__Streptococcus.s__Streptococcus_pneumoniae	1193.9262062296
+NONOXIPENT-PWY: pentose phosphate pathway (non-oxidative branch) I|g__Staphylococcus.s__Staphylococcus_aureus	622.5590973491
+NONOXIPENT-PWY: pentose phosphate pathway (non-oxidative branch) I|g__Staphylococcus.s__Staphylococcus_capitis	252.8579461615
+NONOXIPENT-PWY: pentose phosphate pathway (non-oxidative branch) I|g__Corynebacterium.s__Corynebacterium_resistens	241.1495959056
+NONOXIPENT-PWY: pentose phosphate pathway (non-oxidative branch) I|g__Staphylococcus.s__Staphylococcus_lugdunensis	113.6983932575
+NONOXIPENT-PWY: pentose phosphate pathway (non-oxidative branch) I|g__Micrococcus.s__Micrococcus_aloeverae	53.3132810413
+NONOXIPENT-PWY: pentose phosphate pathway (non-oxidative branch) I|unclassified	48.2191531743
+NONOXIPENT-PWY: pentose phosphate pathway (non-oxidative branch) I|g__Streptococcus.s__Streptococcus_mitis	35.6271492213
+NONOXIPENT-PWY: pentose phosphate pathway (non-oxidative branch) I|g__Streptococcus.s__Streptococcus_pseudopneumoniae	17.4614547699
+P41-PWY: pyruvate fermentation to acetate and (S)-lactate I	6416.8019173639
+P41-PWY: pyruvate fermentation to acetate and (S)-lactate I|g__Streptococcus.s__Streptococcus_pneumoniae	2108.4692698132
+P41-PWY: pyruvate fermentation to acetate and (S)-lactate I|g__Streptococcus.s__Streptococcus_salivarius	637.3363939516
+P41-PWY: pyruvate fermentation to acetate and (S)-lactate I|g__Staphylococcus.s__Staphylococcus_epidermidis	222.9843881601
+P41-PWY: pyruvate fermentation to acetate and (S)-lactate I|g__Staphylococcus.s__Staphylococcus_aureus	119.4867936452
+P41-PWY: pyruvate fermentation to acetate and (S)-lactate I|g__Corynebacterium.s__Corynebacterium_resistens	111.3077693291
+P41-PWY: pyruvate fermentation to acetate and (S)-lactate I|g__Staphylococcus.s__Staphylococcus_capitis	60.1714173939
+P41-PWY: pyruvate fermentation to acetate and (S)-lactate I|g__Streptococcus.s__Streptococcus_pseudopneumoniae	41.8456846546
+P41-PWY: pyruvate fermentation to acetate and (S)-lactate I|g__Streptococcus.s__Streptococcus_mitis	25.4982458169
+P41-PWY: pyruvate fermentation to acetate and (S)-lactate I|unclassified	4.0076250418
+PWY-5100: pyruvate fermentation to acetate and lactate II	6416.8019173639
+PWY-5100: pyruvate fermentation to acetate and lactate II|g__Streptococcus.s__Streptococcus_pneumoniae	2108.4692698132
+PWY-5100: pyruvate fermentation to acetate and lactate II|g__Streptococcus.s__Streptococcus_salivarius	637.3363939516
+PWY-5100: pyruvate fermentation to acetate and lactate II|g__Staphylococcus.s__Staphylococcus_capitis	506.7568797516
+PWY-5100: pyruvate fermentation to acetate and lactate II|g__Staphylococcus.s__Staphylococcus_epidermidis	286.8135092311
+PWY-5100: pyruvate fermentation to acetate and lactate II|g__Staphylococcus.s__Staphylococcus_aureus	218.8037038045
+PWY-5100: pyruvate fermentation to acetate and lactate II|g__Corynebacterium.s__Corynebacterium_resistens	111.3077693291
+PWY-5100: pyruvate fermentation to acetate and lactate II|g__Streptococcus.s__Streptococcus_pseudopneumoniae	41.8456846546
+PWY-5100: pyruvate fermentation to acetate and lactate II|g__Streptococcus.s__Streptococcus_mitis	25.4982458169
+PWY-5100: pyruvate fermentation to acetate and lactate II|unclassified	9.3196260207
+P125-PWY: superpathway of (R,R)-butanediol biosynthesis	6000.8916976581
+P125-PWY: superpathway of (R,R)-butanediol biosynthesis|g__Staphylococcus.s__Staphylococcus_epidermidis	210.3674982935
+P125-PWY: superpathway of (R,R)-butanediol biosynthesis|g__Streptococcus.s__Streptococcus_pneumoniae	202.7167384303
+P125-PWY: superpathway of (R,R)-butanediol biosynthesis|g__Staphylococcus.s__Staphylococcus_aureus	149.7665901122
+P125-PWY: superpathway of (R,R)-butanediol biosynthesis|g__Staphylococcus.s__Staphylococcus_capitis	69.9777788674
+PWY-8178: pentose phosphate pathway (non-oxidative branch) II	5876.5168970090
+PWY-8178: pentose phosphate pathway (non-oxidative branch) II|g__Streptococcus.s__Streptococcus_salivarius	2512.2849189825
+PWY-8178: pentose phosphate pathway (non-oxidative branch) II|g__Streptococcus.s__Streptococcus_pneumoniae	869.8275446617
+PWY-8178: pentose phosphate pathway (non-oxidative branch) II|g__Corynebacterium.s__Corynebacterium_resistens	252.0460759509
+PWY-8178: pentose phosphate pathway (non-oxidative branch) II|g__Staphylococcus.s__Staphylococcus_aureus	77.8962823701
+PWY-8178: pentose phosphate pathway (non-oxidative branch) II|g__Streptococcus.s__Streptococcus_mitis	39.0990423209
+PWY-8178: pentose phosphate pathway (non-oxidative branch) II|g__Streptococcus.s__Streptococcus_pseudopneumoniae	21.7057000911
+PWY-8178: pentose phosphate pathway (non-oxidative branch) II|g__Micrococcus.s__Micrococcus_aloeverae	19.3528978648
+PWY-6121: 5-aminoimidazole ribonucleotide biosynthesis I	5298.2173636445
+PWY-6121: 5-aminoimidazole ribonucleotide biosynthesis I|g__Streptococcus.s__Streptococcus_salivarius	509.7340626425
+PWY-6121: 5-aminoimidazole ribonucleotide biosynthesis I|g__Corynebacterium.s__Corynebacterium_resistens	291.9770718403
+PWY-6121: 5-aminoimidazole ribonucleotide biosynthesis I|g__Staphylococcus.s__Staphylococcus_capitis	272.7608245335
+PWY-6121: 5-aminoimidazole ribonucleotide biosynthesis I|g__Staphylococcus.s__Staphylococcus_lugdunensis	169.0454346128
+PWY-6121: 5-aminoimidazole ribonucleotide biosynthesis I|g__Streptococcus.s__Streptococcus_pneumoniae	138.5991442138
+PWY-6121: 5-aminoimidazole ribonucleotide biosynthesis I|g__Cutibacterium.s__Cutibacterium_acnes	111.4733608629
+PWY-6121: 5-aminoimidazole ribonucleotide biosynthesis I|g__Staphylococcus.s__Staphylococcus_epidermidis	61.7948519764
+PWY-6121: 5-aminoimidazole ribonucleotide biosynthesis I|g__Micrococcus.s__Micrococcus_aloeverae	48.6842132670
+PWY-6121: 5-aminoimidazole ribonucleotide biosynthesis I|g__Micrococcus.s__Micrococcus_luteus	41.9534723709
+PWY-6121: 5-aminoimidazole ribonucleotide biosynthesis I|unclassified	30.9616506544
+PWY-6121: 5-aminoimidazole ribonucleotide biosynthesis I|g__Staphylococcus.s__Staphylococcus_aureus	30.5870530443
+PWY-6121: 5-aminoimidazole ribonucleotide biosynthesis I|g__Streptococcus.s__Streptococcus_pseudopneumoniae	8.9824774864
+PWY-6122: 5-aminoimidazole ribonucleotide biosynthesis II	4996.9859575973
+PWY-6122: 5-aminoimidazole ribonucleotide biosynthesis II|g__Streptococcus.s__Streptococcus_salivarius	2745.3867593788
+PWY-6122: 5-aminoimidazole ribonucleotide biosynthesis II|g__Staphylococcus.s__Staphylococcus_capitis	323.6762264565
+PWY-6122: 5-aminoimidazole ribonucleotide biosynthesis II|g__Corynebacterium.s__Corynebacterium_resistens	323.0916047735
+PWY-6122: 5-aminoimidazole ribonucleotide biosynthesis II|g__Staphylococcus.s__Staphylococcus_lugdunensis	238.2635379428
+PWY-6122: 5-aminoimidazole ribonucleotide biosynthesis II|g__Cutibacterium.s__Cutibacterium_acnes	114.2982782501
+PWY-6122: 5-aminoimidazole ribonucleotide biosynthesis II|g__Streptococcus.s__Streptococcus_pneumoniae	111.4302915009
+PWY-6122: 5-aminoimidazole ribonucleotide biosynthesis II|g__Staphylococcus.s__Staphylococcus_aureus	82.6098410766
+PWY-6122: 5-aminoimidazole ribonucleotide biosynthesis II|g__Staphylococcus.s__Staphylococcus_epidermidis	79.5323456131
+PWY-6122: 5-aminoimidazole ribonucleotide biosynthesis II|g__Micrococcus.s__Micrococcus_luteus	49.9718376702
+PWY-6122: 5-aminoimidazole ribonucleotide biosynthesis II|g__Micrococcus.s__Micrococcus_aloeverae	46.4740226606
+PWY-6122: 5-aminoimidazole ribonucleotide biosynthesis II|unclassified	25.1067738309
+PWY-6122: 5-aminoimidazole ribonucleotide biosynthesis II|g__Streptococcus.s__Streptococcus_pseudopneumoniae	8.7885181102
+PWY-6122: 5-aminoimidazole ribonucleotide biosynthesis II|g__Streptococcus.s__Streptococcus_mitis	4.3838318778
+PWY-6122: 5-aminoimidazole ribonucleotide biosynthesis II|g__Streptococcus.s__Streptococcus_oralis	1.7665893034
+PWY-6277: superpathway of 5-aminoimidazole ribonucleotide biosynthesis	4996.9859575973
+PWY-6277: superpathway of 5-aminoimidazole ribonucleotide biosynthesis|g__Streptococcus.s__Streptococcus_salivarius	2745.3867593788
+PWY-6277: superpathway of 5-aminoimidazole ribonucleotide biosynthesis|g__Staphylococcus.s__Staphylococcus_capitis	323.6762264565
+PWY-6277: superpathway of 5-aminoimidazole ribonucleotide biosynthesis|g__Corynebacterium.s__Corynebacterium_resistens	323.0916047735
+PWY-6277: superpathway of 5-aminoimidazole ribonucleotide biosynthesis|g__Staphylococcus.s__Staphylococcus_lugdunensis	238.2635379428
+PWY-6277: superpathway of 5-aminoimidazole ribonucleotide biosynthesis|g__Cutibacterium.s__Cutibacterium_acnes	114.2982782501
+PWY-6277: superpathway of 5-aminoimidazole ribonucleotide biosynthesis|g__Streptococcus.s__Streptococcus_pneumoniae	111.4302915009
+PWY-6277: superpathway of 5-aminoimidazole ribonucleotide biosynthesis|g__Staphylococcus.s__Staphylococcus_aureus	82.6098410766
+PWY-6277: superpathway of 5-aminoimidazole ribonucleotide biosynthesis|g__Staphylococcus.s__Staphylococcus_epidermidis	79.5323456131
+PWY-6277: superpathway of 5-aminoimidazole ribonucleotide biosynthesis|g__Micrococcus.s__Micrococcus_luteus	49.9718376702
+PWY-6277: superpathway of 5-aminoimidazole ribonucleotide biosynthesis|g__Micrococcus.s__Micrococcus_aloeverae	46.4740226606
+PWY-6277: superpathway of 5-aminoimidazole ribonucleotide biosynthesis|unclassified	25.1067738309
+PWY-6277: superpathway of 5-aminoimidazole ribonucleotide biosynthesis|g__Streptococcus.s__Streptococcus_pseudopneumoniae	8.7885181102
+PWY-6277: superpathway of 5-aminoimidazole ribonucleotide biosynthesis|g__Streptococcus.s__Streptococcus_mitis	4.3838318778
+PWY-6277: superpathway of 5-aminoimidazole ribonucleotide biosynthesis|g__Streptococcus.s__Streptococcus_oralis	1.7665893034
+PWY-7229: superpathway of adenosine nucleotides de novo biosynthesis I	4939.4260072426
+PWY-7229: superpathway of adenosine nucleotides de novo biosynthesis I|g__Corynebacterium.s__Corynebacterium_resistens	495.3874168803
+PWY-7229: superpathway of adenosine nucleotides de novo biosynthesis I|g__Streptococcus.s__Streptococcus_pneumoniae	430.6958141761
+PWY-7229: superpathway of adenosine nucleotides de novo biosynthesis I|g__Staphylococcus.s__Staphylococcus_capitis	104.9349501185
+PWY-7229: superpathway of adenosine nucleotides de novo biosynthesis I|g__Staphylococcus.s__Staphylococcus_lugdunensis	73.0412942724
+PWY-7229: superpathway of adenosine nucleotides de novo biosynthesis I|g__Cutibacterium.s__Cutibacterium_acnes	45.9985542555
+PWY-7229: superpathway of adenosine nucleotides de novo biosynthesis I|g__Micrococcus.s__Micrococcus_aloeverae	35.4542434068
+PWY-7229: superpathway of adenosine nucleotides de novo biosynthesis I|g__Staphylococcus.s__Staphylococcus_epidermidis	30.4324773708
+PWY-7229: superpathway of adenosine nucleotides de novo biosynthesis I|g__Micrococcus.s__Micrococcus_luteus	2.3027488006
+GLUCONEO-PWY: gluconeogenesis I	4700.7549635838
+GLUCONEO-PWY: gluconeogenesis I|g__Staphylococcus.s__Staphylococcus_capitis	835.6296749301
+GLUCONEO-PWY: gluconeogenesis I|g__Staphylococcus.s__Staphylococcus_aureus	687.6317426485
+GLUCONEO-PWY: gluconeogenesis I|g__Staphylococcus.s__Staphylococcus_epidermidis	192.5215868821
+GLUCONEO-PWY: gluconeogenesis I|unclassified	18.6387203078
+PWY-6126: superpathway of adenosine nucleotides de novo biosynthesis II	4598.4580266788
+PWY-6126: superpathway of adenosine nucleotides de novo biosynthesis II|g__Corynebacterium.s__Corynebacterium_resistens	546.3319123297
+PWY-6126: superpathway of adenosine nucleotides de novo biosynthesis II|g__Streptococcus.s__Streptococcus_pneumoniae	430.8084586061
+PWY-6126: superpathway of adenosine nucleotides de novo biosynthesis II|g__Staphylococcus.s__Staphylococcus_capitis	113.0522570008
+PWY-6126: superpathway of adenosine nucleotides de novo biosynthesis II|g__Staphylococcus.s__Staphylococcus_lugdunensis	79.3386837137
+PWY-6126: superpathway of adenosine nucleotides de novo biosynthesis II|g__Cutibacterium.s__Cutibacterium_acnes	49.1905030977
+PWY-6126: superpathway of adenosine nucleotides de novo biosynthesis II|g__Micrococcus.s__Micrococcus_aloeverae	35.2989266054
+PWY-6126: superpathway of adenosine nucleotides de novo biosynthesis II|g__Staphylococcus.s__Staphylococcus_epidermidis	34.1000660827
+PWY-6126: superpathway of adenosine nucleotides de novo biosynthesis II|g__Micrococcus.s__Micrococcus_luteus	2.6463724437
+ANAEROFRUCAT-PWY: homolactic fermentation	4555.4355852405
+ANAEROFRUCAT-PWY: homolactic fermentation|g__Streptococcus.s__Streptococcus_pneumoniae	219.2825811440
+ANAEROFRUCAT-PWY: homolactic fermentation|g__Staphylococcus.s__Staphylococcus_epidermidis	175.5228396820
+ANAEROFRUCAT-PWY: homolactic fermentation|g__Staphylococcus.s__Staphylococcus_capitis	159.8931285207
+PWY-7221: guanosine ribonucleotides de novo biosynthesis	4240.7046142734
+PWY-7221: guanosine ribonucleotides de novo biosynthesis|g__Streptococcus.s__Streptococcus_pneumoniae	595.5065250790
+PWY-7221: guanosine ribonucleotides de novo biosynthesis|g__Corynebacterium.s__Corynebacterium_resistens	531.9871099225
+PWY-7221: guanosine ribonucleotides de novo biosynthesis|g__Staphylococcus.s__Staphylococcus_capitis	248.8736332180
+PWY-7221: guanosine ribonucleotides de novo biosynthesis|g__Cutibacterium.s__Cutibacterium_acnes	243.9482841586
+PWY-7221: guanosine ribonucleotides de novo biosynthesis|g__Staphylococcus.s__Staphylococcus_aureus	135.7935827480
+PWY-7221: guanosine ribonucleotides de novo biosynthesis|unclassified	124.6114802777
+PWY-7221: guanosine ribonucleotides de novo biosynthesis|g__Staphylococcus.s__Staphylococcus_epidermidis	120.0582774840
+PWY-7221: guanosine ribonucleotides de novo biosynthesis|g__Staphylococcus.s__Staphylococcus_lugdunensis	110.4881205675
+PWY-7221: guanosine ribonucleotides de novo biosynthesis|g__Micrococcus.s__Micrococcus_aloeverae	99.9341401987
+PWY-7221: guanosine ribonucleotides de novo biosynthesis|g__Streptococcus.s__Streptococcus_pseudopneumoniae	42.9247280030
+PWY-7221: guanosine ribonucleotides de novo biosynthesis|g__Streptococcus.s__Streptococcus_salivarius	26.9353583136
+PWY-7221: guanosine ribonucleotides de novo biosynthesis|g__Streptococcus.s__Streptococcus_mitis	16.7887774443
+PWY-7221: guanosine ribonucleotides de novo biosynthesis|g__Micrococcus.s__Micrococcus_luteus	8.4491957381
+PWY-5484: glycolysis II (from fructose 6-phosphate)	4175.0599327477
+PWY-5484: glycolysis II (from fructose 6-phosphate)|g__Staphylococcus.s__Staphylococcus_capitis	1005.5795452506
+PWY-5484: glycolysis II (from fructose 6-phosphate)|g__Staphylococcus.s__Staphylococcus_lugdunensis	181.9001689778
+PWY-5484: glycolysis II (from fructose 6-phosphate)|g__Streptococcus.s__Streptococcus_pneumoniae	169.4396605609
+PWY-5484: glycolysis II (from fructose 6-phosphate)|g__Staphylococcus.s__Staphylococcus_epidermidis	146.0871988644
+PWY-5484: glycolysis II (from fructose 6-phosphate)|g__Staphylococcus.s__Staphylococcus_aureus	110.1004894567
+PWY-5484: glycolysis II (from fructose 6-phosphate)|unclassified	15.6579823364
+PWY-7228: superpathway of guanosine nucleotides de novo biosynthesis I	4173.9803298045
+PWY-7228: superpathway of guanosine nucleotides de novo biosynthesis I|g__Corynebacterium.s__Corynebacterium_resistens	684.1399022846
+PWY-7228: superpathway of guanosine nucleotides de novo biosynthesis I|g__Streptococcus.s__Streptococcus_pneumoniae	539.3120826391
+PWY-7228: superpathway of guanosine nucleotides de novo biosynthesis I|g__Staphylococcus.s__Staphylococcus_capitis	279.6985479874
+PWY-7228: superpathway of guanosine nucleotides de novo biosynthesis I|g__Cutibacterium.s__Cutibacterium_acnes	140.2136256329
+PWY-7228: superpathway of guanosine nucleotides de novo biosynthesis I|g__Staphylococcus.s__Staphylococcus_lugdunensis	134.6524330464
+PWY-7228: superpathway of guanosine nucleotides de novo biosynthesis I|g__Staphylococcus.s__Staphylococcus_epidermidis	134.5631988318
+PWY-7228: superpathway of guanosine nucleotides de novo biosynthesis I|g__Micrococcus.s__Micrococcus_aloeverae	65.8850499375
+PWY-7228: superpathway of guanosine nucleotides de novo biosynthesis I|unclassified	13.7371662127
+PWY-7228: superpathway of guanosine nucleotides de novo biosynthesis I|g__Micrococcus.s__Micrococcus_luteus	11.6068292121
+GLYCOLYSIS: glycolysis I (from glucose 6-phosphate)	4163.3295624477
+GLYCOLYSIS: glycolysis I (from glucose 6-phosphate)|g__Staphylococcus.s__Staphylococcus_capitis	915.8470271281
+GLYCOLYSIS: glycolysis I (from glucose 6-phosphate)|g__Staphylococcus.s__Staphylococcus_aureus	181.9158699873
+GLYCOLYSIS: glycolysis I (from glucose 6-phosphate)|g__Staphylococcus.s__Staphylococcus_lugdunensis	180.7753846232
+GLYCOLYSIS: glycolysis I (from glucose 6-phosphate)|g__Streptococcus.s__Streptococcus_pneumoniae	173.8268536795
+GLYCOLYSIS: glycolysis I (from glucose 6-phosphate)|g__Staphylococcus.s__Staphylococcus_epidermidis	153.4416529129
+GLYCOLYSIS: glycolysis I (from glucose 6-phosphate)|unclassified	15.9995552846
+UDPNAGSYN-PWY: UDP-N-acetyl-D-glucosamine biosynthesis I	4049.2682468269
+UDPNAGSYN-PWY: UDP-N-acetyl-D-glucosamine biosynthesis I|g__Streptococcus.s__Streptococcus_pneumoniae	667.9624800615
+UDPNAGSYN-PWY: UDP-N-acetyl-D-glucosamine biosynthesis I|g__Staphylococcus.s__Staphylococcus_capitis	607.2653000678
+UDPNAGSYN-PWY: UDP-N-acetyl-D-glucosamine biosynthesis I|g__Staphylococcus.s__Staphylococcus_aureus	579.5117382647
+UDPNAGSYN-PWY: UDP-N-acetyl-D-glucosamine biosynthesis I|g__Staphylococcus.s__Staphylococcus_lugdunensis	473.3105365281
+UDPNAGSYN-PWY: UDP-N-acetyl-D-glucosamine biosynthesis I|g__Corynebacterium.s__Corynebacterium_resistens	312.4034981738
+UDPNAGSYN-PWY: UDP-N-acetyl-D-glucosamine biosynthesis I|g__Staphylococcus.s__Staphylococcus_epidermidis	167.7872480606
+UDPNAGSYN-PWY: UDP-N-acetyl-D-glucosamine biosynthesis I|g__Micrococcus.s__Micrococcus_aloeverae	128.2334484932
+UDPNAGSYN-PWY: UDP-N-acetyl-D-glucosamine biosynthesis I|g__Cutibacterium.s__Cutibacterium_acnes	118.4285406051
+UDPNAGSYN-PWY: UDP-N-acetyl-D-glucosamine biosynthesis I|g__Streptococcus.s__Streptococcus_mitis	39.6131055077
+UDPNAGSYN-PWY: UDP-N-acetyl-D-glucosamine biosynthesis I|g__Micrococcus.s__Micrococcus_luteus	26.5471064791
+UDPNAGSYN-PWY: UDP-N-acetyl-D-glucosamine biosynthesis I|unclassified	16.8938063591
+UDPNAGSYN-PWY: UDP-N-acetyl-D-glucosamine biosynthesis I|g__Streptococcus.s__Streptococcus_pseudopneumoniae	3.8105787113
+PWY66-399: gluconeogenesis III	3978.4531397398
+PWY-8187: L-arginine degradation XIII (reductive Stickland reaction)	3930.4570553859
+PWY-8187: L-arginine degradation XIII (reductive Stickland reaction)|g__Streptococcus.s__Streptococcus_pneumoniae	903.9695533453
+PWY-8187: L-arginine degradation XIII (reductive Stickland reaction)|g__Staphylococcus.s__Staphylococcus_capitis	297.5368706494
+PWY-8187: L-arginine degradation XIII (reductive Stickland reaction)|g__Cutibacterium.s__Cutibacterium_acnes	259.5812517056
+PWY-8187: L-arginine degradation XIII (reductive Stickland reaction)|g__Staphylococcus.s__Staphylococcus_epidermidis	141.4260912560
+PWY-8187: L-arginine degradation XIII (reductive Stickland reaction)|g__Staphylococcus.s__Staphylococcus_aureus	78.7833528232
+PWY-6125: superpathway of guanosine nucleotides de novo biosynthesis II	3909.3347359839
+PWY-6125: superpathway of guanosine nucleotides de novo biosynthesis II|g__Streptococcus.s__Streptococcus_pneumoniae	520.7225836954
+PWY-6125: superpathway of guanosine nucleotides de novo biosynthesis II|g__Corynebacterium.s__Corynebacterium_resistens	393.7597311437
+PWY-6125: superpathway of guanosine nucleotides de novo biosynthesis II|g__Staphylococcus.s__Staphylococcus_capitis	138.5337177141
+PWY-6125: superpathway of guanosine nucleotides de novo biosynthesis II|g__Cutibacterium.s__Cutibacterium_acnes	128.0717649889
+PWY-6125: superpathway of guanosine nucleotides de novo biosynthesis II|g__Staphylococcus.s__Staphylococcus_lugdunensis	123.3110481195
+PWY-6125: superpathway of guanosine nucleotides de novo biosynthesis II|g__Staphylococcus.s__Staphylococcus_epidermidis	76.7962465720
+GLUCOSE1PMETAB-PWY: glucose and glucose-1-phosphate degradation	3857.2304234696
+GLUCOSE1PMETAB-PWY: glucose and glucose-1-phosphate degradation|g__Streptococcus.s__Streptococcus_pneumoniae	1835.5461821829
+GLUCOSE1PMETAB-PWY: glucose and glucose-1-phosphate degradation|unclassified	13.8879052998
+PWY-3841: folate transformations II (plants)	3803.4276695765
+PWY-3841: folate transformations II (plants)|g__Staphylococcus.s__Staphylococcus_capitis	517.8565602268
+PWY-3841: folate transformations II (plants)|g__Streptococcus.s__Streptococcus_pneumoniae	506.0909355154
+PWY-3841: folate transformations II (plants)|g__Staphylococcus.s__Staphylococcus_lugdunensis	479.1004494129
+PWY-3841: folate transformations II (plants)|g__Staphylococcus.s__Staphylococcus_aureus	311.4827230347
+PWY-3841: folate transformations II (plants)|g__Corynebacterium.s__Corynebacterium_resistens	275.6296586286
+PWY-3841: folate transformations II (plants)|g__Staphylococcus.s__Staphylococcus_epidermidis	195.8216879331
+PWY-3841: folate transformations II (plants)|g__Cutibacterium.s__Cutibacterium_acnes	103.3548259931
+PWY-3841: folate transformations II (plants)|unclassified	16.9889099277
+PWY-3841: folate transformations II (plants)|g__Streptococcus.s__Streptococcus_mitis	2.8271802998
+PWY-7220: adenosine deoxyribonucleotides de novo biosynthesis II	3741.7180978372
+PWY-7220: adenosine deoxyribonucleotides de novo biosynthesis II|g__Corynebacterium.s__Corynebacterium_resistens	1536.7686579975
+PWY-7220: adenosine deoxyribonucleotides de novo biosynthesis II|g__Streptococcus.s__Streptococcus_pneumoniae	446.8504088725
+PWY-7220: adenosine deoxyribonucleotides de novo biosynthesis II|g__Staphylococcus.s__Staphylococcus_capitis	296.4649239907
+PWY-7220: adenosine deoxyribonucleotides de novo biosynthesis II|g__Staphylococcus.s__Staphylococcus_lugdunensis	207.7532319501
+PWY-7220: adenosine deoxyribonucleotides de novo biosynthesis II|g__Staphylococcus.s__Staphylococcus_epidermidis	154.7032488323
+PWY-7220: adenosine deoxyribonucleotides de novo biosynthesis II|g__Cutibacterium.s__Cutibacterium_acnes	93.2920401386
+PWY-7220: adenosine deoxyribonucleotides de novo biosynthesis II|g__Micrococcus.s__Micrococcus_aloeverae	46.9754371743
+PWY-7220: adenosine deoxyribonucleotides de novo biosynthesis II|g__Micrococcus.s__Micrococcus_luteus	36.1150390031
+PWY-7220: adenosine deoxyribonucleotides de novo biosynthesis II|g__Streptococcus.s__Streptococcus_oralis	14.1588385153
+PWY-7220: adenosine deoxyribonucleotides de novo biosynthesis II|g__Streptococcus.s__Streptococcus_milleri	7.6040751515
+PWY-7222: guanosine deoxyribonucleotides de novo biosynthesis II	3741.7180978372
+PWY-7222: guanosine deoxyribonucleotides de novo biosynthesis II|g__Corynebacterium.s__Corynebacterium_resistens	1536.7686579975
+PWY-7222: guanosine deoxyribonucleotides de novo biosynthesis II|g__Streptococcus.s__Streptococcus_pneumoniae	446.8504088725
+PWY-7222: guanosine deoxyribonucleotides de novo biosynthesis II|g__Staphylococcus.s__Staphylococcus_capitis	296.4649239907
+PWY-7222: guanosine deoxyribonucleotides de novo biosynthesis II|g__Staphylococcus.s__Staphylococcus_lugdunensis	207.7532319501
+PWY-7222: guanosine deoxyribonucleotides de novo biosynthesis II|g__Staphylococcus.s__Staphylococcus_epidermidis	154.7032488323
+PWY-7222: guanosine deoxyribonucleotides de novo biosynthesis II|g__Cutibacterium.s__Cutibacterium_acnes	93.2920401386
+PWY-7222: guanosine deoxyribonucleotides de novo biosynthesis II|g__Micrococcus.s__Micrococcus_aloeverae	46.9754371743
+PWY-7222: guanosine deoxyribonucleotides de novo biosynthesis II|g__Micrococcus.s__Micrococcus_luteus	36.1150390031
+PWY-7222: guanosine deoxyribonucleotides de novo biosynthesis II|g__Streptococcus.s__Streptococcus_oralis	14.1588385153
+PWY-7222: guanosine deoxyribonucleotides de novo biosynthesis II|g__Streptococcus.s__Streptococcus_milleri	7.6040751515
+PWY-5941: glycogen degradation II	3737.4474551665
+PWY-5941: glycogen degradation II|g__Streptococcus.s__Streptococcus_pneumoniae	1685.5583705730
+PWY-5941: glycogen degradation II|g__Streptococcus.s__Streptococcus_salivarius	656.3982047799
+PWY-5941: glycogen degradation II|g__Streptococcus.s__Streptococcus_pseudopneumoniae	28.2486544716
+PWY-5941: glycogen degradation II|unclassified	24.4228143777
+PWY-5941: glycogen degradation II|g__Streptococcus.s__Streptococcus_mitis	14.3702722869
+VALSYN-PWY: L-valine biosynthesis	3408.7215180579
+VALSYN-PWY: L-valine biosynthesis|g__Corynebacterium.s__Corynebacterium_resistens	576.9859697793
+VALSYN-PWY: L-valine biosynthesis|g__Streptococcus.s__Streptococcus_pneumoniae	235.0673557022
+VALSYN-PWY: L-valine biosynthesis|g__Streptococcus.s__Streptococcus_salivarius	82.8010843630
+VALSYN-PWY: L-valine biosynthesis|g__Micrococcus.s__Micrococcus_aloeverae	63.4853211639
+VALSYN-PWY: L-valine biosynthesis|g__Staphylococcus.s__Staphylococcus_lugdunensis	32.8438603378
+VALSYN-PWY: L-valine biosynthesis|g__Micrococcus.s__Micrococcus_luteus	30.0006233268
+VALSYN-PWY: L-valine biosynthesis|g__Streptococcus.s__Streptococcus_mitis	27.4669476429
+VALSYN-PWY: L-valine biosynthesis|unclassified	15.5129909679
+VALSYN-PWY: L-valine biosynthesis|g__Staphylococcus.s__Staphylococcus_capitis	13.5378865946
+VALSYN-PWY: L-valine biosynthesis|g__Streptococcus.s__Streptococcus_pseudopneumoniae	4.3413148064
+VALSYN-PWY: L-valine biosynthesis|g__Staphylococcus.s__Staphylococcus_epidermidis	2.5830029460
+PWY-7238: sucrose biosynthesis II	3344.7672938994
+PWY-7238: sucrose biosynthesis II|g__Streptococcus.s__Streptococcus_pneumoniae	1407.6085061542
+PWY-7238: sucrose biosynthesis II|g__Streptococcus.s__Streptococcus_salivarius	621.9763906557
+PWY-7238: sucrose biosynthesis II|unclassified	200.2185388313
+PWY-7238: sucrose biosynthesis II|g__Cutibacterium.s__Cutibacterium_acnes	77.1929390666
+PWY-7238: sucrose biosynthesis II|g__Streptococcus.s__Streptococcus_pseudopneumoniae	31.3780657954
+PWY-7238: sucrose biosynthesis II|g__Streptococcus.s__Streptococcus_mitis	12.9727263483
+LACTOSECAT-PWY: lactose and galactose degradation I	3323.4903936360
+LACTOSECAT-PWY: lactose and galactose degradation I|g__Streptococcus.s__Streptococcus_pneumoniae	1352.3648127771
+LACTOSECAT-PWY: lactose and galactose degradation I|g__Staphylococcus.s__Staphylococcus_capitis	1341.1638994203
+LACTOSECAT-PWY: lactose and galactose degradation I|g__Staphylococcus.s__Staphylococcus_epidermidis	210.9965823491
+LACTOSECAT-PWY: lactose and galactose degradation I|g__Staphylococcus.s__Staphylococcus_lugdunensis	166.2082611467
+LACTOSECAT-PWY: lactose and galactose degradation I|g__Streptococcus.s__Streptococcus_mitis	49.2289333247
+LACTOSECAT-PWY: lactose and galactose degradation I|g__Streptococcus.s__Streptococcus_pseudopneumoniae	36.3750410454
+LACTOSECAT-PWY: lactose and galactose degradation I|unclassified	27.2696977068
+LACTOSECAT-PWY: lactose and galactose degradation I|g__Staphylococcus.s__Staphylococcus_aureus	21.6504959098
+CITRULBIO-PWY: L-citrulline biosynthesis	3311.4098459775
+CITRULBIO-PWY: L-citrulline biosynthesis|g__Streptococcus.s__Streptococcus_pneumoniae	457.4444618449
+CITRULBIO-PWY: L-citrulline biosynthesis|g__Staphylococcus.s__Staphylococcus_capitis	365.3804937607
+CITRULBIO-PWY: L-citrulline biosynthesis|g__Staphylococcus.s__Staphylococcus_aureus	131.8067023605
+PWY-6123: inosine-5'-phosphate biosynthesis I	3266.8949499140
+PWY-6123: inosine-5'-phosphate biosynthesis I|g__Streptococcus.s__Streptococcus_salivarius	1905.0886340016
+PWY-6123: inosine-5'-phosphate biosynthesis I|g__Staphylococcus.s__Staphylococcus_capitis	216.3410770249
+PWY-6123: inosine-5'-phosphate biosynthesis I|g__Corynebacterium.s__Corynebacterium_resistens	145.4353514511
+PWY-6123: inosine-5'-phosphate biosynthesis I|g__Streptococcus.s__Streptococcus_pneumoniae	131.6551724029
+PWY-6123: inosine-5'-phosphate biosynthesis I|g__Staphylococcus.s__Staphylococcus_lugdunensis	96.3491627585
+PWY-6123: inosine-5'-phosphate biosynthesis I|unclassified	69.4609138100
+PWY-6123: inosine-5'-phosphate biosynthesis I|g__Cutibacterium.s__Cutibacterium_acnes	56.7180442718
+PWY-6123: inosine-5'-phosphate biosynthesis I|g__Staphylococcus.s__Staphylococcus_aureus	30.8147887665
+PWY-6123: inosine-5'-phosphate biosynthesis I|g__Staphylococcus.s__Staphylococcus_epidermidis	27.9025909856
+PWY-6123: inosine-5'-phosphate biosynthesis I|g__Micrococcus.s__Micrococcus_aloeverae	21.8832810048
+PWY-6123: inosine-5'-phosphate biosynthesis I|g__Streptococcus.s__Streptococcus_oralis	7.0926117833
+PWY-6123: inosine-5'-phosphate biosynthesis I|g__Streptococcus.s__Streptococcus_mitis	6.9587104186
+PWY-6123: inosine-5'-phosphate biosynthesis I|g__Streptococcus.s__Streptococcus_pseudopneumoniae	4.5039993719
+PWY-7111: pyruvate fermentation to isobutanol (engineered)	3242.0287268134
+PWY-7111: pyruvate fermentation to isobutanol (engineered)|g__Corynebacterium.s__Corynebacterium_resistens	208.5385193475
+PWY-7111: pyruvate fermentation to isobutanol (engineered)|g__Streptococcus.s__Streptococcus_pneumoniae	207.4338179524
+PWY-7111: pyruvate fermentation to isobutanol (engineered)|g__Streptococcus.s__Streptococcus_salivarius	102.9923799751
+PWY-7111: pyruvate fermentation to isobutanol (engineered)|g__Micrococcus.s__Micrococcus_aloeverae	78.5673806083
+PWY-7111: pyruvate fermentation to isobutanol (engineered)|g__Staphylococcus.s__Staphylococcus_lugdunensis	18.0768093322
+PWY-7111: pyruvate fermentation to isobutanol (engineered)|g__Streptococcus.s__Streptococcus_mitis	11.8368249394
+PWY-7111: pyruvate fermentation to isobutanol (engineered)|unclassified	11.7105328377
+PWY-7111: pyruvate fermentation to isobutanol (engineered)|g__Micrococcus.s__Micrococcus_luteus	10.7307330101
+PWY-7111: pyruvate fermentation to isobutanol (engineered)|g__Staphylococcus.s__Staphylococcus_capitis	8.1946492058
+PENTOSE-P-PWY: pentose phosphate pathway	3217.2800415113
+PENTOSE-P-PWY: pentose phosphate pathway|g__Streptococcus.s__Streptococcus_pneumoniae	559.8133823107
+PENTOSE-P-PWY: pentose phosphate pathway|g__Corynebacterium.s__Corynebacterium_resistens	150.0386595531
+PENTOSE-P-PWY: pentose phosphate pathway|g__Staphylococcus.s__Staphylococcus_aureus	105.3789853713
+PENTOSE-P-PWY: pentose phosphate pathway|g__Micrococcus.s__Micrococcus_aloeverae	20.7335376354
+CALVIN-PWY: Calvin-Benson-Bassham cycle	3158.9680974705
+CALVIN-PWY: Calvin-Benson-Bassham cycle|g__Staphylococcus.s__Staphylococcus_aureus	1128.6782509475
+CALVIN-PWY: Calvin-Benson-Bassham cycle|g__Staphylococcus.s__Staphylococcus_capitis	812.4884330432
+CALVIN-PWY: Calvin-Benson-Bassham cycle|g__Staphylococcus.s__Staphylococcus_lugdunensis	140.7872468858
+CALVIN-PWY: Calvin-Benson-Bassham cycle|g__Streptococcus.s__Streptococcus_pneumoniae	118.2326497467
+CALVIN-PWY: Calvin-Benson-Bassham cycle|g__Staphylococcus.s__Staphylococcus_epidermidis	116.0148137558
+CALVIN-PWY: Calvin-Benson-Bassham cycle|unclassified	17.7297901436
+BRANCHED-CHAIN-AA-SYN-PWY: superpathway of branched chain amino acid biosynthesis	3080.0455579826
+BRANCHED-CHAIN-AA-SYN-PWY: superpathway of branched chain amino acid biosynthesis|g__Corynebacterium.s__Corynebacterium_resistens	284.2929384567
+BRANCHED-CHAIN-AA-SYN-PWY: superpathway of branched chain amino acid biosynthesis|g__Streptococcus.s__Streptococcus_pneumoniae	232.7517624290
+BRANCHED-CHAIN-AA-SYN-PWY: superpathway of branched chain amino acid biosynthesis|g__Staphylococcus.s__Staphylococcus_lugdunensis	29.5937739019
+BRANCHED-CHAIN-AA-SYN-PWY: superpathway of branched chain amino acid biosynthesis|g__Staphylococcus.s__Staphylococcus_capitis	15.9133109323
+BRANCHED-CHAIN-AA-SYN-PWY: superpathway of branched chain amino acid biosynthesis|unclassified	10.7142852576
+ILEUSYN-PWY: L-isoleucine biosynthesis I (from threonine)	3023.9465938084
+ILEUSYN-PWY: L-isoleucine biosynthesis I (from threonine)|g__Corynebacterium.s__Corynebacterium_resistens	263.2522160884
+ILEUSYN-PWY: L-isoleucine biosynthesis I (from threonine)|g__Streptococcus.s__Streptococcus_pneumoniae	198.5137119279
+ILEUSYN-PWY: L-isoleucine biosynthesis I (from threonine)|g__Staphylococcus.s__Staphylococcus_lugdunensis	23.6693134625
+ILEUSYN-PWY: L-isoleucine biosynthesis I (from threonine)|g__Streptococcus.s__Streptococcus_mitis	14.2936751059
+ILEUSYN-PWY: L-isoleucine biosynthesis I (from threonine)|g__Micrococcus.s__Micrococcus_luteus	13.3645066237
+ILEUSYN-PWY: L-isoleucine biosynthesis I (from threonine)|g__Staphylococcus.s__Staphylococcus_capitis	13.0377915225
+ILEUSYN-PWY: L-isoleucine biosynthesis I (from threonine)|unclassified	12.4089985673
+ILEUSYN-PWY: L-isoleucine biosynthesis I (from threonine)|g__Staphylococcus.s__Staphylococcus_epidermidis	2.5830029460
+PWY66-389: phytol degradation	2893.1753643095
+PWY66-389: phytol degradation|g__Streptococcus.s__Streptococcus_pneumoniae	759.4336879139
+PWY66-389: phytol degradation|g__Micrococcus.s__Micrococcus_aloeverae	63.1653541702
+PWY66-389: phytol degradation|g__Micrococcus.s__Micrococcus_luteus	59.3602997515
+PWY66-389: phytol degradation|g__Staphylococcus.s__Staphylococcus_epidermidis	47.1896028354
+PWY66-389: phytol degradation|g__Staphylococcus.s__Staphylococcus_aureus	11.6307049263
+PWY-5103: L-isoleucine biosynthesis III	2771.9340641558
+PWY-5103: L-isoleucine biosynthesis III|g__Corynebacterium.s__Corynebacterium_resistens	195.9609565753
+PWY-5103: L-isoleucine biosynthesis III|g__Streptococcus.s__Streptococcus_pneumoniae	173.0118705472
+PWY-5103: L-isoleucine biosynthesis III|g__Staphylococcus.s__Staphylococcus_lugdunensis	18.8158609756
+PWY-5103: L-isoleucine biosynthesis III|g__Streptococcus.s__Streptococcus_mitis	10.9227893236
+PWY-5103: L-isoleucine biosynthesis III|g__Staphylococcus.s__Staphylococcus_capitis	10.8506844009
+PWY-5103: L-isoleucine biosynthesis III|unclassified	10.3606258030
+PWY-5103: L-isoleucine biosynthesis III|g__Micrococcus.s__Micrococcus_luteus	9.5261381550
+GLYOXYLATE-BYPASS: glyoxylate cycle	2764.4667518133
+GLYOXYLATE-BYPASS: glyoxylate cycle|g__Corynebacterium.s__Corynebacterium_resistens	404.8758987720
+GLYOXYLATE-BYPASS: glyoxylate cycle|unclassified	182.2316287262
+GLYOXYLATE-BYPASS: glyoxylate cycle|g__Micrococcus.s__Micrococcus_luteus	79.4256139880
+PWY-6969: TCA cycle V (2-oxoglutarate synthase)	2761.6891751087
+PWY-6969: TCA cycle V (2-oxoglutarate synthase)|g__Staphylococcus.s__Staphylococcus_aureus	624.7638034670
+PWY-6969: TCA cycle V (2-oxoglutarate synthase)|g__Staphylococcus.s__Staphylococcus_epidermidis	257.3247321775
+PWY-6969: TCA cycle V (2-oxoglutarate synthase)|g__Streptococcus.s__Streptococcus_pneumoniae	106.5797030741
+PWY-6969: TCA cycle V (2-oxoglutarate synthase)|unclassified	90.7506302053
+PWY-841: superpathway of purine nucleotides de novo biosynthesis I	2646.8578932876
+PWY-841: superpathway of purine nucleotides de novo biosynthesis I|g__Corynebacterium.s__Corynebacterium_resistens	276.0967461492
+PWY-841: superpathway of purine nucleotides de novo biosynthesis I|g__Staphylococcus.s__Staphylococcus_capitis	141.5798112367
+PWY-841: superpathway of purine nucleotides de novo biosynthesis I|g__Staphylococcus.s__Staphylococcus_lugdunensis	94.6728237799
+PWY-841: superpathway of purine nucleotides de novo biosynthesis I|g__Streptococcus.s__Streptococcus_pneumoniae	79.8524768072
+PWY-841: superpathway of purine nucleotides de novo biosynthesis I|g__Staphylococcus.s__Staphylococcus_epidermidis	35.2262009204
+P105-PWY: TCA cycle IV (2-oxoglutarate decarboxylase)	2536.2350443226
+REDCITCYC: TCA cycle VI (Helicobacter)	2435.4914361740
+PWY-6386: UDP-N-acetylmuramoyl-pentapeptide biosynthesis II (lysine-containing)	2418.0549683681
+PWY-6386: UDP-N-acetylmuramoyl-pentapeptide biosynthesis II (lysine-containing)|g__Streptococcus.s__Streptococcus_pneumoniae	484.8689021294
+PWY-6386: UDP-N-acetylmuramoyl-pentapeptide biosynthesis II (lysine-containing)|g__Staphylococcus.s__Staphylococcus_capitis	125.6766422670
+PWY-6386: UDP-N-acetylmuramoyl-pentapeptide biosynthesis II (lysine-containing)|g__Staphylococcus.s__Staphylococcus_aureus	101.3043078158
+PWY-6386: UDP-N-acetylmuramoyl-pentapeptide biosynthesis II (lysine-containing)|g__Corynebacterium.s__Corynebacterium_resistens	96.6342214690
+PWY-6386: UDP-N-acetylmuramoyl-pentapeptide biosynthesis II (lysine-containing)|g__Staphylococcus.s__Staphylococcus_lugdunensis	89.7751200605
+PWY-6386: UDP-N-acetylmuramoyl-pentapeptide biosynthesis II (lysine-containing)|g__Staphylococcus.s__Staphylococcus_epidermidis	70.8248283361
+PWY-6386: UDP-N-acetylmuramoyl-pentapeptide biosynthesis II (lysine-containing)|g__Streptococcus.s__Streptococcus_salivarius	36.9072688270
+PWY-6386: UDP-N-acetylmuramoyl-pentapeptide biosynthesis II (lysine-containing)|g__Streptococcus.s__Streptococcus_pseudopneumoniae	12.9717901624
+PWY-6386: UDP-N-acetylmuramoyl-pentapeptide biosynthesis II (lysine-containing)|g__Streptococcus.s__Streptococcus_mitis	11.2162954283
+PWY-6386: UDP-N-acetylmuramoyl-pentapeptide biosynthesis II (lysine-containing)|unclassified	7.9344082309
+ARO-PWY: chorismate biosynthesis I	2345.0775192653
+ARO-PWY: chorismate biosynthesis I|g__Streptococcus.s__Streptococcus_pneumoniae	857.0063724349
+ARO-PWY: chorismate biosynthesis I|g__Staphylococcus.s__Staphylococcus_capitis	127.4715896616
+ARO-PWY: chorismate biosynthesis I|g__Streptococcus.s__Streptococcus_salivarius	104.3907756832
+ARO-PWY: chorismate biosynthesis I|g__Corynebacterium.s__Corynebacterium_resistens	72.1619708127
+ARO-PWY: chorismate biosynthesis I|g__Staphylococcus.s__Staphylococcus_epidermidis	37.0617698069
+ARO-PWY: chorismate biosynthesis I|g__Cutibacterium.s__Cutibacterium_acnes	28.7301904788
+ARO-PWY: chorismate biosynthesis I|g__Staphylococcus.s__Staphylococcus_lugdunensis	24.5064612647
+ARO-PWY: chorismate biosynthesis I|g__Streptococcus.s__Streptococcus_pseudopneumoniae	10.5349322448
+ARO-PWY: chorismate biosynthesis I|g__Streptococcus.s__Streptococcus_mitis	8.8198413011
+ARO-PWY: chorismate biosynthesis I|g__Micrococcus.s__Micrococcus_aloeverae	7.6746314999
+PWY-6163: chorismate biosynthesis from 3-dehydroquinate	2343.7249606013
+PWY-6163: chorismate biosynthesis from 3-dehydroquinate|g__Streptococcus.s__Streptococcus_pneumoniae	784.9494953199
+PWY-6163: chorismate biosynthesis from 3-dehydroquinate|g__Staphylococcus.s__Staphylococcus_capitis	161.9889786412
+PWY-6163: chorismate biosynthesis from 3-dehydroquinate|g__Cutibacterium.s__Cutibacterium_acnes	148.1203975799
+PWY-6163: chorismate biosynthesis from 3-dehydroquinate|g__Streptococcus.s__Streptococcus_salivarius	90.4540481730
+PWY-6163: chorismate biosynthesis from 3-dehydroquinate|g__Corynebacterium.s__Corynebacterium_resistens	61.1359752221
+PWY-6163: chorismate biosynthesis from 3-dehydroquinate|g__Staphylococcus.s__Staphylococcus_epidermidis	32.1972757407
+PWY-6163: chorismate biosynthesis from 3-dehydroquinate|g__Staphylococcus.s__Staphylococcus_lugdunensis	19.9153807406
+PWY-6163: chorismate biosynthesis from 3-dehydroquinate|g__Micrococcus.s__Micrococcus_aloeverae	14.8828601181
+PWY-6163: chorismate biosynthesis from 3-dehydroquinate|g__Streptococcus.s__Streptococcus_pseudopneumoniae	8.8913116414
+PWY-6163: chorismate biosynthesis from 3-dehydroquinate|g__Streptococcus.s__Streptococcus_mitis	7.3336373142
+COMPLETE-ARO-PWY: superpathway of aromatic amino acid biosynthesis	2282.1050446433
+COMPLETE-ARO-PWY: superpathway of aromatic amino acid biosynthesis|g__Streptococcus.s__Streptococcus_pneumoniae	821.6727833418
+COMPLETE-ARO-PWY: superpathway of aromatic amino acid biosynthesis|g__Corynebacterium.s__Corynebacterium_resistens	67.1457316386
+COMPLETE-ARO-PWY: superpathway of aromatic amino acid biosynthesis|g__Streptococcus.s__Streptococcus_mitis	6.3891504927
+PWY66-409: superpathway of purine nucleotide salvage	2271.2692920704
+PWY66-409: superpathway of purine nucleotide salvage|g__Streptococcus.s__Streptococcus_pneumoniae	396.5293853780
+PWY66-409: superpathway of purine nucleotide salvage|g__Corynebacterium.s__Corynebacterium_resistens	101.2468383803
+PWY66-409: superpathway of purine nucleotide salvage|g__Cutibacterium.s__Cutibacterium_acnes	25.9198740786
+PWY-6609: adenine and adenosine salvage III	2191.0515754983
+PWY-6609: adenine and adenosine salvage III|g__Streptococcus.s__Streptococcus_pneumoniae	361.0802113362
+PWY-6609: adenine and adenosine salvage III|g__Corynebacterium.s__Corynebacterium_resistens	257.2354350266
+PWY-6609: adenine and adenosine salvage III|g__Streptococcus.s__Streptococcus_salivarius	156.9362555058
+PWY-6609: adenine and adenosine salvage III|g__Streptococcus.s__Streptococcus_pseudopneumoniae	94.4312982677
+PWY-6609: adenine and adenosine salvage III|g__Staphylococcus.s__Staphylococcus_epidermidis	82.3986733840
+PWY-6609: adenine and adenosine salvage III|g__Staphylococcus.s__Staphylococcus_capitis	72.9764976956
+PWY-6609: adenine and adenosine salvage III|g__Staphylococcus.s__Staphylococcus_lugdunensis	64.1461998341
+PWY-6609: adenine and adenosine salvage III|g__Streptococcus.s__Streptococcus_mitis	63.1213612171
+PWY-6609: adenine and adenosine salvage III|g__Staphylococcus.s__Staphylococcus_aureus	61.3764793133
+PWY-6609: adenine and adenosine salvage III|unclassified	17.4541780633
+PWY-6609: adenine and adenosine salvage III|g__Cutibacterium.s__Cutibacterium_acnes	14.4396482774
+PWY-6609: adenine and adenosine salvage III|g__Micrococcus.s__Micrococcus_aloeverae	10.4838195743
+PWY-7197: pyrimidine deoxyribonucleotide phosphorylation	2149.3515886270
+PWY-7197: pyrimidine deoxyribonucleotide phosphorylation|g__Streptococcus.s__Streptococcus_pneumoniae	485.2596502554
+PWY-7197: pyrimidine deoxyribonucleotide phosphorylation|g__Corynebacterium.s__Corynebacterium_resistens	215.6469017480
+PWY-7197: pyrimidine deoxyribonucleotide phosphorylation|g__Staphylococcus.s__Staphylococcus_capitis	208.7498254405
+PWY-7197: pyrimidine deoxyribonucleotide phosphorylation|g__Staphylococcus.s__Staphylococcus_lugdunensis	101.0086385934
+PWY-7197: pyrimidine deoxyribonucleotide phosphorylation|g__Micrococcus.s__Micrococcus_aloeverae	95.8379669888
+PWY-7197: pyrimidine deoxyribonucleotide phosphorylation|unclassified	68.9608241898
+PWY-7197: pyrimidine deoxyribonucleotide phosphorylation|g__Cutibacterium.s__Cutibacterium_acnes	48.5056312395
+PWY-7197: pyrimidine deoxyribonucleotide phosphorylation|g__Staphylococcus.s__Staphylococcus_epidermidis	32.8038260776
+PWY-7197: pyrimidine deoxyribonucleotide phosphorylation|g__Micrococcus.s__Micrococcus_luteus	18.3350532217
+PWY-7197: pyrimidine deoxyribonucleotide phosphorylation|g__Streptococcus.s__Streptococcus_oralis	13.4909707445
+PWY-6385: peptidoglycan biosynthesis III (mycobacteria)	2138.5147330669
+PWY-6385: peptidoglycan biosynthesis III (mycobacteria)|g__Streptococcus.s__Streptococcus_pneumoniae	408.4031377442
+PWY-6385: peptidoglycan biosynthesis III (mycobacteria)|g__Staphylococcus.s__Staphylococcus_aureus	123.5037048651
+PWY-6385: peptidoglycan biosynthesis III (mycobacteria)|g__Corynebacterium.s__Corynebacterium_resistens	96.6011914084
+PWY-6385: peptidoglycan biosynthesis III (mycobacteria)|g__Staphylococcus.s__Staphylococcus_capitis	63.2379750209
+PWY-6385: peptidoglycan biosynthesis III (mycobacteria)|g__Staphylococcus.s__Staphylococcus_epidermidis	58.3939518785
+PWY-6385: peptidoglycan biosynthesis III (mycobacteria)|g__Streptococcus.s__Streptococcus_salivarius	28.5429007912
+PWY-6385: peptidoglycan biosynthesis III (mycobacteria)|g__Staphylococcus.s__Staphylococcus_lugdunensis	22.0429404797
+PWY-6385: peptidoglycan biosynthesis III (mycobacteria)|unclassified	10.9824301193
+PWY-6385: peptidoglycan biosynthesis III (mycobacteria)|g__Streptococcus.s__Streptococcus_mitis	9.4622638746
+PWY-6385: peptidoglycan biosynthesis III (mycobacteria)|g__Streptococcus.s__Streptococcus_pseudopneumoniae	5.6422049517
+PWY66-429: fatty acid biosynthesis initiation (mitochondria)	2061.2137373104
+PWY66-429: fatty acid biosynthesis initiation (mitochondria)|g__Streptococcus.s__Streptococcus_pneumoniae	682.2795636198
+PWY66-429: fatty acid biosynthesis initiation (mitochondria)|g__Streptococcus.s__Streptococcus_salivarius	496.6862450386
+PWY66-429: fatty acid biosynthesis initiation (mitochondria)|g__Staphylococcus.s__Staphylococcus_aureus	159.4014693915
+PWY66-429: fatty acid biosynthesis initiation (mitochondria)|g__Staphylococcus.s__Staphylococcus_capitis	136.8232102490
+PWY66-429: fatty acid biosynthesis initiation (mitochondria)|g__Staphylococcus.s__Staphylococcus_lugdunensis	95.0701492855
+PWY66-429: fatty acid biosynthesis initiation (mitochondria)|g__Streptococcus.s__Streptococcus_mitis	30.4794090080
+PWY66-429: fatty acid biosynthesis initiation (mitochondria)|g__Streptococcus.s__Streptococcus_pseudopneumoniae	24.1497191142
+PWY66-429: fatty acid biosynthesis initiation (mitochondria)|unclassified	18.9458995337
+PWY66-429: fatty acid biosynthesis initiation (mitochondria)|g__Staphylococcus.s__Staphylococcus_epidermidis	18.4720354997
+PWY66-429: fatty acid biosynthesis initiation (mitochondria)|g__Streptococcus.s__Streptococcus_constellatus	10.2318249314
+PWY66-429: fatty acid biosynthesis initiation (mitochondria)|g__Streptococcus.s__Streptococcus_milleri	4.0387571928
+PWY-6387: UDP-N-acetylmuramoyl-pentapeptide biosynthesis I (meso-diaminopimelate containing)	2053.6239161624
+PWY-6387: UDP-N-acetylmuramoyl-pentapeptide biosynthesis I (meso-diaminopimelate containing)|g__Streptococcus.s__Streptococcus_pneumoniae	407.6976578574
+PWY-6387: UDP-N-acetylmuramoyl-pentapeptide biosynthesis I (meso-diaminopimelate containing)|g__Staphylococcus.s__Staphylococcus_aureus	137.2715521017
+PWY-6387: UDP-N-acetylmuramoyl-pentapeptide biosynthesis I (meso-diaminopimelate containing)|g__Corynebacterium.s__Corynebacterium_resistens	83.8511309951
+PWY-6387: UDP-N-acetylmuramoyl-pentapeptide biosynthesis I (meso-diaminopimelate containing)|g__Cutibacterium.s__Cutibacterium_acnes	81.8980510895
+PWY-6387: UDP-N-acetylmuramoyl-pentapeptide biosynthesis I (meso-diaminopimelate containing)|g__Staphylococcus.s__Staphylococcus_lugdunensis	78.4128032197
+PWY-6387: UDP-N-acetylmuramoyl-pentapeptide biosynthesis I (meso-diaminopimelate containing)|g__Staphylococcus.s__Staphylococcus_epidermidis	70.2409889630
+PWY-6387: UDP-N-acetylmuramoyl-pentapeptide biosynthesis I (meso-diaminopimelate containing)|g__Staphylococcus.s__Staphylococcus_capitis	53.4441885634
+PWY-6387: UDP-N-acetylmuramoyl-pentapeptide biosynthesis I (meso-diaminopimelate containing)|g__Streptococcus.s__Streptococcus_salivarius	34.6275769895
+PWY-6387: UDP-N-acetylmuramoyl-pentapeptide biosynthesis I (meso-diaminopimelate containing)|unclassified	9.3446756286
+PWY-6387: UDP-N-acetylmuramoyl-pentapeptide biosynthesis I (meso-diaminopimelate containing)|g__Streptococcus.s__Streptococcus_mitis	7.7513181685
+PWY-6387: UDP-N-acetylmuramoyl-pentapeptide biosynthesis I (meso-diaminopimelate containing)|g__Streptococcus.s__Streptococcus_pseudopneumoniae	4.6547097070
+PEPTIDOGLYCANSYN-PWY: peptidoglycan biosynthesis I (meso-diaminopimelate containing)	2038.4425203711
+PEPTIDOGLYCANSYN-PWY: peptidoglycan biosynthesis I (meso-diaminopimelate containing)|g__Streptococcus.s__Streptococcus_pneumoniae	451.9635422488
+PEPTIDOGLYCANSYN-PWY: peptidoglycan biosynthesis I (meso-diaminopimelate containing)|g__Cutibacterium.s__Cutibacterium_acnes	89.7810091529
+PEPTIDOGLYCANSYN-PWY: peptidoglycan biosynthesis I (meso-diaminopimelate containing)|g__Corynebacterium.s__Corynebacterium_resistens	87.0083523288
+PEPTIDOGLYCANSYN-PWY: peptidoglycan biosynthesis I (meso-diaminopimelate containing)|g__Staphylococcus.s__Staphylococcus_epidermidis	65.9461998099
+PEPTIDOGLYCANSYN-PWY: peptidoglycan biosynthesis I (meso-diaminopimelate containing)|g__Staphylococcus.s__Staphylococcus_aureus	56.7961746943
+PEPTIDOGLYCANSYN-PWY: peptidoglycan biosynthesis I (meso-diaminopimelate containing)|g__Staphylococcus.s__Staphylococcus_lugdunensis	55.4887765660
+PEPTIDOGLYCANSYN-PWY: peptidoglycan biosynthesis I (meso-diaminopimelate containing)|g__Streptococcus.s__Streptococcus_salivarius	40.0524067122
+PEPTIDOGLYCANSYN-PWY: peptidoglycan biosynthesis I (meso-diaminopimelate containing)|g__Staphylococcus.s__Staphylococcus_capitis	26.5179864259
+PEPTIDOGLYCANSYN-PWY: peptidoglycan biosynthesis I (meso-diaminopimelate containing)|unclassified	10.8988992681
+PEPTIDOGLYCANSYN-PWY: peptidoglycan biosynthesis I (meso-diaminopimelate containing)|g__Streptococcus.s__Streptococcus_mitis	9.3666386383
+PEPTIDOGLYCANSYN-PWY: peptidoglycan biosynthesis I (meso-diaminopimelate containing)|g__Streptococcus.s__Streptococcus_pseudopneumoniae	5.3681726918
+PWY-5188: tetrapyrrole biosynthesis I (from glutamate)	1964.1244375330
+PWY-5188: tetrapyrrole biosynthesis I (from glutamate)|g__Staphylococcus.s__Staphylococcus_capitis	898.7258899112
+PWY-5188: tetrapyrrole biosynthesis I (from glutamate)|g__Corynebacterium.s__Corynebacterium_resistens	202.3275317214
+PWY-5188: tetrapyrrole biosynthesis I (from glutamate)|g__Cutibacterium.s__Cutibacterium_acnes	132.9579391524
+PWY-5188: tetrapyrrole biosynthesis I (from glutamate)|g__Staphylococcus.s__Staphylococcus_lugdunensis	121.9342135440
+PWY-5188: tetrapyrrole biosynthesis I (from glutamate)|g__Staphylococcus.s__Staphylococcus_epidermidis	80.0195240312
+PWY-5188: tetrapyrrole biosynthesis I (from glutamate)|g__Streptococcus.s__Streptococcus_pneumoniae	54.8065191399
+PWY-5188: tetrapyrrole biosynthesis I (from glutamate)|g__Staphylococcus.s__Staphylococcus_aureus	43.4778831079
+PWY-5188: tetrapyrrole biosynthesis I (from glutamate)|g__Micrococcus.s__Micrococcus_aloeverae	24.1184262276
+P42-PWY: incomplete reductive TCA cycle	1959.1605875110
+P42-PWY: incomplete reductive TCA cycle|g__Staphylococcus.s__Staphylococcus_capitis	454.2594917035
+P42-PWY: incomplete reductive TCA cycle|g__Staphylococcus.s__Staphylococcus_aureus	400.0015158926
+P42-PWY: incomplete reductive TCA cycle|g__Staphylococcus.s__Staphylococcus_epidermidis	155.7643297599
+P42-PWY: incomplete reductive TCA cycle|g__Streptococcus.s__Streptococcus_pneumoniae	119.8534243100
+PWY-3001: superpathway of L-isoleucine biosynthesis I	1950.9096500253
+PWY-3001: superpathway of L-isoleucine biosynthesis I|g__Streptococcus.s__Streptococcus_pneumoniae	160.1029625902
+PWY-3001: superpathway of L-isoleucine biosynthesis I|g__Corynebacterium.s__Corynebacterium_resistens	129.9241861216
+PWY-3001: superpathway of L-isoleucine biosynthesis I|g__Staphylococcus.s__Staphylococcus_epidermidis	5.9718642463
+TCA: TCA cycle I (prokaryotic)	1922.3228749006
+TCA: TCA cycle I (prokaryotic)|g__Staphylococcus.s__Staphylococcus_epidermidis	229.7323420690
+PWY-5686: UMP biosynthesis I	1919.3822928396
+PWY-5686: UMP biosynthesis I|g__Streptococcus.s__Streptococcus_pneumoniae	513.7759080346
+PWY-5686: UMP biosynthesis I|g__Streptococcus.s__Streptococcus_salivarius	181.7190304444
+PWY-5686: UMP biosynthesis I|g__Staphylococcus.s__Staphylococcus_capitis	179.5542210845
+PWY-5686: UMP biosynthesis I|g__Staphylococcus.s__Staphylococcus_lugdunensis	108.1508559250
+PWY-5686: UMP biosynthesis I|g__Corynebacterium.s__Corynebacterium_resistens	101.9951659359
+PWY-5686: UMP biosynthesis I|g__Cutibacterium.s__Cutibacterium_acnes	71.3345350941
+PWY-5686: UMP biosynthesis I|g__Staphylococcus.s__Staphylococcus_epidermidis	47.5967457049
+PWY-5686: UMP biosynthesis I|g__Micrococcus.s__Micrococcus_luteus	20.9472563517
+PWY-5686: UMP biosynthesis I|g__Micrococcus.s__Micrococcus_aloeverae	18.6973426426
+PWY-5686: UMP biosynthesis I|g__Staphylococcus.s__Staphylococcus_aureus	9.3404292272
+PWY-5686: UMP biosynthesis I|g__Streptococcus.s__Streptococcus_pseudopneumoniae	9.0410473343
+PWY-5686: UMP biosynthesis I|g__Streptococcus.s__Streptococcus_mitis	4.7857245941
+PWY-7790: UMP biosynthesis II	1919.3822928396
+PWY-7790: UMP biosynthesis II|g__Streptococcus.s__Streptococcus_pneumoniae	513.7759080346
+PWY-7790: UMP biosynthesis II|g__Streptococcus.s__Streptococcus_salivarius	181.7190304444
+PWY-7790: UMP biosynthesis II|g__Staphylococcus.s__Staphylococcus_capitis	179.5542210845
+PWY-7790: UMP biosynthesis II|g__Staphylococcus.s__Staphylococcus_lugdunensis	108.1508559250
+PWY-7790: UMP biosynthesis II|g__Cutibacterium.s__Cutibacterium_acnes	71.3345350941
+PWY-7790: UMP biosynthesis II|g__Corynebacterium.s__Corynebacterium_resistens	71.1619089897
+PWY-7790: UMP biosynthesis II|g__Micrococcus.s__Micrococcus_luteus	17.1345163096
+PWY-7790: UMP biosynthesis II|g__Streptococcus.s__Streptococcus_mitis	13.4575894404
+PWY-7790: UMP biosynthesis II|g__Staphylococcus.s__Staphylococcus_aureus	9.3404292272
+PWY-7790: UMP biosynthesis II|g__Streptococcus.s__Streptococcus_pseudopneumoniae	9.0410473343
+PWY-7791: UMP biosynthesis III	1919.3822928396
+PWY-7791: UMP biosynthesis III|g__Streptococcus.s__Streptococcus_pneumoniae	513.7759080346
+PWY-7791: UMP biosynthesis III|g__Streptococcus.s__Streptococcus_salivarius	181.7190304444
+PWY-7791: UMP biosynthesis III|g__Staphylococcus.s__Staphylococcus_capitis	179.5542210845
+PWY-7791: UMP biosynthesis III|g__Staphylococcus.s__Staphylococcus_lugdunensis	108.1508559250
+PWY-7791: UMP biosynthesis III|g__Cutibacterium.s__Cutibacterium_acnes	89.1631706646
+PWY-7791: UMP biosynthesis III|g__Corynebacterium.s__Corynebacterium_resistens	71.1619089897
+PWY-7791: UMP biosynthesis III|g__Streptococcus.s__Streptococcus_pseudopneumoniae	9.0410473343
+PWY-7791: UMP biosynthesis III|g__Streptococcus.s__Streptococcus_mitis	4.7857245941
+TCA-GLYOX-BYPASS: superpathway of glyoxylate bypass and TCA	1874.3898482583
+THRESYN-PWY: superpathway of L-threonine biosynthesis	1872.7071152295
+THRESYN-PWY: superpathway of L-threonine biosynthesis|g__Streptococcus.s__Streptococcus_pneumoniae	196.1689351795
+THRESYN-PWY: superpathway of L-threonine biosynthesis|g__Staphylococcus.s__Staphylococcus_capitis	189.4670714032
+THRESYN-PWY: superpathway of L-threonine biosynthesis|g__Streptococcus.s__Streptococcus_salivarius	159.0883102075
+THRESYN-PWY: superpathway of L-threonine biosynthesis|g__Corynebacterium.s__Corynebacterium_resistens	98.2867695238
+THRESYN-PWY: superpathway of L-threonine biosynthesis|g__Cutibacterium.s__Cutibacterium_acnes	95.7702431745
+THRESYN-PWY: superpathway of L-threonine biosynthesis|g__Staphylococcus.s__Staphylococcus_epidermidis	55.4981400629
+THRESYN-PWY: superpathway of L-threonine biosynthesis|g__Streptococcus.s__Streptococcus_pseudopneumoniae	25.7758896745
+THRESYN-PWY: superpathway of L-threonine biosynthesis|g__Streptococcus.s__Streptococcus_mitis	25.5693268374
+THRESYN-PWY: superpathway of L-threonine biosynthesis|g__Micrococcus.s__Micrococcus_luteus	4.6823636443
+THRESYN-PWY: superpathway of L-threonine biosynthesis|g__Micrococcus.s__Micrococcus_aloeverae	2.3449728812
+PWY-5265: peptidoglycan biosynthesis II (staphylococci)	1773.7025583035
+PWY-5265: peptidoglycan biosynthesis II (staphylococci)|g__Streptococcus.s__Streptococcus_pneumoniae	311.8945846417
+PWY-5265: peptidoglycan biosynthesis II (staphylococci)|g__Streptococcus.s__Streptococcus_mitis	14.1581775498
+PWY-5265: peptidoglycan biosynthesis II (staphylococci)|g__Streptococcus.s__Streptococcus_pseudopneumoniae	7.9136185867
+PWY-7254: TCA cycle VII (acetate-producers)	1714.7994784397
+PWY-7254: TCA cycle VII (acetate-producers)|g__Staphylococcus.s__Staphylococcus_epidermidis	299.1395998612
+PWY-5913: partial TCA cycle (obligate autotrophs)	1643.3950090018
+PWY-5913: partial TCA cycle (obligate autotrophs)|g__Staphylococcus.s__Staphylococcus_epidermidis	180.9331200472
+PWY-5913: partial TCA cycle (obligate autotrophs)|g__Streptococcus.s__Streptococcus_pneumoniae	163.1834076459
+PWY-5913: partial TCA cycle (obligate autotrophs)|unclassified	110.3432797126
+PWY0-1297: superpathway of purine deoxyribonucleosides degradation	1628.4163825807
+PWY0-1297: superpathway of purine deoxyribonucleosides degradation|g__Streptococcus.s__Streptococcus_pneumoniae	491.4251904749
+PWY0-1297: superpathway of purine deoxyribonucleosides degradation|g__Streptococcus.s__Streptococcus_salivarius	129.6502213667
+PWY0-1297: superpathway of purine deoxyribonucleosides degradation|unclassified	20.1929963778
+PWY-7208: superpathway of pyrimidine nucleobases salvage	1627.1949329555
+PWY-7208: superpathway of pyrimidine nucleobases salvage|g__Staphylococcus.s__Staphylococcus_capitis	163.9620335835
+PWY-7208: superpathway of pyrimidine nucleobases salvage|g__Corynebacterium.s__Corynebacterium_resistens	130.4646084325
+PWY-7208: superpathway of pyrimidine nucleobases salvage|g__Streptococcus.s__Streptococcus_pneumoniae	95.7940260837
+PWY-7208: superpathway of pyrimidine nucleobases salvage|g__Staphylococcus.s__Staphylococcus_lugdunensis	78.9611215837
+PWY-7208: superpathway of pyrimidine nucleobases salvage|g__Cutibacterium.s__Cutibacterium_acnes	75.8687984760
+PWY-7208: superpathway of pyrimidine nucleobases salvage|g__Staphylococcus.s__Staphylococcus_epidermidis	43.6048520344
+PWY-7208: superpathway of pyrimidine nucleobases salvage|unclassified	13.2285932865
+PWY-7208: superpathway of pyrimidine nucleobases salvage|g__Micrococcus.s__Micrococcus_luteus	9.6776374858
+PWY-7208: superpathway of pyrimidine nucleobases salvage|g__Streptococcus.s__Streptococcus_milleri	1.1446606009
+PWY-7383: anaerobic energy metabolism (invertebrates, cytosol)	1617.7100207296
+PWY-7383: anaerobic energy metabolism (invertebrates, cytosol)|g__Micrococcus.s__Micrococcus_luteus	55.1891290350
+PWY-7383: anaerobic energy metabolism (invertebrates, cytosol)|g__Micrococcus.s__Micrococcus_aloeverae	29.1240022540
+PWY0-1586: peptidoglycan maturation (meso-diaminopimelate containing)	1607.1851963240
+PWY0-1586: peptidoglycan maturation (meso-diaminopimelate containing)|g__Corynebacterium.s__Corynebacterium_resistens	389.8086059730
+PWY0-1586: peptidoglycan maturation (meso-diaminopimelate containing)|g__Streptococcus.s__Streptococcus_salivarius	388.2240073164
+PWY0-1586: peptidoglycan maturation (meso-diaminopimelate containing)|g__Streptococcus.s__Streptococcus_pneumoniae	153.9002605082
+PWY0-1586: peptidoglycan maturation (meso-diaminopimelate containing)|unclassified	111.2019601993
+PWY0-1586: peptidoglycan maturation (meso-diaminopimelate containing)|g__Streptococcus.s__Streptococcus_mitis	75.8169950870
+PWY0-1586: peptidoglycan maturation (meso-diaminopimelate containing)|g__Streptococcus.s__Streptococcus_pseudopneumoniae	34.8964517620
+PWY0-1586: peptidoglycan maturation (meso-diaminopimelate containing)|g__Streptococcus.s__Streptococcus_oralis	1.9203077688
+PWY0-1298: superpathway of pyrimidine deoxyribonucleosides degradation	1535.9814717893
+PWY0-1298: superpathway of pyrimidine deoxyribonucleosides degradation|g__Streptococcus.s__Streptococcus_pneumoniae	327.7187050565
+PWY0-1298: superpathway of pyrimidine deoxyribonucleosides degradation|g__Staphylococcus.s__Staphylococcus_capitis	177.0027463894
+PWY0-1298: superpathway of pyrimidine deoxyribonucleosides degradation|g__Streptococcus.s__Streptococcus_mitis	13.7304371488
+PWY0-1298: superpathway of pyrimidine deoxyribonucleosides degradation|g__Streptococcus.s__Streptococcus_pseudopneumoniae	9.8014686767
+PWY-6151: S-adenosyl-L-methionine salvage I	1528.6704149175
+PWY-6151: S-adenosyl-L-methionine salvage I|g__Streptococcus.s__Streptococcus_pneumoniae	493.1352768067
+PWY-6151: S-adenosyl-L-methionine salvage I|g__Cutibacterium.s__Cutibacterium_acnes	207.7398017092
+PWY-6151: S-adenosyl-L-methionine salvage I|g__Staphylococcus.s__Staphylococcus_capitis	106.9618880948
+PWY-6151: S-adenosyl-L-methionine salvage I|g__Staphylococcus.s__Staphylococcus_lugdunensis	46.6050439694
+PWY-6151: S-adenosyl-L-methionine salvage I|g__Streptococcus.s__Streptococcus_salivarius	36.8744844882
+PWY-6151: S-adenosyl-L-methionine salvage I|g__Staphylococcus.s__Staphylococcus_aureus	36.8130674500
+PWY-6151: S-adenosyl-L-methionine salvage I|g__Staphylococcus.s__Staphylococcus_epidermidis	31.2086379008
+PWY-6151: S-adenosyl-L-methionine salvage I|unclassified	20.1494731570
+PWY-6151: S-adenosyl-L-methionine salvage I|g__Streptococcus.s__Streptococcus_oralis	16.4459144083
+OANTIGEN-PWY: O-antigen building blocks biosynthesis (E. coli)	1513.5722380564
+OANTIGEN-PWY: O-antigen building blocks biosynthesis (E. coli)|g__Streptococcus.s__Streptococcus_pneumoniae	413.0315719610
+OANTIGEN-PWY: O-antigen building blocks biosynthesis (E. coli)|g__Corynebacterium.s__Corynebacterium_resistens	126.3400712813
+OANTIGEN-PWY: O-antigen building blocks biosynthesis (E. coli)|g__Streptococcus.s__Streptococcus_mitis	23.3492388721
+TRNA-CHARGING-PWY: tRNA charging	1488.1177440255
+TRNA-CHARGING-PWY: tRNA charging|g__Streptococcus.s__Streptococcus_pneumoniae	202.2205823180
+TRNA-CHARGING-PWY: tRNA charging|g__Staphylococcus.s__Staphylococcus_capitis	189.4635920480
+TRNA-CHARGING-PWY: tRNA charging|g__Staphylococcus.s__Staphylococcus_epidermidis	45.1123424064
+TRNA-CHARGING-PWY: tRNA charging|g__Staphylococcus.s__Staphylococcus_aureus	36.8013836281
+TRNA-CHARGING-PWY: tRNA charging|g__Streptococcus.s__Streptococcus_salivarius	25.4080033194
+TRNA-CHARGING-PWY: tRNA charging|g__Streptococcus.s__Streptococcus_mitis	4.4632071831
+TRNA-CHARGING-PWY: tRNA charging|g__Streptococcus.s__Streptococcus_pseudopneumoniae	3.8038427472
+PWY-5981: CDP-diacylglycerol biosynthesis III	1482.9872239564
+PWY-5981: CDP-diacylglycerol biosynthesis III|g__Streptococcus.s__Streptococcus_salivarius	274.8376407903
+PWY-5981: CDP-diacylglycerol biosynthesis III|g__Streptococcus.s__Streptococcus_pneumoniae	147.4262689569
+PWY-5981: CDP-diacylglycerol biosynthesis III|g__Staphylococcus.s__Staphylococcus_aureus	69.2343381683
+PWY-5981: CDP-diacylglycerol biosynthesis III|g__Staphylococcus.s__Staphylococcus_capitis	54.2944707839
+PWY-5981: CDP-diacylglycerol biosynthesis III|g__Staphylococcus.s__Staphylococcus_epidermidis	46.3775847922
+PWY-5981: CDP-diacylglycerol biosynthesis III|g__Streptococcus.s__Streptococcus_pseudopneumoniae	20.3068519583
+PWY-5981: CDP-diacylglycerol biosynthesis III|unclassified	5.9978446164
+PWY-5981: CDP-diacylglycerol biosynthesis III|g__Streptococcus.s__Streptococcus_mitis	2.2541983375
+P461-PWY: hexitol fermentation to lactate, formate, ethanol and acetate	1454.8089874929
+PWY-6629: superpathway of L-tryptophan biosynthesis	1442.3135185563
+PWY-6629: superpathway of L-tryptophan biosynthesis|g__Streptococcus.s__Streptococcus_pneumoniae	512.3923810055
+PWY-7118: chitin deacetylation	1370.1792995873
+PWY-7118: chitin deacetylation|unclassified	32.9135471948
+PWY-7663: gondoate biosynthesis (anaerobic)	1307.4011802979
+PWY-7663: gondoate biosynthesis (anaerobic)|g__Streptococcus.s__Streptococcus_pneumoniae	512.5524390926
+PWY-7663: gondoate biosynthesis (anaerobic)|g__Streptococcus.s__Streptococcus_pseudopneumoniae	31.0391257528
+PWY-7663: gondoate biosynthesis (anaerobic)|g__Streptococcus.s__Streptococcus_mitis	27.0921768077
+PWY-7663: gondoate biosynthesis (anaerobic)|unclassified	16.7092764989
+PWY-6823: molybdopterin biosynthesis	1245.4390999667
+PWY-6823: molybdopterin biosynthesis|g__Staphylococcus.s__Staphylococcus_capitis	242.7528539878
+PWY-6823: molybdopterin biosynthesis|g__Staphylococcus.s__Staphylococcus_lugdunensis	197.4410420333
+PWY-6823: molybdopterin biosynthesis|g__Staphylococcus.s__Staphylococcus_aureus	160.7956798431
+PWY-6823: molybdopterin biosynthesis|g__Staphylococcus.s__Staphylococcus_epidermidis	61.1989513668
+PWY-6823: molybdopterin biosynthesis|g__Streptococcus.s__Streptococcus_pneumoniae	47.4747890734
+PWY-6823: molybdopterin biosynthesis|g__Cutibacterium.s__Cutibacterium_acnes	45.4740026188
+RIBOSYN2-PWY: flavin biosynthesis I (bacteria and plants)	1240.9826974205
+RIBOSYN2-PWY: flavin biosynthesis I (bacteria and plants)|g__Staphylococcus.s__Staphylococcus_capitis	399.1289381982
+RIBOSYN2-PWY: flavin biosynthesis I (bacteria and plants)|g__Streptococcus.s__Streptococcus_pneumoniae	120.3677965665
+RIBOSYN2-PWY: flavin biosynthesis I (bacteria and plants)|g__Staphylococcus.s__Staphylococcus_lugdunensis	60.3391670838
+RIBOSYN2-PWY: flavin biosynthesis I (bacteria and plants)|g__Staphylococcus.s__Staphylococcus_epidermidis	51.3072314130
+RIBOSYN2-PWY: flavin biosynthesis I (bacteria and plants)|g__Staphylococcus.s__Staphylococcus_aureus	49.2230741279
+PWY-7234: inosine-5'-phosphate biosynthesis III	1217.3507596341
+PWY-7234: inosine-5'-phosphate biosynthesis III|g__Streptococcus.s__Streptococcus_pneumoniae	131.6551724029
+PWY-7234: inosine-5'-phosphate biosynthesis III|g__Corynebacterium.s__Corynebacterium_resistens	114.9536115408
+PWY-7234: inosine-5'-phosphate biosynthesis III|g__Staphylococcus.s__Staphylococcus_capitis	106.8334713104
+PWY-7234: inosine-5'-phosphate biosynthesis III|g__Staphylococcus.s__Staphylococcus_lugdunensis	58.6568309555
+PWY-7234: inosine-5'-phosphate biosynthesis III|unclassified	30.6495546812
+PWY-7234: inosine-5'-phosphate biosynthesis III|g__Staphylococcus.s__Staphylococcus_epidermidis	22.4373790465
+PWY-7234: inosine-5'-phosphate biosynthesis III|g__Micrococcus.s__Micrococcus_aloeverae	17.1930773524
+PWY-7234: inosine-5'-phosphate biosynthesis III|g__Streptococcus.s__Streptococcus_salivarius	5.3562935855
+PWY-621: sucrose degradation III (sucrose invertase)	1211.1669120269
+PWY-621: sucrose degradation III (sucrose invertase)|g__Streptococcus.s__Streptococcus_pneumoniae	277.9018432105
+PWY-621: sucrose degradation III (sucrose invertase)|g__Streptococcus.s__Streptococcus_salivarius	145.3222705960
+PWY-621: sucrose degradation III (sucrose invertase)|g__Staphylococcus.s__Staphylococcus_capitis	52.3914921058
+PWY-621: sucrose degradation III (sucrose invertase)|g__Staphylococcus.s__Staphylococcus_epidermidis	41.0751276834
+COA-PWY: coenzyme A biosynthesis I (prokaryotic)	1206.0426318498
+COA-PWY: coenzyme A biosynthesis I (prokaryotic)|g__Staphylococcus.s__Staphylococcus_capitis	119.1342800881
+COA-PWY: coenzyme A biosynthesis I (prokaryotic)|g__Corynebacterium.s__Corynebacterium_resistens	89.5296194117
+COA-PWY: coenzyme A biosynthesis I (prokaryotic)|g__Cutibacterium.s__Cutibacterium_acnes	82.1613140022
+COA-PWY: coenzyme A biosynthesis I (prokaryotic)|g__Staphylococcus.s__Staphylococcus_lugdunensis	69.0337206388
+COA-PWY: coenzyme A biosynthesis I (prokaryotic)|g__Streptococcus.s__Streptococcus_pneumoniae	56.6668070978
+COA-PWY: coenzyme A biosynthesis I (prokaryotic)|g__Staphylococcus.s__Staphylococcus_aureus	56.3379522575
+COA-PWY: coenzyme A biosynthesis I (prokaryotic)|g__Micrococcus.s__Micrococcus_luteus	54.1838018568
+COA-PWY: coenzyme A biosynthesis I (prokaryotic)|g__Staphylococcus.s__Staphylococcus_epidermidis	19.1685854034
+COA-PWY: coenzyme A biosynthesis I (prokaryotic)|g__Streptococcus.s__Streptococcus_salivarius	17.5598378930
+COA-PWY: coenzyme A biosynthesis I (prokaryotic)|unclassified	16.2926127809
+COA-PWY: coenzyme A biosynthesis I (prokaryotic)|g__Streptococcus.s__Streptococcus_mitis	10.3445272791
+COA-PWY: coenzyme A biosynthesis I (prokaryotic)|g__Micrococcus.s__Micrococcus_aloeverae	1.6734593021
+PWY-7851: coenzyme A biosynthesis II (eukaryotic)	1206.0426318498
+PWY-7851: coenzyme A biosynthesis II (eukaryotic)|g__Staphylococcus.s__Staphylococcus_capitis	119.1342800881
+PWY-7851: coenzyme A biosynthesis II (eukaryotic)|g__Corynebacterium.s__Corynebacterium_resistens	89.5296194117
+PWY-7851: coenzyme A biosynthesis II (eukaryotic)|g__Staphylococcus.s__Staphylococcus_lugdunensis	69.0337206388
+PWY-7851: coenzyme A biosynthesis II (eukaryotic)|g__Streptococcus.s__Streptococcus_pneumoniae	56.6668070978
+PWY-7851: coenzyme A biosynthesis II (eukaryotic)|g__Micrococcus.s__Micrococcus_luteus	27.2875254551
+PWY-7851: coenzyme A biosynthesis II (eukaryotic)|g__Cutibacterium.s__Cutibacterium_acnes	21.6430288680
+PWY-7851: coenzyme A biosynthesis II (eukaryotic)|g__Staphylococcus.s__Staphylococcus_epidermidis	19.1685854034
+PWY-7851: coenzyme A biosynthesis II (eukaryotic)|unclassified	16.2926127809
+PWY-7851: coenzyme A biosynthesis II (eukaryotic)|g__Streptococcus.s__Streptococcus_mitis	10.3445272791
+PWY-7851: coenzyme A biosynthesis II (eukaryotic)|g__Streptococcus.s__Streptococcus_salivarius	5.6491526263
+PWY-7851: coenzyme A biosynthesis II (eukaryotic)|g__Micrococcus.s__Micrococcus_aloeverae	1.6734593021
+ARGININE-SYN4-PWY: L-ornithine biosynthesis II	1201.5967415029
+ARGININE-SYN4-PWY: L-ornithine biosynthesis II|g__Streptococcus.s__Streptococcus_pneumoniae	195.7277128523
+PWY0-162: superpathway of pyrimidine ribonucleotides de novo biosynthesis	1187.3909159017
+PWY0-162: superpathway of pyrimidine ribonucleotides de novo biosynthesis|g__Streptococcus.s__Streptococcus_pneumoniae	130.4073675409
+PWY0-162: superpathway of pyrimidine ribonucleotides de novo biosynthesis|g__Corynebacterium.s__Corynebacterium_resistens	87.7898379195
+PWY0-162: superpathway of pyrimidine ribonucleotides de novo biosynthesis|g__Staphylococcus.s__Staphylococcus_capitis	67.4539576669
+PWY-5384: sucrose degradation IV (sucrose phosphorylase)	1176.9621611461
+PWY-5384: sucrose degradation IV (sucrose phosphorylase)|g__Streptococcus.s__Streptococcus_pneumoniae	272.6108934426
+PWY-5384: sucrose degradation IV (sucrose phosphorylase)|g__Streptococcus.s__Streptococcus_salivarius	145.3222705960
+PWY-5384: sucrose degradation IV (sucrose phosphorylase)|g__Staphylococcus.s__Staphylococcus_capitis	51.0824236418
+PWY-5384: sucrose degradation IV (sucrose phosphorylase)|g__Staphylococcus.s__Staphylococcus_epidermidis	32.9323418294
+PWY-5384: sucrose degradation IV (sucrose phosphorylase)|g__Staphylococcus.s__Staphylococcus_aureus	13.3541089996
+PWY-5384: sucrose degradation IV (sucrose phosphorylase)|unclassified	8.0055651097
+PWY-6124: inosine-5'-phosphate biosynthesis II	1136.7538955782
+PWY-6124: inosine-5'-phosphate biosynthesis II|g__Corynebacterium.s__Corynebacterium_resistens	137.6009544336
+PWY-6124: inosine-5'-phosphate biosynthesis II|g__Streptococcus.s__Streptococcus_pneumoniae	98.4540859624
+PWY-6124: inosine-5'-phosphate biosynthesis II|g__Staphylococcus.s__Staphylococcus_capitis	91.7308285789
+PWY-6124: inosine-5'-phosphate biosynthesis II|g__Staphylococcus.s__Staphylococcus_lugdunensis	55.2256083992
+PWY-6124: inosine-5'-phosphate biosynthesis II|g__Staphylococcus.s__Staphylococcus_aureus	29.2663998346
+PWY-6124: inosine-5'-phosphate biosynthesis II|unclassified	27.1377239189
+PWY-6124: inosine-5'-phosphate biosynthesis II|g__Micrococcus.s__Micrococcus_aloeverae	23.5982248638
+PWY-6124: inosine-5'-phosphate biosynthesis II|g__Staphylococcus.s__Staphylococcus_epidermidis	15.8691492404
+PWY-6124: inosine-5'-phosphate biosynthesis II|g__Streptococcus.s__Streptococcus_salivarius	4.4679485462
+PWY-7953: UDP-N-acetylmuramoyl-pentapeptide biosynthesis III (meso-diaminopimelate containing)	1132.9432645583
+PWY-7953: UDP-N-acetylmuramoyl-pentapeptide biosynthesis III (meso-diaminopimelate containing)|g__Streptococcus.s__Streptococcus_pneumoniae	248.7301025560
+PWY-7953: UDP-N-acetylmuramoyl-pentapeptide biosynthesis III (meso-diaminopimelate containing)|g__Cutibacterium.s__Cutibacterium_acnes	190.8945661675
+PWY-7953: UDP-N-acetylmuramoyl-pentapeptide biosynthesis III (meso-diaminopimelate containing)|g__Corynebacterium.s__Corynebacterium_resistens	63.7073842522
+PWY-7953: UDP-N-acetylmuramoyl-pentapeptide biosynthesis III (meso-diaminopimelate containing)|g__Staphylococcus.s__Staphylococcus_aureus	48.1719548427
+PWY-7953: UDP-N-acetylmuramoyl-pentapeptide biosynthesis III (meso-diaminopimelate containing)|g__Streptococcus.s__Streptococcus_salivarius	25.4352834960
+PWY-7953: UDP-N-acetylmuramoyl-pentapeptide biosynthesis III (meso-diaminopimelate containing)|g__Streptococcus.s__Streptococcus_mitis	5.0866636748
+DTDPRHAMSYN-PWY: dTDP-&beta;-L-rhamnose biosynthesis	1097.7662850227
+DTDPRHAMSYN-PWY: dTDP-&beta;-L-rhamnose biosynthesis|g__Streptococcus.s__Streptococcus_salivarius	594.7539263505
+DTDPRHAMSYN-PWY: dTDP-&beta;-L-rhamnose biosynthesis|g__Streptococcus.s__Streptococcus_pneumoniae	469.2685401618
+DTDPRHAMSYN-PWY: dTDP-&beta;-L-rhamnose biosynthesis|g__Corynebacterium.s__Corynebacterium_resistens	90.5106484749
+DTDPRHAMSYN-PWY: dTDP-&beta;-L-rhamnose biosynthesis|g__Streptococcus.s__Streptococcus_milleri	15.3273525922
+DTDPRHAMSYN-PWY: dTDP-&beta;-L-rhamnose biosynthesis|g__Streptococcus.s__Streptococcus_mitis	15.0827447924
+DTDPRHAMSYN-PWY: dTDP-&beta;-L-rhamnose biosynthesis|g__Micrococcus.s__Micrococcus_aloeverae	8.3592075688
+DTDPRHAMSYN-PWY: dTDP-&beta;-L-rhamnose biosynthesis|unclassified	8.3017918270
+SER-GLYSYN-PWY: superpathway of L-serine and glycine biosynthesis I	1083.5972725909
+SER-GLYSYN-PWY: superpathway of L-serine and glycine biosynthesis I|g__Corynebacterium.s__Corynebacterium_resistens	144.5378110569
+SER-GLYSYN-PWY: superpathway of L-serine and glycine biosynthesis I|g__Streptococcus.s__Streptococcus_pneumoniae	137.6492771134
+SER-GLYSYN-PWY: superpathway of L-serine and glycine biosynthesis I|g__Staphylococcus.s__Staphylococcus_aureus	54.9636811093
+SER-GLYSYN-PWY: superpathway of L-serine and glycine biosynthesis I|g__Micrococcus.s__Micrococcus_aloeverae	28.7145229234
+SER-GLYSYN-PWY: superpathway of L-serine and glycine biosynthesis I|g__Staphylococcus.s__Staphylococcus_epidermidis	19.9861625527
+SER-GLYSYN-PWY: superpathway of L-serine and glycine biosynthesis I|g__Staphylococcus.s__Staphylococcus_capitis	18.0611834676
+SER-GLYSYN-PWY: superpathway of L-serine and glycine biosynthesis I|unclassified	15.3612424533
+SER-GLYSYN-PWY: superpathway of L-serine and glycine biosynthesis I|g__Micrococcus.s__Micrococcus_luteus	9.5265723823
+FASYN-ELONG-PWY: fatty acid elongation -- saturated	1063.9994252033
+FASYN-ELONG-PWY: fatty acid elongation -- saturated|g__Streptococcus.s__Streptococcus_pneumoniae	18.3781219862
+FASYN-ELONG-PWY: fatty acid elongation -- saturated|unclassified	15.0884327106
+PWY-724: superpathway of L-lysine, L-threonine and L-methionine biosynthesis II	995.7350410077
+PWY-724: superpathway of L-lysine, L-threonine and L-methionine biosynthesis II|g__Streptococcus.s__Streptococcus_pneumoniae	121.7687487116
+PWY-724: superpathway of L-lysine, L-threonine and L-methionine biosynthesis II|g__Corynebacterium.s__Corynebacterium_resistens	85.2427623373
+PWY-724: superpathway of L-lysine, L-threonine and L-methionine biosynthesis II|g__Cutibacterium.s__Cutibacterium_acnes	82.4263655039
+PWY-724: superpathway of L-lysine, L-threonine and L-methionine biosynthesis II|g__Micrococcus.s__Micrococcus_aloeverae	3.7844394305
+HEME-BIOSYNTHESIS-II: heme b biosynthesis I (aerobic)	989.1146721780
+HEME-BIOSYNTHESIS-II: heme b biosynthesis I (aerobic)|g__Corynebacterium.s__Corynebacterium_resistens	277.8025943351
+HEME-BIOSYNTHESIS-II: heme b biosynthesis I (aerobic)|g__Streptococcus.s__Streptococcus_pneumoniae	122.8058424530
+HEME-BIOSYNTHESIS-II: heme b biosynthesis I (aerobic)|g__Staphylococcus.s__Staphylococcus_capitis	62.3454191297
+HEME-BIOSYNTHESIS-II: heme b biosynthesis I (aerobic)|g__Micrococcus.s__Micrococcus_aloeverae	61.7264618900
+HEME-BIOSYNTHESIS-II: heme b biosynthesis I (aerobic)|g__Staphylococcus.s__Staphylococcus_epidermidis	25.9515313612
+HEME-BIOSYNTHESIS-II: heme b biosynthesis I (aerobic)|g__Staphylococcus.s__Staphylococcus_aureus	24.4555700218
+PWY-5659: GDP-mannose biosynthesis	981.2236419061
+PWY-5659: GDP-mannose biosynthesis|g__Corynebacterium.s__Corynebacterium_resistens	172.2580445123
+PWY-5659: GDP-mannose biosynthesis|g__Streptococcus.s__Streptococcus_pneumoniae	145.4237067516
+PWY-5659: GDP-mannose biosynthesis|g__Micrococcus.s__Micrococcus_aloeverae	46.8225448320
+PWY-5659: GDP-mannose biosynthesis|g__Micrococcus.s__Micrococcus_luteus	18.2584614647
+HISTSYN-PWY: L-histidine biosynthesis	978.3097402075
+HISTSYN-PWY: L-histidine biosynthesis|g__Streptococcus.s__Streptococcus_pneumoniae	146.7523633454
+HISTSYN-PWY: L-histidine biosynthesis|g__Cutibacterium.s__Cutibacterium_acnes	81.2644903225
+HISTSYN-PWY: L-histidine biosynthesis|g__Corynebacterium.s__Corynebacterium_resistens	76.2940010250
+HISTSYN-PWY: L-histidine biosynthesis|g__Streptococcus.s__Streptococcus_salivarius	48.8893164939
+PWY-6630: superpathway of L-tyrosine biosynthesis	977.8445202918
+PWY-6630: superpathway of L-tyrosine biosynthesis|g__Streptococcus.s__Streptococcus_pneumoniae	144.6496492076
+PWY-5918: superpathway of heme b biosynthesis from glutamate	976.3188417541
+PWY-5918: superpathway of heme b biosynthesis from glutamate|g__Staphylococcus.s__Staphylococcus_capitis	136.0414807445
+PWY-5918: superpathway of heme b biosynthesis from glutamate|g__Corynebacterium.s__Corynebacterium_resistens	103.6756701413
+PWY-5918: superpathway of heme b biosynthesis from glutamate|g__Staphylococcus.s__Staphylococcus_epidermidis	43.0517774518
+PWY-5918: superpathway of heme b biosynthesis from glutamate|g__Streptococcus.s__Streptococcus_pneumoniae	35.0769265929
+PWY-5918: superpathway of heme b biosynthesis from glutamate|g__Staphylococcus.s__Staphylococcus_aureus	30.7977424958
+TRPSYN-PWY: L-tryptophan biosynthesis	943.3510599094
+TRPSYN-PWY: L-tryptophan biosynthesis|g__Streptococcus.s__Streptococcus_pneumoniae	336.1421886591
+TRPSYN-PWY: L-tryptophan biosynthesis|g__Streptococcus.s__Streptococcus_salivarius	234.8307156477
+PWY-7328: superpathway of UDP-glucose-derived O-antigen building blocks biosynthesis	920.4905522131
+PWY-7328: superpathway of UDP-glucose-derived O-antigen building blocks biosynthesis|g__Corynebacterium.s__Corynebacterium_resistens	75.9261007835
+PWY-7328: superpathway of UDP-glucose-derived O-antigen building blocks biosynthesis|g__Streptococcus.s__Streptococcus_pneumoniae	7.3175417303
+PWY-2941: L-lysine biosynthesis II	916.0038185480
+PWY-2941: L-lysine biosynthesis II|g__Streptococcus.s__Streptococcus_pneumoniae	160.5072664122
+PWY-6628: superpathway of L-phenylalanine biosynthesis	888.8552417675
+PWY-6628: superpathway of L-phenylalanine biosynthesis|g__Streptococcus.s__Streptococcus_pneumoniae	141.4842765864
+PWY-7345: superpathway of anaerobic sucrose degradation	885.3382780540
+PWY-7345: superpathway of anaerobic sucrose degradation|g__Staphylococcus.s__Staphylococcus_aureus	47.1904209719
+PWY-5097: L-lysine biosynthesis VI	855.4119555098
+PWY-5097: L-lysine biosynthesis VI|g__Corynebacterium.s__Corynebacterium_resistens	112.0307898576
+PWY-5097: L-lysine biosynthesis VI|g__Streptococcus.s__Streptococcus_pneumoniae	99.6862582543
+PWY-5097: L-lysine biosynthesis VI|g__Cutibacterium.s__Cutibacterium_acnes	62.3762354784
+PWY-5097: L-lysine biosynthesis VI|g__Micrococcus.s__Micrococcus_aloeverae	35.8016641587
+HISDEG-PWY: L-histidine degradation I	831.5954393922
+HISDEG-PWY: L-histidine degradation I|g__Staphylococcus.s__Staphylococcus_capitis	269.9427630214
+HISDEG-PWY: L-histidine degradation I|g__Corynebacterium.s__Corynebacterium_resistens	210.8691428308
+HISDEG-PWY: L-histidine degradation I|g__Staphylococcus.s__Staphylococcus_aureus	42.2111553997
+HISDEG-PWY: L-histidine degradation I|g__Streptococcus.s__Streptococcus_pneumoniae	20.0319721839
+HISDEG-PWY: L-histidine degradation I|g__Micrococcus.s__Micrococcus_luteus	12.2064610441
+HISDEG-PWY: L-histidine degradation I|unclassified	9.0468250093
+DAPLYSINESYN-PWY: L-lysine biosynthesis I	812.2101626991
+DAPLYSINESYN-PWY: L-lysine biosynthesis I|g__Corynebacterium.s__Corynebacterium_resistens	140.1333686409
+DAPLYSINESYN-PWY: L-lysine biosynthesis I|g__Cutibacterium.s__Cutibacterium_acnes	73.4521006094
+DAPLYSINESYN-PWY: L-lysine biosynthesis I|g__Streptococcus.s__Streptococcus_pneumoniae	47.9527183629
+DAPLYSINESYN-PWY: L-lysine biosynthesis I|g__Micrococcus.s__Micrococcus_aloeverae	24.7920368293
+PWY-7199: pyrimidine deoxyribonucleosides salvage	799.1031740251
+PWY-7199: pyrimidine deoxyribonucleosides salvage|g__Streptococcus.s__Streptococcus_pneumoniae	154.0723796671
+PWY-7199: pyrimidine deoxyribonucleosides salvage|g__Staphylococcus.s__Staphylococcus_capitis	144.6068504593
+PWY-7199: pyrimidine deoxyribonucleosides salvage|g__Staphylococcus.s__Staphylococcus_aureus	95.4362838925
+PWY-7199: pyrimidine deoxyribonucleosides salvage|g__Streptococcus.s__Streptococcus_salivarius	94.3267367312
+PWY-7199: pyrimidine deoxyribonucleosides salvage|g__Staphylococcus.s__Staphylococcus_epidermidis	44.3875125102
+PWY-7199: pyrimidine deoxyribonucleosides salvage|g__Streptococcus.s__Streptococcus_mitis	6.8932456227
+PWY-7199: pyrimidine deoxyribonucleosides salvage|g__Streptococcus.s__Streptococcus_pseudopneumoniae	4.0255142285
+PWY-7117: C4 photosynthetic carbon assimilation cycle, PEPCK type	797.6999945702
+PWY-7117: C4 photosynthetic carbon assimilation cycle, PEPCK type|g__Streptococcus.s__Streptococcus_pneumoniae	178.2864216880
+PWY-5676: acetyl-CoA fermentation to butanoate II	772.3616529065
+PWY-5676: acetyl-CoA fermentation to butanoate II|g__Streptococcus.s__Streptococcus_pneumoniae	381.1177586716
+PWY-5973: cis-vaccenate biosynthesis	772.1175500963
+PWY-5973: cis-vaccenate biosynthesis|g__Streptococcus.s__Streptococcus_pneumoniae	596.5348893847
+PWY-5973: cis-vaccenate biosynthesis|g__Streptococcus.s__Streptococcus_pseudopneumoniae	33.2831910833
+PWY-5973: cis-vaccenate biosynthesis|g__Streptococcus.s__Streptococcus_mitis	30.7909873397
+PWY-5973: cis-vaccenate biosynthesis|unclassified	12.2922251695
+PWY-5971: palmitate biosynthesis (type II fatty acid synthase)	768.7598924856
+PWY-5971: palmitate biosynthesis (type II fatty acid synthase)|g__Streptococcus.s__Streptococcus_pneumoniae	17.7159948429
+PWY-7388: octanoyl-[acyl-carrier protein] biosynthesis (mitochondria, yeast)	751.9195361279
+PWY-5989: stearate biosynthesis II (bacteria and plants)	751.3616599367
+PWY-5989: stearate biosynthesis II (bacteria and plants)|g__Streptococcus.s__Streptococcus_pneumoniae	464.6570797712
+PWY-5989: stearate biosynthesis II (bacteria and plants)|unclassified	14.2595986431
+PWY66-430: myristate biosynthesis (mitochondria)	745.2111596051
+PWY-7664: oleate biosynthesis IV (anaerobic)	721.4037624027
+PWY-7664: oleate biosynthesis IV (anaerobic)|g__Streptococcus.s__Streptococcus_pneumoniae	19.2784886297
+PWY-7664: oleate biosynthesis IV (anaerobic)|unclassified	13.3389646651
+PWY-4041: &gamma;-glutamyl cycle	712.6643056761
+PWY-4041: &gamma;-glutamyl cycle|g__Streptococcus.s__Streptococcus_pneumoniae	305.5577849313
+PWY-4041: &gamma;-glutamyl cycle|g__Streptococcus.s__Streptococcus_salivarius	66.9773782368
+P185-PWY: formaldehyde assimilation III (dihydroxyacetone cycle)	705.3083552960
+P185-PWY: formaldehyde assimilation III (dihydroxyacetone cycle)|g__Streptococcus.s__Streptococcus_pneumoniae	56.9490431480
+PWY-6282: palmitoleate biosynthesis I (from (5Z)-dodec-5-enoate)	683.4360277710
+PWY-6282: palmitoleate biosynthesis I (from (5Z)-dodec-5-enoate)|g__Streptococcus.s__Streptococcus_pneumoniae	20.5444238546
+PWY-6282: palmitoleate biosynthesis I (from (5Z)-dodec-5-enoate)|unclassified	13.6917481718
+PWY-6284: superpathway of unsaturated fatty acids biosynthesis (E. coli)	683.0112160019
+PWY-6284: superpathway of unsaturated fatty acids biosynthesis (E. coli)|g__Streptococcus.s__Streptococcus_pneumoniae	21.1056054125
+PWY-561: superpathway of glyoxylate cycle and fatty acid degradation	682.5530345338
+PWY-561: superpathway of glyoxylate cycle and fatty acid degradation|unclassified	85.9222330835
+PWY0-862: (5Z)-dodecenoate biosynthesis I	665.7243793690
+PWY0-862: (5Z)-dodecenoate biosynthesis I|g__Streptococcus.s__Streptococcus_pneumoniae	40.0204312300
+PWY0-862: (5Z)-dodecenoate biosynthesis I|g__Streptococcus.s__Streptococcus_pseudopneumoniae	23.3966154288
+PWY0-862: (5Z)-dodecenoate biosynthesis I|unclassified	11.5529197465
+PWY0-862: (5Z)-dodecenoate biosynthesis I|g__Streptococcus.s__Streptococcus_mitis	7.8269720142
+PANTOSYN-PWY: superpathway of coenzyme A biosynthesis I (bacteria)	663.7151651023
+PANTOSYN-PWY: superpathway of coenzyme A biosynthesis I (bacteria)|g__Corynebacterium.s__Corynebacterium_resistens	66.9945507220
+PANTOSYN-PWY: superpathway of coenzyme A biosynthesis I (bacteria)|g__Staphylococcus.s__Staphylococcus_capitis	62.0861428561
+PANTOSYN-PWY: superpathway of coenzyme A biosynthesis I (bacteria)|g__Staphylococcus.s__Staphylococcus_aureus	59.9818087613
+PANTOSYN-PWY: superpathway of coenzyme A biosynthesis I (bacteria)|g__Streptococcus.s__Streptococcus_pneumoniae	49.2719335372
+PANTOSYN-PWY: superpathway of coenzyme A biosynthesis I (bacteria)|g__Staphylococcus.s__Staphylococcus_epidermidis	25.2470438649
+PWY-5367: petroselinate biosynthesis	660.1004605550
+PWY-5367: petroselinate biosynthesis|g__Streptococcus.s__Streptococcus_pneumoniae	555.9079459096
+PWY-5840: superpathway of menaquinol-7 biosynthesis	653.5465553631
+PWY-5840: superpathway of menaquinol-7 biosynthesis|g__Streptococcus.s__Streptococcus_pneumoniae	9.8655129142
+PWY-5897: superpathway of menaquinol-11 biosynthesis	651.3772424537
+PWY-5897: superpathway of menaquinol-11 biosynthesis|g__Streptococcus.s__Streptococcus_pneumoniae	9.6577196765
+PWY-5898: superpathway of menaquinol-12 biosynthesis	651.3772424537
+PWY-5898: superpathway of menaquinol-12 biosynthesis|g__Streptococcus.s__Streptococcus_pneumoniae	9.6577196765
+PWY-5899: superpathway of menaquinol-13 biosynthesis	651.3772424537
+PWY-5899: superpathway of menaquinol-13 biosynthesis|g__Streptococcus.s__Streptococcus_pneumoniae	9.6577196765
+PWY-5189: tetrapyrrole biosynthesis II (from glycine)	642.4304448272
+PWY-5189: tetrapyrrole biosynthesis II (from glycine)|g__Staphylococcus.s__Staphylococcus_capitis	378.2318421763
+PWY-5189: tetrapyrrole biosynthesis II (from glycine)|g__Corynebacterium.s__Corynebacterium_resistens	53.9218584935
+PWY-5189: tetrapyrrole biosynthesis II (from glycine)|g__Staphylococcus.s__Staphylococcus_epidermidis	53.3431324784
+PWY-5189: tetrapyrrole biosynthesis II (from glycine)|g__Staphylococcus.s__Staphylococcus_aureus	18.4221437992
+NONMEVIPP-PWY: methylerythritol phosphate pathway I	621.7954342692
+NONMEVIPP-PWY: methylerythritol phosphate pathway I|g__Cutibacterium.s__Cutibacterium_acnes	168.4936291042
+NONMEVIPP-PWY: methylerythritol phosphate pathway I|g__Micrococcus.s__Micrococcus_luteus	22.5554898117
+NONMEVIPP-PWY: methylerythritol phosphate pathway I|g__Micrococcus.s__Micrococcus_aloeverae	14.8866747825
+PWY-7356: thiamine diphosphate salvage IV (yeast)	618.6231017327
+PWY-7356: thiamine diphosphate salvage IV (yeast)|g__Streptococcus.s__Streptococcus_pneumoniae	264.3761825036
+PWY-7356: thiamine diphosphate salvage IV (yeast)|unclassified	20.6664387949
+PWY-7356: thiamine diphosphate salvage IV (yeast)|g__Streptococcus.s__Streptococcus_pseudopneumoniae	10.5917404701
+COA-PWY-1: superpathway of coenzyme A biosynthesis III (mammals)	607.7894016481
+COA-PWY-1: superpathway of coenzyme A biosynthesis III (mammals)|g__Staphylococcus.s__Staphylococcus_capitis	86.8316903105
+COA-PWY-1: superpathway of coenzyme A biosynthesis III (mammals)|g__Staphylococcus.s__Staphylococcus_lugdunensis	61.8160707259
+COA-PWY-1: superpathway of coenzyme A biosynthesis III (mammals)|g__Corynebacterium.s__Corynebacterium_resistens	52.5580155262
+COA-PWY-1: superpathway of coenzyme A biosynthesis III (mammals)|g__Streptococcus.s__Streptococcus_pneumoniae	36.9503384307
+COA-PWY-1: superpathway of coenzyme A biosynthesis III (mammals)|g__Cutibacterium.s__Cutibacterium_acnes	24.5659047184
+COA-PWY-1: superpathway of coenzyme A biosynthesis III (mammals)|g__Staphylococcus.s__Staphylococcus_epidermidis	19.6053901557
+COA-PWY-1: superpathway of coenzyme A biosynthesis III (mammals)|g__Streptococcus.s__Streptococcus_mitis	11.5063875209
+PWY-7357: thiamine phosphate formation from pyrithiamine and oxythiamine (yeast)	603.9194361329
+PWY-7357: thiamine phosphate formation from pyrithiamine and oxythiamine (yeast)|g__Streptococcus.s__Streptococcus_pneumoniae	274.6030992656
+PWY-7357: thiamine phosphate formation from pyrithiamine and oxythiamine (yeast)|g__Cutibacterium.s__Cutibacterium_acnes	86.4722569008
+PWY-7357: thiamine phosphate formation from pyrithiamine and oxythiamine (yeast)|g__Staphylococcus.s__Staphylococcus_epidermidis	72.0733298210
+PWY-7357: thiamine phosphate formation from pyrithiamine and oxythiamine (yeast)|g__Streptococcus.s__Streptococcus_mitis	38.2031964810
+PWY-7357: thiamine phosphate formation from pyrithiamine and oxythiamine (yeast)|unclassified	14.1875579351
+PWY-7357: thiamine phosphate formation from pyrithiamine and oxythiamine (yeast)|g__Streptococcus.s__Streptococcus_oralis	9.6288394208
+PWY-7357: thiamine phosphate formation from pyrithiamine and oxythiamine (yeast)|g__Staphylococcus.s__Staphylococcus_capitis	9.3860027361
+PWY-7357: thiamine phosphate formation from pyrithiamine and oxythiamine (yeast)|g__Streptococcus.s__Streptococcus_pseudopneumoniae	1.9815945741
+UDPNACETYLGALSYN-PWY: UDP-N-acetyl-D-glucosamine biosynthesis II	597.1854174632
+UDPNACETYLGALSYN-PWY: UDP-N-acetyl-D-glucosamine biosynthesis II|g__Streptococcus.s__Streptococcus_pneumoniae	460.4995184130
+THISYNARA-PWY: superpathway of thiamine diphosphate biosynthesis III (eukaryotes)	592.5141770960
+PWY-6147: 6-hydroxymethyl-dihydropterin diphosphate biosynthesis I	572.2190035541
+PWY-6147: 6-hydroxymethyl-dihydropterin diphosphate biosynthesis I|g__Streptococcus.s__Streptococcus_pneumoniae	144.3990719177
+PWY-6147: 6-hydroxymethyl-dihydropterin diphosphate biosynthesis I|g__Cutibacterium.s__Cutibacterium_acnes	104.7522043307
+PWY-6147: 6-hydroxymethyl-dihydropterin diphosphate biosynthesis I|g__Staphylococcus.s__Staphylococcus_aureus	61.0542716827
+PWY-6147: 6-hydroxymethyl-dihydropterin diphosphate biosynthesis I|unclassified	6.2367106511
+PWY-6147: 6-hydroxymethyl-dihydropterin diphosphate biosynthesis I|g__Streptococcus.s__Streptococcus_mitis	2.6144908461
+PWY-I9: L-cysteine biosynthesis VI (from L-methionine)	565.0939350545
+PWY-I9: L-cysteine biosynthesis VI (from L-methionine)|g__Streptococcus.s__Streptococcus_pneumoniae	222.8177142258
+PWY-I9: L-cysteine biosynthesis VI (from L-methionine)|g__Staphylococcus.s__Staphylococcus_capitis	61.9047632939
+PWY-I9: L-cysteine biosynthesis VI (from L-methionine)|g__Streptococcus.s__Streptococcus_salivarius	36.8747233059
+PWY-6317: D-galactose degradation I (Leloir pathway)	563.7614437908
+PWY-6317: D-galactose degradation I (Leloir pathway)|g__Streptococcus.s__Streptococcus_pneumoniae	293.7993821998
+PWY-6317: D-galactose degradation I (Leloir pathway)|g__Streptococcus.s__Streptococcus_salivarius	22.6814578536
+PWY-6317: D-galactose degradation I (Leloir pathway)|g__Streptococcus.s__Streptococcus_pseudopneumoniae	7.5776200699
+PWY-6317: D-galactose degradation I (Leloir pathway)|unclassified	6.6610715192
+PWY-6317: D-galactose degradation I (Leloir pathway)|g__Streptococcus.s__Streptococcus_mitis	3.8091470957
+ASPASN-PWY: superpathway of L-aspartate and L-asparagine biosynthesis	545.7602237270
+ASPASN-PWY: superpathway of L-aspartate and L-asparagine biosynthesis|g__Corynebacterium.s__Corynebacterium_resistens	146.5680729059
+ASPASN-PWY: superpathway of L-aspartate and L-asparagine biosynthesis|g__Streptococcus.s__Streptococcus_pneumoniae	101.4433150764
+ASPASN-PWY: superpathway of L-aspartate and L-asparagine biosynthesis|g__Streptococcus.s__Streptococcus_mitis	23.1836235995
+ASPASN-PWY: superpathway of L-aspartate and L-asparagine biosynthesis|g__Staphylococcus.s__Staphylococcus_epidermidis	11.2275279544
+ASPASN-PWY: superpathway of L-aspartate and L-asparagine biosynthesis|unclassified	10.5104112106
+ASPASN-PWY: superpathway of L-aspartate and L-asparagine biosynthesis|g__Streptococcus.s__Streptococcus_pseudopneumoniae	6.7272909342
+PWY-6285: superpathway of fatty acids biosynthesis (E. coli)	529.3994263575
+PWY-6285: superpathway of fatty acids biosynthesis (E. coli)|g__Streptococcus.s__Streptococcus_pneumoniae	20.1945913334
+PWY-5138: fatty acid &beta;-oxidation IV (unsaturated, even number)	514.0410066747
+PWY-5138: fatty acid &beta;-oxidation IV (unsaturated, even number)|unclassified	32.3280209217
+GLCMANNANAUT-PWY: superpathway of N-acetylglucosamine, N-acetylmannosamine and N-acetylneuraminate degradation	494.8105247798
+GLCMANNANAUT-PWY: superpathway of N-acetylglucosamine, N-acetylmannosamine and N-acetylneuraminate degradation|g__Streptococcus.s__Streptococcus_pneumoniae	192.0373679467
+GLCMANNANAUT-PWY: superpathway of N-acetylglucosamine, N-acetylmannosamine and N-acetylneuraminate degradation|g__Streptococcus.s__Streptococcus_mitis	3.9050528849
+PWY-241: C4 photosynthetic carbon assimilation cycle, NADP-ME type	493.4782526616
+FOLSYN-PWY: superpathway of tetrahydrofolate biosynthesis and salvage	480.4559277480
+FOLSYN-PWY: superpathway of tetrahydrofolate biosynthesis and salvage|g__Streptococcus.s__Streptococcus_pneumoniae	39.3101031628
+FOLSYN-PWY: superpathway of tetrahydrofolate biosynthesis and salvage|unclassified	18.6904762669
+PWY-6897: thiamine diphosphate salvage II	477.0879792125
+PWY-6897: thiamine diphosphate salvage II|g__Streptococcus.s__Streptococcus_pneumoniae	218.3842803754
+PWY-6897: thiamine diphosphate salvage II|g__Cutibacterium.s__Cutibacterium_acnes	27.2990713833
+PWY-6897: thiamine diphosphate salvage II|g__Streptococcus.s__Streptococcus_mitis	17.0178730754
+PWY-6897: thiamine diphosphate salvage II|unclassified	10.5136283887
+SULFATE-CYS-PWY: superpathway of sulfate assimilation and cysteine biosynthesis	475.0860051017
+SULFATE-CYS-PWY: superpathway of sulfate assimilation and cysteine biosynthesis|g__Staphylococcus.s__Staphylococcus_capitis	35.5138055705
+PWY0-1319: CDP-diacylglycerol biosynthesis II	465.4381363847
+PWY0-1319: CDP-diacylglycerol biosynthesis II|g__Streptococcus.s__Streptococcus_salivarius	217.6631101356
+PWY0-1319: CDP-diacylglycerol biosynthesis II|g__Streptococcus.s__Streptococcus_pneumoniae	88.5521723983
+PWY0-1319: CDP-diacylglycerol biosynthesis II|g__Corynebacterium.s__Corynebacterium_resistens	62.3622266428
+PWY0-1319: CDP-diacylglycerol biosynthesis II|unclassified	11.4406416365
+PANTO-PWY: phosphopantothenate biosynthesis I	458.9307444676
+PANTO-PWY: phosphopantothenate biosynthesis I|g__Streptococcus.s__Streptococcus_pneumoniae	93.6707199475
+PANTO-PWY: phosphopantothenate biosynthesis I|g__Staphylococcus.s__Staphylococcus_aureus	64.6815563231
+PANTO-PWY: phosphopantothenate biosynthesis I|g__Corynebacterium.s__Corynebacterium_resistens	48.8882640528
+PANTO-PWY: phosphopantothenate biosynthesis I|g__Staphylococcus.s__Staphylococcus_capitis	44.5574788388
+PANTO-PWY: phosphopantothenate biosynthesis I|g__Staphylococcus.s__Staphylococcus_epidermidis	32.9267897498
+PANTO-PWY: phosphopantothenate biosynthesis I|unclassified	3.7832420269
+PWY-7198: pyrimidine deoxyribonucleotides de novo biosynthesis IV	454.0132412537
+PWY-7198: pyrimidine deoxyribonucleotides de novo biosynthesis IV|g__Corynebacterium.s__Corynebacterium_resistens	185.7576901487
+PWY-7198: pyrimidine deoxyribonucleotides de novo biosynthesis IV|g__Streptococcus.s__Streptococcus_pneumoniae	15.7636083210
+PWY-5667: CDP-diacylglycerol biosynthesis I	449.5784363198
+PWY-5667: CDP-diacylglycerol biosynthesis I|g__Streptococcus.s__Streptococcus_salivarius	217.6631101356
+PWY-5667: CDP-diacylglycerol biosynthesis I|g__Streptococcus.s__Streptococcus_pneumoniae	88.5521723983
+PWY-5667: CDP-diacylglycerol biosynthesis I|g__Corynebacterium.s__Corynebacterium_resistens	62.3622266428
+PWY-5667: CDP-diacylglycerol biosynthesis I|unclassified	6.3799338899
+PWY-6270: isoprene biosynthesis I	433.3286909056
+PWY-6270: isoprene biosynthesis I|g__Cutibacterium.s__Cutibacterium_acnes	122.4706523623
+PWY0-1479: tRNA processing	412.8458725692
+PWY-7560: methylerythritol phosphate pathway II	407.1412336984
+PWY-7560: methylerythritol phosphate pathway II|g__Cutibacterium.s__Cutibacterium_acnes	114.3090523440
+PWY-2942: L-lysine biosynthesis III	402.1899479307
+PWY-2942: L-lysine biosynthesis III|g__Streptococcus.s__Streptococcus_pneumoniae	106.1755789802
+PWY-2942: L-lysine biosynthesis III|g__Micrococcus.s__Micrococcus_aloeverae	37.9627608287
+PWY-5837: 2-carboxy-1,4-naphthoquinol biosynthesis	399.6752364897
+PWY-5837: 2-carboxy-1,4-naphthoquinol biosynthesis|g__Streptococcus.s__Streptococcus_pneumoniae	23.5846523686
+ARGSYN-PWY: L-arginine biosynthesis I (via L-ornithine)	384.2200891783
+ARGSYN-PWY: L-arginine biosynthesis I (via L-ornithine)|g__Streptococcus.s__Streptococcus_pneumoniae	49.1882902505
+ARGSYN-PWY: L-arginine biosynthesis I (via L-ornithine)|g__Corynebacterium.s__Corynebacterium_resistens	29.5473184628
+ARGSYN-PWY: L-arginine biosynthesis I (via L-ornithine)|g__Streptococcus.s__Streptococcus_salivarius	14.3517005652
+PWY-7115: C4 photosynthetic carbon assimilation cycle, NAD-ME type	378.6789009628
+PWY-7282: 4-amino-2-methyl-5-diphosphomethylpyrimidine biosynthesis II	369.3402027700
+GLYCOCAT-PWY: glycogen degradation I	359.4627912400
+GLYCOCAT-PWY: glycogen degradation I|unclassified	17.4867201129
+FAO-PWY: fatty acid &beta;-oxidation I (generic)	357.8802543373
+FAO-PWY: fatty acid &beta;-oxidation I (generic)|unclassified	57.9125109798
+PWY-5675: nitrate reduction V (assimilatory)	347.7891049743
+PWY-5675: nitrate reduction V (assimilatory)|g__Streptococcus.s__Streptococcus_pneumoniae	18.0429519953
+SO4ASSIM-PWY: assimilatory sulfate reduction I	337.6182791694
+SO4ASSIM-PWY: assimilatory sulfate reduction I|g__Staphylococcus.s__Staphylococcus_capitis	246.7582008856
+SO4ASSIM-PWY: assimilatory sulfate reduction I|g__Staphylococcus.s__Staphylococcus_epidermidis	16.3327707907
+PWY-6612: superpathway of tetrahydrofolate biosynthesis	329.8906917216
+PWY-6612: superpathway of tetrahydrofolate biosynthesis|g__Streptococcus.s__Streptococcus_pneumoniae	26.7244874721
+PWY-6612: superpathway of tetrahydrofolate biosynthesis|unclassified	16.0740329740
+PWY-6612: superpathway of tetrahydrofolate biosynthesis|g__Streptococcus.s__Streptococcus_mitis	9.6475334657
+PWY-8182: valproate &beta;-oxidation	328.2888174681
+PWY-6292: superpathway of L-cysteine biosynthesis (mammalian)	326.8291523695
+PWY-6292: superpathway of L-cysteine biosynthesis (mammalian)|g__Streptococcus.s__Streptococcus_pneumoniae	88.9228270125
+PWY-6292: superpathway of L-cysteine biosynthesis (mammalian)|g__Corynebacterium.s__Corynebacterium_resistens	45.9327935717
+PWY-6292: superpathway of L-cysteine biosynthesis (mammalian)|g__Micrococcus.s__Micrococcus_luteus	37.3827186836
+PWY-6292: superpathway of L-cysteine biosynthesis (mammalian)|g__Micrococcus.s__Micrococcus_aloeverae	17.4827806016
+PWY-7400: L-arginine biosynthesis IV (archaebacteria)	318.7697081986
+PWY-6549: L-glutamine biosynthesis III	318.3801902110
+PWY-6901: superpathway of glucose and xylose degradation	312.2786167646
+P4-PWY: superpathway of L-lysine, L-threonine and L-methionine biosynthesis I	298.6008581066
+PWY-5136: fatty acid &beta;-oxidation II (plant peroxisome)	298.1526587977
+PWY-5136: fatty acid &beta;-oxidation II (plant peroxisome)|g__Corynebacterium.s__Corynebacterium_resistens	134.5504305752
+PWY-5136: fatty acid &beta;-oxidation II (plant peroxisome)|unclassified	83.2147287138
+PWY-822: fructan biosynthesis	296.3836366756
+PWY-822: fructan biosynthesis|g__Streptococcus.s__Streptococcus_pneumoniae	152.8603424895
+PWY-822: fructan biosynthesis|g__Streptococcus.s__Streptococcus_salivarius	143.5232941861
+ARGSYNBSUB-PWY: L-arginine biosynthesis II (acetyl cycle)	290.4565207454
+ARGSYNBSUB-PWY: L-arginine biosynthesis II (acetyl cycle)|g__Corynebacterium.s__Corynebacterium_resistens	38.0049314525
+ARGSYNBSUB-PWY: L-arginine biosynthesis II (acetyl cycle)|g__Streptococcus.s__Streptococcus_pneumoniae	37.5920664320
+ARGSYNBSUB-PWY: L-arginine biosynthesis II (acetyl cycle)|g__Streptococcus.s__Streptococcus_salivarius	12.1116634826
+PWY0-1061: superpathway of L-alanine biosynthesis	280.3610106590
+PWY0-1061: superpathway of L-alanine biosynthesis|g__Micrococcus.s__Micrococcus_luteus	22.7017638828
+PWY0-1061: superpathway of L-alanine biosynthesis|unclassified	10.6901415866
+PWY-7396: butanol and isobutanol biosynthesis (engineered)	278.1922953860
+PWY-5920: superpathway of heme b biosynthesis from glycine	275.5385695469
+METHGLYUT-PWY: superpathway of methylglyoxal degradation	275.1331508016
+METHGLYUT-PWY: superpathway of methylglyoxal degradation|g__Staphylococcus.s__Staphylococcus_aureus	203.4062172422
+PWY-6703: preQ0 biosynthesis	261.1796060206
+PWY-6703: preQ0 biosynthesis|g__Staphylococcus.s__Staphylococcus_aureus	89.5793992822
+PWY-6703: preQ0 biosynthesis|g__Streptococcus.s__Streptococcus_salivarius	64.1709998620
+PWY-6703: preQ0 biosynthesis|g__Staphylococcus.s__Staphylococcus_capitis	21.7781931797
+PWY-6703: preQ0 biosynthesis|g__Streptococcus.s__Streptococcus_pneumoniae	13.9036313180
+PWY-6703: preQ0 biosynthesis|g__Streptococcus.s__Streptococcus_mitis	3.3538959094
+PWY4FS-7: phosphatidylglycerol biosynthesis I (plastidic)	244.9305188684
+PWY4FS-7: phosphatidylglycerol biosynthesis I (plastidic)|g__Streptococcus.s__Streptococcus_pneumoniae	106.3286700113
+PWY4FS-7: phosphatidylglycerol biosynthesis I (plastidic)|g__Streptococcus.s__Streptococcus_salivarius	8.6657181644
+PWY4FS-8: phosphatidylglycerol biosynthesis II (non-plastidic)	243.4242137354
+PWY4FS-8: phosphatidylglycerol biosynthesis II (non-plastidic)|g__Streptococcus.s__Streptococcus_pneumoniae	106.3286700113
+PWY4FS-8: phosphatidylglycerol biosynthesis II (non-plastidic)|g__Streptococcus.s__Streptococcus_salivarius	8.6657181644
+PWY-7200: superpathway of pyrimidine deoxyribonucleoside salvage	233.7208717044
+PWY-7200: superpathway of pyrimidine deoxyribonucleoside salvage|g__Staphylococcus.s__Staphylococcus_capitis	74.1682354106
+PWY-7200: superpathway of pyrimidine deoxyribonucleoside salvage|g__Staphylococcus.s__Staphylococcus_epidermidis	32.2142904479
+PWY66-391: fatty acid &beta;-oxidation VI (mammalian peroxisome)	232.7395548292
+PWY-801: homocysteine and cysteine interconversion	222.0216229450
+PWY-801: homocysteine and cysteine interconversion|g__Streptococcus.s__Streptococcus_pneumoniae	34.7862613701
+PWY-922: mevalonate pathway I (eukaryotes and bacteria)	207.1233327129
+PWY-922: mevalonate pathway I (eukaryotes and bacteria)|g__Streptococcus.s__Streptococcus_pneumoniae	42.8052127520
+PWY-5695: inosine 5'-phosphate degradation	203.0574741086
+PWY-5695: inosine 5'-phosphate degradation|g__Streptococcus.s__Streptococcus_pneumoniae	60.9258745235
+PWY-5695: inosine 5'-phosphate degradation|g__Staphylococcus.s__Staphylococcus_aureus	54.7244875051
+PWY-5695: inosine 5'-phosphate degradation|g__Corynebacterium.s__Corynebacterium_resistens	37.5565049667
+PWY-5695: inosine 5'-phosphate degradation|g__Streptococcus.s__Streptococcus_salivarius	15.4635490063
+PWY-5695: inosine 5'-phosphate degradation|g__Staphylococcus.s__Staphylococcus_epidermidis	15.2234880738
+PWY-5695: inosine 5'-phosphate degradation|unclassified	3.4994224474
+PWY-5345: superpathway of L-methionine biosynthesis (by sulfhydrylation)	200.9761491376
+PWY-5347: superpathway of L-methionine biosynthesis (transsulfuration)	193.7418646357
+PWY-702: L-methionine biosynthesis II	192.8381690140
+PWY-702: L-methionine biosynthesis II|g__Staphylococcus.s__Staphylococcus_capitis	53.8130395459
+PWY-702: L-methionine biosynthesis II|g__Staphylococcus.s__Staphylococcus_epidermidis	40.9340152672
+PWY-702: L-methionine biosynthesis II|g__Corynebacterium.s__Corynebacterium_resistens	28.3500058610
+PWY-702: L-methionine biosynthesis II|g__Streptococcus.s__Streptococcus_pneumoniae	12.2730295437
+PWY-7858: (5Z)-dodecenoate biosynthesis II	187.2890293543
+PWY-7858: (5Z)-dodecenoate biosynthesis II|g__Streptococcus.s__Streptococcus_pneumoniae	11.9344245787
+PWY-7858: (5Z)-dodecenoate biosynthesis II|unclassified	9.4201817912
+RUMP-PWY: formaldehyde oxidation I	180.8747459282
+PWY-6700: queuosine biosynthesis I (de novo)	177.3464065644
+PWY-6700: queuosine biosynthesis I (de novo)|g__Streptococcus.s__Streptococcus_pneumoniae	58.2032214755
+PWY-6700: queuosine biosynthesis I (de novo)|g__Staphylococcus.s__Staphylococcus_capitis	52.9429173103
+PWY-6700: queuosine biosynthesis I (de novo)|g__Staphylococcus.s__Staphylococcus_epidermidis	37.4584871971
+PWY-6700: queuosine biosynthesis I (de novo)|g__Staphylococcus.s__Staphylococcus_lugdunensis	22.0468461212
+PWY-6700: queuosine biosynthesis I (de novo)|g__Staphylococcus.s__Staphylococcus_aureus	10.8650526005
+PWY-6700: queuosine biosynthesis I (de novo)|unclassified	8.6690223570
+MET-SAM-PWY: superpathway of S-adenosyl-L-methionine biosynthesis	171.8123209567
+PWY1G-0: mycothiol biosynthesis	171.6783633756
+PWY1G-0: mycothiol biosynthesis|g__Corynebacterium.s__Corynebacterium_resistens	86.0198627064
+PWY1G-0: mycothiol biosynthesis|g__Streptococcus.s__Streptococcus_pneumoniae	37.1957767320
+PWY1G-0: mycothiol biosynthesis|g__Micrococcus.s__Micrococcus_luteus	4.4316580290
+PWY-6936: seleno-amino acid biosynthesis (plants)	171.6698385532
+PWY-6936: seleno-amino acid biosynthesis (plants)|g__Staphylococcus.s__Staphylococcus_capitis	87.0032189175
+PWY-6936: seleno-amino acid biosynthesis (plants)|g__Staphylococcus.s__Staphylococcus_epidermidis	37.1770252825
+PWY-6936: seleno-amino acid biosynthesis (plants)|g__Corynebacterium.s__Corynebacterium_resistens	31.1861453866
+PWY-6936: seleno-amino acid biosynthesis (plants)|g__Streptococcus.s__Streptococcus_pneumoniae	8.4708040342
+METSYN-PWY: superpathway of L-homoserine and L-methionine biosynthesis	170.8446270794
+HEME-BIOSYNTHESIS-II-1: heme b biosynthesis V (aerobic)	165.3994222273
+HEME-BIOSYNTHESIS-II-1: heme b biosynthesis V (aerobic)|g__Streptococcus.s__Streptococcus_pneumoniae	122.8058424530
+PWY-5154: L-arginine biosynthesis III (via N-acetyl-L-citrulline)	160.3263295834
+PWY-821: superpathway of sulfur amino acid biosynthesis (Saccharomyces cerevisiae)	158.0547888862
+PWY-7391: isoprene biosynthesis II (engineered)	152.6537311644
+PWY-6293: superpathway of L-cysteine biosynthesis (fungi)	150.9485209053
+PWY-6293: superpathway of L-cysteine biosynthesis (fungi)|g__Streptococcus.s__Streptococcus_pneumoniae	19.0351793137
+1CMET2-PWY: folate transformations III (E. coli)	149.7766377083
+1CMET2-PWY: folate transformations III (E. coli)|g__Corynebacterium.s__Corynebacterium_resistens	38.5061411188
+1CMET2-PWY: folate transformations III (E. coli)|g__Staphylococcus.s__Staphylococcus_epidermidis	4.4246444505
+PWY-6922: L-N&delta;-acetylornithine biosynthesis	147.3592958920
+GLUTORN-PWY: L-ornithine biosynthesis I	121.1142932685
+GLUTORN-PWY: L-ornithine biosynthesis I|g__Streptococcus.s__Streptococcus_pneumoniae	21.8759463624
+GLUTORN-PWY: L-ornithine biosynthesis I|g__Corynebacterium.s__Corynebacterium_resistens	15.9085377368
+GLUTORN-PWY: L-ornithine biosynthesis I|g__Streptococcus.s__Streptococcus_salivarius	4.1176495943
+HSERMETANA-PWY: L-methionine biosynthesis III	120.5921579811
+HSERMETANA-PWY: L-methionine biosynthesis III|g__Streptococcus.s__Streptococcus_pneumoniae	8.4625699043
+PWY-4984: urea cycle	116.4933205364
+PWY-4984: urea cycle|g__Staphylococcus.s__Staphylococcus_aureus	43.6271894987
+PWY-4984: urea cycle|g__Staphylococcus.s__Staphylococcus_capitis	26.2703829923
+P221-PWY: octane oxidation	111.8371762414
+P221-PWY: octane oxidation|g__Staphylococcus.s__Staphylococcus_epidermidis	38.9570424645
+P221-PWY: octane oxidation|g__Streptococcus.s__Streptococcus_pneumoniae	7.8373117176
+THISYN-PWY: superpathway of thiamine diphosphate biosynthesis I	105.3778099084
+PWY-7337: 10-cis-heptadecenoyl-CoA degradation (yeast)	104.1748021695
+PWY-7338: 10-trans-heptadecenoyl-CoA degradation (reductase-dependent, yeast)	104.1748021695
+HOMOSER-METSYN-PWY: L-methionine biosynthesis I	103.3206029465
+PWY-5505: L-glutamate and L-glutamine biosynthesis	102.6585539984
+P441-PWY: superpathway of N-acetylneuraminate degradation	102.3503160000
+PWY-6920: 6-gingerol analog biosynthesis (engineered)	100.1765694924
+PWY-3801: sucrose degradation II (sucrose synthase)	99.8273654051
+KETOGLUCONMET-PWY: ketogluconate metabolism	99.3492569436
+PWY-7977: L-methionine biosynthesis IV	91.8385664127
+PWY-7977: L-methionine biosynthesis IV|g__Corynebacterium.s__Corynebacterium_resistens	30.8536708969
+PWY-7977: L-methionine biosynthesis IV|g__Staphylococcus.s__Staphylococcus_epidermidis	16.5143754578
+PWY1ZNC-1: assimilatory sulfate reduction IV	89.6178275853
+PWY1ZNC-1: assimilatory sulfate reduction IV|g__Staphylococcus.s__Staphylococcus_capitis	85.1616651092
+PWY-5121: superpathway of geranylgeranyl diphosphate biosynthesis II (via MEP)	82.5393759126
+PWY-6895: superpathway of thiamine diphosphate biosynthesis II	70.0101486076
+PWY0-42: 2-methylcitrate cycle I	66.0526404912
+PWY0-42: 2-methylcitrate cycle I|unclassified	6.0162472624
+POLYISOPRENSYN-PWY: polyisoprenoid biosynthesis (E. coli)	64.8649408478
+POLYISOPRENSYN-PWY: polyisoprenoid biosynthesis (E. coli)|g__Staphylococcus.s__Staphylococcus_aureus	27.2545955507
+PWY-5910: superpathway of geranylgeranyldiphosphate biosynthesis I (via mevalonate)	64.7879580207
+PWY-7392: taxadiene biosynthesis (engineered)	62.5220986014
+PWY4LZ-257: superpathway of fermentation (Chlamydomonas reinhardtii)	61.0210077044
+PWY-8004: Entner-Doudoroff pathway I	60.1031024724
+PYRIDNUCSYN-PWY: NAD de novo biosynthesis I (from aspartate)	58.4169401778
+GLYCOLYSIS-E-D: superpathway of glycolysis and the Entner-Doudoroff pathway	56.2755178000
+PHOSLIPSYN-PWY: superpathway of phospholipid biosynthesis I (bacteria)	56.1155874240
+PWY-8011: L-serine biosynthesis II	54.4948090686
+PWY-7340: 9-cis, 11-trans-octadecadienoyl-CoA degradation (isomerase-dependent, yeast)	52.4458581648
+PYRIDNUCSAL-PWY: NAD salvage pathway I (PNC VI cycle)	41.2026849990
+PWY-6531: mannitol cycle	41.0058293885
+PWY-6527: stachyose degradation	35.4982542448
+PWY-6527: stachyose degradation|g__Streptococcus.s__Streptococcus_pneumoniae	9.8643714643
+PWY-6527: stachyose degradation|g__Streptococcus.s__Streptococcus_pseudopneumoniae	3.1165054833
+PWY-6527: stachyose degradation|g__Streptococcus.s__Streptococcus_mitis	2.9717567046
+PWY-6859: all-trans-farnesol biosynthesis	33.4060279645
+PWY-6859: all-trans-farnesol biosynthesis|g__Staphylococcus.s__Staphylococcus_aureus	18.2369303079
+PWY3O-4107: NAD salvage pathway V (PNC V cycle)	33.3317847379
+PWY-6892: thiazole component of thiamine diphosphate biosynthesis I	33.2486181694
+PWY0-1337: oleate &beta;-oxidation	33.2366810254
+PWY0-1337: oleate &beta;-oxidation|unclassified	26.6128864689
+PWY-7094: fatty acid salvage	32.2123852650
+PWY-7094: fatty acid salvage|unclassified	24.8547240874
+PWY-7761: NAD salvage pathway II (PNC IV cycle)	29.6481825773
+LIPASYN-PWY: phospholipases	28.5714285714
+LIPASYN-PWY: phospholipases|g__Staphylococcus.s__Staphylococcus_aureus	28.5714285714
+P161-PWY: acetylene degradation (anaerobic)	28.2499328843
+P161-PWY: acetylene degradation (anaerobic)|unclassified	26.0457073942
+PWY0-1477: ethanolamine utilization	28.2499328843
+PWY0-1477: ethanolamine utilization|unclassified	26.0457073942
+PWY-5028: L-histidine degradation II	25.3830973379
+PWY-6837: fatty acid &beta;-oxidation V (unsaturated, odd number, di-isomerase-dependent)	25.2814967083
+PWY-5415: catechol degradation I (meta-cleavage pathway)	24.2766102294
+PWY0-166: superpathway of pyrimidine deoxyribonucleotides de novo biosynthesis (E. coli)	21.0356530251
+GLYCOLYSIS-TCA-GLYOX-BYPASS: superpathway of glycolysis, pyruvate dehydrogenase, TCA, and glyoxylate bypass	19.1432179188
+PWY-7184: pyrimidine deoxyribonucleotides de novo biosynthesis I	18.9700106290
+PWY-7242: D-fructuronate degradation	18.6241857550
+PWY-7242: D-fructuronate degradation|unclassified	9.3282976163
+AST-PWY: L-arginine degradation II (AST pathway)	18.1670133619
+AST-PWY: L-arginine degradation II (AST pathway)|unclassified	10.5640604201
+PWY-6545: pyrimidine deoxyribonucleotides de novo biosynthesis III	18.0142071697
+P122-PWY: heterolactic fermentation	17.4462617052
+GOLPDLCAT-PWY: superpathway of glycerol degradation to 1,3-propanediol	15.9332306319
+FUCCAT-PWY: fucose degradation	12.2573486901
+GLYCOL-GLYOXDEG-PWY: superpathway of glycol metabolism and degradation	9.3252373322
+GLYCOL-GLYOXDEG-PWY: superpathway of glycol metabolism and degradation|unclassified	9.2112814363
+PWY-5747: 2-methylcitrate cycle II	9.2703145701
+GLUCUROCAT-PWY: superpathway of &beta;-D-glucuronosides degradation	7.6352002673
+GLUCUROCAT-PWY: superpathway of &beta;-D-glucuronosides degradation|unclassified	6.4659282464
