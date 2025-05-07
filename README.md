@@ -11,7 +11,7 @@ To run the scripts, clone this repository, download the large datasets from figs
 
 ## Raw data availability
 
-Raw sequencing data has been uploaded to the European Nucleotide Archive (ENA), under project accession number PRJEB82796. \
+Raw sequencing data has been uploaded to the European Nucleotide Archive (ENA), under project accession number PRJEB89273. \
 Large datasets and annotations have been uploaded to figshare [here](https://figshare.com/projects/Skin_metatranscriptomics_manuscript_2024/202683).
 
 ## Contact

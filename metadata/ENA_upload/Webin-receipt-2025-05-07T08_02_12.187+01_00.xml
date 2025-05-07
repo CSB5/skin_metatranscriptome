@@ -1,0 +1,1003 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="receipt.xsl"?>
+<RECEIPT receiptDate="2025-05-07T08:02:12.187+01:00" submissionFile="submission-GENOME INSTITUTE OF SINGAPORE_1746601332187.xml" success="true">
+     <SAMPLE accession="ERS24436189" alias="MHS328_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254826" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436190" alias="MHS329_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254827" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436191" alias="MHS330_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254828" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436192" alias="MHS331_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254829" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436193" alias="MHS332_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254830" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436194" alias="MHS333_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254831" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436195" alias="MHS334_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254832" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436196" alias="MHS335_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254833" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436197" alias="MHS336_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254834" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436198" alias="MHS337_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254835" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436199" alias="MHS338_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254836" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436200" alias="MHS372_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254837" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436201" alias="MHS373_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254838" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436202" alias="MHS374_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254839" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436203" alias="MHS375_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254840" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436204" alias="MHS376_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254841" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436205" alias="MHS377_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254842" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436206" alias="MHS378_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254843" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436207" alias="MHS379_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254844" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436208" alias="MHS380_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254845" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436209" alias="MHS406_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254846" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436210" alias="SMT028_T1_Ac_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254847" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436211" alias="SMT028_T1_Ch_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254848" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436212" alias="SMT028_T1_Sc_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254849" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436213" alias="SMT028_T1_Tw_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254850" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436214" alias="SMT028_T1_Vf_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254851" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436215" alias="SMT028_T2_Ch_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254852" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436216" alias="SMT028_T2_Sc_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254853" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436217" alias="SMT028_T2_Tw_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254854" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436218" alias="SMT028_T2_Vf_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254855" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436219" alias="SMT028_T3_Ch_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254856" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436220" alias="SMT028_T3_Sc_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254857" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436221" alias="SMT028_T3_Tw_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254858" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436222" alias="SMT029_T1_Ac_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254859" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436223" alias="SMT029_T1_Ch_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254860" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436224" alias="SMT029_T1_Sc_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254861" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436225" alias="SMT029_T1_Tw_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254862" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436226" alias="SMT029_T1_Vf_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254863" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436227" alias="SMT029_T2_Ac_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254864" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436228" alias="SMT029_T2_Ch_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254865" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436229" alias="SMT029_T2_Sc_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254866" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436230" alias="SMT029_T2_Tw_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254867" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436231" alias="SMT029_T2_Vf_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254868" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436232" alias="SMT029_T3_Ac_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254869" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436233" alias="SMT029_T3_Ch_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254870" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436234" alias="SMT029_T3_Sc_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254871" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436235" alias="SMT029_T3_Tw_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254872" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436236" alias="SMT029_T3_Vf_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254873" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436237" alias="SMT030_T1_Ac_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254874" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436238" alias="SMT030_T1_Ch_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254875" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436239" alias="SMT030_T1_Sc_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254876" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436240" alias="SMT030_T1_Tw_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254877" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436241" alias="SMT030_T1_Vf_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254878" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436242" alias="SMT030_T2_Ac_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254879" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436243" alias="SMT030_T2_Ch_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254880" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436244" alias="SMT030_T2_Sc_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254881" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436245" alias="SMT030_T2_Tw_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254882" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436246" alias="SMT030_T2_Vf_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254883" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436247" alias="SMT030_T3_Ac_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254884" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436248" alias="SMT030_T3_Ch_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254885" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436249" alias="SMT030_T3_Sc_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254886" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436250" alias="SMT030_T3_Tw_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254887" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436251" alias="SMT030_T3_Vf_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254888" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436252" alias="MHS339_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254889" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436253" alias="MHS340_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254890" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436254" alias="MHS341_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254891" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436255" alias="MHS342_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254892" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436256" alias="MHS343_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254893" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436257" alias="MHS344_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254894" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436258" alias="MHS345_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254895" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436259" alias="MHS346_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254896" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436260" alias="MHS347_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254897" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436261" alias="MHS348_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254898" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436262" alias="MHS349_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254899" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436263" alias="MHS350_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254900" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436264" alias="MHS351_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254901" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436265" alias="MHS352_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254902" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436266" alias="MHS353_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254903" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436267" alias="MHS354_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254904" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436268" alias="MHS355_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254905" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436269" alias="MHS356_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254906" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436270" alias="MHS357_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254907" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436271" alias="MHS358_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254908" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436272" alias="MHS359_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254909" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436273" alias="MHS360_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254910" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436274" alias="MHS361_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254911" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436275" alias="MHS362_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254912" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436276" alias="MHS363_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254913" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436277" alias="MHS364_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254914" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436278" alias="MHS365_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254915" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436279" alias="MHS366_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254916" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436280" alias="MHS367_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254917" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436281" alias="MHS368_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254918" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436282" alias="MHS369_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254919" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436283" alias="MHS370_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254920" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436284" alias="MHS371_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254921" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436285" alias="MHS381_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254922" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436286" alias="MHS382_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254923" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436287" alias="MHS383_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254924" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436288" alias="MHS384_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254925" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436289" alias="MHS385_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254926" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436290" alias="MHS386_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254927" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436291" alias="MHS387_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254928" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436292" alias="MHS388_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254929" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436293" alias="MHS389_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254930" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436294" alias="MHS390_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254931" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436295" alias="MHS391_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254932" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436296" alias="MHS392_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254933" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436297" alias="MHS393_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254934" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436298" alias="MHS394_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254935" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436299" alias="MHS396_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254936" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436300" alias="MHS397_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254937" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436301" alias="MHS398_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254938" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436302" alias="MHS399_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254939" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436303" alias="MHS402_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254940" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436304" alias="MHS403_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254941" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436305" alias="MHS404_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254942" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436306" alias="MHS405_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254943" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436307" alias="MHS407_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254944" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436308" alias="MHS408_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254945" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436309" alias="MHS409_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254946" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436310" alias="MHS410_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254947" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436311" alias="MHS411_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254948" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436312" alias="MHS412_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254949" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436313" alias="MHS413_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254950" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436314" alias="MHS414_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254951" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436315" alias="MHS415_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254952" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436316" alias="MHS416_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254953" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436317" alias="MHS417_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254954" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436318" alias="MHS418_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254955" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436319" alias="MHS419_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254956" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436320" alias="MHS420_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254957" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436321" alias="MHS421_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254958" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436322" alias="MHS422_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254959" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436323" alias="MHS423_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254960" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436324" alias="MHS424_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254961" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436325" alias="MHS425_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254962" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436326" alias="MHS426_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254963" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436327" alias="MHS427_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254964" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436328" alias="MHS428_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254965" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436329" alias="MHS429_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254966" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436330" alias="MHS430_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254967" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436331" alias="MHS431_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254968" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436332" alias="MHS432_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254969" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436333" alias="MHS433_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254970" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436334" alias="MHS434_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254971" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436335" alias="MHS435_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254972" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436336" alias="MHS436_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254973" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436337" alias="MHS437_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254974" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436338" alias="MHS438_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254975" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436339" alias="MHS439_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254976" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436340" alias="MHS440_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254977" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436341" alias="MHS441_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254978" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436342" alias="MHS442_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254979" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436343" alias="MHS443_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254980" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436344" alias="MHS444_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254981" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436345" alias="MHS445_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254982" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436346" alias="MHS446_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254983" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436347" alias="MHS447_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254984" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436348" alias="MHS448_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254985" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436349" alias="MHS449_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254986" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436350" alias="MHS450_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254987" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436351" alias="MHS451_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254988" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436352" alias="MHS452_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254989" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436353" alias="MHS453_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254990" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436354" alias="MHS454_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254991" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436355" alias="MHS455_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254992" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436356" alias="MHS456_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254993" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436357" alias="MHS457_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254994" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436358" alias="MHS458_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254995" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436359" alias="MHS459_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254996" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436360" alias="MHS460_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254997" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436361" alias="MHS461_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254998" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436362" alias="MHS462_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118254999" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436363" alias="MHS463_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255000" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436364" alias="MHS464_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255001" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436365" alias="MHS465_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255002" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436366" alias="MHS466_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255003" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436367" alias="MHS467_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255004" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436368" alias="MHS468_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255005" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436369" alias="MHS469_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255006" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436370" alias="MHS470_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255007" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436371" alias="MHS471_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255008" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436372" alias="MHS472_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255009" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436373" alias="MHS473_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255010" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436374" alias="MHS474_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255011" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436375" alias="MHS475_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255012" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436376" alias="MHS476_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255013" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436377" alias="MHS477_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255014" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436378" alias="MHS478_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255015" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436379" alias="MHS479_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255016" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436380" alias="MHS480_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255017" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436381" alias="MHS481_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255018" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436382" alias="MHS482_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255019" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436383" alias="MHS483_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255020" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436384" alias="MHS484_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255021" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436385" alias="MHS485_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255022" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436386" alias="MHS486_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255023" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436387" alias="MHS487_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255024" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436388" alias="MHS488_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255025" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436389" alias="MHS489_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255026" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436390" alias="MHS490_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255027" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436391" alias="MHS491_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255028" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436392" alias="MHS492_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255029" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436393" alias="MHS493_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255030" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436394" alias="MHS494_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255031" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436395" alias="MHS495_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255032" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436396" alias="MHS496_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255033" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436397" alias="MHS497_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255034" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436398" alias="MHS498_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255035" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436399" alias="MHS499_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255036" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436400" alias="MHS500_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255037" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436401" alias="MHS501_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255038" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436402" alias="MHS502_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255039" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436403" alias="MHS503_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255040" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436404" alias="MHS504_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255041" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436405" alias="MHS505_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255042" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436406" alias="MHS506_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255043" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436407" alias="MHS507_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255044" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436408" alias="MHS508_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255045" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436409" alias="MHS509_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255046" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436410" alias="MHS510_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255047" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436411" alias="MHS511_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255048" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436412" alias="MHS513_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255049" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436413" alias="MHS514_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255050" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436414" alias="MHS515_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255051" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436415" alias="MHS516_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255052" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436416" alias="MHS517_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255053" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436417" alias="MHS518_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255054" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436418" alias="MHS519_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255055" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436419" alias="MHS520_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255056" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436420" alias="MHS521_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255057" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436421" alias="MHS522_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255058" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436422" alias="MHS523_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255059" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436423" alias="MHS524_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255060" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436424" alias="MHS525_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255061" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436425" alias="MHS526_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255062" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436426" alias="MHS527_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255063" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436427" alias="MHS528_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255064" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436428" alias="MHS529_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255065" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436429" alias="MHS530_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255066" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436430" alias="MHS531_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255067" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436431" alias="MHS532_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255068" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436432" alias="MHS533_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255069" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436433" alias="MHS534_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255070" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436434" alias="MHS535_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255071" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436435" alias="MHS536_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255072" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436436" alias="MHS537_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255073" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436437" alias="MHS538_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255074" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436438" alias="MHS539_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255075" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436439" alias="MHS540_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255076" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436440" alias="MHS541_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255077" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436441" alias="MHS542_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255078" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436442" alias="MHS543_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255079" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436443" alias="MHS544_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255080" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436444" alias="MHS545_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255081" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436445" alias="MHS546_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255082" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436446" alias="MHS547_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255083" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436447" alias="MHS548_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255084" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436448" alias="MHS549_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255085" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436449" alias="MHS550_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255086" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436450" alias="MHS551_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255087" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436451" alias="MHS552_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255088" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436452" alias="MHS553_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255089" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436453" alias="MHS554_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255090" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436454" alias="MHS555_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255091" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436455" alias="MHS556_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255092" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436456" alias="MHS557_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255093" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436457" alias="MHS558_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255094" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436458" alias="MHS559_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255095" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436459" alias="MHS560_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255096" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436460" alias="MHS561_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255097" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436461" alias="MHS562_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255098" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436462" alias="MHS563_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255099" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436463" alias="MHS564_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255100" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436464" alias="MHS565_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255101" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436465" alias="MHS566_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255102" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436466" alias="MHS567_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255103" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436467" alias="MHS568_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255104" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436468" alias="MHS569_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255105" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436469" alias="MHS570_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255106" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436470" alias="MHS571_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255107" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436471" alias="MHS572_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255108" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436472" alias="MHS573_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255109" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436473" alias="MHS574_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255110" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436474" alias="MHS575_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255111" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436475" alias="MHS576_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255112" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436476" alias="MHS577_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255113" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436477" alias="MHS578_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255114" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436478" alias="MHS579_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255115" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436479" alias="MHS580_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255116" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436480" alias="MHS581_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255117" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436481" alias="MHS582_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255118" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436482" alias="MHS583_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255119" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436483" alias="MHS584_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255120" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436484" alias="MHS585_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255121" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436485" alias="MHS586_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255122" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436486" alias="MHS587_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255123" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436487" alias="MHS588_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255124" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436488" alias="MHS589_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255125" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436489" alias="MHS590_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255126" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436490" alias="MHS593_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255127" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436491" alias="MHS594_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255128" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436492" alias="MHS598_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255129" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436493" alias="MHS602_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255130" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436494" alias="MHS592_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255131" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436495" alias="MMM334_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255132" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436496" alias="MMM335_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255133" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436497" alias="MMM336_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255134" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436498" alias="MMM339_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255135" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436499" alias="MMM340_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255136" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436500" alias="MMM341_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255137" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436501" alias="Sepi_ctrl1_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255138" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436502" alias="Sepi_ctrl2_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255139" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436503" alias="Sepi_ctrl3_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255140" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436504" alias="Sepi_OS1_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255141" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436505" alias="Sepi_OS2_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255142" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436506" alias="Sepi_OS3_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255143" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436507" alias="Sepi_SP1_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255144" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436508" alias="Sepi_SP2_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255145" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436509" alias="Sepi_SP3_merged" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255146" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436510" alias="TCH016C" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255147" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436511" alias="TCH017C" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255148" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436512" alias="NU190214" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255149" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436513" alias="NU190827" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255150" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436514" alias="MBM166" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255151" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436515" alias="MBM167" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255152" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436516" alias="MBM168" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255153" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436517" alias="MBM169" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255154" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436518" alias="MBM170" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255155" type="biosample"/>
+     </SAMPLE>
+     <SAMPLE accession="ERS24436519" alias="MBM171" status="PRIVATE" holdUntilDate="2027-05-07+01:00">
+          <EXT_ID accession="SAMEA118255156" type="biosample"/>
+     </SAMPLE>
+     <SUBMISSION accession="ERA33119674" alias="ena-SUBMISSION-TAB-07-05-2025-08:01:46:869-85457"/>
+     <MESSAGES>
+          <INFO>All objects in this submission are set to private status (HOLD).</INFO>
+     </MESSAGES>
+     <ACTIONS>ADD</ACTIONS>
+     <ACTIONS>HOLD</ACTIONS>
+</RECEIPT>

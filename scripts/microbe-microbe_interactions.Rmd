@@ -1654,6 +1654,17 @@ thiopeptide_presence_fmt %>% plyr::count(., vars="plotting_cat_fmt")
 
 thiopeptide_presence_ratio_boxplots
 
+
+#Median RNA read count for thiopeptides for "present" samples.
+thiopeptide_presence_LIBIDs <- thiopeptide_presence_fmt %>% dplyr::filter(mtx_presence == "present") %>% pull(mtx_LIBID)
+
+MTX_signif_hmm_expr_taxa_filt_AM %>% 
+  dplyr::filter(description_of_target=="thiazolylpeptide-type bacteriocin") %>%
+  dplyr::filter(LIBID %in% thiopeptide_presence_LIBIDs) %>% 
+  pull(unpaired_read_count) %>%
+  median(.)
+
+
 ```
 Sample counts:
 sebaceous_present	37			
@@ -1748,6 +1759,14 @@ AIP_presence_fmt %>% plyr::count(., vars="plotting_cat_fmt")
 
 AIP_presence_ratio_boxplots
 
+#Median RNA read count for AIPs for "present" samples.
+AIP_presence_LIBIDs <- AIP_presence_fmt %>% dplyr::filter(mtx_presence == "present") %>% pull(mtx_LIBID)
+
+MTX_signif_hmm_expr_taxa_filt_AM %>% 
+  dplyr::filter(description_of_target=="cyclic lactone autoinducer peptide") %>%
+  dplyr::filter(LIBID %in% AIP_presence_LIBIDs) %>% 
+  pull(unpaired_read_count) %>%
+  median(.)
 
 
 ```

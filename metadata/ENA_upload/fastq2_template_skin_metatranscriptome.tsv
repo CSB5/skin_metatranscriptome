@@ -1,0 +1,328 @@
+FileType	fastq	Read submission file type									
+sample	study	instrument_model	library_name	library_source	library_selection	library_strategy	library_layout	forward_file_name	forward_file_md5	reverse_file_name	reverse_file_md5
+MHS446_merged	PRJEB89273	Illumina HiSeq X Ten	MHS446_merged	METAGENOMIC	PCR	WGS	PAIRED	MHS446_merged_decont_1.fastq.gz		MHS446_merged_decont_2.fastq.gz	
+MHS447_merged	PRJEB89273	Illumina HiSeq X Ten	MHS447_merged	METAGENOMIC	PCR	WGS	PAIRED	MHS447_merged_decont_1.fastq.gz		MHS447_merged_decont_2.fastq.gz	
+MHS448_merged	PRJEB89273	Illumina HiSeq X Ten	MHS448_merged	METAGENOMIC	PCR	WGS	PAIRED	MHS448_merged_decont_1.fastq.gz		MHS448_merged_decont_2.fastq.gz	
+MHS449_merged	PRJEB89273	Illumina HiSeq X Ten	MHS449_merged	METAGENOMIC	PCR	WGS	PAIRED	MHS449_merged_decont_1.fastq.gz		MHS449_merged_decont_2.fastq.gz	
+MHS451_merged	PRJEB89273	Illumina HiSeq X Ten	MHS451_merged	METAGENOMIC	PCR	WGS	PAIRED	MHS451_merged_decont_1.fastq.gz		MHS451_merged_decont_2.fastq.gz	
+MHS452_merged	PRJEB89273	Illumina HiSeq X Ten	MHS452_merged	METAGENOMIC	PCR	WGS	PAIRED	MHS452_merged_decont_1.fastq.gz		MHS452_merged_decont_2.fastq.gz	
+MHS453_merged	PRJEB89273	Illumina HiSeq X Ten	MHS453_merged	METAGENOMIC	PCR	WGS	PAIRED	MHS453_merged_decont_1.fastq.gz		MHS453_merged_decont_2.fastq.gz	
+MHS454_merged	PRJEB89273	Illumina HiSeq X Ten	MHS454_merged	METAGENOMIC	PCR	WGS	PAIRED	MHS454_merged_decont_1.fastq.gz		MHS454_merged_decont_2.fastq.gz	
+MHS455_merged	PRJEB89273	Illumina HiSeq X Ten	MHS455_merged	METAGENOMIC	PCR	WGS	PAIRED	MHS455_merged_decont_1.fastq.gz		MHS455_merged_decont_2.fastq.gz	
+MHS456_merged	PRJEB89273	Illumina HiSeq X Ten	MHS456_merged	METAGENOMIC	PCR	WGS	PAIRED	MHS456_merged_decont_1.fastq.gz		MHS456_merged_decont_2.fastq.gz	
+MHS457_merged	PRJEB89273	Illumina HiSeq X Ten	MHS457_merged	METAGENOMIC	PCR	WGS	PAIRED	MHS457_merged_decont_1.fastq.gz		MHS457_merged_decont_2.fastq.gz	
+MHS458_merged	PRJEB89273	Illumina HiSeq X Ten	MHS458_merged	METAGENOMIC	PCR	WGS	PAIRED	MHS458_merged_decont_1.fastq.gz		MHS458_merged_decont_2.fastq.gz	
+MHS459_merged	PRJEB89273	Illumina HiSeq X Ten	MHS459_merged	METAGENOMIC	PCR	WGS	PAIRED	MHS459_merged_decont_1.fastq.gz		MHS459_merged_decont_2.fastq.gz	
+MHS460_merged	PRJEB89273	Illumina HiSeq X Ten	MHS460_merged	METAGENOMIC	PCR	WGS	PAIRED	MHS460_merged_decont_1.fastq.gz		MHS460_merged_decont_2.fastq.gz	
+MHS461_merged	PRJEB89273	Illumina HiSeq X Ten	MHS461_merged	METAGENOMIC	PCR	WGS	PAIRED	MHS461_merged_decont_1.fastq.gz		MHS461_merged_decont_2.fastq.gz	
+MHS462_merged	PRJEB89273	Illumina HiSeq X Ten	MHS462_merged	METAGENOMIC	PCR	WGS	PAIRED	MHS462_merged_decont_1.fastq.gz		MHS462_merged_decont_2.fastq.gz	
+MHS463_merged	PRJEB89273	Illumina HiSeq X Ten	MHS463_merged	METAGENOMIC	PCR	WGS	PAIRED	MHS463_merged_decont_1.fastq.gz		MHS463_merged_decont_2.fastq.gz	
+MHS464_merged	PRJEB89273	Illumina HiSeq X Ten	MHS464_merged	METAGENOMIC	PCR	WGS	PAIRED	MHS464_merged_decont_1.fastq.gz		MHS464_merged_decont_2.fastq.gz	
+MHS465_merged	PRJEB89273	Illumina HiSeq X Ten	MHS465_merged	METAGENOMIC	PCR	WGS	PAIRED	MHS465_merged_decont_1.fastq.gz		MHS465_merged_decont_2.fastq.gz	
+MHS466_merged	PRJEB89273	Illumina HiSeq X Ten	MHS466_merged	METAGENOMIC	PCR	WGS	PAIRED	MHS466_merged_decont_1.fastq.gz		MHS466_merged_decont_2.fastq.gz	
+MHS467_merged	PRJEB89273	Illumina HiSeq X Ten	MHS467_merged	METAGENOMIC	PCR	WGS	PAIRED	MHS467_merged_decont_1.fastq.gz		MHS467_merged_decont_2.fastq.gz	
+MHS380_merged	PRJEB89273	Illumina HiSeq X Ten	MHS380_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	MHS380_merged_decont_1.fastq.gz		MHS380_merged_decont_2.fastq.gz	
+MHS379_merged	PRJEB89273	Illumina HiSeq X Ten	MHS379_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	MHS379_merged_decont_1.fastq.gz		MHS379_merged_decont_2.fastq.gz	
+MHS378_merged	PRJEB89273	Illumina HiSeq X Ten	MHS378_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	MHS378_merged_decont_1.fastq.gz		MHS378_merged_decont_2.fastq.gz	
+MHS338_merged	PRJEB89273	Illumina HiSeq X Ten	MHS338_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	MHS338_merged_decont_1.fastq.gz		MHS338_merged_decont_2.fastq.gz	
+MHS336_merged	PRJEB89273	Illumina HiSeq X Ten	MHS336_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	MHS336_merged_decont_1.fastq.gz		MHS336_merged_decont_2.fastq.gz	
+MHS376_merged	PRJEB89273	Illumina HiSeq X Ten	MHS376_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	MHS376_merged_decont_1.fastq.gz		MHS376_merged_decont_2.fastq.gz	
+MHS377_merged	PRJEB89273	Illumina HiSeq X Ten	MHS377_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	MHS377_merged_decont_1.fastq.gz		MHS377_merged_decont_2.fastq.gz	
+MHS337_merged	PRJEB89273	Illumina HiSeq X Ten	MHS337_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	MHS337_merged_decont_1.fastq.gz		MHS337_merged_decont_2.fastq.gz	
+MHS334_merged	PRJEB89273	Illumina HiSeq X Ten	MHS334_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	MHS334_merged_decont_1.fastq.gz		MHS334_merged_decont_2.fastq.gz	
+MHS374_merged	PRJEB89273	Illumina HiSeq X Ten	MHS374_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	MHS374_merged_decont_1.fastq.gz		MHS374_merged_decont_2.fastq.gz	
+MHS333_merged	PRJEB89273	Illumina HiSeq X Ten	MHS333_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	MHS333_merged_decont_1.fastq.gz		MHS333_merged_decont_2.fastq.gz	
+MHS375_merged	PRJEB89273	Illumina HiSeq X Ten	MHS375_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	MHS375_merged_decont_1.fastq.gz		MHS375_merged_decont_2.fastq.gz	
+MHS335_merged	PRJEB89273	Illumina HiSeq X Ten	MHS335_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	MHS335_merged_decont_1.fastq.gz		MHS335_merged_decont_2.fastq.gz	
+MHS331_merged	PRJEB89273	Illumina HiSeq X Ten	MHS331_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	MHS331_merged_decont_1.fastq.gz		MHS331_merged_decont_2.fastq.gz	
+MHS373_merged	PRJEB89273	Illumina HiSeq X Ten	MHS373_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	MHS373_merged_decont_1.fastq.gz		MHS373_merged_decont_2.fastq.gz	
+MHS332_merged	PRJEB89273	Illumina HiSeq X Ten	MHS332_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	MHS332_merged_decont_1.fastq.gz		MHS332_merged_decont_2.fastq.gz	
+MHS329_merged	PRJEB89273	Illumina HiSeq X Ten	MHS329_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	MHS329_merged_decont_1.fastq.gz		MHS329_merged_decont_2.fastq.gz	
+MHS328_merged	PRJEB89273	Illumina HiSeq X Ten	MHS328_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	MHS328_merged_decont_1.fastq.gz		MHS328_merged_decont_2.fastq.gz	
+MHS406_merged	PRJEB89273	Illumina HiSeq X Ten	MHS406_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	MHS406_merged_decont_1.fastq.gz		MHS406_merged_decont_2.fastq.gz	
+MHS372_merged	PRJEB89273	Illumina HiSeq X Ten	MHS372_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	MHS372_merged_decont_1.fastq.gz		MHS372_merged_decont_2.fastq.gz	
+MHS330_merged	PRJEB89273	Illumina HiSeq X Ten	MHS330_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	MHS330_merged_decont_1.fastq.gz		MHS330_merged_decont_2.fastq.gz	
+MHS339_merged	PRJEB89273	Illumina HiSeq X Ten	MHS339_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	MHS339_merged_decont_1.fastq.gz		MHS339_merged_decont_2.fastq.gz	
+MHS340_merged	PRJEB89273	Illumina HiSeq X Ten	MHS340_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	MHS340_merged_decont_1.fastq.gz		MHS340_merged_decont_2.fastq.gz	
+MHS341_merged	PRJEB89273	Illumina HiSeq X Ten	MHS341_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	MHS341_merged_decont_1.fastq.gz		MHS341_merged_decont_2.fastq.gz	
+MHS342_merged	PRJEB89273	Illumina HiSeq X Ten	MHS342_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	MHS342_merged_decont_1.fastq.gz		MHS342_merged_decont_2.fastq.gz	
+MHS343_merged	PRJEB89273	Illumina HiSeq X Ten	MHS343_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	MHS343_merged_decont_1.fastq.gz		MHS343_merged_decont_2.fastq.gz	
+MHS344_merged	PRJEB89273	Illumina HiSeq X Ten	MHS344_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	MHS344_merged_decont_1.fastq.gz		MHS344_merged_decont_2.fastq.gz	
+MHS345_merged	PRJEB89273	Illumina HiSeq X Ten	MHS345_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	MHS345_merged_decont_1.fastq.gz		MHS345_merged_decont_2.fastq.gz	
+MHS346_merged	PRJEB89273	Illumina HiSeq X Ten	MHS346_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	MHS346_merged_decont_1.fastq.gz		MHS346_merged_decont_2.fastq.gz	
+MHS347_merged	PRJEB89273	Illumina HiSeq X Ten	MHS347_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	MHS347_merged_decont_1.fastq.gz		MHS347_merged_decont_2.fastq.gz	
+MHS348_merged	PRJEB89273	Illumina HiSeq X Ten	MHS348_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	MHS348_merged_decont_1.fastq.gz		MHS348_merged_decont_2.fastq.gz	
+MHS349_merged	PRJEB89273	Illumina HiSeq X Ten	MHS349_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	MHS349_merged_decont_1.fastq.gz		MHS349_merged_decont_2.fastq.gz	
+MHS350_merged	PRJEB89273	Illumina HiSeq X Ten	MHS350_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	MHS350_merged_decont_1.fastq.gz		MHS350_merged_decont_2.fastq.gz	
+MHS351_merged	PRJEB89273	Illumina HiSeq X Ten	MHS351_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	MHS351_merged_decont_1.fastq.gz		MHS351_merged_decont_2.fastq.gz	
+MHS352_merged	PRJEB89273	Illumina HiSeq X Ten	MHS352_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	MHS352_merged_decont_1.fastq.gz		MHS352_merged_decont_2.fastq.gz	
+MHS353_merged	PRJEB89273	Illumina HiSeq X Ten	MHS353_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	MHS353_merged_decont_1.fastq.gz		MHS353_merged_decont_2.fastq.gz	
+MHS354_merged	PRJEB89273	Illumina HiSeq X Ten	MHS354_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	MHS354_merged_decont_1.fastq.gz		MHS354_merged_decont_2.fastq.gz	
+MHS355_merged	PRJEB89273	Illumina HiSeq X Ten	MHS355_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	MHS355_merged_decont_1.fastq.gz		MHS355_merged_decont_2.fastq.gz	
+MHS356_merged	PRJEB89273	Illumina HiSeq X Ten	MHS356_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	MHS356_merged_decont_1.fastq.gz		MHS356_merged_decont_2.fastq.gz	
+MHS357_merged	PRJEB89273	Illumina HiSeq X Ten	MHS357_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	MHS357_merged_decont_1.fastq.gz		MHS357_merged_decont_2.fastq.gz	
+MHS358_merged	PRJEB89273	Illumina HiSeq X Ten	MHS358_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	MHS358_merged_decont_1.fastq.gz		MHS358_merged_decont_2.fastq.gz	
+MHS359_merged	PRJEB89273	Illumina HiSeq X Ten	MHS359_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	MHS359_merged_decont_1.fastq.gz		MHS359_merged_decont_2.fastq.gz	
+MHS360_merged	PRJEB89273	Illumina HiSeq X Ten	MHS360_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	MHS360_merged_decont_1.fastq.gz		MHS360_merged_decont_2.fastq.gz	
+MHS361_merged	PRJEB89273	Illumina HiSeq X Ten	MHS361_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	MHS361_merged_decont_1.fastq.gz		MHS361_merged_decont_2.fastq.gz	
+MHS362_merged	PRJEB89273	Illumina HiSeq X Ten	MHS362_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	MHS362_merged_decont_1.fastq.gz		MHS362_merged_decont_2.fastq.gz	
+MHS363_merged	PRJEB89273	Illumina HiSeq X Ten	MHS363_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	MHS363_merged_decont_1.fastq.gz		MHS363_merged_decont_2.fastq.gz	
+MHS364_merged	PRJEB89273	Illumina HiSeq X Ten	MHS364_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	MHS364_merged_decont_1.fastq.gz		MHS364_merged_decont_2.fastq.gz	
+MHS365_merged	PRJEB89273	Illumina HiSeq X Ten	MHS365_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	MHS365_merged_decont_1.fastq.gz		MHS365_merged_decont_2.fastq.gz	
+MHS366_merged	PRJEB89273	Illumina HiSeq X Ten	MHS366_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	MHS366_merged_decont_1.fastq.gz		MHS366_merged_decont_2.fastq.gz	
+MHS367_merged	PRJEB89273	Illumina HiSeq X Ten	MHS367_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	MHS367_merged_decont_1.fastq.gz		MHS367_merged_decont_2.fastq.gz	
+MHS368_merged	PRJEB89273	Illumina HiSeq X Ten	MHS368_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	MHS368_merged_decont_1.fastq.gz		MHS368_merged_decont_2.fastq.gz	
+MHS369_merged	PRJEB89273	Illumina HiSeq X Ten	MHS369_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	MHS369_merged_decont_1.fastq.gz		MHS369_merged_decont_2.fastq.gz	
+MHS370_merged	PRJEB89273	Illumina HiSeq X Ten	MHS370_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	MHS370_merged_decont_1.fastq.gz		MHS370_merged_decont_2.fastq.gz	
+MHS371_merged	PRJEB89273	Illumina HiSeq X Ten	MHS371_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	MHS371_merged_decont_1.fastq.gz		MHS371_merged_decont_2.fastq.gz	
+MHS381_merged	PRJEB89273	Illumina HiSeq X Ten	MHS381_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	MHS381_merged_decont_1.fastq.gz		MHS381_merged_decont_2.fastq.gz	
+MHS382_merged	PRJEB89273	Illumina HiSeq X Ten	MHS382_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	MHS382_merged_decont_1.fastq.gz		MHS382_merged_decont_2.fastq.gz	
+MHS383_merged	PRJEB89273	Illumina HiSeq X Ten	MHS383_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	MHS383_merged_decont_1.fastq.gz		MHS383_merged_decont_2.fastq.gz	
+MHS384_merged	PRJEB89273	Illumina HiSeq X Ten	MHS384_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	MHS384_merged_decont_1.fastq.gz		MHS384_merged_decont_2.fastq.gz	
+MHS385_merged	PRJEB89273	Illumina HiSeq X Ten	MHS385_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	MHS385_merged_decont_1.fastq.gz		MHS385_merged_decont_2.fastq.gz	
+MHS386_merged	PRJEB89273	Illumina HiSeq X Ten	MHS386_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	MHS386_merged_decont_1.fastq.gz		MHS386_merged_decont_2.fastq.gz	
+MHS387_merged	PRJEB89273	Illumina HiSeq X Ten	MHS387_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	MHS387_merged_decont_1.fastq.gz		MHS387_merged_decont_2.fastq.gz	
+MHS388_merged	PRJEB89273	Illumina HiSeq X Ten	MHS388_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	MHS388_merged_decont_1.fastq.gz		MHS388_merged_decont_2.fastq.gz	
+MHS389_merged	PRJEB89273	Illumina HiSeq X Ten	MHS389_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	MHS389_merged_decont_1.fastq.gz		MHS389_merged_decont_2.fastq.gz	
+MHS390_merged	PRJEB89273	Illumina HiSeq X Ten	MHS390_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	MHS390_merged_decont_1.fastq.gz		MHS390_merged_decont_2.fastq.gz	
+MHS391_merged	PRJEB89273	Illumina HiSeq X Ten	MHS391_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	MHS391_merged_decont_1.fastq.gz		MHS391_merged_decont_2.fastq.gz	
+MHS392_merged	PRJEB89273	Illumina HiSeq X Ten	MHS392_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	MHS392_merged_decont_1.fastq.gz		MHS392_merged_decont_2.fastq.gz	
+MHS393_merged	PRJEB89273	Illumina HiSeq X Ten	MHS393_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	MHS393_merged_decont_1.fastq.gz		MHS393_merged_decont_2.fastq.gz	
+MHS394_merged	PRJEB89273	Illumina HiSeq X Ten	MHS394_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	MHS394_merged_decont_1.fastq.gz		MHS394_merged_decont_2.fastq.gz	
+MHS396_merged	PRJEB89273	Illumina HiSeq X Ten	MHS396_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	MHS396_merged_decont_1.fastq.gz		MHS396_merged_decont_2.fastq.gz	
+MHS397_merged	PRJEB89273	Illumina HiSeq X Ten	MHS397_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	MHS397_merged_decont_1.fastq.gz		MHS397_merged_decont_2.fastq.gz	
+MHS398_merged	PRJEB89273	Illumina HiSeq X Ten	MHS398_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	MHS398_merged_decont_1.fastq.gz		MHS398_merged_decont_2.fastq.gz	
+MHS399_merged	PRJEB89273	Illumina HiSeq X Ten	MHS399_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	MHS399_merged_decont_1.fastq.gz		MHS399_merged_decont_2.fastq.gz	
+MHS402_merged	PRJEB89273	Illumina HiSeq X Ten	MHS402_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	MHS402_merged_decont_1.fastq.gz		MHS402_merged_decont_2.fastq.gz	
+MHS405_merged	PRJEB89273	Illumina HiSeq X Ten	MHS405_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	MHS405_merged_decont_1.fastq.gz		MHS405_merged_decont_2.fastq.gz	
+MHS407_merged	PRJEB89273	Illumina HiSeq X Ten	MHS407_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	MHS407_merged_decont_1.fastq.gz		MHS407_merged_decont_2.fastq.gz	
+MHS408_merged	PRJEB89273	Illumina HiSeq X Ten	MHS408_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	MHS408_merged_decont_1.fastq.gz		MHS408_merged_decont_2.fastq.gz	
+MHS409_merged	PRJEB89273	Illumina HiSeq X Ten	MHS409_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	MHS409_merged_decont_1.fastq.gz		MHS409_merged_decont_2.fastq.gz	
+MHS410_merged	PRJEB89273	Illumina HiSeq X Ten	MHS410_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	MHS410_merged_decont_1.fastq.gz		MHS410_merged_decont_2.fastq.gz	
+MHS411_merged	PRJEB89273	Illumina HiSeq X Ten	MHS411_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	MHS411_merged_decont_1.fastq.gz		MHS411_merged_decont_2.fastq.gz	
+MHS412_merged	PRJEB89273	Illumina HiSeq X Ten	MHS412_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	MHS412_merged_decont_1.fastq.gz		MHS412_merged_decont_2.fastq.gz	
+MHS413_merged	PRJEB89273	Illumina HiSeq X Ten	MHS413_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	MHS413_merged_decont_1.fastq.gz		MHS413_merged_decont_2.fastq.gz	
+MHS414_merged	PRJEB89273	Illumina HiSeq X Ten	MHS414_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	MHS414_merged_decont_1.fastq.gz		MHS414_merged_decont_2.fastq.gz	
+MHS415_merged	PRJEB89273	Illumina HiSeq X Ten	MHS415_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	MHS415_merged_decont_1.fastq.gz		MHS415_merged_decont_2.fastq.gz	
+MHS416_merged	PRJEB89273	Illumina HiSeq X Ten	MHS416_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	MHS416_merged_decont_1.fastq.gz		MHS416_merged_decont_2.fastq.gz	
+MHS417_merged	PRJEB89273	Illumina HiSeq X Ten	MHS417_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	MHS417_merged_decont_1.fastq.gz		MHS417_merged_decont_2.fastq.gz	
+MHS418_merged	PRJEB89273	Illumina HiSeq X Ten	MHS418_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	MHS418_merged_decont_1.fastq.gz		MHS418_merged_decont_2.fastq.gz	
+MHS419_merged	PRJEB89273	Illumina HiSeq X Ten	MHS419_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	MHS419_merged_decont_1.fastq.gz		MHS419_merged_decont_2.fastq.gz	
+MHS420_merged	PRJEB89273	Illumina HiSeq X Ten	MHS420_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	MHS420_merged_decont_1.fastq.gz		MHS420_merged_decont_2.fastq.gz	
+MHS421_merged	PRJEB89273	Illumina HiSeq X Ten	MHS421_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	MHS421_merged_decont_1.fastq.gz		MHS421_merged_decont_2.fastq.gz	
+MHS422_merged	PRJEB89273	Illumina HiSeq X Ten	MHS422_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	MHS422_merged_decont_1.fastq.gz		MHS422_merged_decont_2.fastq.gz	
+MHS423_merged	PRJEB89273	Illumina HiSeq X Ten	MHS423_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	MHS423_merged_decont_1.fastq.gz		MHS423_merged_decont_2.fastq.gz	
+MHS424_merged	PRJEB89273	Illumina HiSeq X Ten	MHS424_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	MHS424_merged_decont_1.fastq.gz		MHS424_merged_decont_2.fastq.gz	
+MHS425_merged	PRJEB89273	Illumina HiSeq X Ten	MHS425_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	MHS425_merged_decont_1.fastq.gz		MHS425_merged_decont_2.fastq.gz	
+MHS426_merged	PRJEB89273	Illumina HiSeq X Ten	MHS426_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	MHS426_merged_decont_1.fastq.gz		MHS426_merged_decont_2.fastq.gz	
+MHS427_merged	PRJEB89273	Illumina HiSeq X Ten	MHS427_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	MHS427_merged_decont_1.fastq.gz		MHS427_merged_decont_2.fastq.gz	
+MHS428_merged	PRJEB89273	Illumina HiSeq X Ten	MHS428_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	MHS428_merged_decont_1.fastq.gz		MHS428_merged_decont_2.fastq.gz	
+MHS429_merged	PRJEB89273	Illumina HiSeq X Ten	MHS429_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	MHS429_merged_decont_1.fastq.gz		MHS429_merged_decont_2.fastq.gz	
+MHS430_merged	PRJEB89273	Illumina HiSeq X Ten	MHS430_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	MHS430_merged_decont_1.fastq.gz		MHS430_merged_decont_2.fastq.gz	
+MHS431_merged	PRJEB89273	Illumina HiSeq X Ten	MHS431_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	MHS431_merged_decont_1.fastq.gz		MHS431_merged_decont_2.fastq.gz	
+MHS432_merged	PRJEB89273	Illumina HiSeq X Ten	MHS432_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	MHS432_merged_decont_1.fastq.gz		MHS432_merged_decont_2.fastq.gz	
+MHS433_merged	PRJEB89273	Illumina HiSeq X Ten	MHS433_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	MHS433_merged_decont_1.fastq.gz		MHS433_merged_decont_2.fastq.gz	
+MHS434_merged	PRJEB89273	Illumina HiSeq X Ten	MHS434_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	MHS434_merged_decont_1.fastq.gz		MHS434_merged_decont_2.fastq.gz	
+MHS435_merged	PRJEB89273	Illumina HiSeq X Ten	MHS435_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	MHS435_merged_decont_1.fastq.gz		MHS435_merged_decont_2.fastq.gz	
+MHS436_merged	PRJEB89273	Illumina HiSeq X Ten	MHS436_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	MHS436_merged_decont_1.fastq.gz		MHS436_merged_decont_2.fastq.gz	
+MHS437_merged	PRJEB89273	Illumina HiSeq X Ten	MHS437_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	MHS437_merged_decont_1.fastq.gz		MHS437_merged_decont_2.fastq.gz	
+MHS438_merged	PRJEB89273	Illumina HiSeq X Ten	MHS438_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	MHS438_merged_decont_1.fastq.gz		MHS438_merged_decont_2.fastq.gz	
+MHS439_merged	PRJEB89273	Illumina HiSeq X Ten	MHS439_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	MHS439_merged_decont_1.fastq.gz		MHS439_merged_decont_2.fastq.gz	
+MHS440_merged	PRJEB89273	Illumina HiSeq X Ten	MHS440_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	MHS440_merged_decont_1.fastq.gz		MHS440_merged_decont_2.fastq.gz	
+MHS441_merged	PRJEB89273	Illumina HiSeq X Ten	MHS441_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	MHS441_merged_decont_1.fastq.gz		MHS441_merged_decont_2.fastq.gz	
+MHS442_merged	PRJEB89273	Illumina HiSeq X Ten	MHS442_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	MHS442_merged_decont_1.fastq.gz		MHS442_merged_decont_2.fastq.gz	
+MHS443_merged	PRJEB89273	Illumina HiSeq X Ten	MHS443_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	MHS443_merged_decont_1.fastq.gz		MHS443_merged_decont_2.fastq.gz	
+MHS445_merged	PRJEB89273	Illumina HiSeq X Ten	MHS445_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	MHS445_merged_decont_1.fastq.gz		MHS445_merged_decont_2.fastq.gz	
+MHS450_merged	PRJEB89273	Illumina HiSeq X Ten	MHS450_merged	METAGENOMIC	PCR	WGS	PAIRED	MHS450_merged_decont_1.fastq.gz		MHS450_merged_decont_2.fastq.gz	
+MHS468_merged	PRJEB89273	Illumina HiSeq X Ten	MHS468_merged	METAGENOMIC	PCR	WGS	PAIRED	MHS468_merged_decont_1.fastq.gz		MHS468_merged_decont_2.fastq.gz	
+MHS469_merged	PRJEB89273	Illumina HiSeq X Ten	MHS469_merged	METAGENOMIC	PCR	WGS	PAIRED	MHS469_merged_decont_1.fastq.gz		MHS469_merged_decont_2.fastq.gz	
+MHS470_merged	PRJEB89273	Illumina HiSeq X Ten	MHS470_merged	METAGENOMIC	PCR	WGS	PAIRED	MHS470_merged_decont_1.fastq.gz		MHS470_merged_decont_2.fastq.gz	
+MHS471_merged	PRJEB89273	Illumina HiSeq X Ten	MHS471_merged	METAGENOMIC	PCR	WGS	PAIRED	MHS471_merged_decont_1.fastq.gz		MHS471_merged_decont_2.fastq.gz	
+MHS472_merged	PRJEB89273	Illumina HiSeq X Ten	MHS472_merged	METAGENOMIC	PCR	WGS	PAIRED	MHS472_merged_decont_1.fastq.gz		MHS472_merged_decont_2.fastq.gz	
+MHS473_merged	PRJEB89273	Illumina HiSeq X Ten	MHS473_merged	METAGENOMIC	PCR	WGS	PAIRED	MHS473_merged_decont_1.fastq.gz		MHS473_merged_decont_2.fastq.gz	
+MHS474_merged	PRJEB89273	Illumina HiSeq X Ten	MHS474_merged	METAGENOMIC	PCR	WGS	PAIRED	MHS474_merged_decont_1.fastq.gz		MHS474_merged_decont_2.fastq.gz	
+MHS475_merged	PRJEB89273	Illumina HiSeq X Ten	MHS475_merged	METAGENOMIC	PCR	WGS	PAIRED	MHS475_merged_decont_1.fastq.gz		MHS475_merged_decont_2.fastq.gz	
+MHS476_merged	PRJEB89273	Illumina HiSeq X Ten	MHS476_merged	METAGENOMIC	PCR	WGS	PAIRED	MHS476_merged_decont_1.fastq.gz		MHS476_merged_decont_2.fastq.gz	
+MHS477_merged	PRJEB89273	Illumina HiSeq X Ten	MHS477_merged	METAGENOMIC	PCR	WGS	PAIRED	MHS477_merged_decont_1.fastq.gz		MHS477_merged_decont_2.fastq.gz	
+MHS478_merged	PRJEB89273	Illumina HiSeq X Ten	MHS478_merged	METAGENOMIC	PCR	WGS	PAIRED	MHS478_merged_decont_1.fastq.gz		MHS478_merged_decont_2.fastq.gz	
+MHS479_merged	PRJEB89273	Illumina HiSeq X Ten	MHS479_merged	METAGENOMIC	PCR	WGS	PAIRED	MHS479_merged_decont_1.fastq.gz		MHS479_merged_decont_2.fastq.gz	
+MHS480_merged	PRJEB89273	Illumina HiSeq X Ten	MHS480_merged	METAGENOMIC	PCR	WGS	PAIRED	MHS480_merged_decont_1.fastq.gz		MHS480_merged_decont_2.fastq.gz	
+MHS481_merged	PRJEB89273	Illumina HiSeq X Ten	MHS481_merged	METAGENOMIC	PCR	WGS	PAIRED	MHS481_merged_decont_1.fastq.gz		MHS481_merged_decont_2.fastq.gz	
+MHS482_merged	PRJEB89273	Illumina HiSeq X Ten	MHS482_merged	METAGENOMIC	PCR	WGS	PAIRED	MHS482_merged_decont_1.fastq.gz		MHS482_merged_decont_2.fastq.gz	
+MHS483_merged	PRJEB89273	Illumina HiSeq X Ten	MHS483_merged	METAGENOMIC	PCR	WGS	PAIRED	MHS483_merged_decont_1.fastq.gz		MHS483_merged_decont_2.fastq.gz	
+MHS484_merged	PRJEB89273	Illumina HiSeq X Ten	MHS484_merged	METAGENOMIC	PCR	WGS	PAIRED	MHS484_merged_decont_1.fastq.gz		MHS484_merged_decont_2.fastq.gz	
+MHS485_merged	PRJEB89273	Illumina HiSeq X Ten	MHS485_merged	METAGENOMIC	PCR	WGS	PAIRED	MHS485_merged_decont_1.fastq.gz		MHS485_merged_decont_2.fastq.gz	
+MHS486_merged	PRJEB89273	Illumina HiSeq X Ten	MHS486_merged	METAGENOMIC	PCR	WGS	PAIRED	MHS486_merged_decont_1.fastq.gz		MHS486_merged_decont_2.fastq.gz	
+MHS487_merged	PRJEB89273	Illumina HiSeq X Ten	MHS487_merged	METAGENOMIC	PCR	WGS	PAIRED	MHS487_merged_decont_1.fastq.gz		MHS487_merged_decont_2.fastq.gz	
+MHS488_merged	PRJEB89273	Illumina HiSeq X Ten	MHS488_merged	METAGENOMIC	PCR	WGS	PAIRED	MHS488_merged_decont_1.fastq.gz		MHS488_merged_decont_2.fastq.gz	
+MHS489_merged	PRJEB89273	Illumina HiSeq X Ten	MHS489_merged	METAGENOMIC	PCR	WGS	PAIRED	MHS489_merged_decont_1.fastq.gz		MHS489_merged_decont_2.fastq.gz	
+MHS490_merged	PRJEB89273	Illumina HiSeq X Ten	MHS490_merged	METAGENOMIC	PCR	WGS	PAIRED	MHS490_merged_decont_1.fastq.gz		MHS490_merged_decont_2.fastq.gz	
+MHS491_merged	PRJEB89273	Illumina HiSeq X Ten	MHS491_merged	METAGENOMIC	PCR	WGS	PAIRED	MHS491_merged_decont_1.fastq.gz		MHS491_merged_decont_2.fastq.gz	
+MHS492_merged	PRJEB89273	Illumina HiSeq X Ten	MHS492_merged	METAGENOMIC	PCR	WGS	PAIRED	MHS492_merged_decont_1.fastq.gz		MHS492_merged_decont_2.fastq.gz	
+MHS493_merged	PRJEB89273	Illumina HiSeq X Ten	MHS493_merged	METAGENOMIC	PCR	WGS	PAIRED	MHS493_merged_decont_1.fastq.gz		MHS493_merged_decont_2.fastq.gz	
+MHS494_merged	PRJEB89273	Illumina HiSeq X Ten	MHS494_merged	METAGENOMIC	PCR	WGS	PAIRED	MHS494_merged_decont_1.fastq.gz		MHS494_merged_decont_2.fastq.gz	
+MHS495_merged	PRJEB89273	Illumina HiSeq X Ten	MHS495_merged	METAGENOMIC	PCR	WGS	PAIRED	MHS495_merged_decont_1.fastq.gz		MHS495_merged_decont_2.fastq.gz	
+MHS496_merged	PRJEB89273	Illumina HiSeq X Ten	MHS496_merged	METAGENOMIC	PCR	WGS	PAIRED	MHS496_merged_decont_1.fastq.gz		MHS496_merged_decont_2.fastq.gz	
+MHS497_merged	PRJEB89273	Illumina HiSeq X Ten	MHS497_merged	METAGENOMIC	PCR	WGS	PAIRED	MHS497_merged_decont_1.fastq.gz		MHS497_merged_decont_2.fastq.gz	
+MHS498_merged	PRJEB89273	Illumina HiSeq X Ten	MHS498_merged	METAGENOMIC	PCR	WGS	PAIRED	MHS498_merged_decont_1.fastq.gz		MHS498_merged_decont_2.fastq.gz	
+MHS499_merged	PRJEB89273	Illumina HiSeq X Ten	MHS499_merged	METAGENOMIC	PCR	WGS	PAIRED	MHS499_merged_decont_1.fastq.gz		MHS499_merged_decont_2.fastq.gz	
+MHS500_merged	PRJEB89273	Illumina HiSeq X Ten	MHS500_merged	METAGENOMIC	PCR	WGS	PAIRED	MHS500_merged_decont_1.fastq.gz		MHS500_merged_decont_2.fastq.gz	
+MHS501_merged	PRJEB89273	Illumina HiSeq X Ten	MHS501_merged	METAGENOMIC	PCR	WGS	PAIRED	MHS501_merged_decont_1.fastq.gz		MHS501_merged_decont_2.fastq.gz	
+MHS502_merged	PRJEB89273	Illumina HiSeq X Ten	MHS502_merged	METAGENOMIC	PCR	WGS	PAIRED	MHS502_merged_decont_1.fastq.gz		MHS502_merged_decont_2.fastq.gz	
+MHS503_merged	PRJEB89273	Illumina HiSeq X Ten	MHS503_merged	METAGENOMIC	PCR	WGS	PAIRED	MHS503_merged_decont_1.fastq.gz		MHS503_merged_decont_2.fastq.gz	
+MHS504_merged	PRJEB89273	Illumina HiSeq X Ten	MHS504_merged	METAGENOMIC	PCR	WGS	PAIRED	MHS504_merged_decont_1.fastq.gz		MHS504_merged_decont_2.fastq.gz	
+MHS505_merged	PRJEB89273	Illumina HiSeq X Ten	MHS505_merged	METAGENOMIC	PCR	WGS	PAIRED	MHS505_merged_decont_1.fastq.gz		MHS505_merged_decont_2.fastq.gz	
+MHS506_merged	PRJEB89273	Illumina HiSeq X Ten	MHS506_merged	METAGENOMIC	PCR	WGS	PAIRED	MHS506_merged_decont_1.fastq.gz		MHS506_merged_decont_2.fastq.gz	
+MHS507_merged	PRJEB89273	Illumina HiSeq X Ten	MHS507_merged	METAGENOMIC	PCR	WGS	PAIRED	MHS507_merged_decont_1.fastq.gz		MHS507_merged_decont_2.fastq.gz	
+MHS508_merged	PRJEB89273	Illumina HiSeq X Ten	MHS508_merged	METAGENOMIC	PCR	WGS	PAIRED	MHS508_merged_decont_1.fastq.gz		MHS508_merged_decont_2.fastq.gz	
+MHS509_merged	PRJEB89273	Illumina HiSeq X Ten	MHS509_merged	METAGENOMIC	PCR	WGS	PAIRED	MHS509_merged_decont_1.fastq.gz		MHS509_merged_decont_2.fastq.gz	
+MHS510_merged	PRJEB89273	Illumina HiSeq X Ten	MHS510_merged	METAGENOMIC	PCR	WGS	PAIRED	MHS510_merged_decont_1.fastq.gz		MHS510_merged_decont_2.fastq.gz	
+MHS511_merged	PRJEB89273	Illumina HiSeq X Ten	MHS511_merged	METAGENOMIC	PCR	WGS	PAIRED	MHS511_merged_decont_1.fastq.gz		MHS511_merged_decont_2.fastq.gz	
+MHS513_merged	PRJEB89273	Illumina HiSeq X Ten	MHS513_merged	METAGENOMIC	PCR	WGS	PAIRED	MHS513_merged_decont_1.fastq.gz		MHS513_merged_decont_2.fastq.gz	
+MHS514_merged	PRJEB89273	Illumina HiSeq X Ten	MHS514_merged	METAGENOMIC	PCR	WGS	PAIRED	MHS514_merged_decont_1.fastq.gz		MHS514_merged_decont_2.fastq.gz	
+MHS515_merged	PRJEB89273	Illumina HiSeq X Ten	MHS515_merged	METAGENOMIC	PCR	WGS	PAIRED	MHS515_merged_decont_1.fastq.gz		MHS515_merged_decont_2.fastq.gz	
+MHS516_merged	PRJEB89273	Illumina HiSeq X Ten	MHS516_merged	METAGENOMIC	PCR	WGS	PAIRED	MHS516_merged_decont_1.fastq.gz		MHS516_merged_decont_2.fastq.gz	
+MHS517_merged	PRJEB89273	Illumina HiSeq X Ten	MHS517_merged	METAGENOMIC	PCR	WGS	PAIRED	MHS517_merged_decont_1.fastq.gz		MHS517_merged_decont_2.fastq.gz	
+MHS518_merged	PRJEB89273	Illumina HiSeq X Ten	MHS518_merged	METAGENOMIC	PCR	WGS	PAIRED	MHS518_merged_decont_1.fastq.gz		MHS518_merged_decont_2.fastq.gz	
+MHS519_merged	PRJEB89273	Illumina HiSeq X Ten	MHS519_merged	METAGENOMIC	PCR	WGS	PAIRED	MHS519_merged_decont_1.fastq.gz		MHS519_merged_decont_2.fastq.gz	
+MHS520_merged	PRJEB89273	Illumina HiSeq X Ten	MHS520_merged	METAGENOMIC	PCR	WGS	PAIRED	MHS520_merged_decont_1.fastq.gz		MHS520_merged_decont_2.fastq.gz	
+MHS521_merged	PRJEB89273	Illumina HiSeq X Ten	MHS521_merged	METAGENOMIC	PCR	WGS	PAIRED	MHS521_merged_decont_1.fastq.gz		MHS521_merged_decont_2.fastq.gz	
+MHS522_merged	PRJEB89273	Illumina HiSeq X Ten	MHS522_merged	METAGENOMIC	PCR	WGS	PAIRED	MHS522_merged_decont_1.fastq.gz		MHS522_merged_decont_2.fastq.gz	
+MHS523_merged	PRJEB89273	Illumina HiSeq X Ten	MHS523_merged	METAGENOMIC	PCR	WGS	PAIRED	MHS523_merged_decont_1.fastq.gz		MHS523_merged_decont_2.fastq.gz	
+MHS524_merged	PRJEB89273	Illumina HiSeq X Ten	MHS524_merged	METAGENOMIC	PCR	WGS	PAIRED	MHS524_merged_decont_1.fastq.gz		MHS524_merged_decont_2.fastq.gz	
+MHS525_merged	PRJEB89273	Illumina HiSeq X Ten	MHS525_merged	METAGENOMIC	PCR	WGS	PAIRED	MHS525_merged_decont_1.fastq.gz		MHS525_merged_decont_2.fastq.gz	
+MHS526_merged	PRJEB89273	Illumina HiSeq X Ten	MHS526_merged	METAGENOMIC	PCR	WGS	PAIRED	MHS526_merged_decont_1.fastq.gz		MHS526_merged_decont_2.fastq.gz	
+MHS527_merged	PRJEB89273	Illumina HiSeq X Ten	MHS527_merged	METAGENOMIC	PCR	WGS	PAIRED	MHS527_merged_decont_1.fastq.gz		MHS527_merged_decont_2.fastq.gz	
+MHS528_merged	PRJEB89273	Illumina HiSeq X Ten	MHS528_merged	METAGENOMIC	PCR	WGS	PAIRED	MHS528_merged_decont_1.fastq.gz		MHS528_merged_decont_2.fastq.gz	
+MHS529_merged	PRJEB89273	Illumina HiSeq X Ten	MHS529_merged	METAGENOMIC	PCR	WGS	PAIRED	MHS529_merged_decont_1.fastq.gz		MHS529_merged_decont_2.fastq.gz	
+MHS530_merged	PRJEB89273	Illumina HiSeq X Ten	MHS530_merged	METAGENOMIC	PCR	WGS	PAIRED	MHS530_merged_decont_1.fastq.gz		MHS530_merged_decont_2.fastq.gz	
+MHS531_merged	PRJEB89273	Illumina HiSeq X Ten	MHS531_merged	METAGENOMIC	PCR	WGS	PAIRED	MHS531_merged_decont_1.fastq.gz		MHS531_merged_decont_2.fastq.gz	
+MHS532_merged	PRJEB89273	Illumina HiSeq X Ten	MHS532_merged	METAGENOMIC	PCR	WGS	PAIRED	MHS532_merged_decont_1.fastq.gz		MHS532_merged_decont_2.fastq.gz	
+MHS533_merged	PRJEB89273	Illumina HiSeq X Ten	MHS533_merged	METAGENOMIC	PCR	WGS	PAIRED	MHS533_merged_decont_1.fastq.gz		MHS533_merged_decont_2.fastq.gz	
+MHS534_merged	PRJEB89273	Illumina HiSeq X Ten	MHS534_merged	METAGENOMIC	PCR	WGS	PAIRED	MHS534_merged_decont_1.fastq.gz		MHS534_merged_decont_2.fastq.gz	
+MHS535_merged	PRJEB89273	Illumina HiSeq X Ten	MHS535_merged	METAGENOMIC	PCR	WGS	PAIRED	MHS535_merged_decont_1.fastq.gz		MHS535_merged_decont_2.fastq.gz	
+MHS536_merged	PRJEB89273	Illumina HiSeq X Ten	MHS536_merged	METAGENOMIC	PCR	WGS	PAIRED	MHS536_merged_decont_1.fastq.gz		MHS536_merged_decont_2.fastq.gz	
+MHS537_merged	PRJEB89273	Illumina HiSeq X Ten	MHS537_merged	METAGENOMIC	PCR	WGS	PAIRED	MHS537_merged_decont_1.fastq.gz		MHS537_merged_decont_2.fastq.gz	
+MHS538_merged	PRJEB89273	Illumina HiSeq X Ten	MHS538_merged	METAGENOMIC	PCR	WGS	PAIRED	MHS538_merged_decont_1.fastq.gz		MHS538_merged_decont_2.fastq.gz	
+MHS539_merged	PRJEB89273	Illumina HiSeq X Ten	MHS539_merged	METAGENOMIC	PCR	WGS	PAIRED	MHS539_merged_decont_1.fastq.gz		MHS539_merged_decont_2.fastq.gz	
+MHS540_merged	PRJEB89273	Illumina HiSeq X Ten	MHS540_merged	METAGENOMIC	PCR	WGS	PAIRED	MHS540_merged_decont_1.fastq.gz		MHS540_merged_decont_2.fastq.gz	
+MHS541_merged	PRJEB89273	Illumina HiSeq X Ten	MHS541_merged	METAGENOMIC	PCR	WGS	PAIRED	MHS541_merged_decont_1.fastq.gz		MHS541_merged_decont_2.fastq.gz	
+MHS542_merged	PRJEB89273	Illumina HiSeq X Ten	MHS542_merged	METAGENOMIC	PCR	WGS	PAIRED	MHS542_merged_decont_1.fastq.gz		MHS542_merged_decont_2.fastq.gz	
+MHS543_merged	PRJEB89273	Illumina HiSeq X Ten	MHS543_merged	METAGENOMIC	PCR	WGS	PAIRED	MHS543_merged_decont_1.fastq.gz		MHS543_merged_decont_2.fastq.gz	
+MHS544_merged	PRJEB89273	Illumina HiSeq X Ten	MHS544_merged	METAGENOMIC	PCR	WGS	PAIRED	MHS544_merged_decont_1.fastq.gz		MHS544_merged_decont_2.fastq.gz	
+MHS545_merged	PRJEB89273	Illumina HiSeq X Ten	MHS545_merged	METAGENOMIC	PCR	WGS	PAIRED	MHS545_merged_decont_1.fastq.gz		MHS545_merged_decont_2.fastq.gz	
+MHS546_merged	PRJEB89273	Illumina HiSeq X Ten	MHS546_merged	METAGENOMIC	PCR	WGS	PAIRED	MHS546_merged_decont_1.fastq.gz		MHS546_merged_decont_2.fastq.gz	
+MHS547_merged	PRJEB89273	Illumina HiSeq X Ten	MHS547_merged	METAGENOMIC	PCR	WGS	PAIRED	MHS547_merged_decont_1.fastq.gz		MHS547_merged_decont_2.fastq.gz	
+MHS548_merged	PRJEB89273	Illumina HiSeq X Ten	MHS548_merged	METAGENOMIC	PCR	WGS	PAIRED	MHS548_merged_decont_1.fastq.gz		MHS548_merged_decont_2.fastq.gz	
+MHS549_merged	PRJEB89273	Illumina HiSeq X Ten	MHS549_merged	METAGENOMIC	PCR	WGS	PAIRED	MHS549_merged_decont_1.fastq.gz		MHS549_merged_decont_2.fastq.gz	
+MHS551_merged	PRJEB89273	Illumina HiSeq X Ten	MHS551_merged	METAGENOMIC	PCR	WGS	PAIRED	MHS551_merged_decont_1.fastq.gz		MHS551_merged_decont_2.fastq.gz	
+MHS552_merged	PRJEB89273	Illumina HiSeq X Ten	MHS552_merged	METAGENOMIC	PCR	WGS	PAIRED	MHS552_merged_decont_1.fastq.gz		MHS552_merged_decont_2.fastq.gz	
+MHS553_merged	PRJEB89273	Illumina HiSeq X Ten	MHS553_merged	METAGENOMIC	PCR	WGS	PAIRED	MHS553_merged_decont_1.fastq.gz		MHS553_merged_decont_2.fastq.gz	
+MHS554_merged	PRJEB89273	Illumina HiSeq X Ten	MHS554_merged	METAGENOMIC	PCR	WGS	PAIRED	MHS554_merged_decont_1.fastq.gz		MHS554_merged_decont_2.fastq.gz	
+MHS555_merged	PRJEB89273	Illumina HiSeq X Ten	MHS555_merged	METAGENOMIC	PCR	WGS	PAIRED	MHS555_merged_decont_1.fastq.gz		MHS555_merged_decont_2.fastq.gz	
+MHS556_merged	PRJEB89273	Illumina HiSeq X Ten	MHS556_merged	METAGENOMIC	PCR	WGS	PAIRED	MHS556_merged_decont_1.fastq.gz		MHS556_merged_decont_2.fastq.gz	
+MHS557_merged	PRJEB89273	Illumina HiSeq X Ten	MHS557_merged	METAGENOMIC	PCR	WGS	PAIRED	MHS557_merged_decont_1.fastq.gz		MHS557_merged_decont_2.fastq.gz	
+MHS558_merged	PRJEB89273	Illumina HiSeq X Ten	MHS558_merged	METAGENOMIC	PCR	WGS	PAIRED	MHS558_merged_decont_1.fastq.gz		MHS558_merged_decont_2.fastq.gz	
+MHS559_merged	PRJEB89273	Illumina HiSeq X Ten	MHS559_merged	METAGENOMIC	PCR	WGS	PAIRED	MHS559_merged_decont_1.fastq.gz		MHS559_merged_decont_2.fastq.gz	
+MHS560_merged	PRJEB89273	Illumina HiSeq X Ten	MHS560_merged	METAGENOMIC	PCR	WGS	PAIRED	MHS560_merged_decont_1.fastq.gz		MHS560_merged_decont_2.fastq.gz	
+MHS561_merged	PRJEB89273	Illumina HiSeq X Ten	MHS561_merged	METAGENOMIC	PCR	WGS	PAIRED	MHS561_merged_decont_1.fastq.gz		MHS561_merged_decont_2.fastq.gz	
+MHS562_merged	PRJEB89273	Illumina HiSeq X Ten	MHS562_merged	METAGENOMIC	PCR	WGS	PAIRED	MHS562_merged_decont_1.fastq.gz		MHS562_merged_decont_2.fastq.gz	
+MHS563_merged	PRJEB89273	Illumina HiSeq X Ten	MHS563_merged	METAGENOMIC	PCR	WGS	PAIRED	MHS563_merged_decont_1.fastq.gz		MHS563_merged_decont_2.fastq.gz	
+MHS564_merged	PRJEB89273	Illumina HiSeq X Ten	MHS564_merged	METAGENOMIC	PCR	WGS	PAIRED	MHS564_merged_decont_1.fastq.gz		MHS564_merged_decont_2.fastq.gz	
+MHS565_merged	PRJEB89273	Illumina HiSeq X Ten	MHS565_merged	METAGENOMIC	PCR	WGS	PAIRED	MHS565_merged_decont_1.fastq.gz		MHS565_merged_decont_2.fastq.gz	
+MHS566_merged	PRJEB89273	Illumina HiSeq X Ten	MHS566_merged	METAGENOMIC	PCR	WGS	PAIRED	MHS566_merged_decont_1.fastq.gz		MHS566_merged_decont_2.fastq.gz	
+MHS567_merged	PRJEB89273	Illumina HiSeq X Ten	MHS567_merged	METAGENOMIC	PCR	WGS	PAIRED	MHS567_merged_decont_1.fastq.gz		MHS567_merged_decont_2.fastq.gz	
+MHS568_merged	PRJEB89273	Illumina HiSeq X Ten	MHS568_merged	METAGENOMIC	PCR	WGS	PAIRED	MHS568_merged_decont_1.fastq.gz		MHS568_merged_decont_2.fastq.gz	
+MHS569_merged	PRJEB89273	Illumina HiSeq X Ten	MHS569_merged	METAGENOMIC	PCR	WGS	PAIRED	MHS569_merged_decont_1.fastq.gz		MHS569_merged_decont_2.fastq.gz	
+MHS570_merged	PRJEB89273	Illumina HiSeq X Ten	MHS570_merged	METAGENOMIC	PCR	WGS	PAIRED	MHS570_merged_decont_1.fastq.gz		MHS570_merged_decont_2.fastq.gz	
+MHS571_merged	PRJEB89273	Illumina HiSeq X Ten	MHS571_merged	METAGENOMIC	PCR	WGS	PAIRED	MHS571_merged_decont_1.fastq.gz		MHS571_merged_decont_2.fastq.gz	
+MHS572_merged	PRJEB89273	Illumina HiSeq X Ten	MHS572_merged	METAGENOMIC	PCR	WGS	PAIRED	MHS572_merged_decont_1.fastq.gz		MHS572_merged_decont_2.fastq.gz	
+MHS573_merged	PRJEB89273	Illumina HiSeq X Ten	MHS573_merged	METAGENOMIC	PCR	WGS	PAIRED	MHS573_merged_decont_1.fastq.gz		MHS573_merged_decont_2.fastq.gz	
+MHS574_merged	PRJEB89273	Illumina HiSeq X Ten	MHS574_merged	METAGENOMIC	PCR	WGS	PAIRED	MHS574_merged_decont_1.fastq.gz		MHS574_merged_decont_2.fastq.gz	
+MHS575_merged	PRJEB89273	Illumina HiSeq X Ten	MHS575_merged	METAGENOMIC	PCR	WGS	PAIRED	MHS575_merged_decont_1.fastq.gz		MHS575_merged_decont_2.fastq.gz	
+MHS576_merged	PRJEB89273	Illumina HiSeq X Ten	MHS576_merged	METAGENOMIC	PCR	WGS	PAIRED	MHS576_merged_decont_1.fastq.gz		MHS576_merged_decont_2.fastq.gz	
+MHS577_merged	PRJEB89273	Illumina HiSeq X Ten	MHS577_merged	METAGENOMIC	PCR	WGS	PAIRED	MHS577_merged_decont_1.fastq.gz		MHS577_merged_decont_2.fastq.gz	
+MHS578_merged	PRJEB89273	Illumina HiSeq X Ten	MHS578_merged	METAGENOMIC	PCR	WGS	PAIRED	MHS578_merged_decont_1.fastq.gz		MHS578_merged_decont_2.fastq.gz	
+MHS579_merged	PRJEB89273	Illumina HiSeq X Ten	MHS579_merged	METAGENOMIC	PCR	WGS	PAIRED	MHS579_merged_decont_1.fastq.gz		MHS579_merged_decont_2.fastq.gz	
+MHS581_merged	PRJEB89273	Illumina HiSeq X Ten	MHS581_merged	METAGENOMIC	PCR	WGS	PAIRED	MHS581_merged_decont_1.fastq.gz		MHS581_merged_decont_2.fastq.gz	
+MHS582_merged	PRJEB89273	Illumina HiSeq X Ten	MHS582_merged	METAGENOMIC	PCR	WGS	PAIRED	MHS582_merged_decont_1.fastq.gz		MHS582_merged_decont_2.fastq.gz	
+MHS583_merged	PRJEB89273	Illumina HiSeq X Ten	MHS583_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	MHS583_merged_decont_1.fastq.gz		MHS583_merged_decont_2.fastq.gz	
+MHS584_merged	PRJEB89273	Illumina HiSeq X Ten	MHS584_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	MHS584_merged_decont_1.fastq.gz		MHS584_merged_decont_2.fastq.gz	
+MHS585_merged	PRJEB89273	Illumina HiSeq X Ten	MHS585_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	MHS585_merged_decont_1.fastq.gz		MHS585_merged_decont_2.fastq.gz	
+MHS586_merged	PRJEB89273	Illumina HiSeq X Ten	MHS586_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	MHS586_merged_decont_1.fastq.gz		MHS586_merged_decont_2.fastq.gz	
+MHS587_merged	PRJEB89273	Illumina HiSeq X Ten	MHS587_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	MHS587_merged_decont_1.fastq.gz		MHS587_merged_decont_2.fastq.gz	
+MHS588_merged	PRJEB89273	Illumina HiSeq X Ten	MHS588_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	MHS588_merged_decont_1.fastq.gz		MHS588_merged_decont_2.fastq.gz	
+MHS589_merged	PRJEB89273	Illumina HiSeq X Ten	MHS589_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	MHS589_merged_decont_1.fastq.gz		MHS589_merged_decont_2.fastq.gz	
+MHS590_merged	PRJEB89273	Illumina HiSeq X Ten	MHS590_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	MHS590_merged_decont_1.fastq.gz		MHS590_merged_decont_2.fastq.gz	
+MHS593_merged	PRJEB89273	Illumina HiSeq X Ten	MHS593_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	MHS593_merged_decont_1.fastq.gz		MHS593_merged_decont_2.fastq.gz	
+MHS594_merged	PRJEB89273	Illumina HiSeq X Ten	MHS594_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	MHS594_merged_decont_1.fastq.gz		MHS594_merged_decont_2.fastq.gz	
+MHS598_merged	PRJEB89273	Illumina HiSeq X Ten	MHS598_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	MHS598_merged_decont_1.fastq.gz		MHS598_merged_decont_2.fastq.gz	
+MHS602_merged	PRJEB89273	Illumina HiSeq X Ten	MHS602_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	MHS602_merged_decont_1.fastq.gz		MHS602_merged_decont_2.fastq.gz	
+MHS592_merged	PRJEB89273	Illumina HiSeq X Ten	MHS592_merged	METAGENOMIC	PCR	WGS	PAIRED	MHS592_merged_decont_1.fastq.gz		MHS592_merged_decont_2.fastq.gz	
+MMM334_merged	PRJEB89273	Illumina Novaseq X	MMM334_merged	METAGENOMIC	PCR	WGS	PAIRED	MMM334_FKDL240042948-1A_22HFY7LT3_L1_decont_1.fastq.gz		MMM334_FKDL240042948-1A_22HFY7LT3_L1_decont_2.fastq.gz	
+MMM335_merged	PRJEB89273	Illumina Novaseq X	MMM335_merged	METAGENOMIC	PCR	WGS	PAIRED	MMM335_FKDL240042948-1A_22HFY7LT3_L1_decont_1.fastq.gz		MMM335_FKDL240042948-1A_22HFY7LT3_L1_decont_2.fastq.gz	
+MMM336_merged	PRJEB89273	Illumina Novaseq X	MMM336_merged	METAGENOMIC	PCR	WGS	PAIRED	MMM336_FKDL240042948-1A_22HFY7LT3_L1_decont_1.fastq.gz		MMM336_FKDL240042948-1A_22HFY7LT3_L1_decont_2.fastq.gz	
+MMM339_merged	PRJEB89273	Illumina Novaseq X	MMM339_merged	METAGENOMIC	PCR	WGS	PAIRED	MMM339_FKDL240042948-1A_22HFY7LT3_L1_decont_1.fastq.gz		MMM339_FKDL240042948-1A_22HFY7LT3_L1_decont_2.fastq.gz	
+MMM340_merged	PRJEB89273	Illumina Novaseq X	MMM340_merged	METAGENOMIC	PCR	WGS	PAIRED	MMM340_FKDL240042948-1A_22HFY7LT3_L1_decont_1.fastq.gz		MMM340_FKDL240042948-1A_22HFY7LT3_L1_decont_2.fastq.gz	
+MMM341_merged	PRJEB89273	Illumina Novaseq X	MMM341_merged	METAGENOMIC	PCR	WGS	PAIRED	MMM341_FKDL240042948-1A_22HFY7LT3_L1_decont_1.fastq.gz		MMM341_FKDL240042948-1A_22HFY7LT3_L1_decont_2.fastq.gz	
+Sepi_ctrl1_merged	PRJEB89273	Illumina HiSeq X Ten	Sepi_ctrl1_merged	TRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	Sepi_ctrl1_dedup_1.fastq.gz		Sepi_ctrl1_dedup_2.fastq.gz	
+Sepi_ctrl2_merged	PRJEB89273	Illumina HiSeq X Ten	Sepi_ctrl2_merged	TRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	Sepi_ctrl2_dedup_1.fastq.gz		Sepi_ctrl2_dedup_2.fastq.gz	
+Sepi_ctrl3_merged	PRJEB89273	Illumina HiSeq X Ten	Sepi_ctrl3_merged	TRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	Sepi_ctrl3_dedup_1.fastq.gz		Sepi_ctrl3_dedup_2.fastq.gz	
+Sepi_OS1_merged	PRJEB89273	Illumina HiSeq X Ten	Sepi_OS1_merged	TRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	Sepi_OS1_dedup_1.fastq.gz		Sepi_OS1_dedup_2.fastq.gz	
+Sepi_OS2_merged	PRJEB89273	Illumina HiSeq X Ten	Sepi_OS2_merged	TRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	Sepi_OS2_dedup_1.fastq.gz		Sepi_OS2_dedup_2.fastq.gz	
+Sepi_OS3_merged	PRJEB89273	Illumina HiSeq X Ten	Sepi_OS3_merged	TRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	Sepi_OS3_dedup_1.fastq.gz		Sepi_OS3_dedup_2.fastq.gz	
+Sepi_SP1_merged	PRJEB89273	Illumina HiSeq X Ten	Sepi_SP1_merged	TRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	Sepi_SP1_dedup_1.fastq.gz		Sepi_SP1_dedup_2.fastq.gz	
+Sepi_SP2_merged	PRJEB89273	Illumina HiSeq X Ten	Sepi_SP2_merged	TRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	Sepi_SP2_dedup_1.fastq.gz		Sepi_SP2_dedup_2.fastq.gz	
+Sepi_SP3_merged	PRJEB89273	Illumina HiSeq X Ten	Sepi_SP3_merged	TRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	Sepi_SP3_dedup_1.fastq.gz		Sepi_SP3_dedup_2.fastq.gz	
+SMT028_T1_Ac_merged	PRJEB89273	Illumina HiSeq X Ten	SMT028_T1_Ac_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	SMT028_T1_Ac_decont_1.fastq.gz		SMT028_T1_Ac_decont_2.fastq.gz	
+SMT028_T1_Ch_merged	PRJEB89273	Illumina HiSeq X Ten	SMT028_T1_Ch_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	SMT028_T1_Ch_decont_1.fastq.gz		SMT028_T1_Ch_decont_2.fastq.gz	
+SMT028_T1_Sc_merged	PRJEB89273	Illumina HiSeq X Ten	SMT028_T1_Sc_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	SMT028_T1_Sc_decont_1.fastq.gz		SMT028_T1_Sc_decont_2.fastq.gz	
+SMT028_T1_Tw_merged	PRJEB89273	Illumina HiSeq X Ten	SMT028_T1_Tw_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	SMT028_T1_Tw_decont_1.fastq.gz		SMT028_T1_Tw_decont_2.fastq.gz	
+SMT028_T1_Vf_merged	PRJEB89273	Illumina HiSeq X Ten	SMT028_T1_Vf_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	SMT028_T1_Vf_decont_1.fastq.gz		SMT028_T1_Vf_decont_2.fastq.gz	
+SMT028_T2_Ch_merged	PRJEB89273	Illumina HiSeq X Ten	SMT028_T2_Ch_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	SMT028_T2_Ch_decont_1.fastq.gz		SMT028_T2_Ch_decont_2.fastq.gz	
+SMT028_T2_Sc_merged	PRJEB89273	Illumina HiSeq X Ten	SMT028_T2_Sc_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	SMT028_T2_Sc_decont_1.fastq.gz		SMT028_T2_Sc_decont_2.fastq.gz	
+SMT028_T2_Tw_merged	PRJEB89273	Illumina HiSeq X Ten	SMT028_T2_Tw_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	SMT028_T2_Tw_decont_1.fastq.gz		SMT028_T2_Tw_decont_2.fastq.gz	
+SMT028_T2_Vf_merged	PRJEB89273	Illumina HiSeq X Ten	SMT028_T2_Vf_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	SMT028_T2_Vf_decont_1.fastq.gz		SMT028_T2_Vf_decont_2.fastq.gz	
+SMT028_T3_Ch_merged	PRJEB89273	Illumina HiSeq X Ten	SMT028_T3_Ch_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	SMT028_T3_Ch_decont_1.fastq.gz		SMT028_T3_Ch_decont_2.fastq.gz	
+SMT028_T3_Sc_merged	PRJEB89273	Illumina HiSeq X Ten	SMT028_T3_Sc_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	SMT028_T3_Sc_decont_1.fastq.gz		SMT028_T3_Sc_decont_2.fastq.gz	
+SMT028_T3_Tw_merged	PRJEB89273	Illumina HiSeq X Ten	SMT028_T3_Tw_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	SMT028_T3_Tw_decont_1.fastq.gz		SMT028_T3_Tw_decont_2.fastq.gz	
+SMT029_T1_Ac_merged	PRJEB89273	Illumina HiSeq X Ten	SMT029_T1_Ac_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	SMT029_T1_Ac_decont_1.fastq.gz		SMT029_T1_Ac_decont_2.fastq.gz	
+SMT029_T1_Ch_merged	PRJEB89273	Illumina HiSeq X Ten	SMT029_T1_Ch_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	SMT029_T1_Ch_decont_1.fastq.gz		SMT029_T1_Ch_decont_2.fastq.gz	
+SMT029_T1_Sc_merged	PRJEB89273	Illumina HiSeq X Ten	SMT029_T1_Sc_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	SMT029_T1_Sc_decont_1.fastq.gz		SMT029_T1_Sc_decont_2.fastq.gz	
+SMT029_T1_Tw_merged	PRJEB89273	Illumina HiSeq X Ten	SMT029_T1_Tw_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	SMT029_T1_Tw_decont_1.fastq.gz		SMT029_T1_Tw_decont_2.fastq.gz	
+SMT029_T1_Vf_merged	PRJEB89273	Illumina HiSeq X Ten	SMT029_T1_Vf_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	SMT029_T1_Vf_decont_1.fastq.gz		SMT029_T1_Vf_decont_2.fastq.gz	
+SMT029_T2_Ac_merged	PRJEB89273	Illumina HiSeq X Ten	SMT029_T2_Ac_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	SMT029_T2_Ac_decont_1.fastq.gz		SMT029_T2_Ac_decont_2.fastq.gz	
+SMT029_T2_Ch_merged	PRJEB89273	Illumina HiSeq X Ten	SMT029_T2_Ch_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	SMT029_T2_Ch_decont_1.fastq.gz		SMT029_T2_Ch_decont_2.fastq.gz	
+SMT029_T2_Sc_merged	PRJEB89273	Illumina HiSeq X Ten	SMT029_T2_Sc_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	SMT029_T2_Sc_decont_1.fastq.gz		SMT029_T2_Sc_decont_2.fastq.gz	
+SMT029_T2_Tw_merged	PRJEB89273	Illumina HiSeq X Ten	SMT029_T2_Tw_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	SMT029_T2_Tw_decont_1.fastq.gz		SMT029_T2_Tw_decont_2.fastq.gz	
+SMT029_T2_Vf_merged	PRJEB89273	Illumina HiSeq X Ten	SMT029_T2_Vf_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	SMT029_T2_Vf_decont_1.fastq.gz		SMT029_T2_Vf_decont_2.fastq.gz	
+SMT029_T3_Ac_merged	PRJEB89273	Illumina HiSeq X Ten	SMT029_T3_Ac_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	SMT029_T3_Ac_decont_1.fastq.gz		SMT029_T3_Ac_decont_2.fastq.gz	
+SMT029_T3_Ch_merged	PRJEB89273	Illumina HiSeq X Ten	SMT029_T3_Ch_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	SMT029_T3_Ch_decont_1.fastq.gz		SMT029_T3_Ch_decont_2.fastq.gz	
+SMT029_T3_Sc_merged	PRJEB89273	Illumina HiSeq X Ten	SMT029_T3_Sc_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	SMT029_T3_Sc_decont_1.fastq.gz		SMT029_T3_Sc_decont_2.fastq.gz	
+SMT029_T3_Tw_merged	PRJEB89273	Illumina HiSeq X Ten	SMT029_T3_Tw_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	SMT029_T3_Tw_decont_1.fastq.gz		SMT029_T3_Tw_decont_2.fastq.gz	
+SMT029_T3_Vf_merged	PRJEB89273	Illumina HiSeq X Ten	SMT029_T3_Vf_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	SMT029_T3_Vf_decont_1.fastq.gz		SMT029_T3_Vf_decont_2.fastq.gz	
+SMT030_T1_Ac_merged	PRJEB89273	Illumina HiSeq X Ten	SMT030_T1_Ac_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	SMT030_T1_Ac_decont_1.fastq.gz		SMT030_T1_Ac_decont_2.fastq.gz	
+SMT030_T1_Ch_merged	PRJEB89273	Illumina HiSeq X Ten	SMT030_T1_Ch_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	SMT030_T1_Ch_decont_1.fastq.gz		SMT030_T1_Ch_decont_2.fastq.gz	
+SMT030_T1_Sc_merged	PRJEB89273	Illumina HiSeq X Ten	SMT030_T1_Sc_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	SMT030_T1_Sc_decont_1.fastq.gz		SMT030_T1_Sc_decont_2.fastq.gz	
+SMT030_T1_Tw_merged	PRJEB89273	Illumina HiSeq X Ten	SMT030_T1_Tw_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	SMT030_T1_Tw_decont_1.fastq.gz		SMT030_T1_Tw_decont_2.fastq.gz	
+SMT030_T1_Vf_merged	PRJEB89273	Illumina HiSeq X Ten	SMT030_T1_Vf_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	SMT030_T1_Vf_decont_1.fastq.gz		SMT030_T1_Vf_decont_2.fastq.gz	
+SMT030_T2_Ac_merged	PRJEB89273	Illumina HiSeq X Ten	SMT030_T2_Ac_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	SMT030_T2_Ac_decont_1.fastq.gz		SMT030_T2_Ac_decont_2.fastq.gz	
+SMT030_T2_Ch_merged	PRJEB89273	Illumina HiSeq X Ten	SMT030_T2_Ch_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	SMT030_T2_Ch_decont_1.fastq.gz		SMT030_T2_Ch_decont_2.fastq.gz	
+SMT030_T2_Sc_merged	PRJEB89273	Illumina HiSeq X Ten	SMT030_T2_Sc_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	SMT030_T2_Sc_decont_1.fastq.gz		SMT030_T2_Sc_decont_2.fastq.gz	
+SMT030_T2_Tw_merged	PRJEB89273	Illumina HiSeq X Ten	SMT030_T2_Tw_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	SMT030_T2_Tw_decont_1.fastq.gz		SMT030_T2_Tw_decont_2.fastq.gz	
+SMT030_T2_Vf_merged	PRJEB89273	Illumina HiSeq X Ten	SMT030_T2_Vf_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	SMT030_T2_Vf_decont_1.fastq.gz		SMT030_T2_Vf_decont_2.fastq.gz	
+SMT030_T3_Ac_merged	PRJEB89273	Illumina HiSeq X Ten	SMT030_T3_Ac_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	SMT030_T3_Ac_decont_1.fastq.gz		SMT030_T3_Ac_decont_2.fastq.gz	
+SMT030_T3_Ch_merged	PRJEB89273	Illumina HiSeq X Ten	SMT030_T3_Ch_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	SMT030_T3_Ch_decont_1.fastq.gz		SMT030_T3_Ch_decont_2.fastq.gz	
+SMT030_T3_Sc_merged	PRJEB89273	Illumina HiSeq X Ten	SMT030_T3_Sc_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	SMT030_T3_Sc_decont_1.fastq.gz		SMT030_T3_Sc_decont_2.fastq.gz	
+SMT030_T3_Tw_merged	PRJEB89273	Illumina HiSeq X Ten	SMT030_T3_Tw_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	SMT030_T3_Tw_decont_1.fastq.gz		SMT030_T3_Tw_decont_2.fastq.gz	
+SMT030_T3_Vf_merged	PRJEB89273	Illumina HiSeq X Ten	SMT030_T3_Vf_merged	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	SMT030_T3_Vf_decont_1.fastq.gz		SMT030_T3_Vf_decont_2.fastq.gz	
+TCH016C	PRJEB89273	Illumina HiSeq 4000	TCH016C	METATRANSCRIPTOMIC	Oligo-dT	RNA-Seq	PAIRED	TCH016C_fastp_1.fastq.gz		TCH016C_fastp_2.fastq.gz	
+TCH017C	PRJEB89273	Illumina HiSeq 4000	TCH017C	METATRANSCRIPTOMIC	Oligo-dT	RNA-Seq	PAIRED	TCH017C_fastp_1.fastq.gz		TCH017C_fastp_2.fastq.gz	
+NU190214	PRJEB89273	Illumina HiSeq 4000	NU190214	METATRANSCRIPTOMIC	Oligo-dT	RNA-Seq	PAIRED	NU190214_fastp_1.fastq.gz		NU190214_fastp_2.fastq.gz	
+NU190827	PRJEB89273	Illumina HiSeq 4000	NU190827	METATRANSCRIPTOMIC	Oligo-dT	RNA-Seq	PAIRED	NU190827_fastp_1.fastq.gz		NU190827_fastp_2.fastq.gz	
+MBM166	PRJEB89273	Illumina HiSeq X Ten	MBM166	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	MBM166_decont_1.fastq.gz		MBM166_decont_2.fastq.gz	
+MBM167	PRJEB89273	Illumina HiSeq X Ten	MBM167	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	MBM167_decont_1.fastq.gz		MBM167_decont_2.fastq.gz	
+MBM168	PRJEB89273	Illumina HiSeq X Ten	MBM168	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	MBM168_decont_1.fastq.gz		MBM168_decont_2.fastq.gz	
+MBM169	PRJEB89273	Illumina HiSeq X Ten	MBM169	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	MBM169_decont_1.fastq.gz		MBM169_decont_2.fastq.gz	
+MBM170	PRJEB89273	Illumina HiSeq X Ten	MBM170	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	MBM170_decont_1.fastq.gz		MBM170_decont_2.fastq.gz	
+MBM171	PRJEB89273	Illumina HiSeq X Ten	MBM171	METATRANSCRIPTOMIC	Inverse rRNA selection	RNA-Seq	PAIRED	MBM171_decont_1.fastq.gz		MBM171_decont_2.fastq.gz	
