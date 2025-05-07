@@ -496,18 +496,9 @@ site_clr_enrichments_GO_BP_GSEA <- readRDS(file="../data/aldex2_glmm_out/site_cl
 
 ```
 
-Load GSEA results from ANCOMBC2 for the same samples.
 
-ANCOMBC formulation explicitly tests the hypothesis regarding differential absolute (not relative!) abundance of individual taxon while estimating sample-specific sampling fractions and correcting the bias appropriately.
 
-```{r}
-site_ANCOMBC_res_enrichments_GO_MF_GSEA <-readRDS(file="../data/ancombc2_out/site_ANCOMBC_res_enrichments_GO_MF_GSEA.RDS")
-
-site_ANCOMBC_res_enrichments_GO_BP_GSEA <- readRDS(file="../data/ancombc2_out/site_ANCOMBC_res_enrichments_GO_BP_GSEA.RDS")
-
-```
-
-Plot NES results only if independently picked up by 2 out of the 3 methods
+Which pathways were statistically enriched in both clr-Maaslin2 and DESEq2?
 
 Change NES bar plot to NES dot plots. Each dot being a different color based on the method.
 
@@ -515,20 +506,16 @@ Change NES bar plot to NES dot plots. Each dot being a different color based on 
 
 
 summarise_GSEA_helper <- function(DESeq_GSEA_in, 
-                                  aldex_GSEA_in,
-                                  ancombc_GSEA_in){
+                                  aldex_GSEA_in){
   
   DESeq_GSEA_in$signif_GSEA_DESeq2 <- TRUE
   
   aldex_GSEA_in$signif_GSEA_clr <- TRUE
   
-  ancombc_GSEA_in$signif_GSEA_ancombc <- TRUE  
-  
   ##Number of times a feature is significantly enriched by GSEA amongst the three methods
   
   feature_GSEA_tally <- rbind(DESeq_GSEA_in[,c("ID", "Description")], 
-                              aldex_GSEA_in[,c("ID", "Description")], 
-                              ancombc_GSEA_in[,c("ID", "Description")])
+                              aldex_GSEA_in[,c("ID", "Description")])
   
   feature_GSEA_tally_count <- plyr::count(feature_GSEA_tally, c("ID", "Description"))
   
@@ -537,8 +524,7 @@ summarise_GSEA_helper <- function(DESeq_GSEA_in,
   
   feature_GSEA_tally_count_fmt <- list(feature_GSEA_tally_count, 
                                 DESeq_GSEA_in[,c("ID", "signif_GSEA_DESeq2", "DESeq_GSEA_NES", "DESeq_GSEA_padj")],
-                                aldex_GSEA_in[,c("ID","signif_GSEA_clr", "aldex_GSEA_NES", "aldex_GSEA_padj")],
-                                ancombc_GSEA_in[,c("ID","signif_GSEA_ancombc", "ancombc_GSEA_NES", "ancombc_GSEA_padj")]) %>% 
+                                aldex_GSEA_in[,c("ID","signif_GSEA_clr", "aldex_GSEA_NES", "aldex_GSEA_padj")]) %>% 
   purrr::reduce(left_join, by = "ID")
   
   feature_GSEA_tally_count_fmt <- feature_GSEA_tally_count_fmt %>%
@@ -567,7 +553,6 @@ add_dummy <- function(df){
 #comparison can be "Ch_vs_Vf" etc
 compare_GSEA_across <- function(DESeq_GSEA_res, 
                                 aldex_GSEA_res, 
-                                ancombc_GSEA_res,
                                 comparison){
   
   ##############
@@ -579,22 +564,18 @@ compare_GSEA_across <- function(DESeq_GSEA_res,
   bact_aldex_GSEA <- aldex_GSEA_res[[comparison]]$bact_GSEA_results@result %>% 
     dplyr::rename("aldex_GSEA_NES"="NES", "aldex_GSEA_padj"="p.adjust") %>% add_dummy(.)
   
-  bact_ancombc_GSEA <- ancombc_GSEA_res[[comparison]]$bact_GSEA_results@result %>% 
-    dplyr::rename("ancombc_GSEA_NES"="NES", "ancombc_GSEA_padj"="p.adjust") %>% add_dummy(.)
   
   #tally and summarize GSEA results across the three methods
   bact_GSEA_tally <- summarise_GSEA_helper(DESeq_GSEA_in=bact_DESeq_GSEA,
-                                           aldex_GSEA_in=bact_aldex_GSEA,
-                                           ancombc_GSEA_in=bact_ancombc_GSEA) %>% 
+                                           aldex_GSEA_in=bact_aldex_GSEA) %>% 
     dplyr:::filter(ID != "placeholder")
   
   
-  #for plotting those pathways with at least two hits from distinct methods
-  bact_GSEA_tally_for_plot_padj <- bact_GSEA_tally %>% dplyr::filter(freq >= 2) %>% 
+  # pathways with at least two hits from distinct methods
+  bact_GSEA_tally_for_plot_padj <- bact_GSEA_tally %>% dplyr::filter(freq == 2) %>% 
     dplyr::select(c("ID", "Description",
                   "DESeq_GSEA_padj", 
-                  "aldex_GSEA_padj", 
-                  "ancombc_GSEA_padj")) %>% pivot_longer(!c("ID","Description"), 
+                  "aldex_GSEA_padj")) %>% pivot_longer(!c("ID","Description"), 
                                                          names_to = "method", 
                                                          values_to = "GSEA_padj")
   
@@ -603,8 +584,7 @@ compare_GSEA_across <- function(DESeq_GSEA_res,
   bact_GSEA_tally_for_plot_NES <- bact_GSEA_tally %>% dplyr::filter(freq >= 2) %>% 
     dplyr::select(c("ID",
                   "DESeq_GSEA_NES", 
-                  "aldex_GSEA_NES", 
-                  "ancombc_GSEA_NES")) %>% pivot_longer(!ID, 
+                  "aldex_GSEA_NES")) %>% pivot_longer(!ID, 
                                                          names_to = "method", 
                                                          values_to = "GSEA_NES")
   
@@ -624,21 +604,18 @@ compare_GSEA_across <- function(DESeq_GSEA_res,
   fungi_aldex_GSEA <- aldex_GSEA_res[[comparison]]$fungi_GSEA_results@result %>% 
     dplyr::rename("aldex_GSEA_NES"="NES", "aldex_GSEA_padj"="p.adjust") %>% add_dummy(.)
   
-  fungi_ancombc_GSEA <- ancombc_GSEA_res[[comparison]]$fungi_GSEA_results@result %>% 
-    dplyr::rename("ancombc_GSEA_NES"="NES", "ancombc_GSEA_padj"="p.adjust") %>% add_dummy(.)
   
   #tally and summarize GSEA results across the three methods
   fungi_GSEA_tally <- summarise_GSEA_helper(DESeq_GSEA_in=fungi_DESeq_GSEA,
-                                           aldex_GSEA_in=fungi_aldex_GSEA,
-                                           ancombc_GSEA_in=fungi_ancombc_GSEA) %>% 
+                                           aldex_GSEA_in=fungi_aldex_GSEA) %>% 
     dplyr:::filter(ID != "placeholder")
   
   
-  fungi_GSEA_tally_for_plot_padj <- fungi_GSEA_tally %>% dplyr::filter(freq >= 2) %>% 
+  fungi_GSEA_tally_for_plot_padj <- fungi_GSEA_tally %>% dplyr::filter(freq == 2) %>% 
     dplyr::select(c("ID", "Description",
                   "DESeq_GSEA_padj", 
-                  "aldex_GSEA_padj", 
-                  "ancombc_GSEA_padj")) %>% pivot_longer(!c("ID","Description"), 
+                  "aldex_GSEA_padj" 
+                  )) %>% pivot_longer(!c("ID","Description"), 
                                                          names_to = "method", 
                                                          values_to = "GSEA_padj")
   
@@ -647,8 +624,7 @@ compare_GSEA_across <- function(DESeq_GSEA_res,
   fungi_GSEA_tally_for_plot_NES <- fungi_GSEA_tally %>% dplyr::filter(freq >= 2) %>% 
     dplyr::select(c("ID",
                   "DESeq_GSEA_NES", 
-                  "aldex_GSEA_NES", 
-                  "ancombc_GSEA_NES")) %>% pivot_longer(!ID, 
+                  "aldex_GSEA_NES")) %>% pivot_longer(!ID, 
                                                          names_to = "method", 
                                                          values_to = "GSEA_NES")
   
@@ -677,14 +653,12 @@ For Ch versus Vf
 #for BP
 Ch_vs_Vf_GSEA_GO_BP_multi <- compare_GSEA_across(DESeq_GSEA_res = site_DE_res_enrichments_GO_BP_GSEA,
                               aldex_GSEA_res = site_clr_enrichments_GO_BP_GSEA,
-                              ancombc_GSEA_res = site_ANCOMBC_res_enrichments_GO_BP_GSEA,
                               comparison="Ch_vs_Vf")
 
 
 #For MF
 Ch_vs_Vf_GSEA_GO_MF_multi <- compare_GSEA_across(DESeq_GSEA_res = site_DE_res_enrichments_GO_MF_GSEA,
                               aldex_GSEA_res = site_clr_enrichments_GO_MF_GSEA,
-                              ancombc_GSEA_res = site_ANCOMBC_res_enrichments_GO_MF_GSEA,
                               comparison="Ch_vs_Vf")
 
 
@@ -698,100 +672,81 @@ For Tw versus Vf
 #for BP
 Tw_vs_Vf_GSEA_GO_BP_multi <- compare_GSEA_across(DESeq_GSEA_res = site_DE_res_enrichments_GO_BP_GSEA,
                               aldex_GSEA_res = site_clr_enrichments_GO_BP_GSEA,
-                              ancombc_GSEA_res = site_ANCOMBC_res_enrichments_GO_BP_GSEA,
                               comparison="Tw_vs_Vf")
 
 #For MF
 Tw_vs_Vf_GSEA_GO_MF_multi <- compare_GSEA_across(DESeq_GSEA_res = site_DE_res_enrichments_GO_MF_GSEA,
                               aldex_GSEA_res = site_clr_enrichments_GO_MF_GSEA,
-                              ancombc_GSEA_res = site_ANCOMBC_res_enrichments_GO_MF_GSEA,
                               comparison="Tw_vs_Vf")
 
 
 
 ```
 
+
 ## Normalized enrichment score plots
 
 (Panel A) Barplots of normalized enrichment scores (NES) computed from gene set enrichment analyses of bacterial or fungal orthologous groups that are
-differentially enriched between cheek (n=22) and volar forearm (n=18) metatranscriptomes. 
-
-All pathways presented here were statistically significant across at least two methods (DESeq2, aldex clr - glmm and ANCOM-BC).
+differentially enriched between cheek (n=22) and volar forearm (n=18) metatranscriptomes. (Panel B) Same as (A)
+but computed between toe web (n=18) and volar forearm (n=18) metatranscriptomes. Biologically noteworthy pathways are bolded with an asterisk for clarity.
 
 ```{r}
+
+#only one enriched term for GO:MF here 
+Ch_vs_Vf_bact_GO_MF_GSEA <- site_DE_res_enrichments_GO_MF_GSEA$Ch_vs_Vf$bact_DESeq_GSEA_results@result
+
+#only two enriched terms here
+Ch_vs_Vf_fungi_GO_MF_GSEA <- site_DE_res_enrichments_GO_MF_GSEA$Ch_vs_Vf$fungi_DESeq_GSEA_results@result
+
+#25 enriched terms here
+Ch_vs_Vf_bact_GO_BP_GSEA <- site_DE_res_enrichments_GO_BP_GSEA$Ch_vs_Vf$bact_DESeq_GSEA_results@result
+
+#71 enriched terms here
+Ch_vs_Vf_fungi_GO_BP_GSEA <- site_DE_res_enrichments_GO_BP_GSEA$Ch_vs_Vf$fungi_DESeq_GSEA_results@result
 
 #################
 ###GO Slimming###
 #################
+Ch_vs_Vf_bact_GO_MF_GSEA_slim <- associate_GO_to_slim(Ch_vs_Vf_bact_GO_MF_GSEA$ID, mode="MF")
 
-
-##MF##
-Ch_vs_Vf_bact_GO_MF_GSEA_slim <- associate_GO_to_slim(Ch_vs_Vf_GSEA_GO_MF_multi$bact_GSEA_tally_for_plot$ID %>% unique(.), mode="MF")
-
-Ch_vs_Vf_bact_GO_MF_GSEA_fmt <- prepare_NES_plot_input(df=Ch_vs_Vf_GSEA_GO_MF_multi$bact_GSEA_tally_for_plot,
+Ch_vs_Vf_bact_GO_MF_GSEA_fmt <- prepare_NES_plot_input(df=Ch_vs_Vf_bact_GO_MF_GSEA,
                                                                slimdf=Ch_vs_Vf_bact_GO_MF_GSEA_slim,
                                                                chosen_parent_ids = "nucleic acid binding")
 
-Ch_vs_Vf_bact_GO_MF_GSEA_fmt$organism <- "Bacteria"
-Ch_vs_Vf_bact_GO_MF_GSEA_fmt$GO_level <- "Molecular function"
+Ch_vs_Vf_bact_GO_MF_GSEA_NES_condensed_df <- Ch_vs_Vf_bact_GO_MF_GSEA_fmt %>% dplyr::select(Description, NES, GO_slim_parent_term)
+
+Ch_vs_Vf_bact_GO_MF_GSEA_NES_condensed_df$organism <- "Bacteria"
+Ch_vs_Vf_bact_GO_MF_GSEA_NES_condensed_df$GO_level <- "Molecular function"
 
 #
 
-Ch_vs_Vf_fungi_GO_MF_GSEA_slim <- associate_GO_to_slim(Ch_vs_Vf_GSEA_GO_MF_multi$fungi_GSEA_tally_for_plot$ID %>% unique(.), mode="MF")
+Ch_vs_Vf_fungi_GO_MF_GSEA_slim <- associate_GO_to_slim(Ch_vs_Vf_fungi_GO_MF_GSEA$ID, mode="MF")
 
-Ch_vs_Vf_fungi_GO_MF_GSEA_fmt <- prepare_NES_plot_input(df=Ch_vs_Vf_GSEA_GO_MF_multi$fungi_GSEA_tally_for_plot,
+Ch_vs_Vf_fungi_GO_MF_GSEA_fmt <- prepare_NES_plot_input(df=Ch_vs_Vf_fungi_GO_MF_GSEA,
                                                                slimdf=Ch_vs_Vf_fungi_GO_MF_GSEA_slim,
                                                                chosen_parent_ids = c("nucleic acid binding",
                                                                                      "antioxidant activity"))
 
-Ch_vs_Vf_fungi_GO_MF_GSEA_fmt$organism <- "Fungi"
-Ch_vs_Vf_fungi_GO_MF_GSEA_fmt$GO_level <- "Molecular function"
+Ch_vs_Vf_fungi_GO_MF_GSEA_NES_condensed_df <- Ch_vs_Vf_fungi_GO_MF_GSEA_fmt %>% dplyr::select(Description, NES, GO_slim_parent_term)
 
 
+Ch_vs_Vf_fungi_GO_MF_GSEA_NES_condensed_df$organism <- "Fungi"
+Ch_vs_Vf_fungi_GO_MF_GSEA_NES_condensed_df$GO_level <- "Molecular function"
 
 
+#
 
-##BP##
+Ch_vs_Vf_bact_GO_BP_GSEA_slim <- associate_GO_to_slim(Ch_vs_Vf_bact_GO_BP_GSEA$ID, mode="BP")
 
-Ch_vs_Vf_bact_GO_BP_GSEA_slim <- associate_GO_to_slim(Ch_vs_Vf_GSEA_GO_BP_multi$bact_GSEA_tally_for_plot$ID %>% unique(.), mode="BP")
-
-Ch_vs_Vf_bact_GO_BP_GSEA_fmt <- prepare_NES_plot_input(df=Ch_vs_Vf_GSEA_GO_BP_multi$bact_GSEA_tally_for_plot,
+Ch_vs_Vf_bact_GO_BP_GSEA_fmt <- prepare_NES_plot_input(df=Ch_vs_Vf_bact_GO_BP_GSEA,
                                                                slimdf=Ch_vs_Vf_bact_GO_BP_GSEA_slim,
                                                                chosen_parent_ids = c(
                                                        "transport", "translation", "carbohydrate metabolic process",
                                                        "protein-containing complex assembly",
                                                        "generation of precursor metabolites and energy"))
 
-Ch_vs_Vf_bact_GO_BP_GSEA_fmt$organism <- "Bacteria"
-Ch_vs_Vf_bact_GO_BP_GSEA_fmt$GO_level <- "Biological process"
-
-#
-
-Ch_vs_Vf_fungi_GO_BP_GSEA_slim <- associate_GO_to_slim(Ch_vs_Vf_GSEA_GO_BP_multi$fungi_GSEA_tally_for_plot$ID %>% unique(.), mode="BP")
-
-Ch_vs_Vf_fungi_GO_BP_GSEA_fmt <- prepare_NES_plot_input(df=Ch_vs_Vf_GSEA_GO_BP_multi$fungi_GSEA_tally_for_plot,
-                                                        slimdf=Ch_vs_Vf_fungi_GO_BP_GSEA_slim,
-                                                        chosen_parent_ids = c("DNA conformation change"))
-
-Ch_vs_Vf_fungi_GO_BP_GSEA_fmt$organism <- "Fungi"
-Ch_vs_Vf_fungi_GO_BP_GSEA_fmt$GO_level <- "Biological process"
-
-########################################################
-#Combine the bacteria and fungi dataframes for plotting#
-########################################################
-
-#All the enriched functions for bact MF are to do with ribosome assembly
-Ch_vs_Vf_bact_GO_MF_GSEA_NES_condensed_df <- Ch_vs_Vf_bact_GO_MF_GSEA_fmt %>% 
-  dplyr::filter(Description %in% c("structural constituent of ribosome",
-                                   "rRNA binding",
-                                   "large ribosomal subunit rRNA binding"))
-
-#
-#only hits to "antioxidant activity"
-Ch_vs_Vf_fungi_GO_MF_GSEA_NES_condensed_df <- Ch_vs_Vf_fungi_GO_MF_GSEA_fmt 
 
 
-#
 Ch_vs_Vf_bact_GO_BP_GSEA_NES_condensed_df <- Ch_vs_Vf_bact_GO_BP_GSEA_fmt %>% 
                                                                             dplyr::filter(Description %in% 
                                                                                             c("glucose catabolic process",
@@ -800,175 +755,69 @@ Ch_vs_Vf_bact_GO_BP_GSEA_NES_condensed_df <- Ch_vs_Vf_bact_GO_BP_GSEA_fmt %>%
                                                                                               "NADH regeneration",
                                                                                               "cotranslational protein targeting to membrane",
                                                                                               "ribosomal large subunit assembly",
-                                                                                              "ribosomal small subunit assembly"))
+                                                                                              "ribosomal small subunit assembly")) %>% dplyr::select(Description, NES, GO_slim_parent_term)
 
+Ch_vs_Vf_bact_GO_BP_GSEA_NES_condensed_df$organism <- "Bacteria"
+Ch_vs_Vf_bact_GO_BP_GSEA_NES_condensed_df$GO_level <- "Biological process"
+
+#
+
+Ch_vs_Vf_fungi_GO_BP_GSEA_slim <- associate_GO_to_slim(Ch_vs_Vf_fungi_GO_BP_GSEA$ID, mode="BP")
+
+Ch_vs_Vf_fungi_GO_BP_GSEA_fmt <- prepare_NES_plot_input(df=Ch_vs_Vf_fungi_GO_BP_GSEA,
+                                                               slimdf=Ch_vs_Vf_fungi_GO_BP_GSEA_slim,
+                                                               chosen_parent_ids = c("nitrogen compound metabolic process",
+                                                       "RNA metabolic process",
+                                                       "DNA metabolic process",
+                                                       "response to chemical",
+                                                       "metabolic process", "response to stress"))
 
 Ch_vs_Vf_fungi_GO_BP_GSEA_NES_condensed_df <- Ch_vs_Vf_fungi_GO_BP_GSEA_fmt %>%
                                                                               dplyr::filter(Description %in% 
-                                                                                              c("DNA geometric change",
-                                                                                           "DNA duplex unwinding",
-                                                                                            "DNA conformation change"))
+                                                                                              c("antibiotic catabolic process",
+                                                                                            "cellular oxidant detoxification",
+                                                                                            "proton motive force-driven ATP synthesis",
+                                                                                            "protein modification process",
+"aromatic compound biosynthetic process",
+"mitotic cell cycle","cellular response to nutrient levels")) %>% dplyr::select(Description, NES, GO_slim_parent_term)
 
-##Add protein modification process (GO:0036211) and protein lipidation (GO:0006497) to the plot (as extras). The former is a parent term of the latter
-#This is for biological process for fungi
 
-#protein modification process (GO:0036211) and protein lipidation (GO:0006497)
-Ch_vs_Vf_GSEA_GO_BP_fungi_GSEA_extras <- extract_NES_stats(df =Ch_vs_Vf_GSEA_GO_BP_multi$fungi_GSEA_tally, 
-                                                           GO_description = c("protein modification process", "protein lipidation")) %>%
-  dplyr::filter(ID %in% c("GO:0036211", "GO:0006497"))
+Ch_vs_Vf_fungi_GO_BP_GSEA_NES_condensed_df$organism <- "Fungi"
+Ch_vs_Vf_fungi_GO_BP_GSEA_NES_condensed_df$GO_level <- "Biological process"
 
-Ch_vs_Vf_GSEA_GO_BP_fungi_GSEA_extras$GO_slim_parent_term <- NA
-Ch_vs_Vf_GSEA_GO_BP_fungi_GSEA_extras$organism <- "Fungi"
-Ch_vs_Vf_GSEA_GO_BP_fungi_GSEA_extras$GO_level <- "Biological process"
 
 ##
 Ch_vs_Vf_all_GO_GSEA_NES_condensed_df <- do.call("rbind", lst(Ch_vs_Vf_bact_GO_BP_GSEA_NES_condensed_df,
                                                               Ch_vs_Vf_bact_GO_MF_GSEA_NES_condensed_df,
                                                               Ch_vs_Vf_fungi_GO_BP_GSEA_NES_condensed_df,
-                                                              Ch_vs_Vf_fungi_GO_MF_GSEA_NES_condensed_df,
-                                                              Ch_vs_Vf_GSEA_GO_BP_fungi_GSEA_extras))
+                                                              Ch_vs_Vf_fungi_GO_MF_GSEA_NES_condensed_df))
 
 
-Ch_vs_Vf_all_GO_GSEA_NES_condensed_df$direction <- ifelse(Ch_vs_Vf_all_GO_GSEA_NES_condensed_df$GSEA_NES >0,
+Ch_vs_Vf_all_GO_GSEA_NES_condensed_df$direction <- ifelse(Ch_vs_Vf_all_GO_GSEA_NES_condensed_df$NES >0,
                                                           "enriched_in_Ch", "enriched_in_Vf")
 
 
 
-Ch_vs_Vf_all_GO_GSEA_NES_condensed_plot <- ggplot(Ch_vs_Vf_all_GO_GSEA_NES_condensed_df, 
-                                                  aes(y=Description, x=GSEA_NES, color = method)) +
-  geom_point(position="dodge", size =5, alpha = 0.5) +  
-  geom_vline(xintercept=0, linetype="longdash") +
+Ch_vs_Vf_all_GO_GSEA_NES_condensed_plot <- ggplot(Ch_vs_Vf_all_GO_GSEA_NES_condensed_df, aes(x=Description, y=NES, fill = direction)) +
+  geom_col(colour="black",position="dodge") +  
+  geom_hline(yintercept=0, linetype="longdash") +
   scale_fill_manual(values = c23) +
-  theme(axis.text.y = element_text(vjust = 0.5, hjust=1)) +
-  labs(x="Normalized Enrichment Score") + 
+  theme(axis.text.x = element_text(vjust = 0.5, hjust=1)) +
+  coord_flip() +
+  labs(y="Normalized Enrichment Score") + 
    facet_grid(rows=vars(organism),cols=vars(GO_level),
-             space = "free_y", scales="free_y",
+             scales = "free", space = "free",
              labeller = label_wrap_gen(width = 1.5, multi_line = TRUE)) + 
-  coord_cartesian(xlim = c(-4.6, 2.6)) +
   theme_classic() +
   theme(panel.spacing = unit(.05, "lines"),
-        panel.border = element_rect(color = "black", fill = NA, linewidth = 0.2), 
-       strip.background = element_rect(color = "black", linewidth = 1)) + ggtitle("Cheeks vs. Volar forearms")
+        panel.border = element_rect(color = "black", fill = NA, size = 0.2), 
+       strip.background = element_rect(color = "black", size = 1)) + ggtitle("Cheeks vs. Volar forearms")
 
 
 Ch_vs_Vf_all_GO_GSEA_NES_condensed_plot
 
 
 ```
-
-
-(Panel B) Same as (A)
-but computed between toe web (n=18) and volar forearm (n=18) metatranscriptomes. Biologically noteworthy pathways are bolded with an asterisk for clarity.
-
-All pathways presented here were statistically significant across at least two methods (DESeq2, aldex clr - glmm and ANCOM-BC).
-
-This comparison only makes sense for bacterial OGs/gene clusters because fungal RNAs are very scarce on toe webs.
-
-```{r}
-
-#################
-###GO Slimming###
-#################
-
-
-
-##MF##
-Tw_vs_Vf_bact_GO_MF_GSEA_slim <- associate_GO_to_slim(Tw_vs_Vf_GSEA_GO_MF_multi$bact_GSEA_tally_for_plot$ID %>% unique(.), mode="MF")
-
-Tw_vs_Vf_bact_GO_MF_GSEA_fmt <- prepare_NES_plot_input(df=Tw_vs_Vf_GSEA_GO_MF_multi$bact_GSEA_tally_for_plot,
-                                                               slimdf=Tw_vs_Vf_bact_GO_MF_GSEA_slim,
-                                                               chosen_parent_ids = c("catalytic activity",
-                                                                                     "transferase activity",
-                                                                                     "hydrolase activity",
-                                                                                     "lyase activity",
-                                                                                     "ligase activity",
-                                                                                     "oxidoreductase activity",
-                                                                                     "antioxidant activity"))
-
-Tw_vs_Vf_bact_GO_MF_GSEA_fmt$organism <- "Bacteria"
-Tw_vs_Vf_bact_GO_MF_GSEA_fmt$GO_level <- "Molecular function"
-
-#
-
-Tw_vs_Vf_bact_GO_MF_GSEA_NES_condensed_df <- Tw_vs_Vf_bact_GO_MF_GSEA_fmt %>%
-                                                                              dplyr::filter(Description %in% 
-                                                                                              c("ribonucleotide binding",
-                                                                                            "DNA helicase activity",
-                                                                                            "exonuclease activity",
-                                                                                            "RNA methyltransferase activity","ligase activity, forming carbon-nitrogen bonds",
-"hydrolase activity, acting on ester bonds",
-"kinase activity",
-"antioxidant activity",
-"peroxidase activity",
-"lyase activity"))
-
-
-
-##BP##
-
-Tw_vs_Vf_bact_GO_BP_GSEA_slim <- associate_GO_to_slim(Tw_vs_Vf_GSEA_GO_BP_multi$bact_GSEA_tally_for_plot$ID %>% unique(.), mode="BP")
-
-Tw_vs_Vf_bact_GO_BP_GSEA_fmt <- prepare_NES_plot_input(df=Tw_vs_Vf_GSEA_GO_BP_multi$bact_GSEA_tally_for_plot,
-                                                               slimdf=Tw_vs_Vf_bact_GO_BP_GSEA_slim,
-                                                               chosen_parent_ids = c("nitrogen compound metabolic process",
-                                                                                     "RNA metabolic process",
-                                                                                     "DNA metabolic process",
-                                                                                     "biosynthetic process",
-                                                                                     "transport",
-                                                                                     "small molecule metabolic process"))
-
-Tw_vs_Vf_bact_GO_BP_GSEA_fmt$organism <- "Bacteria"
-Tw_vs_Vf_bact_GO_BP_GSEA_fmt$GO_level <- "Biological process"
-
-
-Tw_vs_Vf_bact_GO_BP_GSEA_NES_condensed_df <- Tw_vs_Vf_bact_GO_BP_GSEA_fmt %>% 
-                                                                            dplyr::filter(Description %in% 
-                                                                                            c("tricarboxylic acid cycle",
-"cell cycle DNA replication",
-"amino acid metabolic process",
-"thiamine biosynthetic process",
-"protoporphyrinogen IX metabolic process",
-"RNA methylation",
-"sodium ion transmembrane transport",
-"amino acid transport",
-"carboxylic acid transport",
-"transposition"))
-
-
-Tw_vs_Vf_all_GO_GSEA_NES_condensed_df <- do.call("rbind", lst(Tw_vs_Vf_bact_GO_BP_GSEA_NES_condensed_df,
-                                                              Tw_vs_Vf_bact_GO_MF_GSEA_NES_condensed_df)) %>%
-  dplyr::select(-GO_slim_parent_term) %>% unique(.)
-
-
-Tw_vs_Vf_all_GO_GSEA_NES_condensed_df$direction <- ifelse(Ch_vs_Vf_all_GO_GSEA_NES_condensed_df$GSEA_NES >0,
-                                                          "enriched_in_Tw", "enriched_in_Vf")
-
-
-Tw_vs_Vf_all_GO_GSEA_NES_condensed_plot <- ggplot(Tw_vs_Vf_all_GO_GSEA_NES_condensed_df, 
-                                                  aes(y=Description, x=GSEA_NES, color = method)) +
-  geom_point(position="dodge", size =5, alpha = 0.5) +  
-  geom_vline(xintercept=0, linetype="longdash") +
-  scale_fill_manual(values = c23) +
-  theme(axis.text.y = element_text(vjust = 0.5, hjust=1)) +
-  labs(x="Normalized Enrichment Score") + 
-   facet_grid(rows=vars(organism),cols=vars(GO_level),
-             space = "free_y", scales="free_y",
-             labeller = label_wrap_gen(width = 1.5, multi_line = TRUE)) + 
-  coord_cartesian(xlim = c(-2.6, 2.6)) +
-  theme_classic() +
-  theme(panel.spacing = unit(.05, "lines"),
-        panel.border = element_rect(color = "black", fill = NA, linewidth = 0.2), 
-       strip.background = element_rect(color = "black", linewidth = 1)) + ggtitle("Toe webs vs. Volar forearms")
-
-
-Tw_vs_Vf_all_GO_GSEA_NES_condensed_plot
-
-
-```
-
-
-
-
 
 Normalized Enrichment Score (NES) plots for Toe webs vs Volar forearms.
 

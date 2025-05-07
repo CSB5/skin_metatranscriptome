@@ -36,9 +36,9 @@ S4	mtx_vs_mgx_counts_species_level.Rmd	core_common_taxa_RNA_v_DNA.pdf
 S5	transcriptional_activity_species.Rmd	bacteria_species_transcriptional_activity .pdf
 S6	transcriptional_activity_species.Rmd	fungal_species_transcriptional_activity.pdf
 S7	species_abundance_barplots.Rmd	Ac_species_abundance_boxplot.pdf
-S8	OG_level_DE.Rmd	Supp_between_site_GSEA_NES_plots.pdf
-S9A	OG_level_DE.Rmd	OG_Ch_vs_Vf_DE_volcano.pdf
-S9B	OG_level_DE.Rmd	OG_Tw_vs_Vf_DE_volcano.pdf
+S8	OG_level_DE_v3.Rmd	Supp_between_site_GSEA_NES_plots.pdf
+S9A	OG_level_DE_v3.Rmd	OG_Ch_vs_Vf_DE_volcano.pdf
+S9B	OG_level_DE_v3.Rmd	OG_Tw_vs_Vf_DE_volcano.pdf
 S10A	niche_specific_signatures.Rmd	mtx_pathway_dominated_boxplot_padj.pdf
 S10B	niche_specific_signatures.Rmd	beta_ox_pathway_plots.pdf
 S10C	niche_specific_signatures.Rmd	galactose_deg_pathway_plots.pdf
