@@ -33,7 +33,9 @@ count_spaces <- function(text) {
 ```
 
 
-Load HIBIT and ELISA datasets (A*SRL)
+Load HIBIT and ELISA datasets (A*SRL).
+
+There was one contaminated sample in this dataset: 8-043 S. epi Ch. Contact Stephen Wearne at A*SRL for more details.
 
 ```{r}
 
@@ -52,6 +54,10 @@ IL1B_ELISA$grouping <- ifelse(IL1B_ELISA$temp == 3, str_extract(string=IL1B_ELIS
                               IL1B_ELISA$condition)
 
 condition_to_grouping <- IL1B_HIBIT %>% dplyr::select(condition, grouping) %>% unique(.)
+
+# Filter away contaminated sample
+IL1B_HIBIT <- IL1B_HIBIT %>% dplyr::filter(condition != "8-043 S. epi Ch")
+IL1B_ELISA <- IL1B_ELISA %>% dplyr::filter(condition != "8-043 S. epi Ch")
 
 ```
 
