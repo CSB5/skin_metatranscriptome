@@ -12,6 +12,7 @@ To run the scripts, clone this repository, download the large datasets from figs
 ## Raw data availability
 
 Raw sequencing data has been uploaded to the European Nucleotide Archive (ENA), under project accession number PRJEB89273. \
+For downloading reads, all valid uploaded fastq files with accession numbers are listed [here](./metadata/ENA_upload/valid_ENA_uploads.txt). \
 Large datasets and annotations have been uploaded to figshare [here](https://figshare.com/projects/Skin_metatranscriptomics_manuscript_2024/202683).
 
 ## Contact
@@ -20,7 +21,6 @@ Please direct any questions or feedback to [Minghao Chia](mailto:chia_minghao@gi
 
 ## Navigating the figures, scripts and plots 
 The metadata (skin sites, sample IDs and read counts) for the full cohort is [here](./metadata/mtx_mgx_stats_chosen.tsv). \
-For downloading reads, all valid uploaded fastq files with accession numbers are listed [here](./metadata/ENA_upload/valid_ENA_uploads.txt). \
 Please refer to [repository map](./repository_map.txt) for the relationship between figure panels, scripts and plots in this repository.
 
 
